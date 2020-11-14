@@ -1,0 +1,30 @@
+  {
+
+  	"settings": {
+
+  		"liveServer.settings.port": 5505, 
+
+  		"liveSassCompile.settings.includeItems": [
+  			"src/scss/natura11y.scss"
+  		],
+
+  		"liveSassCompile.settings.formats": [
+			{
+				"format": "compressed",
+				"extensionName": ".css",
+				"savePath": "/dist/css"
+		  	}
+		],
+
+  		"liveSassCompile.settings.autoprefix": [
+  			"last 1 version",
+  			"> 1%",
+  			"IE 11"
+  		],
+  	},
+
+  	"folders": [{
+  		"path": "."
+  	}],
+
+  }

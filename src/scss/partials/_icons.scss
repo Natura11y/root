@@ -1,0 +1,39 @@
+/*
+
+In this file:
+
+// A. Shared Styles
+// B. Screen Reader Only Utility
+// C. Focusable Only Utility
+
+*/
+
+//////////////////////////////////////////////
+// A. Shared Styles
+//////////////////////////////////////////////
+
+[class^="icon_"],
+[class*=" icon_"] {
+    position: relative;
+    font-size: (4em / 3);
+    line-height: 0.75;
+    vertical-align: -.0667em;
+
+    &:not([class*="_subway-"]) {
+      display: inline-block;
+    }
+}
+
+.icon_loading.rotate {
+  display: inline-block;
+  animation: rotate-s-loader 1s linear infinite;
+}
+
+@keyframes rotate-s-loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

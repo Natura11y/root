@@ -1,0 +1,83 @@
+/*
+
+In this file:
+
+// A. Variables
+// B. Accordion Block
+// C. Accordion Elements
+
+*/
+
+//////////////////////////////////////////////
+// A. Variables
+//////////////////////////////////////////////
+
+:root {
+    --accordion-padding-x: var(--spacer-2);
+    --accordion-padding-y: 0.75em;
+}
+
+//////////////////////////////////////////////
+// B. Accordion
+//////////////////////////////////////////////
+
+.accordion {
+    --accordion-transition: 0.2s ease-out;
+}
+
+//////////////////////////////////////////////
+// C. Accordion Elements
+//////////////////////////////////////////////
+
+.accordion__button, 
+.accordion__panel__content {
+    padding: var(--accordion-padding-y) var(--accordion-padding-x);
+}
+
+.accordion__button {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    cursor: pointer;
+
+    &:not(:first-child){
+        border-top-width: var(--default-border-width);
+        border-top-style: var(--default-border-style);
+        border-top-color: inherit;
+    }
+
+    margin-bottom: 0;
+
+    @extend %hover-focus;
+    @extend %subtle-fill !optional;
+
+    @include add-caret("after");
+
+    &::after{
+       transition: transform var(--accordion-transition);
+    }
+
+    &:not([aria-expanded="true"])::after {
+        transform: rotate(0deg);
+    }
+    
+    &[aria-expanded="true"]{
+        text-decoration: underline;
+
+        &::before {
+            --subtle-fill-opacity: 0.05;
+        }
+
+        &::after{
+            transform: rotate(180deg);
+        }
+    }
+}
+
+.accordion__panel {
+    overflow: hidden;
+    transition: max-height var(--accordion-transition);
+    max-height: 0;
+}

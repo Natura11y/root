@@ -1,0 +1,49 @@
+/*
+
+In this file:
+
+// A. Variables
+// B. Position Utilities
+
+*/
+
+//////////////////////////////////////////////
+// A. Variables
+//////////////////////////////////////////////
+
+$positions: static, relative, absolute, fixed;
+
+//////////////////////////////////////////////
+// B. Position Utilities
+//////////////////////////////////////////////
+
+@each $position in $positions {
+    .position-#{$position} {
+        position: $position;
+    }
+}
+
+.top {
+    top: 0;
+}
+
+.right{
+    right: 0;
+}
+
+.bottom{
+    bottom: 0;
+}
+
+.left{
+    left: 0;
+}
+
+@supports (position: sticky) {
+    
+    .sticky-top {
+        position: sticky;
+        top: -1px;
+    }
+
+}
