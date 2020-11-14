@@ -19,10 +19,12 @@ In this file:
     --btn-padding-x: var(--spacer-2);
     --btn-padding-y: 0.625em;
 
-    --btn-font-weight: var(--base-font-weight-bold);
+    --btn-font-weight: var(--base-font-weight-medium);
 
     --btn--outline-border-width: 2px;
     --btn--icon-only-size: 2.25em;
+
+    --btn-border-radius: 0;
 }
 
 //////////////////////////////////////////////
@@ -54,6 +56,8 @@ button,
     --btn-opacity-hover: 0.75;
 
     @extend %hover-focus !optional;
+
+    border-radius: var(--btn-border-radius);
 
     &[aria-disabled="true"] {
         cursor: not-allowed;
