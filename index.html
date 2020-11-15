@@ -39,7 +39,7 @@
             --base-line-height: 1.4;
 
             --btn-border-radius: 0.5em;
-            --backdrop-fixed-height: 600px;
+            --backdrop-fixed-height: 800px;
         }
     </style>
 
@@ -120,11 +120,11 @@
 
             </div>
 
-            <nav class="primary-nav__menu" aria-label="navigation">
+            <nav class="primary-nav__menu" id="primary-menu" aria-label="navigation">
 
                 <ul>
                     <li>
-                        <a href="#1" data-toggle="dropdown">Dropdown</a>
+                        <a href="#1" data-toggle="dropdown">v1.0</a>
                         <ul class="box-shadow--lg">
                             <li>
                                 <a href="#1">Link</a>
@@ -138,30 +138,21 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#1">Link</a>
+                        <a href="#1">Docs</a>
                     </li>
                     <li>
-                        <a href="#1">Link</a>
-                    </li>
-                    <li>
-                        <a href="#1">Link</a>
+                        <a href="#1">Templates</a>
                     </li>
                 </ul>
 
             </nav>
 
             <div class="primary-nav__buttons">
-                <button class="btn btn--icon-only menu-toggle" title="Menu">
-                    <span class="screen-reader-only">Menu</span>
+                <button class="btn btn--icon-only menu-toggle" title="Menu" data-toggle="collapse" data-target="#primary-menu">
                     <span class="icon_menu"></span>
                 </button>
-                <button class="btn btn--icon-only" title="Language">
-                    <span class="screen-reader-only">Language</span>
-                    <span class="icon_language" aria-hidden="true"></span>
-                </button>
-                <button class="btn btn--icon-only" title="Search">
-                    <span class="screen-reader-only">Search</span>
-                    <span class="icon_search"></span>
+                <button class="btn btn--icon-only" title="GitHub">
+                    <span class="icon_github" aria-hidden="true"></span>
                 </button>
             </div>
 
@@ -189,6 +180,49 @@
                     <h1 class="banner-headline text-align-center text-shadow--md margin-bottom-3 text-shadow">
                         Lorem ipsum dolor sit amet consectetur
                     </h1>
+
+                    <div class="narrow">
+
+                        <div class="grid grid--gap-2 grid--cells-fill--sm">
+
+                            <div class="grid__cell">
+                                <a class="btn theme-white display-block box-shadow" href="#1">Get Started</a>
+                            </div>
+                            <!-- .grid__cell -->
+
+                            <div class="grid__cell">
+                                <a class="btn btn--outline display-block" href="#1">Templates</a>
+                            </div>
+                            <!-- .grid__cell -->
+
+                        </div>
+                        <!-- .grid -->
+
+                    </div>
+
+                </div>
+
+            </div>
+            <!-- .backdrop__cover -->
+
+        </section>
+        <section class="backdrop backdrop--fixed theme-dark">
+
+            <div class="backdrop__image">
+                <img class="opacity-30" src="./images/backdrop-accessibility.jpg" alt="">
+            </div>
+            
+            <div class="backdrop__credit display-none">
+                <p>Photo by <a href="#1">Jane Doe</a> on Unsplash</p>
+            </div>
+
+            <div class="backdrop__cover">
+
+                <div class="container narrow margin-y-3">
+
+                    <h2 class="text-align-center text-shadow--md margin-bottom-3 text-shadow">
+                        Built-in accessibility
+                    </h2>
 
                     <div class="narrow">
 

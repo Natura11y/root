@@ -48,15 +48,18 @@ In this file:
 
     > [class*="__buttons"] {
         grid-area: buttons;
-
+        
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        padding-left: var(--primary-nav-padding);
+        padding-right: var(--primary-nav-padding);
         
         > .btn,
         > button {
-            margin-left: calc(var(--primary-nav-padding) * 0.25);
-            margin-right: calc(var(--primary-nav-padding) * 0.25);
+            margin-left: calc(var(--primary-nav-padding) * 0.125);
+            margin-right: calc(var(--primary-nav-padding) * 0.125);
         }
     }
 }
