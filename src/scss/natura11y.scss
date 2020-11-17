@@ -74,15 +74,3 @@ a[data-logo="brand"] {
 .overflow-hidden {
     overflow: hidden;
 }
-
-#introduction {
-    --backdrop-fixed-height: 800px;
-}
-
-#features {
-    --backdrop-fixed-height: 600px;
-    
-    @include breakpoints-down(lg) {
-        --backdrop-fixed-height: 800px;
-    }
-}
