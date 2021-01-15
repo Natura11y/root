@@ -1,0 +1,89 @@
+/*
+
+In this file:
+
+// A. Variables
+// B. Alert Block
+// C. Alert Elements
+
+*/
+
+//////////////////////////////////////////////
+// A. Variables
+//////////////////////////////////////////////
+
+// Scoped to Block
+
+%custom-properties {
+    --alert-padding-x: var(--spacer-3);
+    --alert-padding-y: var(--spacer-3);
+
+    --alert-head-font-size: var(--h5-font-size);
+    --alert-background-opacity: 0.075;
+}
+
+//////////////////////////////////////////////
+// B. Alert Block
+//////////////////////////////////////////////
+
+.alert {
+    @extend %custom-properties;
+    
+    position: relative;
+    padding: var(--alert-padding-y) var(--alert-padding-x);
+
+    a {
+        color: inherit !important;
+    }
+
+    &[class*="border"] {
+        border-color: currentColor !important;
+    }
+
+    &:not([class*="theme-"]):not([class*="--inverse"]):not([class*="background-color-"]) {
+        &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+
+            background-color: currentColor;
+            opacity: var(--alert-background-opacity);
+            
+            pointer-events: none;
+        }
+    }    
+}
+
+//////////////////////////////////////////////
+// C. Alert Elements
+//////////////////////////////////////////////
+
+.alert__head, 
+.alert__body {
+    position: relative;
+}
+
+.alert__head {
+    display: flex;
+    align-items: center;
+    font-size: var(--alert-head-font-size);
+
+    &:not(:last-child) {
+        margin-bottom: 0.25em;
+    }
+}
+
+.alert__head__title {
+    font-weight: var(--body-font-weight-bold);
+    margin-left: var(--spacer-1);
+    margin-right: var(--spacer-1);
+}
+
+.alert__body {
+    p:not(:last-child) {
+        margin-bottom: 0.5em;
+    }
+}

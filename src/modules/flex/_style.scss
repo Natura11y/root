@@ -1,0 +1,237 @@
+/*
+
+In this file:
+
+// A. Modules
+// B. Flex Direction Utilities
+// C. Flex Grow, Shrink, and Fill Utilites
+// D. Justify Content Utilites
+// E. Justify Self Utilites
+// F. Align Content Utilites
+// G. Align Items Utilites
+// H. Align Self Utilites
+
+*/
+
+//////////////////////////////////////////////
+// A. Modules
+//////////////////////////////////////////////
+
+@use "sass:map";
+@use "../breakpoint/style" as breakpoint;
+
+//////////////////////////////////////////////
+// B. Flex Direction Utilities 
+//////////////////////////////////////////////
+
+[class*="flex-row"],
+[class*="flex-column"]
+[class*="row-reverse"],
+[class*="column-reverse"] {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@each $breakpoint in map.keys(breakpoint.$breakpoints) {
+    @include breakpoint.breakpoints-up($breakpoint) {
+        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+        .flex-row#{$mod} {
+            flex-direction: row;
+        }
+
+        .flex-column#{$mod} {
+            flex-direction: column;
+        }
+
+        .row-reverse#{$mod} {
+            flex-direction: row-reverse;
+        }
+        
+        .column-reverse#{$mod} {
+            flex-direction: column-reverse;
+        }
+
+    }
+}
+
+//////////////////////////////////////////////
+// C. Flex Grow, Shrink, and Fill Utilites
+//////////////////////////////////////////////
+
+.flex-grow-0 {
+    flex-grow: 0;
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+.flex-shrink-0 {
+    flex-shrink: 0;
+}
+
+.flex-shrink-1 {
+    flex-shrink: 1;
+}
+
+.flex-fill {
+    flex: 1 1 auto;
+}
+
+//////////////////////////////////////////////
+// D. Justify Content Utilites
+//////////////////////////////////////////////
+
+@each $breakpoint in map.keys(breakpoint.$breakpoints) {
+    @include breakpoint.breakpoints-up($breakpoint) {
+        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+        .justify-content-start#{$mod} {
+            justify-content: flex-start !important;
+        }
+
+        .justify-content-end#{$mod} {
+            justify-content: flex-end !important;
+        }
+
+        .justify-content-center#{$mod} {
+            justify-content: center !important;
+        }
+
+        .justify-content-between#{$mod} {
+            justify-content: space-between !important;
+        }
+
+        .justify-content-around#{$mod} {
+            justify-content: space-around !important;
+        }
+    }
+}
+
+//////////////////////////////////////////////
+// D. Justify Self Utilites
+//////////////////////////////////////////////
+
+@each $breakpoint in map.keys(breakpoint.$breakpoints) {
+    @include breakpoint.breakpoints-up($breakpoint) {
+        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+        .justify-self-start#{$mod} {
+            justify-self: start !important;
+        }
+
+        .justify-self-end#{$mod} {
+            justify-self: end !important;
+        }
+
+        .justify-self-center#{$mod} {
+            justify-self: center !important;
+        }
+
+        .justify-self-between#{$mod} {
+            justify-self: stretch !important;
+        }
+    }
+}
+
+//////////////////////////////////////////////
+// F. Align Content Utilites
+//////////////////////////////////////////////
+
+@each $breakpoint in map.keys(breakpoint.$breakpoints) {
+    @include breakpoint.breakpoints-up($breakpoint) {
+        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+        .align-content-start {
+            align-content: flex-start !important;
+        }
+
+        .align-content-end {
+            align-content: flex-end !important;
+        }
+
+        .align-content-center {
+            align-content: center !important;
+        }
+
+        .align-content-between {
+            align-content: space-between !important;
+        }
+
+        .align-content-around {
+            align-content: space-around !important;
+        }
+
+        .align-content-stretch {
+            align-content: stretch !important;
+        }
+        
+    }
+}
+
+//////////////////////////////////////////////
+// G. Align Items Utilites
+//////////////////////////////////////////////
+
+@each $breakpoint in map.keys(breakpoint.$breakpoints) {
+    @include breakpoint.breakpoints-up($breakpoint) {
+        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+        .align-items-start#{$mod} {
+            align-items: flex-start !important;
+        }
+
+        .align-items-end#{$mod} {
+            align-items: flex-end !important;
+        }
+
+        .align-items-center#{$mod} {
+            align-items: center !important;
+        }
+
+        .align-items-baseline#{$mod} {
+            align-items: baseline !important;
+        }
+
+        .align-items-stretch#{$mod} {
+            align-items: stretch !important;
+        }
+
+    }
+}
+
+//////////////////////////////////////////////
+// H. Align Self Utilites
+//////////////////////////////////////////////
+
+@each $breakpoint in map.keys(breakpoint.$breakpoints) {
+    @include breakpoint.breakpoints-up($breakpoint) {
+        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+        .align-self-auto#{$mod} {
+            align-self: auto !important;
+        }
+
+        .align-self-start#{$mod} {
+            align-self: flex-start !important;
+        }
+
+        .align-self-center#{$mod} {
+            align-self: center !important;
+        }
+
+        .align-self-end#{$mod} {
+            align-self: flex-end !important;
+        }
+
+        .align-self-baseline#{$mod} {
+            align-self: baseline !important;
+        }
+
+        .align-self-stretch#{$mod} {
+            align-self: stretch !important;
+        }
+        
+    }
+}

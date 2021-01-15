@@ -1,0 +1,43 @@
+/*
+
+In this file:
+
+// A. Modules
+// B. Variables
+// C. Display Utilities
+
+*/
+
+//////////////////////////////////////////////
+// A. Modules
+//////////////////////////////////////////////
+
+@use "sass:map";
+@use "../breakpoint/style" as breakpoint;
+
+//////////////////////////////////////////////
+// B. Variables
+//////////////////////////////////////////////
+
+$display-types: block, inline, inline-block, flex, inline-flex, none;
+
+//////////////////////////////////////////////
+// C. Display Utilities
+//////////////////////////////////////////////
+
+@each $breakpoint in map.keys(breakpoint.$breakpoints) {
+    @include breakpoint.breakpoints-up($breakpoint) {
+        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+        @each $value in $display-types {
+            .display-#{$value}#{$mod} {
+                display: $value !important;
+                @if $value == none {
+                    &.collapse {
+                        display: $value !important;
+                    }
+                }
+            }
+        }
+    }
+}

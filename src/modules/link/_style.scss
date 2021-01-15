@@ -1,0 +1,60 @@
+/*
+
+In this file:
+
+// A. Generic Links
+// B. Expanded Link
+// C. Logo Link
+
+*/
+
+//////////////////////////////////////////////
+// A. Generic Links
+//////////////////////////////////////////////
+
+a {
+    color: inherit;
+
+    &.underline{
+        text-decoration: underline;
+    }
+}
+
+p > a {
+    text-decoration: underline;
+}
+
+//////////////////////////////////////////////
+// B. Expanded Link
+//////////////////////////////////////////////
+
+.expanded-link {
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        
+        z-index: 1;
+        pointer-events: auto;
+    }
+}
+
+//////////////////////////////////////////////
+// C. Logo Link
+//////////////////////////////////////////////
+
+a[data-logo="brand"] {
+    display: inline-block;
+
+    > svg {
+        fill: currentColor;
+        vertical-align: middle;
+    }
+
+    &:focus {
+        opacity: 0.85;
+    }
+}

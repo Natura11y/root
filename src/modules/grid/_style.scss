@@ -1,0 +1,135 @@
+
+
+/*
+
+In this file:
+
+// A. Variables
+// B. Grid Block
+// C. Grid Gap Modifier
+// D. Grid Size Utilities and Modifiers
+// E. Grid Cell Size Utilities and Modifiers
+
+*/
+
+//////////////////////////////////////////////
+// A. Modules
+//////////////////////////////////////////////
+
+@use "sass:map";
+@use "../breakpoint/style" as breakpoint;
+@use "../spacing/style" as spacing;
+
+//////////////////////////////////////////////
+// A. Variables
+//////////////////////////////////////////////
+
+$columns: 12;
+
+//////////////////////////////////////////////
+// B. Grid Block
+//////////////////////////////////////////////
+
+.grid {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-width: 100%;
+}
+
+[class*="grid__cell"]{
+    flex: 1 1 100%;
+    max-width: 100%;
+}
+
+[class*="grid__cell"] {
+
+    > .grid:not([class*="cols-"]) {
+        height: calc(var(--gap-size) + 100%);
+
+        > [class*="grid__cell"]:not([class*="grid__cell-"]) {
+            width: 100%;
+        }
+    }
+}
+
+//////////////////////////////////////////////
+// C. Grid Gap Modifiers
+//////////////////////////////////////////////
+
+[class*="grid--gap"] {
+    --gap-size: 0;
+
+    margin-top: calc(var(--gap-size) * -1);
+    margin-right: calc(var(--gap-size) * -0.5);
+    margin-left: calc(var(--gap-size) * -0.5);
+
+    > [class*="grid__cell"] {
+        margin-top: var(--gap-size);
+        padding-left: calc(var(--gap-size) * 0.5);
+        padding-right: calc(var(--gap-size) * 0.5);
+    }
+}
+
+@each $spacer, $value in spacing.$spacers {
+    .grid--gap-#{$spacer} {
+        --gap-size: #{$value};
+    }
+}
+
+.grid--gap-border {
+    --gap-size: var(--default-border-width);
+}
+
+//////////////////////////////////////////////
+// D. Grid Size Utilities and Modifiers
+//////////////////////////////////////////////
+
+@each $breakpoint in map.keys(breakpoint.$breakpoints) {
+    @include breakpoint.breakpoints-up($breakpoint) {
+        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+        .grid--cells-fill#{$mod} > [class*="grid__cell"] {
+            flex: 1;
+        }
+
+        .grid--cells-fit#{$mod} > [class*="grid__cell"]{
+            flex: none;
+        }
+        
+        @for $i from 1 through $columns {
+            .grid--cells-#{$i}#{$mod} > [class*="grid__cell"] {
+                flex: 0 0 100% / $columns * $i;
+                max-width: 100% / $columns * $i;
+            }
+        }
+
+        @for $i from 1 through $columns {
+            .order-#{$i}#{$mod} {
+                order: $i;
+            }
+        }
+    }
+}
+
+//////////////////////////////////////////////
+// E. Grid Cell Size Utilities and Modifiers
+//////////////////////////////////////////////
+
+@each $breakpoint in map.keys(breakpoint.$breakpoints) {
+    @include breakpoint.breakpoints-up($breakpoint) {
+        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+        @for $i from 1 through $columns {
+            .grid > .grid__cell-#{$i}#{$mod} {
+                flex: 0 0 100% / $columns * $i;
+                max-width: 100% / $columns * $i;
+            }
+        }
+
+        .grid > .grid__cell-fit#{$mod} {
+            flex: none;
+            width: auto;
+        }
+    }
+}
