@@ -15,23 +15,25 @@
     <!-- NYC Core Icons -->
     <link rel="stylesheet" href="https://i.icomoon.io/public/395bc97f45/NYCCoreIcons/style.css">
 
-    <!-- NYC Font from Adobe -->
-    <link rel="stylesheet" href="https://use.typekit.net/rst3zzz.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
     <!-- NYC Core Stylesheet -->
     <link rel="stylesheet" href="./dist/css/natura11y.css" media="screen">
 
     <style>
         :root {
+            --body-font-family: 'Poppins', sans-serif;
             --body-font-size: 20px;
         }
     </style>
     
 </head>
 
-<body>
+<body class="theme-dark">
 
-   <header class="theme-light box-shadow-1 z-index-900" id="global-header">
+   <header class="box-shadow-1 z-index-900" id="global-header">
 
        <!-- For keyboard users -->
        <a class="focusable-only" href="#skip-header-target">Skip Header</a>
@@ -84,20 +86,23 @@
            </div>
 
            <div class="primary-nav__actions">
-               
-            <div class="button-group">
-                <button class="button button--icon-only mobile-menu-toggle" aria-label="Menu" data-toggle="collapse" data-target="#primary-menu">
-                    <span class="nyc_icon_menu" aria-hidden="true"></span>
-                </button>
-                <a class="button button--outline" href="#1">
-                    Sign In  
-                </a>
-                <button class="button button--icon-only" title="Language" data-modal-open="global-language">
-                    <span class="nyc_icon_language" aria-hidden="true"></span>
-                </button>
-            </div>
 
-           </div>
+                <button class="button button--icon-only mobile-menu-toggle" aria-label="Menu" data-toggle="collapse" data-target="#primary-menu-inline">
+                    <span class="nyc_icon_menu"></span>
+                </button>
+                
+                <div class="button-group">
+
+                    <button class="button button--icon-only" aria-label="Language" data-modal-open="global-language">
+                        <span class="nyc_icon_language"></span>
+                    </button>
+                    <button class="button button--icon-only" aria-label="Search" data-modal-open="global-search">
+                        <span class="nyc_icon_search"></span>
+                    </button>
+
+                </div>
+
+            </div>
 
            <nav class="primary-nav__menu" id="primary-menu" aria-label="Primary">
 
@@ -137,7 +142,7 @@
 
     <main id="skip-header-target">
 
-        <section class="backdrop backdrop--stack--md theme-dark">
+        <section class="backdrop backdrop--stack--md">
 
             <div class="backdrop__image gradient-veneer-bottom">
                 <img class="opacity-30" src="./images/backdrop-example-01.jpg" alt="View of the Manhattan Bridge from Brooklyn">

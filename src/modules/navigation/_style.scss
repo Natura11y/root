@@ -77,10 +77,13 @@ In this file:
         grid-area: menu;
 
         @extend .collapse;
+
+        background-color: green;
     }
 
     > [class*="__actions"] {
         grid-area: buttons;
+        background-color: purple;
 
         display: flex;
         align-items: center;
