@@ -422,14 +422,13 @@ In this file:
 // G. Nav Breadcrumb
 ////////////////////////////////////////
 
-nav[aria-label="Breadcrumb"] {
-    font-size: var(--font-size-sm);
-}
-
 .nav--breadcrumb {
+    --breadcrumb-font-size: var(--font-size-sm);
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    font-size: var(--breadcrumb-font-size);
 
     > li:last-child {
         font-style: italic;
