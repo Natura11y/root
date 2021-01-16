@@ -6,12 +6,11 @@ In this file:
 // B. Variables
 // C. Placeholders 
 // D. Primary Nav Components 
-// E. Nav
-// F. Nav Gap Modifier
-// G. Nav Divider
-// H. Nav Breadcrumb
-// I. Dropdown
-// J. I.E. 11 Support
+// E. Nav 
+// F. Nav Divider
+// G. Nav Breadcrumb
+// H. Dropdown
+// I. I.E. 11 Support
 
 */
 
@@ -79,22 +78,21 @@ In this file:
         @extend .collapse;
     }
 
-    > [class*="__buttons"] {
+    > [class*="__actions"] {
         grid-area: buttons;
 
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        
-        > .button,
-        > button {
-            margin-left: calc(var(--primary-nav-padding) * 0.25);
-            margin-right: calc(var(--primary-nav-padding) * 0.25);
+
+        > .button {
+            margin-right: var(--spacer-2);
+            
+            [dir="rtl"] & {
+                margin-right: unset;
+                margin-left: var(--spacer-2);
+            }
         }
 
-        > .button:not([class*="--icon-only"]){
-            font-size: var(--font-size-md);
-        }
     }
 }
 
@@ -123,13 +121,13 @@ In this file:
         justify-content: center;
     }
     
-    > [class*="__buttons"] {
+    > [class*="__actions"] {
         padding-top: calc(var(--primary-nav-padding) * 0.5);
         padding-bottom: calc(var(--primary-nav-padding) * 0.5);
     }
 
-    > [class*="__buttons"],
-    > [class*="__menu"]{
+    > [class*="__actions"],
+    > [class*="__menu"] {
         border-top-width: var(--default-border-width);
         border-top-style: var(--default-border-style);
         border-top-color: inherit;
@@ -147,7 +145,7 @@ In this file:
     }
 }
 
-.primary-nav__buttons {
+.primary-nav__actions {
     padding-left: calc(var(--primary-nav-padding) * 0.5);
     padding-right: calc(var(--primary-nav-padding) * 0.5);
 }
@@ -171,6 +169,10 @@ In this file:
 
     > li:not(:last-child) {
         margin-bottom: calc(var(--gap-size));
+    }
+
+    > li > .button {
+        min-height: 100%;
     }
 
     > li > .nav__dropdown {
@@ -208,7 +210,7 @@ In this file:
         
             display: flex;
             flex-direction: row;
-            align-items: center;
+            align-items: stretch;
 
             margin-left: calc(var(--gap-size) * -0.5);
             margin-right: calc(var(--gap-size) * -0.5);
@@ -241,22 +243,8 @@ In this file:
     }
 }
 
-//////////////////////////////////////////////
-// F. Nav Gap Modifiers
-//////////////////////////////////////////////
-
-@each $spacer, $value in spacing.$spacers {
-    .nav--gap-#{$spacer} {
-        --gap-size: #{$value};
-    }
-}
-
-.nav--gap-border {
-    --gap-size: var(--default-border-width);
-}
-
 ////////////////////////////////////////
-// G. Nav Divider
+// F. Nav Divider
 ////////////////////////////////////////
 
 [class*="primary-nav--below--"] > [class*="__menu"] > ul,
@@ -321,7 +309,7 @@ In this file:
                 display: block !important;
             }
 
-            [class*="__buttons"] > button.menu-toggle {
+            [class*="__actions"] button.menu-toggle {
                 display: none;
             }
 
@@ -358,7 +346,7 @@ In this file:
                 "logo buttons"
                 "menu menu";
 
-            > [class*="__buttons"] {
+            > [class*="__actions"] {
                 border-top-style: none !important; // Thanks, IE.
             }
         }
@@ -426,7 +414,7 @@ In this file:
 }
 
 ////////////////////////////////////////
-// H. Nav Breadcrumb
+// G. Nav Breadcrumb
 ////////////////////////////////////////
 
 nav[aria-label="Breadcrumb"] {
@@ -457,7 +445,7 @@ nav[aria-label="Breadcrumb"] {
 }
 
 ////////////////////////////////////////
-// I. Dropdown
+// H. Dropdown
 ////////////////////////////////////////
 
 [data-toggle="dropdown"]:not([class*="button--icon-only"]) {
@@ -524,7 +512,7 @@ nav[aria-label="Breadcrumb"] {
 }
 
 //////////////////////////////////////////////
-// J. I.E. 11 Support
+// I. I.E. 11 Support
 //////////////////////////////////////////////
 
 @media screen and (-ms-high-contrast: active),
@@ -554,7 +542,7 @@ screen and (-ms-high-contrast: none) {
             }
         }
 
-        .primary-nav__buttons  {
+        .primary-nav__actions  {
             grid-column: 3 / 4;
             grid-row: 1 / 2;
         }
@@ -575,7 +563,7 @@ screen and (-ms-high-contrast: none) {
             grid-row: 2 / 3;
         }
 
-        .primary-nav__buttons  {
+        .primary-nav__actions  {
             grid-column: 2 / 3;
             grid-row: 1 / 2;
         }
