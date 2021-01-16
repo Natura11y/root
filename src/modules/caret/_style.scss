@@ -49,7 +49,6 @@ $default-caret-margin: 0.375em;
             margin-right: $default-caret-margin;
         }
     } 
-
     
     @if $location == "prepend" {
         flex-direction: row-reverse;

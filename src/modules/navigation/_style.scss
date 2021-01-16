@@ -93,6 +93,10 @@ In this file:
                 margin-left: var(--spacer-2);
             }
         }
+        
+        > .button-group {
+            justify-content: flex-end;
+        }
 
     }
 }
@@ -211,7 +215,7 @@ In this file:
         
             display: flex;
             flex-direction: row;
-            align-items: stretch;
+            align-items: center;
 
             margin-left: calc(var(--gap-size) * -0.5);
             margin-right: calc(var(--gap-size) * -0.5);
@@ -310,7 +314,7 @@ In this file:
                 display: block !important;
             }
 
-            [class*="__actions"] button.menu-toggle {
+            [class*="__actions"] button.mobile-menu-toggle {
                 display: none;
             }
 
