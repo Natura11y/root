@@ -158,12 +158,12 @@ button {
 //////////////////////////////////////////////
 
 .button-group {
+    list-style: none;
     --gap-size: var(--spacer-2);
 
     display: flex;
     justify-content: center;
 
-    width: 100%;
     min-height: var(--button--icon-only-size);
     
     margin-left: calc(var(--gap-size) * -0.5);
