@@ -24,6 +24,7 @@ In this file:
 @use "../spacing/style" as spacing;
 @use "../collapse/style" as collapse;
 @use "../link/style" as link;
+@use "../typography/style" as typography;
 
 ////////////////////////////////////////
 // B. Variables
@@ -430,15 +431,15 @@ nav[aria-label="Breadcrumb"] {
         font-style: italic;
         font-weight: bold;
 
-        @extend .truncate-text !optional;
+        @extend .truncate-text;
     }
     
     > li:not(:last-child) {
         @include caret.add-caret;
         
-        &:after {
-            margin-left: var(--gap-size);
-            margin-right: var(--gap-size);
+        &::after {
+            margin-left: var(--gap-size) !important;
+            margin-right: var(--gap-size) !important;
             transform: rotate(-90deg);
         }
     }
