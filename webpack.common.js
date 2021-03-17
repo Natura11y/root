@@ -1,6 +1,6 @@
 module.exports = {
     entry: {
-        nyc_core: [
+        natura11y: [
             './src/index.js'
         ]
     }

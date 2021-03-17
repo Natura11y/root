@@ -9,6 +9,11 @@ const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 module.exports = merge(common, {
     mode: 'production',
     target: 'browserslist',
+    performance: {
+        hints: false,
+        maxEntrypointSize: 512000,
+        maxAssetSize: 512000
+    },
     output: {
         filename: 'js/[name].js',
         path: path.resolve(__dirname, 'dist')

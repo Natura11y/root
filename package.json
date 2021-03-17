@@ -43,12 +43,10 @@
     "core-js": "^3.6.5",
     "custom-event-polyfill": "^1.0.7",
     "element-closest-polyfill": "^1.0.2",
-    "file-loader": "^6.2.0",
-    "npm-install-missing": "^0.1.4"
+    "file-loader": "^6.2.0"
   },
   "main": "webpack.config.js",
   "browserslist": [
-    "last 2 versions",
-    "IE 11"
+    "last 2 versions"
   ]
 }
