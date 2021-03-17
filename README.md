@@ -1,6 +1,6 @@
-# NYC Core Framework
+# Natura11y Inclusive Framework
 
-NYC Core Framework is an open-source front end toolkit for building modern, accessible websites and applications. Natura11y's simple codebase is easy to understand and reduces the need for package managers and third-party dependencies.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas cursus malesuada tortor, sed euismod mi malesuada a. Proin eros libero, efficitur eget tempor id, dapibus et ligula.
 
 ## Description
 
