@@ -4,8 +4,9 @@ In this file:
 
 // A. Variables
 // B. Shared Styles
-// C. Screen Reader Only Utility
-// D. Focusable Only Utility
+// C. Icon Font Utility Class
+// D. Rotating Utility Class
+// E. Subway Icons
 
 */
 
@@ -16,21 +17,21 @@ In this file:
 // Scoped to Block
 
 %custom-properties {
-    --icon-size: 1.375em;
+    --icon-size: 1em;
 }
 
 //////////////////////////////////////////////
-// A. Shared Styles
+// B. Shared Styles
 //////////////////////////////////////////////
 
 [class^="nyc_icon_"],
 [class*="nyc_icon_"] {
-
   @extend %custom-properties;
-  font-size: var(--icon-size) !important;
-
+  
+  font-size: var(--icon-size);
+  vertical-align: middle;
+  
   position: relative;
-  line-height: 1;
   pointer-events: none;
 
   &:not([class*="_subway-"]) {
@@ -45,9 +46,17 @@ In this file:
   }
 }
 
+//////////////////////////////////////////////
+// C. Icon Font Utility Class
+//////////////////////////////////////////////
+
 .nyc_icon_font {
   font-family: 'NYC-Core-Icons';
 }
+
+//////////////////////////////////////////////
+// D. Rotating Utility Class
+//////////////////////////////////////////////
 
 .nyc_icon_loading.rotate {
   display: inline-block;
@@ -62,6 +71,10 @@ In this file:
     transform: rotate(360deg);
   }
 }
+
+//////////////////////////////////////////////
+// E. Subway Icons
+//////////////////////////////////////////////
 
 [class*="nyc_icon_subway-"] {
     position: relative;
@@ -80,13 +93,14 @@ In this file:
         bottom: 0;
         right: 0;
 
+        border-radius: 100%;
+        
         transform-origin: center;
         transform: scale(0.875);
         
         background-color: white;
 
         z-index: 1;
-        border-radius: 100%;
     }
 
     &[class*="-express"]::after{

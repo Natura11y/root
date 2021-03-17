@@ -18,8 +18,10 @@ In this file:
     --alert-padding-x: var(--spacer-3);
     --alert-padding-y: var(--spacer-3);
 
-    --alert-head-font-size: var(--h5-font-size);
-    --alert-background-opacity: 0.075;
+    --alert-title-font-size: inherit;
+    --alert-faint-fill-opacity: 0.075;
+
+    --alert-border-radius: 0;
 }
 
 //////////////////////////////////////////////
@@ -30,60 +32,102 @@ In this file:
     @extend %custom-properties;
     
     position: relative;
+    
     padding: var(--alert-padding-y) var(--alert-padding-x);
+
+    border-radius: var(--alert-border-radius);
 
     a {
         color: inherit !important;
     }
+    
+    &:not([class*="theme-"]):not([class*="--inverse"]):not([class*="background-color-"])::before {
+        position: absolute;
+        content: "";
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        border-radius: inherit;
+        pointer-events: none;
+
+        background-color: currentColor;
+        opacity: var(--alert-faint-fill-opacity);    
+    }    
 
     &[class*="border"] {
         border-color: currentColor !important;
     }
 
-    &:not([class*="theme-"]):not([class*="--inverse"]):not([class*="background-color-"]) {
-        &::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-
-            background-color: currentColor;
-            opacity: var(--alert-background-opacity);
-            
-            pointer-events: none;
-        }
-    }    
 }
 
 //////////////////////////////////////////////
 // C. Alert Elements
 //////////////////////////////////////////////
 
-.alert__head, 
-.alert__body {
+.alert__title, 
+.alert__description {
     position: relative;
 }
 
-.alert__head {
-    display: flex;
-    align-items: center;
-    font-size: var(--alert-head-font-size);
-
+.alert__title {
+    font-size: var(--alert-title-font-size);
+    
     &:not(:last-child) {
         margin-bottom: 0.25em;
     }
 }
 
-.alert__head__title {
+.alert__title__text {
     font-weight: var(--body-font-weight-bold);
     margin-left: var(--spacer-1);
     margin-right: var(--spacer-1);
 }
 
-.alert__body {
+.alert__description {
     p:not(:last-child) {
         margin-bottom: 0.5em;
     }
+}
+
+.alert--dismissable { 
+    display: grid;
+
+    > [class*="__title"] {
+        grid-area: title;
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
+    > [class*="button"] {
+        grid-area: close;
+        font-size: 80%;
+    }
+
+    > [class*="__description"] {
+        grid-area: description;
+    }
+
+    grid-template-columns: 1fr auto;
+    
+    grid-template-areas:
+            "title close"
+            "description description";
+
+}
+
+.dismissed {
+  animation-duration: 0.5s;
+  animation-name: fadeOut;
+}
+
+@keyframes fadeOut {
+  from {
+      opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
 }

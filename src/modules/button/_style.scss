@@ -3,15 +3,18 @@
 In this file:
 
 // A. Variables
-// B. Default Button Tag
-// C. Button Utility
+// B. Selector Resets
+// C. Button Block
 // D. Button Outline Modifier
 // E. Button Has Icon Modifiers
 // F. Button Icon Only Modifier
-// G. Button Group Component
-// H. I.E. 11 Support
+// G. Button Icon Only Tooltip
+// H. Button Group Component
+// I. I.E. 11 Support
 
 */
+
+@use "../caret/style" as caret;
 
 //////////////////////////////////////////////
 // A. Variables
@@ -24,15 +27,16 @@ In this file:
     --button-padding-y: 0.75em;
 
     --button-font-weight: var(--body-font-weight-bold);
-
-    --button--outline-border-width: calc( var(--default-border-width) * 2);
+    --button-faint-fill-opacity: 0.05;
+    --button-border-radius: 0.25em;
     
+    --button-outline-border-width: calc( var(--default-border-width) * 2);
+
     --button--icon-only-size: 2.25em;
-    --button--border-radius: 0.25em;
 }
 
 //////////////////////////////////////////////
-// B. Default Button Tag
+// B. Selector Resets
 //////////////////////////////////////////////
 
 button {
@@ -45,37 +49,30 @@ button {
     &:not([class*="border-"]){
         border: none;
     }
+
 }
 
 //////////////////////////////////////////////
-// C. Button Utility
+// C. Button Block
 //////////////////////////////////////////////
- 
+
 .button {
     --button-opacity-hover: 0.75;
 
-    &[aria-disabled="true"] {
-        opacity: var(--button-opacity-hover);
-        cursor: not-allowed;
-    }
-}
-
-.button {
     position: relative;
     display: inline-block;
     text-align: center;
     vertical-align: middle;
     line-height: normal;
-    flex-shrink: 0;
     cursor: pointer;
 
-    border-radius: var(--button--border-radius);
-    transition: opacity 0.5s;
+    border-radius: var(--button-border-radius);
+    transition: opacity 0.5s ease-out;
 
-    &:not([class*="button--outline"]):not([class*="theme-"]):not([class*="background-color"])::after {
+    &:not([class*="button--outline"]):not([class*="theme-"]):not([class*="background-color"])::before {
         position: absolute;
-        
         content: "";
+        
         top: 0;
         right: 0;
         bottom: 0;
@@ -84,21 +81,30 @@ button {
         border-radius: inherit;
         pointer-events: none;
 
-        opacity: 0.05;
         background-color: currentColor;
+        opacity: var(--button-faint-fill-opacity);
     }
 
     &:hover, 
     &:focus, 
-    &:active {
+    &:active
+    {
         opacity: var(--button-opacity-hover);
+        --button-faint-fill-opacity: 0.075;
     }
 
     &:not([class*="button--icon-only"]) {
         padding: var(--button-padding-y) var(--button-padding-x);
         font-weight: var(--button-font-weight);
     }
+
+    &[aria-disabled="true"] {
+        opacity: var(--button-opacity-hover);
+        cursor: not-allowed;
+    }
+    
 }
+
 
 //////////////////////////////////////////////
 // D. Button Outline Modifier
@@ -106,7 +112,7 @@ button {
 
 .button--outline {
     background-color: transparent;
-    box-shadow: inset 0 0 0 var(--button--outline-border-width) currentColor;
+    box-shadow: inset 0 0 0 var(--button-outline-border-width, 2px) currentColor;
 }
 
 //////////////////////////////////////////////
@@ -144,21 +150,83 @@ button {
 
 .button--icon-only {
     display: inline-flex;
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
 
     width: var(--button--icon-only-size);
     height: var(--button--icon-only-size);
 
-    overflow: hidden;
+    [class*="_icon"] {
+        --icon-size: 1.25em;
+        display: flex;
+    }
 }
 
 //////////////////////////////////////////////
-// G. Button Group Component
+// G. Button Icon Only Tooltip
+//////////////////////////////////////////////
+
+.button__tooltip {
+    --button-tooltip-background: hsla(0, 0%, 0%, 0.9);
+
+    position: absolute;
+    top: -1000px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    display: block;
+    white-space: nowrap;
+
+    margin-top: var(--spacer-2);
+
+    color: white;
+    background-color: var(--button-tooltip-background);
+
+    font-size: var(--font-size-sm);
+
+    padding: 0.5em 1em;
+
+    border-radius: inherit;
+
+    pointer-events: none;
+
+    &.left {
+        transform: unset;
+        right: unset;
+        left: 0;
+    }
+
+    &.right {
+        transform: unset;
+        left: unset;
+        right: 0;
+    }
+}
+
+.tooltip-show > .button__tooltip {
+    top: 100%;
+    animation-name: fadeIn;
+    animation-duration: 0.5s;
+}
+
+@keyframes fadeIn {
+
+  from {
+    opacity: 0;
+  }
+
+  to {
+      opacity: 1;
+  }
+
+}
+
+//////////////////////////////////////////////
+// H. Button Group Component
 //////////////////////////////////////////////
 
 .button-group {
-    list-style: none;
     --gap-size: var(--spacer-2);
 
     display: flex;
@@ -169,7 +237,8 @@ button {
     margin-left: calc(var(--gap-size) * -0.5);
     margin-right: calc(var(--gap-size) * -0.5);
 
-    > [class*="button"]{
+    > [class*="button"], 
+    button {
         margin-left: calc(var(--gap-size) * 0.5);
         margin-right: calc(var(--gap-size) * 0.5);
     }
@@ -187,7 +256,7 @@ button {
 }
 
 //////////////////////////////////////////////
-// H. I.E. 11 Support
+// I. I.E. 11 Support
 //////////////////////////////////////////////
 
 @media screen and (-ms-high-contrast: active),

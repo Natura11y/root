@@ -15,7 +15,7 @@ export default class Document {
         const copyrightYear = document.querySelector(".copyright-year");
 
         if (copyrightYear) {
-            let currentYear = new Date().getFullYear();
+            const currentYear = new Date().getFullYear();
             copyrightYear.innerHTML = currentYear;
         }
 
@@ -94,13 +94,13 @@ export default class Document {
 
         });
 
-        const isIE11 = !!(navigator.userAgent.match(/Trident/) && !navigator.userAgent.match(/MSIE/));
+        ///////////////////////
+        // Custom Properties Polyfill
+        ///////////////////////
 
-        if (isIE11) {
-            loadCustomPropertiesPolyfill();            
-        }
+        const isIE11 = /Trident\/|MSIE/.test(window.navigator.userAgent);
 
-        function loadCustomPropertiesPolyfill(){
+        const loadCustomPropertiesPolyfill = () => {
 
             const targetNode = document.querySelector('[name="viewport"]');
             const cpIEPolyfill = document.createElement('script');
@@ -109,9 +109,10 @@ export default class Document {
 
             targetNode.parentNode.insertBefore(cpIEPolyfill, targetNode.nextSibling);
 
-            cpIEPolyfill.onload = () => {
+        }
 
-            }
+        if (isIE11) {
+            loadCustomPropertiesPolyfill();            
         }
 
     }

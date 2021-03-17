@@ -33,7 +33,8 @@ In this file:
 // Scoped to Block
 
 %custom-properties {
-    --dropdown-z-index: 1200;
+    --nav-divider-padding-y: 0.625em;
+    --nav-divider-padding-x: var(--spacer-3);
 }
 
 ////////////////////////////////////////
@@ -103,7 +104,6 @@ In this file:
         > .button-group {
             justify-content: flex-end;
         }
-
     }
 }
 
@@ -135,7 +135,7 @@ In this file:
     }
     
     > [class*="__actions"] {
-        padding: var(--primary-nav-padding);
+        padding: calc(var(--primary-nav-padding) * 0.5) var(--primary-nav-padding);
         justify-content: space-between;
     }
 
@@ -257,6 +257,7 @@ In this file:
 
 [class*="primary-nav--below--"] > [class*="__menu"] > ul,
 .nav--divider {
+    @extend %custom-properties;
 
     &:not([class*="theme-"]) {
         border-color: inherit;
@@ -289,7 +290,7 @@ In this file:
     > li > a, 
     > li > button,
     > li > .nav__dropdown {
-        padding: 0.625em var(--spacer-3);
+        padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
     }
 
     > li > .nav__dropdown {
@@ -317,10 +318,13 @@ In this file:
                 display: block !important;
             }
 
+            [class*="__actions"] {
+                padding: var(--primary-nav-padding);
+            }
+
             [class*="__actions"] button.mobile-menu-toggle {
                 display: none;
             }
-
         }
 
         .primary-nav--inline#{$mod} {
@@ -441,9 +445,10 @@ In this file:
     }
     
     > li:not(:last-child) {
-        @include caret.add-caret;
         
-        &::after {
+        @extend .has-caret;
+        
+        &::before {
             margin-left: var(--gap-size) !important;
             margin-right: var(--gap-size) !important;
             transform: rotate(-90deg);
@@ -455,12 +460,10 @@ In this file:
 // H. Dropdown
 ////////////////////////////////////////
 
-[data-toggle="dropdown"]:not([class*="button--icon-only"]) {
+[data-toggle="dropdown"]:not([class*="button--icon-only"]) {    
+    @extend .has-caret;
 
-    @extend %custom-properties;
-    @include caret.add-caret;
-
-    &[aria-expanded="true"]::after {
+    &[aria-expanded="true"]::before {
         transform: rotate(180deg);
     }
 }
@@ -473,8 +476,8 @@ In this file:
     overflow: visible;
 
     &::after {
-        content: "";
         position: absolute;
+        content: "";
         top: 0;
         left: calc(var(--gap-size) + var(--dropdown-pointer-size) + 4px);
         transform: translateX(-50%) rotate(45deg);
@@ -493,6 +496,7 @@ In this file:
 }
 
 .nav__dropdown {
+    --dropdown-z-index: 1200;
 
     @extend .nav;
 

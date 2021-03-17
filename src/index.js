@@ -5,29 +5,31 @@
 import "element-closest-polyfill";
 
 //////////////////////////////////////////////
-// Required Modules
+// Modules
 //////////////////////////////////////////////
 
-import Accessibility from "./modules/accessibility/";
+import Accessibility from "./modules/accessibility";
 new Accessibility();
 
-import Accordion from "./modules/accordion/";
+import Accordion from "./modules/accordion";
 new Accordion();
 
-import "./modules/alert/";
+import Alert from "./modules/alert";
+new Alert();
 
-import "./modules/article/";
+import "./modules/article";
 
 import "./modules/aspect-ratio";
 
-import Backdrop from "./modules/backdrop/";
+import Backdrop from "./modules/backdrop";
 new Backdrop();
 
 import "./modules/border";
 
 import "./modules/breakpoint";
 
-import "./modules/button";
+import Button from "./modules/button";
+new Button();
 
 import "./modules/card";
 
@@ -84,4 +86,14 @@ new Table();
 
 import "./modules/typography";
 
-import "./modules/z-index";
+import "./modules/z-index/index";
+
+//////////////////////////////////////////////
+// Environments (For Testing Webpack)
+//////////////////////////////////////////////
+
+if (process.env.NODE_ENV === 'development') {
+    console.log("Development Mode");
+} else if (process.env.NODE_ENV === 'production') {
+    console.log("Production Mode");
+}

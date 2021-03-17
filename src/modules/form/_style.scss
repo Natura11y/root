@@ -47,7 +47,8 @@ input[type="email"],
 input[type="password"],
 input[type="search"],
 select,
-textarea {
+textarea
+{
     display: block;
     width: 100%;
     max-width: 100%;
@@ -120,20 +121,23 @@ fieldset {
 
 .required-indicator {
     position: relative;
-    text-align: right;
     padding: 0.25em 0.5em;
     border-radius: var(--form-field-border-radius);
+    text-align: right;
     
     &::before {
         position: absolute;
         content: "";
+
         top: 0;
         right: 0;
         bottom: 0;
         left: 0;
-        background-color: currentColor;
-        opacity: 0.05;
+
         border-radius: inherit;
+        background-color: currentColor;
+        
+        opacity: 0.05;
     }
 
     [dir="rtl"] & {
@@ -142,9 +146,9 @@ fieldset {
 }
 
 .required-indicator__text {
+    font-size: var(--font-size-md);
     font-style: italic;
     opacity: 0.8;
-    font-size: var(--font-size-md);
 }
 
 .form-entry {
@@ -152,8 +156,8 @@ fieldset {
     select,
     textarea,
     input:not([type="radio"]):not([type="checkbox"]):not([type="file"]):not([type="range"]) {
-        background-color: transparent;
         color: inherit;
+        background-color: transparent;
         border-radius: inherit;
         border: 0;
         width: 100%;
@@ -166,12 +170,6 @@ fieldset {
 
     select option {
         color: currentColor !important;
-    }
-
-    ::placeholder {
-        color: currentColor;
-        opacity: 0.675;
-        opacity: 0;
     }
 
     [dir="rtl"] & {
@@ -188,7 +186,6 @@ fieldset {
 // E. Form Entry Elements
 //////////////////////////////////////////////
 
-
 .form-entry__field {
     position: relative;
 
@@ -198,14 +195,12 @@ fieldset {
     color: inherit;
 }
 
-
-
 .form-entry__field__label {
+    font-weight: var(--body-font-weight-bold);
+
     padding-left: var(--form-field-padding-x);
     padding-right: var(--form-field-padding-x);
-    margin-bottom: 0.5em;
 
-    font-weight: var(--body-font-weight-bold);
 
     // Required Asterisk
     
@@ -221,40 +216,24 @@ fieldset {
     }
 }
 
+.form-entry__field:not([class*="--float"]) .form-entry__field__label {
+    margin-bottom: calc(var(--form-field-padding-y) * 0.75);
+}
+
 .form-entry__field__select,
-.form-entry__field__input {
+.form-entry__field__input
+{
     position: relative;
-    
-    display: flex;
-    align-items: center;
 
     border-radius: var(--form-field-border-radius);
     overflow: hidden;
-    
+
     select, 
     input,
     textarea
     {
         padding: var(--form-field-padding-y) var(--form-field-padding-x);
         outline: none;
-    }
-
-    button {
-        flex-shrink: 0;
-    }
-
-    > [class*="button--icon-only"] {
-        border-radius: inherit;
-        height: unset;
-        width: unset;
-        padding-left: var(--form-field-padding-x);
-        padding-right: var(--form-field-padding-x);
-        align-self: stretch;
-    }
-
-    > [class*="nyc_icon"] {
-        margin-left: var(--form-field-padding-x);
-        font-size: 75%;
     }
 
     &::after {
@@ -278,6 +257,41 @@ fieldset {
             margin-right: var(--form-field-padding-x);
         }
     }
+}
+
+.form-entry__field__input {
+    display: flex;
+    align-items: center;
+
+    button {
+        flex-shrink: 0;
+    }
+
+    > .button {
+        --button-border-radius: 0;
+    }
+
+    > [class*="button--icon-only"] {
+        height: unset;
+        width: unset;
+
+        padding-left: var(--form-field-padding-x);
+        padding-right: var(--form-field-padding-x);
+        
+        align-self: stretch;
+    }
+
+    > [class*="nyc_icon"],
+    > .button-group
+    {
+        margin-left: var(--form-field-padding-x);
+    }
+
+    > .button-group {
+        margin-right: calc(var(--form-field-padding-x) * 0.5);
+        font-size: 75%;
+    }
+
 }
 
 [class*="primary-nav"] .form-entry__field__input::after {
@@ -308,8 +322,6 @@ fieldset {
 
         padding-top: var(--form-field-padding-x);
         padding-bottom: var(--form-field-padding-x);
-
-        margin-bottom: unset;
     }
 
     .active &, 
@@ -350,7 +362,7 @@ fieldset {
     }
 }
 
-.form-entry__help {
+.form-entry__field__help {
     font-size: 0.8em;
     padding-left: var(--form-field-padding-x);
     padding-right: var(--form-field-padding-x);
@@ -361,13 +373,16 @@ fieldset {
     position: relative;
 
     &::before {
-        content: "";
-        @include caret.caret-icon;
-        pointer-events: none;
+        @extend %caret-icon;
+
         position: absolute;
+        content: "";
+        
         right: 0;
         top: 50%;
+        
         transform: translateY(-50%);
+        
         margin-left: var(--form-field-padding-x);
         margin-right: var(--form-field-padding-x);
     }
@@ -410,9 +425,103 @@ fieldset {
 }
 
 .is-invalid {
+    .form-entry__field__help {
+        display: none;
+    }
     .form-entry__feedback {
         display: block;
     }
+}
+
+//////////////////////////////////////////////
+// C. File Upload
+//////////////////////////////////////////////
+
+.file-upload {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    overflow: hidden;
+
+    padding: var(--form-field-padding-y) var(--form-field-padding-x);
+
+    cursor: pointer;
+}
+
+.file-upload__input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+
+    opacity: 0.01;
+    width: 100%;
+    
+    z-index: 25;
+
+    cursor: pointer;
+}
+
+.file-upload__drag {
+    position: relative;
+    height: 150px;
+    
+    border-radius: var(--form-field-border-radius);
+    margin-bottom: var(--form-field-padding-y);
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+    
+    pointer-events: none;
+
+    font-size: var(--font-size-md);
+
+    &::before {
+        position: absolute;
+        content: "";
+
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        background-color: currentColor;
+        opacity: 0.05;
+    }
+
+    .active & {
+
+        &::before {
+            opacity: .125;
+        }
+    }
+}
+
+.file-upload__drag__text {
+    margin-left: 0.25em;
+    margin-right: 0.25em;
+}
+
+.file-upload__button {
+    position: relative;
+    z-index: 15;
+    pointer-events: none;
+    font-size: var(--font-size-md);
+}
+
+.file-upload__data {
+    display: flex;
+    justify-content: space-between;
+
+    font-size: var(--font-size-md);
+    margin-top: var(--form-field-padding-y);
 }
 
 //////////////////////////////////////////////
@@ -421,15 +530,16 @@ fieldset {
 
 .form-entry__option {
     position: relative;
-    display: flex;
-    flex-direction: column;
+    display: block;
+
+    border-radius: var(--form-field-border-radius);
 
     border-style: var(--default-border-style);
     border-width: var(--default-border-width);
 
     > div {
-        padding: var(--form-field-padding-y) var(--form-field-padding-x);
         position: relative;
+        padding: var(--form-field-padding-y) var(--form-field-padding-x);
     }
 
     > div:not(:last-child) {
@@ -442,8 +552,8 @@ fieldset {
         position: relative;
 
         &::before {
-            content: "";
             position: absolute;
+            content: "";
             top: calc(var(--form-field-padding-y) * -1);
             left: calc(var(--form-field-padding-x) * -1);
             bottom: calc(var(--form-field-padding-y) * -1);
@@ -464,7 +574,7 @@ fieldset {
         $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
         
         .form-entry__option.option--horizontal#{$mod} {
-            flex-direction: row;
+            display: flex;
             align-items: stretch;
 
             > div {
@@ -489,15 +599,17 @@ fieldset {
 
 // Shared Styles
 
-.form-entry__option__radio,
-.form-entry__option__check, 
-.form-entry__option__switch {
+.form-entry__option__radio > label,
+.form-entry__option__check > label, 
+.form-entry__option__switch > label
+{
     position: relative;
     color: inherit;
     display: flex;
     align-items: baseline;
     padding-left: 1.25em;
     width: auto;
+    
     cursor: pointer;
 
     [dir="rtl"] & {
@@ -506,16 +618,18 @@ fieldset {
     }
 }
 
-.form-entry__option__radio > input[type="radio"],
-.form-entry__option__check > input[type="checkbox"],
-.form-entry__option__switch > input[type="checkbox"]  {
+.form-entry__option__radio > label > input[type="radio"],
+.form-entry__option__check > label > input[type="checkbox"],
+.form-entry__option__switch > label > input[type="checkbox"]
+{
     background-color: transparent;
     opacity: 0;
 } 
 
-.form-entry__option__radio > input ~ .radio__label,
-.form-entry__option__check > input ~ .check__label,
-.form-entry__option__switch > input ~ .switch__label {
+.form-entry__option__radio > label > input ~ .radio__label,
+.form-entry__option__check > label > input ~ .check__label,
+.form-entry__option__switch > label > input ~ .switch__label
+{
     line-height: var(--body-line-height);
 
     &::before {
@@ -534,47 +648,34 @@ fieldset {
 
 // Form Option Radio
 
-.form-entry__option__radio > input ~ .radio__label::before{
+.form-entry__option__radio > label > input ~ .radio__label::before{
     content: "\e948";
 }
 
-.form-entry__option__radio > input:checked ~ .radio__label::before{
+.form-entry__option__radio > label > input:checked ~ .radio__label::before{
     content: "\e949";
 }
 
 // Form Option Check
 
-.form-entry__option__check > input ~ .check__label::before {
+.form-entry__option__check > label > input ~ .check__label::before {
     content: "\e946";
 }
 
-.form-entry__option__check > input:checked ~ .check__label::before {
+.form-entry__option__check > label > input:checked ~ .check__label::before {
     content: "\e947";
 }
 
-// Form Option Switch
-
-.form-entry__option__switch > input ~ .switch__label::before {
-    content: "\e95f";
-}
-
-.form-entry__option__switch > input:checked ~ .switch__label::before {
-    content: "\e960";
-}
-
-// Form Option Disabled
-
-.form-entry__option__radio > input:disabled ~ .radio__label::before,
-.form-entry__option__check > input:disabled ~ .check__label::before, 
-.form-entry__option__switch > input:disabled ~ .switch__label::before 
+.form-entry__option__radio > label > input:disabled ~ .radio__label::before,
+.form-entry__option__check > label > input:disabled ~ .check__label::before, 
+.form-entry__option__switch > label > input:disabled ~ .switch__label::before 
 {
     content: "\e95e";
 }
 
-
-.form-entry__option__radio.disabled,
-.form-entry__option__check.disabled,
-.form-entry__option__switch.disabled
+.form-entry__option__radio > label.disabled,
+.form-entry__option__check > label.disabled,
+.form-entry__option__switch > label.disabled
 {
     cursor: not-allowed;
 
@@ -586,9 +687,9 @@ fieldset {
 
 // Focus State
 
-.form-entry__option__radio > input:focus ~ .radio__label,
-.form-entry__option__check > input:focus ~ .check__label,
-.form-entry__option__switch > input:focus ~ .check__label {
+.form-entry__option__radio > label > input:focus ~ .radio__label,
+.form-entry__option__check > label > input:focus ~ .check__label,
+.form-entry__option__switch > label > input:focus ~ .check__label {
     text-decoration: underline;
     &::before{
         opacity: 0.75;
@@ -598,9 +699,9 @@ fieldset {
 
 // Checked State
 
-.form-entry__option__radio > input:checked ~ .radio__label,
-.form-entry__option__check > input:checked ~ .check__label,
-.form-entry__option__switch > input:checked ~ .switch__label {
+.form-entry__option__radio > label > input:checked ~ .radio__label,
+.form-entry__option__check > label > input:checked ~ .check__label,
+.form-entry__option__switch > label > input:checked ~ .switch__label {
     &::before{
         opacity: 1;
     }
@@ -609,14 +710,14 @@ fieldset {
 // RTL
 
 [dir="rtl"] {
-    .form-entry__option__radio > .radio__label::before,
-    .form-entry__option__radio > input[type="radio"],
+    .form-entry__option__radio > label > .radio__label::before,
+    .form-entry__option__radio > label > input[type="radio"],
 
-    .form-entry__option__check > .check__label::before,
-    .form-entry__option__check > input[type="checkbox"],     
+    .form-entry__option__check > label > .check__label::before,
+    .form-entry__option__check > label > input[type="checkbox"],     
 
-    .form-entry__option__switch > .switch__label::before,
-    .form-entry__option__switch > input[type="checkbox"]
+    .form-entry__option__switch > label > .switch__label::before,
+    .form-entry__option__switch > label > input[type="checkbox"]
     {
         left: unset;
         right: 0;
@@ -627,37 +728,26 @@ fieldset {
 // G. Input Toggle Switch
 //////////////////////////////////////////////
 
-.toggle-switch {
-    --toggle-switch-width: 5rem;
-    --toggle-switch-transition: 0.3s;
-    --toggle-switch-active-color: var(--primary);
+.form-entry__option__switch {
+    --toggle-switch-width: 1.5em;
+    --toggle-switch-transition: 0.2s;
+    --toggle-switch-active-color: green;
 
-    position: relative;
-    display: inline-block;
-
-    width: var(--toggle-switch-width); 
-    height: calc(var(--toggle-switch-width) * 0.5);
-
-    input[type="checkbox"] { 
-        background-color: transparent;
-        opacity: 0;
-    }
-
-    .toggle-switch__slider {
+    .switch__slider {
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-
-        cursor: pointer;
+        width: var(--toggle-switch-width); 
+        height: calc(var(--toggle-switch-width) * 0.5);
+        left: -0.125em;
+        top: 50%;
+        transform: translateY(-50%);
+        
 
         &::before,
         &::after
         {
             position: absolute;
             content: "";
-            transition: var(--toggle-switch-transition);
+            transition: var(--toggle-switch-transition) ease-in-out;
         }
 
         &::before {
@@ -665,35 +755,40 @@ fieldset {
             right: 0;
             bottom: 0;
             left: 0;
-            background-color: currentColor;
-            opacity: 0.375;
 
             border-radius: calc(var(--toggle-switch-width) * 0.5);
+
+            background-color: currentColor;
+            opacity: 0.375;
         }
 
         &::after {
-            height: calc(var(--toggle-switch-width) * 0.4);
-            width: calc(var(--toggle-switch-width) * 0.4);
-            top: calc(var(--toggle-switch-width) * 0.05);
-            left: calc(var(--toggle-switch-width) * 0.05);
+            height: calc(var(--toggle-switch-width) * 0.5);
+            width: calc(var(--toggle-switch-width) * 0.5);
+            top: 0;
+            left: 0;
+
+            border-width: 2px;
+            border-style: solid;
+            border-color: transparent;
+
             background-color: white;
+            background-clip: padding-box;
 
             border-radius: 100%;
         }
     }
 
-    input:checked + .toggle-switch__slider::before {
+    input:checked + .switch__slider::before {
         opacity: 1;
         background-color: var(--toggle-switch-active-color);
     }
 
-    input:checked + .toggle-switch__slider::after {
-        transform: translateX(calc(var(--toggle-switch-width) * 0.5));
+    input:checked + .switch__slider::after {
+        left: 50%;
     }
 
-    input:focus + .toggle-switch__slider {
+    // input:focus + .switch__slider {
         // box-shadow: 0 0 4px 1px var(--toggle-switch-active-color);
-    }
+    // }
 }
-
-
