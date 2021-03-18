@@ -15,8 +15,6 @@
     <!-- NYC Core Icons -->
     <link rel="stylesheet" href="https://i.icomoon.io/public/395bc97f45/NYCCoreIcons/style.css">
 
-    <!-- NYC Core Stylesheet -->
-
     <style>
 
         html, 
@@ -33,13 +31,11 @@
 
             grid-template-areas:
                 "head main"
-                "foot main";
+                "foot foot";
         }
 
         #global-header {
             grid-area: head;
-
-            background-color: yellow;
         }
 
         #global-main {
@@ -48,7 +44,10 @@
             scroll-behavior: smooth;
         }
 
-        #global-main section > header,
+        #global-main section {
+            min-height: 100vh;
+        }
+
         #global-main section > figure {
             margin: var(--spacer-4) auto;
         }
@@ -69,12 +68,14 @@
 
 <body class="tabs" id="page">
 
-   <header id="global-header">
+   <header class="box-shadow-1 z-index-1000" id="global-header">
+
+        <!-- For keyboard users -->
+        <a class="focusable-only" href="#skip-header-target">Skip Header</a>
 
         <div class="padding-3">
 
-            <!-- For keyboard users -->
-            <a class="focusable-only" href="#skip-header-target">Skip Header</a>
+            <a href="#">
 
                 <!-- Placeholder logo, replace the following <svg> tag with your own image version -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="168" height="40" viewBox="0 0 168 40">
@@ -120,13 +121,16 @@
         <div class="padding-3">
             <ul class="nav font-size-md" role="menu">
                 <li>
-                    <a href="#tab-panel-01">Accordion</a>
+                    <a href="#example-accordion">Accordion</a>
                 </li>
                 <li>
-                    <a href="#tab-panel-02">Alert</a>
+                    <a href="#example-alert">Alert</a>
                 </li>
                 <li>
-                    <a href="#1">Link</a>
+                    <a href="#example-aspect-ratio">Aspect Ratio</a>
+                </li>
+                <li>
+                    <a href="#example-backdrops">Backdrops</a>
                 </li>
             </ul>
         </div>
@@ -136,262 +140,629 @@
 
     <main id="global-main">
 
-    <div class="overflow-hidden">
+        <div class="overflow-hidden">
 
-    <section id="tab-panel-01">
+            <section id="example-accordion">
 
-        <header>
-            <h2>
-                Accordion
-            </h2>
-        </header>
+                <header class="theme-light padding-y-5 margin-bottom-5">
+                    <h2 class="banner-headline">
+                        Accordion
+                    </h2>
+                </header>
 
-        <figure class="container narrow">
+                <figure class="container narrow">
 
-            <div class="accordion">
+                    <div class="accordion">
 
-                <button class="accordion__button h5" id="acc-button-boroughs-manhattan" data-toggle="accordion" aria-controls="acc-panel-boroughs-manhattan" aria-expanded="false">
-                    Manhattan
-                </button>
+                        <button class="accordion__button h5" id="acc-button-boroughs-manhattan" data-toggle="accordion" aria-controls="acc-panel-boroughs-manhattan" aria-expanded="false">
+                            Manhattan
+                        </button>
 
-                <div class="accordion__panel" id="acc-panel-boroughs-manhattan" data-accordion="panel" aria-labelledby="acc-button-boroughs-manhattan" role="region">
-                    <div class="accordion__panel__content">
-                        <p>
-                            New York City comprises 5 boroughs sitting where the Hudson River meets the Atlantic Ocean. At its core is
-                            <a href="#1">Manhattan</a>, a densely populated borough that’s among the world’s major commercial, financial and cultural centers. Its iconic sites include skyscrapers such as the Empire State Building and sprawling Central Park.
-                        </p>
+                        <div class="accordion__panel" id="acc-panel-boroughs-manhattan" data-accordion="panel" aria-labelledby="acc-button-boroughs-manhattan" role="region">
+                            <div class="accordion__panel__content">
+                                <p>
+                                    New York City comprises 5 boroughs sitting where the Hudson River meets the Atlantic Ocean. At its core is
+                                    <a href="#1">Manhattan</a>, a densely populated borough that’s among the world’s major commercial, financial and cultural centers. Its iconic sites include skyscrapers such as the Empire State Building and sprawling Central Park.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="accordion__button h5" id="acc-button-boroughs-the-bronx" data-toggle="accordion" aria-controls="acc-panel-boroughs-the-bronx" aria-expanded="false">
+                            The Bronx
+                        </button>
+
+                        <div class="accordion__panel" id="acc-panel-boroughs-the-bronx" data-accordion="panel" aria-labelledby="acc-button-boroughs-the-bronx" role="region">
+                            <div class="accordion__panel__content">
+                                <p>
+                                    The Bronx is a borough of New York City. It's known for Yankee Stadium, the home field of the New York Yankees baseball team. Dating from 1899, the vast Bronx Zoo houses hundreds of species of animals. Nearby, the sprawling New York Botanical Garden features a landmark greenhouse with rainforest and cactus displays.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="accordion__button h5" id="acc-button-boroughs-brooklyn" data-toggle="accordion" aria-controls="acc-panel-boroughs-brooklyn" aria-expanded="false">
+                            Brooklyn
+                        </button>
+
+                        <div class="accordion__panel" id="acc-panel-boroughs-brooklyn" data-accordion="panel" aria-labelledby="acc-button-boroughs-brooklyn" role="region">
+                            <div class="accordion__panel__content">
+                                <p>
+                                    Brooklyn is a borough of New York City, co-extensive with Kings County, in the U.S. state of New York. It is the most-populous county in the state, the second-most densely populated county in the United States, and New York City's most populous borough, with an estimated 2,648,403 residents in 2020.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="accordion__button h5" id="acc-button-boroughs-queens" data-toggle="accordion" aria-controls="acc-panel-boroughs-queens" aria-expanded="false">
+                            Queens
+                        </button>
+
+                        <div class="accordion__panel" id="acc-panel-boroughs-queens" data-accordion="panel" aria-labelledby="acc-button-boroughs-queens" role="region">
+                            <div class="accordion__panel__content">
+                                <p>
+                                    Queens is a New York City borough on Long Island across the East River from Manhattan. Flushing Meadows Corona Park, with the Unisphere, a 12-story 1964 World's Fair globe sculpture, hosts the annual U.S. Open tennis tournament.
+                                </p>
+                            </div>
+                        </div>
+
+                        <button class="accordion__button h5" id="acc-button-boroughs-staten-island" data-toggle="accordion" aria-controls="acc-panel-boroughs-staten-island" aria-expanded="false">
+                            Staten Island
+                        </button>
+
+                        <div class="accordion__panel" id="acc-panel-boroughs-staten-island" data-accordion="panel" aria-labelledby="acc-button-boroughs-staten-island" role="region">
+                            <div class="accordion__panel__content">
+                                <p>
+                                    Staten Island is the southernmost of New York City's 5 boroughs. It is connected to Lower Manhattan via the Staten Island Ferry, which runs across New York Harbor. Staten Island Zoo is home to kangaroos, birds of prey and snakes. The Snug Harbor Cultural Center and Botanical Garden features flower beds, Greek revival buildings and art galleries.
+                                </p>
+                            </div>
+                        </div>
+
                     </div>
-                </div>
+                    <!-- .accordion -->
 
-                <button class="accordion__button h5" id="acc-button-boroughs-the-bronx" data-toggle="accordion" aria-controls="acc-panel-boroughs-the-bronx" aria-expanded="false">
-                    The Bronx
-                </button>
+                </figure>
 
-                <div class="accordion__panel" id="acc-panel-boroughs-the-bronx" data-accordion="panel" aria-labelledby="acc-button-boroughs-the-bronx" role="region">
-                    <div class="accordion__panel__content">
-                        <p>
-                            The Bronx is a borough of New York City. It's known for Yankee Stadium, the home field of the New York Yankees baseball team. Dating from 1899, the vast Bronx Zoo houses hundreds of species of animals. Nearby, the sprawling New York Botanical Garden features a landmark greenhouse with rainforest and cactus displays.
-                        </p>
+                <figure class="container narrow">
+
+                    <div class="accordion">
+
+                        <button class="accordion__button h6" id="acc-button-group-b-01" data-toggle="accordion" aria-controls="acc-panel-group-b-01" aria-expanded="false">
+                            Accordion One
+                        </button>
+
+                        <div class="accordion__panel" id="acc-panel-group-b-01" data-accordion="panel" aria-labelledby="acc-button-group-b-01" role="region">
+                            <div class="accordion__panel__content">
+                                <p>
+                                    Content for accordion one.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- .accordion__panel -->
+
+                        <button class="accordion__button h6" id="acc-button-group-b-02" data-toggle="accordion" aria-controls="acc-panel-group-b-02" aria-expanded="false">
+                            Accordion Two
+                        </button>
+
+                        <div class="accordion__panel" id="acc-panel-group-b-02" data-accordion="panel" aria-labelledby="acc-button-group-b-02" role="region">
+                            <div class="accordion__panel__content">
+                                <p>
+                                    Content for accordion two.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- .accordion__panel -->
+
+                        <button class="accordion__button h6" id="acc-button-group-b-03" data-toggle="accordion" aria-controls="acc-panel-group-b-03" aria-expanded="false">
+                            Accordion Three
+                        </button>
+
+                        <div class="accordion__panel" id="acc-panel-group-b-03" data-accordion="panel" aria-labelledby="acc-button-group-b-03" role="region">
+                            <div class="accordion__panel__content">
+                                <p>
+                                    Content for accordion three.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- .accordion__panel -->
+
                     </div>
-                </div>
+                    <!-- .accordion -->
 
-                <button class="accordion__button h5" id="acc-button-boroughs-brooklyn" data-toggle="accordion" aria-controls="acc-panel-boroughs-brooklyn" aria-expanded="false">
-                    Brooklyn
-                </button>
+                </figure>
 
-                <div class="accordion__panel" id="acc-panel-boroughs-brooklyn" data-accordion="panel" aria-labelledby="acc-button-boroughs-brooklyn" role="region">
-                    <div class="accordion__panel__content">
-                        <p>
-                            Brooklyn is a borough of New York City, co-extensive with Kings County, in the U.S. state of New York. It is the most-populous county in the state, the second-most densely populated county in the United States, and New York City's most populous borough, with an estimated 2,648,403 residents in 2020.
-                        </p>
+            </section>
+
+            <hr>
+
+            <section id="example-alert">
+                
+                <header class="theme-light padding-y-5 margin-bottom-5">
+                    <h2 class="banner-headline">
+                        Alert
+                    </h2>
+                </header>
+
+                <figure class="container narrow margin-y-4">
+
+                    <div class="alert alert--confirm margin-y-3">
+
+                        <div class="alert__head">
+                            <span class="nyc_icon_confirm" aria-hidden="true"></span>
+                            <span class="alert__head__title">Confirm Title</span>
+                        </div>
+
+                        <div class="alert__body">
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident omnis ipsum
+                                <a href="#1">quos natus aliquam</a>.
+                            </p>
+                        </div>
+
                     </div>
-                </div>
 
-                <button class="accordion__button h5" id="acc-button-boroughs-queens" data-toggle="accordion" aria-controls="acc-panel-boroughs-queens" aria-expanded="false">
-                    Queens
-                </button>
+                    <div class="alert alert--confirm--inverse margin-y-3">
 
-                <div class="accordion__panel" id="acc-panel-boroughs-queens" data-accordion="panel" aria-labelledby="acc-button-boroughs-queens" role="region">
-                    <div class="accordion__panel__content">
-                        <p>
-                            Queens is a New York City borough on Long Island across the East River from Manhattan. Flushing Meadows Corona Park, with the Unisphere, a 12-story 1964 World's Fair globe sculpture, hosts the annual U.S. Open tennis tournament.
-                        </p>
+                        <div class="alert__head">
+                            <p>
+                                <span class="nyc_icon_confirm" aria-hidden="true"></span>
+                                <span class="alert__head__title">Confirm Title</span>
+                            </p>
+                        </div>
+
+                        <div class="alert__body">
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident omnis ipsum
+                                <a href="#1">quos natus aliquam</a>.
+                            </p>
+                        </div>
+
                     </div>
-                </div>
 
-                <button class="accordion__button h5" id="acc-button-boroughs-staten-island" data-toggle="accordion" aria-controls="acc-panel-boroughs-staten-island" aria-expanded="false">
-                    Staten Island
-                </button>
+                </figure>
 
-                <div class="accordion__panel" id="acc-panel-boroughs-staten-island" data-accordion="panel" aria-labelledby="acc-button-boroughs-staten-island" role="region">
-                    <div class="accordion__panel__content">
-                        <p>
-                            Staten Island is the southernmost of New York City's 5 boroughs. It is connected to Lower Manhattan via the Staten Island Ferry, which runs across New York Harbor. Staten Island Zoo is home to kangaroos, birds of prey and snakes. The Snug Harbor Cultural Center and Botanical Garden features flower beds, Greek revival buildings and art galleries.
-                        </p>
+                <figure class="container narrow margin-y-4">
+
+                    <div class="alert alert--dismissable alert--warn margin-y-3">
+
+                        <div class="alert__head">
+                            <p>
+                                <span class="nyc_icon_warn" aria-hidden="true"></span>
+                                <span class="alert__head__title">Confirm Title</span>
+                            </p>
+                        </div>
+
+                        <div class="alert__body">
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident omnis ipsum
+                                <a href="#1">quos natus aliquam</a>.
+                            </p>
+                        </div>
+
                     </div>
-                </div>
 
-            </div>
-            <!-- .accordion -->
+                    <div class="alert alert--warn--inverse margin-y-3">
 
-        </figure>
+                        <div class="alert__head">
+                            <p>
+                                <span class="nyc_icon_warn" aria-hidden="true"></span>
+                                <span class="alert__head__title">Confirm Title</span>
+                            </p>
+                        </div>
 
-        <figure class="container narrow">
+                        <div class="alert__body">
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident omnis ipsum
+                                <a href="#1">quos natus aliquam</a>.
+                            </p>
+                        </div>
 
-            <div class="accordion">
-
-                <button class="accordion__button h6" id="acc-button-group-b-01" data-toggle="accordion" aria-controls="acc-panel-group-b-01" aria-expanded="false">
-                    Accordion One
-                </button>
-
-                <div class="accordion__panel" id="acc-panel-group-b-01" data-accordion="panel" aria-labelledby="acc-button-group-b-01" role="region">
-                    <div class="accordion__panel__content">
-                        <p>
-                            Content for accordion one.
-                        </p>
                     </div>
-                </div>
-                <!-- .accordion__panel -->
 
-                <button class="accordion__button h6" id="acc-button-group-b-02" data-toggle="accordion" aria-controls="acc-panel-group-b-02" aria-expanded="false">
-                    Accordion Two
-                </button>
+                </figure>
 
-                <div class="accordion__panel" id="acc-panel-group-b-02" data-accordion="panel" aria-labelledby="acc-button-group-b-02" role="region">
-                    <div class="accordion__panel__content">
-                        <p>
-                            Content for accordion two.
-                        </p>
+                <figure class="container narrow margin-y-4 text-align-center">
+
+                    <div class="alert alert--confirm--inverse rounded margin-y-2">
+                        <div class="alert__head">
+                            <p>
+                                <span class="nyc_icon_confirm" aria-hidden="true"></span>
+                                <span class="alert__head__title">Confirm Title</span>
+                            </p>
+                        </div>
                     </div>
-                </div>
-                <!-- .accordion__panel -->
 
-                <button class="accordion__button h6" id="acc-button-group-b-03" data-toggle="accordion" aria-controls="acc-panel-group-b-03" aria-expanded="false">
-                    Accordion Three
-                </button>
+                    <div class="alert alert--warn--inverse rounded margin-y-2">
 
-                <div class="accordion__panel" id="acc-panel-group-b-03" data-accordion="panel" aria-labelledby="acc-button-group-b-03" role="region">
-                    <div class="accordion__panel__content">
-                        <p>
-                            Content for accordion three.
-                        </p>
+                        <div class="alert__head">
+                            <p>
+                                <span class="nyc_icon_warn" aria-hidden="true"></span>
+                                <span class="alert__head__title">Confirm Title</span>
+                            </p>
+                        </div>
+
                     </div>
-                </div>
-                <!-- .accordion__panel -->
 
-            </div>
-            <!-- .accordion -->
+                    <div class="alert text-color-primary rounded margin-y-2">
 
-        </figure>
+                        <div class="alert__head">
+                            <p>
+                                <span class="nyc_icon_confirm" aria-hidden="true"></span>
+                                <span class="alert__head__title">Confirm Title</span>
+                            </p>
+                        </div>
 
-    </section>
+                    </div>
 
-    <section id="tab-panel-02">
-    
-        <header>
-            <h2>
-                Alert
-            </h2>
-        </header>
+                </figure>
+            
+            </section>
+            
+            <hr>
 
-        <figure class="container narrow margin-y-4">
+            <section id="example-aspect-ratio">
+                
+                <header class="theme-light padding-y-5 margin-bottom-5">
+                    <h2 class="banner-headline">
+                        Aspect Ratio
+                    </h2>
+                </header>
 
-            <div class="alert alert--confirm margin-y-3">
+                <figure class="container narrow margin-y-4">
 
-                <div class="alert__head">
-                    <span class="nyc_icon_confirm" aria-hidden="true"></span>
-                    <span class="alert__head__title">Confirm Title</span>
-                </div>
+                    <div class="aspect-ratio aspect-ratio--16by9">
+                        <iframe
+                            class="aspect-ratio__content"
+                            title="Iframe Title"
+                            src="https://player.vimeo.com/video/80364498?title=0&byline=0&portrait=0"
+                            allow="autoplay; fullscreen"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
 
-                <div class="alert__body">
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident omnis ipsum
-                        <a href="#1">quos natus aliquam</a>.
-                    </p>
-                </div>
+                </figure>
 
-            </div>
+                <figure class="container narrow margin-y-4">
 
-            <div class="alert alert--confirm--inverse margin-y-3">
+                    <table class="table">
 
-                <div class="alert__head">
-                    <p>
-                        <span class="nyc_icon_confirm" aria-hidden="true"></span>
-                        <span class="alert__head__title">Confirm Title</span>
-                    </p>
-                </div>
+                        <thead>
+                            <tr>
+                                <th class="col-a width-50">Size &amp; Class Name</th>
+                                <th class="col-c width-50">Visual</th>
+                            </tr>
+                        </thead>
 
-                <div class="alert__body">
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident omnis ipsum
-                        <a href="#1">quos natus aliquam</a>.
-                    </p>
-                </div>
+                        <tbody class="table">
+                            <tr>
+                                <td>
+                                    <p class="margin-bottom-1">
+                                        16x9
+                                    </p>
+                                    <code>.aspect-ratio--16by9</code>
+                                </td>
+                                <td>
+                                    <div class="aspect-ratio aspect-ratio--16by9 theme-primary opacity-50">
+                                        <div class="aspect-ratio__content"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="margin-bottom-1">
+                                        4x3
+                                    </p>
+                                    <code>.aspect-ratio--4by3</code>
+                                </td>
+                                <td>
+                                    <div class="aspect-ratio aspect-ratio--4by3 theme-primary opacity-50">
+                                        <div class="aspect-ratio__content"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="margin-bottom-1">
+                                        3x1
+                                    </p>
+                                    <code>.aspect-ratio--3by2</code>
+                                </td>
+                                <td>
+                                    <div class="aspect-ratio aspect-ratio--3by2 theme-primary opacity-50">
+                                        <div class="aspect-ratio__content"></div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="margin-bottom-1">
+                                        1x1
+                                    </p>
+                                    <code>.aspect-ratio--1by1</code>
+                                </td>
+                                <td>
+                                    <div class="aspect-ratio aspect-ratio--1by1 theme-primary opacity-50">
+                                        <div class="aspect-ratio__content"></div>
+                                    </div>
+                                </td>
+                            </tr>
 
-            </div>
+                        </tbody>
 
-        </figure>
+                    </table>
 
-        <figure class="container narrow margin-y-4">
+                </figure>
+            
+            </section>
+            
+            <hr>
 
-            <div class="alert alert--dismissable alert--warn margin-y-3">
+            <section id="example-backdrops">
+                
+                <header class="theme-light padding-y-5 margin-bottom-5">
+                    <h2 class="banner-headline">
+                        Backdrops
+                    </h2>
+                </header>
 
-                <div class="alert__head">
-                    <p>
-                        <span class="nyc_icon_warn" aria-hidden="true"></span>
-                        <span class="alert__head__title">Confirm Title</span>
-                    </p>
-                </div>
+                <figure class="container wide margin-y-5">
 
-                <div class="alert__body">
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident omnis ipsum
-                        <a href="#1">quos natus aliquam</a>.
-                    </p>
-                </div>
+                    <div class="backdrop backdrop--stack--md theme-primary theme-dark--md">
 
-            </div>
+                        <div class="backdrop__image gradient-veneer-bottom">
+                            <img class="opacity-50" src="./images/backdrop-example-01.jpg" loading="lazy" alt="Placeholder">
+                        </div>
+                        
+                        <div class="backdrop__credit">
+                            <p>Photo by <a href="#1">Jane Doe</a> on Unsplash</p>
+                        </div>
 
-            <div class="alert alert--warn--inverse margin-y-3">
+                        <div class="backdrop__cover">
 
-                <div class="alert__head">
-                    <p>
-                        <span class="nyc_icon_warn" aria-hidden="true"></span>
-                        <span class="alert__head__title">Confirm Title</span>
-                    </p>
-                </div>
+                            <div class="container narrow medium--md margin-y-3">
 
-                <div class="alert__body">
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident omnis ipsum
-                        <a href="#1">quos natus aliquam</a>.
-                    </p>
-                </div>
+                                <h1 class="banner-headline text-align-center text-shadow margin-bottom-3">
+                                    Lorem ipsum dolor sit amet consectetur
+                                </h1>
 
-            </div>
+                                <div class="narrow">
 
-        </figure>
+                                    <div class="grid grid--gap-3 grid--cells-fill--sm">
 
-        <figure class="container narrow margin-y-4 text-align-center">
+                                        <div class="grid__cell">
+                                            <a class="button theme-white display-block box-shadow-3" href="#1">Link</a>
+                                        </div>
+                                        <!-- .grid__cell -->
 
-            <div class="alert alert--confirm--inverse rounded margin-y-2">
-                <div class="alert__head">
-                    <p>
-                        <span class="nyc_icon_confirm" aria-hidden="true"></span>
-                        <span class="alert__head__title">Confirm Title</span>
-                    </p>
-                </div>
-            </div>
+                                        <div class="grid__cell">
+                                            <a class="button theme-secondary display-block box-shadow-2" href="#1">Link</a>
+                                        </div>
+                                        <!-- .grid__cell -->
 
-            <div class="alert alert--warn--inverse rounded margin-y-2">
+                                    </div>
+                                    <!-- .grid -->
 
-                <div class="alert__head">
-                    <p>
-                        <span class="nyc_icon_warn" aria-hidden="true"></span>
-                        <span class="alert__head__title">Confirm Title</span>
-                    </p>
-                </div>
+                                </div>
 
-            </div>
+                            </div>
+                            <!-- .container -->
 
-            <div class="alert text-color-primary rounded margin-y-2">
+                        </div>
+                        <!-- .backdrop__cover -->
+                        
+                    </div>
+                    <!-- .backdrop -->
 
-                <div class="alert__head">
-                    <p>
-                        <span class="nyc_icon_confirm" aria-hidden="true"></span>
-                        <span class="alert__head__title">Confirm Title</span>
-                    </p>
-                </div>
+                </figure>
 
-            </div>
+                <figure class="container medium margin-y-4">
 
-        </figure>
-    
-    </section>
+                    <div class="grid grid--gap-2 grid--cells-fill--md text-align-center">
 
+                        <div class="grid__cell">
 
-    
-    </div>
+                            <div class="backdrop theme-secondary rounded">
+
+                                <div class="backdrop__image gradient-veneer-bottom">
+                                    <img class="opacity-60" src="./images/backdrop-example-02.jpg" alt="Placeholder">
+                                </div>
+
+                                <div class="backdrop__cover justify-content-end margin-y-3">
+                                    <div class="container margin-y-2">
+                                        <a href="#1" class="h3">Title Link</a>
+                                    </div>
+                                </div>
+                                <!-- cover -->
+
+                            </div>
+                            <!-- .backdrop-feature -->
+
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell">
+
+                            <div class="backdrop theme-primary rounded">
+
+                                <div class="backdrop__image gradient-veneer-right">
+                                    <img class="opacity-60" src="./images/backdrop-example-03.jpg" alt="Placeholder">
+                                </div>
+
+                                <div class="backdrop__cover">
+
+                                    <div class="container margin-y-2 width-100 text-align-right">
+                                        <a href="#1" class="h3">Title Link</a>
+                                    </div>
+                                    
+                                </div>
+                                <!-- cover -->
+
+                            </div>
+                            <!-- .backdrop-feature -->
+
+                        </div>
+                        <!-- grid__cell -->
+
+                    </div>
+                    <!-- grid -->
+
+                </figure>
+
+                <figure class="margin-y-4">
+
+                    <div class="backdrop backdrop--fixed theme-dark">
+
+                        <div class="backdrop__image">
+                            <img class="opacity-30" src="./images/backdrop-example-04.jpg" alt="Placeholder">
+                        </div>
+
+                        <div class="backdrop__cover">
+
+                            <div class="container wide">
+
+                                <h1 class="banner-headline">
+                                    Lorem ipsum dolor
+                                </h1>
+
+                            </div>
+                            <!-- .container -->
+
+                        </div>
+                        <!-- .backdrop__cover -->
+
+                        <div class="backdrop__credit">
+                            <p>Photo by <a href="#1">Jane Doe</a> on Unsplash</p>
+                        </div>
+
+                    </div>
+                    <!-- .backdrop -->
+                    
+                </figure>
+
+                <figure class="margin-y-4">
+
+                    <div class="backdrop backdrop--fixed theme-dark">
+
+                        <div class="backdrop__image">
+                            <img class="backdrop__image opacity-30" src="./images/backdrop-example-05.jpg" alt="Placeholder">
+                        </div>
+
+                        <div class="backdrop__credit">
+                            <p>Photo by <a href="#1">Jane Doe</a> on Unsplash</p>
+                        </div>
+
+                        <div class="backdrop__cover text-align-center">
+
+                            <div class="container medium margin-y-5">
+
+                                <h1 class="banner-headline text-shadow margin-bottom-4">
+                                    Lorem ipsum dolor sit amet consectetur
+                                </h1>
+
+                                <div class="margin-y-4">
+
+                                    <div class="grid grid--gap-3 grid--cells-fill--md justify-content-center">
+
+                                        <div class="grid__cell">
+
+                                            <div class="card box-shadow-2 rounded text-align-left" style="backdrop-filter: blur(0.75rem) brightness(50%); background-clip:border-box;">
+
+                                                <div class="card__head border-bottom ">
+                                                    <p>Card Header</p>
+                                                </div>
+
+                                                <div class="card__body">
+                                                    <h2 class="h4">Card Title</h2>
+                                                    <p>
+                                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
+                                                        obcaecati autem, ex facilis labore reiciendis.
+                                                    </p>
+                                                </div>
+
+                                                <div class="card__foot border-top font-size-sm">
+                                                    <a class="button theme-primary display-block" href="#1">Action</a>
+                                                </div>
+                                            </div>
+                                            <!-- .card -->
+
+                                        </div>
+                                        <!-- .grid__cell -->
+
+                                        <div class="grid__cell">
+
+                                            <div class="card box-shadow-2 rounded text-align-left" style="backdrop-filter: blur(1em) brightness(50%); background-clip:border-box;">
+
+                                                <div class="card__head border-bottom">
+                                                    <p>Card Header</p>
+                                                </div>
+
+                                                <div class="card__body">
+                                                    <h2 class="h4">Card Title</h2>
+                                                    <p>
+                                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
+                                                        obcaecati autem, ex
+                                                        facilis labore reiciendis.
+                                                    </p>
+                                                </div>
+
+                                                <div class="card__foot border-top font-size-sm">
+                                                    <a class="button theme-primary display-block" href="#1">Action</a>
+                                                </div>
+                                            </div>
+                                            <!-- .card -->
+
+                                        </div>
+                                        <!-- .grid__cell -->
+
+                                    </div>
+                                    <!-- .grid -->
+
+                                </div>
+
+                                <div class="margin-y-3">
+
+                                    <p>Follow Us</p>
+
+                                    <ul class="nav nav--horizontal justify-content-center font-size-lg">
+                                        <li>
+                                            <a class="button--icon-only theme-primary" href="#1" title="Facebook">
+                                                <span class="screen-reader-only">Facebook</span>
+                                                <span class="fab fa-facebook-f" aria-hidden="true"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="button--icon-only theme-primary" href="#1" title="Facebook">
+                                                <span class="screen-reader-only">Facebook</span>
+                                                <span class="fab fa-twitter" aria-hidden="true"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="button--icon-only theme-primary" href="#1" title="Facebook">
+                                                <span class="screen-reader-only">Facebook</span>
+                                                <span class="fab fa-youtube" aria-hidden="true"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="button--icon-only theme-primary" href="#1" title="Facebook">
+                                                <span class="screen-reader-only">Facebook</span>
+                                                <span class="fas fa-share" aria-hidden="true"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                                
+                            </div>
+                            <!-- .container -->
+
+                        </div>
+                        <!-- .backdrop__cover -->
+
+                    </div>
+                    <!-- backdrop -->
+
+                </figure>
+            
+            </section>
+
+        </div>
 
     </main>
 
@@ -413,8 +784,6 @@
             }, 'google_translate_element');
         }
     </script>
-
-    <!-- NYC Core Javascript -->
     
 </body>
 
