@@ -252,7 +252,7 @@ fieldset {
     }
 
     [dir="rtl"] & {
-        > [class*="nyc_icon"] {
+        > [class*="icon"] {
             margin-left: unset;
             margin-right: var(--form-field-padding-x);
         }
@@ -281,7 +281,7 @@ fieldset {
         align-self: stretch;
     }
 
-    > [class*="nyc_icon"],
+    > [class*="icon"],
     > .button-group
     {
         margin-left: var(--form-field-padding-x);
@@ -641,7 +641,7 @@ fieldset {
         font-size: 125%;
         margin-top: -0.125em;
 
-        @extend .nyc_icon_font;
+        @extend .icon_font;
     }
 }
 
