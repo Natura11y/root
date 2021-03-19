@@ -254,7 +254,7 @@ dd,
 blockquote,
 address {
     &:last-child {
-        margin-bottom: 0;
+        margin-bottom: unset;
     }
 }
 
@@ -267,7 +267,7 @@ address {
         $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
         .text-align-center{
-        text-align: center !important;
+            text-align: center !important;
         }
 
         .text-align-left {
