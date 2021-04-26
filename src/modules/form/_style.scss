@@ -269,6 +269,7 @@ fieldset {
 
     > .button {
         --button-border-radius: 0;
+        align-self: stretch;
     }
 
     > [class*="button--icon-only"] {
@@ -648,29 +649,29 @@ fieldset {
 
 // Form Option Radio
 
-.form-entry__option__radio > label > input ~ .radio__label::before{
-    content: "\e948";
+.form-entry__option__radio > label > input ~ .radio__label::before {
+    content: "\e938";
 }
 
-.form-entry__option__radio > label > input:checked ~ .radio__label::before{
-    content: "\e949";
+.form-entry__option__radio > label > input:checked ~ .radio__label::before {
+    content: "\e939";
 }
 
 // Form Option Check
 
 .form-entry__option__check > label > input ~ .check__label::before {
-    content: "\e946";
+    content: "\e936";
 }
 
 .form-entry__option__check > label > input:checked ~ .check__label::before {
-    content: "\e947";
+    content: "\e937";
 }
 
 .form-entry__option__radio > label > input:disabled ~ .radio__label::before,
 .form-entry__option__check > label > input:disabled ~ .check__label::before, 
 .form-entry__option__switch > label > input:disabled ~ .switch__label::before 
 {
-    content: "\e95e";
+    content: "\e93a";
 }
 
 .form-entry__option__radio > label.disabled,

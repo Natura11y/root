@@ -139,7 +139,9 @@ body:not([class*="theme-"]),
             border-color: inherit;
         }
     }
-
+    
+    td > a, 
+    .td-content > a,
     p > a:not([class*="text-color-"]) {
         color: var(--link-color);
     }
