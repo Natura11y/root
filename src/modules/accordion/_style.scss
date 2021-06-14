@@ -21,8 +21,7 @@ In this file:
 
 // Scoped to Block
 
-%custom-properties {
-    
+%accordion-vars {
     --accordion-button-padding-x: var(--spacer-3);
     --accordion-button-padding-y: var(--button-padding-y);
 
@@ -30,6 +29,7 @@ In this file:
     --accordion-panel-padding-y: var(--spacer-4);
     
     --accordion-active-color: currentColor;
+
     --accordion-animation: 0.2s ease-out;
 }
 
@@ -38,20 +38,12 @@ In this file:
 //////////////////////////////////////////////
 
 .accordion {
-    @extend %custom-properties;
+    @extend %accordion-vars;
 }
 
 //////////////////////////////////////////////
 // D. Accordion Elements
 //////////////////////////////////////////////
-
-.accordion__button{
-    padding: var(--accordion-button-padding-y) var(--accordion-button-padding-y);
-} 
-
-.accordion__panel__content {
-    padding: var(--accordion-panel-padding-y) var(--accordion-panel-padding-x);
-}
 
 .accordion__button {
     position: relative;
@@ -59,11 +51,15 @@ In this file:
     display: flex;
     justify-content: space-between;
 
-    margin-bottom: 0;
-    text-align: inherit;
     width: 100%;
 
+    padding: var(--accordion-button-padding-y) var(--accordion-button-padding-y);
+
+    margin-bottom: 0;
+
     cursor: pointer;
+
+    @extend .caret;
 
     &:not(:first-child){
         border-top-width: var(--default-border-width);
@@ -71,16 +67,14 @@ In this file:
         border-top-color: inherit;
     }
 
-    @extend .has-caret;
-
-    &::before{
-       transition: transform var(--accordion-animation);
-    }
-
     &:not([aria-expanded="true"])::before {
         transform: rotate(0deg);
     }
     
+    &::before {
+       transition: transform var(--accordion-animation);
+    }
+
     &[aria-expanded="true"] {
         text-decoration: underline;
         color: var(--accordion-active-color);
@@ -93,6 +87,12 @@ In this file:
 
 .accordion__panel {
     overflow: hidden;
+
     transition: max-height var(--accordion-animation);
+    
     max-height: 0;
+}
+
+.accordion__panel__content {
+    padding: var(--accordion-panel-padding-y) var(--accordion-panel-padding-x);
 }

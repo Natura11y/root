@@ -1,0 +1,46 @@
+
+.tearsheet {
+    --sidebar-width: 180px;
+
+    overflow-x: hidden;
+    position: relative;
+    min-height: 100vh;
+
+    section {
+        overflow: hidden;
+        min-height: 100vh;
+    }
+
+    section > header {
+        padding-left: var(--spacer-3);
+        padding-right: var(--spacer-3);
+        text-align: center;
+    }
+        
+    &.menu-shown .tearsheet__menu {
+        transform: translateX(0);
+    }
+
+}
+
+.tearsheet__toggle {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 25000;
+
+    padding: var(--spacer-2);
+}
+
+.tearsheet__menu {
+    transition: transform 0.25s;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 20000;
+    
+    transform: translateX(calc(var(--sidebar-width) * -1)) ;
+
+    width: var(--sidebar-width);
+}

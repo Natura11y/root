@@ -20,8 +20,8 @@ In this file:
 //////////////////////////////////////////////
 
 @use "sass:map";
-@use "../breakpoint/style" as breakpoint;
-@use "../border/style" as border;
+@use "../breakpoints/style" as breakpoints;
+@use "../borders/style" as borders;
 
 //////////////////////////////////////////////
 // B. Variables
@@ -138,10 +138,9 @@ h4, .h4,
 h5, .h5, 
 h6, .h6 {
     font-weight: var(--body-font-weight-bold);
-
     line-height: var(--header-line-height);
 
-    &:not(.accordion__button) {
+    &:not(.accordion__button){
         margin-bottom: var(--spacer-2);
     }
 }
@@ -190,7 +189,7 @@ $headers: (
 .banner-headline {
     font-weight: var(--banner-headline-font-weight);
 
-    @include breakpoint.breakpoints-up(lg){
+    @include breakpoints.breakpoints-up(lg){
         font-size: var(--banner-headline-font-size);
     }
 }
@@ -200,8 +199,10 @@ $headers: (
 //////////////////////////////////////////////
 
 body {
-    font-size: var(--body-font-size);
     font-family: var(--body-font-family), $base-font-fallbacks;
+
+    font-size: var(--body-font-size);
+    
     font-weight: var(--body-font-weight-normal);
     
     line-height: var(--body-line-height);
@@ -211,18 +212,57 @@ body {
 }
 
 p, 
-p ~ ul:not([class]),
+p ~ ul,
+p ~ ol,
 blockquote {
     margin-bottom: 1.5em;
 }
 
-p ~ ul:not([class]) {
-    padding-left: 1.5em;
-    padding-right: 1.5em;
+p ~ ul,
+p ~ ol {
 
     li {
         margin-bottom: var(--spacer-2);
     }
+}
+
+p ~ ul {
+    --list-item-padding: 1em;
+
+    li {
+        margin-left: var(--list-item-padding);
+        margin-right: var(--list-item-padding);
+    }
+}
+
+ol {
+    --list-item-padding: 2em;
+
+    list-style: none;
+
+    counter-reset: list-item-counter;
+  
+    li {
+        position: relative;
+        
+        padding-left: var(--list-item-padding);
+        padding-right: var(--list-item-padding);
+
+        counter-increment: list-item-counter;
+    }
+
+    li::before {
+        position: absolute;
+        left: 0;
+
+        content: counters(list-item-counter, ".") ". ";
+
+        [dir="rtl"] & {
+            left: unset;
+            right: 0;
+        }
+    }
+
 }
 
 figure {
@@ -254,7 +294,7 @@ dd,
 blockquote,
 address {
     &:last-child {
-        margin-bottom: unset;
+        margin-bottom: 0;
     }
 }
 
@@ -262,12 +302,12 @@ address {
 // H. Text Align Utilities
 //////////////////////////////////////////////
 
-@each $breakpoint in map.keys(breakpoint.$breakpoints) {
-    @include breakpoint.breakpoints-up($breakpoint) {
-        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+@each $breakpoint in map.keys(breakpoints.$breakpoints) {
+    @include breakpoints.breakpoints-up($breakpoint) {
+        $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
 
         .text-align-center{
-            text-align: center !important;
+        text-align: center !important;
         }
 
         .text-align-left {

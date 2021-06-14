@@ -1,0 +1,129 @@
+/*
+
+In this file:
+
+// A. Modules
+// B. Variables
+// C. Placeholders
+// D. Subtle Fill Utility
+// E. Gradient Veneer Utility
+
+*/
+
+////////////////////////////////////////
+// A. Modules
+////////////////////////////////////////
+
+@use "sass:map";
+@use "../breakpoints/style" as breakpoints;
+
+////////////////////////////////////////
+// B. Variables
+////////////////////////////////////////
+
+// Scoped to Root
+
+:root {
+    --subtle-fill-opacity: 0.075;
+}
+
+// Scoped to Block
+
+%gradient-veneer-vars {
+    --gradient-veneer-start: 50%;
+
+    --gradient-veneer-opacity: 1;
+}
+
+////////////////////////////////////////
+// C. Placeholders
+////////////////////////////////////////
+
+%subtle-fill-psuedo {
+    position: relative;
+
+    &::before {
+        position: absolute;
+        content: "";
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;   
+
+        border-radius: inherit;
+
+        pointer-events: none;
+
+        background-color: currentColor;
+        
+        opacity: var(--subtle-fill-opacity);    
+    }
+}
+
+////////////////////////////////////////
+// D. Subtle Fill Utility
+////////////////////////////////////////
+
+.subtle-fill {
+    @extend %subtle-fill-psuedo;
+}
+
+////////////////////////////////////////
+// E. Gradient Veneer Utilites
+////////////////////////////////////////
+
+[class*="gradient-veneer"] {
+    @extend %gradient-veneer-vars;
+
+    --gradient-direction: to bottom;
+
+    position: relative;
+
+    &::after {        
+        position: absolute;
+        content: "";
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        background: linear-gradient( var(--gradient-direction), hsla(0, 0%, 100%, 0) var(--gradient-veneer-start), var(--gradient-color) );
+        background-clip: border-box;
+
+        opacity: var(--gradient-veneer-opacity);
+        
+        display: none;
+    }
+}
+
+.gradient-veneer-top {
+    --gradient-direction: to top;
+}
+
+.gradient-veneer-right {
+    --gradient-direction: to right;
+}
+
+.gradient-veneer-bottom {
+    --gradient-direction: to bottom;
+}
+
+.gradient-veneer-left {
+    --gradient-direction: to left;
+}
+
+@each $breakpoint in map.keys(breakpoints.$breakpoints) {
+    @include breakpoints.breakpoints-up($breakpoint) {
+        $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
+
+        .gradient-veneer-top#{$mod},
+        .gradient-veneer-right#{$mod},
+        .gradient-veneer-bottom#{$mod},
+        .gradient-veneer-left#{$mod} {
+            &::after{
+                display: block !important;
+            }
+        }
+        
+    }
+}

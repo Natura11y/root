@@ -1,0 +1,79 @@
+/*
+
+In this file:
+
+// A. Modules
+// B. Variables
+// C. Aspect Ratio Block
+// D. Aspect Ratio Element
+// E. Aspect Ratio Modifiers
+
+*/
+
+//////////////////////////////////////////////
+// A. Modules
+//////////////////////////////////////////////
+
+@use "sass:list";
+@use "sass:math";
+
+//////////////////////////////////////////////
+// B. Variables
+//////////////////////////////////////////////
+
+$aspect-ratios: (
+    (16 9),
+    (4 3),
+    (3 2),
+    (1 1)
+);
+
+//////////////////////////////////////////////
+// C. Apect Ratio Block
+//////////////////////////////////////////////
+
+.aspect-ratio {
+    position: relative;
+
+    display: block;
+    
+    overflow: hidden;
+
+    padding: unset;
+
+    &::before {
+        content: "";
+
+        display: block;
+    }
+}
+
+//////////////////////////////////////////////
+// D. Apect Ratio Element
+//////////////////////////////////////////////
+
+.aspect-ratio__content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    
+    width: 100%;
+    height: 100%;
+}
+
+//////////////////////////////////////////////
+// E. Apect Ratio Modifiers
+//////////////////////////////////////////////
+
+@each $aspect-ratio in $aspect-ratios {
+    $aspect-ratio-x: list.nth($aspect-ratio, 1);
+    $aspect-ratio-y: list.nth($aspect-ratio, 2);
+
+    .aspect-ratio--#{$aspect-ratio-x}by#{$aspect-ratio-y} {
+        &::before {
+            padding-top: math.percentage($aspect-ratio-y / $aspect-ratio-x);
+        }
+    }
+}

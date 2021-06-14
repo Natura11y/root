@@ -12,10 +12,11 @@ In this file:
 // A. Variables
 ////////////////////////////////////////
 
-// Scoped to root
+// Scoped to Block
 
-:root{
+%caret-vars{
     --caret-size: 0.25em;
+
     --caret-margin: 0.375em;
 }
 
@@ -34,10 +35,12 @@ In this file:
 // C. Caret Utility
 ////////////////////////////////////////
 
-.has-caret {
+.caret {
+    @extend %caret-vars;
+    
     display: inline-flex;
-    align-items: center;
     flex-direction: row-reverse;
+    align-items: center;
     justify-content: flex-end;
     
     &::before {
@@ -47,13 +50,13 @@ In this file:
         content: "";
         
         display: inline-block;
-        color: inherit;
+        
         margin-left: var(--caret-margin);
+        
+        color: inherit;
     }
 
     [dir="rtl"] & {
-        justify-content: flex-start;
-        
         &::before {
             margin-left: unset;
             margin-right: var(--caret-margin);

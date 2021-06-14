@@ -1,0 +1,146 @@
+/*
+
+In this file:
+
+// A. Modules
+// B. Variables
+// C. Tabs Nav Block
+// D. Tabs Panel Element
+// E. Tabs With 'theme-*' Class
+
+*/
+
+////////////////////////////////////////
+// A. Modules
+////////////////////////////////////////
+
+@use "sass:map";
+@use "../breakpoints/style" as breakpoints;
+
+////////////////////////////////////////
+// B. Variables
+////////////////////////////////////////
+
+// Scoped to Block
+
+%custom-properties {
+    --tab-button-padding-x: var(--spacer-3);
+    --tab-button-padding-y: var(--button-padding-y);
+
+    --tab-accent-bar-size: calc(var(--default-border-width) * 2);
+}
+
+////////////////////////////////////////
+// B. Tabs Nav Block
+////////////////////////////////////////
+
+.tabs-nav {
+    @extend %custom-properties;
+
+    list-style: none;
+
+    > li {
+        position: relative;
+
+        &::before {
+            position: absolute;
+            content: "";
+            top: 0;
+            right: 0;
+            left: 0;
+
+            height: var(--tab-accent-bar-size);
+            
+            background-color: currentColor;
+            
+            opacity: 0.125;
+        }
+    }
+
+    > li > a,
+    > li > button {
+        position: relative;
+        
+        display: block;
+
+        width: 100%;
+        
+        padding: var(--tab-button-padding-y) var(--tab-button-padding-x);
+        
+        text-align: center;
+    
+        &::before {
+            position: absolute;
+            content: "";
+            top: 0;
+            right: 0;
+            left: 0;
+
+            height: var(--tab-accent-bar-size);
+            
+            background-color: currentColor;
+            
+            opacity: 0.0625;
+        }
+    }
+
+    [aria-current="page"],
+    [aria-selected="true"] {
+        font-weight: var(--body-font-weight-bold);
+
+        &::before {
+            height: var(--tab-accent-bar-size);
+            
+            opacity: 1;
+        }
+    }
+}
+
+.tabs-nav {
+    @each $breakpoint in map.keys(breakpoints.$breakpoints) {
+        @include breakpoints.breakpoints-up($breakpoint) {
+            $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
+
+            &.tabs-nav--horizontal#{$mod} {
+                display: flex;
+                flex-direction: row;
+                align-items: baseline;
+
+                > li {
+                    flex: 1;
+                }
+            }
+        }
+    }
+}
+
+////////////////////////////////////////
+// D. Tabs Panel Element
+////////////////////////////////////////
+
+.tabs__panel {
+    display: none;
+
+    &.shown {
+        display: block;
+    }
+}
+
+////////////////////////////////////////
+// E. Tabs With 'theme-*' Class
+////////////////////////////////////////
+
+.tabs {
+    &[class*="theme-"] {
+
+        [aria-current="page"],
+        [aria-selected="true"] {
+
+            &::after {
+                margin: 2px;
+            }
+
+            text-decoration: underline;
+        }
+    }
+}

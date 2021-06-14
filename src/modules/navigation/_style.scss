@@ -5,12 +5,12 @@ In this file:
 // A. Modules
 // B. Variables
 // C. Placeholders 
-// D. Primary Nav Components 
-// E. Nav 
-// F. Nav Divider
-// G. Nav Breadcrumb
-// H. Dropdown
-// I. I.E. 11 Support
+// D. Nav Component 
+// F. Nav Divider Modifier
+// G. Nav Breadcrumb Component
+// H. Nav Dropdown Elements 
+// I. Primary Nav Components 
+// J. I.E. 11 Support
 
 */
 
@@ -19,30 +19,33 @@ In this file:
 ////////////////////////////////////////
 
 @use "sass:map";
-@use "../breakpoint/style" as breakpoint;
+@use "../breakpoints/style" as breakpoints;
 @use "../caret/style" as caret;
 @use "../spacing/style" as spacing;
 @use "../collapse/style" as collapse;
-@use "../link/style" as link;
+@use "../links/style" as links;
 @use "../typography/style" as typography;
 
 ////////////////////////////////////////
 // B. Variables
 ////////////////////////////////////////
 
-// Scoped to Block
+// Scoped to Root
 
-%custom-properties {
+:root {
+    --nav-gap: 0.75em;
+
     --nav-divider-padding-y: 0.625em;
-    --nav-divider-padding-x: var(--spacer-2);
+    --nav-divider-padding-x: var(--spacer-3);
 }
 
 ////////////////////////////////////////
 // C.  Placeholders 
 ////////////////////////////////////////
 
-%list-nav-style {
+%list-style-nav {
     list-style: none;
+
     line-height: normal;
 
     > li {
@@ -51,144 +54,43 @@ In this file:
 
     a[aria-current] {
         font-weight: var(--body-font-weight-bold);
+
         text-decoration: underline;
     }
 }
 
-//////////////////////////////////////////////
-// D. Primary Nav Components
-//////////////////////////////////////////////
-
-[class*="primary-nav--"] {
-    --primary-nav-padding: var(--spacer-2);
-    
-    position: relative;
-    z-index: 1000;
-
-    display: grid;
-    align-items: center;
-
-    ul {
-        @extend %list-nav-style;
-    }
-
-    > [class*="__logo"] {
-        grid-area: logo;
-
-        padding: var(--primary-nav-padding);
-    }
-
-    > [class*="__menu"] {
-        grid-area: menu;
-
-        @extend .collapse;
-    }
-
-    > [class*="__actions"] {
-        grid-area: buttons;
-
-        display: flex;
-        align-items: center;
-
-        padding: var(--primary-nav-padding);
-
-        > .button {
-            margin-right: var(--spacer-2);
-            
-            [dir="rtl"] & {
-                margin-right: unset;
-                margin-left: var(--spacer-2);
-            }
-        }
-        
-        > .button-group {
-            justify-content: flex-end;
-        }
-    }
-}
-
-[class*="primary-nav--inline--"] {
-    justify-content: space-between;
-    align-items: center;
-
-    grid-template-columns: auto auto;
-    grid-template-areas:
-        "logo buttons"
-        "menu menu";
-
-    > [class*="__menu"] {
-        padding: var(--primary-nav-padding);
-        align-self: stretch;
-    }
-}
-
-[class*="primary-nav--below--"] {
-    grid-template-columns: 100%;
-    grid-template-areas:
-        "logo"
-        "buttons"
-        "menu";
-
-    > [class*="__logo"] {
-        display: flex;
-        justify-content: center;
-    }
-    
-    > [class*="__actions"] {
-        padding: calc(var(--primary-nav-padding) * 0.5) var(--primary-nav-padding);
-        justify-content: space-between;
-    }
-
-    > [class*="__actions"],
-    > [class*="__menu"] {
-        border-top-width: var(--default-border-width);
-        border-top-style: var(--default-border-style);
-        border-top-color: inherit;
-    }
-}
-
-.primary-nav__menu {
-
-    > ul > li {
-        position: relative;
-    }
-
-    > ul > li > a {
-        @extend .expanded-link;
-    }
-}
-
 ////////////////////////////////////////
-// E. Nav
+// D. Nav Component
 ////////////////////////////////////////
-
-[class*="primary-nav--inline--"] > [class*="__menu"] > ul,
-.nav {
-    --gap-size: 0.75em;
-}
 
 .nav, 
 .nav li > ul {
-    @extend %list-nav-style;
+    @extend %list-style-nav;
 }
 
-[class*="primary-nav--inline--"] > [class*="__menu"] > ul,
 .nav:not([class*="nav--divider"]):not([class*="nav--breadcrumb"]) {
 
     > li:not(:last-child) {
-        margin-bottom: calc(var(--gap-size));
+        margin-bottom: var(--nav-gap);
     }
 
     > li > .button {
         min-height: 100%;
     }
 
+    > li > [data-toggle="dropdown"][class*="-icon"] ~ ul {
+        margin-left: calc( var(--nav-gap) * -1);
+        margin-right: 0;
+        margin-top: 1rem;
+        width: 240px;
+    }
+
     > li > .nav__dropdown {
-        width: calc(100% + (var(--gap-size) * 2));
-        padding: var(--gap-size);
-        margin-left: calc(var(--gap-size) * -1);
-        margin-right: calc(var(--gap-size) * -1);
         left: 0;
+        width: calc(100% + (var(--nav-gap) * 2));
+        padding: var(--nav-gap);
+        margin-left: calc(var(--nav-gap) * -1);
+        margin-right: calc(var(--nav-gap) * -1);
 
         [dir="rtl"] & {
             left: unset;
@@ -196,36 +98,23 @@ In this file:
             text-align: right;
         }
     }
-
-    > li > [data-toggle="dropdown"][class*="-icon"] ~ ul {
-        margin-left: calc( var(--gap-size) * -1);
-        margin-right: 0;
-        margin-top: 1rem;
-        width: 240px;
-    }
 }
 
-@each $breakpoint in map.keys(breakpoint.$breakpoints) {
-    @include breakpoint.breakpoints-up($breakpoint) {
-        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+@each $breakpoint in map.keys(breakpoints.$breakpoints) {
+    @include breakpoints.breakpoints-up($breakpoint) {
+        $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
 
-        .primary-nav--inline#{$mod} > [class*="__menu"] > ul,
         .nav:not([class*="nav--divider"]).nav--horizontal#{$mod} {
-
-            &:not([class*="nav--gap"]){
-                --gap-size: 1.5em;
-            }
-        
             display: flex;
             flex-direction: row;
             align-items: center;
 
-            margin-left: calc(var(--gap-size) * -0.5);
-            margin-right: calc(var(--gap-size) * -0.5);
+            margin-left: calc(var(--nav-gap) * -1);
+            margin-right: calc(var(--nav-gap) * -1);
 
             > li {
-                margin-left: calc(var(--gap-size) * 0.5);
-                margin-right: calc(var(--gap-size) * 0.5);
+                margin-left: var(--nav-gap);
+                margin-right: var(--nav-gap);
                 margin-bottom: 0 !important;
             }
 
@@ -245,30 +134,14 @@ In this file:
             }
         }
 
-        .primary-nav--inline#{$mod} > [class*="__menu"] {
-            padding: 0 var(--primary-nav-padding);
-        }
     }
 }
 
 ////////////////////////////////////////
-// F. Nav Divider
+// F. Nav Divider Modifier
 ////////////////////////////////////////
 
-[class*="primary-nav--below--"] > [class*="__menu"] > ul,
 .nav--divider {
-    @extend %custom-properties;
-
-    &:not([class*="theme-"]) {
-        border-color: inherit;
-
-        a, button {
-            &:not([class*="text-color-"]) {
-                white-space: nowrap;
-                color: inherit;
-            }
-        }
-    }
 
     > li:not(:last-child) {
         border-bottom-width: var(--default-border-width);
@@ -278,13 +151,11 @@ In this file:
 
     > li > a, 
     > li > button {
-        width: 100%;
         position: relative;
-    }
 
-    > li > a:not([data-toggle="dropdown"]), 
-    > li > button:not([data-toggle="dropdown"]) {
-        display: block;
+        display: flex;
+
+        width: 100%;
     }
 
     > li > a, 
@@ -302,81 +173,20 @@ In this file:
     }
 }
 
-@each $breakpoint in map.keys(breakpoint.$breakpoints) {
-    @include breakpoint.breakpoints-up($breakpoint) {
-        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+@each $breakpoint in map.keys(breakpoints.$breakpoints) {
+    @include breakpoints.breakpoints-up($breakpoint) {
+        $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
 
-        .primary-nav--inline#{$mod},
-        .primary-nav--below#{$mod} {
-
-            [class*="__logo"] {
-                display: flex;
-                justify-content: start;
-            }
-
-            [class*="__menu"] {
-                display: block !important;
-            }
-
-            [class*="__actions"] {
-                padding: var(--primary-nav-padding);
-            }
-
-            [class*="__actions"] button.mobile-menu-toggle {
-                display: none;
-            }
-        }
-
-        .primary-nav--inline#{$mod} {
-            grid-template-columns: 1fr auto auto;
-            grid-template-areas:
-                "logo menu buttons";
-
-            [class*="__menu"] {
-                padding-top: unset;
-                padding-bottom: unset;
-
-                > ul {
-                    height: 100%;
-                    align-items: stretch;
-
-                    > li {
-                        display: flex;
-                    }
-
-                    > li > a {
-                        margin-top: auto;
-                        margin-bottom: auto;
-                    }
-                }
-            }
-        }
-
-        .primary-nav--below#{$mod} {
-            grid-template-columns: 1fr auto;
-            grid-template-areas:
-                "logo buttons"
-                "menu menu";
-
-            > [class*="__actions"] {
-                border-top-style: none !important; // Thanks, IE.
-            }
-        }
-
-        .primary-nav--below#{$mod} > [class*="__menu"] > ul,
         .nav--divider.nav--horizontal#{$mod} {
             display: flex;
             flex-direction: row;
             align-items: stretch;
 
             > li {
-                display: flex;
-                flex: 1;
-                border-bottom-style: none !important; // Thanks, IE.
-                text-align: center;
+                border-bottom-style: none !important;
             }
 
-            > li:not(:last-child){
+            > li:not(:last-child) {
                 border-right-width: var(--default-border-width);
                 border-right-style: var(--default-border-style);
 
@@ -387,7 +197,8 @@ In this file:
                 }
             }
 
-            [data-toggle="dropdown"] {
+            > li > a, 
+            > li > button {
                 justify-content: center;
             }
 
@@ -396,14 +207,16 @@ In this file:
                     border-top-width: 0;
                     border-width: var(--default-border-width);
                     border-style: var(--default-border-style);
+
                     width: calc(100% + (var(--default-border-width) * 2));
                 }
             }
 
             .nav__dropdown {
                 position: absolute;
-                width: 100%;
                 left: 0;
+
+                width: 100%;
 
                 [dir="rtl"] & {
                     left: unset;
@@ -426,11 +239,14 @@ In this file:
 }
 
 ////////////////////////////////////////
-// G. Nav Breadcrumb
+// G. Nav Breadcrumb Component
 ////////////////////////////////////////
 
-.nav--breadcrumb {
+.nav-breadcrumb {
+    @extend %list-style-nav;
+
     --breadcrumb-font-size: var(--font-size-sm);
+
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -446,22 +262,22 @@ In this file:
     
     > li:not(:last-child) {
         
-        @extend .has-caret;
+        @extend .caret;
         
         &::before {
-            margin-left: var(--gap-size) !important;
-            margin-right: var(--gap-size) !important;
+            margin-left: var(--nav-gap) !important;
+            margin-right: var(--nav-gap) !important;
             transform: rotate(-90deg);
         }
     }
 }
 
 ////////////////////////////////////////
-// H. Dropdown
+// H. Nav Dropdown Elements
 ////////////////////////////////////////
 
 [data-toggle="dropdown"]:not([class*="button--icon-only"]) {    
-    @extend .has-caret;
+    @extend .caret;
 
     &[aria-expanded="true"]::before {
         transform: rotate(180deg);
@@ -479,14 +295,17 @@ In this file:
         position: absolute;
         content: "";
         top: 0;
-        left: calc(var(--gap-size) + var(--dropdown-pointer-size) + 4px);
+        left: calc(var(--nav-gap) + var(--dropdown-pointer-size) + 4px);
+        
         transform: translateX(-50%) rotate(45deg);
 
         width:  var(--dropdown-pointer-size);
         height:  var(--dropdown-pointer-size);
+        
         margin-top: calc( var(--dropdown-pointer-size) * -0.5 - var(--default-border-width) );
 
         background-color: inherit;
+
         border-color: inherit;
         border-left-width: inherit;
         border-left-style: inherit;
@@ -498,16 +317,17 @@ In this file:
 .nav__dropdown {
     --dropdown-z-index: 1200;
 
-    @extend .nav;
+    position: static;
+
+    top: 100%;
+
+    width: 100%;
+
+    z-index: var(--dropdown-z-index);
 
     font-size: var(--font-size-md);
 
     font-weight: normal;
-    position: static;
-    top: 100%;
-    width: 100%;
-
-    z-index: var(--dropdown-z-index);
 
     text-align: left;
 
@@ -520,10 +340,315 @@ In this file:
     &.shown {
         display: block;
     }
+
+    > li:not(:last-child) {
+        margin-bottom: var(--nav-gap);
+    }
 }
 
 //////////////////////////////////////////////
-// I. I.E. 11 Support
+// I. Primary Nav Components
+//////////////////////////////////////////////
+
+[class*="primary-nav--"] {
+    --primary-nav-padding: var(--spacer-2);
+
+    position: relative;
+
+    display: grid;
+    align-items: center;
+
+    z-index: 1000;
+
+    ul {
+        @extend %list-style-nav;
+    }
+
+    > [class*="__logo"] {
+        grid-area: logo;
+
+        padding: var(--primary-nav-padding);
+    }
+
+    > [class*="__menu"] {
+        grid-area: menu;
+
+        @extend .collapse;
+
+        padding: var(--primary-nav-padding);
+    }
+
+    > [class*="__actions"] {
+        grid-area: buttons;
+
+        display: flex;
+        align-items: center;
+
+        padding: var(--primary-nav-padding);
+
+        > .button {
+            margin-right: var(--spacer-2);
+            
+            [dir="rtl"] & {
+                margin-right: unset;
+                margin-left: var(--spacer-2);
+            }
+        }
+    }
+}
+
+[class*="primary-nav--inline--"] {
+    justify-content: space-between;
+    align-items: center;
+
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+        "logo buttons"
+        "menu menu";
+
+    > [class*="__menu"] {
+        align-self: stretch;
+
+        > ul > li:not(:last-child) {
+            margin-bottom: var(--nav-gap);
+        }
+
+    }
+
+    form[role="search"] .form-entry__field {
+        height: var(--button--icon-only-size);
+        border-radius: var(--button-border-radius);
+    }
+
+}
+
+[class*="primary-nav--below--"] {
+    grid-template-columns: 100%;
+    grid-template-areas:
+        "logo"
+        "buttons"
+        "menu";
+
+    > [class*="__logo"] {
+        display: flex;
+        justify-content: center;
+    }
+    
+    > [class*="__actions"] {
+        padding: calc(var(--primary-nav-padding) * 0.5) var(--primary-nav-padding);
+        
+        justify-content: space-between;
+    }
+
+    > [class*="__actions"],
+    > [class*="__menu"] {
+        border-top-width: var(--default-border-width);
+        border-top-style: var(--default-border-style);
+        border-top-color: inherit;
+    }
+}
+
+.primary-nav__menu {
+
+    > ul > li {
+        position: relative;
+
+        &:not(:last-child) {
+            margin-bottom: var(--nav-gap);
+        }
+    }
+
+    > ul > li > a {
+        @extend .expanded-link;
+    }
+
+    > form[role="search"] {
+        --nav-search-width: 200px;
+        margin-top: var(--spacer-2);
+
+        button::before {
+            display: none;
+        }
+    }
+
+    .form-entry__field {
+        border-width: var(--default-border-width);
+        border-style: var(--default-border-style);
+    }
+
+    .nav__dropdown {
+        padding: var(--nav-gap);
+    }
+}
+
+@each $breakpoint in map.keys(breakpoints.$breakpoints) {
+    @include breakpoints.breakpoints-up($breakpoint) {
+        $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
+
+        .primary-nav--inline#{$mod},
+        .primary-nav--below#{$mod} {
+
+            [class*="__logo"] {
+                display: flex;
+                justify-content: start;
+            }
+
+            [class*="__menu"] {
+                display: flex !important;
+
+            }
+
+            [class*="__actions"] {
+                padding: var(--primary-nav-padding);
+            }
+
+            [class*="__actions"] button.mobile-menu-toggle {
+                display: none;
+            }
+
+            form[role="search"] {
+                max-width: var(--nav-search-width);
+                margin-top: unset;
+            }
+        }
+
+        .primary-nav--inline#{$mod} {
+            grid-template-columns: 1fr auto auto;
+            grid-template-areas:
+                "logo menu buttons";
+
+            [class*="__menu"] {
+                padding: unset;
+
+                align-items: center;
+
+                > ul {
+                    display: flex;
+                    align-items: stretch;
+
+                    height: 100%;
+
+                    > li {
+                        display: flex;
+
+                        margin-left: var(--nav-gap);
+                        margin-right: var(--nav-gap);
+                        margin-bottom: 0 !important;
+                    }
+
+                    > li > .nav__dropdown {
+                        position: absolute;
+
+                        min-width: 200px;
+                        padding: var(--nav-gap);
+                        margin-left: calc(var(--nav-gap) * -1);
+                        margin-right: calc(var(--nav-gap) * -1);
+                    }
+
+                    > li > a {
+                        margin-top: auto;
+                        margin-bottom: auto;
+                    }
+                }
+
+            }
+        }
+
+        .primary-nav--below#{$mod} {
+            grid-template-columns: 1fr auto;
+            grid-template-areas:
+                "logo buttons"
+                "menu menu";
+
+            > [class*="__actions"] {
+                border-top-style: none !important;
+            }
+
+            > [class*="__menu"] {
+                padding: unset;
+
+                > ul {
+                    flex-grow: 1;
+                }
+            }
+
+            > [class*="__menu"] > ul {
+                display: flex;
+                flex-direction: row;
+                align-items: stretch;
+
+                > li {
+                    display: flex;
+                    flex: 1;
+
+                    margin-bottom: unset !important;
+                    
+                    border-bottom-style: none !important;
+                    
+                    text-align: center;
+                }
+
+                > li > a, 
+                > li > button,
+                > li > .nav__dropdown {
+                    padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
+                }
+
+                > li:not(:last-child){
+                    border-right-width: var(--default-border-width);
+                    border-right-style: var(--default-border-style);
+
+                    [dir="rtl"] & {
+                        border-right-width: 0;
+                        border-left-width: var(--default-border-width);
+                        border-left-style: var(--default-border-style);
+                    }
+                }
+
+                > li > a {
+                    width: 100%;
+                    
+                    padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
+                    
+                    text-align: center;
+                }
+
+                [data-toggle="dropdown"] {
+                    justify-content: center;
+                }
+
+                .nav__dropdown {
+                    position: absolute;
+
+                    width: 100%;
+                    
+                    left: 0;
+
+                    [dir="rtl"] & {
+                        left: unset;
+                        right: 0;
+                    }
+                }
+            }
+
+            form[role="search"] .form-entry__field {
+                border-top-width: 0;
+                border-right-width: 0;
+                border-bottom-width: 0;
+
+                [dir="rtl"] & {
+                    border-left-width: 0;
+                    border-right-width: var(--default-border-width);
+                    border-right-style: var(--default-border-style);
+                }
+            }
+        }
+
+    }
+}
+
+//////////////////////////////////////////////
+// J. I.E. 11 Support
 //////////////////////////////////////////////
 
 @media screen and (-ms-high-contrast: active),
