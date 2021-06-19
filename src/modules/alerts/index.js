@@ -12,7 +12,7 @@ export default class Alerts {
 
         const closeButtonHTML = `
         <button class="button button--icon-only">
-            <span class="nyc_icon_close" aria-label="Close" aria-hidden="true">
+            <span class="icon_close" aria-label="Close" aria-hidden="true">
         </button>`;
 
         alertDismissableList.forEach((alertDismissable) => {

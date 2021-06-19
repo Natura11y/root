@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" dir="ltr">
+<html lang="en" dir="ltr" class="show-breakpoints">
 
 <head>
 
@@ -10,43 +10,77 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Tearsheet • NYC Core Framework</title>
+    <title>Tearsheet • Natura11y Inclusive Framework</title>
 
-    <!-- Icons -->
+    <!-- NYC Core Icons -->
     <link rel="stylesheet" href="https://i.icomoon.io/public/395bc97f45/Natura11yIcons/style.css">
+
+    <style>
+
+        html, 
+        body {
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        #page {
+            display: grid;
+
+            grid-template-columns: 220px 1fr;
+            height: 100%;
+
+            grid-template-areas:
+                "head main"
+                "foot foot";
+        }
+
+        #global-header {
+            grid-area: head;
+        }
+
+        #global-main {
+            grid-area: main;
+            overflow-y: scroll;
+            scroll-behavior: smooth;
+        }
+
+        #global-main section {
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        #global-main section > figure {
+            margin: var(--spacer-4) auto;
+        }
+
+        #global-main section > header {
+            text-align: center;
+            padding-left: var(--spacer-3);
+            padding-right: var(--spacer-3);
+        }
+
+        #global-footer {
+            grid-area: foot;
+        }
+    
+    </style>
 
 </head>
 
-<body class="tearsheet">
+<body class="tabs" id="page">
 
-    <div class="tearsheet__toggle">
-        <button class="button button--icon-only mobile-menu-toggle box-shadow-1" data-toggle="ts-menu" data-target="#tearsheet-nav">
-            <span class="icon_menu" aria-hidden="true"></span>
-        </button>
-    </div>
-    
-    <div class="tearsheet__menu theme-white box-shadow-1 subtle-fill" id="tearsheet-nav">
+   <header class="box-shadow-1 z-index-1000" id="global-header">
 
-        <div class="logo padding-2">
-            <a href="#brand" data-logo="brand">
+        <!-- For keyboard users -->
+        <a class="focusable-only" href="#skip-header-target">Skip Header</a>
+
+        <div class="padding-2">
+
+            <a href="#example-accordion" data-logo="brand">
 
                 <!-- Placeholder logo, replace the following <svg> tag with your own image version -->
                 <svg xmlns="http://www.w3.org/2000/svg" width="168" height="40" viewBox="0 0 168 40">
-                    
-                    <g class="natur">
-                        <polygon points="17.607 19.029 4.402 0 0 0 0 26.348 4.402 26.348 4.402 7.319 17.607 26.348 22.009 26.348 22.009 0 17.607 0 17.607 19.029" />
-                        <path d="M41.8166,6.6019a10.9784,10.9784,0,1,0,0,17.5355V26.348h4.4017V4.3913H41.8166ZM35.214,21.9567a6.587,6.587,0,1,1,6.6026-6.587A6.6023,6.6023,0,0,1,35.214,21.9567Z" />
-                        <path d="M57.2227,0H52.821V4.3913H48.4192V8.7827H52.821V19.761a6.6025,6.6025,0,0,0,6.6026,6.587h2.2009V21.9567H59.4236a2.2007,2.2007,0,0,1-2.2009-2.1957V8.7827h4.4018V4.3913H57.2227Z" />
-                        <path d="M81.4323,15.37a6.6026,6.6026,0,0,1-13.2052,0V4.3913H63.8253V15.37a10.9887,10.9887,0,0,0,17.607,8.7617V26.348h4.4018V4.3913H81.4323Z" />
-                        <path d="M100.5066,4.3913a10.95,10.95,0,0,0-6.6027,2.2166V4.3913H89.5022V26.348h4.4017V15.37a6.6025,6.6025,0,0,1,6.6027-6.587Z" />
-                    </g>
-                    <g class="a11y">
-                        <path d="M118.1135,6.6019a10.9784,10.9784,0,1,0,0,17.5355V26.348h4.4018V4.3913h-4.4018Zm-6.6026,15.3548a6.587,6.587,0,1,1,6.6026-6.587A6.6023,6.6023,0,0,1,111.5109,21.9567Z" />
-                        <polygon points="124.716 4.391 129.118 4.391 129.118 26.348 133.52 26.348 133.52 0 124.716 0 124.716 4.391" />
-                        <polygon points="135.721 4.391 140.122 4.391 140.122 26.348 144.524 26.348 144.524 0 135.721 0 135.721 4.391" />
-                        <polygon points="168 4.391 163.598 4.391 157.704 20.856 150.393 4.391 145.991 4.391 155.739 26.345 152.594 35.131 156.996 35.131 160.14 26.348 160.142 26.348 160.141 26.345 168 4.391" />
-                    </g>
-                    <g class="tagline">
+                    <g>
                         <path d="M0,39.8815V30.7261H1.5055v9.1554Z" />
                         <path d="M5.518,32.6231v1.1462a2.4793,2.4793,0,0,1,2.3234-1.2655,2.7136,2.7136,0,0,1,2.0258.8172A3.1214,3.1214,0,0,1,10.6664,35.6v4.2814H9.1742V35.8239a2.1025,2.1025,0,0,0-.4883-1.4947,1.74,1.74,0,0,0-1.3328-.5209,1.7609,1.7609,0,0,0-1.34.5209,2.0836,2.0836,0,0,0-.4953,1.4947v4.0576H4.0133V32.6231Z" />
                         <path d="M13.5961,38.9723a4.2216,4.2216,0,0,1,.007-5.4408A3.4194,3.4194,0,0,1,16.17,32.5038a3.6315,3.6315,0,0,1,2.1844.6262,3.0788,3.0788,0,0,1,1.168,1.7847H17.8992A1.6558,1.6558,0,0,0,16.17,33.7693a1.8215,1.8215,0,0,0-1.4719.6519,3.3237,3.3237,0,0,0,0,3.6553,1.8133,1.8133,0,0,0,1.4719.6588,1.67,1.67,0,0,0,1.7289-1.1462h1.6235a3.2438,3.2438,0,0,1-1.1875,1.7591A3.51,3.51,0,0,1,16.17,40,3.413,3.413,0,0,1,13.5961,38.9723Z" />
@@ -66,80 +100,94 @@
                         <path d="M134.7305,32.6231v1.2647a2.2983,2.2983,0,0,1,2.1781-1.384v1.5548h-.3828a1.8353,1.8353,0,0,0-1.34.4483,2.14,2.14,0,0,0-.4554,1.554v3.8206h-1.5047V32.6231Z" />
                         <path d="M140.3273,39.8815h-1.5046V30.1327h1.5046v5.6647l2.6407-3.1743h2.0851l-3.3523,3.6358,3.3523,3.6226H143.02l-2.693-3.122Z" />
                     </g>
+                    <g>
+                        <path d="M118.1135,6.6019a10.9784,10.9784,0,1,0,0,17.5355V26.348h4.4018V4.3913h-4.4018Zm-6.6026,15.3548a6.587,6.587,0,1,1,6.6026-6.587A6.6023,6.6023,0,0,1,111.5109,21.9567Z" />
+                        <polygon points="124.716 4.391 129.118 4.391 129.118 26.348 133.52 26.348 133.52 0 124.716 0 124.716 4.391" />
+                        <polygon points="135.721 4.391 140.122 4.391 140.122 26.348 144.524 26.348 144.524 0 135.721 0 135.721 4.391" />
+                        <polygon points="168 4.391 163.598 4.391 157.704 20.856 150.393 4.391 145.991 4.391 155.739 26.345 152.594 35.131 156.996 35.131 160.14 26.348 160.142 26.348 160.141 26.345 168 4.391" />
+                    </g>
+                    <g>
+                        <polygon points="17.607 19.029 4.402 0 0 0 0 26.348 4.402 26.348 4.402 7.319 17.607 26.348 22.009 26.348 22.009 0 17.607 0 17.607 19.029" />
+                        <path d="M41.8166,6.6019a10.9784,10.9784,0,1,0,0,17.5355V26.348h4.4017V4.3913H41.8166ZM35.214,21.9567a6.587,6.587,0,1,1,6.6026-6.587A6.6023,6.6023,0,0,1,35.214,21.9567Z" />
+                        <path d="M57.2227,0H52.821V4.3913H48.4192V8.7827H52.821V19.761a6.6025,6.6025,0,0,0,6.6026,6.587h2.2009V21.9567H59.4236a2.2007,2.2007,0,0,1-2.2009-2.1957V8.7827h4.4018V4.3913H57.2227Z" />
+                        <path d="M81.4323,15.37a6.6026,6.6026,0,0,1-13.2052,0V4.3913H63.8253V15.37a10.9887,10.9887,0,0,0,17.607,8.7617V26.348h4.4018V4.3913H81.4323Z" />
+                        <path d="M100.5066,4.3913a10.95,10.95,0,0,0-6.6027,2.2166V4.3913H89.5022V26.348h4.4017V15.37a6.6025,6.6025,0,0,1,6.6027-6.587Z" />
+                    </g>
                 </svg>
 
             </a>
+
         </div>
-    
-        <ul class="nav nav--divider font-size-md" id="section-nav" role="menu">
-            <li>
-                <a href="#example-accordion">Accordion</a>
-            </li>
-            <li>
-                <a href="#example-alert">Alerts</a>
-            </li>
-            <li>
-                <a href="#example-aspect-ratio">Aspect Ratios</a>
-            </li>
-            <li>
-                <a href="#example-backdrops">Backdrops</a>
-            </li>
-            <li>
-                <a href="#example-borders">Borders</a>
-            </li>
-            <li>
-                <a href="#example-buttons">Buttons</a>
-            </li>
-            <li>
-                <a href="#example-cards">Cards</a>
-            </li>
-            <li>
-                <a href="#example-color">Color</a>
-            </li>
-            <li>
-                <a href="#example-containers">Containers</a>
-            </li>
-            <li>
-                <a href="#example-forms">Forms</a>
-            </li>
-            <li>
-                <a href="#example-grid">Grid</a>
-            </li>
-            <li>
-                <a href="#example-icons">Icons</a>
-            </li>
-            <li>
-                <a href="#example-modal">Modal</a>
-            </li>
-            <li>
-                <a href="#example-navigation">Navigation</a>
-            </li>
-            <li>
-                <a href="#example-opacities">Opacities</a>
-            </li>
-            <li>
-                <a href="#example-shadows">Shadows</a>
-            </li>
-            <li>
-                <a href="#example-spacers">Spacers</a>
-            </li>
-            <li>
-                <a href="#example-tab">Tab</a>
-            </li>
-            <li>
-                <a href="#example-table">Table</a>
-            </li>
-            <li>
-                <a href="#example-typography">Typography</a>
-            </li>
-        </ul>
 
-    </div>
+        <nav>
+            <ul class="nav nav--divider font-size-md" id="section-nav" role="menu">
+                <li>
+                    <a href="#example-accordion">Accordion</a>
+                </li>
+                <li>
+                    <a href="#example-alert">Alert</a>
+                </li>
+                <li>
+                    <a href="#example-aspect-ratio">Aspect Ratio</a>
+                </li>
+                <li>
+                    <a href="#example-backdrops">Backdrops</a>
+                </li>
+                <li>
+                    <a href="#example-borders">Borders</a>
+                </li>
+                <li>
+                    <a href="#example-buttons">Buttons</a>
+                </li>
+                <li>
+                    <a href="#example-cards">Cards</a>
+                </li>
+                <li>
+                    <a href="#example-color">Color</a>
+                </li>
+                <li>
+                    <a href="#example-containers">Containers</a>
+                </li>
+                <li>
+                    <a href="#example-forms">Forms</a>
+                </li>
+                <li>
+                    <a href="#example-grid">Grid</a>
+                </li>
+                <li>
+                    <a href="#example-modal">Modal</a>
+                </li>
+                <li>
+                    <a href="#example-navigation">Navigation</a>
+                </li>
+                <li>
+                    <a href="#example-opacities">Opacities</a>
+                </li>
+                <li>
+                    <a href="#example-shadows">Shadows</a>
+                </li>
+                <li>
+                    <a href="#example-spacers">Spacers</a>
+                </li>
+                <li>
+                    <a href="#example-tab">Tab</a>
+                </li>
+                <li>
+                    <a href="#example-table">Table</a>
+                </li>
+                <li>
+                    <a href="#example-typography">Typography</a>
+                </li>
+            </ul>
+        </nav>
 
-    <main class="tearsheet__main">
+   </header>
+   <!-- #global-header -->
+
+    <main id="global-main">
 
         <div class="overflow-hidden">
-            
+
             <section id="example-accordion">
 
                 <header class="margin-y-4">
@@ -282,29 +330,23 @@
             <hr>
 
             <section id="example-alert">
-                
+
                 <header class="margin-y-4">
                     <h2 class="font-weight-normal">
-                        Alerts
+                        Alert
                     </h2>
                 </header>
 
                 <figure class="container narrow margin-y-4">
 
-                    <div
-                        class="alert alert--confirm margin-y-3"
-                        aria-labelledby="alert-example-01-label"
-                        aria-describedby="alert-example-01-desc"
-                        role="alertdialog">
+                    <div class="alert alert--confirm margin-y-3">
 
                         <div class="alert__title">
                             <span class="icon_confirm" aria-hidden="true"></span>
-                            <span class="alert__title__text" id="alert-example-01-label">
-                                Alert Title
-                            </span>
+                            <span class="alert__title__text">Confirm Title</span>
                         </div>
 
-                        <div class="alert__description" id="alert-example-01-desc">
+                        <div class="alert__description">
                             <p>
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident omnis ipsum
                                 <a href="#1">quos natus aliquam</a>.
@@ -313,20 +355,14 @@
 
                     </div>
 
-                    <div
-                        class="alert alert--warn alert--dismissable margin-y-3"
-                        aria-labelledby="alert-example-02-label"
-                        aria-describedby="alert-example-02-desc"
-                        role="alertdialog">
+                    <div class="alert alert--confirm--inverse alert--dismissable margin-y-3">
 
                         <div class="alert__title">
-                            <span class="icon_warn" aria-hidden="true"></span>
-                            <span class="alert__title__text" id="alert-example-02-label">
-                                Alert Title
-                            </span>
+                            <span class="icon_confirm" aria-hidden="true"></span>
+                            <span class="alert__title__text">Confirm Title</span>
                         </div>
 
-                        <div class="alert__description" id="alert-example-02-desc">
+                        <div class="alert__description">
                             <p>
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident omnis ipsum
                                 <a href="#1">quos natus aliquam</a>.
@@ -339,20 +375,14 @@
 
                 <figure class="container narrow margin-y-4">
 
-                    <div
-                        class="alert alert--confirm alert--confirm--inverse margin-y-3"
-                        aria-labelledby="alert-example-03-label"
-                        aria-describedby="alert-example-03-desc"
-                        role="alertdialog">
+                    <div class="alert alert--warn margin-y-3">
 
                         <div class="alert__title">
                             <span class="icon_confirm" aria-hidden="true"></span>
-                            <span class="alert__title__text" id="alert-example-03-label">
-                                Alert Title
-                            </span>
+                            <span class="alert__title__text">Confirm Title</span>
                         </div>
 
-                        <div class="alert__description" id="alert-example-03-desc">
+                        <div class="alert__description">
                             <p>
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident omnis ipsum
                                 <a href="#1">quos natus aliquam</a>.
@@ -361,20 +391,14 @@
 
                     </div>
 
-                    <div
-                        class="alert alert--warn alert--warn--inverse alert--dismissable margin-y-3"
-                        aria-labelledby="alert-example-04-label"
-                        aria-describedby="alert-example-04-desc"
-                        role="alertdialog">
+                    <div class="alert alert--dismissable alert--warn--inverse margin-y-3">
 
                         <div class="alert__title">
-                            <span class="icon_warn" aria-hidden="true"></span>
-                            <span class="alert__title__text" id="alert-example-04-label">
-                                Alert Title
-                            </span>
+                            <span class="icon_confirm" aria-hidden="true"></span>
+                            <span class="alert__title__text">Confirm Title</span>
                         </div>
 
-                        <div class="alert__description" id="alert-example-04-desc">
+                        <div class="alert__description">
                             <p>
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident omnis ipsum
                                 <a href="#1">quos natus aliquam</a>.
@@ -387,20 +411,14 @@
 
                 <figure class="container narrow margin-y-4">
 
-                    <div
-                        class="alert text-primary margin-y-3"
-                        aria-labelledby="alert-example-05-label"
-                        aria-describedby="alert-example-05-desc"
-                        role="alertdialog">
+                    <div class="alert alert--dismissable text-color-primary margin-y-3">
 
                         <div class="alert__title">
                             <span class="icon_confirm" aria-hidden="true"></span>
-                            <span class="alert__title__text" id="alert-example-05-label">
-                                Alert Title
-                            </span>
+                            <span class="alert__title__text">Confirm Title</span>
                         </div>
 
-                        <div class="alert__description" id="alert-example-05-desc">
+                        <div class="alert__description">
                             <p>
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident omnis ipsum
                                 <a href="#1">quos natus aliquam</a>.
@@ -409,20 +427,14 @@
 
                     </div>
 
-                    <div
-                        class="alert theme-primary alert--dismissable margin-y-3"
-                        aria-labelledby="alert-example-06-label"
-                        aria-describedby="alert-example-06-desc"
-                        role="alertdialog">
+                    <div class="alert alert--dismissable theme-primary margin-y-3">
 
                         <div class="alert__title">
-                            <span class="icon_warn" aria-hidden="true"></span>
-                            <span class="alert__title__text" id="alert-example-06-label">
-                                Alert Title
-                            </span>
+                            <span class="icon_confirm" aria-hidden="true"></span>
+                            <span class="alert__title__text">Confirm Title</span>
                         </div>
 
-                        <div class="alert__description" id="alert-example-06-desc">
+                        <div class="alert__description">
                             <p>
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident omnis ipsum
                                 <a href="#1">quos natus aliquam</a>.
@@ -435,58 +447,46 @@
 
                 <figure class="container narrow margin-y-4">
 
-                    <div
-                        class="alert text-primary margin-y-3"
-                        aria-labelledby="alert-example-07-label"
-                        aria-describedby="alert-example-07-desc"
-                        role="alertdialog">
+                    <div class="alert alert--dismissable alert alert--warn--inverse dismissable margin-y-3">
 
                         <div class="alert__title">
                             <span class="icon_confirm" aria-hidden="true"></span>
-                            <span class="alert__title__text" id="alert-example-07-label">
-                                Alert Title
-                            </span>
+                            <span class="alert__title__text">Confirm Title</span>
                         </div>
 
                     </div>
 
-                    <div
-                        class="alert theme-primary alert--dismissable margin-y-3"
-                        aria-labelledby="alert-example-08-label"
-                        aria-describedby="alert-example-08-desc"
-                        role="alertdialog">
+                    <div class="alert alert text-align-center alert--dismissable theme-primary margin-y-3 rounded">
 
-                        <div class="alert__title">
-                            <span class="icon_warn" aria-hidden="true"></span>
-                            <span class="alert__title__text" id="alert-example-08-label">
-                                Alert Title
-                            </span>
+                        <div class="alert__title justify-content-center">
+                            <span class="icon_confirm" aria-hidden="true"></span>
+                            <span class="alert__title__text">Confirm Title</span>
                         </div>
 
                     </div>
 
                 </figure>
-            
+
             </section>
-            
+
             <hr>
 
             <section id="example-aspect-ratio">
                 
                 <header class="margin-y-4">
                     <h2 class="font-weight-normal">
-                        Aspect Ratios
+                        Aspect Ratio
                     </h2>
                 </header>
 
                 <figure class="container narrow margin-y-4">
 
                     <div class="aspect-ratio aspect-ratio--16by9">
-                        <iframe 
+                        <iframe
                             class="aspect-ratio__content"
-                            src="https://www.youtube.com/embed/_mDxcDjg9P4"
-                            title="YouTube video player"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            title="Iframe Title"
+                            src="https://player.vimeo.com/video/80364498?title=0&byline=0&portrait=0"
+                            allow="autoplay; fullscreen"
                             allowfullscreen>
                         </iframe>
                     </div>
@@ -576,62 +576,9 @@
                     </h2>
                 </header>
 
-                <figure class="container medium margin-y-4">
-
-                    <div class="grid grid--gap-4 grid--cell-fill--md text-align-center">
-
-                        <div class="grid__cell">
-
-                            <div class="backdrop theme-light border-radius">
-
-                                <div class="backdrop__image">
-                                    <img class="opacity-30" src="./images/backdrop-example-02.jpg" alt="Placeholder">
-                                </div>
-
-                                <div class="backdrop__cover">
-                                    <div class="container margin-y-2">
-                                        <a href="#1" class="h3">Title Link</a>
-                                    </div>
-                                </div>
-                                <!-- cover -->
-
-                            </div>
-                            <!-- .backdrop-feature -->
-
-                        </div>
-                        <!-- col -->
-
-                        <div class="grid__cell">
-
-                            <div class="backdrop theme-dark border-radius">
-
-                                <div class="backdrop__image">
-                                    <img class="opacity-30" src="./images/backdrop-example-03.jpg" alt="Placeholder">
-                                </div>
-
-                                <div class="backdrop__cover">
-
-                                    <div class="container margin-y-2">
-                                        <a href="#1" class="h3">Title Link</a>
-                                    </div>
-                                    
-                                </div>
-                                <!-- cover -->
-
-                            </div>
-                            <!-- .backdrop-feature -->
-
-                        </div>
-                        <!-- grid__cell -->
-
-                    </div>
-                    <!-- grid -->
-
-                </figure>
-
                 <figure class="container wide margin-y-5">
 
-                    <div class="backdrop backdrop--stack--md theme-dark">
+                    <div class="backdrop backdrop--stack--md theme-primary theme-dark--md">
 
                         <div class="backdrop__image gradient-veneer-bottom">
                             <img class="opacity-50" src="./images/backdrop-example-01.jpg" loading="lazy" alt="Placeholder">
@@ -679,9 +626,62 @@
 
                 </figure>
 
+                <figure class="container medium margin-y-4">
+
+                    <div class="grid grid--gap-2 grid--cell-fill--md text-align-center">
+
+                        <div class="grid__cell">
+
+                            <div class="backdrop theme-primary rounded">
+
+                                <div class="backdrop__image gradient-veneer-bottom">
+                                    <img class="opacity-50" src="./images/backdrop-example-02.jpg" alt="Placeholder">
+                                </div>
+
+                                <div class="backdrop__cover justify-content-end">
+                                    <div class="container margin-y-2">
+                                        <a href="#1" class="h3">Title Link</a>
+                                    </div>
+                                </div>
+                                <!-- cover -->
+
+                            </div>
+                            <!-- .backdrop-feature -->
+
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell">
+
+                            <div class="backdrop theme-secondary rounded">
+
+                                <div class="backdrop__image gradient-veneer-bottom">
+                                    <img class="opacity-50" src="./images/backdrop-example-03.jpg" alt="Placeholder">
+                                </div>
+
+                                <div class="backdrop__cover justify-content-end">
+
+                                    <div class="container margin-y-2">
+                                        <a href="#1" class="h3">Title Link</a>
+                                    </div>
+                                    
+                                </div>
+                                <!-- cover -->
+
+                            </div>
+                            <!-- .backdrop-feature -->
+
+                        </div>
+                        <!-- grid__cell -->
+
+                    </div>
+                    <!-- grid -->
+
+                </figure>
+
                 <figure class="margin-y-4">
 
-                    <div class="backdrop backdrop--fixed theme-dark">
+                    <div class="backdrop backdrop--fixed theme-primary">
 
                         <div class="backdrop__image">
                             <img class="opacity-30" src="./images/backdrop-example-04.jpg" alt="Placeholder">
@@ -715,7 +715,7 @@
                     <div class="backdrop backdrop--fixed theme-dark">
 
                         <div class="backdrop__image">
-                            <img class="opacity-30" src="./images/backdrop-example-05.jpg" alt="Placeholder">
+                            <img class="backdrop__image opacity-30" src="./images/backdrop-example-05.jpg" alt="Placeholder">
                         </div>
 
                         <div class="backdrop__credit">
@@ -736,14 +736,14 @@
 
                                         <div class="grid__cell">
 
-                                            <div class="card box-shadow-2 border-radius text-align-left" style="backdrop-filter: blur(0.75rem) brightness(50%); background-clip:border-box;">
+                                            <div class="card box-shadow-2 rounded text-align-left" style="backdrop-filter: blur(0.75rem) brightness(50%); background-clip:border-box;">
 
                                                 <div class="card__head border-bottom ">
                                                     <p>Card Header</p>
                                                 </div>
 
                                                 <div class="card__body">
-                                                    <h2 class="h5">Card Title</h2>
+                                                    <h2 class="h4">Card Title</h2>
                                                     <p>
                                                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa
                                                         obcaecati autem, ex facilis labore reiciendis.
@@ -753,7 +753,6 @@
                                                 <div class="card__foot border-top font-size-sm">
                                                     <a class="button theme-primary display-block" href="#1">Action</a>
                                                 </div>
-
                                             </div>
                                             <!-- .card -->
 
@@ -762,7 +761,7 @@
 
                                         <div class="grid__cell">
 
-                                            <div class="card box-shadow-2 border-radius text-align-left" style="backdrop-filter: blur(1em) brightness(50%); background-clip:border-box;">
+                                            <div class="card box-shadow-2 rounded text-align-left" style="backdrop-filter: blur(1em) brightness(50%); background-clip:border-box;">
 
                                                 <div class="card__head border-bottom">
                                                     <p>Card Header</p>
@@ -795,17 +794,32 @@
 
                                     <p>Follow Us</p>
 
-                                    <div class="button-group">
-                                        <a class="button button--icon-only theme-primary" href="#1" aria-label="Facebook">
-                                            <span class="icon_facebook" aria-hidden="true"></span>
-                                        </a>
-                                        <a class="button button--icon-only theme-primary" href="#1" aria-label="Twitter">
-                                            <span class="icon_twitter" aria-hidden="true"></span>
-                                        </a>
-                                        <a class="button button--icon-only theme-primary" href="#1" aria-label="YouTube">
-                                            <span class="icon_youtube" aria-hidden="true"></span>
-                                        </a>
-                                    </div>
+                                    <ul class="nav nav--horizontal justify-content-center font-size-lg">
+                                        <li>
+                                            <a class="button--icon-only theme-primary" href="#1" title="Facebook">
+                                                <span class="screen-reader-only">Facebook</span>
+                                                <span class="fab fa-facebook-f" aria-hidden="true"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="button--icon-only theme-primary" href="#1" title="Facebook">
+                                                <span class="screen-reader-only">Facebook</span>
+                                                <span class="fab fa-twitter" aria-hidden="true"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="button--icon-only theme-primary" href="#1" title="Facebook">
+                                                <span class="screen-reader-only">Facebook</span>
+                                                <span class="fab fa-youtube" aria-hidden="true"></span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="button--icon-only theme-primary" href="#1" title="Facebook">
+                                                <span class="screen-reader-only">Facebook</span>
+                                                <span class="fas fa-share" aria-hidden="true"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
 
                                 </div>
                                 
@@ -930,6 +944,11 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a class="button theme-secondary" href="#1">
+                                            Button
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a class="button theme-dark" href="#1">
                                             Button
                                         </a>
@@ -968,7 +987,7 @@
                                     </div>
                                     <!-- .grid__cell -->
                                     <div class="grid__cell">
-                                        <a class="button button--outline width-100 text-primary border-radius-pill" href="#1">
+                                        <a class="button button--outline width-100 text-color-primary rounded-pill" href="#1">
                                             Button
                                         </a>
                                     </div>
@@ -988,13 +1007,13 @@
                             <div class="width-100 padding-x-4">
                                 <div class="grid grid--gap-2 grid--cell-6--md">
                                     <div class="grid__cell">
-                                        <a class="button theme-primary display-block border-radius" href="#1">
+                                        <a class="button theme-primary display-block rounded" href="#1">
                                             Button
                                         </a>
                                     </div>
                                     <!-- .grid__cell -->
                                     <div class="grid__cell">
-                                        <a class="button theme-secondary display-block border-radius-pill" href="#1">
+                                        <a class="button theme-secondary display-block rounded-pill" href="#1">
                                             Button
                                         </a>
                                     </div>
@@ -1042,17 +1061,17 @@
                             <div class="width-100">
                                 <ul class="nav nav--horizontal justify-content-center font-size-sm">
                                     <li>
-                                        <a class="button theme-dark border-radius" href="#1">
+                                        <a class="button theme-dark rounded" href="#1">
                                             Button
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="button theme-primary border-radius" href="#1">
+                                        <a class="button theme-primary rounded" href="#1">
                                             Button
                                         </a>
                                     </li>
                                     <li>
-                                        <a class="button theme-light border-radius" href="#1">
+                                        <a class="button theme-light rounded" href="#1">
                                             Button
                                         </a>
                                     </li>
@@ -1097,7 +1116,7 @@
                                     <a class="button button--icon-only theme-secondary" href="#1" aria-label="Print">
                                         <span class="icon_print" aria-hidden="true"></span>
                                     </a>
-                                    <a class="button button--icon-only background-dark text-secondary" href="#1" aria-label="Home">
+                                    <a class="button button--icon-only background-color-dark text-color-secondary" href="#1" aria-label="Home">
                                         <span class="icon_settings" aria-hidden="true"></span>
                                     </a>
                                 </div>
@@ -1134,7 +1153,7 @@
                     <div class="aspect-ratio aspect-ratio--3by2 border">
                         <div class="aspect-ratio__content flex-row align-items-center">
                             <div class="width-100 padding-4">
-                                <div class="button-group text-primary justify-content-center" role="menu">
+                                <div class="button-group text-color-primary justify-content-center" role="menu">
                                     <a class="button button--outline" href="#1">
                                         Sign In  
                                     </a>
@@ -1179,7 +1198,8 @@
                                     <h2 class="h4">Card Title</h2>
                                     <p>
                                         Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa obcaecati autem,
-                                        ex facilis labore reiciendis.
+                                        ex
+                                        facilis labore reiciendis.
                                     </p>
                                 </div>
 
@@ -1189,7 +1209,7 @@
                                             <a href="#1">Secondary Action</a>
                                         </li>
                                         <li>
-                                            <a class="button button--outline border-radius-pill" href="#1">Primary Action</a>
+                                            <a class="button button--outline rounded-pill" href="#1">Primary Action</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -1197,9 +1217,10 @@
                             </div>
                             <!-- .card -->
                         </div>
+
                         <div class="grid__cell">
 
-                            <div class="card theme-dark">
+                            <div class="card theme-dark border">
 
                                 <div class="card__head border-bottom">
                                     <p>Card Header</p>
@@ -1219,7 +1240,7 @@
                                             <a href="#1">Secondary Action</a>
                                         </li>
                                         <li>
-                                            <a class="button button--outline border-radius-pill" href="#1">Primary Action</a>
+                                            <a class="button button--outline rounded-pill" href="#1">Primary Action</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -1233,7 +1254,7 @@
                 </figure>
 
             </section>
-
+            
             <hr>
             
             <section id="example-color">
@@ -1252,7 +1273,8 @@
                             <h2 class="h4">White (Default)</h2>
                             <p>
                                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa obcaecati autem,
-                                ex facilis <a href="#1">labore reiciendis</a>.
+                                                                ex facilis
+                                <a href="#1">labore reiciendis</a>.
                             </p>
                         </div>
 
@@ -1262,20 +1284,21 @@
                                     <a href="#1">Secondary Action</a>
                                 </li>
                                 <li>
-                                    <a class="button button--outline border-radius-pill" href="#1">Primary Action</a>
+                                    <a class="button button--outline rounded-pill" href="#1">Primary Action</a>
                                 </li>
                             </ul>
                         </div>
 
                     </div>
-                    
+
                     <div class="card theme-primary margin-y-3">
 
                         <div class="card__body">
                             <h2 class="h4">Primary</h2>
                             <p>
                                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa obcaecati autem,
-                                ex facilis <a href="#1">labore reiciendis</a>.
+                                                                ex facilis
+                                <a href="#1">labore reiciendis</a>.
                             </p>
                         </div>
 
@@ -1285,7 +1308,7 @@
                                     <a href="#1">Secondary Action</a>
                                 </li>
                                 <li>
-                                    <a class="button button--outline border-radius-pill" href="#1">Primary Action</a>
+                                    <a class="button button--outline rounded-pill" href="#1">Primary Action</a>
                                 </li>
                             </ul>
                         </div>
@@ -1298,7 +1321,8 @@
                             <h2 class="h4">Secondary</h2>
                             <p>
                                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa obcaecati autem,
-                                ex facilis <a href="#1">labore reiciendis</a>.
+                                                                ex facilis
+                                <a href="#1">labore reiciendis</a>.
                             </p>
                         </div>
 
@@ -1308,20 +1332,21 @@
                                     <a href="#1">Secondary Action</a>
                                 </li>
                                 <li>
-                                    <a class="button button--outline border-radius-pill" href="#1">Primary Action</a>
+                                    <a class="button button--outline rounded-pill" href="#1">Primary Action</a>
                                 </li>
                             </ul>
                         </div>
 
                     </div>
-                    
+
                     <div class="card theme-light margin-y-3">
 
                         <div class="card__body">
                             <h2 class="h4">Light</h2>
                             <p>
                                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa obcaecati autem,
-                                ex facilis <a href="#1">labore reiciendis</a>.
+                                                                ex facilis
+                                <a href="#1">labore reiciendis</a>.
                             </p>
                         </div>
 
@@ -1331,20 +1356,21 @@
                                     <a href="#1">Secondary Action</a>
                                 </li>
                                 <li>
-                                    <a class="button button--outline border-radius-pill" href="#1">Primary Action</a>
+                                    <a class="button button--outline rounded-pill" href="#1">Primary Action</a>
                                 </li>
                             </ul>
                         </div>
 
                     </div>
-                    
+
                     <div class="card theme-dark margin-y-3">
 
                         <div class="card__body">
                             <h2 class="h4">Dark</h2>
                             <p>
                                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Culpa obcaecati autem,
-                                ex facilis <a href="#1">labore reiciendis</a>.
+                                                                ex facilis
+                                <a href="#1">labore reiciendis</a>.
                             </p>
                         </div>
 
@@ -1354,7 +1380,7 @@
                                     <a href="#1">Secondary Action</a>
                                 </li>
                                 <li>
-                                    <a class="button button--outline border-radius-pill" href="#1">Primary Action</a>
+                                    <a class="button button--outline rounded-pill" href="#1">Primary Action</a>
                                 </li>
                             </ul>
                         </div>
@@ -1377,25 +1403,25 @@
 
                 <figure class="container font-size-md margin-y-4">
 
-                    <div class="container border border-dark text-primary padding-y-2 margin-y-3">
+                    <div class="container border border-dark text-color-primary padding-y-2 margin-y-3">
                         <p>
                             Container (Full width)
                         </p>
                     </div>
 
-                    <div class="container narrow border text-primary border-dark padding-y-2 margin-y-3">
+                    <div class="container narrow border text-color-primary border-dark padding-y-2 margin-y-3">
                         <p>
                             Container (Narrow width)
                         </p>
                     </div>
-                    
-                    <div class="container medium border text-primary border-dark padding-y-2 margin-y-3">
+
+                    <div class="container medium border text-color-primary border-dark padding-y-2 margin-y-3">
                         <p>
                             Container (Narrow medium)
                         </p>
                     </div>
 
-                    <div class="container wide border text-primary border-dark padding-y-2 margin-y-3">
+                    <div class="container wide border text-color-primary border-dark padding-y-2 margin-y-3">
                         <p>
                             Container (Wide medium)
                         </p>
@@ -1423,22 +1449,15 @@
                             <span class="required-indicator__text">Indicates Required Fields</span> 
                             <span class="required-indicator__icon">*</span>
                         </p>
-
-                        <div
-                            class="alert alert--warn alert--warn--inverse margin-y-3"
-                            aria-labelledby="alert-form-example-label"
-                            aria-describedby="alert-form-example-desc"
-                            role="alertdialog"
-                            data-alert="form-errors">
+                        
+                        <div class="alert alert--warn--inverse margin-y-4" data-alert="form-errors">
 
                             <div class="alert__title">
                                 <span class="icon_warn" aria-hidden="true"></span>
-                                <span class="alert__title__text" id="alert-form-example-label">
-                                    Alert Title
-                                </span>
+                                <span class="alert__title__text">Warn Title</span>
                             </div>
 
-                            <div class="alert__description" id="alert-form-example-desc">
+                            <div class="alert__description">
                                 <p>
                                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident omnis ipsum
                                     <a href="#1">quos natus aliquam</a>.
@@ -1615,57 +1634,81 @@
                         </div>
                         <!-- .form-entry -->
                         
-                        <button class="button theme-primary width-100 border-radius-pill" type="submit">Submit</button>
+                        <button class="button theme-primary width-100 rounded-pill" type="submit">Submit</button>
 
                     </form>
                     <!-- .needs-validation -->
 
                     <hr class="margin-y-4">
 
-                    <div class="form-entry">
+                        <div class="form-entry display-none">
 
-                        <fieldset class="form-entry__field">
+                            <div class="form-entry__field">
 
-                            <legend class="form-entry__field__label">
-                                Checkbox Group
-                            </legend>
+                                <span class="form-entry__field__label">
+                                    Switch
+                                </span>
 
-                            <div class="form-entry__option">
-
-                                <div class="form-entry__option__check">
-                                    <label>
-                                        <input type="checkbox" name="checkbox-group-example">
-                                        <span class="check__label">
-                                            Option One
-                                        </span>
-                                    </label>
-                                </div>
-
-                                <div class="form-entry__option__check">
-                                    <label>
-                                        <input type="checkbox" name="checkbox-group-example">
-                                        <span class="check__label">
-                                            Option Two
-                                        </span>
-                                    </label>
-                                </div>
-                                
-                                <div class="form-entry__option__check">
-                                    <label>
-                                        <input type="checkbox" name="checkbox-group-example">
-                                        <span class="check__label">
-                                            Option Three
-                                        </span>
-                                    </label>
+                                <div class="form-entry__option">
+                                    <div class="form-entry__option__switch">
+                                        <label>
+                                            <input type="checkbox" name="checkbox-switch-example" required>
+                                            <span class="switch__slider"></span>
+                                            <span class="switch__label">
+                                                Receive Notifications
+                                            </span>
+                                        </label>
+                                    </div>
                                 </div>
 
                             </div>
+                            
+                        </div>
 
-                        </fieldset>
+                        <div class="form-entry">
+
+                            <fieldset class="form-entry__field">
+
+                                <legend class="form-entry__field__label">
+                                    Checkbox Group
+                                </legend>
+
+                                <div class="form-entry__option">
+
+                                    <div class="form-entry__option__check">
+                                        <label>
+                                            <input type="checkbox" name="checkbox-group-example">
+                                            <span class="check__label">
+                                                Option One
+                                            </span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-entry__option__check">
+                                        <label>
+                                            <input type="checkbox" name="checkbox-group-example">
+                                            <span class="check__label">
+                                                Option Two
+                                            </span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="form-entry__option__check">
+                                        <label>
+                                            <input type="checkbox" name="checkbox-group-example">
+                                            <span class="check__label">
+                                                Option Three
+                                            </span>
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            </fieldset>
 
 
-                    </div>
-                    <!-- .form-entry -->
+                        </div>
+                        <!-- .form-entry -->
 
                     <div class="grid grid--gap-3 margin-y-4">
                         <div class="grid__cell grid__cell-6--lg">
@@ -1842,30 +1885,6 @@
                             <div class="form-entry__field">
 
                                 <span class="form-entry__field__label">
-                                    Switch
-                                </span>
-
-                                <div class="form-entry__option">
-                                    <div class="form-entry__option__switch">
-                                        <label>
-                                            <input type="checkbox" name="checkbox-switch-example" required>
-                                            <span class="switch__slider"></span>
-                                            <span class="switch__label">
-                                                Receive Notifications
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
-
-                            </div>
-                            
-                        </div>
-
-                        <div class="form-entry">
-
-                            <div class="form-entry__field">
-
-                                <span class="form-entry__field__label">
                                     Single Checkbox
                                 </span>
 
@@ -1947,105 +1966,432 @@
 
                 <figure class="container medium margin-y-4">
                 
-                    <div class="grid grid--cell-fill--md text-align-center">
+                    <div class="grid grid--gap-border justify-content-between grid--cell-fit font-size-sm text-align-center">
+                
+                        <div class="grid__cell">
+                            <div class="theme-secondary padding-2">
+                                <p>
+                                    1
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+                
+                        <div class="grid__cell">
+                            <div class="theme-secondary padding-2">
+                                <p>
+                                    2
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+                
+                        <div class="grid__cell">
+                            <div class="theme-secondary padding-2">
+                                <p>
+                                    3
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
 
                         <div class="grid__cell">
-
-                            <div class="subtle-fill padding-3 border">
-                                <p>01</p>
+                            <div class="theme-secondary padding-2">
+                                <p>
+                                    4
+                                </p>
                             </div>
-
                         </div>
+                        <!-- col -->
 
                         <div class="grid__cell">
-
-                            <div class="subtle-fill padding-3 border">
-                                <p>02</p>
+                            <div class="theme-secondary padding-2">
+                                <p>
+                                    5
+                                </p>
                             </div>
-
                         </div>
+                        <!-- col -->
+                
+                    </div>
+                    <!-- .grid -->
+                
+                </figure>
+                
+                <figure class="container medium margin-y-4">
 
-                        <div class="grid__cell">
+                    <div class="grid grid--gap-1 font-size-sm text-align-center">
 
-                            <div class="subtle-fill padding-3 border">
-                                <p>03</p>
+                        <div class="grid__cell-1">
+                            <div class="theme-light padding-x-1 padding-y-2">
+                                <p>
+                                    1
+                                </p>
                             </div>
-
                         </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-1">
+                            <div class="theme-light padding-x-1 padding-y-2">
+                                <p>
+                                    2
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-1">
+                            <div class="theme-light padding-x-1 padding-y-2">
+                                <p>
+                                    3
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-1">
+                            <div class="theme-light padding-x-1 padding-y-2">
+                                <p>
+                                    4
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-1">
+                            <div class="theme-light padding-x-1 padding-y-2">
+                                <p>
+                                    5
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-1">
+                            <div class="theme-light padding-x-1 padding-y-2">
+                                <p>
+                                    6
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-1">
+                            <div class="theme-light padding-x-1 padding-y-2">
+                                <p>
+                                    7
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-1">
+                            <div class="theme-light padding-x-1 padding-y-2">
+                                <p>
+                                    8
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-1">
+                            <div class="theme-light padding-x-1 padding-y-2">
+                                <p>
+                                    9
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-1">
+                            <div class="theme-light padding-x-1 padding-y-2">
+                                <p>
+                                    10
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-1">
+                            <div class="theme-light padding-x-1 padding-y-2">
+                                <p>
+                                    11
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-1">
+                            <div class="theme-light padding-x-1 padding-y-2">
+                                <p>
+                                    12
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-1">
+                            <div class="theme-primary padding-x-1 padding-y-2">
+                                <p>
+                                    1
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-11">
+                            <div class="theme-primary padding-x-1 padding-y-2">
+                                <p>
+                                    11
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-2">
+                            <div class="theme-primary padding-x-1 padding-y-2">
+                                <p>
+                                    2
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-10">
+                            <div class="theme-primary padding-x-1 padding-y-2">
+                                <p>
+                                    10
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-3">
+                            <div class="theme-primary padding-x-1 padding-y-2">
+                                <p>
+                                    3
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-9">
+                            <div class="theme-primary padding-x-1 padding-y-2">
+                                <p>
+                                    9
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-4">
+                            <div class="theme-primary padding-x-1 padding-y-2">
+                                <p>
+                                    4
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-8">
+                            <div class="theme-primary padding-x-1 padding-y-2">
+                                <p>
+                                    8
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-5">
+                            <div class="theme-primary padding-x-1 padding-y-2">
+                                <p>
+                                    5
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-7">
+                            <div class="theme-primary padding-x-1 padding-y-2">
+                                <p>
+                                    7
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-6">
+                            <div class="theme-primary padding-x-1 padding-y-2">
+                                <p>
+                                    6
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+
+                        <div class="grid__cell-6">
+                            <div class="theme-primary padding-x-1 padding-y-2">
+                                <p>
+                                    6
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
 
                     </div>
                     <!-- .grid -->
+
                 </figure>
 
                 <figure class="container medium margin-y-4">
-                
-                    <div class="grid grid--cell-6 font-size-md text-align-center">
+
+                    <div class="grid grid--gap-1 grid--cell-4--md">
 
                         <div class="grid__cell">
-                            <div class="subtle-fill padding-2 border">
-                                <p>01</p>
+                            <div class="theme-secondary padding-2">
+                                <h5>Title</h5>
+                                <p>
+                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum nobis doloremque aliquid earum quidem.
+                                </p>
                             </div>
                         </div>
+                        <!-- col -->
 
                         <div class="grid__cell">
-                            <div class="subtle-fill padding-2 border">
-                                <p>02</p>
+                            <div class="theme-secondary padding-2">
+                                <h5>Title</h5>
+                                <p>
+                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum nobis doloremque aliquid earum quidem.
+                                </p>
                             </div>
                         </div>
+                        <!-- col -->
 
                         <div class="grid__cell">
-                            <div class="subtle-fill padding-2 border">
-                                <p>03</p>
+                            <div class="theme-secondary padding-2">
+                                <h5>Title</h5>
+                                <p>
+                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum nobis doloremque aliquid earum quidem.
+                                </p>
                             </div>
                         </div>
+                        <!-- col -->
 
                         <div class="grid__cell">
-                            <div class="subtle-fill padding-2 border">
-                                <p>04</p>
+                            <div class="theme-secondary padding-2">
+                                <h5>Title</h5>
+                                <p>
+                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum nobis doloremque aliquid earum quidem.
+                                </p>
                             </div>
                         </div>
+                        <!-- col -->
 
-                        <div class="grid__cell grid--cell-fill">
-                            <div class="subtle-fill padding-2 border">
-                                <p>??</p>
+                        <div class="grid__cell">
+                            <div class="theme-secondary padding-2">
+                                <h5>Title</h5>
+                                <p>
+                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum nobis doloremque aliquid earum quidem.
+                                </p>
                             </div>
                         </div>
-
+                        <!-- col -->
+                        
+                        <div class="grid__cell">
+                            <div class="theme-secondary padding-2">
+                                <h5>Title</h5>
+                                <p>
+                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum nobis doloremque aliquid earum quidem.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+                        
+                        <div class="grid__cell">
+                            <div class="theme-dark padding-2">
+                                <h5>Title</h5>
+                                <p>
+                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum nobis doloremque aliquid earum quidem.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+                        
+                        <div class="grid__cell">
+                            <div class="theme-dark padding-2">
+                                <h5>Title</h5>
+                                <p>
+                                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ipsum nobis doloremque aliquid earum quidem.
+                                </p>
+                            </div>
+                        </div>
+                        <!-- col -->
+                        
                     </div>
                     <!-- .grid -->
 
                 </figure>
 
-            </section>
+                <figure class="container medium margin-y-4">
 
-            <hr>
+                    <div class="grid grid--gap-1">
 
-            <section id="example-icons">
-
-                <header class="margin-y-4">
-                    <h2 class="font-weight-normal">
-                        Icons
-                    </h2>
-                </header>
-
-                <div class="container medium margin-y-4">
-
-                    <div class="form-entry margin-bottom-4">
-
-                        <div class="form-entry__field">
-                            <label class="form-entry__field__label screen-reader-only" for="core-icon-search">Search</label>
-                            <span class="form-entry__field__input">
-                                <span class="icon_search opacity-40" aria-hidden="true"></span>
-                                <input type="text" name="core-icon-search" id="core-icon-search" placeholder="Filter Icons" autocomplete="off">
-                            </span>
+                        <div class="grid__cell-8--md">
+                            <div class="theme-dark padding-2 h-100">
+                                <h5>Title</h5>
+                                <p>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta alias impedit ut
+                                    eveniet illo asperiores in, neque, quis sunt reiciendis nisi tempore, deleniti magni
+                                    quidem amet nesciunt? Animi expedita maxime laboriosam esse, eos inventore maiores
+                                    sequi, iure aperiam similique voluptates placeat cum labore laudantium molestiae
+                                    excepturi nulla perferendis exercitationem doloremque.
+                                </p>
+                                <p>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dicta alias impedit ut
+                                    eveniet illo asperiores in, neque, quis sunt reiciendis nisi tempore, deleniti magni
+                                    quidem amet nesciunt? Animi expedita maxime laboriosam esse, eos inventore maiores
+                                    sequi, iure aperiam similique voluptates placeat cum labore laudantium molestiae
+                                    excepturi nulla perferendis exercitationem doloremque.
+                                </p>
+                            </div>
                         </div>
+                        <!-- col -->
 
+                        <div class="grid__cell-4--md">
+                            
+                            <div class="grid grid--gap-1 flex-column">
+                                <div class="grid__cell" style="flex: 1;">
+                                    <div class="theme-primary padding-2 h-100">
+                                        <p>
+                                            1
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="grid__cell" style="flex: 1;">
+                                    <div class="theme-primary padding-2 h-100">
+                                        <p>
+                                            1
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="grid__cell" style="flex: 1;">
+                                    <div class="theme-primary padding-2 h-100">
+                                        <p>
+                                            1
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <!-- col -->
+                        
                     </div>
-                    <!-- .form-entry -->
+                    <!-- .grid -->
 
-                    <div class="grid grid--gap-2 grid--cell-4 grid--cell-2--md text-align-center" id="iconsGrid"></div>
-
-                </div>
+                </figure>
 
             </section>
 
@@ -2061,7 +2407,7 @@
 
                 <figure class="container narrow margin-y-4">
 
-                    <button class="button theme-primary width-100 border-radius-pill margin-y-3" data-modal-open="modal-1">
+                    <button class="button theme-primary width-100 rounded-pill margin-y-3" data-modal-open="modal-1">
                         Open Modal
                     </button>
 
@@ -2069,7 +2415,7 @@
 
                 <div class="modal" id="modal-1" role="dialog">
 
-                    <div class="modal__content narrow medium--md border-radius box-shadow-3" aria-labelledby="modal-1-title">
+                    <div class="modal__content narrow medium--md rounded box-shadow-3" aria-labelledby="modal-1-title">
 
                         <header class="modal__content__head border-bottom">
                             <h2 class="h4" id="modal-1-title">
@@ -2117,7 +2463,7 @@
                                     <a href="#1">Secondary Action</a>
                                 </li>
                                 <li>
-                                    <a class="button theme-primary border-radius-pill" href="#1">Primary Action</a>
+                                    <a class="button theme-primary rounded-pill" href="#1">Primary Action</a>
                                 </li>
                             </ul>
                         </footer>
@@ -2146,11 +2492,12 @@
                             <a href="#1" title="Home" data-logo="brand">
 
                                 <!-- Placeholder logo, replace the following <svg> tag with your own image version -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="120" height="40" viewbox="0 0 120 40">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="120" height="40" viewBox="0 0 120 40">
+                                    <title>New York City Logo</title>
                                     <g>
-                                        <polygon points="87.5 0 80 7.5 80 2.5 77.5 0 67.5 0 65 2.5 65 7.5 60 12.5 55 7.5 55 2.5 52.5 0 42.5 0 40 2.5 37.5 0 27.5 0 25 2.5 25 12.5 12.501 0 2.501 0 0 2.5 0 37.5 2.501 40 12.501 40 15 37.5 15 27.5 27.5 40 37.5 40 40 37.5 40 17.5 52.5 30 52.5 37.5 55 40 65 40 67.5 37.5 67.5 30 80 17.5 80 32.5 87.5 40 112.5 40 120 32.5 120 25 117.5 22 105 22 105 25 95 25 95 15 105 15 105 18 117.5 18 120 15 120 7.5 112.5 0 87.5 0"/>
-                                        <path d="M117.9877,1.8787h.293l.4888.8088h.3522l-.53-.831a.4834.4834,0,0,0,.4927-.517c0-.3837-.2322-.5435-.6895-.5435h-.718V2.6875h.3105Zm0-.8182h.3758c.1867,0,.411.0278.411.2568,0,.2742-.2055.2962-.4385.2962h-.3483Z"/>
-                                        <path d="M118.3265,3.42A1.6573,1.6573,0,0,0,120,1.71a1.6784,1.6784,0,1,0-3.3563,0A1.6456,1.6456,0,0,0,118.3265,3.42Zm0-3.1218A1.3255,1.3255,0,0,1,119.6342,1.71a1.3157,1.3157,0,1,1-2.6242,0A1.3271,1.3271,0,0,1,118.3265.2977Z"/>
+                                        <polygon points="87.5 0 80 7.5 80 2.5 77.5 0 67.5 0 65 2.5 65 7.5 60 12.5 55 7.5 55 2.5 52.5 0 42.5 0 40 2.5 37.5 0 27.5 0 25 2.5 25 12.5 12.501 0 2.501 0 0 2.5 0 37.5 2.501 40 12.501 40 15 37.5 15 27.5 27.5 40 37.5 40 40 37.5 40 17.5 52.5 30 52.5 37.5 55 40 65 40 67.5 37.5 67.5 30 80 17.5 80 32.5 87.5 40 112.5 40 120 32.5 120 25 117.5 22 105 22 105 25 95 25 95 15 105 15 105 18 117.5 18 120 15 120 7.5 112.5 0 87.5 0" />
+                                        <path d="M117.9877,1.8787h.293l.4888.8088h.3522l-.53-.831a.4834.4834,0,0,0,.4927-.517c0-.3837-.2322-.5435-.6895-.5435h-.718V2.6875h.3105Zm0-.8182h.3758c.1867,0,.411.0278.411.2568,0,.2742-.2055.2962-.4385.2962h-.3483Z" />
+                                        <path d="M118.3265,3.42A1.6573,1.6573,0,0,0,120,1.71a1.6784,1.6784,0,1,0-3.3563,0A1.6456,1.6456,0,0,0,118.3265,3.42Zm0-3.1218A1.3255,1.3255,0,0,1,119.6342,1.71a1.3157,1.3157,0,1,1-2.6242,0A1.3271,1.3271,0,0,1,118.3265.2977Z" />
                                     </g>
                                 </svg>
 
@@ -2185,25 +2532,6 @@
                                 </li>
                             </ul>
 
-                            <form class="form-entry" role="search">
-
-                                <div class="form-entry__field">
-
-                                    <label class="form-entry__field__label screen-reader-only" for="search-example">
-                                        Search
-                                    </label>
-                                    
-                                    <span class="form-entry__field__input">
-                                        <input type="text" name="search-example" id="search-example" placeholder="Search">
-                                        <button class="button button--icon-only" type="button" aria-label="Home">
-                                            <span class="icon_search" aria-hidden="true"></span>
-                                        </button>
-                                    </span>
-
-                                </div>
-                            
-                            </form>
-
                         </nav>
 
                         <div class="primary-nav__actions">
@@ -2216,7 +2544,6 @@
                                 <a class="button" href="#1">
                                     Sign In  
                                 </a>
-                                
                                 <button class="button button--icon-only" aria-label="Language" data-modal-open="global-language">
                                     <span class="icon_language" aria-hidden="true"></span>
                                 </button>
@@ -2226,7 +2553,6 @@
 
                     </div>
                     <!-- .primary-nav -->
-
                 </figure>
 
                 <figure class="medium margin-y-4 box-shadow-1 z-index-1000">
@@ -2237,11 +2563,12 @@
                             <a href="#1" title="Home" data-logo="brand">
 
                                 <!-- Placeholder logo, replace the following <svg> tag with your own image version -->
-                                <svg xmlns="http://www.w3.org/2000/svg" width="120" height="40" viewbox="0 0 120 40">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="120" height="40" viewBox="0 0 120 40">
+                                    <title>New York City Logo</title>
                                     <g>
-                                        <polygon points="87.5 0 80 7.5 80 2.5 77.5 0 67.5 0 65 2.5 65 7.5 60 12.5 55 7.5 55 2.5 52.5 0 42.5 0 40 2.5 37.5 0 27.5 0 25 2.5 25 12.5 12.501 0 2.501 0 0 2.5 0 37.5 2.501 40 12.501 40 15 37.5 15 27.5 27.5 40 37.5 40 40 37.5 40 17.5 52.5 30 52.5 37.5 55 40 65 40 67.5 37.5 67.5 30 80 17.5 80 32.5 87.5 40 112.5 40 120 32.5 120 25 117.5 22 105 22 105 25 95 25 95 15 105 15 105 18 117.5 18 120 15 120 7.5 112.5 0 87.5 0"/>
-                                        <path d="M117.9877,1.8787h.293l.4888.8088h.3522l-.53-.831a.4834.4834,0,0,0,.4927-.517c0-.3837-.2322-.5435-.6895-.5435h-.718V2.6875h.3105Zm0-.8182h.3758c.1867,0,.411.0278.411.2568,0,.2742-.2055.2962-.4385.2962h-.3483Z"/>
-                                        <path d="M118.3265,3.42A1.6573,1.6573,0,0,0,120,1.71a1.6784,1.6784,0,1,0-3.3563,0A1.6456,1.6456,0,0,0,118.3265,3.42Zm0-3.1218A1.3255,1.3255,0,0,1,119.6342,1.71a1.3157,1.3157,0,1,1-2.6242,0A1.3271,1.3271,0,0,1,118.3265.2977Z"/>
+                                        <polygon points="87.5 0 80 7.5 80 2.5 77.5 0 67.5 0 65 2.5 65 7.5 60 12.5 55 7.5 55 2.5 52.5 0 42.5 0 40 2.5 37.5 0 27.5 0 25 2.5 25 12.5 12.501 0 2.501 0 0 2.5 0 37.5 2.501 40 12.501 40 15 37.5 15 27.5 27.5 40 37.5 40 40 37.5 40 17.5 52.5 30 52.5 37.5 55 40 65 40 67.5 37.5 67.5 30 80 17.5 80 32.5 87.5 40 112.5 40 120 32.5 120 25 117.5 22 105 22 105 25 95 25 95 15 105 15 105 18 117.5 18 120 15 120 7.5 112.5 0 87.5 0" />
+                                        <path d="M117.9877,1.8787h.293l.4888.8088h.3522l-.53-.831a.4834.4834,0,0,0,.4927-.517c0-.3837-.2322-.5435-.6895-.5435h-.718V2.6875h.3105Zm0-.8182h.3758c.1867,0,.411.0278.411.2568,0,.2742-.2055.2962-.4385.2962h-.3483Z" />
+                                        <path d="M118.3265,3.42A1.6573,1.6573,0,0,0,120,1.71a1.6784,1.6784,0,1,0-3.3563,0A1.6456,1.6456,0,0,0,118.3265,3.42Zm0-3.1218A1.3255,1.3255,0,0,1,119.6342,1.71a1.3157,1.3157,0,1,1-2.6242,0A1.3271,1.3271,0,0,1,118.3265.2977Z" />
                                     </g>
                                 </svg>
 
@@ -2253,7 +2580,7 @@
                             <ul>
                                 <li>
                                     <a href="#1" data-toggle="dropdown">Dropdown</a>
-                                    <ul class="nav__dropdown box-shadow-1--lg">
+                                    <ul class="nav__dropdown box-shadow-1">
                                         <li>
                                             <a href="#1">Link</a>
                                         </li>
@@ -2276,25 +2603,6 @@
                                 </li>
                             </ul>
 
-                            <form class="form-entry" role="search">
-
-                                <div class="form-entry__field">
-
-                                    <label class="form-entry__field__label screen-reader-only" for="search-example">
-                                        Search
-                                    </label>
-                                    
-                                    <span class="form-entry__field__input">
-                                        <input type="text" name="search-example" id="search-example" placeholder="Search">
-                                        <button class="button button--icon-only" type="button" aria-label="Home">
-                                            <span class="icon_search" aria-hidden="true"></span>
-                                        </button>
-                                    </span>
-
-                                </div>
-                            
-                            </form>
-
                         </nav>
 
                         <div class="primary-nav__actions">
@@ -2308,11 +2616,9 @@
                                 <button class="button button--icon-only" aria-label="Language" data-modal-open="global-language">
                                     <span class="icon_language"></span>
                                 </button>
-                                <!--
                                 <button class="button button--icon-only" aria-label="Search" data-modal-open="global-search">
                                     <span class="icon_search"></span>
                                 </button>
-                                -->
 
                             </div>
                         </div>
@@ -2575,7 +2881,7 @@
                     <div class="aspect-ratio aspect-ratio--3by2 border">
                         <div class="aspect-ratio__content display-flex">
                             <div class="width-100 padding-4 as-center--md">
-                                <ul class="nav nav--divider nav--horizontal border justify-content-center" role="menu">
+                                <ul class="nav nav--divider nav--horizontal border" role="menu">
                                     <li>
                                         <a href="#1" data-toggle="dropdown">Dropdown</a>
                                         <ul class="nav__dropdown">
@@ -2704,7 +3010,7 @@
                                         <a class="button button--icon-only" href="#1" data-toggle="dropdown" aria-label="Account">
                                             <span class="icon_person" aria-hidden="true"></span>
                                         </a>
-                                        <ul class="nav__dropdown theme-secondary border border-radius">
+                                        <ul class="nav__dropdown theme-secondary border rounded">
                                             <li>
                                                 <a href="#1">Link</a>
                                             </li>
@@ -2998,6 +3304,23 @@
 
                 <figure class="container medium margin-y-4">
 
+                    <ul class="tabs-nav tabs-nav--horizontal">
+                        <li>
+                            <a href="#1" aria-current="page">
+                                Icons
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#1">
+                                Usage
+                            </a>
+                        </li>
+                    </ul>
+                    
+                </figure>
+
+                <figure class="container medium margin-y-4">
+
                     <div class="tabs" role="tablist">
 
                         <ul class="tabs-nav tabs-nav--horizontal--md">
@@ -3112,9 +3435,9 @@
                         </ul>
 
                         <div class="tabs__panel shown"
-                            id="tab-panel-group-a-01"
-                            aria-labelledby="tab-button-group-a-01"
-                            role="tabpanel">
+                             id="tab-panel-group-a-01"
+                             aria-labelledby="tab-button-group-a-01"
+                             role="tabpanel">
                             <div class="container padding-y-4">
                                 <h2 class="h4">Tab 01</h2>
                                 <p>
@@ -3348,14 +3671,14 @@
                     </div>
 
                 </figure>
-                
+
                 <figure class="container medium margin-y-4">
 
                     <table class="table table--stack--md table--striped table--va-middle">
 
-                            <caption class="screen-reader-only">
-                                New York City Population Demographics
-                            </caption>
+                        <caption class="screen-reader-only">
+                            New York City Population Demographics
+                        </caption>
 
                         <thead>
                             <tr>
@@ -3435,7 +3758,7 @@
                     </h2>
                 </header>
 
-                <figure class="container narrow margin-y-4">
+                <figure class="container medium margin-y-4">
                     <h2 class="banner-headline">Banner Headline</h2>
                     <p class="h1">Header 1</p>
                     <p class="h2">Header 2</p>
@@ -3444,109 +3767,13 @@
                     <p class="h5">Header 5</p>
                     <p class="h6">Header 6</p>
                 </figure>
-
-                <figure class="container narrow margin-y-4">
-                    <h2>Header 2</h2>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, eum. Cum placeat, ducimus
-                        nesciunt rerum tempora corporis deserunt illum amet iste deleniti, sunt nisi optio quidem
-                        voluptatibus vitae explicabo asperiores fugit.
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, eum. Cum placeat, ducimus
-                        nesciunt rerum tempora corporis deserunt illum amet iste deleniti, sunt nisi optio quidem
-                        voluptatibus vitae explicabo asperiores fugit.
-                    </p>
-
-                    <ul>
-                        <li>Lorem ipsum dolor</li>
-                        <li>Lorem ipsum dolor</li>
-                        <li>Lorem ipsum dolor</li>
-                        <li>Lorem ipsum dolor</li>
-                        <li>Lorem ipsum dolor</li>
-                        <li>Lorem ipsum dolor</li>
-                    </ul>
-
-                    <ol role="list">
-                        <li>Lorem ipsum dolor</li>
-                        <li>Lorem ipsum dolor</li>
-                        <li>Lorem ipsum dolor</li>
-                        <li>Lorem ipsum dolor</li>
-                        <li>Lorem ipsum dolor</li>
-                        <li>Lorem ipsum dolor</li>
-                    </ol>
-
-                    <hr class="margin-y-4">
-                    
-                    <h2>Header 2</h2>
-                    
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, eum. Cum placeat, ducimus
-                        nesciunt rerum tempora corporis deserunt illum amet iste deleniti, sunt nisi optio quidem
-                        voluptatibus vitae explicabo asperiores fugit.
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, eum. Cum placeat, ducimus
-                        nesciunt rerum tempora corporis deserunt illum amet iste deleniti, sunt nisi optio quidem
-                        voluptatibus vitae explicabo asperiores fugit.
-                    </p>
-                    
-                    <hr class="margin-y-4">
-                    
-                    <h3>Header 3</h3>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, eum. Cum placeat, ducimus
-                        nesciunt rerum tempora corporis deserunt illum amet iste deleniti, sunt nisi optio quidem
-                        voluptatibus vitae explicabo asperiores fugit.
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, eum. Cum placeat, ducimus
-                        nesciunt rerum tempora corporis deserunt illum amet iste deleniti, sunt nisi optio quidem
-                        voluptatibus vitae explicabo asperiores fugit.
-                    </p>
-                    
-                    <hr class="margin-y-4">
-                    
-                    <h4>Header 4</h4>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, eum. Cum placeat, ducimus
-                        nesciunt rerum tempora corporis deserunt illum amet iste deleniti, sunt nisi optio quidem
-                        voluptatibus vitae explicabo asperiores fugit.
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, eum. Cum placeat, ducimus
-                        nesciunt rerum tempora corporis deserunt illum amet iste deleniti, sunt nisi optio quidem
-                        voluptatibus vitae explicabo asperiores fugit.
-                    </p>
-
-                    <hr class="margin-y-4">
-                    
-                    <h5>Header 5</h5>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, eum. Cum placeat, ducimus
-                        nesciunt rerum tempora corporis deserunt illum amet iste deleniti, sunt nisi optio quidem
-                        voluptatibus vitae explicabo asperiores fugit.
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, eum. Cum placeat, ducimus
-                        nesciunt rerum tempora corporis deserunt illum amet iste deleniti, sunt nisi optio quidem
-                        voluptatibus vitae explicabo asperiores fugit.
-                    </p>
-                    
-                    <hr class="margin-y-4">
-                    
-                    <h6>Header 6</h6>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, eum. Cum placeat, ducimus
-                        nesciunt rerum tempora corporis deserunt illum amet iste deleniti, sunt nisi optio quidem
-                        voluptatibus vitae explicabo asperiores fugit.
-                    </p>
-                    <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, eum. Cum placeat, ducimus
-                        nesciunt rerum tempora corporis deserunt illum amet iste deleniti, sunt nisi optio quidem
-                        voluptatibus vitae explicabo asperiores fugit.
-                    </p>
-                    
+                <figure class="container medium margin-y-4">
+                    <p class="h1">Header 1</p>
+                    <p class="h2">Header 2</p>
+                    <p class="h3">Header 3</p>
+                    <p class="h4">Header 4</p>
+                    <p class="h5">Header 5</p>
+                    <p class="h6">Header 6</p>
                 </figure>
 
             </section>
@@ -3573,76 +3800,6 @@
                 pageLanguage: 'en'
             }, 'google_translate_element');
         }
-    </script>
-
-    <!-- NYC Icon Display JS -->
-
-    <script>
-
-        const coreIconsData = "https://i.icomoon.io/public/395bc97f45/Natura11yIcons/selection.json";
-        const iconsGridView = document.getElementById("iconsGrid");
-
-        let coreIconsArray = [];
-
-        const loadCoreIcons = async () => {
-            try {
-                const response = await fetch(coreIconsData);
-                const coreIconData = await response.json();
-
-                coreIconsArray = coreIconData.icons;
-
-                displayIcons(coreIconsArray);
-            
-            } catch (err) {
-                console.error(err);
-            }
-        };
-
-        let currentView = "Grid";
-
-        const displayIcons = (icons) => {
-
-            const iconGridHTML = icons.map((iconArray) => {
-
-                let name = iconArray.properties.name;
-                // let tags = iconArray.icon.tags;
-
-                return `
-                    <div class="grid__cell">
-                        <div class="aspect-ratio aspect-ratio--1by1 border margin-bottom-1">
-                            <div class="aspect-ratio__content display-flex justify-content-center align-items-center">
-                                <span class="icon_${name}" style="font-size: 2.25em !important;"></span>   
-                            </div>
-                        </div>
-                        <p class="font-size-sm">
-                            ${name}
-                        </p>
-                    </div>`;
-
-            }).join('');
-            
-            iconsGrid.innerHTML = iconGridHTML;
-        };
-
-        loadCoreIcons();
-
-        // Icon Search
-        
-        const searchBar = document.getElementById('core-icon-search');
-
-        searchBar.addEventListener('keyup', (event) => {
-            const searchString = event.target.value.toLowerCase();
-            const filteredIcons = coreIconsArray.filter((iconArray) => {
-                return (
-                    iconArray.properties.name.toLowerCase().includes(searchString) ||
-                    iconArray.icon.tags.toString().includes(searchString)
-                );
-            });
-
-            displayIcons(filteredIcons);
-
-        });
-
     </script>
     
 </body>

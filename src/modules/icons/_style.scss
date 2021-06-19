@@ -6,7 +6,6 @@ In this file:
 // B. Shared Styles
 // C. Icon Font Utility Class
 // D. Rotating Utility Class
-// E. Subway Icons
 
 */
 
@@ -24,8 +23,8 @@ In this file:
 // B. Shared Styles
 //////////////////////////////////////////////
 
-[class^="nyc_icon_"],
-[class*="nyc_icon_"] {
+[class^="icon_"],
+[class*="icon_"] {
   @extend %icon-font-vars;
   
   font-size: var(--icon-size);
@@ -50,15 +49,15 @@ In this file:
 // C. Icon Font Utility Class
 //////////////////////////////////////////////
 
-.nyc_icon_font {
-  font-family: 'NYC-Core-Icons';
+.icon_font {
+  font-family: 'Natura11y';
 }
 
 //////////////////////////////////////////////
 // D. Rotating Utility Class
 //////////////////////////////////////////////
 
-.nyc_icon_loading.rotate {
+.icon_loading.rotate {
   display: inline-block;
   animation: rotate-s-loader 1s linear infinite;
 }
@@ -70,113 +69,4 @@ In this file:
   to {
     transform: rotate(360deg);
   }
-}
-
-//////////////////////////////////////////////
-// E. Subway Icons
-//////////////////////////////////////////////
-
-[class*="nyc_icon_subway-"] {
-    position: relative;
-    display: flex;
-
-    &::before {
-        position: relative;
-        z-index: 2;
-    }
-
-    &::after {
-        position: absolute;
-        content: "";
-        top: 0;
-        left: 0;
-        bottom: 0;
-        right: 0;
-
-        transform-origin: center;
-        transform: scale(0.875);
-        
-        border-radius: 100%;
-        
-        background-color: white;
-
-        z-index: 1;
-    }
-
-    &[class*="-express"]::after {
-      border-radius: unset;
-      transform: rotate(45deg) scale(0.6);
-    }
-}
-
-.nyc_icon_subway-a, 
-.nyc_icon_subway-c, 
-.nyc_icon_subway-e
-{
-  color: #0036a8 !important;
-}
-
-.nyc_icon_subway-b, 
-.nyc_icon_subway-d, 
-.nyc_icon_subway-f, 
-.nyc_icon_subway-f-express,
-.nyc_icon_subway-m
-{
-  color: #ff6319 !important;
-}
-
-.nyc_icon_subway-g {
-  color: #6cbe45 !important;
-}
-
-.nyc_icon_subway-l {
-  color: #a7a9ac !important;
-}
-
-.nyc_icon_subway-j, 
-.nyc_icon_subway-z
-{
-  color: #996633 !important;
-}
-
-.nyc_icon_subway-n,
-.nyc_icon_subway-q,
-.nyc_icon_subway-r,
-.nyc_icon_subway-w
-{
-
-  &::after {
-    background-color: black;
-  }
-
-  color: #FCCD01 !important;
-}
-
-.nyc_icon_subway-1, 
-.nyc_icon_subway-2, 
-.nyc_icon_subway-3
-{
-  color: #ee352e !important;
-}
-
-.nyc_icon_subway-4, 
-.nyc_icon_subway-5, 
-.nyc_icon_subway-6, 
-.nyc_icon_subway-6-express
-{
-  color: #00933c !important;
-}
-
-.nyc_icon_subway-7, 
-.nyc_icon_subway-7-express
-{
-  color: #b933ad !important;
-}
-
-.nyc_icon_subway-t {
-  color: #00add0 !important;
-}
-
-.nyc_icon_subway-s {
-  color: #808183 !important;
 }

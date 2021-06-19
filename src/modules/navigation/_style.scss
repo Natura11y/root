@@ -184,6 +184,7 @@ In this file:
 
             > li {
                 border-bottom-style: none !important;
+                flex: 1 0;
             }
 
             > li:not(:last-child) {

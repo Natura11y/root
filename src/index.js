@@ -23,14 +23,13 @@ import "./modules/article";
 
 import "./modules/aspect-ratios";
 
-import Backdrops from "./modules/backdrops";
-new Backdrops();
+import "./modules/backdrops";
 
 import "./modules/borders";
 
 import "./modules/breakpoints";
 
-import Buttons from "./modules/buttons/";
+import Buttons from "./modules/buttons";
 new Buttons();
 
 import "./modules/cards";
