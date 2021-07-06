@@ -1,7 +1,7 @@
 {
-  "name": "nyc-core-framework-website",
-  "version": "2.0.0",
-  "description": "NYC Core Framework",
+  "name": "natura11y-inclusive-framework",
+  "version": "1.0.0",
+  "description": "Natura11y Inclusive Framework",
   "private": true,
   "scripts": {
     "start": "webpack serve --config webpack.dev.js --open --hot",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/CityOfNewYork/nyc-core-framework-website.git"
+    "url": "git+https://github.com/cavidano/natura11y.git"
   },
   "keywords": [],
   "author": "Carl Avidano",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/CityOfNewYork/nyc-core-framework-website/issues"
+    "url": "https://github.com/cavidano/natura11y/issues"
   },
-  "homepage": "https://github.com/CityOfNewYork/nyc-core-framework-website#readme",
+  "homepage": "https://github.com/cavidano/natura11y.git#readme",
   "devDependencies": {
     "@babel/core": "^7.12.13",
     "@babel/plugin-transform-shorthand-properties": "^7.10.4",
@@ -47,7 +47,6 @@
   },
   "main": "webpack.config.js",
   "browserslist": [
-    "last 2 versions",
-    "IE 11"
+    "last 2 versions"
   ]
 }
