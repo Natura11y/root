@@ -37,7 +37,7 @@ In this file:
 
     // Associated Primary Colors
 
-    --primary-text: white;
+    --primary-text: var(--dark);
     --primary-border: hsla(0, 0%, 0%, 0.25);
     --primary-link: currentColor;
     --primary-confirm: #16db93;
@@ -45,7 +45,7 @@ In this file:
 
     // Associated Secondary Colors
 
-    --secondary-text: var(--dark);
+    --secondary-text: white;
     --secondary-border: hsla(0, 0%, 0%, 0.25);
     --secondary-link: currentColor;
     --secondary-confirm: #41e0f2;
@@ -63,7 +63,7 @@ In this file:
 
     --light-text: var(--dark);
     --light-border: hsla(0, 0%, 50%, 0.25);
-    --light-link: var(--a11y-link-color);
+    --light-link: var(--a11y-link);
     --light-confirm: #007e35;
     --light-warn: #ce1736;
 
@@ -71,7 +71,7 @@ In this file:
 
     --white-text: var(--dark);
     --white-border: hsla(0, 0%, 50%, 0.25);
-    --white-link: var(--a11y-link-color);
+    --white-link: var(--a11y-link);
     --white-confirm: #008237;
     --white-warn: #e4193c;
 }
@@ -112,7 +112,7 @@ $theme-colors: (
         link: var(--dark-link),
         confirm: var(--dark-confirm),
         warn: var(--dark-warn)
-    ), 
+    ),
     
     "light": (
         swatch: var(--light),
@@ -129,10 +129,11 @@ $theme-colors: (
 //////////////////////////////////////////////
 
 body:not([class*="theme-"]),
+body > footer:not([class*="theme-"]),
 [class*="theme-"] {
     background-color: var(--background-color);
 
-    color: var(--text-);
+    color: var(--text-color);
     
     border-color: var(--border-color);
 
@@ -144,7 +145,8 @@ body:not([class*="theme-"]),
 
     td > a, 
     .td-content > a,
-    p > a:not([class*="text-"]) {
+    p > a:not([class*="text-"]),
+    .text-color-link {
         color: var(--link-color);
     }
 
@@ -216,19 +218,19 @@ body:not([class*="theme-"]),
 
             .theme-#{$name}#{$mod} {
                 --background-color: #{$swatch};
-                --text-: #{$text};
+                --text-color: #{$text};
                 --border-color: #{$border};
                 --link-color: #{$link};
                 --confirm-color: #{$confirm};
                 --warn-color: #{$warn};
             }
 
-            .background-#{$name}#{$mod}{
+            .background-color-#{$name}#{$mod}{
                 --background-color: #{$swatch};
                 background-color: var(--background-color) !important;
             }
 
-            .text-#{$name}#{$mod}{
+            .text-color-#{$name}#{$mod}{
                 --text-color: #{$swatch};
                 color: var(--text-color) !important;
             }
