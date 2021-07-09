@@ -36,7 +36,7 @@ In this file:
 
     --a11y-link: #0040b2;
 
-    // Associated Primary Colors
+    // Primary Correlated Colors
 
     --primary-text: var(--dark);
     --primary-border: hsla(0, 0%, 0%, 0.25);
@@ -44,7 +44,7 @@ In this file:
     --primary-confirm: #16db93;
     --primary-warn: #ff73aa;
 
-    // Associated Secondary Colors
+    // Secondary Correlated Colors
 
     --secondary-text: white;
     --secondary-border: hsla(0, 0%, 0%, 0.25);
@@ -52,7 +52,7 @@ In this file:
     --secondary-confirm: #41e0f2;
     --secondary-warn: #ffa3a4;
 
-    // Associated Dark Colors
+    // Dark Correlated Colors
 
     --dark-text: white;
     --dark-border: hsla(0, 0%, 100%, 0.125);
@@ -60,7 +60,7 @@ In this file:
     --dark-confirm: #00a242;
     --dark-warn: #fe3c3e;
 
-    // Associated Light Colors
+    // Light Correlated Colors
 
     --light-text: var(--dark);
     --light-border: hsla(0, 0%, 50%, 0.25);
@@ -68,7 +68,7 @@ In this file:
     --light-confirm: #007e35;
     --light-warn: #ce1736;
 
-    // Associated Light Colors
+    // White Correlated Colors
 
     --white-text: var(--dark);
     --white-border: hsla(0, 0%, 50%, 0.25);
