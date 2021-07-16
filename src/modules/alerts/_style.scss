@@ -25,8 +25,6 @@ In this file:
     --alert-padding-x: var(--spacer-2);
     --alert-padding-y: var(--spacer-2);
 
-    --alert-title-font-size: inherit;
-
     --alert-border-radius: 0;
 }
 
@@ -38,8 +36,6 @@ In this file:
     @extend %alert-vars;
     
     position: relative;
-    
-    padding: var(--alert-padding-y) var(--alert-padding-x);
 
     border-radius: var(--alert-border-radius);
 
@@ -66,16 +62,15 @@ In this file:
     position: relative;
 }
 
+.alert__title,
+.alert__foot {
+    padding: var(--alert-padding-y) var(--alert-padding-x);
+}
+
 .alert__title {
     display: flex;
     align-items: center;
-
-    font-size: var(--alert-title-font-size);
     
-    &:not(:last-child) {
-        margin-bottom: 0.25em;
-    }
-
     [class*="icon_"] {
         --icon-size: 1.25em;
     }
@@ -104,6 +99,12 @@ In this file:
     }
 }
 
+.alert__title + .alert__description {
+    padding-right: var(--alert-padding-x);
+    padding-bottom: var(--alert-padding-y);
+    padding-left: var(--alert-padding-x);
+}
+
 //////////////////////////////////////////////
 // D. Alert Dismissable
 //////////////////////////////////////////////
@@ -113,13 +114,17 @@ In this file:
 
     > [class*="__title"] {
         grid-area: title;
+
         margin-top: auto;
         margin-bottom: auto;
     }
 
     > [class*="button"] {
         grid-area: close;
+        
         font-size: 80%;
+        
+        margin: var(--alert-padding-y) var(--alert-padding-x);
     }
 
     > [class*="__description"] {
@@ -131,7 +136,6 @@ In this file:
     grid-template-areas:
         "title close"
         "description description";
-
 }
 
 .dismissed {
