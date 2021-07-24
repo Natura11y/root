@@ -8,6 +8,8 @@ export default class Accordion {
 
     constructor() {
 
+        // Get each set of accordions
+
         const accordionList = document.querySelectorAll('.accordion');
 
         accordionList.forEach((accordion) => {
@@ -15,15 +17,25 @@ export default class Accordion {
             const accordionButtonList = accordion.querySelectorAll('[data-toggle="accordion"]');
             const accordionPanelList = accordion.querySelectorAll('[data-accordion="panel"]');
 
-            function setKeyboardFocusableElements(element = document, focusable = false) {
+            const setFocusableElements = (element = document, focusable = false) => {
 
-                const focusElList = element.querySelectorAll('a[href], button, input, textarea, select, details, [tabindex]:not([tabindex="- 1"])');
+                const elements = [
+                    'a[href]',
+                    'button',
+                    'input',
+                    'textarea',
+                    'select', 
+                    'details', 
+                    '[tabindex]:not([tabindex="- 1"]'
+                ];
 
-                for (const focusEl of focusElList) {
+                const focusableElementList = element.querySelectorAll(elements);
+
+                for (const focusableElement of focusableElementList) {
                     if (focusable === true) {
-                        focusEl.setAttribute('tabindex', 0);
+                        focusableElement.setAttribute('tabindex', 0);
                     } else if (focusable === false) {
-                        focusEl.setAttribute('tabindex', -1);
+                        focusableElement.setAttribute('tabindex', -1);
                     }
                 }
             }
@@ -39,14 +51,14 @@ export default class Accordion {
                     currentAccordionPanel.style.maxHeight = currentAccordionPanel.scrollHeight + 'px';
                     currentAccordionPanel.classList.add('show');
 
-                    setKeyboardFocusableElements(currentAccordionPanel, true);
+                    setFocusableElements(currentAccordionPanel, true);
 
                 } else {
                     accordionButton.setAttribute('aria-expanded', false);
                     currentAccordionPanel.style.maxHeight = null;
                     currentAccordionPanel.setAttribute('aria-hidden', true);
 
-                    setKeyboardFocusableElements(currentAccordionPanel, false);
+                    setFocusableElements(currentAccordionPanel, false);
                 }
 
                 const initAccordion = (event) => {
@@ -64,7 +76,7 @@ export default class Accordion {
                             otherAccordionPanel.previousElementSibling.setAttribute('aria-expanded', false);
                             otherAccordionPanel.setAttribute('aria-hidden', true);
 
-                            setKeyboardFocusableElements(otherAccordionPanel, false);
+                            setFocusableElements(otherAccordionPanel, false);
                         }
                     }
 
@@ -76,13 +88,13 @@ export default class Accordion {
                         accordionButton.setAttribute('aria-expanded', false);
                         currentAccordionPanel.setAttribute('aria-hidden', true);
                         
-                        setKeyboardFocusableElements(currentAccordionPanel, false);
+                        setFocusableElements(currentAccordionPanel, false);
 
                     } else if (isExpanded === 'false') {
                         accordionButton.setAttribute('aria-expanded', true);
                         currentAccordionPanel.setAttribute('aria-hidden', false);
 
-                        setKeyboardFocusableElements(currentAccordionPanel, true);
+                        setFocusableElements(currentAccordionPanel, true);
                     }
 
                     if (currentAccordionPanel.style.maxHeight) {
