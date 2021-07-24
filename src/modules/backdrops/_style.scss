@@ -11,7 +11,6 @@ In this file:
 
 */
 
-
 //////////////////////////////////////////////
 // A. Modules
 //////////////////////////////////////////////
@@ -143,6 +142,6 @@ In this file:
     }
     
     @include breakpoints.breakpoints-down(md) {
-        min-height: calc( var(--backdrop-fixed-height) * 0.75 );
+        min-height: calc(var(--backdrop-fixed-height) * 0.75);
     }
 }
