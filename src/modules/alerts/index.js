@@ -1,4 +1,4 @@
-import "./_style.scss";
+import './_style.scss';
 
 //////////////////////////////////////////////
 // Alerts
@@ -8,7 +8,7 @@ export default class Alerts {
 
     constructor() {
         
-        const alertDismissableList = document.querySelectorAll(".alert--dismissable");
+        const alertDismissableList = document.querySelectorAll('.alert--dismissable');
 
         const closeButtonHTML = `
         <button class="button button--icon-only">
@@ -21,11 +21,11 @@ export default class Alerts {
 
             const alertCloseButton = alertDismissable.querySelector("button");
 
-            alertCloseButton.addEventListener("click", (event) => {
+            alertCloseButton.addEventListener('click', (event) => {
                 
                 event.preventDefault();
 
-                alertDismissable.classList.add("dismissed");
+                alertDismissable.classList.add('dismissed');
 
                 const dismissed = document.querySelector('.dismissed');
 
