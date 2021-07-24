@@ -22,6 +22,10 @@ a {
 
 p > a {
     text-decoration: underline;
+
+    &:focus {
+        display: inline-flex;
+    }
 }
 
 //////////////////////////////////////////////
