@@ -1,4 +1,4 @@
-import "./_style.scss";
+import './_style.scss';
 
 //////////////////////////////////////////////
 // Alerts
