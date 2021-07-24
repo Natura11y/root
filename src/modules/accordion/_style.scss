@@ -13,6 +13,7 @@ In this file:
 // A. Modules
 //////////////////////////////////////////////
 
+@use "../accents/style" as accents;
 @use "../caret/style" as caret;
 
 //////////////////////////////////////////////
@@ -26,7 +27,7 @@ In this file:
     --accordion-button-padding-y: var(--button-padding-y);
 
     --accordion-panel-padding-x: var(--spacer-3);
-    --accordion-panel-padding-y: var(--spacer-4);
+    --accordion-panel-padding-y: var(--spacer-3);
     
     --accordion-active-color: currentColor;
 
@@ -53,7 +54,7 @@ In this file:
 
     width: 100%;
 
-    padding: var(--accordion-button-padding-y) var(--accordion-button-padding-y);
+    padding: var(--accordion-button-padding-y) var(--accordion-button-padding-x);
 
     margin-bottom: 0;
 
@@ -77,6 +78,7 @@ In this file:
 
     &[aria-expanded="true"] {
         text-decoration: underline;
+
         color: var(--accordion-active-color);
 
         &::before {
