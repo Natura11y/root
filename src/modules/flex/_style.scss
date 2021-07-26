@@ -24,11 +24,10 @@ In this file:
 // B. Flex Direction Utilities 
 //////////////////////////////////////////////
 
-[class*="flex-row"],
-[class*="flex-column"]
-[class*="row-reverse"],
-[class*="column-reverse"] {
-    display: flex;
+[class*="flex-direction-row"],
+[class*="flex-direction-column"]
+[class*="flex-direction-row-reverse"],
+[class*="flex-direction-column-reverse"] {
     flex-wrap: wrap;
 }
 
@@ -36,19 +35,19 @@ In this file:
     @include breakpoints.breakpoints-up($breakpoint) {
         $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
 
-        .flex-row#{$mod} {
+        .flex-direction-row#{$mod} {
             flex-direction: row;
         }
 
-        .flex-column#{$mod} {
+        .flex-direction-column#{$mod} {
             flex-direction: column;
         }
 
-        .row-reverse#{$mod} {
+        .flex-direction-row-reverse#{$mod} {
             flex-direction: row-reverse;
         }
         
-        .column-reverse#{$mod} {
+        .flex-direction-column-reverse#{$mod} {
             flex-direction: column-reverse;
         }
 
