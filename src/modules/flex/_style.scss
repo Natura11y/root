@@ -28,6 +28,7 @@ In this file:
 [class*="flex-direction-column"]
 [class*="flex-direction-row-reverse"],
 [class*="flex-direction-column-reverse"] {
+    display: flex;
     flex-wrap: wrap;
 }
 
