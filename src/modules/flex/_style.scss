@@ -19,15 +19,16 @@ In this file:
 
 @use "sass:map";
 @use "../breakpoints/style" as breakpoints;
+@use "../spacing/style" as spacing;
 
 //////////////////////////////////////////////
 // B. Flex Direction Utilities 
 //////////////////////////////////////////////
 
-[class*="flex-direction-row"],
-[class*="flex-direction-column"]
-[class*="flex-direction-row-reverse"],
-[class*="flex-direction-column-reverse"] {
+[class*="flex-row"],
+[class*="flex-column"]
+[class*="flex-row-reverse"],
+[class*="flex-column-reverse"] {
     display: flex;
     flex-wrap: wrap;
 }
@@ -36,19 +37,19 @@ In this file:
     @include breakpoints.breakpoints-up($breakpoint) {
         $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
 
-        .flex-direction-row#{$mod} {
+        .flex-row#{$mod} {
             flex-direction: row;
         }
 
-        .flex-direction-column#{$mod} {
+        .flex-column#{$mod} {
             flex-direction: column;
         }
 
-        .flex-direction-row-reverse#{$mod} {
+        .flex-row-reverse#{$mod} {
             flex-direction: row-reverse;
         }
         
-        .flex-direction-column-reverse#{$mod} {
+        .flex-column-reverse#{$mod} {
             flex-direction: column-reverse;
         }
 
@@ -105,6 +106,10 @@ In this file:
 
         .justify-content-around#{$mod} {
             justify-content: space-around !important;
+        }
+
+        .justify-content-evenly#{$mod} {
+            justify-content: space-evenly !important;
         }
     }
 }
@@ -163,10 +168,14 @@ In this file:
             align-content: space-around !important;
         }
 
+        .align-content-evenly {
+            align-content: space-evenly !important;
+        }
+
         .align-content-stretch {
             align-content: stretch !important;
         }
-        
+
     }
 }
 
