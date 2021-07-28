@@ -131,6 +131,8 @@ $theme-colors: (
 
 body:not([class*="theme-"]),
 body > footer:not([class*="theme-"]),
+.modal__content:not([class*="theme-"]),
+
 [class*="theme-"] {
     background-color: var(--background-color);
 
