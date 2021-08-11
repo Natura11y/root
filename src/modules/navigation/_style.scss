@@ -63,6 +63,10 @@ In this file:
 // D. Nav Component
 ////////////////////////////////////////
 
+.nav > li svg {
+    fill: currentColor;
+}
+
 .nav, 
 .nav li > ul {
     @extend %list-style-nav;
@@ -143,6 +147,11 @@ In this file:
 
 .nav--divider {
 
+    > li > a > * {
+        margin-top: auto;
+        margin-bottom: auto;
+    }
+
     > li:not(:last-child) {
         border-bottom-width: var(--default-border-width);
         border-bottom-style: var(--default-border-style);
@@ -184,7 +193,12 @@ In this file:
 
             > li {
                 border-bottom-style: none !important;
-                flex: 1 0;
+
+                flex-grow: 1;
+                flex-shrink: 0;
+                
+                display: flex;
+                align-items: stretch;
             }
 
             > li:not(:last-child) {
@@ -201,6 +215,7 @@ In this file:
             > li > a, 
             > li > button {
                 justify-content: center;
+                display: flex;
             }
 
             &[class*="border"] {
@@ -417,7 +432,7 @@ In this file:
     }
 
     form[role="search"] .form-entry__field {
-        height: var(--button--icon-only-size);
+        height: var(--button-icon-only-size);
         border-radius: var(--button-border-radius);
     }
 
@@ -464,7 +479,7 @@ In this file:
     }
 
     > form[role="search"] {
-        --nav-search-width: 200px;
+        --nav-search-width: 240px;
         margin-top: var(--spacer-2);
 
         button::before {

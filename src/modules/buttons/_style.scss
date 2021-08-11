@@ -29,7 +29,7 @@ In this file:
 
 :root {
     --button-padding-x: 1em;
-    --button-padding-y: 0.625em;
+    --button-padding-y: 0.75em;
 
     --button-font-weight: var(--body-font-weight-bold);
 
@@ -37,7 +37,7 @@ In this file:
     
     --button-outline-border-width: calc( var(--default-border-width) * 2);
 
-    --button--icon-only-size: 2.25em;
+    --button-icon-only-size: 2.25em;
 }
 
 //////////////////////////////////////////////
@@ -154,8 +154,8 @@ button {
     align-items: center;
     justify-content: center;
 
-    width: var(--button--icon-only-size);
-    height: var(--button--icon-only-size);
+    width: var(--button-icon-only-size);
+    height: var(--button-icon-only-size);
 
     [class*="_icon"] {
         --icon-size: 1.25em;
@@ -239,7 +239,7 @@ button {
     margin-left: calc(var(--gap-size) * -0.5);
     margin-right: calc(var(--gap-size) * -0.5);
 
-    min-height: var(--button--icon-only-size);
+    min-height: var(--button-icon-only-size);
 
     > [class*="button"], 
     button {
