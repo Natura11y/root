@@ -223,7 +223,7 @@ p ~ ol {
 p ~ ul,
 p ~ ol {
     li {
-        margin-bottom: var(--spacer-2);
+        margin-bottom: var(--spacer-1);
     }
 }
 
@@ -282,12 +282,12 @@ figure {
     @include breakpoints.breakpoints-up($breakpoint) {
         $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
 
-        .text-align-center{
-        text-align: center !important;
-        }
-
         .text-align-left {
             text-align: left !important;
+        }
+        
+        .text-align-center {
+            text-align: center !important;
         }
 
         .text-align-right {
