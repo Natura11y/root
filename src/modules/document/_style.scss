@@ -40,7 +40,7 @@ In this file:
     padding: 0;
     border: unset;
     font-size: 100%;
-    font-family: inherit;
+    // font-family: inherit;
     vertical-align: baseline;
 }
 
@@ -115,10 +115,14 @@ body {
     @extend %custom-properties;
 
     font-family: sans-serif;
+
     overflow-x: hidden;
 
     min-width: var(--body-min-width);
     max-width: var(--body-max-width);
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
     @extend .margin-x-auto;
     @extend .theme-white;
