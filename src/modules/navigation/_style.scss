@@ -372,7 +372,8 @@ In this file:
 //////////////////////////////////////////////
 
 [class*="primary-nav--"] {
-    --primary-nav-padding: var(--spacer-2);
+    --primary-nav-padding-x: var(--spacer-3);
+    --primary-nav-padding-y: var(--spacer-2);
 
     position: relative;
 
@@ -388,7 +389,7 @@ In this file:
     > [class*="__logo"] {
         grid-area: logo;
 
-        padding: var(--primary-nav-padding);
+        padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
     }
 
     > [class*="__menu"] {
@@ -396,7 +397,7 @@ In this file:
 
         @extend .collapse;
 
-        padding: var(--primary-nav-padding);
+        padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
     }
 
     > [class*="__actions"] {
@@ -405,7 +406,8 @@ In this file:
         display: flex;
         align-items: center;
 
-        padding: var(--primary-nav-padding);
+
+        padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
 
         > .button {
             margin-right: var(--spacer-2);
@@ -456,9 +458,9 @@ In this file:
     }
     
     > [class*="__actions"] {
-        padding: calc(var(--primary-nav-padding) * 0.5) var(--primary-nav-padding);
-        
         justify-content: space-between;
+
+        padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
     }
 
     > [class*="__actions"],
@@ -522,10 +524,6 @@ In this file:
                 display: flex !important;
             }
 
-            [class*="__actions"] {
-                padding: var(--primary-nav-padding);
-            }
-
             [class*="__actions"] button.mobile-menu-toggle {
                 display: none;
             }
@@ -542,9 +540,10 @@ In this file:
                 "logo menu buttons";
 
             [class*="__menu"] {
-                padding: unset;
-
                 align-items: center;
+
+                padding-left: unset;
+                padding-right: unset;
 
                 > ul {
                     display: flex;
@@ -572,6 +571,15 @@ In this file:
                     > li > a {
                         margin-top: auto;
                         margin-bottom: auto;
+                    }
+                }
+
+                form[role="search"] {
+                    margin-left: var(--primary-nav-padding-x);
+                    
+                    [dir="rtl"] & {
+                        margin-left: unset;
+                        margin-right:  var(--primary-nav-padding-x);
                     }
                 }
 
