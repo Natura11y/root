@@ -540,10 +540,9 @@ In this file:
                 "logo menu buttons";
 
             [class*="__menu"] {
-                align-items: center;
+                padding: unset;
 
-                padding-left: unset;
-                padding-right: unset;
+                align-items: center;
 
                 > ul {
                     display: flex;
