@@ -467,6 +467,10 @@ In this file:
         border-top-style: var(--default-border-style);
         border-top-color: inherit;
     }
+
+    form[role="search"] .form-entry__field{
+        --form-field-border-radius: 0;
+    }
 }
 
 .primary-nav__menu {
@@ -516,7 +520,6 @@ In this file:
 
             [class*="__menu"] {
                 display: flex !important;
-
             }
 
             [class*="__actions"] {

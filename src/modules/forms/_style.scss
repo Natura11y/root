@@ -113,6 +113,11 @@ fieldset {
     min-width: 0;
 }
 
+::placeholder {
+    color: currentColor;
+    opacity: 0.625;
+}
+
 //////////////////////////////////////////////
 // D. Required Indicator
 //////////////////////////////////////////////
@@ -284,9 +289,11 @@ fieldset {
 
 // Search in Nav
 
-[class*="primary-nav"] .form-entry__field__input::after {
-    display: none;
-}
+[class*="primary-nav"]{
+    .form-entry:not([class*="active"]) .form-entry__field__input::after {
+        display: none;
+    }
+} 
 
 // Active Fields
 
