@@ -30,13 +30,18 @@ In this file:
 // B. Variables
 ////////////////////////////////////////
 
-// Scoped to Block
+// Scoped to Root
 
 :root {
     --nav-gap: 0.75em;
 
     --nav-divider-padding-y: 0.625em;
     --nav-divider-padding-x: var(--spacer-3);
+
+    --primary-nav-padding-x: var(--spacer-3);
+    --primary-nav-padding-y: var(--spacer-2);
+
+    --primary-nav-search-width: 200px;
 }
 
 ////////////////////////////////////////
@@ -73,7 +78,6 @@ In this file:
 }
 
 .nav:not([class*="nav--divider"]):not([class*="nav--breadcrumb"]) {
-
     > li:not(:last-child) {
         margin-bottom: var(--nav-gap);
     }
@@ -372,9 +376,6 @@ In this file:
 //////////////////////////////////////////////
 
 [class*="primary-nav--"] {
-    --primary-nav-padding-x: var(--spacer-3);
-    --primary-nav-padding-y: var(--spacer-2);
-
     position: relative;
 
     display: grid;
@@ -398,8 +399,6 @@ In this file:
         @extend .collapse;
 
         padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
-
-        background-color: darksalmon;
     }
 
     > [class*="__actions"] {
@@ -426,6 +425,8 @@ In this file:
 }
 
 [class*="primary-nav--inline--"] {
+    --search-width: var(--primary-nav-search-width);
+
     justify-content: space-between;
     align-items: center;
 
@@ -437,7 +438,6 @@ In this file:
     > [class*="__menu"] {
         align-self: stretch; 
         justify-content: end;
-        background-color: darkseagreen;
 
         > ul > li:not(:last-child) {
             margin-bottom: var(--nav-gap);
@@ -500,13 +500,8 @@ In this file:
         @extend .expanded-link;
     }
 
-    > form[role="search"] {
-        --nav-search-width: 200px;
+    form[role="search"] {
         margin-top: var(--spacer-2);
-
-        // button::before {
-        //     display: none;
-        // }
     }
 
     .form-entry__field {
@@ -540,7 +535,7 @@ In this file:
             }
 
             form[role="search"] {
-                max-width: var(--nav-search-width);
+                max-width: var( --primary-nav-search-width);
                 margin-top: unset;
             }
         }
