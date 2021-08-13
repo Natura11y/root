@@ -224,8 +224,8 @@ In this file:
 
             > li > a, 
             > li > button {
-                justify-content: center;
                 display: flex;
+                justify-content: center;
             }
 
             &[class*="border"] {
@@ -381,7 +381,7 @@ In this file:
     display: grid;
     align-items: center;
 
-    z-index: 1000;
+    z-index: 1000; //???
 
     ul {
         @extend %list-style-nav;
