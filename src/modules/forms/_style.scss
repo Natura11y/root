@@ -117,6 +117,7 @@ fieldset {
     color: currentColor;
     opacity: 0.625;
     font-style: italic;
+    line-height: normal;
 }
 
 //////////////////////////////////////////////
@@ -257,6 +258,8 @@ fieldset {
 .form-entry__field__input {
     display: flex;
     align-items: center;
+    
+    height: 100%;
 
     button {
         flex-shrink: 0;
@@ -270,9 +273,6 @@ fieldset {
         align-self: stretch;
 
         height: unset;
-
-        padding-left: var(--form-field-padding-x);
-        padding-right: var(--form-field-padding-x);
     }
 
     > [class*="icon_"],
@@ -287,14 +287,6 @@ fieldset {
         font-size: 75%;
     }
 }
-
-// Search in Nav
-
-[class*="primary-nav"]{
-    .form-entry:not([class*="active"]) .form-entry__field__input::after {
-        display: none;
-    }
-} 
 
 // Active Fields
 

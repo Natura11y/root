@@ -30,7 +30,7 @@ In this file:
 // B. Variables
 ////////////////////////////////////////
 
-// Scoped to Root
+// Scoped to Block
 
 :root {
     --nav-gap: 0.75em;
@@ -398,6 +398,8 @@ In this file:
         @extend .collapse;
 
         padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
+
+        background-color: darksalmon;
     }
 
     > [class*="__actions"] {
@@ -405,7 +407,6 @@ In this file:
 
         display: flex;
         align-items: center;
-
 
         padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
 
@@ -417,6 +418,10 @@ In this file:
                 margin-left: var(--spacer-2);
             }
         }
+    }
+
+    .form-entry:not([class*="active"]) .form-entry__field__input::after {
+        display: none;
     }
 }
 
@@ -430,7 +435,9 @@ In this file:
         "menu menu";
 
     > [class*="__menu"] {
-        align-self: stretch;
+        align-self: stretch; 
+        justify-content: end;
+        background-color: darkseagreen;
 
         > ul > li:not(:last-child) {
             margin-bottom: var(--nav-gap);
@@ -470,8 +477,12 @@ In this file:
         border-top-color: inherit;
     }
 
-    form[role="search"] .form-entry__field{
-        --form-field-border-radius: 0;
+    form[role="search"]{
+        
+        .form-entry__field {
+            --form-field-border-radius: 0;
+            height: 100%;
+        } 
     }
 }
 
@@ -490,12 +501,12 @@ In this file:
     }
 
     > form[role="search"] {
-        --nav-search-width: 240px;
+        --nav-search-width: 200px;
         margin-top: var(--spacer-2);
 
-        button::before {
-            display: none;
-        }
+        // button::before {
+        //     display: none;
+        // }
     }
 
     .form-entry__field {
@@ -541,6 +552,7 @@ In this file:
 
             [class*="__menu"] {
                 padding: unset;
+                justify-content: flex-end;
 
                 align-items: center;
 
