@@ -57,7 +57,8 @@ In this file:
         position: relative;
     }
 
-    a[aria-current] {
+    [aria-selected="true"],
+    [aria-current] {
         font-weight: var(--body-font-weight-bold);
 
         text-decoration: underline;

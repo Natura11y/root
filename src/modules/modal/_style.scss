@@ -19,13 +19,15 @@ In this file:
 // B. Variables
 //////////////////////////////////////////////
 
+// Scoped to Block
+
 %modal-vars {
   --modal-padding-x: var(--spacer-2);
   --modal-padding-y: var(--spacer-2);
 
   --modal-overlay-opacity: 0.8;
   
-  --modal-z-index: 1400;
+  --modal-z-index: 8000;
 }
 
 //////////////////////////////////////////////
@@ -80,7 +82,6 @@ In this file:
 //////////////////////////////////////////////
 
 .modal__content {
-
   position: relative;
 
   display: flex;
@@ -97,7 +98,6 @@ In this file:
   
   margin-top: var(--modal-padding);
   margin-bottom: var(--modal-padding);
-
 }
 
 .modal__content__head,
@@ -109,7 +109,7 @@ In this file:
 .modal__content__head {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
 
   padding: var(--modal-padding-y) var(--modal-padding-x);
 
@@ -125,10 +125,15 @@ In this file:
   button {
     flex-shrink: 0;
   }
+  
 }
 
 .modal__content__body {
   flex-shrink: 1;
   
   overflow-y: auto;
+}
+
+body.modal-open {
+  overflow: hidden;
 }

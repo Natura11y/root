@@ -53,8 +53,10 @@ p > a {
 a[data-logo="brand"] {
     display: inline-block;
 
+
     > svg {
         fill: currentColor;
+        display: inline-block;
         vertical-align: middle;
     }
 

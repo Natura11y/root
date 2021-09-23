@@ -36,10 +36,11 @@ export default class Tables {
 
                     let tableDataHTML = tableData.innerHTML;
 
-                    let myNewContent =
-                        `<div class="td-content">
-                        ${tableDataHTML}
-                        </div>`;
+                    let myNewContent = `
+                            <div class="td-content">
+                            ${tableDataHTML}
+                            </div>
+                        `;
 
                     tableData.innerHTML = myNewContent;
                     tableData.setAttribute("data-before", myHeaders[index]);
@@ -63,22 +64,22 @@ export default class Tables {
                 let maxWidth = scrollElement.offsetWidth;
                 let scrollWidth = scrollTarget.scrollWidth;
 
-                if (scrollWidth > maxWidth) {
-                    scrollElement.setAttribute("data-scroll", true);
-                } else {
-                    scrollElement.setAttribute("data-scroll", false);
-                }
+                const removeGradient = () => {
 
-                function removeGradient() {
+                    let scrollPosition = scrollTarget.scrollLeft;
 
-                    let scrollPos = scrollTarget.scrollLeft;
-
-                    if (scrollPos > 1) {
+                    if (scrollPosition > 1) {
                         scrollTarget.setAttribute("data-scrolling", true);
                     } else {
                         scrollTarget.setAttribute("data-scrolling", false);
                     }
 
+                }
+
+                if (scrollWidth > maxWidth) {
+                    scrollElement.setAttribute("data-scroll", true);
+                } else {
+                    scrollElement.setAttribute("data-scroll", false);
                 }
 
                 scrollTarget.addEventListener("scroll", removeGradient, {
@@ -90,6 +91,5 @@ export default class Tables {
     
         initTableScroll();
         window.addEventListener("resize", initTableScroll);
-
     }
 }

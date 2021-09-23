@@ -47,6 +47,8 @@ In this file:
 button {
     cursor: pointer;
     
+    font-family: inherit;
+
     &:not([class*="theme-"]){
         background-color: transparent;
     }
@@ -80,7 +82,7 @@ button {
 
     transition: opacity 0.5s ease-out;
 
-    &:not([class*="button--outline"]):not([class*="theme-"]):not([class*="background-color"]) {
+    &:not([class*="button--outline"]):not([class*="theme-"]):not([class*="background-color"]):not([data-toggle="dropdown"]) {
         @extend %subtle-fill-psuedo;
         --subtle-fill-opacity: 0.05;
     }

@@ -28,9 +28,9 @@ In this file:
 // B. Variables
 //////////////////////////////////////////////
 
-// Scoped to Block
+// Scoped to Root
 
-%form-field-vars {
+:root {
     --form-field-padding-x: var(--spacer-2);
     --form-field-padding-y: var(--button-padding-y);
 
@@ -129,6 +129,7 @@ fieldset {
     padding: 0.25em 0.5em;
     border-radius: var(--form-field-border-radius);
     text-align: right;
+    overflow: hidden;
     
     @extend %subtle-fill-psuedo;
 
@@ -148,6 +149,7 @@ fieldset {
 //////////////////////////////////////////////
 
 .form-entry {
+    
     select,
     textarea,
     input:not([type="radio"]):not([type="checkbox"]):not([type="file"]):not([type="range"]) {
@@ -170,6 +172,9 @@ fieldset {
     [dir="rtl"] & {
         text-align: right;
     }
+
+    // testing
+    // background-color: rgba(255, 255, 0, 0.5);
 }
 
 .form-entry ~ .form-entry {
@@ -182,14 +187,15 @@ fieldset {
 //////////////////////////////////////////////
 
 .form-entry__field {
-    @extend %form-field-vars;
-
     position: relative;
 
     display: flex;
     flex-direction: column;
 
     color: inherit;
+
+    // testing
+    // background-color: rgba(0, 255, 55, 0.25);
 }
 
 .form-entry__field__label {
@@ -358,11 +364,12 @@ fieldset {
 
 // Form Entry Help
 
-.form-entry__field__help {    
+.form-entry__help {    
     padding-left: var(--form-field-padding-x);
     padding-right: var(--form-field-padding-x);
 
-    margin-top: var(--spacer-2);
+    margin-top: 0.5em;
+    display: block;
     
     font-size: 0.8em;
 }
@@ -703,7 +710,7 @@ fieldset {
     cursor: pointer;
 }
 
-.file-upload__drag {
+.file-upload__drop {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -727,7 +734,7 @@ fieldset {
     }
 }
 
-.file-upload__drag__text {
+.file-upload__drop__text {
     margin-left: 0.25em;
     margin-right: 0.25em;
 }
@@ -779,7 +786,7 @@ fieldset {
 
 .is-invalid {
 
-    .form-entry__field__help {
+    .form-entry__help {
         display: none;
     }
     

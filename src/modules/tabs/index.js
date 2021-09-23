@@ -1,23 +1,19 @@
 import './_style.scss';
 
 //////////////////////////////////////////////
-// Accordion
+// Tabs
 //////////////////////////////////////////////
 
 export default class Tabs {
 
     constructor() {
 
-        const tabsList = document.querySelectorAll(".tabs");
-
-        //////////////////////////////////////////////
-        // Tabs
-        //////////////////////////////////////////////
+        const tabsList = document.querySelectorAll('.tabs');
 
         tabsList.forEach((tab) => {
 
-            const tabsButtonList = tab.querySelectorAll("[role='tab']");
-            const tabsPanelList = tab.querySelectorAll("[role='tabpanel']");
+            const tabsButtonList = tab.querySelectorAll('[role="tab"]');
+            const tabsPanelList = tab.querySelectorAll('[role="tabpanel"]');
 
             tabsButtonList.forEach((tabsButton, index) => {
 
@@ -27,37 +23,47 @@ export default class Tabs {
                     deactivateTabs();
 
                     // Set the tab as selected
-                    tab.setAttribute("aria-selected", "true");
+                    tab.setAttribute('aria-selected', 'true');
 
                     // Get the value of aria-controls (which is an ID)
-                    let controls = tab.getAttribute("aria-controls");
+                    let controls = tab.getAttribute('aria-controls');
 
                     let currentTabPanel = document.getElementById(controls);
 
-                    currentTabPanel.classList.add("shown");
-                    currentTabPanel.removeAttribute("hidden");
+                    currentTabPanel.classList.add('shown');
+                    currentTabPanel.removeAttribute('hidden');
 
                 }
 
                 const deactivateTabs = () => {
 
-                    for (const tab of tabsButtonList) {
-                        tab.setAttribute("aria-selected", "false");
-                    }
+                    tabsButtonList.forEach((tab) => {
+                        tab.setAttribute('aria-selected', 'false');
+                    });
 
-                    for (const panel of tabsPanelList) {
-                        panel.classList.remove("shown");
-                        panel.setAttribute("hidden", "");
-                    }
+                    tabsPanelList.forEach((panel) => {
+                        panel.classList.remove('shown');
+                        panel.setAttribute('hidden', '');
+                    });
                     
                 };
 
-                tabsButton.addEventListener("click", (event) => {
+                const focusLastTab = (event) => {
+                    event.preventDefault();
+                    tabsButtonList[tabsButtonList.length - 1].focus();
+                };
+
+                const focusFirstTab = (event) => {
+                    event.preventDefault();
+                    tabsButtonList[0].focus();
+                };
+
+                tabsButton.addEventListener('click', (event) => {
                     let tab = event.target;
                     activateTab(tab);
                 });
 
-                tabsButton.addEventListener("keydown", (event) => {
+                tabsButton.addEventListener('keydown', (event) => {
 
                     const directionalFocus = (dir) => {
                         event.preventDefault();
@@ -75,12 +81,20 @@ export default class Tabs {
 
                     const keyCodes = {
                         arrowLeft: 37,
-                        arrowRight: 39
+                        arrowRight: 39,
+                        home: 36,
+                        end: 35
                     };
                     
                     const key = event.keyCode;
 
                     switch (key) {
+                        case keyCodes.home:
+                            focusFirstTab(event)
+                            break;
+                        case keyCodes.end:
+                            focusLastTab(event)
+                            break;
                         case keyCodes.arrowLeft:
                             directionalFocus(-1);
                             break;
@@ -94,6 +108,5 @@ export default class Tabs {
             });
 
         });
-    
     }
 }

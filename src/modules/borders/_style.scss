@@ -36,6 +36,10 @@ In this file:
 // C. Border Utilies
 //////////////////////////////////////////////
 
+[class*="border"]:not([class*="theme-"]){
+    border-color: inherit;
+}
+
 @each $breakpoint in map.keys(breakpoints.$breakpoints) {
     @include breakpoints.breakpoints-up($breakpoint) {
         $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);

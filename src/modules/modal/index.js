@@ -13,62 +13,72 @@ export default class Modal {
 
         const initModal = (modalTarget) => {
 
-            modalTarget.setAttribute("aria-hidden", false);
-
-            // Element that was focused before modal opened
-            let focusedElementBeforeModal = document.activeElement;
-
-            // Add the key listener  
-            modalTarget.addEventListener("keydown", processEscapeTabKeys);
+            document.querySelector('body').classList.add('modal-open');
+            
+            const lastFocusedElement = document.activeElement;
 
             const modalCloseList = modalTarget.querySelectorAll("[data-modal-close]");
 
-            for (const modalClose of modalCloseList) {
+            const closeModal = () => {
+                modalTarget.setAttribute("aria-hidden", true);
+                lastFocusedElement.focus();
+                document.querySelector('body').classList.remove('modal-open');
+            }
+
+            modalTarget.setAttribute("aria-hidden", false);
+
+            modalCloseList.forEach((modalClose) => {
                 modalClose.addEventListener("click", closeModal);
                 modalClose.setAttribute("aria-label", "Close Modal Window");
-            }
+            });
 
-            // Find all focusable modal elements
-            const modalElements = "input:not([disabled]), button:not([disabled]), a:not([disabled]";
-            let focusableElements = modalTarget.querySelectorAll(modalElements);
+            // All focusable modal elements
+            const modalFocusableElements = [
+                'input:not([disabled])',
+                'button:not([disabled])',
+                'a:not([disabled]'
+            ];
 
-            const firstElementOfModal = focusableElements[0];
+            const modalBody = modalTarget.querySelector('.modal__content__body');
+
+            const focusableElements = modalTarget.querySelectorAll(modalFocusableElements);
+
+            const firstElementOfModal = modalBody.querySelector(modalFocusableElements);
             const lastElementOfModal = focusableElements[focusableElements.length - 1];
 
-            // Focus on first element of the modal - firstName
             firstElementOfModal.focus();
+              
+            modalTarget.addEventListener('keydown', (event) => {
 
-            function closeModal() {
-                modalTarget.setAttribute("aria-hidden", true);
-                focusedElementBeforeModal.focus();
-            }
+                const keyCodes = {
+                    tab: 9,
+                    esc: 27
+                };
 
-            function processEscapeTabKeys(event) {
+                const key = event.keyCode;
 
-                // TAB key handler
-                if (event.keyCode === 9) {
-                    if (document.activeElement === lastElementOfModal) {
-                        event.preventDefault();
-                        firstElementOfModal.focus();
-                    }
+                switch (key) {
+                    case keyCodes.tab:
+                        if (document.activeElement === lastElementOfModal) {
+                            event.preventDefault();
+                            focusableElements[0].focus();
+                        }
+                        break;
+                    case keyCodes.esc:
+                        closeModal();
+                        break;
                 }
 
-                // ESCAPE key handler (close the modal)
-                if (event.keyCode === 27) {
-                    closeModal();
-                }
-            }
+            });
+
         }
 
         modalList.forEach((modal) => {
             
             const modalContainer = modal.querySelector(".modal__content");
-            // const modalOverlay = modal.querySelector(".modal__overlay");
-    
-            // modalOverlay.setAttribute("tabindex",  "-1");
     
             modalContainer.setAttribute("role", "dialog");
-            modalContainer.setAttribute("aria-modal", "true");
+            modalContainer.setAttribute("aria-modal", true);
     
             modal.setAttribute("aria-hidden", true);
 

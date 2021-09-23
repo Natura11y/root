@@ -32,6 +32,8 @@ In this file:
 [class*="flex-column-reverse"] {
     display: flex;
     flex-wrap: wrap;
+
+    width: 100%;
 }
 
 @each $breakpoint in map.keys(breakpoints.$breakpoints) {

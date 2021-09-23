@@ -22,6 +22,7 @@ In this file:
 
 // Scoped to Root
 
+
 :root {
 
     // Theme Color Palette
@@ -131,17 +132,15 @@ $theme-colors: (
 
 body:not([class*="theme-"]),
 body > footer:not([class*="theme-"]),
-.modal__content:not([class*="theme-"]),
-
 [class*="theme-"] {
     background-color: var(--background-color);
 
     color: var(--text-color);
     
-    border-color: var(--border-color);
+    border-color: var(--border-color) !important;
 
     * {
-        &:not([class*="theme-"]):not(input):not(textarea):not(select):not(footer) {
+        &:not([class*="theme-"]):not(textarea):not(select):not(footer) {
             border-color: inherit;
         }
     }

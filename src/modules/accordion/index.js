@@ -7,9 +7,7 @@ import './_style.scss';
 export default class Accordion {
 
     constructor() {
-
-        // Get each set of accordions
-
+        
         const accordionList = document.querySelectorAll('.accordion');
 
         accordionList.forEach((accordion) => {

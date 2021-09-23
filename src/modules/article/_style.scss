@@ -22,7 +22,7 @@ In this file:
 // Scoped to Block
 
 %article-vars {
-    --article-sidebar-width: 340px;
+    --article-sidebar-width: 200px;
 }
 
 //////////////////////////////////////////////
@@ -43,6 +43,18 @@ In this file:
     overflow: hidden;
 }
 
+// .article__sidebar {
+//     border: 6px solid blue !important;
+// }
+
+// .article__header {
+//     border: 6px solid blueviolet !important;
+// }
+
+// .article__body {
+//     border: 6px solid burlywood !important;
+// }
+
 @include breakpoints.breakpoints-up(lg) {
 
     [class*="article"] {
@@ -54,6 +66,11 @@ In this file:
         .article__sidebar {
             position: relative;
             grid-area: sidebar;
+
+            .sticky-top {
+                max-height: 100vh;
+                overflow-y: auto;
+            }
         }
 
         .article__body {
