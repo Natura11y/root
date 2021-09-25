@@ -1,23 +1,30 @@
+/*
+
+In this file:
+
+// A. Polyfills
+// B. Required Modules
+// C. Optional Modules
+
+*/
+
 //////////////////////////////////////////////
-// Polyfills
+// A. Polyfills
 //////////////////////////////////////////////
 
 import "element-closest-polyfill";
 
 //////////////////////////////////////////////
-// Modules
+// B. Imports
 //////////////////////////////////////////////
 
 import "./modules/accents";
 
 import Accessibility from "./modules/accessibility";
-new Accessibility();
 
 import Accordion from "./modules/accordion";
-new Accordion();
 
 import Alerts from "./modules/alerts";
-new Alerts();
 
 import "./modules/article";
 
@@ -30,12 +37,10 @@ import "./modules/borders";
 import "./modules/breakpoints";
 
 import Buttons from "./modules/buttons";
-new Buttons();
 
 import "./modules/cards";
 
 import Collapse from "./modules/collapse";
-new Collapse();
 
 import "./modules/color";
 
@@ -44,12 +49,10 @@ import "./modules/containers";
 import "./modules/display";
 
 import Document from "./modules/document";
-new Document();
 
 import "./modules/flex";
 
 import Forms from "./modules/forms";
-new Forms();
 
 import "./modules/grid";
 
@@ -60,10 +63,8 @@ import "./modules/language";
 import "./modules/links";
 
 import Modal from "./modules/modal";
-new Modal();
 
 import Navigation from "./modules/navigation";
-new Navigation();
 
 import "./modules/opacity";
 
@@ -78,17 +79,37 @@ import "./modules/sizing";
 import "./modules/spacing";
 
 import Tabs from "./modules/tabs";
-new Tabs();
 
 import Tables from "./modules/tables";
-new Tables();
 
 import Tearsheet from "./modules/tearsheet";
-new Tearsheet();
 
 import "./modules/typography";
 
 import "./modules/z-index/index";
+
+//////////////////////////////////////////////
+// C. Objects
+//////////////////////////////////////////////
+
+window.addEventListener('load', () => {
+
+    console.log('page is fully loaded');
+
+    new Accessibility();
+    new Accordion();
+    new Alerts();
+    new Buttons();
+    new Collapse();
+    new Document();
+    new Forms();
+    new Modal();
+    new Navigation();
+    new Tabs();
+    new Tables();
+    new Tearsheet();
+
+});
 
 //////////////////////////////////////////////
 // Environments (For Testing Webpack)

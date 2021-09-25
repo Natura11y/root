@@ -1,37 +1,42 @@
 import './_style.scss';
 
 //////////////////////////////////////////////
-// Button Focus
+// Accessibility
 //////////////////////////////////////////////
 
 export default class Accessibility {
 
     constructor() {
 
-        window.addEventListener('DOMContentLoaded', () => {
+        const focusableElements = [
+            'a[href]',
+            'button',
+            '[role="tab"]',
+            '[data-toggle="accordion"]',
+            'a:not([disabled]'
+        ];
             
-            const focusableElementList = document.querySelectorAll("[role='tab'], [data-toggle='accordion'], a[href], button:not([data-type='subtract']):not([data-type='add'])");
+        const focusableElementList = document.querySelectorAll(focusableElements);
 
-            focusableElementList.forEach((focusableElement) => {
+        focusableElementList.forEach((focusableElement) => {
 
-                let mouseDown = false;
+            let mouseDown = false;
 
-                focusableElement.addEventListener("mousedown", () => {
-                    mouseDown = true;
-                });
+            focusableElement.addEventListener('mousedown', () => {
+                mouseDown = true;
+            });
 
-                focusableElement.addEventListener("mouseup", () => {
-                    mouseDown = false;
-                });
+            focusableElement.addEventListener('mouseup', () => {
+                mouseDown = false;
+            });
 
-                focusableElement.addEventListener("focus", (event) => {
-                    if (mouseDown) {
-                        event.target.blur();
-                    }
-                });
-
+            focusableElement.addEventListener('focus', (event) => {
+                if (mouseDown) {
+                    event.target.blur();
+                }
             });
 
         });
+
     }
 }
