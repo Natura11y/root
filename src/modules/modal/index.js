@@ -23,11 +23,11 @@ export default class Modal {
 
             const handleCloseOutside = (event) => {
 
-                const modalContainer = modalTarget.querySelector('.modal__content');
+                const modalContent = modalTarget.querySelector('.modal__content');
 
-                let modalContainerClick = modalContainer.contains(event.target);
+                let modalContentClick = modalContent.contains(event.target);
 
-                if (!modalContainerClick) {
+                if (!modalContentClick) {
                     handleClose();
                 }
             };
@@ -35,7 +35,9 @@ export default class Modal {
             const handleClose = () => {
                 
                 modalTarget.setAttribute('aria-hidden', true);
+
                 lastFocusedElement.focus();
+                
                 document.querySelector('body').classList.remove('modal-open');
 
                 window.removeEventListener('click', handleCloseOutside);
