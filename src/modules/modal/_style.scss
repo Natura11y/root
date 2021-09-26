@@ -57,7 +57,7 @@ In this file:
   }
   
   &::before {
-      position: absolute;
+      position: fixed;
       content: "";
       top: 0;
       right: 0;
