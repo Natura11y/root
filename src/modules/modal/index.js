@@ -8,31 +8,39 @@ export default class Modal {
 
     constructor() {
 
-        const modalList = document.querySelectorAll(".modal");
-        const modalButtonList = document.querySelectorAll("[data-modal-open]");
+        const modalList = document.querySelectorAll('.modal');
+        const modalButtonList = document.querySelectorAll('[data-modal-open]');
 
         const initModal = (modalTarget) => {
-
+            
             document.querySelector('body').classList.add('modal-open');
             
+            modalTarget.setAttribute('aria-hidden', false);
+
             const lastFocusedElement = document.activeElement;
 
-            const modalCloseList = modalTarget.querySelectorAll("[data-modal-close]");
+            const modalCloseList = modalTarget.querySelectorAll('[data-modal-close]');
 
-            const closeModal = () => {
-                modalTarget.setAttribute("aria-hidden", true);
+            const handleCloseOutside = (event) => {
+
+                const modalContainer = modalTarget.querySelector('.modal__content');
+
+                let modalContainerClick = modalContainer.contains(event.target);
+
+                if (!modalContainerClick) {
+                    handleClose();
+                }
+            };
+
+            const handleClose = () => {
+                
+                modalTarget.setAttribute('aria-hidden', true);
                 lastFocusedElement.focus();
                 document.querySelector('body').classList.remove('modal-open');
+
+                window.removeEventListener('click', handleCloseOutside);
             }
 
-            modalTarget.setAttribute("aria-hidden", false);
-
-            modalCloseList.forEach((modalClose) => {
-                modalClose.addEventListener("click", closeModal);
-                modalClose.setAttribute("aria-label", "Close Modal Window");
-            });
-
-            // All focusable modal elements
             const modalFocusableElements = [
                 'input:not([disabled])',
                 'button:not([disabled])',
@@ -71,27 +79,37 @@ export default class Modal {
 
             });
 
+            modalCloseList.forEach((modalClose) => {
+                modalClose.addEventListener('click', handleClose);
+                modalClose.setAttribute('aria-label', 'Close Modal Window');
+            });
+
+            if( modalTarget.hasAttribute('data-modal-close-outside')) {
+                window.addEventListener('click', handleCloseOutside);
+            }
         }
 
         modalList.forEach((modal) => {
-            
-            const modalContainer = modal.querySelector(".modal__content");
+
+            const modalContainer = modal.querySelector('.modal__content');
     
-            modalContainer.setAttribute("role", "dialog");
-            modalContainer.setAttribute("aria-modal", true);
+            modalContainer.setAttribute('role', 'dialog');
+            modalContainer.setAttribute('aria-modal', true);
     
-            modal.setAttribute("aria-hidden", true);
+            modal.setAttribute('aria-hidden', true);
 
         });
 
         modalButtonList.forEach((modalButton) => {
             
-            modalButton.addEventListener("click", (event) => {
-    
-                const modalTargetID = event.target.getAttribute("data-modal-open").replace(/#/, "");
+            modalButton.addEventListener('click', (event) => {
+
+                const modalTargetID = event.target.getAttribute('data-modal-open').replace(/#/, '');
                 const modalTarget = document.getElementById(modalTargetID);
     
                 initModal(modalTarget);
+
+                event.stopPropagation();
                 
             });
 
