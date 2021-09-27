@@ -1,6 +1,6 @@
 import './_style.scss';
 
-import { getFocusableElements } from '../../utilities/focus.js';
+import { getFocusableElements } from '../../utilities/focus';
 
 //////////////////////////////////////////////
 // Modal
@@ -45,22 +45,13 @@ export default class Modal {
                 window.removeEventListener('click', handleCloseOutside);
             }
 
-            const modalFocusableElements = new Array([
-                'a:not([disabled]',
-                'button:not([disabled])',
-                'input:not([disabled])'
-            ]);
-
-            // const modalBody = modalTarget.querySelector('.modal__content__body');
-
             const focusableElements = getFocusableElements(modalTarget);
 
             const firstElementOfModal = focusableElements[0];
             const lastElementOfModal = focusableElements[focusableElements.length - 1];
 
-            console.log("We're focusable", focusableElements);
-
-            firstElementOfModal.focus();
+            // const modalBody = modalTarget.querySelector('.modal__content__body');
+            // firstElementOfModal.focus();
               
             modalTarget.addEventListener('keydown', (event) => {
 
