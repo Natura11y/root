@@ -44,17 +44,28 @@ export default class Modal {
             }
 
             const modalFocusableElements = [
-                'input:not([disabled])',
+                'a:not([disabled]',
                 'button:not([disabled])',
-                'a:not([disabled]'
+                'input:not([disabled])'
             ];
 
-            const modalBody = modalTarget.querySelector('.modal__content__body');
+            // const modalBody = modalTarget.querySelector('.modal__content__body');
 
-            const focusableElements = modalTarget.querySelectorAll(modalFocusableElements);
+            // const focusableElements = modalTarget.querySelectorAll(modalFocusableElements);
 
-            const firstElementOfModal = modalBody.querySelector(modalFocusableElements);
+
+            const getKeyboardFocusableElements = (element = document) => {
+                return [...element.querySelectorAll(
+                  'a[href], button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])'
+                )].filter(el => !el.hasAttribute('disabled') && !el.getAttribute("aria-hidden"))
+            }
+
+            const focusableElements = getKeyboardFocusableElements(modalTarget);
+
+            const firstElementOfModal = focusableElements[0];
             const lastElementOfModal = focusableElements[focusableElements.length - 1];
+
+            console.log("We're focusable", focusableElements)
 
             firstElementOfModal.focus();
               
@@ -69,11 +80,23 @@ export default class Modal {
 
                 switch (key) {
                     case keyCodes.tab:
+
                         if (document.activeElement === lastElementOfModal) {
-                            event.preventDefault();
-                            focusableElements[0].focus();
+                            if(!event.shiftKey){
+                                event.preventDefault();
+                                focusableElements[0].focus();
+                            }
                         }
+
+                        if(document.activeElement === firstElementOfModal){
+                            if(event.shiftKey){
+                                event.preventDefault();
+                                lastElementOfModal.focus();
+                            }
+                        }
+
                         break;
+                    
                     case keyCodes.esc:
                         closeModal();
                         break;
