@@ -1,5 +1,7 @@
 import './_style.scss';
 
+import { getFocusableElements } from '../../utilities/focus.js';
+
 //////////////////////////////////////////////
 // Modal
 //////////////////////////////////////////////
@@ -43,29 +45,20 @@ export default class Modal {
                 window.removeEventListener('click', handleCloseOutside);
             }
 
-            const modalFocusableElements = [
+            const modalFocusableElements = new Array([
                 'a:not([disabled]',
                 'button:not([disabled])',
                 'input:not([disabled])'
-            ];
+            ]);
 
             // const modalBody = modalTarget.querySelector('.modal__content__body');
 
-            // const focusableElements = modalTarget.querySelectorAll(modalFocusableElements);
-
-
-            const getKeyboardFocusableElements = (element = document) => {
-                return [...element.querySelectorAll(
-                  'a[href], button, input, textarea, select, details,[tabindex]:not([tabindex="-1"])'
-                )].filter(el => !el.hasAttribute('disabled') && !el.getAttribute("aria-hidden"))
-            }
-
-            const focusableElements = getKeyboardFocusableElements(modalTarget);
+            const focusableElements = getFocusableElements(modalTarget);
 
             const firstElementOfModal = focusableElements[0];
             const lastElementOfModal = focusableElements[focusableElements.length - 1];
 
-            console.log("We're focusable", focusableElements)
+            console.log("We're focusable", focusableElements);
 
             firstElementOfModal.focus();
               
