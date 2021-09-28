@@ -12,7 +12,7 @@ In this file:
 
 export const getFocusableElements = (element = document) => {
     
-  const els = [
+    const els = [
       'a[href]',
       'button',
       'input',

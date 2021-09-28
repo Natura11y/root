@@ -18,15 +18,18 @@ export default class Modal {
             document.querySelector('body').classList.add('modal-open');
             
             modalTarget.setAttribute('aria-hidden', false);
+            
+            const modalContent = modalTarget.querySelector('.modal__content');
+
+            modalContent.setAttribute('tabindex', 0);
+            modalContent.focus();
+            modalContent.setAttribute('tabindex', -1);
 
             const lastFocusedElement = document.activeElement;
 
             const modalCloseList = modalTarget.querySelectorAll('[data-modal-close]');
 
             const handleCloseOutside = (event) => {
-
-                const modalContent = modalTarget.querySelector('.modal__content');
-
                 let modalContentClick = modalContent.contains(event.target);
 
                 if (!modalContentClick) {
@@ -50,9 +53,6 @@ export default class Modal {
             const firstElementOfModal = focusableElements[0];
             const lastElementOfModal = focusableElements[focusableElements.length - 1];
 
-            // const modalBody = modalTarget.querySelector('.modal__content__body');
-            // firstElementOfModal.focus();
-              
             modalTarget.addEventListener('keydown', (event) => {
 
                 const keyCodes = {

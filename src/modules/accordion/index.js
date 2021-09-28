@@ -1,5 +1,7 @@
 import './_style.scss';
 
+import { getFocusableElements } from '../../utilities/focus';
+
 //////////////////////////////////////////////
 // Accordion
 //////////////////////////////////////////////
@@ -17,17 +19,7 @@ export default class Accordion {
 
             const setFocusableElements = (element = document, focusable = false) => {
 
-                const elements = [
-                    'a[href]',
-                    'button',
-                    'input',
-                    'textarea',
-                    'select', 
-                    'details', 
-                    '[tabindex]:not([tabindex="- 1"]'
-                ];
-
-                const focusableElementList = element.querySelectorAll(elements);
+                const focusableElementList = getFocusableElements(element);
 
                 for (const focusableElement of focusableElementList) {
                     if (focusable === true) {

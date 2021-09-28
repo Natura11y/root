@@ -1,7 +1,5 @@
 import './_style.scss';
 
-import { getFocusableElements } from '../../utilities/focus';
-
 //////////////////////////////////////////////
 // Accessibility
 //////////////////////////////////////////////
@@ -10,9 +8,16 @@ export default class Accessibility {
 
     constructor() {
         
-        const focusableElements = getFocusableElements();
-        
-        focusableElements.forEach((focusableElement) => {
+        const elements = [
+            'a[href]',
+            'button',
+            '[role="tab"]',
+            '[data-toggle="accordion"]'
+        ];
+
+        const focusableElementList = document.querySelectorAll(elements);
+
+        focusableElementList.forEach((focusableElement) => {
 
             let mouseDown = false;
 
