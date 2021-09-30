@@ -304,6 +304,25 @@ fieldset {
     }
 }
 
+// Field Has Button Modifier
+
+.field--has-button {
+
+    [class*="__group"] {
+        display: grid;
+        gap: var(--spacer-2);
+        grid-template-columns: 1fr auto;
+        
+        button {
+            height: unset;
+            width: unset;
+            
+            padding-left: var(--form-field-padding-x);
+            padding-right: var(--form-field-padding-x);
+        }
+    }
+}
+
 // Floating Label Modifier
 
 .form-entry__field--float {
@@ -384,8 +403,10 @@ fieldset {
         content: "";
         right: 0;
         top: 50%;
+
+        display: inline-block;
         
-        transform: translateY(-50%);
+        // transform: translateY(-50%);
         
         margin-left: var(--form-field-padding-x);
         margin-right: var(--form-field-padding-x);
@@ -394,6 +415,7 @@ fieldset {
 }
 
 .form-entry__field__select::before {
+
     [dir="rtl"] & {
         right: unset;
         left: 0;
