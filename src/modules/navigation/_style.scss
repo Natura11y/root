@@ -576,7 +576,8 @@ In this file:
                         margin-right: calc(var(--nav-gap) * -1);
                     }
 
-                    > li > a {
+                    > li > a,
+                    > li > button {
                         margin-top: auto;
                         margin-bottom: auto;
                     }
