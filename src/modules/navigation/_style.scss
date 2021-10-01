@@ -227,6 +227,7 @@ In this file:
             > li > button {
                 display: flex;
                 justify-content: center;
+                background-color: yellow;
             }
 
             &[class*="border"] {
@@ -624,6 +625,10 @@ In this file:
                     border-bottom-style: none !important;
                     
                     text-align: center;
+                }
+
+                > li > button {
+                    width: 100%;
                 }
 
                 > li > a, 

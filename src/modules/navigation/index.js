@@ -16,6 +16,7 @@ export default class Navigation {
             let dropdownMenu = dropdownButton.nextElementSibling;
 
             dropdownButton.setAttribute("aria-expanded", false);
+            dropdownButton.setAttribute("aria-haspopup", true);
 
             dropdownButton.addEventListener("click", (event) => {
 
