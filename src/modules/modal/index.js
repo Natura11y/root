@@ -19,13 +19,17 @@ export default class Modal {
             
             modalTarget.setAttribute('aria-hidden', false);
             
+            const lastFocusedElement = document.activeElement;
+
             const modalContent = modalTarget.querySelector('.modal__content');
 
             modalContent.setAttribute('tabindex', 0);
             modalContent.focus();
             modalContent.setAttribute('tabindex', -1);
 
-            const lastFocusedElement = document.activeElement;
+            if(modalTarget.classList.contains('modal--scroll-all')) {
+                modalTarget.scrollTop = 0;
+            }
 
             const modalCloseList = modalTarget.querySelectorAll('[data-modal-close]');
 
@@ -68,7 +72,7 @@ export default class Modal {
                         if (document.activeElement === lastElementOfModal) {
                             if(!event.shiftKey){
                                 event.preventDefault();
-                                focusableElements[0].focus();
+                                firstElementOfModal.focus();
                             }
                         }
 
@@ -76,6 +80,13 @@ export default class Modal {
                             if(event.shiftKey){
                                 event.preventDefault();
                                 lastElementOfModal.focus();
+                            }
+                        }
+
+                        if(document.activeElement === modalContent){
+                            if(event.shiftKey){
+                                event.preventDefault();
+                                firstElementOfModal.focus();
                             }
                         }
 
