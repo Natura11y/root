@@ -7,18 +7,18 @@ module.exports = {
   prefix: 'icon',
   selector: '.icon',
   tag: 'span',
-  fontsUrl: './fonts',
+  // fontsUrl: null,
   formatOptions: {
     json: {
       indent: 3
     }
   },
   pathOptions: {
-    json: './dist/natura11y-icons.json',
-    css: './dist/natura11y-icons.css',
     html: './dist/index.html',
-    ttf: './dist/fonts/natura11y-icons.ttf',
-    woff: './dist/fonts/natura11y-icons.woff',
-    woff2: './dist/fonts/natura11y-icons.woff2'
+    css: './dist/natura11y-icons.css',
+    json: './dist/natura11y-icons.json',
+    ttf: './dist/natura11y-icons.ttf',
+    woff: './dist/natura11y-icons.woff',
+    woff2: './dist/natura11y-icons.woff2'
   }
 };
