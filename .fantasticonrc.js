@@ -6,6 +6,7 @@ module.exports = {
   name: 'natura11y-icons',
   prefix: 'icon',
   selector: '.icon',
+  tag: 'span',
   fontsUrl: './fonts',
   formatOptions: {
     json: {
