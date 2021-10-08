@@ -4,8 +4,8 @@ module.exports = {
   fontTypes: ['ttf', 'woff2', 'woff'],
   assetTypes: ['css', 'json', 'html'],
   name: 'natura11y-icons',
-  prefix: 'icon-',
-  selector: null,
+  prefix: 'icon',
+  selector: '.icon',
   fontsUrl: './fonts',
   formatOptions: {
     json: {
