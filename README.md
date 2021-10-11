@@ -4,4 +4,4 @@
 
 Natura11y is an open-source front-end toolkit for building modern websites.
 
-[https://www.gonatura11y.com](https://www.gonatura11y.com)
+[https://cavidano.github.io/natura11y/](https://cavidano.github.io/natura11y/)
