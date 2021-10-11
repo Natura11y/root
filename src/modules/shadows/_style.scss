@@ -6,7 +6,6 @@ In this file:
 // B. Variables
 // C. Box Shadow Utilities
 // D. Text Shadow Utility
-// E. I.E. 11 Support
 
 */
 
@@ -78,17 +77,4 @@ body:not([class*="box-shadow-"]){
 
 .text-shadow {
     text-shadow: 0 0 6px rgba(black, 0.75);
-}
-
-//////////////////////////////////////////////
-// E. I.E. 11 Support
-//////////////////////////////////////////////
-
-@media screen and (-ms-high-contrast: active),
-screen and (-ms-high-contrast: none) {
-    [class*="box-shadow"] {
-        --base-shadow-opacity: 0.25;
-
-       box-shadow:0 0 1.5rem hsla(0, 0%, 0%, var(--base-shadow-opacity));
-    }
 }

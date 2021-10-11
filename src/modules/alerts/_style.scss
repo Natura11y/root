@@ -71,7 +71,7 @@ In this file:
     display: flex;
     align-items: center;
     
-    [class*="icon_"] {
+    .icon {
         --icon-size: 1.25em;
     }
 

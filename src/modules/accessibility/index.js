@@ -15,27 +15,32 @@ export default class Accessibility {
             '[data-toggle="accordion"]'
         ];
 
-        const focusableElementList = document.querySelectorAll(elements);
+        const initFocus = () => {
 
-        focusableElementList.forEach((focusableElement) => {
+            const focusableElementList = document.querySelectorAll(elements);
 
-            let mouseDown = false;
+            focusableElementList.forEach((focusableElement) => {
 
-            focusableElement.addEventListener('mousedown', () => {
-                mouseDown = true;
+                let mouseDown = false;
+
+                focusableElement.addEventListener('mousedown', () => {
+                    mouseDown = true;
+                });
+
+                focusableElement.addEventListener('mouseup', () => {
+                    mouseDown = false;
+                });
+
+                focusableElement.addEventListener('focus', (event) => {
+                    if (mouseDown) {
+                        event.target.blur();
+                    }
+                });
+
             });
+        }
 
-            focusableElement.addEventListener('mouseup', () => {
-                mouseDown = false;
-            });
-
-            focusableElement.addEventListener('focus', (event) => {
-                if (mouseDown) {
-                    event.target.blur();
-                }
-            });
-
-        });
+        window.addEventListener('load', initFocus, { once: true });
 
     }
 }

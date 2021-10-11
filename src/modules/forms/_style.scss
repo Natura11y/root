@@ -254,7 +254,7 @@ fieldset {
     }
 
     [dir="rtl"] & {
-        > [class*="icon_"] {
+        > .icon {
             margin-left: unset;
             margin-right: var(--form-field-padding-x);
         }
@@ -281,7 +281,7 @@ fieldset {
         height: unset;
     }
 
-    > [class*="icon_"],
+    > .icon,
     > .button-group
     {
         margin-left: var(--form-field-padding-x);
@@ -406,7 +406,7 @@ fieldset {
 
         display: inline-block;
         
-        transform: translateY(-50%);
+        // transform: translateY(-50%);
         
         margin-left: var(--form-field-padding-x);
         margin-right: var(--form-field-padding-x);
@@ -550,33 +550,34 @@ fieldset {
         font-size: 125%;
 
         @extend .icon_font;
+    background-color: aqua !important;
     }
 }
 
 // Option Radio
 
 .form-entry__option__radio > label > input ~ .radio__label::before {
-    content: "\e938";
+    content: "\f137";
 }
 
 .form-entry__option__radio > label > input:checked ~ .radio__label::before {
-    content: "\e939";
+    content: "\f136";
 }
 
 // Option Check
 
 .form-entry__option__check > label > input ~ .check__label::before {
-    content: "\e936";
+    content: "\f10d";
 }
 
 .form-entry__option__check > label > input:checked ~ .check__label::before {
-    content: "\e937";
+    content: "\f10c";
 }
 
 .form-entry__option__radio > label > input:disabled ~ .radio__label::before,
 .form-entry__option__check > label > input:disabled ~ .check__label::before, 
 .form-entry__option__switch > label > input:disabled ~ .switch__label::before {
-    content: "\e93a";
+    content: "\f114";
 }
 
 .form-entry__option__radio > label.disabled,

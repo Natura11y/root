@@ -5,7 +5,6 @@ In this file:
 // A. Variables
 // B. Card Block
 // C. Card Elements
-// D. I.E. 11 Support
 
 */
 
@@ -50,16 +49,4 @@ In this file:
 .card__foot {
     margin-top: auto;
     padding: calc(var(--card-padding-y) * 0.75) var(--card-padding-x);
-}
-
-//////////////////////////////////////////////
-// D. I.E. 11 Support
-//////////////////////////////////////////////
-
-@media screen and (-ms-high-contrast: active),
-screen and (-ms-high-contrast: none) {
-    // Display flex bug fix
-    .card * { 
-        min-height: 0.01px;
-    }
 }

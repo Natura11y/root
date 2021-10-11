@@ -22,24 +22,23 @@ In this file:
 
 // Scoped to Root
 
-
 :root {
 
     // Theme Color Palette
 
-    --primary: #440381;
-    --secondary: #ffcc66;
-    --dark: #1f163f;
-    --light: #f2edeb;
+    --primary: #00A870;
+    --secondary: #004857;
+    --dark: #131B40;
+    --light: #e6ebed;
 
     // Accessible Link Color
     // (Used with White and Light Themes)
 
-    --a11y-link: #0066cc;
+    --a11y-link: #0040b2;
 
     // Primary Correlated Colors
 
-    --primary-text: white;
+    --primary-text: var(--dark);
     --primary-border: hsla(0, 0%, 0%, 0.25);
     --primary-link: currentColor;
     --primary-confirm: #16db93;
@@ -47,7 +46,7 @@ In this file:
 
     // Secondary Correlated Colors
 
-    --secondary-text: var(--dark);
+    --secondary-text: white;
     --secondary-border: hsla(0, 0%, 0%, 0.25);
     --secondary-link: currentColor;
     --secondary-confirm: #41e0f2;
@@ -57,7 +56,7 @@ In this file:
 
     --dark-text: white;
     --dark-border: hsla(0, 0%, 100%, 0.125);
-    --dark-link: #21b2fa;
+    --dark-link: currentColor;
     --dark-confirm: #00a242;
     --dark-warn: #fe3c3e;
 
@@ -132,7 +131,11 @@ $theme-colors: (
 
 body:not([class*="theme-"]),
 body > footer:not([class*="theme-"]),
-[class*="theme-"] {
+[class*="theme-"],
+[data-active-theme] [aria-current],
+[data-active-theme] [aria-expanded="true"],
+[data-active-theme] [aria-current] + .nav__dropdown
+{
     background-color: var(--background-color);
 
     color: var(--text-color);
@@ -186,7 +189,7 @@ body > footer:not([class*="theme-"]),
     .is-invalid .form-entry__feedback, 
     .is-invalid .form-entry__field__input::after,
     .is-invalid .form-entry__field__select::after,
-    .is-invalid [class*="_icon_warn"],
+    .is-invalid [class*="icon-warn"],
     .is-invalid .form-entry__option
     {
         color: var(--warn-color);
@@ -236,7 +239,40 @@ body > footer:not([class*="theme-"]),
                 --text-color: #{$swatch};
                 color: var(--text-color) !important;
             }
+
         }
 
     }
+}
+
+//////////////////////////////////////////////
+// D. Wayfinding 
+//////////////////////////////////////////////
+
+@each $name, $color-map in $theme-colors {
+    $swatch: map.get($color-map, "swatch");
+    $text: map.get($color-map, "text");
+    $border: map.get($color-map, "border");
+
+    [data-active-theme="#{$name}"] {
+
+        [aria-current],
+        [aria-current] + .nav__dropdown,
+        [aria-expanded="true"] {
+            --background-color: #{$swatch} !important;
+            --text-color: #{$text} !important;
+            --border-color: #{$border} !important;
+        }
+    }
+
+    [data-active-color="#{$name}"] {
+        
+        [aria-current],
+        [aria-expanded="true"] {
+            --text-color: #{$swatch};
+            color: var(--text-color) !important;
+        }
+
+    }
+
 }

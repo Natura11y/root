@@ -10,7 +10,6 @@ In this file:
 // F. Button Icon Only Modifier
 // G. Button Icon Only Tooltip
 // H. Button Group Component
-// I. I.E. 11 Support
 
 */
 
@@ -37,7 +36,7 @@ In this file:
     
     --button-outline-border-width: calc( var(--default-border-width) * 2);
 
-    --button-icon-only-size: 2.25em;
+    --button-icon-only-size: 2.5em;
 }
 
 //////////////////////////////////////////////
@@ -159,7 +158,7 @@ button {
     width: var(--button-icon-only-size);
     height: var(--button-icon-only-size);
 
-    [class*="_icon"] {
+    [class*="icon-"] {
         --icon-size: 1.25em;
 
         display: flex;
@@ -234,6 +233,9 @@ button {
 
 .button-group {
     --gap-size: var(--spacer-2);
+    
+    --form-field-padding-y: 0;
+    --button-padding-y: 0;
 
     display: flex;
     justify-content: center;
@@ -243,41 +245,32 @@ button {
 
     min-height: var(--button-icon-only-size);
 
+    .form-entry__field,
+    .form-entry__field__select {
+        display: flex;
+        align-self: stretch;
+    }
+    
+    .form-entry__field__select {
+        height: 100%;
+    }
+    
+    .form-entry__field,
     > [class*="button"], 
     button {
         margin-left: calc(var(--gap-size) * 0.5);
         margin-right: calc(var(--gap-size) * 0.5);
     }
 
+    .form-entry__field,
+    > [class*="button"]:not(.button--icon-only){
+        min-height: 100%;
+        font-size: 80%; 
+    }
+
     > [class*="button"]:not(.button--icon-only) {
         display: flex;
         align-items: center;
-
-        padding-top: unset;
-        padding-bottom: unset;
-
-        min-height: 100%;
-
-        font-size: 80%; 
-    }
-}
-
-//////////////////////////////////////////////
-// I. I.E. 11 Support
-//////////////////////////////////////////////
-
-@media screen and (-ms-high-contrast: active),
-screen and (-ms-high-contrast: none) {
-    .button--icon-only {
-        display: table-cell; 
-
-        &::before {
-            display: none;
-        }
-
-        .button__icon {
-            margin-right: auto;
-            margin-left: auto;
-        }
+        flex-shrink: 0;
     }
 }

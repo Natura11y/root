@@ -20,7 +20,7 @@ export default class Modal {
             modalTarget.setAttribute('aria-hidden', false);
             
             const lastFocusedElement = document.activeElement;
-
+            
             const modalContent = modalTarget.querySelector('.modal__content');
 
             modalContent.setAttribute('tabindex', 0);
@@ -93,7 +93,7 @@ export default class Modal {
                         break;
                     
                     case keyCodes.esc:
-                        closeModal();
+                        handleClose();
                         break;
                 }
 

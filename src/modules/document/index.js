@@ -12,7 +12,7 @@ export default class Document {
         // Copyright Year
         ///////////////////////
 
-        const copyrightYear = document.querySelector(".copyright-year");
+        const copyrightYear = document.querySelector('.copyright-year');
 
         if (copyrightYear) {
             const currentYear = new Date().getFullYear();
@@ -27,7 +27,7 @@ export default class Document {
 
             // Google Translate
 
-            const googleTranslateSelect = document.querySelector(".goog-te-combo");
+            const googleTranslateSelect = document.querySelector('.goog-te-combo');
 
             if (typeof(googleTranslateSelect) !== 'undefined' && googleTranslateSelect !== null) {
 
@@ -40,13 +40,13 @@ export default class Document {
 
                 const languageChangeEvent = (element, event) => {
 
-                    var eventObject;
+                    let eventObject;
                     
                     if (document.createEventObject){
                         eventObject = document.createEventObject();
                         return element.languageChangeEvent('on' + event, eventObject)
                     } else {
-                        eventObject = document.createEvent("HTMLEvents"); 
+                        eventObject = document.createEvent('HTMLEvents'); 
                         // event type, bubbling, cancelable
                         eventObject.initEvent(event, false, true);
                         return !element.dispatchEvent(eventObject);
@@ -55,35 +55,33 @@ export default class Document {
 
                 // Footer Links
                 
-                const translateLinkList = document.querySelectorAll("[data-lang]");
+                // const translateLinkList = document.querySelectorAll('[data-lang]');
 
-                translateLinkList.forEach((translateLink) => {
+                // translateLinkList.forEach((translateLink) => {
 
-                    translateLink.classList.add('notranslate');
+                //     translateLink.classList.add('notranslate');
                     
-                    translateLink.addEventListener("click", (event) => {
+                //     translateLink.addEventListener('click', (event) => {
 
-                        event.preventDefault();
+                //         event.preventDefault();
 
-                        let myLang = translateLink.getAttribute("data-lang");
+                //         let myLang = translateLink.getAttribute('data-lang');
 
-                        setLanguage(myLang);
+                //         setLanguage(myLang);
 
-                    });
-                });
+                //     });
+                // });
 
                 const allLanguageSelect = document.getElementById('custom-language-select');
                 const allLanguageButton = document.getElementById('custom-language-update');
 
                 allLanguageSelect.classList.add('notranslate');
 
-                let langSelectObserver = new MutationObserver(callback);
-                
-                function callback (mutations) {
+                const langSelectObserverOptions = {
+                    childList: true
+                }
 
-                    console.log("From MO", 
-                    googleTranslateSelect.hasChildNodes(),
-                    googleTranslateSelect.childElementCount);
+                const langSelectObserver = new MutationObserver(() => {
 
                     if(allLanguageSelect.childElementCount === 0) {
 
@@ -104,15 +102,12 @@ export default class Document {
                         allLanguageSelect.value = googleTranslateSelect.value;
                     }
 
-                }
-
-                var observerOptions = {
-                    childList: true
-                }
-
-                langSelectObserver.observe(googleTranslateSelect, observerOptions);
+                });
+                
+                langSelectObserver.observe(googleTranslateSelect, langSelectObserverOptions);
 
                 allLanguageButton.addEventListener('click', (event) => {
+                    event.preventDefault();
                     if(allLanguageSelect.value !== '') {
                         setLanguage(allLanguageSelect.value)
                     }
@@ -120,53 +115,36 @@ export default class Document {
 
             }
 
-            // RTL
+            // Observe RTL
 
-            const rtlTarget = document.querySelector("html");
+            const rtlTarget = document.querySelector('html');
+
+            const rtlObserverOptions = {
+                attributes: true,
+                attributeFilter: ['class']
+            }
 
             const rtlObserver = new MutationObserver((mutations) => {
 
-                mutations.forEach(() => {
-                    let single_class = "translated-rtl";
+                mutations.forEach((mutation) => {
 
-                    if (rtlTarget.classList.contains(single_class)) {
-                        rtlTarget.setAttribute("dir", "rtl");
-                    } else {
-                        rtlTarget.setAttribute("dir", "ltr");
+                    if(mutation.type === 'attributes') {
+
+                        const rtlClass = 'translated-rtl';
+
+                        if (rtlTarget.classList.contains(rtlClass)) {
+                            rtlTarget.setAttribute('dir', 'rtl');
+                        } else {
+                            rtlTarget.setAttribute('dir', 'ltr');
+                        }
                     }
 
                 });
             });
 
-            const rtlConfig = {
-                attributes: true,
-                attributeFilter: ["class"]
-            }
-
-            rtlObserver.observe(rtlTarget, rtlConfig);
+            rtlObserver.observe(rtlTarget, rtlObserverOptions);
 
         });
-  
-        ///////////////////////
-        // Custom Properties Polyfill
-        ///////////////////////
-
-        const isIE11 = /Trident\/|MSIE/.test(window.navigator.userAgent);
-
-        const loadCustomPropertiesPolyfill = () => {
-
-            const targetNode = document.querySelector('[name="viewport"]');
-            const cpIEPolyfill = document.createElement('script');
-
-            cpIEPolyfill.src = 'https://cdn.jsdelivr.net/npm/ie11-custom-properties@3.1.0/ie11CustomProperties.min.js';
-
-            targetNode.parentNode.insertBefore(cpIEPolyfill, targetNode.nextSibling);
-
-        }
-
-        if (isIE11) {
-            loadCustomPropertiesPolyfill();            
-        }
-
+        
     }
 }

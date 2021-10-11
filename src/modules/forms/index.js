@@ -182,7 +182,7 @@ export default class Forms {
 
             return `<div class="form-entry__feedback">
                         <small>
-                            <span class="icon_warn" aria-hidden="true"></span>
+                            <span class="icon icon-warn" aria-hidden="true"></span>
                             <strong>${desc}</strong>
                             <span>${inst}</span>
                         </small>

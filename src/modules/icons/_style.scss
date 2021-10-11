@@ -16,26 +16,24 @@ In this file:
 // Scoped to Block
 
 %icon-font-vars {
-  --icon-size: 1em;
+  --icon-size: 1.25em;
 }
 
 //////////////////////////////////////////////
 // B. Shared Styles
 //////////////////////////////////////////////
 
-[class^="icon_"],
-[class*="icon_"] {
+.icon {
   @extend %icon-font-vars;
   
   font-size: var(--icon-size);
+
+  display: inline-flex;
+
   vertical-align: middle;
-  
+
   position: relative;
   pointer-events: none;
-
-  &:not([class*="_subway-"]) {
-    display: inline-block;
-  }
 
   &[class*="-left"], 
   &[class*="-right"] {
@@ -50,19 +48,18 @@ In this file:
 //////////////////////////////////////////////
 
 .icon_font {
-  font-family: 'Natura11y';
+  font-family: 'natura11y-icons';
 }
 
 //////////////////////////////////////////////
 // D. Rotating Utility Class
 //////////////////////////////////////////////
 
-.icon_loading.rotate {
-  display: inline-block;
-  animation: rotate-s-loader 1s linear infinite;
+.icon-loading.rotate {
+  animation: rotate360 1s linear infinite;
 }
 
-@keyframes rotate-s-loader {
+@keyframes rotate360 {
   from {
     transform: rotate(0);
   }

@@ -10,6 +10,10 @@ In this file:
 // A. Overflow Utilities
 //////////////////////////////////////////////
 
+.overflow-auto {
+    overflow: auto;
+}
+
 .overflow-visible {
     overflow: visible;
 }
@@ -24,8 +28,4 @@ In this file:
 
 .overflow-y-scroll {
     overflow-y: scroll;
-}
-
-.overflow-auto {
-    overflow: auto;
 }
