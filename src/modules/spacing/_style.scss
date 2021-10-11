@@ -57,29 +57,27 @@ $spacers: (
             }
 
             .padding-x-#{$spacer}#{$mod} {
-                padding-left: #{$value} !important;
-                padding-right: #{$value} !important;
+                padding-inline: #{$value} !important;
             }
 
             .padding-y-#{$spacer}#{$mod} {
-                padding-top: #{$value} !important;
-                padding-bottom: #{$value} !important;
+                padding-block: #{$value} !important;
             }
 
             .padding-top-#{$spacer}#{$mod} {
-                padding-top: #{$value} !important;
+                padding-block-start: #{$value} !important;
             }
 
             .padding-right-#{$spacer}#{$mod} {
-                padding-right: #{$value} !important;
+                padding-inline-end: #{$value} !important;
             }
 
             .padding-bottom-#{$spacer}#{$mod} {
-                padding-bottom: #{$value} !important;
+                padding-block-end: #{$value} !important;
             }
 
             .padding-left-#{$spacer}#{$mod} {
-                padding-left: #{$value} !important;
+                padding-inline-start: #{$value} !important;
             }
 
             // Margin
@@ -89,57 +87,53 @@ $spacers: (
             }
 
             .margin-x-#{$spacer}#{$mod} {
-                margin-left: #{$value} !important;
-                margin-right: #{$value} !important;
+                margin-inline: #{$value} !important;
             }
 
             .margin-y-#{$spacer}#{$mod} {
-                margin-top: #{$value} !important;
-                margin-bottom: #{$value} !important;
+                margin-block: #{$value} !important;
             }
 
             .margin-top-#{$spacer}#{$mod} {
-                margin-top: #{$value} !important;
+                margin-block-start: #{$value} !important;
             }
 
             .margin-right-#{$spacer}#{$mod} {
-                margin-right: #{$value} !important;
+                margin-inline-end: #{$value} !important;
             }
 
             .margin-bottom-#{$spacer}#{$mod} {
-                margin-bottom: #{$value} !important;
+                margin-block-end: #{$value} !important;
             }
 
             .margin-left-#{$spacer}#{$mod} {
-                margin-left: #{$value} !important;
+                margin-inline-start: #{$value} !important;
             }
 
             // Negative Margin
 
             .margin-x-n#{$spacer}#{$mod} {
-                margin-left: calc(#{$value} * -1) !important;
-                margin-right: calc(#{$value} * -1) !important;
+                margin-inline: calc(#{$value} * -1) !important;
             }
 
             .margin-y-n#{$spacer}#{$mod} {
-                margin-top: calc(#{$value} * -1) !important;
-                margin-bottom: calc(#{$value} * -1) !important;
+                margin-block: calc(#{$value} * -1) !important;
             }
 
             .margin-top-n#{$spacer}#{$mod} {
-                margin-top: calc(#{$value} * -1) !important;
+                margin-block-start: calc(#{$value} * -1) !important;
             }
 
             .margin-right-n#{$spacer}#{$mod} {
-                margin-right: calc(#{$value} * -1) !important;
+                margin-inline-end: calc(#{$value} * -1) !important;
             }
 
             .margin-bottom-n#{$spacer}#{$mod} {
-                margin-bottom: calc(#{$value} * -1) !important;
+                margin-block-end: calc(#{$value} * -1) !important;
             }
 
             .margin-left-n#{$spacer}#{$mod} {
-                margin-left: calc(#{$value} * -1) !important;
+                margin-inline-start: calc(#{$value} * -1) !important;
             }
             
         }
@@ -179,39 +173,35 @@ $spacers: (
         }
 
         .margin-y-0#{$mod} {
-            margin-top: 0 !important;
-            margin-bottom: 0 !important;
+            margin-block: 0 !important;
         }
 
         .margin-x-0#{$mod} {
-            margin-left: 0 !important;
-            margin-right: 0 !important;
+            margin-inline: 0 !important;
         }
 
         .margin-x-auto#{$mod} {
-            margin-left: auto !important;
-            margin-right: auto !important;
+            margin-inline: auto !important;
         }
 
         .margin-y-auto#{$mod} {
-            margin-top: auto !important;
-            margin-bottom: auto !important;
+            margin-block: auto !important;
         }
 
         .margin-top-auto#{$mod} {
-            margin-top: auto !important;
+            margin-block-start: auto !important;
         }
 
         .margin-right-auto#{$mod} {
-            margin-right: auto !important;
+            margin-inline-end: auto !important;
         }
 
         .margin-bottom-auto#{$mod} {
-            margin-bottom: auto !important;
+            margin-block-end: auto !important;
         }
 
         .margin-left-auto#{$mod} {
-            margin-left: auto !important;
+            margin-inline-start: auto !important;
         }
     }
 }

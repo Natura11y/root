@@ -15,7 +15,6 @@ In this file:
 
 @use "sass:map";
 @use "../breakpoints/style" as breakpoints;
-@use "../spacing/style" as spacing;
 
 //////////////////////////////////////////////
 // B. Variables
@@ -36,9 +35,7 @@ In this file:
 //////////////////////////////////////////////
 
 .container {
-    padding-left: var(--container-padding-x);
-    padding-right: var(--container-padding-x);
-    
+    padding-inline: var(--container-padding-x);
 }
 
 //////////////////////////////////////////////
@@ -48,7 +45,7 @@ In this file:
 .narrow,
 .medium,
 .wide {
-    @extend .margin-x-auto;
+    margin-inline: auto;
 }
 
 @each $breakpoint in map.keys(breakpoints.$breakpoints) {

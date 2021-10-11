@@ -47,6 +47,6 @@
   },
   "main": "webpack.config.js",
   "browserslist": [
-    "last 2 versions"
+    "defaults"
   ]
 }

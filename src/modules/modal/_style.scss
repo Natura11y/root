@@ -98,10 +98,7 @@ In this file:
   
   background-color: inherit;
   
-  @extend .margin-x-auto;
-  
-  margin-top: var(--modal-padding);
-  margin-bottom: var(--modal-padding);
+  margin-inline: auto;
 }
 
 .modal__content__head,

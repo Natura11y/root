@@ -50,23 +50,23 @@ In this file:
         }
 
         .border-top#{$mod} {
-            border-top-width: var(--default-border-width);
-            border-top-style: var(--default-border-style);
+            border-block-start-width: var(--default-border-width);
+            border-block-start-style: var(--default-border-style);
         }
 
         .border-right#{$mod} {
-            border-right-width: var(--default-border-width);
-            border-right-style: var(--default-border-style);
+            border-inline-end-width: var(--default-border-width);
+            border-inline-end-style: var(--default-border-style);
         }
 
         .border-bottom#{$mod} {
-            border-bottom-width: var(--default-border-width);
-            border-bottom-style: var(--default-border-style);
+            border-block-end-width: var(--default-border-width);
+            border-block-end-style: var(--default-border-style);
         }
 
         .border-left#{$mod} {
-            border-left-width: var(--default-border-width);
-            border-left-style: var(--default-border-style);
+            border-inline-start-width: var(--default-border-width);
+            border-inline-start-style: var(--default-border-style);
         }
         
     }
@@ -83,19 +83,19 @@ In this file:
     }
 
     .border-top-color-#{$name} {
-        border-top-color: map.get($color-map, "swatch") !important;
+        border-block-start-color: map.get($color-map, "swatch") !important;
     }
 
     .border-right-color-#{$name} {
-        border-right-color: map.get($color-map, "swatch") !important;
+        border-inline-end-color: map.get($color-map, "swatch") !important;
     }
 
     .border-bottom-color-#{$name} {
-        border-bottom-color: map.get($color-map, "swatch") !important;
+        border-block-end-color: map.get($color-map, "swatch") !important;
     }
 
     .border-left-color-#{$name} {
-        border-left-color: map.get($color-map, "swatch") !important;
+        border-inline-start-color: map.get($color-map, "swatch") !important;
     }
 }
 
