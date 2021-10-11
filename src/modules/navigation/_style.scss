@@ -79,7 +79,7 @@ In this file:
 
 .nav:not([class*="nav--divider"]):not([class*="nav--breadcrumb"]) {
     > li:not(:last-child) {
-        margin-bottom: var(--nav-gap);
+        margin-block-end: var(--nav-gap);
     }
 
     > li > .button {
@@ -87,29 +87,22 @@ In this file:
     }
 
     > li > [data-toggle="dropdown"][class*="-icon"] ~ ul {
-        margin-left: calc( var(--nav-gap) * -1);
-        margin-right: 0;
-        margin-top: 1rem;
+        margin-inline-start: calc( var(--nav-gap) * -1);
+        margin-inline-end: 0;
+        margin-block-start: 1rem;
 
         width: 240px;
     }
 
     > li > .nav__dropdown {
-        left: 0;
+        inset-inline-start: 0;
         
         width: calc(100% + (var(--nav-gap) * 2));
         
-        margin-left: calc(var(--nav-gap) * -1);
-        margin-right: calc(var(--nav-gap) * -1);
+        margin-inline-start: calc(var(--nav-gap) * -1);
+        margin-inline-end: calc(var(--nav-gap) * -1);
 
         padding: var(--nav-gap);
-
-        [dir="rtl"] & {
-            left: unset;
-            right: 0;
-        
-            text-align: right;
-        }
     }
 }
 
@@ -121,12 +114,12 @@ In this file:
             display: flex;
             align-items: center;
 
-            margin-left: calc(var(--nav-gap) * -1);
-            margin-right: calc(var(--nav-gap) * -1);
+            margin-inline-start: calc(var(--nav-gap) * -1);
+            margin-inline-end: calc(var(--nav-gap) * -1);
 
             > li {
-                margin-left: var(--nav-gap);
-                margin-right: var(--nav-gap);
+                margin-inline-start: var(--nav-gap);
+                margin-inline-end: var(--nav-gap);
                 margin-bottom: 0 !important;
             }
 
@@ -141,7 +134,7 @@ In this file:
 
                 transform: translateX(-50%);
                 
-                margin-left: 0;
+                margin-inline-start: 0;
 
                 &::after {
                     left: 50%;
@@ -212,14 +205,8 @@ In this file:
             }
 
             > li:not(:last-child) {
-                border-right-width: var(--default-border-width);
-                border-right-style: var(--default-border-style);
-
-                [dir="rtl"] & {
-                    border-right-width: 0;
-                    border-left-width: var(--default-border-width);
-                    border-left-style: var(--default-border-style);
-                }
+                border-inline-end-width: var(--default-border-width);
+                border-inline-end-style: var(--default-border-style);
             }
 
             > li > a, 
@@ -240,25 +227,15 @@ In this file:
 
             .nav__dropdown {
                 position: absolute;
-                left: 0;
+                inset-inline-start: 0;
 
                 width: 100%;
-
-                [dir="rtl"] & {
-                    left: unset;
-                    right: 0;
-                }
             }
 
             // For <ul> tags with borders applied
 
             &[class*="border"] .nav__dropdown {
-                margin-left: calc(var(--default-border-width) * -1);
-
-                [dir="rtl"] & {
-                    margin-left: unset;
-                    margin-right: calc(var(--default-border-width) * -1);
-                }
+                margin-inline-start: calc(var(--default-border-width) * -1);
             }
         }
     }
@@ -290,8 +267,7 @@ In this file:
         @extend .caret;
         
         &::before {
-            margin-left: var(--nav-gap) !important;
-            margin-right: var(--nav-gap) !important;
+            margin-inline: var(--nav-gap) !important;
             transform: rotate(-90deg);
         }
     }
@@ -320,7 +296,7 @@ In this file:
         position: absolute;
         content: "";
         top: 0;
-        left: calc(var(--nav-gap) + var(--dropdown-pointer-size) + 4px);
+        inset-inline-start: calc(var(--nav-gap) + var(--dropdown-pointer-size) + 4px);
         
         transform: translateX(-50%) rotate(45deg);
 
@@ -344,7 +320,7 @@ In this file:
 
     position: static;
 
-    top: 100%;
+    inset-block-start: 100%;
 
     width: 100%;
 
@@ -354,11 +330,7 @@ In this file:
 
     font-weight: normal;
 
-    text-align: left;
-
-    [dir="rtl"] & {
-        text-align: right;
-    }
+    text-align: start;
 
     display: none;
 
@@ -410,12 +382,7 @@ In this file:
         padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
 
         > .button {
-            margin-right: var(--spacer-2);
-            
-            [dir="rtl"] & {
-                margin-right: unset;
-                margin-left: var(--spacer-2);
-            }
+            margin-inline-end: var(--spacer-2);
         }
     }
 
@@ -560,8 +527,8 @@ In this file:
                     > li {
                         display: flex;
 
-                        margin-left: var(--nav-gap);
-                        margin-right: var(--nav-gap);
+                        margin-inline-start: var(--nav-gap);
+                        margin-inline-end: var(--nav-gap);
                         margin-bottom: 0 !important;
                     }
 
@@ -570,8 +537,8 @@ In this file:
 
                         min-width: 200px;
                         padding: var(--nav-gap);
-                        margin-left: calc(var(--nav-gap) * -1);
-                        margin-right: calc(var(--nav-gap) * -1);
+                        margin-inline-start: calc(var(--nav-gap) * -1);
+                        margin-inline-end: calc(var(--nav-gap) * -1);
                     }
 
                     > li > a,
@@ -582,12 +549,7 @@ In this file:
                 }
 
                 form[role="search"] {
-                    margin-left: var(--primary-nav-padding-x);
-                    
-                    [dir="rtl"] & {
-                        margin-left: unset;
-                        margin-right:  var(--primary-nav-padding-x);
-                    }
+                    margin-inline-start: var(--primary-nav-padding-x);
                 }
 
             }
@@ -637,14 +599,8 @@ In this file:
                 }
 
                 > li:not(:last-child){
-                    border-right-width: var(--default-border-width);
-                    border-right-style: var(--default-border-style);
-
-                    [dir="rtl"] & {
-                        border-right-width: 0;
-                        border-left-width: var(--default-border-width);
-                        border-left-style: var(--default-border-style);
-                    }
+                    border-inline-end-width: var(--default-border-width);
+                    border-inline-end-style: var(--default-border-style);
                 }
 
                 > li > a {
@@ -664,26 +620,16 @@ In this file:
 
                     width: 100%;
                     
-                    left: 0;
-
-                    [dir="rtl"] & {
-                        left: unset;
-                        right: 0;
-                    }
+                    inset-inline-start: 0;
                 }
             }
 
             form[role="search"] .form-entry__field {
-                border-top-width: 0;
-                border-right-width: 0;
-                border-bottom-width: 0;
-
-                [dir="rtl"] & {
-                    border-left-width: 0;
-                    border-right-width: var(--default-border-width);
-                    border-right-style: var(--default-border-style);
-                }
+                border-block-start-width: 0;
+                border-inline-end-width: 0;
+                border-block-end-width: 0;
             }
+
         }
 
     }
