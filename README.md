@@ -1,6 +1,10 @@
+![Naturally Inclusive Framework Logo](./images/naturally-logo-color.svg)
+
 # Natura11y Inclusive Framework
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas cursus malesuada tortor, sed euismod mi malesuada a. Proin eros libero, efficitur eget tempor id, dapibus et ligula.
+Natura11y is an open-source front-end toolkit for building modern websites.
+
+[title](https://www.gonatura11y.com)
 
 ## Description
 
