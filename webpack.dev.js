@@ -6,7 +6,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const devDir = './dist/html';
-const devIndex = 'modal.html';
+const devIndex = 'alerts.html';
 
 module.exports = merge(common, {
     mode: 'development',
