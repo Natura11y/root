@@ -145,7 +145,7 @@ h6, .h6 {
     line-height: var(--header-line-height);
 
     &:not(.accordion__button):not(.alert__title):not(:last-child){
-        margin-bottom: var(--spacer-2);
+        margin-block-end: var(--spacer-2);
     }
 }
 
@@ -217,14 +217,14 @@ p,
 p ~ ul,
 p ~ ol {
     &:not(:last-child){
-        margin-bottom: var(--paragraph-margin-bottom);
+        margin-block-end: var(--paragraph-margin-bottom);
     }
 }
 
 p ~ ul,
 p ~ ol {
     li {
-        margin-bottom: var(--spacer-1);
+        margin-block-end: var(--spacer-1);
     }
 }
 
@@ -232,8 +232,7 @@ p ~ ul {
     --list-item-padding: 1em;
 
     li {
-        margin-left: var(--list-item-padding);
-        margin-right: var(--list-item-padding);
+        margin-inline-start: var(--list-item-padding);
     }
 }
 
@@ -247,22 +246,16 @@ ol {
     li {
         position: relative;
         
-        padding-left: var(--list-item-padding);
-        padding-right: var(--list-item-padding);
+        padding-inline-start: var(--list-item-padding);
 
         counter-increment: list-item-counter;
     }
 
     li::before {
         position: absolute;
-        left: 0;
+        inset-inline-start: 0;
 
         content: counters(list-item-counter, ".") ". ";
-
-        [dir="rtl"] & {
-            left: unset;
-            right: 0;
-        }
     }
 
 }
@@ -271,7 +264,7 @@ figure {
     figcaption {
         font-size: var(--font-size-sm);
         opacity: 0.85;
-        margin-top: var(--spacer-2);
+        margin-block-start: var(--spacer-2);
     }
 }
 
@@ -283,16 +276,16 @@ figure {
     @include breakpoints.breakpoints-up($breakpoint) {
         $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
 
-        .text-align-left {
-            text-align: left !important;
+        .text-align-left#{$mod} {
+            text-align: start !important;
         }
         
-        .text-align-center {
+        .text-align-center#{$mod} {
             text-align: center !important;
         }
 
-        .text-align-right {
-            text-align: right !important;
+        .text-align-right#{$mod} {
+            text-align: end !important;
         }
 
     }

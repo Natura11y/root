@@ -17,6 +17,7 @@ In this file:
 
 %icon-font-vars {
   --icon-size: 1.25em;
+  --icon-font-family: 'natura11y-icons';
 }
 
 //////////////////////////////////////////////
@@ -33,6 +34,7 @@ In this file:
   vertical-align: middle;
 
   position: relative;
+
   pointer-events: none;
 
   &[class*="-left"], 
@@ -48,15 +50,17 @@ In this file:
 //////////////////////////////////////////////
 
 .icon_font {
-  font-family: 'natura11y-icons';
+  font-family: var(--icon-font-family);
 }
 
 //////////////////////////////////////////////
 // D. Rotating Utility Class
 //////////////////////////////////////////////
 
-.icon-loading.rotate {
-  animation: rotate360 1s linear infinite;
+.icon-loading {
+  &.icon--rotate {
+    animation: rotate360 1s linear infinite;
+  }
 }
 
 @keyframes rotate360 {

@@ -93,9 +93,6 @@ new Tabs();
 import Tables from "./modules/tables";
 new Tables();
 
-import Tearsheet from "./modules/tearsheet";
-new Tearsheet();
-
 import "./modules/typography";
 
 import "./modules/z-index/index";

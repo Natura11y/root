@@ -49,17 +49,10 @@ In this file:
         position: relative;
         content: "";
         
-        display: inline-block;
+        display: inline-flex;
         
-        margin-left: var(--caret-margin);
+        margin-inline-start: var(--caret-margin);
         
         color: inherit;
-    }
-
-    [dir="rtl"] & {
-        &:not(.form-entry__field__select)::before {
-            margin-left: unset;
-            margin-right: var(--caret-margin);
-        }
     }
 }

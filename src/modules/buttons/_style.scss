@@ -133,8 +133,7 @@ button {
 
     &:not([class*="--disperse"]) {
         .button__text {
-            margin-left: 0.25em;
-            margin-right: 0.25em;
+            margin-inline: 0.25em;
         }
     }
 }
@@ -180,7 +179,7 @@ button {
 
     display: block;
 
-    margin-top: var(--spacer-2);
+    margin-block-start: var(--spacer-2);
 
     padding: 0.5em 1em;
 
@@ -199,18 +198,19 @@ button {
     &.left {
         transform: unset;
         right: unset;
-        left: 0;
+        inset-inline-start: 0;
     }
 
     &.right {
         transform: unset;
         left: unset;
-        right: 0;
+        inset-inline-end: 0;
     }
 }
 
 .tooltip-show > .button__tooltip {
-    top: 100%;
+    inset-block-start: 100%;
+
     animation-name: fadeIn;
     animation-duration: 0.5s;
 }
@@ -240,29 +240,15 @@ button {
     display: flex;
     justify-content: center;
 
-    margin-left: calc(var(--gap-size) * -0.5);
-    margin-right: calc(var(--gap-size) * -0.5);
-
     min-height: var(--button-icon-only-size);
 
-    .form-entry__field,
-    .form-entry__field__select {
-        display: flex;
-        align-self: stretch;
-    }
-    
-    .form-entry__field__select {
-        height: 100%;
-    }
-    
-    .form-entry__field,
     > [class*="button"], 
-    button {
-        margin-left: calc(var(--gap-size) * 0.5);
-        margin-right: calc(var(--gap-size) * 0.5);
+    > button {
+        &:not(:last-child){
+            margin-inline-end: var(--gap-size);
+        }
     }
 
-    .form-entry__field,
     > [class*="button"]:not(.button--icon-only){
         min-height: 100%;
         font-size: 80%; 

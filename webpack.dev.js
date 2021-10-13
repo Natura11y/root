@@ -5,6 +5,9 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const devDir = './dist/html';
+const devIndex = 'modal.html';
+
 module.exports = merge(common, {
     mode: 'development',
     devtool: 'eval-cheap-source-map',
@@ -14,7 +17,8 @@ module.exports = merge(common, {
     },
     devServer: {
         port: 8080, 
-        contentBase: path.resolve(__dirname)
+        contentBase: path.resolve(__dirname),
+        index: devIndex
     },
     module: {
         rules: [
@@ -42,8 +46,8 @@ module.exports = merge(common, {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './index.html',
-            filename: 'index.html',
+            template: `./${devDir}/${devIndex}`,
+            filename: devIndex,
             inject: 'body'
         })
     ]

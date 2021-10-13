@@ -89,20 +89,18 @@ In this file:
 .alert__title__text {
     font-weight: var(--body-font-weight-bold);
 
-    margin-left: var(--spacer-2);
-    margin-right: var(--spacer-2);
+    margin-inline-start: var(--spacer-2);
 }
 
 .alert__description {
     p:not(:last-child) {
-        margin-bottom: 0.5em;
+        margin-block-end: 0.5em;
     }
 }
 
 .alert__title + .alert__description {
-    padding-right: var(--alert-padding-x);
-    padding-bottom: var(--alert-padding-y);
-    padding-left: var(--alert-padding-x);
+    padding-inline: var(--alert-padding-x);
+    padding-block-end: var(--alert-padding-y);
 }
 
 //////////////////////////////////////////////
@@ -115,8 +113,7 @@ In this file:
     > [class*="__title"] {
         grid-area: title;
 
-        margin-top: auto;
-        margin-bottom: auto;
+        margin-block: auto;
     }
 
     > [class*="button"] {

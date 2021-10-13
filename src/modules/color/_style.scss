@@ -22,37 +22,55 @@ In this file:
 
 // Scoped to Root
 
+
 :root {
 
     // Theme Color Palette
 
-    --primary: #00A870;
-    --secondary: #004857;
-    --dark: #131B40;
-    --light: #e6ebed;
+    --primary: #65278a;
+    --library: #fbb94e;
+    --glossary: #4eaf48;
+    --classroom: #1d8dc4;
+    --dark: #282343;
+    --light: #f1f4f6;
 
     // Accessible Link Color
-    // (Used with White and Light Themes)
 
-    --a11y-link: #0040b2;
+    --a11y-link-color: #00549a;
 
-    // Primary Correlated Colors
+    // Associated Primary Colors
 
-    --primary-text: var(--dark);
+    --primary-text: white;
     --primary-border: hsla(0, 0%, 0%, 0.25);
     --primary-link: currentColor;
     --primary-confirm: #16db93;
     --primary-warn: #ff73aa;
 
-    // Secondary Correlated Colors
+    // Associated library Colors
 
-    --secondary-text: white;
-    --secondary-border: hsla(0, 0%, 0%, 0.25);
-    --secondary-link: currentColor;
-    --secondary-confirm: #41e0f2;
-    --secondary-warn: #ffa3a4;
+    --library-text: var(--dark);
+    --library-border: hsla(0, 0%, 0%, 0.125);
+    --library-link: currentColor;
+    --library-confirm: #41e0f2;
+    --library-warn: #ffa3a4;
 
-    // Dark Correlated Colors
+    // Associated Glossary Colors
+
+    --glossary-text: var(--dark);
+    --glossary-border: hsla(0, 0%, 0%, 0.125);
+    --glossary-link: currentColor;
+    --glossary-confirm: #41e0f2;
+    --glossary-warn: #ffa3a4;
+
+    // Associated Classroom Colors
+
+    --classroom-text: var(--dark);
+    --classroom-border: hsla(0, 0%, 0%, 0.125);
+    --classroom-link: currentColor;
+    --classroom-confirm: #41e0f2;
+    --classroom-warn: #ffa3a4;
+
+    // Associated Dark Colors
 
     --dark-text: white;
     --dark-border: hsla(0, 0%, 100%, 0.125);
@@ -60,19 +78,19 @@ In this file:
     --dark-confirm: #00a242;
     --dark-warn: #fe3c3e;
 
-    // Light Correlated Colors
+    // Associated Light Colors
 
     --light-text: var(--dark);
     --light-border: hsla(0, 0%, 50%, 0.25);
-    --light-link: var(--a11y-link);
+    --light-link: var(--a11y-link-color);
     --light-confirm: #007e35;
     --light-warn: #ce1736;
 
-    // White Correlated Colors
+    // Associated Light Colors
 
     --white-text: var(--dark);
     --white-border: hsla(0, 0%, 50%, 0.25);
-    --white-link: var(--a11y-link);
+    --white-link: var(--a11y-link-color);
     --white-confirm: #008237;
     --white-warn: #e4193c;
 }
@@ -156,8 +174,7 @@ body > footer:not([class*="theme-"]),
     }
 
     select option,
-    [data-toggle="dropdown"] ~ ul, 
-    .modal::before,
+    [data-toggle="dropdown"] ~ ul,
     .modal__content,
     .table-scroll__container::after {
         background-color: var(--background-color);
