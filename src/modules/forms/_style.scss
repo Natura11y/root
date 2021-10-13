@@ -172,9 +172,6 @@ fieldset {
     [dir="rtl"] & {
         text-align: right;
     }
-
-    // testing
-    // background-color: rgba(255, 255, 0, 0.5);
 }
 
 .form-entry ~ .form-entry {
@@ -193,16 +190,12 @@ fieldset {
     flex-direction: column;
 
     color: inherit;
-
-    // testing
-    // background-color: rgba(0, 255, 55, 0.25);
 }
 
 .form-entry__field__label {
     font-weight: var(--body-font-weight-bold);
 
-    padding-left: var(--form-field-padding-x);
-    padding-right: var(--form-field-padding-x);
+    padding-inline: var(--form-field-padding-x);
 
     &::after {
         display: none;
@@ -216,7 +209,7 @@ fieldset {
 }
 
 .form-entry__field:not([class*="--float"]) .form-entry__field__label {
-    margin-bottom: calc(var(--form-field-padding-y) * 0.75);
+    margin-block-end: calc(var(--form-field-padding-y) * 0.75);
 }
 
 .form-entry__field__select,
@@ -252,13 +245,6 @@ fieldset {
         
         transition: box-shadow 200ms;
     }
-
-    [dir="rtl"] & {
-        > .icon {
-            margin-left: unset;
-            margin-right: var(--form-field-padding-x);
-        }
-    }
 }
 
 .form-entry__field__input {
@@ -284,11 +270,11 @@ fieldset {
     > .icon,
     > .button-group
     {
-        margin-left: var(--form-field-padding-x);
+        margin-inline-start: var(--form-field-padding-x);
     }
 
     > .button-group {
-        margin-right: calc(var(--form-field-padding-x) * 0.5);
+        margin-inline-end: calc(var(--form-field-padding-x) * 0.5);
 
         font-size: 75%;
     }
@@ -317,8 +303,7 @@ fieldset {
             height: unset;
             width: unset;
             
-            padding-left: var(--form-field-padding-x);
-            padding-right: var(--form-field-padding-x);
+            padding-inline: var(--form-field-padding-x);
         }
     }
 }
@@ -336,8 +321,7 @@ fieldset {
         left: 0;
         z-index: 1000;
 
-        padding-top: var(--form-field-padding-y);
-        padding-bottom: var(--form-field-padding-y);
+        padding-block: var(--form-field-padding-y);
 
         pointer-events: none;
     }
@@ -350,8 +334,7 @@ fieldset {
             input,
             textarea
             {
-                padding-top: calc( var(--form-field-padding-y) * 1.5);
-                padding-bottom: calc( var(--form-field-padding-y) * 0.5);
+                padding-block: calc( var(--form-field-padding-y) * 1.5);
             }
 
             select option:first-child {
@@ -361,14 +344,13 @@ fieldset {
 
         .form-entry__field__label {
 
-            top: calc( var(--form-field-padding-y) * 0.5);
+            inset-block-start: calc( var(--form-field-padding-y) * 0.5);
             right: unset;
             bottom: unset;
 
             padding: 0;
             
-            margin-left: var(--form-field-padding-x);
-            margin-right: var(--form-field-padding-x);
+            margin-inline: var(--form-field-padding-x);
 
             font-size: 0.7em;
 
@@ -384,10 +366,10 @@ fieldset {
 // Form Entry Help
 
 .form-entry__help {    
-    padding-left: var(--form-field-padding-x);
-    padding-right: var(--form-field-padding-x);
+    padding-inline: var(--form-field-padding-x);
 
-    margin-top: 0.5em;
+    margin-block-start: 0.5em;
+
     display: block;
     
     font-size: 0.8em;
@@ -401,25 +383,16 @@ fieldset {
 
         position: absolute;
         content: "";
-        right: 0;
-        top: 50%;
+        inset-inline-end: 0;
+        inset-block-start: 50%;
 
         display: inline-block;
         
-        // transform: translateY(-50%);
+        transform: translateY(-50%);
         
-        margin-left: var(--form-field-padding-x);
-        margin-right: var(--form-field-padding-x);
+        margin-inline: var(--form-field-padding-x);
     }
 
-}
-
-.form-entry__field__select::before {
-
-    [dir="rtl"] & {
-        right: unset;
-        left: 0;
-    }
 }
 
 //////////////////////////////////////////////
@@ -443,9 +416,9 @@ fieldset {
     }
 
     > div:not(:last-child) {
-        border-bottom-width: var(--default-border-width);
-        border-bottom-style: var(--default-border-style);
-        border-bottom-color: inherit;
+        border-block-end-width: var(--default-border-width);
+        border-block-end-style: var(--default-border-style);
+        border-block-end-color: inherit;
     }
 
     > div > label {
@@ -454,10 +427,11 @@ fieldset {
         &::before {
             position: absolute;
             content: "";
-            top: calc(var(--form-field-padding-y) * -1);
-            left: calc(var(--form-field-padding-x) * -1);
-            bottom: calc(var(--form-field-padding-y) * -1);
-            right: calc(var(--form-field-padding-x) * -1);
+            
+            inset-block-start: calc(var(--form-field-padding-y) * -1);
+            inset-inline-end: calc(var(--form-field-padding-x) * -1);
+            inset-block-end: calc(var(--form-field-padding-y) * -1);
+            inset-inline-start: calc(var(--form-field-padding-x) * -1);
 
             pointer-events: inherit;
 
@@ -484,14 +458,8 @@ fieldset {
             }
 
             > div:not(:last-child) {
-                border-right-width: var(--default-border-width);
-                border-right-style: var(--default-border-style);
-
-                [dir="rtl"] & {
-                    border-left-width: var(--default-border-width);
-                    border-left-style: var(--default-border-style);
-                    border-right-width: 0;
-                }
+                border-inline-end-width: var(--default-border-width);
+                border-inline-end-style: var(--default-border-style);
             }
         }
 
@@ -510,18 +478,13 @@ fieldset {
         display: flex;
         align-items: baseline;
         
-        padding-left: 1.25em;
+        padding-inline-start: 1.25em;
 
         width: auto;
 
         color: inherit;
         
         cursor: pointer;
-
-        [dir="rtl"] & {
-            padding-left: unset;
-            padding-right: 1.25em;
-        }
     }
 }
 
@@ -540,12 +503,12 @@ fieldset {
 
     &::before {
         position: absolute;
-        top: 0;
-        left: 0;
+        inset-block-start: 0;
+        inset-inline-start: 0;
 
         opacity: 0.5;
 
-        margin-top: -0.125em;
+        margin-block-start: -0.125em;
 
         font-size: 125%;
 
@@ -577,7 +540,7 @@ fieldset {
 .form-entry__option__radio > label > input:disabled ~ .radio__label::before,
 .form-entry__option__check > label > input:disabled ~ .check__label::before, 
 .form-entry__option__switch > label > input:disabled ~ .switch__label::before {
-    content: "\f114";
+    content: "\f115";
 }
 
 .form-entry__option__radio > label.disabled,
@@ -622,8 +585,8 @@ fieldset {
 
     .switch__slider {
         position: absolute;
-        left: -0.125em;
-        top: 50%;
+        inset-inline-start: -0.125em;
+        inset-block-start: 50%;
 
         transform: translateY(-50%);
         
@@ -652,8 +615,8 @@ fieldset {
         }
 
         &::after {
-            top: 0;
-            left: 0;
+            inset-block-start: 0;
+            inset-inline-start: 0;
 
             height: calc(var(--toggle-switch-width) * 0.5);
             width: calc(var(--toggle-switch-width) * 0.5);
@@ -677,24 +640,7 @@ fieldset {
     }
 
     input:checked + .switch__slider::after {
-        left: 50%;
-    }
-}
-
-// RTL
-
-[dir="rtl"] {
-    .form-entry__option__radio > label > .radio__label::before,
-    .form-entry__option__radio > label > input[type="radio"],
-
-    .form-entry__option__check > label > .check__label::before,
-    .form-entry__option__check > label > input[type="checkbox"],     
-
-    .form-entry__option__switch > label > .switch__label::before,
-    .form-entry__option__switch > label > input[type="checkbox"]
-    {
-        left: unset;
-        right: 0;
+        inset-inline-start: 50%;
     }
 }
 
@@ -740,7 +686,7 @@ fieldset {
 
     height: 150px;
 
-    margin-bottom: var(--form-field-padding-y);
+    margin-block-end: var(--form-field-padding-y);
 
     overflow: hidden;
     
@@ -758,14 +704,16 @@ fieldset {
 }
 
 .file-upload__drop__text {
-    margin-left: 0.25em;
-    margin-right: 0.25em;
+    margin-inline: 0.25em;
 }
 
 .file-upload__button {
     position: relative;
+
     z-index: 15;
+    
     pointer-events: none;
+    
     font-size: var(--font-size-md);
 }
 
@@ -774,7 +722,7 @@ fieldset {
     justify-content: space-between;
 
     font-size: var(--font-size-md);
-    margin-top: var(--form-field-padding-y);
+    margin-block-start: var(--form-field-padding-y);
 }
 
 //////////////////////////////////////////////
@@ -789,10 +737,9 @@ fieldset {
 .form-entry__feedback {
     order: 3;
 
-    padding-left: var(--form-field-padding-x);
-    padding-right: var(--form-field-padding-x);
+    padding-inline: var(--form-field-padding-x);
 
-    margin-top: 0.5rem;
+    margin-block-start: 0.5rem;
 
     > small {
         display: flex;
@@ -802,8 +749,7 @@ fieldset {
     }
 
     > small > strong {
-        margin-left: var(--spacer-2);
-        margin-right: var(--spacer-2);
+        margin-inline: var(--spacer-2);
     }
 }
 
