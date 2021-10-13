@@ -7,7 +7,6 @@ module.exports = {
   prefix: 'icon',
   selector: '.icon',
   tag: 'span',
-  // fontsUrl: null,
   formatOptions: {
     json: {
       indent: 3
