@@ -549,19 +549,19 @@ fieldset {
 
         font-size: 125%;
 
+        @extend %icon-font-vars;
         @extend .icon_font;
-    background-color: aqua !important;
     }
 }
 
 // Option Radio
 
 .form-entry__option__radio > label > input ~ .radio__label::before {
-    content: "\f137";
+    content: "\f138";
 }
 
 .form-entry__option__radio > label > input:checked ~ .radio__label::before {
-    content: "\f136";
+    content: "\f137";
 }
 
 // Option Check
