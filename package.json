@@ -43,6 +43,7 @@
     "custom-event-polyfill": "^1.0.7",
     "element-closest-polyfill": "^1.0.2",
     "file-loader": "^6.2.0",
+    "npm-check": "^2.0.0",
     "npm-install-missing": "^0.1.4"
   },
   "main": "webpack.config.js",
