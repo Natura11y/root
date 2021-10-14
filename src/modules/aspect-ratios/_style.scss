@@ -31,8 +31,8 @@ $aspect-ratios: (
 // Scoped to Block
 
 %aspect-ratio-custom-vars {
-    --aspect-ratio-custom-width: 3;
-    --aspect-ratio-custom-height: 4;
+    --aspect-ratio-custom-width: 5;
+    --aspect-ratio-custom-height: 1;
 }
 
 //////////////////////////////////////////////
@@ -50,7 +50,7 @@ $aspect-ratios: (
         .aspect-ratio-custom#{$mod} {
             aspect-ratio: var(--aspect-ratio-custom-width) / var(--aspect-ratio-custom-height);
         }
-        
+
         @each $aspect-ratio in $aspect-ratios {
             $aspect-ratio-x: list.nth($aspect-ratio, 1);
             $aspect-ratio-y: list.nth($aspect-ratio, 2);
