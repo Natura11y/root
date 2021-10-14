@@ -4,9 +4,7 @@ In this file:
 
 // A. Modules
 // B. Variables
-// C. Aspect Ratio Block
-// D. Aspect Ratio Element
-// E. Aspect Ratio Modifiers
+// C. Apect Ratio Utilities
 
 */
 
@@ -16,6 +14,8 @@ In this file:
 
 @use "sass:list";
 @use "sass:math";
+@use "sass:map";
+@use "../breakpoints/style" as breakpoints;
 
 //////////////////////////////////////////////
 // B. Variables
@@ -28,52 +28,37 @@ $aspect-ratios: (
     (1 1)
 );
 
-//////////////////////////////////////////////
-// C. Apect Ratio Block
-//////////////////////////////////////////////
+// Scoped to Block
 
-.aspect-ratio {
-    position: relative;
-
-    display: block;
-    
-    overflow: hidden;
-
-    padding: unset;
-
-    &::before {
-        content: "";
-
-        display: block;
-    }
+%aspect-ratio-custom-vars {
+    --aspect-ratio-custom-width: 3;
+    --aspect-ratio-custom-height: 4;
 }
 
 //////////////////////////////////////////////
-// D. Apect Ratio Element
+// C. Apect Ratio Utilities
 //////////////////////////////////////////////
 
-.aspect-ratio__content {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    
-    width: 100%;
-    height: 100%;
+[class*="aspect-ratio-custom"] {
+    @extend %aspect-ratio-custom-vars;
 }
 
-//////////////////////////////////////////////
-// E. Apect Ratio Modifiers
-//////////////////////////////////////////////
+@each $breakpoint in map.keys(breakpoints.$breakpoints) {
+    @include breakpoints.breakpoints-up($breakpoint) {
+        $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
 
-@each $aspect-ratio in $aspect-ratios {
-    $aspect-ratio-x: list.nth($aspect-ratio, 1);
-    $aspect-ratio-y: list.nth($aspect-ratio, 2);
-
-    .aspect-ratio--#{$aspect-ratio-x}by#{$aspect-ratio-y} {
-        &::before {
-            padding-top: math.percentage($aspect-ratio-y / $aspect-ratio-x);
+        .aspect-ratio-custom#{$mod} {
+            aspect-ratio: var(--aspect-ratio-custom-width) / var(--aspect-ratio-custom-height);
         }
+        
+        @each $aspect-ratio in $aspect-ratios {
+            $aspect-ratio-x: list.nth($aspect-ratio, 1);
+            $aspect-ratio-y: list.nth($aspect-ratio, 2);
+
+            .aspect-ratio-#{$aspect-ratio-x}by#{$aspect-ratio-y}#{$mod} {
+                aspect-ratio: $aspect-ratio-x / $aspect-ratio-y;
+            }
+        }
+
     }
 }
