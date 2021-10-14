@@ -17,7 +17,6 @@ In this file:
 //////////////////////////////////////////////
 
 @use "../spacing/style" as spacing;
-@use "../shadows/style" as shadows;
 @use "../color/style" as color;
 
 ////////////////////////////////////////
@@ -29,6 +28,7 @@ In this file:
 %custom-properties {
     --body-min-width: 325px;
     --body-max-width: 100%;
+    --html-background-color: transparent;
 }
 
 ////////////////////////////////////////
@@ -38,15 +38,19 @@ In this file:
 * {
     margin: 0;
     padding: 0;
+
     border: unset;
+
     font-size: 100%;
-    // font-family: inherit;
+
     vertical-align: baseline;
 }
 
 img {
     border-style: none;
+
     vertical-align: middle;
+
     max-width: 100%;
 }
 
@@ -56,9 +60,11 @@ a {
 
 button {
     border: unset;
+
     border-radius: unset;
 
     color: inherit;
+
     font-size: inherit;
 
     &::-moz-focus-inner {
@@ -93,8 +99,6 @@ hr {
 ////////////////////////////////////////
 
 html {
-    --default-background-color: var(--dark);
-
     font-size: 1rem;
     line-height: 1.125;
 
@@ -103,7 +107,7 @@ html {
     scroll-behavior: smooth;
 
     &:not([class*="theme-"]):not([class*="background-color"]) {
-        background-color: var(--default-background-color);
+        background-color: var(--html-background-color);
     }
 }
 
@@ -134,6 +138,6 @@ body {
 ////////////////////////////////////////
 
 hr {
-    border-top-width: var(--default-border-width);
-    border-top-style: var(--default-border-style);
+    border-block-start-width: var(--default-border-width);
+    border-block-start-style: var(--default-border-style);
 }

@@ -34,7 +34,6 @@ In this file:
 // C. Box Shadow Utilities
 //////////////////////////////////////////////
 
-body:not([class*="box-shadow-"]),
 [class*="box-shadow-"] {
     @extend %box-shadow-vars;
 
@@ -65,10 +64,6 @@ body:not([class*="box-shadow-"]),
             --shadow-opacity: var(--base-shadow-opacity);
         }
     }
-}
-
-body:not([class*="box-shadow-"]){
-    @extend .box-shadow-3;
 }
 
 //////////////////////////////////////////////
