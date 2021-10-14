@@ -32,7 +32,7 @@ $aspect-ratios: (
 
 %aspect-ratio-custom-vars {
     --aspect-ratio-custom-width: 5;
-    --aspect-ratio-custom-height: 1;
+    --aspect-ratio-custom-height: 7;
 }
 
 //////////////////////////////////////////////
@@ -47,17 +47,27 @@ $aspect-ratios: (
     @include breakpoints.breakpoints-up($breakpoint) {
         $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
 
-        .aspect-ratio-custom#{$mod} {
-            aspect-ratio: var(--aspect-ratio-custom-width) / var(--aspect-ratio-custom-height);
-        }
-
         @each $aspect-ratio in $aspect-ratios {
             $aspect-ratio-x: list.nth($aspect-ratio, 1);
             $aspect-ratio-y: list.nth($aspect-ratio, 2);
 
             .aspect-ratio-#{$aspect-ratio-x}by#{$aspect-ratio-y}#{$mod} {
                 aspect-ratio: $aspect-ratio-x / $aspect-ratio-y;
+                
+                &[class*="backdrop--fixed"] {
+                    min-height: unset;
+                }
+
             }
+        }
+
+        .aspect-ratio-custom#{$mod} {
+            aspect-ratio: var(--aspect-ratio-custom-width) / var(--aspect-ratio-custom-height);
+            
+            &[class*="backdrop--fixed"] {
+                min-height: unset;
+            }
+
         }
 
     }

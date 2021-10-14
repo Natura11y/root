@@ -109,7 +109,7 @@ In this file:
     display: flex;
     flex-direction: column;
     justify-content: center;
-
+    
     min-height: var(--backdrop-fixed-height);
     
     > *:not(.backdrop__credit) {
