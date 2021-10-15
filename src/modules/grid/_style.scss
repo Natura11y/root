@@ -15,6 +15,7 @@ In this file:
 //////////////////////////////////////////////
 
 @use "sass:map";
+@use "sass:math";
 @use "../breakpoints/style" as breakpoints;
 @use "../spacing/style" as spacing;
 
@@ -23,70 +24,82 @@ In this file:
 //////////////////////////////////////////////
 
 $columns: 12;
+$rows: 6;
 
 //////////////////////////////////////////////
-// B. Grid Block
-//////////////////////////////////////////////
+// A. Grid Block
+////////////////////////////////////////////// 
 
 .grid {
+    display: grid;
+    gap: var(--gap-size);
+}
+
+[class*="grid--column"] {
+    --columns: initial;
+    grid-template-columns: repeat(var(--columns), 1fr);
+}
+
+@each $breakpoint in map.keys(breakpoints.$breakpoints) {
+    @include breakpoints.breakpoints-up($breakpoint) {
+        $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
+
+        @for $i from 2 through $columns {
+
+            .grid--column-#{$i}#{$mod} {
+                --columns: #{$i} !important;
+            }
+
+            .grid__colspan-#{$i}#{$mod}{
+                grid-column: span #{$i};
+            }
+        }
+
+        @for $i from 1 through $rows {
+            
+            .grid__rowspan-#{$i}#{$mod}{
+                grid-row: span #{$i};
+            }
+        }
+
+    }
+}
+
+//////////////////////////////////////////////
+// B. Matrix Block
+//////////////////////////////////////////////
+
+.matrix {
     display: flex;
     flex-wrap: wrap;
     min-width: 100%;
 }
 
-[class*="grid__cell"] {
+[class*="matrix__cell"] {
     flex: 1 1 100%;
     max-width: 100%;
 }
 
 //////////////////////////////////////////////
-// C. Grid Gap Modifiers
-//////////////////////////////////////////////
-
-[class*="grid--gap"] {
-    --gap-size: 0;
-
-    margin-top: calc(var(--gap-size) * -1);
-    margin-right: calc(var(--gap-size) * -0.5);
-    margin-left: calc(var(--gap-size) * -0.5);
-
-    > [class*="grid__cell"] {
-        margin-top: var(--gap-size);
-        padding-left: calc(var(--gap-size) * 0.5);
-        padding-right: calc(var(--gap-size) * 0.5);
-    }
-}
-
-@each $spacer, $value in spacing.$spacers {
-    .grid--gap-#{$spacer} {
-        --gap-size: #{$value};
-    }
-}
-
-.grid--gap-border {
-    --gap-size: var(--default-border-width);
-}
-
-//////////////////////////////////////////////
-// D. Grid Size Utilities and Modifiers
+// D. Matrix Size Utilities and Modifiers
 //////////////////////////////////////////////
 
 @each $breakpoint in map.keys(breakpoints.$breakpoints) {
     @include breakpoints.breakpoints-up($breakpoint) {
         $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
 
-        .grid--cell-fill#{$mod} > [class*="grid__cell"] {
+        .matrix--cell-fill#{$mod} > [class*="matrix__cell"] {
             flex: 1;
         }
 
-        .grid--cell-fit#{$mod} > [class*="grid__cell"] {
+        .matrix--cell-fit#{$mod} > [class*="matrix__cell"] {
             flex: none;
         }
         
         @for $i from 1 through $columns {
-            .grid--cell-#{$i}#{$mod} > [class*="grid__cell"] {
-                flex: 0 0 100% / $columns * $i;
-                max-width: 100% / $columns * $i;
+            .matrix--cell-#{$i}#{$mod} > [class*="matrix__cell"] {
+                flex: 0 0 math.div(100% , $columns * $i);
+                max-width: math.div(100% , $columns * $i);
             }
         }
 
@@ -99,7 +112,7 @@ $columns: 12;
 }
 
 //////////////////////////////////////////////
-// E. Grid Cell Size Utilities and Modifiers
+// E. Matrix Cell Size Utilities & Modifiers
 //////////////////////////////////////////////
 
 @each $breakpoint in map.keys(breakpoints.$breakpoints) {
@@ -107,20 +120,53 @@ $columns: 12;
         $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
 
         @for $i from 1 through $columns {
-            .grid > .grid__cell.grid--cell-#{$i}#{$mod} {
+            .matrix > .matrix__cell.matrix--cell-#{$i}#{$mod} {
                 flex: 0 0 100% / $columns * $i;
                 max-width: 100% / $columns * $i;
             }
         }
 
-        .grid > .grid__cell.grid--cell-fill#{$mod} {
+        .matrix > .matrix__cell.matrix--cell-fill#{$mod} {
             flex: 1 !important;
             max-width: unset;
         }
         
-        .grid > .grid__cell.grid--cell-fit#{$mod} {
+        .matrix > .matrix__cell.matrix--cell-fit#{$mod} {
             flex: none;
             max-width: unset;
         }
     }
+}
+
+//////////////////////////////////////////////
+// C. Shared Gap Utilities
+//////////////////////////////////////////////
+
+.matrix, 
+.grid {
+    --gap-size: initial;
+}
+
+.matrix {
+    &[class*="gap"] {
+        margin-block-start: calc(var(--gap-size) * -1);
+        margin-inline-end: calc(var(--gap-size) * -0.5);
+        margin-inline-start: calc(var(--gap-size) * -0.5);
+
+        > [class*="matrix__cell"] {
+            margin-block-start: var(--gap-size);
+            padding-inline-start: calc(var(--gap-size) * 0.5);
+            padding-inline-end: calc(var(--gap-size) * 0.5);
+        }
+    }
+}
+
+@each $spacer, $value in spacing.$spacers {
+    .gap-#{$spacer} {
+        --gap-size: #{$value};
+    }
+}
+
+.gap-border {
+    --gap-size: var(--default-border-width);
 }
