@@ -4,7 +4,8 @@ In this file:
 
 // A. Modules
 // B. Variables
-// C. Apect Ratio Utilities
+// C. Selector Resets
+// D. Apect Ratio Utilities
 
 */
 
@@ -34,8 +35,16 @@ $aspect-ratios: (
     --aspect-ratio-custom: 5 / 7;
 }
 
+////////////////////////////////////////
+// C. Selector Resets
+////////////////////////////////////////
+
+iframe {
+    display: block;
+}
+
 //////////////////////////////////////////////
-// C. Apect Ratio Utilities
+// D. Apect Ratio Utilities
 //////////////////////////////////////////////
 
 [class*="aspect-ratio"] {
