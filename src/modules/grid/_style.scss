@@ -98,8 +98,8 @@ $rows: 6;
         
         @for $i from 1 through $columns {
             .matrix--cell-#{$i}#{$mod} > [class*="matrix__cell"] {
-                flex: 0 0 math.div(100% , $columns * $i);
-                max-width: math.div(100% , $columns * $i);
+                flex: 0 0 100% / $columns * $i;
+                max-width: 100% / $columns * $i;
             }
         }
 
@@ -142,8 +142,7 @@ $rows: 6;
 // C. Shared Gap Utilities
 //////////////////////////////////////////////
 
-.matrix, 
-.grid {
+.gap {
     --gap-size: initial;
 }
 
