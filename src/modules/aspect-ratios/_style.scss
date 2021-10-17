@@ -64,7 +64,6 @@ iframe {
             $aspect-ratio-y: list.nth($aspect-ratio, 2);
 
             .aspect-ratio-#{$aspect-ratio-x}x#{$aspect-ratio-y}#{$mod} {
-                // aspect-ratio: $aspect-ratio-x / $aspect-ratio-y;
                 aspect-ratio: math.div($aspect-ratio-x, $aspect-ratio-y);
                 
                 &[class*="backdrop--fixed"] {
