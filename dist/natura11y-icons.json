@@ -26,6 +26,8 @@
    "double-chevron-up": 61721,
    "edit": 61722,
    "facebook": 61723,
+   "file-download": 61768,
+   "file-upload": 61769,
    "github": 61724,
    "grid": 61725,
    "hashtag": 61726,
@@ -34,6 +36,7 @@
    "info": 61729,
    "instagram": 61730,
    "language": 61731,
+   "lightbulb": 61767,
    "linkedin": 61732,
    "list": 61733,
    "loading": 61734,
@@ -68,6 +71,5 @@
    "warn": 61763,
    "wheelchair": 61764,
    "youtube": 61765,
-   "bookmark": 61766,
-   "lightbulb": 61767
+   "bookmark": 61766
 }
