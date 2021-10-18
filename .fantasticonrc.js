@@ -1,9 +1,12 @@
+const codepoints = require('./dist/natura11y-icons.json');
+
 module.exports = {
   inputDir: './original-svg', // (required)
   outputDir: './dist', // (required)
   fontTypes: ['ttf', 'woff2', 'woff'],
   assetTypes: ['css', 'json', 'html'],
   name: 'natura11y-icons',
+  codepoints: codepoints,
   prefix: 'icon',
   selector: '.icon',
   tag: 'span',
