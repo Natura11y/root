@@ -7,9 +7,10 @@ In this file:
 // C. Placeholders 
 // D. Nav Component 
 // F. Nav Divider Modifier
-// G. Nav Breadcrumb Component
-// H. Nav Dropdown Elements 
-// I. Primary Nav Components
+// G. Nav Has Icons Modifier
+// H. Nav Breadcrumb Component
+// I. Nav Dropdown Elements 
+// J. Primary Nav Components
 
 */
 
@@ -241,8 +242,33 @@ In this file:
     }
 }
 
+
 ////////////////////////////////////////
-// G. Nav Breadcrumb Component
+// G. Nav Has Icons Modifier
+////////////////////////////////////////
+
+[class*="nav--has-icons"] {
+
+    > li > a,
+    > li > button {
+        display: flex;
+        align-items: center;
+
+        &:hover,
+        &:focus {
+            .nav__text {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .nav__text {
+        margin-inline: 0.375em;
+    }
+}
+
+////////////////////////////////////////
+// H. Nav Breadcrumb Component
 ////////////////////////////////////////
 
 .nav-breadcrumb {
@@ -280,7 +306,7 @@ In this file:
 }
 
 ////////////////////////////////////////
-// H. Nav Dropdown Elements
+// I. Nav Dropdown Elements
 ////////////////////////////////////////
 
 [data-toggle="dropdown"]:not([class*="button--icon-only"]) {    
@@ -350,7 +376,7 @@ In this file:
 }
 
 //////////////////////////////////////////////
-// I. Primary Nav Components
+// J. Primary Nav Components
 //////////////////////////////////////////////
 
 [class*="primary-nav--"] {

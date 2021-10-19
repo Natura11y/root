@@ -67,7 +67,7 @@ In this file:
 
     &:hover,
     &:focus {
-        &:not([aria-disabled="true"]):not([class*="icon"]) {
+        &:not([aria-disabled="true"]):not([class*="icon"]):not([class*="nav--has-icons"] > li > *) {
             text-decoration: underline;
         }
     }
