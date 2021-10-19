@@ -17,15 +17,29 @@ In this file:
 
 %icon-font-vars {
   --icon-size: 1.25em;
-
   --icon-font-family: 'natura11y-icons';
 }
 
 //////////////////////////////////////////////
-// B. Shared Styles
+// B. Icon Classes
 //////////////////////////////////////////////
 
-.icon {
+span.icon {
+  &[class*="-left"], 
+  &[class*="-right"] {
+    [dir="rtl"] & {
+      transform: scaleX(-1);
+    }
+  }
+}
+
+.natura11y-icons-sprite {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+span.icon {
   @extend %icon-font-vars;
   
   font-size: var(--icon-size);
@@ -37,13 +51,17 @@ In this file:
   position: relative;
 
   pointer-events: none;
+}
 
-  &[class*="-left"], 
-  &[class*="-right"] {
-    [dir="rtl"] & {
-      transform: scaleX(-1);
-    }
-  }
+svg.icon {
+  --icon-size: 50px;
+
+  display: block;
+  
+  width: var(--icon-size);
+  height: var(--icon-size);
+  
+  fill: currentColor;
 }
 
 //////////////////////////////////////////////
