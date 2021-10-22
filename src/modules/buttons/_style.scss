@@ -18,7 +18,6 @@ In this file:
 ////////////////////////////////////////
 
 @use "../accents/style" as accents;
-@use "../caret/style" as caret;
 
 //////////////////////////////////////////////
 // A. Variables
@@ -233,8 +232,7 @@ button {
 .button-group {
     --gap-size: var(--spacer-2);
     
-    --form-field-padding-y: 0;
-    --button-padding-y: 0;
+    --button-padding-y: initial;
 
     display: flex;
     justify-content: center;

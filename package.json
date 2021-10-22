@@ -46,7 +46,6 @@
     "npm-check": "^2.0.0",
     "npm-install-missing": "^0.1.4"
   },
-  "main": "webpack.config.js",
   "browserslist": [
     "defaults"
   ]
