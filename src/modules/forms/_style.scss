@@ -21,7 +21,6 @@ In this file:
 @use "sass:map";
 @use "../accents/style" as accents;
 @use "../breakpoints/style" as breakpoints;
-@use "../caret/style" as caret;
 @use "../icons/style" as icons;
 
 //////////////////////////////////////////////
@@ -379,7 +378,7 @@ fieldset {
     position: relative;
 
     &::before {
-        @extend .caret;
+        @extend %caret;
 
         position: absolute;
         content: "";

@@ -20,7 +20,7 @@ In this file:
 
 @use "sass:map";
 @use "../breakpoints/style" as breakpoints;
-@use "../caret/style" as caret;
+@use "../accents/style" as accents;
 @use "../spacing/style" as spacing;
 @use "../collapse/style" as collapse;
 @use "../links/style" as links;
@@ -290,7 +290,7 @@ In this file:
     
     > li:not(:last-child) {
         
-        @extend .caret;
+        @extend %caret;
         
         &::before {
             margin-inline: var(--nav-gap) !important;
@@ -310,7 +310,7 @@ In this file:
 ////////////////////////////////////////
 
 [data-toggle="dropdown"]:not([class*="button--icon-only"]) {    
-    @extend .caret;
+    @extend %caret;
 
     &[aria-expanded="true"]::before {
         transform: rotate(180deg);

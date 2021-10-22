@@ -13,7 +13,7 @@ In this file:
 // A. Modules
 //////////////////////////////////////////////
 
-@use "../caret/style" as caret;
+@use "../accents/style" as accents;
 
 //////////////////////////////////////////////
 // B. Variables
@@ -59,7 +59,7 @@ In this file:
 
     cursor: pointer;
 
-    @extend .caret;
+    @extend %caret;
 
     &:not(:first-child){
         border-top-width: var(--default-border-width);
