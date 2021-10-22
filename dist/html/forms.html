@@ -26,7 +26,7 @@
                 </header>
                 <div class="container narrow">
                     
-                    <form novalidate>
+                    <form>
 
                         <p class="required-indicator" aria-hidden="true">
                             <span class="required-indicator__text">
@@ -93,11 +93,11 @@
                             data-error-description="Borough is required!" 
                             data-error-instructions="Select a Borough">
 
-                            <div class="form-entry__field">
+                            <label class="form-entry__field">
                                 
-                                <label class="form-entry__field__label" for="select-borough">
+                                <span class="form-entry__field__label" for="select-borough">
                                     Borough of Residence
-                                </label>
+                                </span>
                                 
                                 <span class="form-entry__field__select">
                                     <select id="select-borough" name="Boroughs">
@@ -110,7 +110,7 @@
                                     </select>
                                 </span>
 
-                            </div>
+                            </label>
 
                         </div>
                         <!-- .form-entry -->

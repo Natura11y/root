@@ -4,7 +4,6 @@ In this file:
 
 // A. Polyfills
 // B. Modules
-// C. Environments
 
 */
 
@@ -96,13 +95,3 @@ new Tables();
 import "./modules/typography";
 
 import "./modules/z-index/index";
-
-//////////////////////////////////////////////
-// C. Environments (For Testing Webpack)
-//////////////////////////////////////////////
-
-if (process.env.NODE_ENV === 'development') {
-    console.log("Development Mode");
-} else if (process.env.NODE_ENV === 'production') {
-    console.log("Production Mode");
-}
