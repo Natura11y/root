@@ -57,7 +57,7 @@
 
                             <label class="form-entry__field">
 
-                                <span class="form-entry__field__label">
+                                <span class="form-entry__field__label" for="select-example">
                                     Form Entry Label
                                 </span>
 
@@ -65,7 +65,7 @@
                                     <select
                                         id="select-example"
                                         name="selectExample"
-                                        aria-describedby="help-select-example">
+                                        aria-describedby="help-select-example">>
                                             <option value="">Select</option>
                                             <option value="Option One">Option One</option>
                                             <option value="Option Two">Option Two</option>
@@ -95,7 +95,7 @@
                                     <textarea
                                         rows="8"
                                         name="textInputExample"
-                                        id="text-textarea-example"
+                                        id="text-input-example"
                                         aria-describedby="help-textarea-example"
                                     ></textarea>
                                 </span>
@@ -142,7 +142,7 @@
 
                             </div>
 
-                            <small class="form-entry__help" id="help-file-upload-example">
+                            <small class="form-entry__help" id="file-upload-example">
                                 Form entry help text
                             </small>
 
@@ -207,14 +207,14 @@
 
                             <div class="form-entry__field">
 
-                                <span class="form-entry__field__label" id="single-option-label">
+                                <span class="form-entry__field__label">
                                     Form Entry Label
                                 </span>
 
                                 <div class="form-entry__option">
 
                                     <div class="form-entry__option__check">
-                                        <label aria-labeledby="single-option-label">
+                                        <label>
                                             <input
                                                 type="checkbox"
                                                 name="singleOption"
@@ -235,6 +235,186 @@
                     </form>
                 
                 </div>
+
+
+                <div class="container narrow margin-y-4 display-none">
+                    
+                    <form>
+
+                        <p class="required-indicator" aria-hidden="true">
+                            <span class="required-indicator__text">
+                                Indicates Required Fields
+                            </span> 
+                            <span class="required-indicator__icon">*</span>
+                        </p>
+
+                        <div
+                            class="form-entry"
+                            data-required="true"
+                            data-error-description="Your first and last name is required" 
+                            data-error-instructions="Enter your full name">
+
+                            <label class="form-entry__field">
+                                <span class="form-entry__field__label">
+                                    First and Last Name
+                                </span>
+                                <span class="form-entry__field__input">
+                                    <input
+                                        type="text"
+                                        name="textInputExample"
+                                        id="first-and-last-name"
+                                        aria-describedby="help-first-and-last-name">
+                                </span>
+                            </label>
+
+                            <small class="form-entry__help" id="help-first-and-last-name">
+                                Please do not include your middle initial
+                            </small>
+
+                        </div>
+                        <!-- .form-entry -->
+
+                        <div
+                            class="form-entry"
+                            data-required="true"
+                            data-error-description="Your first and last name is required" 
+                            data-error-instructions="Enter your full name">
+
+                            <label class="form-entry__field">
+                                <span class="form-entry__field__label">
+                                    Email Address
+                                </span>
+                                <span class="form-entry__field__input">
+                                    <input
+                                        type="email"
+                                        name="textInputExample"
+                                        id="first-and-last-name"
+                                        aria-describedby="help-first-and-last-name">
+                                </span>
+                            </label>
+
+                            <small class="form-entry__help" id="help-first-and-last-name">
+                                Example: janeDoe@email.com
+                            </small>
+
+                        </div>
+                        <!-- .form-entry -->
+
+                        <div
+                            class="form-entry"
+                            data-required="true"
+                            data-error-description="Borough is required!" 
+                            data-error-instructions="Select a Borough">
+
+                            <label class="form-entry__field">
+                                
+                                <span class="form-entry__field__label" for="select-borough">
+                                    Borough of Residence
+                                </span>
+                                
+                                <span class="form-entry__field__select">
+                                    <select id="select-borough" name="Boroughs">
+                                        <option value="">Select One</option>
+                                        <option value="Bronx">Bronx</option>
+                                        <option value="Brooklyn">Brooklyn</option>
+                                        <option value="Manhattan">Manhattan</option>
+                                        <option value="Staten Island">Staten Island</option>
+                                        <option value="Queens">Queens</option>
+                                    </select>
+                                </span>
+
+                            </label>
+
+                        </div>
+                        <!-- .form-entry -->
+
+                        <div class="form-entry">
+
+                            <label class="form-entry__field">
+
+                                <span class="form-entry__field__label">
+                                    Request Details
+                                </span>
+
+                                <span class="form-entry__field__input">
+                                    <textarea rows="8"></textarea>
+                                </span>
+                                
+                                <small class="form-entry__help">
+                                    This is help text
+                                </small>
+
+                            </label>
+
+                        </div>
+                        <!-- .form-entry -->
+
+                        <div
+                            class="form-entry"
+                            data-required="true"
+                            data-error-description="Priority is required!" 
+                            data-error-instructions="Select your priority rating">
+
+                            <fieldset class="form-entry__field">
+
+                                <legend class="form-entry__field__label">
+                                    What is the priority of this request?
+                                </legend>
+
+                                <div class="form-entry__option">
+
+                                    <div class="form-entry__option__radio">
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                id="priority-of-request-high"
+                                                name="priority-of-request">
+                                            <span class="radio__label">
+                                                High
+                                            </span>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-entry__option__radio">
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                id="priority-of-request-medium"
+                                                name="priority-of-request">
+                                            <span class="radio__label">
+                                                Medium
+                                            </span>
+                                        </label> 
+                                    </div>
+
+                                    <div class="form-entry__option__radio">
+                                        <label>
+                                            <input
+                                                type="radio"
+                                                id="priority-of-request-low"
+                                                name="priority-of-request">
+                                            <span class="radio__label">
+                                                Low
+                                            </span>
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            </fieldset>
+
+                        </div>
+                        <!-- .form-entry -->
+                        
+                        <button 
+                            class="button theme-primary width-100 rounded-pill"
+                            type="submit">
+                                Submit
+                        </button>
+
+                    </form>
+                </div>
+
 
             </section>
 
