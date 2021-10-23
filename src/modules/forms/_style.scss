@@ -498,6 +498,7 @@ fieldset {
 .form-entry__option__radio > label > input ~ .radio__label,
 .form-entry__option__check > label > input ~ .check__label,
 .form-entry__option__switch > label > input ~ .switch__label {
+    
     line-height: var(--body-line-height);
 
     &::before {
