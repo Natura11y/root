@@ -232,8 +232,8 @@ button {
 .button-group {
     --gap-size: var(--spacer-2);
     
-    --button-padding-y: initial;
-
+    --button-padding-y: unset;
+    
     display: flex;
     justify-content: center;
 
@@ -248,7 +248,7 @@ button {
 
     > [class*="button"]:not(.button--icon-only){
         min-height: 100%;
-        font-size: 80%; 
+        font-size: 80%;
     }
 
     > [class*="button"]:not(.button--icon-only) {
