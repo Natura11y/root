@@ -9,10 +9,10 @@ export default class Forms {
     constructor() {
 
         // Get each form on page
-        const formList = document.querySelectorAll("form[novalidate]");
+        const formList = document.querySelectorAll('form[novalidate]');
         
         // Get each form entry on page (with and without form parent)
-        const formEntryList = document.querySelectorAll(".form-entry");
+        const formEntryList = document.querySelectorAll('.form-entry');
 
         // Set form submit to false
         let formSubmitAttempted = false;
@@ -20,28 +20,28 @@ export default class Forms {
         formList.forEach((form) => {
 
             // Submission Handler
-            form.addEventListener("submit", (event) => {
+            form.addEventListener('submit', (event) => {
 
                 formSubmitAttempted = true;
         
                 let errorsArray = [];
         
                 // Create list of elements that fail to validate
-                let formErrorsList = form.querySelectorAll(":invalid");
+                let formErrorsList = form.querySelectorAll(':invalid');
 
                 formErrorsList.forEach((formError) => {
 
-                    let formErrorEntry = formError.closest(".form-entry");
-                    let formErrorEntryLabel = formErrorEntry.querySelector(".form-entry__field__label");
+                    let formErrorEntry = formError.closest('.form-entry');
+                    let formErrorEntryLabel = formErrorEntry.querySelector('.form-entry__field__label');
 
                     // Add error class to .form-entry selector
-                    formErrorEntry.classList.add("is-invalid");
+                    formErrorEntry.classList.add('is-invalid');
 
                     // Form Entry Feedback
-                    const formEntryFeedback = formErrorEntry.querySelector(".form-entry__feedback");
+                    const formEntryFeedback = formErrorEntry.querySelector('.form-entry__feedback');
 
-                    let errorDescription = formErrorEntry.getAttribute("data-error-description");
-                    let errorInstructions = formErrorEntry.getAttribute("data-error-instructions");
+                    let errorDescription = formErrorEntry.getAttribute('data-error-description');
+                    // let errorInstructions = formErrorEntry.getAttribute('data-error-instructions');
                     let errorFeedback = [errorDescription, errorInstructions];
 
                     // Send errors to errorArray
@@ -59,19 +59,19 @@ export default class Forms {
                 
                 // Scroll to first error
 
-                let firstError = form.querySelector("[class*='alert'], [class*='invalid']");
+                let firstError = form.querySelector('[class*="alert"], [class*="invalid"]');
                 
                 if (firstError) {
 
-                    if (firstError.hasAttribute("data-alert")) {
-                        firstError.style.display = "block";
+                    if (firstError.hasAttribute('data-alert')) {
+                        firstError.style.display = 'block';
                     }
 
                     let myScroll = firstError.offsetTop - 16;
 
                     window.scrollTo({
                         top: myScroll,
-                        behavior: "smooth"
+                        behavior: 'smooth'
                     });
                 }
 
@@ -81,13 +81,13 @@ export default class Forms {
 
         formEntryList.forEach((formEntry) => {
 
-            const inputSelectors = "input, select, textarea";
+            const inputSelectors = 'input, select, textarea';
 
             const formEntryInputList = formEntry.querySelectorAll(inputSelectors);
 
             let isRequired;
 
-            if(formEntry.hasAttribute("data-required")) {
+            if(formEntry.hasAttribute('data-required')) {
                 isRequired = true;
             } else {
                 isRequired = false;
@@ -95,20 +95,20 @@ export default class Forms {
 
             formEntryInputList.forEach((formEntryInput) => {
                 
-                const isInputText = formEntry.querySelector(".form-entry__field__input");
+                const isInputText = formEntry.querySelector('.form-entry__field__input');
                 
                 const inputTag = formEntryInput.tagName;
 
-                let activeTarget = ".form-entry";
+                let activeTarget = '.form-entry';
 
-                if (inputTag === "INPUT") {
-                    const inputType = formEntryInput.getAttribute("type");
+                if (inputTag === 'INPUT') {
+                    const inputType = formEntryInput.getAttribute('type');
 
-                    if (inputType == "radio" || inputType == "checkbox") {
-                        activeTarget = "label";
+                    if (inputType == 'radio' || inputType == 'checkbox') {
+                        activeTarget = 'label';
                         
                         if (formEntryInput.disabled) {
-                            formEntryInput.closest("label").classList.add("disabled");
+                            formEntryInput.closest('label').classList.add('disabled');
                         }
 
                     }
@@ -116,50 +116,50 @@ export default class Forms {
                 }
                 
                 // Call focus (in out) functions
-                formEntryInput.addEventListener("focusin", focusIn);
-                formEntryInput.addEventListener("focusout", focusOut);
+                formEntryInput.addEventListener('focusin', focusIn);
+                formEntryInput.addEventListener('focusout', focusOut);
 
                 function focusIn() {
-                    this.closest(activeTarget).classList.add("active");
+                    this.closest(activeTarget).classList.add('active');
                 }
 
                 function focusOut() {
-                    this.closest(activeTarget).classList.remove("active");
+                    this.closest(activeTarget).classList.remove('active');
                 }
                 
                 // Set required inputs
                 if (isRequired === true) {  
-                    formEntryInput.setAttribute("required", "true");
-                    formEntryInput.setAttribute("aria-required", true);
+                    formEntryInput.setAttribute('required', 'true');
+                    formEntryInput.setAttribute('aria-required', true);
                 }
                 
-                formEntryInput.addEventListener("change", () => {
+                formEntryInput.addEventListener('change', () => {
 
                     if (formSubmitAttempted === true && isRequired === true) {
                         checkIfEmpty(formEntryInput);
                     }
 
-                    if (formEntryInput.value != "") {
-                        formEntryInput.closest(".form-entry").classList.add("has-value");
+                    if (formEntryInput.value !== '') {
+                        formEntryInput.closest('.form-entry').classList.add('has-value');
                     } else {
-                        formEntryInput.closest(".form-entry").classList.remove("has-value");
+                        formEntryInput.closest('.form-entry').classList.remove('has-value');
                     }
                 });
 
                 // Put click into input stuff here
 
                 if (isInputText) {
-                    isInputText.addEventListener("click", (event) => {
+                    isInputText.addEventListener('click', (event) => {
 
                         let clickTarget = event.target.tagName;
-                        let clickInput = event.target.closest(".form-entry__field__input").querySelector("input");
+                        let clickInput = event.target.closest('.form-entry__field__input').querySelector('input');
 
-                        if(clickTarget === "SPAN") {
+                        if(clickTarget === 'SPAN') {
                             console.log(event.target.nextSibling)
                             clickInput.focus();
                         }
 
-                        if(clickTarget === "BUTTON") {
+                        if(clickTarget === 'BUTTON') {
                             return;
                         }
 
@@ -180,13 +180,15 @@ export default class Forms {
                 inst = "Complete this field";
             }
 
-            return `<div class="form-entry__feedback">
-                        <small>
-                            <span class="icon icon-warn" aria-hidden="true"></span>
-                            <strong>${desc}</strong>
-                            <span>${inst}</span>
-                        </small>
-                    </div>`;
+            return (`
+                <div class="form-entry__feedback">
+                    <small>
+                        <span class="icon icon-warn" aria-hidden="true"></span>
+                        <strong>${desc}</strong>
+                        <span>${inst}</span>
+                    </small>
+                </div>
+            `);
         });
 
         const checkIfEmpty = (field) => {
