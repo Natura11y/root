@@ -1,8 +1,8 @@
 @font-face {
     font-family: "natura11y-icons";
-    src: url("./natura11y-icons.ttf?a2f479764107074f730263cc99dcae09") format("truetype"),
-url("./natura11y-icons.woff2?a2f479764107074f730263cc99dcae09") format("woff2"),
-url("./natura11y-icons.woff?a2f479764107074f730263cc99dcae09") format("woff");
+    src: url("./natura11y-icons.ttf?0a38f7e6d42ba2a19cb52f1bdbe80270") format("truetype"),
+url("./natura11y-icons.woff2?0a38f7e6d42ba2a19cb52f1bdbe80270") format("woff2"),
+url("./natura11y-icons.woff?0a38f7e6d42ba2a19cb52f1bdbe80270") format("woff");
 }
 
 .icon:before {
@@ -234,4 +234,7 @@ url("./natura11y-icons.woff?a2f479764107074f730263cc99dcae09") format("woff");
 }
 .icon.icon-bookmark:before {
     content: "\f146";
+}
+.icon.icon-asterisk:before {
+    content: "\f14a";
 }
