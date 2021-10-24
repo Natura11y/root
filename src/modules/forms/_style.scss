@@ -205,9 +205,12 @@ legend {
     }
 }
 
-.form-entry ~ .form-entry {
-    margin-top: var(--spacer-4);
-    margin-bottom: var(--spacer-4);
+*:not([class*="grid"]) {
+
+    > .form-entry ~ .form-entry {
+        margin-top: var(--spacer-4);
+        margin-bottom: var(--spacer-4);
+    }
 }
 
 //////////////////////////////////////////////
