@@ -92,6 +92,8 @@ In this file:
         margin-inline-start: var(--caret-margin);
         
         color: inherit;
+        
+        pointer-events: none;
     }
 }
 

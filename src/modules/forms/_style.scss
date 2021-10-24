@@ -29,7 +29,7 @@ In this file:
 // Scoped to Root
 
 :root {
-    --form-field-padding-x: 1em;
+    --form-field-padding-x: var(--spacer-2);
     --form-field-padding-y: var(--button-padding-y);
 
     --form-field-border-radius: 0.25em;
@@ -140,7 +140,7 @@ legend {
 }
 
 //////////////////////////////////////////////
-// D. Required Indicator
+// D. Required Indicators
 //////////////////////////////////////////////
 
 %required-icon {
@@ -224,10 +224,13 @@ legend {
 }
 
 .form-entry__field__label {
-    position: relative;
     font-weight: var(--body-font-weight-bold);
 
     padding-inline: var(--form-field-padding-x);
+}
+
+.form-entry__field:not([class*="--float"]) .form-entry__field__label {
+    margin-block-end: calc(var(--form-field-padding-y) * 0.75);
 
     &::before {
         @extend %required-icon;
@@ -247,10 +250,6 @@ legend {
             display: block !important;
         }
     }
-}
-
-.form-entry__field:not([class*="--float"]) .form-entry__field__label {
-    margin-block-end: calc(var(--form-field-padding-y) * 0.75);
 }
 
 .form-entry__field__select,
@@ -353,17 +352,38 @@ legend {
 .form-entry__field--float {
     position: relative;
 
+    line-height: 1.125;
+
     .form-entry__field__label {
         position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        inset-inline-end: 0;
+        inset-block-end: 0;
+
         z-index: 1000;
 
         padding-block: var(--form-field-padding-y);
 
         pointer-events: none;
+
+        &::after {
+            @extend %required-icon;
+
+            display: none;
+
+            --icon-size: 0.625em;
+
+            vertical-align: baseline;
+
+            [data-required="true"] & { 
+                display: inline-block !important;
+            }
+        }
+    }
+
+    select {
+        opacity: 0;
     }
 
     .active &, 
@@ -374,7 +394,12 @@ legend {
             input,
             textarea
             {
-                padding-block: calc( var(--form-field-padding-y) * 1.5);
+                padding-block-start: calc( var(--form-field-padding-y) * 1.5);
+                padding-block-end: calc( var(--form-field-padding-y) * 0.5);
+            }
+
+            select {
+                opacity: initial;
             }
 
             select option:first-child {
@@ -384,20 +409,17 @@ legend {
 
         .form-entry__field__label {
 
-            inset-block-start: calc( var(--form-field-padding-y) * 0.5);
-            right: unset;
-            bottom: unset;
+            inset-block-end: calc( var(--form-field-padding-y) * 0.5);
+            inset-inline-end: unset;
+            inset-block-end: unset;
 
-            padding: 0;
+            padding: unset;
+
+            margin-block: 0.375em;
             
             margin-inline: var(--form-field-padding-x);
 
-            font-size: 0.7em;
-
-            [dir="rtl"] & {
-                transform-origin: top right;
-                left: unset;
-            }
+            font-size: 0.75em;
         }
 
     }
