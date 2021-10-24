@@ -63,13 +63,13 @@
 
                         </div>
 
-                        <div class="form-entry"
-                        
-                        data-required="true"
-                        data-error-description="Error description"
-                        data-error-instructions="Error fix instructions">
+                        <div
+                            class="form-entry"                        
+                            data-required="true"
+                            data-error-description="Error description"
+                            data-error-instructions="Error fix instructions">
 
-                            <label class="form-entry__field form-entry__field--float">
+                            <label class="form-entry__field">
 
                                 <span class="form-entry__field__label">
                                     Form Entry Label
@@ -363,6 +363,38 @@
                                     </label>
                                 </li>
                             </ul>
+
+                        </div>
+
+                        <div
+                            class="form-entry is-invalid"
+                            data-required="true"
+                            data-error-description="Error description" 
+                            data-error-instructions="Error fix instructions">
+
+                            <label class="form-entry__field">
+                                <span class="form-entry__field__label">
+                                    Form Entry Label
+                                </span>
+                                <div class="form-entry__feedback">
+                                    <small>
+                                        <span class="icon icon-warn" aria-hidden="true"></span>
+                                        <strong>Borough is required!</strong>
+                                        <span>Select a Borough</span>
+                                    </small>
+                                </div>
+                                <span class="form-entry__field__input">
+                                    <input
+                                        type="text"
+                                        name="textInputExample"
+                                        id="required-field-example"
+                                        aria-describedby="help-required-field-example">
+                                </span>
+                            </label>
+
+                            <small class="form-entry__help" id="help-required-field-example">
+                                Form entry help text
+                            </small>
 
                         </div>
 

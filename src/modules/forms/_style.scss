@@ -767,7 +767,7 @@ legend {
 .form-entry__feedback {
     order: 3;
 
-    padding-inline: var(--form-field-padding-x);
+    padding-inline: calc( var(--form-field-padding-x) * 0.5);
 
     margin-block-start: 0.5rem;
 
@@ -779,7 +779,7 @@ legend {
     }
 
     > small > strong {
-        margin-inline: var(--spacer-2);
+        margin-inline: var(--spacer-1);
     }
 }
 
