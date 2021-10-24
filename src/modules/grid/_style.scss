@@ -103,6 +103,10 @@ $rows: $columns / 2;
 .grid {
     display: grid;
     gap: var(--gap-size);
+
+    > .form-entry {
+        margin: unset;
+    }
 }
 
 [class*="grid--column"] {

@@ -9,7 +9,7 @@
         <title>Forms • Natura11y</title>
 
         <!-- Natura11y Icons -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cavidano/natura11y-icons@main/dist/natura11y-icons.min.css">
+        <link rel="stylesheet" href="./lib/natura11y-icons.css">
 
     </head>
 
@@ -28,11 +28,18 @@
                 <div class="container narrow margin-y-4">
                 
                     <form action="#1">
+
+                        <p class="required-indicator" aria-hidden="true">
+                            <span class="required-indicator__text">
+                                Required fields indicated with
+                            </span>
+                            <span class="icon icon-asterisk"></span>
+                        </p>
                     
                         <div class="form-entry"
                         data-required="true"
-    data-error-description="Error description"
-    data-error-instructions="Error fix instructions">
+                        data-error-description="Error description"
+                        data-error-instructions="Error fix instructions">
 
                             <label class="form-entry__field">
 
@@ -56,7 +63,11 @@
 
                         </div>
 
-                        <div class="form-entry">
+                        <div class="form-entry"
+                        
+                        data-required="true"
+                        data-error-description="Error description"
+                        data-error-instructions="Error fix instructions">
 
                             <label class="form-entry__field">
 
@@ -354,7 +365,74 @@
                             </ul>
 
                         </div>
-                                            
+
+                        <div class="grid gap-2">
+
+                    <div 
+                        class="form-entry"
+                        data-required="true"
+                        data-error-description="Username is required!" 
+                        data-error-instructions="Enter your username">
+
+                        <label class="form-entry__field form-entry__field--float">
+
+                            <span class="form-entry__field__label">
+                                Username
+                            </span>
+                            
+                            <span class="form-entry__field__input">
+                                <input type="text" id="accountUsername" name="username">
+                            </span>
+
+                        </label>
+
+                    </div>
+                    <!-- .form-entry -->
+
+                    <div 
+                        class="form-entry"
+                        data-required="true"
+                        data-error-description="Password is required!" 
+                        data-error-instructions="Enter your password">
+
+                        <label class="form-entry__field form-entry__field--float">
+
+                            <span class="form-entry__field__label">
+                                Password
+                            </span>
+                            
+                            <span class="form-entry__field__input">
+                                <input type="password" id="accountPassword" name="password">
+                            </span>
+
+                        </label>
+
+                    </div>
+                    <!-- .form-entry -->
+
+                    <div 
+                        class="form-entry grid__colspan-2"
+                        data-required="true"
+                        data-error-description="Password is required!" 
+                        data-error-instructions="Enter your password">
+
+                        <label class="form-entry__field form-entry__field--float">
+
+                            <span class="form-entry__field__label">
+                                Email
+                            </span>
+                            
+                            <span class="form-entry__field__input">
+                                <input type="email" id="accountEmail" name="password">
+                            </span>
+
+                        </label>
+
+                    </div>
+                    <!-- .form-entry -->
+
+                </div>
+    
                     </form>
                 
                 </div>

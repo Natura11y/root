@@ -183,14 +183,13 @@ body > footer:not([class*="theme-"]),
     }
     
     .alert--warn,
-    .required-indicator__icon,
-    .form-entry__field__label::after,
+    .required-indicator [class*="icon"],
+    .form-entry__field__label::before,
     .is-invalid .form-entry__feedback, 
     .is-invalid .form-entry__field__input::after,
     .is-invalid .form-entry__field__select::after,
     .is-invalid [class*="icon-warn"],
-    .is-invalid .form-entry__option
-    {
+    .is-invalid .form-entry__option {
         color: var(--warn-color);
     }
 
