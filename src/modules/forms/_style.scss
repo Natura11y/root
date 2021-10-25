@@ -530,25 +530,19 @@ legend {
 
         opacity: 0;
     }
+}
 
-    > label > input ~ .option__label {
-        
-        line-height: var(--body-line-height);
+.option__label {
 
-        &::before {
-            @extend %icon-font-vars;
-            @extend .icon_font;
+    &::before {
+        @extend %icon-font-vars;
+        @extend .icon_font;
 
-            position: absolute;
-            inset-block-start: 0;
-            inset-inline-start: 0;
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline-start: 0;
 
-            opacity: 0.5;
-
-            margin-block-start: -0.125em;
-
-            font-size: 125%;
-        }
+        opacity: 0.5;
     }
 }
 

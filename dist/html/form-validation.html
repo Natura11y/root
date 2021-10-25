@@ -36,15 +36,16 @@
                             <span class="icon icon-asterisk"></span>
                         </p>
 
+                        <div class="grid gap-3 margin-bottom-5">
+                        
                         <div
                             class="form-entry"
                             data-required="true"
-                            data-error-description="Your first and last name is required" 
-                            data-error-instructions="Enter your full name">
+                            data-error-message="Your first and last name is required">
 
                             <label class="form-entry__field">
                                 <span class="form-entry__field__label">
-                                    First and Last Name
+                                    Username
                                 </span>
                                 <span class="form-entry__field__input">
                                     <input
@@ -56,7 +57,7 @@
                             </label>
 
                             <small class="form-entry__help" id="help-first-and-last-name">
-                                Do not include your middle initial
+                                Do not use your real name
                             </small>
 
                         </div>
@@ -65,33 +66,66 @@
                         <div
                             class="form-entry"
                             data-required="true"
-                            data-error-description="Your first and last name is required" 
+                            data-error-message="Your first and last name is required" 
                             data-error-instructions="Enter your full name">
 
-                            <label class="form-entry__field">
-                                <span class="form-entry__field__label">
-                                    Email Address
-                                </span>
-                                <span class="form-entry__field__input">
-                                    <input
-                                        type="email"
-                                        name="textInputExample"
-                                        id="first-and-last-name"
-                                        aria-describedby="help-first-and-last-name">
-                                </span>
-                            </label>
+                            <div class="form-entry__field">
+                                <label class="form-entry__field__label" for="age">
+                                    Age
+                                </label>
+
+                                <div class="grid grid--column-12 gap-2 align-items-stretch">
+
+                                    <div class="grid__colspan-4">
+                                        <span class="form-entry__field__input">
+                                            <input
+                                                type="number"
+                                                name="textInputExample"
+                                                id="age"
+                                                aria-describedby="help-first-and-last-name">
+                                        </span>
+                                    
+                                    </div>
+
+                                    <div class="subtle-fill grid__colspan-8">
+                                        
+                                        <div class="form-entry__option">
+                                        
+                                        <div class="form-entry__option__check">
+                                            <label>
+                                                <input
+                                                    type="checkbox"
+                                                    name="singleOption"
+                                                    id="single-option"
+                                                    value="option">
+                                                    <span class="option__label font-size-md">
+                                                        Include age in profile
+                                                    </span>
+                                            </label>
+                                        </div>
+                                        </div>
+                                        
+                                    </div>
+                                
+                                </div>
+
+                            </div>
+                            
 
                             <small class="form-entry__help" id="help-first-and-last-name">
-                                Example: janeDoe@email.com
+                                You must me 14 or older to join Whale Watchers
                             </small>
 
                         </div>
                         <!-- .form-entry -->
 
+                        
+                        </div>
+
                         <div
                             class="form-entry"
                             data-required="true"
-                            data-error-description="Borough is required!" 
+                            data-error-message="Borough is required!" 
                             data-error-instructions="Select a Borough">
 
                             <div class="form-entry__field">
@@ -140,7 +174,7 @@
                         <div
                             class="form-entry"
                             data-required="true"
-                            data-error-description="Priority is required!" 
+                            data-error-message="Priority is required!" 
                             data-error-instructions="Select your priority rating">
 
                             <fieldset class="form-entry__field">
@@ -159,7 +193,7 @@
                                                 name="priority-of-request"
                                                 value="High">
                                                 <span class="option__label">
-                                                    High
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, voluptatem commodi accusamus modi, illum, ipsa vitae vero veritatis fuga accusantium quia voluptatum quis minima? Maiores dolorum eum vitae rem itaque!
                                                 </span>
                                         </label>
                                     </div>
@@ -222,7 +256,7 @@
                         <div
                             class="form-entry"
                             data-required="true"
-                            data-error-description="Your first and last name is required" 
+                            data-error-message="Your first and last name is required" 
                             data-error-instructions="Enter your full name">
 
                             <label class="form-entry__field">
@@ -248,7 +282,7 @@
                         <div
                             class="form-entry"
                             data-required="true"
-                            data-error-description="Your first and last name is required" 
+                            data-error-message="Your first and last name is required" 
                             data-error-instructions="Enter your full name">
 
                             <label class="form-entry__field">
@@ -274,7 +308,7 @@
                         <div
                             class="form-entry"
                             data-required="true"
-                            data-error-description="Borough is required!" 
+                            data-error-message="Borough is required!" 
                             data-error-instructions="Select a Borough">
 
                             <label class="form-entry__field">
@@ -323,7 +357,7 @@
                         <div
                             class="form-entry"
                             data-required="true"
-                            data-error-description="Priority is required!" 
+                            data-error-message="Priority is required!" 
                             data-error-instructions="Select your priority rating">
 
                             <fieldset class="form-entry__field">

@@ -90,20 +90,20 @@ export default class Forms {
                     // Form Entry Feedback
                     const formEntryHelp = formErrorEntry.querySelector('.form-entry__help');
 
-                    let errorInstructions;
+                    let entryHelpText;
 
                     if(formEntryHelp) {
-                        errorInstructions = formEntryHelp.innerHTML.toString();
+                        entryHelpText = formEntryHelp.innerHTML.toString();
                     }
 
-                    let errorDescription = formErrorEntry.getAttribute('data-error-description');
-                    let errorFeedback = [errorDescription, errorInstructions];
+                    let errorMessage = formErrorEntry.getAttribute('data-error-message');
+                    let errorFeedback = [errorMessage, entryHelpText];
 
                     // Send errors to errorArray
                     errorsArray.push(errorFeedback);
 
                     if (formEntryFeedback === null) {
-                        formErrorEntryLabel.insertAdjacentHTML('afterend', createErrorMessage(errorDescription, errorInstructions));
+                        formErrorEntryLabel.insertAdjacentHTML('afterend', createErrorMessage(errorMessage, entryHelpText));
                     }
                 });
 
