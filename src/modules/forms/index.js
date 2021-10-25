@@ -243,13 +243,13 @@ export default class Forms {
                 const { name: fileName, size } = file;
                 const fileSize = (size / 1000).toFixed(2);
 
-                const dataHTML = `
-                <span class="file-upload__data">
-                    <span class="file-name">${fileName}</span>
-                    <span class="file-size">${fileSize} kb</span>
-                </span>
-                `;
-
+                const dataHTML = (`
+                    <span class="file-upload__data">
+                        <span class="file-name">${fileName}</span>
+                        <span class="file-size">${fileSize} kb</span>
+                    </span>
+                `);
+                
                 const fileUploadData = fileUpload.querySelector(".file-upload__data");
 
                 if (fileUploadData) {
