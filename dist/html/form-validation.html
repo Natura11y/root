@@ -21,178 +21,171 @@
 
                 <header class="margin-y-4 text-align-center">
                     <h2 class="font-weight-normal">
-                        Forms
+                        Form Validation
                     </h2>
                 </header>
 
                 <div class="container narrow margin-y-4">
                 
-                    <form action="#1">
-                    
-                        <div class="form-entry">
+                    <form novalidate>
+
+                        <p class="required-indicator" aria-hidden="true">
+                            <span class="required-indicator__text">
+                                Required fields indicated with
+                            </span>
+                            <span class="icon icon-asterisk"></span>
+                        </p>
+
+                        <div
+                            class="form-entry"
+                            data-required="true"
+                            data-error-description="Your first and last name is required" 
+                            data-error-instructions="Enter your full name">
 
                             <label class="form-entry__field">
-
                                 <span class="form-entry__field__label">
-                                    Form Entry Label
+                                    First and Last Name
                                 </span>
-
                                 <span class="form-entry__field__input">
                                     <input
                                         type="text"
                                         name="textInputExample"
-                                        id="text-input-example"
-                                        aria-describedby="help-text-input-example">
+                                        id="first-and-last-name"
+                                        aria-describedby="help-first-and-last-name">
                                 </span>
-
                             </label>
 
-                            <small class="form-entry__help" id="help-text-input-example">
-                                Form entry help text
+                            <small class="form-entry__help" id="help-first-and-last-name">
+                                Do not include your middle initial
                             </small>
 
                         </div>
+                        <!-- .form-entry -->
 
-                        <div class="form-entry">
+                        <div
+                            class="form-entry"
+                            data-required="true"
+                            data-error-description="Your first and last name is required" 
+                            data-error-instructions="Enter your full name">
 
                             <label class="form-entry__field">
-
-                                <span class="form-entry__field__label" for="select-example">
-                                    Form Entry Label
+                                <span class="form-entry__field__label">
+                                    Email Address
                                 </span>
+                                <span class="form-entry__field__input">
+                                    <input
+                                        type="email"
+                                        name="textInputExample"
+                                        id="first-and-last-name"
+                                        aria-describedby="help-first-and-last-name">
+                                </span>
+                            </label>
 
+                            <small class="form-entry__help" id="help-first-and-last-name">
+                                Example: janeDoe@email.com
+                            </small>
+
+                        </div>
+                        <!-- .form-entry -->
+
+                        <div
+                            class="form-entry"
+                            data-required="true"
+                            data-error-description="Borough is required!" 
+                            data-error-instructions="Select a Borough">
+
+                            <div class="form-entry__field">
+                                
+                                <label class="form-entry__field__label" for="select-borough">
+                                    Borough of Residence
+                                </label>
+                                
                                 <span class="form-entry__field__select">
-                                    <select
-                                        id="select-example"
-                                        name="selectExample"
-                                        aria-describedby="help-select-example">>
-                                            <option value="">Select</option>
-                                            <option value="Option One">Option One</option>
-                                            <option value="Option Two">Option Two</option>
-                                            <option value="Option Three">Option Three</option>
-                                            <option value="Option Four">Option Four</option>
-                                            <option value="Option Five">Option Five</option>
+                                    <select id="select-borough" name="Boroughs">
+                                        <option value="">Select One</option>
+                                        <option value="Bronx">Bronx</option>
+                                        <option value="Brooklyn">Brooklyn</option>
+                                        <option value="Manhattan">Manhattan</option>
+                                        <option value="Staten Island">Staten Island</option>
+                                        <option value="Queens">Queens</option>
                                     </select>
                                 </span>
 
-                            </label>
-
-                            <small class="form-entry__help" id="help-select-example">
-                                Form entry help text
-                            </small>
+                            </div>
 
                         </div>
+                        <!-- .form-entry -->
 
                         <div class="form-entry">
 
                             <label class="form-entry__field">
 
                                 <span class="form-entry__field__label">
-                                    Form Entry Label
+                                    Request Details
                                 </span>
 
                                 <span class="form-entry__field__input">
-                                    <textarea
-                                        rows="8"
-                                        name="textInputExample"
-                                        id="text-input-example"
-                                        aria-describedby="help-textarea-example"
-                                    ></textarea>
+                                    <textarea rows="8"></textarea>
                                 </span>
+                                
+                                <small class="form-entry__help">
+                                    This is help text
+                                </small>
 
                             </label>
 
-                            <small class="form-entry__help" id="help-textarea-example">
-                                Form entry help text
-                            </small>
-
                         </div>
+                        <!-- .form-entry -->
 
-                        <div class="form-entry">
-
-                            <div class="form-entry__field">
-
-                                <span class="form-entry__field__label">
-                                    Upload a Single File
-                                </span>
-
-                                <div class="form-entry__field__input">
-
-                                    <label class="file-upload">
-
-                                        <span class="file-upload__drop">
-                                            <span class="file-upload__drop__text">Drag and Drop</span>
-                                        </span>
-
-                                        <input
-                                            class="file-upload__input"
-                                            type="file"
-                                            name="fileUploadExample"
-                                            id="file-upload-example"
-                                            accept="image/*">
-
-                                        <span class="button button--outline button--has-icon file-upload__button">
-                                            <span class="icon icon-upload"></span>
-                                            <span class="button__text">Browse for a File</span>
-                                        </span>
-
-                                    </label>
-
-                                </div>
-
-                            </div>
-
-                            <small class="form-entry__help" id="file-upload-example">
-                                Form entry help text
-                            </small>
-
-                        </div>
-
-                        <div class="form-entry">
+                        <div
+                            class="form-entry"
+                            data-required="true"
+                            data-error-description="Priority is required!" 
+                            data-error-instructions="Select your priority rating">
 
                             <fieldset class="form-entry__field">
 
                                 <legend class="form-entry__field__label">
-                                    Form Entry Label
+                                    What is the priority of this request?
                                 </legend>
 
                                 <div class="form-entry__option">
 
-                                    <div class="form-entry__option__check">
+                                    <div class="form-entry__option__radio">
                                         <label>
                                             <input
-                                                type="checkbox"
-                                                name="checkboxGroupExample"
-                                                id="check-option-one"
-                                                value="optionOne">
-                                                <span class="check__label">
-                                                    Option One
+                                                type="radio"
+                                                id="priority-of-request-high"
+                                                name="priority-of-request"
+                                                value="High">
+                                                <span class="option__label">
+                                                    High
                                                 </span>
                                         </label>
                                     </div>
 
-                                    <div class="form-entry__option__check">
+                                    <div class="form-entry__option__radio">
                                         <label>
                                             <input
-                                                type="checkbox"
-                                                name="checkboxGroupExample"
-                                                id="check-option-two"
-                                                value="optionTwo">
-                                                <span class="check__label">
-                                                    Option Two
+                                                type="radio"
+                                                id="priority-of-request-medium"
+                                                name="priority-of-request"
+                                                value="Medium">
+                                                <span class="option__label">
+                                                    Medium
                                                 </span>
-                                        </label>
+                                        </label> 
                                     </div>
 
-                                    <div class="form-entry__option__check">
+                                    <div class="form-entry__option__radio">
                                         <label>
                                             <input
-                                                type="checkbox"
-                                                name="checkboxGroupExample"
-                                                id="check-option-three"
-                                                value="optionThree">
-                                                <span class="check__label">
-                                                    Option Three
+                                                type="radio"
+                                                id="priority-of-request-low"
+                                                name="priority-of-request"
+                                                value="Low">
+                                                <span class="option__label">
+                                                    Low
                                                 </span>
                                         </label>
                                     </div>
@@ -202,38 +195,16 @@
                             </fieldset>
 
                         </div>
+                        <!-- .form-entry -->
+                        
+                        <button 
+                            class="button theme-primary width-100 rounded-pill"
+                            type="submit">
+                                Submit
+                        </button>
 
-                        <div class="form-entry">
-
-                            <div class="form-entry__field">
-
-                                <span class="form-entry__field__label">
-                                    Form Entry Label
-                                </span>
-
-                                <div class="form-entry__option">
-
-                                    <div class="form-entry__option__check">
-                                        <label>
-                                            <input
-                                                type="checkbox"
-                                                name="singleOption"
-                                                id="single-option"
-                                                value="option">
-                                                <span class="check__label">
-                                                    Option
-                                                </span>
-                                        </label>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                    
                     </form>
-                
+                                
                 </div>
 
 

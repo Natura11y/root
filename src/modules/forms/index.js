@@ -17,10 +17,57 @@ export default class Forms {
         // Set form submit to false
         let formSubmitAttempted = false;
 
+        const checkIfEmpty = (field) => {
+            if (isEmpty(field.value)) {
+                setInvalid(field);
+                return true;
+            } else {
+                setValid(field);
+                return false;
+            }
+        }
+
+        const isEmpty = (value = null) => {
+            if (value === "") return true;
+            return false;
+        }
+
+        const invalidClasses = ["is-invalid"];
+
+        const setInvalid = (field) => {
+            let entryRoot = field.closest(".form-entry");
+            entryRoot.classList.add(...invalidClasses);
+        }
+
+        const setValid = (field) => {
+            let entryRoot = field.closest(".form-entry");
+            entryRoot.classList.remove(...invalidClasses);
+        }
+
+        const createErrorMessage = ((desc, inst) => {
+            
+            if(desc === null) {
+                desc = "This field is Required";
+            }
+            
+            return (`
+                <div class="form-entry__feedback">
+                    <small>
+                        <span class="icon icon-warn" aria-hidden="true"></span>
+                        <span class="message">
+                            <strong>${desc}</strong> ${inst && inst}
+                        </span>
+                    </small>
+                </div>
+            `);
+        });
+
         formList.forEach((form) => {
 
             // Submission Handler
             form.addEventListener('submit', (event) => {
+
+                event.preventDefault();
 
                 formSubmitAttempted = true;
         
@@ -40,8 +87,16 @@ export default class Forms {
                     // Form Entry Feedback
                     const formEntryFeedback = formErrorEntry.querySelector('.form-entry__feedback');
 
+                    // Form Entry Feedback
+                    const formEntryHelp = formErrorEntry.querySelector('.form-entry__help');
+
+                    let errorInstructions;
+
+                    if(formEntryHelp) {
+                        errorInstructions = formEntryHelp.innerHTML.toString();
+                    }
+
                     let errorDescription = formErrorEntry.getAttribute('data-error-description');
-                    // let errorInstructions = formErrorEntry.getAttribute('data-error-instructions');
                     let errorFeedback = [errorDescription, errorInstructions];
 
                     // Send errors to errorArray
@@ -81,7 +136,11 @@ export default class Forms {
 
         formEntryList.forEach((formEntry) => {
 
-            const inputSelectors = 'input, select, textarea';
+            const inputSelectors = [
+                'input',
+                'select',
+                'textarea',
+            ];
 
             const formEntryInputList = formEntry.querySelectorAll(inputSelectors);
 
@@ -135,6 +194,8 @@ export default class Forms {
                 
                 formEntryInput.addEventListener('change', () => {
 
+                    console.log("My value is", formEntryInput.value);
+
                     if (formSubmitAttempted === true && isRequired === true) {
                         checkIfEmpty(formEntryInput);
                     }
@@ -145,8 +206,6 @@ export default class Forms {
                         formEntryInput.closest('.form-entry').classList.remove('has-value');
                     }
                 });
-
-                // Put click into input stuff here
 
                 if (isInputText) {
                     isInputText.addEventListener('click', (event) => {
@@ -170,54 +229,6 @@ export default class Forms {
         
         });
     
-        const createErrorMessage = ((desc, inst) => {
-            
-            if(desc === null) {
-                desc = "This field is Required";
-            }
-
-            if (inst === null) {
-                inst = "Complete this field";
-            }
-
-            return (`
-                <div class="form-entry__feedback">
-                    <small>
-                        <span class="icon icon-warn" aria-hidden="true"></span>
-                        <strong>${desc}</strong>
-                        <span>${inst}</span>
-                    </small>
-                </div>
-            `);
-        });
-
-        const checkIfEmpty = (field) => {
-            if (isEmpty(field.value)) {
-                setInvalid(field);
-                return true;
-            } else {
-                setValid(field);
-                return false;
-            }
-        }
-
-        const isEmpty = (value = null) => {
-            if (value === "") return true;
-            return false;
-        }
-
-        const invalidClasses = ["is-invalid"];
-
-        const setInvalid = (field) => {
-            let entryRoot = field.closest(".form-entry");
-            entryRoot.classList.add(...invalidClasses);
-        }
-
-        const setValid = (field) => {
-            let entryRoot = field.closest(".form-entry");
-            entryRoot.classList.remove(...invalidClasses);
-        }
-
         // File Upload
 
         const fileUploadList = document.querySelectorAll('.file-upload');

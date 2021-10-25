@@ -775,11 +775,12 @@ legend {
         display: flex;
         align-items: center;
 
-        font-size: 80%;
+        font-size: 0.8em;
     }
 
-    > small > strong {
-        margin-inline: var(--spacer-1);
+    > small > .icon,
+    > small strong {
+        margin-inline-end: var(--spacer-1);
     }
 }
 
