@@ -6,7 +6,9 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const devDir = './dist/html';
-const devIndex = 'forms.html';
+
+// const devIndex = 'buttons.html';
+const devIndex = 'form-validation.html';
 
 module.exports = merge(common, {
     mode: 'development',
