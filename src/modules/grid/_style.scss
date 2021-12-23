@@ -27,7 +27,7 @@ In this file:
 //////////////////////////////////////////////
 
 $columns: 12;
-$rows: $columns / 2;
+$rows: math.div($columns, 2);
 
 //////////////////////////////////////////////
 // C. Matrix Block
@@ -62,8 +62,8 @@ $rows: $columns / 2;
         
         @for $i from 1 through $columns {
             .matrix--cell-#{$i}#{$mod} > [class*="matrix__cell"] {
-                flex: 0 0 100% / $columns * $i;
-                max-width: 100% / $columns * $i;
+                flex: 0 0 math.div(100%, $columns) * $i;
+                max-width: math.div(100%, $columns) * $i;
             }
         }
     }
@@ -79,8 +79,8 @@ $rows: $columns / 2;
 
         @for $i from 1 through $columns {
             .matrix > .matrix__cell.matrix--cell-#{$i}#{$mod} {
-                flex: 0 0 100% / $columns * $i;
-                max-width: 100% / $columns * $i;
+                flex: 0 0 math.div(100%, $columns) * $i;
+                max-width: math.div(100%, $columns) * $i;
             }
         }
 
@@ -103,6 +103,10 @@ $rows: $columns / 2;
 .grid {
     display: grid;
     gap: var(--gap-size);
+
+    > .form-entry {
+        margin: unset;
+    }
 }
 
 [class*="grid--column"] {
