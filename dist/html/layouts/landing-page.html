@@ -295,9 +295,9 @@
 
             <section class="theme-white padding-y-5">
 
-                <div class="container medium">
+                <div class="container narrow medium--lg">
 
-                <div class="grid grid--column-3 gap-2">
+                <div class="grid grid--column-3--lg gap-2">
 
                     <div class="card box-shadow-1">
 
@@ -423,12 +423,92 @@
 
         </main>
 
-        <footer id="global-footer"></footer>
+        <footer class="sans-serif" id="global-footer">
+
+            <h2 class="screen-reader-only">
+                Page Footer
+            </h2>
+
+            <div class="container medium padding-y-4 font-size-md">
+
+                <div class="grid grid--column-2--md grid--column-4--lg">
+                
+                    <nav>
+                        <ul class="nav font-weight-bold">
+                            <li>
+                                <a href="#1">Link</a>
+                            </li>
+                            <li>
+                                <a href="#1">Link</a>
+                            </li>
+                            <li>
+                                <a href="#1">Link</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    
+                    <nav>
+                        <ul class="nav">
+                            <li>
+                                <a href="#1">Link</a>
+                            </li>
+                            <li>
+                                <a href="#1">Link</a>
+                            </li>
+                            <li>
+                                <a href="#1">Link</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    
+                    <nav>
+                        <ul class="nav">
+                            <li>
+                                <a href="#1">Link</a>
+                            </li>
+                            <li>
+                                <a href="#1">Link</a>
+                            </li>
+                            <li>
+                                <a href="#1">Link</a>
+                            </li>
+                        </ul>
+                    </nav>
+                    
+                    <nav>
+                        <ul class="nav">
+                            <li>
+                                <a href="#1">Link</a>
+                            </li>
+                            <li>
+                                <a href="#1">Link</a>
+                            </li>
+                            <li>
+                                <a href="#1">Link</a>
+                            </li>
+                        </ul>
+                    </nav>
+                
+                </div>
+
+
+            </div>
+            
+            <hr />
+
+            <div class="container medium padding-y-2 font-size-sm">
+
+            <p>
+            &#169; Copyright <span class="copyright-year"></span>. All rights resereved.</p>
+            
+            </div>
+        </footer>
 
         <!-- Natura11y Javascript -->
         <script src="https://cdn.jsdelivr.net/gh/cavidano/natura11y@main/dist/js/natura11y.js"></script>
 
         <script>
+            
             const ajax = new XMLHttpRequest();
 
             ajax.open('GET', './images/natura11y-icons-sprite.svg', true);
@@ -439,6 +519,7 @@
                 div.innerHTML = ajax.responseText;
                 document.body.insertBefore(div, document.body.childNodes[0]);
             };
+
         </script>
 
 
