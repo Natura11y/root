@@ -8,7 +8,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const devDir = './dist/html';
 
 // const devIndex = 'buttons.html';
-const devIndex = 'form-validation.html';
+// const devIndex = 'form-validation.html';
+const devIndex = 'footers.html';
 
 module.exports = merge(common, {
     mode: 'development',
