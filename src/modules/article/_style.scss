@@ -33,8 +33,6 @@ In this file:
     @extend %article-vars;
     
     display: grid;
-
-    min-height: 400px;
 }
 
 //////////////////////////////////////////////
@@ -45,71 +43,59 @@ In this file:
     overflow: hidden;
 }
 
-.article__sidebar {
-
-    outline: thick solid blue;
-}
-
-.article__header {
-    outline: thick solid blueviolet;
-}
-
-.article__body {
-    outline: thick solid burlywood;
-}
-
 @include breakpoints.breakpoints-up(lg) {
 
-    [class*="article"] {
+    .article__header {
+        grid-area: header;
+    }
+    
+    .article__sidebar {
+        position: relative;
+        grid-area: sidebar;
 
-        .article__header {
-            grid-area: header;
-        }
-        
-        .article__sidebar {
-            position: relative;
-            grid-area: sidebar;
-
-            .sticky-top {
-                max-height: 100vh;
-                overflow-y: auto;
-            }
-        }
-
-        .article__body {
-            grid-area: body;
-        }
-
-        .article__related {
-            grid-area: related;
+        .sticky-top {
+            max-height: 100vh;
+            overflow-y: auto;
         }
     }
 
-    .article--three-column,
-    .article--two-column {
+    .article__body {
+        grid-area: body;
+    }
+
+    .article__related {
+        grid-area: related;
+    }
+
+    .article--column-2,
+    .article--column-3 {
         grid-template-columns: var(--article-sidebar-width) 1fr;
 
         grid-template-areas:
             "header header"
             "sidebar body"
             "related related";
+    }
 
-        header .backdrop__cover > * {
-            outline: thick solid blue;
-            margin-left: var(--article-sidebar-width);
+    .article--column-2,
+    .article--column-3 {
+        .article__header .backdrop__cover > * {
+            margin-inline-start: var(--article-sidebar-width);
         }
-
     }
 }
 
 @include breakpoints.breakpoints-up(xl) {
 
-    .article--three-column {
-        --article-sidebar-width: 260px;
+    .article--column-3 {
         grid-template-columns: var(--article-sidebar-width) 1fr var(--article-sidebar-width);
 
         grid-template-areas:
             "header header header"
             "sidebar body related";
+
+        .article__header .backdrop__cover > * {
+            margin-inline-end: var(--article-sidebar-width);
+        }
     }
 }
