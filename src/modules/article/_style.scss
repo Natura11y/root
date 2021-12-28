@@ -29,7 +29,7 @@ In this file:
 // C. Article Block
 //////////////////////////////////////////////
 
-.article {
+[class*="article--"] {
     @extend %article-vars;
     
     display: grid;

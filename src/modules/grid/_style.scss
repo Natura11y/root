@@ -118,7 +118,7 @@ $rows: math.div($columns, 2);
     @include breakpoints.breakpoints-up($breakpoint) {
         $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
 
-        @for $i from 2 through $columns {
+        @for $i from 1 through $columns {
 
             .grid--column-#{$i}#{$mod} {
                 --columns: #{$i} !important;
