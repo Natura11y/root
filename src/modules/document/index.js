@@ -51,26 +51,7 @@ export default class Document {
                         eventObject.initEvent(event, false, true);
                         return !element.dispatchEvent(eventObject);
                     }
-                }  
-
-                // Footer Links
-                
-                // const translateLinkList = document.querySelectorAll('[data-lang]');
-
-                // translateLinkList.forEach((translateLink) => {
-
-                //     translateLink.classList.add('notranslate');
-                    
-                //     translateLink.addEventListener('click', (event) => {
-
-                //         event.preventDefault();
-
-                //         let myLang = translateLink.getAttribute('data-lang');
-
-                //         setLanguage(myLang);
-
-                //     });
-                // });
+                }
 
                 const allLanguageSelect = document.getElementById('custom-language-select');
                 const allLanguageButton = document.getElementById('custom-language-update');

@@ -82,7 +82,6 @@ export default class Collapse {
                     console.log(`Close target ID: ${closeTargetButton}`);
 
                     handleClose(closeTargetButton, closeTarget);
-
                 }
 
             });
