@@ -16,9 +16,6 @@ module.exports = merge(common, {
     mode: 'development',
     devtool: 'eval-cheap-source-map',
     target: 'web',
-    stats: {
-        children: false
-    },
     devServer: {
         port: 8080, 
         contentBase: path.resolve(__dirname),
