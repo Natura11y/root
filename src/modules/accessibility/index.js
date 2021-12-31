@@ -41,6 +41,5 @@ export default class Accessibility {
         }
 
         window.addEventListener('load', initFocus, { once: true });
-
     }
 }
