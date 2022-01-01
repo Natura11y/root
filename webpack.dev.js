@@ -18,8 +18,13 @@ module.exports = merge(common, {
     target: 'web',
     devServer: {
         port: 8080, 
-        contentBase: path.resolve(__dirname),
-        index: devIndex
+        static: {
+            directory: path.resolve(__dirname, devDir),
+            staticOptions: {
+                index: devIndex
+            },
+        }
+      
     },
     module: {
         rules: [
