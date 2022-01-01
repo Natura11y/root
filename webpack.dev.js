@@ -8,37 +8,39 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const devDir = './dist/html';
 
 // const devIndex = 'buttons.html';
-const devIndex = 'form-validation.html';
 // const devIndex = 'footers.html';
-// const devIndex = 'alerts.html';
+// const devIndex = 'accordion.html';
+const devIndex = 'form-validation.html';
 
 module.exports = merge(common, {
     mode: 'development',
-    devtool: 'eval-cheap-source-map',
     target: 'web',
     devServer: {
         port: 8080, 
+        hot: true,
+        open: true,
         static: {
             directory: path.resolve(__dirname, devDir),
             staticOptions: {
                 index: devIndex
             },
         }
-      
     },
     module: {
         rules: [
             {
                 test: /\.m?js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader",
-                }
+                exclude: /node_modules/
             },
             {
                 test: /\.s[ac]ss$/i,
                 use: [
-                    "style-loader",
+                    {
+                        loader: 'style-loader',
+                        options: {
+                            injectType: 'singletonStyleTag'
+                        },
+                    },
                     "css-loader",
                     "sass-loader",
                 ],
@@ -48,7 +50,6 @@ module.exports = merge(common, {
     plugins: [
         new HtmlWebpackPlugin({
             template: `./${devDir}/${devIndex}`,
-            filename: devIndex,
             inject: 'body'
         })
     ]
