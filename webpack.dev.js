@@ -41,8 +41,8 @@ module.exports = merge(common, {
                             injectType: 'singletonStyleTag'
                         },
                     },
-                    "css-loader",
-                    "sass-loader",
+                    'css-loader',
+                    'sass-loader',
                 ],
             },
         ],
