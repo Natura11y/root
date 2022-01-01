@@ -8,9 +8,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const devDir = './dist/html';
 
 // const devIndex = 'buttons.html';
-// const devIndex = 'form-validation.html';
+const devIndex = 'form-validation.html';
 // const devIndex = 'footers.html';
-const devIndex = 'alerts.html';
+// const devIndex = 'alerts.html';
 
 module.exports = merge(common, {
     mode: 'development',
@@ -38,12 +38,7 @@ module.exports = merge(common, {
             {
                 test: /\.s[ac]ss$/i,
                 use: [
-                    {
-                        loader: 'style-loader',
-                        options: {
-                            injectType: 'singletonStyleTag'
-                        },
-                    },
+                    "style-loader",
                     "css-loader",
                     "sass-loader",
                 ],
