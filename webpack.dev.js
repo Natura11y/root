@@ -10,7 +10,7 @@ const devDir = './dist/html';
 // const devIndex = 'buttons.html';
 // const devIndex = 'footers.html';
 // const devIndex = 'accordion.html';
-const devIndex = 'form-validation.html';
+const devIndex = 'buttons.html';
 
 module.exports = merge(common, {
     mode: 'development',
