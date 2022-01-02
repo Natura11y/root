@@ -22,8 +22,9 @@
         <style>
 
             :root{
-                --dark: #001A1A;
+                --dark: black;
                 --primary: #0A6637;
+                --secondary: #F2C53D;
             }
 
             :root {
@@ -31,10 +32,12 @@
                 --narrow-width: 36rem;
                 --medium-width: calc( var(--narrow-width) * 2);
                 --wide-width: calc( var(--narrow-width) * 3);
+
+                --button-border-radius: initial
             }
 
             .backdrop {
-                --backdrop-fixed-height: 600px;
+                --backdrop-fixed-height: initial;
             }
             
             html {
@@ -56,13 +59,13 @@
 
     <body class="box-shadow-3">
 
-        <header class="box-shadow-1" id="global-header">
+        <header class="box-shadow-1 text-color-primary" id="global-header">
 
             <div class="primary-nav--inline--lg">
 
                 <div class="primary-nav__logo">
 
-                    <a class="text-color-primary" href="#1" title="Home" data-logo="brand">
+                    <a href="#1" title="Home" data-logo="brand">
 
                         <!-- Placeholder logo, replace the following <svg> tag with your own -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="126" height="34" viewBox="0 0 126 34">
@@ -80,21 +83,7 @@
 
                 <nav class="primary-nav__menu" aria-label="Main Menu" id="main-menu">
 
-                    <ul>
-                        <li>
-                            <button data-toggle="dropdown">Dropdown</button>
-                            <ul class="nav__dropdown box-shadow-1--lg">
-                                <li>
-                                    <a href="#1">Link</a>
-                                </li>
-                                <li>
-                                    <a href="#1">Link</a>
-                                </li>
-                                <li>
-                                    <a href="#1">Link</a>
-                                </li>
-                            </ul>
-                        </li>
+                    <ul class="sans-serif font-size-xl">
                         <li>
                             <a href="#1">Link</a>
                         </li>
@@ -119,12 +108,12 @@
 
                     <div class="button-group">
 
-                        <a href="#1" class="button">
+                        <a href="#1" class="button theme-primary">
                             Sign In
                         </a>
 
-                        <button class="button button--icon-only" aria-label="Language">
-                            <span class="icon icon-language"></span>
+                        <button class="button button--icon-only" aria-label="Search">
+                            <span class="icon icon-search"></span>
                         </button>
 
                     </div>
@@ -135,9 +124,9 @@
         
         </header>
 
-        <main id="skip-header-content">
+        <main class="theme-dark" id="skip-header-content">
 
-            <section class="theme-dark">
+            <section>
 
                 <div class="backdrop backdrop--fixed">
 
@@ -145,23 +134,23 @@
                         <img class="opacity-30" src="./images/backdrop-example-05.jpg" alt="Placeholder">
                     </div>
 
-                    <div class="backdrop__cover">
+                    <div class="backdrop__cover text-align-center margin-y-5">
 
                         <div class="container medium margin-y-4">
                             <h1 class="banner-headline text-shadow sans-serif">
-                                Felis bibendum ut tristique et egestas quis ipsum suspendisse.
+                                Stop Letting Our Political Climate Impact Our Actual Climate.
                             </h1>
 
-                            <div class="button-group justify-content-start margin-y-4 font-size-lg">            
-                                <a class="button theme-primary" href="#1">
-                                    Button
+                            <div class="grid grid--column-2 gap-3 narrow margin-y-4">            
+                                <a class="button theme-secondary" href="#1">
+                                    Primary Action
                                 </a>
-                                <a class="button button--outline" href="#1">
-                                    Button
+                                <a class="button button--outline opacity-80" href="#1">
+                                    Secondary Action
                                 </a>
                             </div>
-
                         </div>
+
 
                     </div>
 
@@ -169,127 +158,91 @@
 
             </section>
 
-            <section class="theme-light padding-y-5">
+            <section "padding-y-5">
 
-                <div class="container narrow medium--lg">
+                <div class="container medium wide--xl">
 
-                <div class="grid grid--column-3--lg gap-2">
+                    <div class="grid grid--column-4--lg gap-border">
 
-                    <div class="card theme-white box-shadow-1">
+                        <div class="backdrop backdrop--fixed justify-content-end grid__colspan-2--lg grid__rowspan-2--lg aspect-ratio-4x3--lg">
 
-                        <img src="https://via.placeholder.com/800x400" alt="Placeholder">
+                            <div class="backdrop__image gradient-veneer-bottom" style="--gradient-veneer-opacity: 0.75">
+                                <img class="opacity-80" src="./images/backdrop-example-06.jpg" alt="Placeholder">
+                            </div>
 
-                        <div class="card__body">
-                            <h2 class="h6">Card Title</h2>
-                            <p>
-                                Morbi quis commodo odio aenean sed adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum.
-                            </p>
+                            <div class="backdrop__cover text-shadow">
+
+                                <div class="container medium margin-y-4">
+                                    <p class="sans-serif margin-bottom-1">
+                                        <strong>what we do</strong> 
+                                    </p>
+                                    <h1 class="sans-serif font-weight-normal text-shadow">
+                                        Change is Coming. <br /> We are Here.
+                                    </h1>
+                                </div>
+
+                            </div>
+
                         </div>
 
-                        <div class="card__foot border-top font-size-sm text-color-link">
-                            <a class="button button--outline width-100 rounded-pill" href="#1">
-                                Action
-                            </a>
+                        <div class="backdrop backdrop--fixed justify-content-end grid__rowspan-2--lg">
+
+                            <div class="backdrop__image">
+                                <img class="opacity-40" src="./images/backdrop-example-07.jpg" alt="Placeholder">
+                            </div>
+
+                            <div class="backdrop__cover text-shadow">
+
+                                <div class="container medium margin-y-4">
+                                    <p class="sans-serif margin-bottom-1">
+                                        <strong>what we do</strong> 
+                                    </p>
+                                    <h1 class="sans-serif font-weight-normal text-shadow">
+                                        We Need Your Support.
+                                    </h1>
+                                </div>
+
+                            </div>
+
                         </div>
 
-                    </div>
+                        <div class="backdrop backdrop--fixed justify-content-end">
 
-                    <div class="card theme-white box-shadow-1">
+                            <div class="backdrop__image">
+                                <img class="opacity-40" src="./images/backdrop-example-08.jpg" alt="Placeholder">
+                            </div>
 
-                        <img src="https://via.placeholder.com/800x400" alt="Placeholder">
+                            <div class="backdrop__cover text-shadow">
 
-                        <div class="card__body">
-                            <h2 class="h6">Card Title</h2>
-                            <p>
-                                Morbi quis commodo odio aenean sed adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum.
-                            </p>
+                                <div class="container medium margin-y-3">
+                                    <h2 class="h3 text-shadow">
+                                        Lorem ipsum dolor.
+                                    </h2>
+                                </div>
+
+                            </div>
+
                         </div>
 
-                        <div class="card__foot border-top font-size-sm text-color-link">
-                            <a class="button button--outline width-100 rounded-pill" href="#1">
-                                Action
-                            </a>
-                        </div>
+                        <div class="backdrop backdrop--fixed justify-content-end">
 
-                    </div>
+                            <div class="backdrop__image">
+                                <img class="opacity-40" src="./images/backdrop-example-09.jpg" alt="Placeholder">
+                            </div>
 
-                    <div class="card theme-white box-shadow-1">
+                            <div class="backdrop__cover text-shadow">
 
-                        <img src="https://via.placeholder.com/800x400" alt="Placeholder">
+                                <div class="container medium margin-y-3">
+                                    <h2 class="h3 text-shadow">
+                                        Lorem ipsum dolor.
+                                    </h2>
+                                </div>
 
-                        <div class="card__body">
-                            <h2 class="h6">Card Title</h2>
-                            <p>
-                                Morbi quis commodo odio aenean sed adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum.
-                            </p>
-                        </div>
+                            </div>
 
-                        <div class="card__foot border-top font-size-sm text-color-link">
-                            <a class="button button--outline width-100 rounded-pill" href="#1">
-                                Action
-                            </a>
-                        </div>
-
-                    </div>
-
-                    <div class="card theme-white box-shadow-1">
-
-                        <img src="https://via.placeholder.com/800x400" alt="Placeholder">
-
-                        <div class="card__body">
-                            <h2 class="h6">Card Title</h2>
-                            <p>
-                                Morbi quis commodo odio aenean sed adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum.
-                            </p>
-                        </div>
-
-                        <div class="card__foot border-top font-size-sm text-color-link">
-                            <a class="button button--outline width-100 rounded-pill" href="#1">
-                                Action
-                            </a>
-                        </div>
-
-                    </div>
-
-                    <div class="card theme-white box-shadow-1">
-
-                        <img src="https://via.placeholder.com/800x400" alt="Placeholder">
-
-                        <div class="card__body">
-                            <h2 class="h6">Card Title</h2>
-                            <p>
-                                Morbi quis commodo odio aenean sed adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum.
-                            </p>
-                        </div>
-
-                        <div class="card__foot border-top font-size-sm text-color-link">
-                            <a class="button button--outline width-100 rounded-pill" href="#1">
-                                Action
-                            </a>
                         </div>
 
                     </div>
-
-                    <div class="card theme-white box-shadow-1">
-
-                        <img src="https://via.placeholder.com/800x400" alt="Placeholder">
-
-                        <div class="card__body">
-                            <h2 class="h6">Card Title</h2>
-                            <p>
-                                Morbi quis commodo odio aenean sed adipiscing diam donec adipiscing tristique risus nec feugiat in fermentum.
-                            </p>
-                        </div>
-
-                        <div class="card__foot border-top font-size-sm text-color-link">
-                            <a class="button button--outline width-100 rounded-pill" href="#1">
-                                Action
-                            </a>
-                        </div>
-
-                    </div>
-
-                </div>
                 
                 </div>
 
