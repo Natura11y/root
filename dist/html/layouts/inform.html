@@ -25,6 +25,8 @@
                 --dark: black;
                 --primary: #0A6637;
                 --secondary: #F2C53D;
+
+                --button-border-radius: initial;
             }
 
             .backdrop {
@@ -149,26 +151,26 @@
 
             <section>
 
-                <div class="container medium wide--xl">
+                <div class="container narrow medium--md wide--xl margin-bottom-5">
 
                     <ul class="grid grid--column-4--lg gap-border">
 
-                        <li class="backdrop backdrop--fixed justify-content-end grid__colspan-2--lg grid__rowspan-2--lg aspect-ratio-4x3">
+                        <li class="backdrop theme-primary backdrop--fixed justify-content-end grid__colspan-2--lg grid__rowspan-2--lg aspect-ratio-4x3"
+                        style="--primary: #002D59"
+                        >
 
-                            <div class="backdrop__image gradient-veneer-bottom" style="--gradient-veneer-opacity: 0.75">
-                                <img class="opacity-80" src="./images/backdrop-example-06.jpg" alt="Placeholder">
+                            <div class="backdrop__image gradient-veneer-bottom" style="--gradient-veneer-opacity: 0.95">
+                                <img src="./images/backdrop-example-06.jpg" alt="Placeholder">
                             </div>
 
-                            <div class="backdrop__cover text-shadow">
+                            <div class="backdrop__cover">
 
                                 <div class="container medium margin-y-4">
-                                    <p class=" margin-bottom-1">
-                                        <strong class="text-color-secondary">What we do</strong> 
-                                    </p>
+                                    
                                     <h1 class="sans-serif font-weight-normal text-shadow">
                                         Change is Coming. <br /> We are Here.
                                     </h1>
-                                    
+
                                 </div>
 
                             </div>
