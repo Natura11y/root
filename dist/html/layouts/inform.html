@@ -7,7 +7,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Landing Page • Your Website Name</title>
+        <title>Inform • Natura11y</title>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,8 +17,8 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cavidano/natura11y-icons@main/dist/natura11y-icons.min.css">
 
         <!-- Natura11y Stylesheet -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cavidano/natura11y@main/dist/css/natura11y.css">
-
+        <link rel="stylesheet" href="/dist/css/natura11y.css">
+        
         <style>
 
             :root{
@@ -27,21 +27,11 @@
                 --secondary: #F2C53D;
             }
 
-            :root {
-                --container-padding-x: var(--spacer-3);
-                --narrow-width: 36rem;
-                --medium-width: calc( var(--narrow-width) * 2);
-                --wide-width: calc( var(--narrow-width) * 3);
-
-                --button-border-radius: initial
-            }
-
             .backdrop {
                 --backdrop-fixed-height: initial;
             }
             
             html {
-                --body-max-width: 2000px;
                 --html-background-color: var(--dark);
             }
 
@@ -151,20 +141,19 @@
                             </div>
                         </div>
 
-
                     </div>
 
                 </div>
 
             </section>
 
-            <section class="margin-y-5">
+            <section>
 
                 <div class="container medium wide--xl">
 
-                    <div class="grid grid--column-4--lg gap-border">
+                    <ul class="grid grid--column-4--lg gap-border">
 
-                        <div class="backdrop backdrop--fixed justify-content-end grid__colspan-2--lg grid__rowspan-2--lg aspect-ratio-4x3--lg">
+                        <li class="backdrop backdrop--fixed justify-content-end grid__colspan-2--lg grid__rowspan-2--lg aspect-ratio-4x3">
 
                             <div class="backdrop__image gradient-veneer-bottom" style="--gradient-veneer-opacity: 0.75">
                                 <img class="opacity-80" src="./images/backdrop-example-06.jpg" alt="Placeholder">
@@ -179,13 +168,14 @@
                                     <h1 class="sans-serif font-weight-normal text-shadow">
                                         Change is Coming. <br /> We are Here.
                                     </h1>
+                                    
                                 </div>
 
                             </div>
 
-                        </div>
+                        </li>
 
-                        <div class="backdrop backdrop--fixed justify-content-end grid__rowspan-2--lg">
+                        <li class="backdrop backdrop--fixed justify-content-end grid__rowspan-2--lg aspect-ratio-4x3 aspect-ratio-unset--lg">
 
                             <div class="backdrop__image">
                                 <img class="opacity-40" src="./images/backdrop-example-07.jpg" alt="Placeholder">
@@ -204,9 +194,9 @@
 
                             </div>
 
-                        </div>
+                        </li>
 
-                        <div class="backdrop backdrop--fixed justify-content-end">
+                        <li class="backdrop backdrop--fixed justify-content-end aspect-ratio-4x3 ">
 
                             <div class="backdrop__image">
                                 <img class="opacity-40" src="./images/backdrop-example-08.jpg" alt="Placeholder">
@@ -222,9 +212,9 @@
 
                             </div>
 
-                        </div>
+                        </li>
 
-                        <div class="backdrop backdrop--fixed justify-content-end">
+                        <li class="backdrop backdrop--fixed justify-content-end aspect-ratio-4x3">
 
                             <div class="backdrop__image">
                                 <img class="opacity-40" src="./images/backdrop-example-09.jpg" alt="Placeholder">
@@ -240,9 +230,9 @@
 
                             </div>
 
-                        </div>
+                        </li>
 
-                    </div>
+                    </ul>
                 
                 </div>
 
@@ -333,22 +323,7 @@
         </footer>
 
         <!-- Natura11y Javascript -->
-        <script src="https://cdn.jsdelivr.net/gh/cavidano/natura11y@main/dist/js/natura11y.js"></script>
-
-        <script>
-            
-            const ajax = new XMLHttpRequest();
-
-            ajax.open('GET', './images/natura11y-icons-sprite.svg', true);
-            ajax.send();
-            ajax.onload = () => {
-                const div = document.createElement('div');
-                div.className = 'natura11y-icons-sprite';
-                div.innerHTML = ajax.responseText;
-                document.body.insertBefore(div, document.body.childNodes[0]);
-            };
-
-        </script>
+        <script src="/dist/js/natura11y.js"></script>
 
     </body>
 

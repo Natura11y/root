@@ -5,12 +5,12 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const devDir = './dist/html';
+const devDir = './dist/html/layouts';
 
 // const devIndex = 'buttons.html';
 // const devIndex = 'footers.html';
 // const devIndex = 'accordion.html';
-const devIndex = 'buttons.html';
+const devIndex = 'inform.html';
 
 module.exports = merge(common, {
     mode: 'development',

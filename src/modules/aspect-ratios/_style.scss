@@ -82,5 +82,9 @@ iframe {
 
         }
 
+        .aspect-ratio-unset#{$mod} { 
+            aspect-ratio: unset;
+        }
+
     }
 }
