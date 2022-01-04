@@ -156,7 +156,7 @@
                     <ul class="grid grid--column-4--lg gap-1">
 
                         <li
-                            class="backdrop theme-primary backdrop--fixed justify-content-end grid__colspan-2--lg grid__rowspan-2--lg aspect-ratio-4x3"
+                            class="backdrop theme-primary backdrop--fixed justify-content-end grid__colspan-2--lg grid__rowspan-2--lg aspect-ratio-4x3 aspect-ratio-unset--lg"
                             style="--primary: #002D59">
 
                             <div class="backdrop__image gradient-veneer-bottom">
@@ -241,6 +241,106 @@
                 
                 </div>
 
+                <article class="container narrow medium--md wide--xl">
+
+                    <div class="grid grid--column-4--lg gap-1">
+
+                        <header class="container padding-y-3 flex-column justify-content-center">
+
+                            <h2 class="font-weight-normal sans-serif">
+                                Conservation<br />Begins at Home
+                            </h2>
+                        
+                        </header>
+                    
+                        <article class="card subtle-fill">
+
+                            <div class="card__body">
+
+                                <svg class="icon margin-bottom-2 text-color-secondary">
+                                    <use href="#lightbulb"></use>
+                                </svg>
+                            
+                                <h3 class="h5">
+                                    Card Title
+                                </h3>
+                            
+                                <p>
+                                    Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus.
+                                </p>
+                            
+                            </div>
+
+                            <div class="card__foot padding-0">
+                                <a class="button button--has-icon--disperse text-color-secondary" href="#1">
+                                    <span class="button__text">Button</span>
+                                    <span class="icon icon-arrow-right"></span>
+                                </a>
+                            </div>
+
+                        </article>
+
+                        <article class="card subtle-fill">
+
+                            <div class="card__body">
+
+                                <svg class="icon margin-bottom-2 text-color-secondary">
+                                    <use href="#heart"></use>
+                                </svg>
+                            
+                                <h3 class="h5">
+                                    Card Title
+                                </h3>
+                            
+                                <p>
+                                    Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus.
+                                </p>
+                            
+                            </div>
+
+                            <div class="card__foot padding-0">
+                                <a class="button button--has-icon--disperse text-color-secondary" href="#1">
+                                    <span class="button__text">Button</span>
+                                    <span class="icon icon-arrow-right"></span>
+                                </a>
+                            </div>
+
+                        </article>
+
+                        <article class="card subtle-fill">
+
+                            <div class="card__body">
+
+                                <svg class="icon margin-bottom-2 text-color-secondary">
+                                    <use href="#heart"></use>
+                                </svg>
+                            
+                                <h3 class="h5">
+                                    Card Title
+                                </h3>
+                            
+                                <p>
+                                    Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus.
+                                </p>
+                            
+                            </div>
+
+                            <div class="card__foot padding-0">
+                                <a class="button button--has-icon--disperse text-color-secondary" href="#1">
+                                    <span class="button__text">Button</span>
+                                    <span class="icon icon-arrow-right"></span>
+                                </a>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                </article>
+
+            </section>
+
+            <section style="height:500px">
             </section>
 
         </main>
@@ -329,6 +429,21 @@
 
         <!-- Natura11y Javascript -->
         <script src="/dist/js/natura11y.js"></script>
+
+        <script>
+            
+            const ajax = new XMLHttpRequest();
+
+            ajax.open('GET', './images/natura11y-icons-sprite.svg', true);
+            ajax.send();
+            ajax.onload = () => {
+                const div = document.createElement('div');
+                div.className = 'natura11y-icons-sprite';
+                div.innerHTML = ajax.responseText;
+                document.body.insertBefore(div, document.body.childNodes[0]);
+            };
+
+        </script>
 
     </body>
 
