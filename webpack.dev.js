@@ -11,7 +11,8 @@ const devDir = './dist/html';
 // const devIndex = 'footers.html';
 // const devIndex = 'inform.html';
 // const devIndex = 'accordion.html';
-const devIndex = 'typography.html';
+// const devIndex = 'typography.html';
+const devIndex = 'tables.html';
 
 module.exports = merge(common, {
     mode: 'development',
@@ -43,6 +44,18 @@ module.exports = merge(common, {
                         },
                     },
                     'css-loader',
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            postcssOptions: {
+                                plugins: [
+                                    [
+                                        'autoprefixer'
+                                    ],
+                                ],
+                            },
+                        },
+                    },
                     'sass-loader',
                 ],
             },
