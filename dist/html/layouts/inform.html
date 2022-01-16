@@ -23,8 +23,11 @@
 
             :root{
                 --dark: black;
-                --primary: #0A6637;
-                --secondary: #F2C53D;
+                --primary: #FFDB26;
+                --primary-text: var(--dark);
+
+                --secondary: #3E00B0;
+                --secondary-text: white;
 
                 --button-border-radius: initial;
             }
@@ -77,13 +80,13 @@
 
                     <ul class="sans-serif font-size-xl">
                         <li>
-                            <a href="#1">Our Work</a>
+                            <a href="#1">Faucibus</a>
                         </li>
                         <li>
-                            <a href="#1">Who We Are</a>
+                            <a href="#1">Pulvinar</a>
                         </li>
                         <li>
-                            <a href="#1">Get Involved</a>
+                            <a href="#1">Elementum</a>
                         </li>
                     </ul>
 
@@ -100,8 +103,8 @@
 
                     <div class="button-group">
 
-                        <a href="#1" class="button theme-secondary">
-                            Donate
+                        <a href="#1" class="button theme-primary">
+                            Massa
                         </a>
 
                         <button class="button button--icon-only" aria-label="Search">
@@ -116,31 +119,28 @@
         
         </header>
 
-        <main class="theme-dark overflow-hidden" id="skip-header-content">
+        <main id="skip-header-content">
 
-            <section>
+            <section class="backdrop backdrop--fixed">
 
-                <div class="backdrop backdrop--fixed">
+                <div class="backdrop__image gradient-veneer-bottom">
+                    <img class="opacity-30" src="./images/backdrop-example-05.jpg" alt="Placeholder">
+                </div>
 
-                    <div class="backdrop__image gradient-veneer-bottom">
-                        <img class="opacity-30" src="./images/backdrop-example-05.jpg" alt="Placeholder">
-                    </div>
+                <div class="backdrop__cover text-align-center margin-y-5">
 
-                    <div class="backdrop__cover text-align-center margin-y-5">
+                    <div class="container medium margin-y-4">
 
-                        <div class="container medium margin-y-4">
+                        <h1 class="banner-headline text-shadow sans-serif">
+                            Faucibus scelerisque eleifend donec pretium vulputate sapien.
+                        </h1>
 
-                            <h1 class="banner-headline text-shadow sans-serif">
-                                Faucibus scelerisque eleifend donec pretium vulputate sapien.
-                            </h1>
-
-                            <div class="container narrow margin-y-4">            
-                                <a class="button theme-secondary" href="#1">
-                                    Primary Action
-                                </a>
-                            </div>
+                        <div class="container narrow margin-y-4">            
+                            <a class="button button--has-icon theme-primary" href="#1">
+                                <span class="button__text">Augue Eget Arcu</span>
+                                <span class="icon icon-arrow-right"></span>
+                            </a>
                         </div>
-
                     </div>
 
                 </div>
@@ -154,8 +154,8 @@
                     <ul class="grid grid--column-4--lg gap-1">
 
                         <li
-                            class="backdrop theme-primary backdrop--fixed justify-content-end grid__colspan-2--lg grid__rowspan-2--lg aspect-ratio-4x3 aspect-ratio-unset--lg"
-                            style="--primary: #002D59">
+                            class="backdrop theme-secondary backdrop--fixed justify-content-end grid__colspan-2--lg grid__rowspan-2--lg aspect-ratio-4x3 aspect-ratio-unset--lg"
+                            style="--secondary: #002D59">
 
                             <div class="backdrop__image gradient-veneer-bottom">
                                 <img src="./images/backdrop-example-06.jpg" alt="Placeholder">
@@ -166,8 +166,14 @@
                                 <div class="container medium margin-y-3">
                                     
                                     <h2 class="sans-serif font-weight-normal text-shadow">
-                                        Change is Coming. <br /> We are Here.
+                                        Integer Vitae Justo Eget
                                     </h2>
+
+                                    <a class="button button--has-icon border-left border-color-primary font-size-sm" 
+                                        href="#1">
+                                        <span class="button__text">Aliquet lectus</span>
+                                        <span class="icon icon-arrow-right"></span>
+                                    </a>
 
                                 </div>
 
@@ -176,8 +182,8 @@
                         </li>
 
                         <li
-                            class="backdrop theme-primary backdrop--fixed justify-content-end grid__rowspan-2--lg aspect-ratio-4x3 aspect-ratio-unset--lg"
-                            style="--primary: #2E1612">
+                            class="backdrop theme-secondary backdrop--fixed justify-content-end grid__rowspan-2--lg aspect-ratio-4x3 aspect-ratio-unset--lg"
+                            style="--secondary: #2E1612">
 
                             <div class="backdrop__image gradient-veneer-bottom">
                                 <img src="./images/backdrop-example-07.jpg" alt="Placeholder">
@@ -187,8 +193,13 @@
 
                                 <div class="container medium margin-y-3">
                                     <h2 class="sans-serif font-weight-normal text-shadow">
-                                        We Need Your Support.
+                                        Que Aliquam Vestibulum Morbi
                                     </h2>
+                                    <a class="button button--has-icon border-left border-color-primary font-size-sm" 
+                                        href="#1">
+                                        <span class="button__text">Aliquet lectus</span>
+                                        <span class="icon icon-arrow-right"></span>
+                                    </a>
                                 </div>
 
                             </div>
@@ -196,8 +207,8 @@
                         </li>
 
                         <li
-                            class="backdrop theme-primary backdrop--fixed justify-content-end aspect-ratio-4x3"
-                            style="--primary: #003019">
+                            class="backdrop theme-secondary backdrop--fixed justify-content-end aspect-ratio-4x3"
+                            style="--secondary: #003019">
 
                             <div class="backdrop__image gradient-veneer-bottom">
                                 <img src="./images/backdrop-example-08.jpg" alt="Placeholder">
@@ -207,8 +218,13 @@
 
                                 <div class="container medium margin-y-3">
                                     <h2 class="sans-serif font-weight-normal text-shadow">
-                                        Sustainability
+                                        Risus Pretium
                                     </h2>
+                                    <a class="button button--has-icon border-left border-color-primary font-size-sm" 
+                                        href="#1">
+                                        <span class="button__text">Aliquet lectus</span>
+                                        <span class="icon icon-arrow-right"></span>
+                                    </a>
                                 </div>
 
                             </div>
@@ -216,8 +232,8 @@
                         </li>
 
                         <li
-                            class="backdrop theme-primary backdrop--fixed justify-content-end aspect-ratio-4x3"
-                            style="--primary: #002D59">
+                            class="backdrop theme-secondary backdrop--fixed justify-content-end aspect-ratio-4x3"
+                            style="--secondary: #002D59">
 
                             <div class="backdrop__image gradient-veneer-bottom">
                                 <img src="./images/backdrop-example-09.jpg" alt="Placeholder">
@@ -227,8 +243,13 @@
 
                                 <div class="container medium margin-y-3">
                                     <h2 class="sans-serif font-weight-normal text-shadow">
-                                        Protecting Coral
+                                        Quisque Egestas
                                     </h2>
+                                    <a class="button button--has-icon border-left border-color-primary font-size-sm" 
+                                        href="#1">
+                                        <span class="button__text">Aliquet lectus</span>
+                                        <span class="icon icon-arrow-right"></span>
+                                    </a>
                                 </div>
 
                             </div>
@@ -243,223 +264,57 @@
 
             <section class="padding-y-5">
                 
-                <article class="container narrow medium--lg">
+                <article class="container narrow medium--lg font-size-lg">
 
-                    <header class="container narrow text-align-center margin-bottom-4">
-
-                        <h2 class="font-weight-normal sans-serif">
-                            Conservation Begins at Home
-                        </h2>
-                    
-                    </header>
+                <div class="grid grid--column-2--md gap-3">
                 
-                    <div class="grid grid--column-3--lg gap-1">
+                        <h2 class="font-weight-normal sans-serif grid__colspan-2--md text-align-center text-color-primary">
+                           Vel Facilisis Volutpat Est Velit Egestas 
+                        </h2>
 
-                        <article class="card subtle-fill">
+                        <div>
+                            <p>
+                                At quis risus sed vulputate odio ut enim blandit volutpat maecenas volutpat blandit aliquam etiam erat velit scelerisque in dictum non consectetur.
+                            </p>
+                        </div>
 
-                            <div class="card__body">
+                        <div>
+                            <p>
+                                libero volutpat sed cras ornare arcu dui vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque viverra mauris.
+                            </p>
 
-                                <svg class="icon margin-bottom-2 text-color-secondary">
-                                    <use href="#recycle"></use>
-                                </svg>
-                            
-                                <h3 class="h5">
-                                    Card Title
-                                </h3>
-                            
-                                <p>
-                                    Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus.
-                                </p>
-                            
-                            </div>
-
-                            <div class="card__foot padding-0">
-                                <a class="button button--has-icon--disperse text-color-secondary" href="#1">
-                                    <span class="button__text">Button</span>
-                                    <span class="icon icon-arrow-right"></span>
-                                </a>
-                            </div>
-
-                        </article>
-
-                        <article class="card subtle-fill">
-
-                            <div class="card__body">
-
-                                <svg class="icon margin-bottom-2 text-color-secondary">
-                                    <use href="#lightbulb"></use>
-                                </svg>
-                            
-                                <h3 class="h5">
-                                    Card Title
-                                </h3>
-                            
-                                <p>
-                                    Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus.
-                                </p>
-                            
-                            </div>
-
-                            <div class="card__foot padding-0">
-                                <a class="button button--has-icon--disperse text-color-secondary" href="#1">
-                                    <span class="button__text">Button</span>
-                                    <span class="icon icon-arrow-right"></span>
-                                </a>
-                            </div>
-
-                        </article>
-
-                        <article class="card subtle-fill">
-
-                            <div class="card__body">
-
-                                <svg class="icon margin-bottom-2 text-color-secondary">
-                                    <use href="#heart"></use>
-                                </svg>
-                            
-                                <h3 class="h5">
-                                    Card Title
-                                </h3>
-                            
-                                <p>
-                                    Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus.
-                                </p>
-                            
-                            </div>
-
-                            <div class="card__foot padding-0">
-                                <a class="button button--has-icon--disperse text-color-secondary" href="#1">
-                                    <span class="button__text">Button</span>
-                                    <span class="icon icon-arrow-right"></span>
-                                </a>
-                            </div>
-
-                        </article>
-
-                    </div>
+                            <nav class="sans-serif text-color-primary">
+                                <ul class="nav nav--has-icons nav--horizontal">
+                                    <li>
+                                        <a href="#1">
+                                            <span class="icon icon-recycle"></span>
+                                            <span class="nav__text">Auctor</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#1">
+                                            <span class="icon icon-lightbulb"></span>
+                                            <span class="nav__text">Neque</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#1">
+                                            <span class="icon icon-heart"></span>
+                                            <span class="nav__text">Vitae</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                </div>
 
                 </article>
 
             </section>
 
-            <div class="backdrop backdrop--fixed theme-dark">
-
-                <div class="backdrop__credit">
-                    <p>Photo by <a href="#1">Jane Doe</a> on Unsplash</p>
-                </div>
-
-                <div class="backdrop__image gradient-veneer-top">
-                    <img class="opacity-50" src="./images/backdrop-example-10.jpg" alt="Placeholder">
-                </div>
-
-                <div class="backdrop__cover">
-
-                    <div class="margin-y-5">
-
-                        <div class="container narrow">
-                            <h1 class="banner-headline text-align-center text-shadow margin-bottom-4">
-                            <em>Nature in Poetry</em>
-                            </h1>
-                        </div>
-
-                        <div class="container narrow medium--xl">
-
-                            <div class="grid grid--column-3--lg gap-1">
-
-                                <article class="card subtle-fill">
-
-                                    <div class="card__body">
-
-                                        <svg class="icon margin-bottom-2 text-color-secondary">
-                                            <use href="#recycle"></use>
-                                        </svg>
-                                    
-                                        <h3 class="h5">
-                                            Card Title
-                                        </h3>
-                                    
-                                        <p>
-                                            Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus.
-                                        </p>
-                                    
-                                    </div>
-
-                                    <div class="card__foot padding-0">
-                                        <a class="button button--has-icon--disperse text-color-secondary" href="#1">
-                                            <span class="button__text">Button</span>
-                                            <span class="icon icon-arrow-right"></span>
-                                        </a>
-                                    </div>
-
-                                </article>
-
-                                <article class="card subtle-fill">
-
-                                    <div class="card__body">
-
-                                        <svg class="icon margin-bottom-2 text-color-secondary">
-                                            <use href="#lightbulb"></use>
-                                        </svg>
-                                    
-                                        <h3 class="h5">
-                                            Card Title
-                                        </h3>
-                                    
-                                        <p>
-                                            Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus.
-                                        </p>
-                                    
-                                    </div>
-
-                                    <div class="card__foot padding-0">
-                                        <a class="button button--has-icon--disperse text-color-secondary" href="#1">
-                                            <span class="button__text">Button</span>
-                                            <span class="icon icon-arrow-right"></span>
-                                        </a>
-                                    </div>
-
-                                </article>
-
-                                <article class="card subtle-fill">
-
-                                    <div class="card__body">
-
-                                        <svg class="icon margin-bottom-2 text-color-secondary">
-                                            <use href="#heart"></use>
-                                        </svg>
-                                    
-                                        <h3 class="h5">
-                                            Card Title
-                                        </h3>
-                                    
-                                        <p>
-                                            Gravida in fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus.
-                                        </p>
-                                    
-                                    </div>
-
-                                    <div class="card__foot padding-0">
-                                        <a class="button button--has-icon--disperse text-color-secondary" href="#1">
-                                            <span class="button__text">Button</span>
-                                            <span class="icon icon-arrow-right"></span>
-                                        </a>
-                                    </div>
-
-                                </article>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
         </main>
 
-        <footer class="sans-serif" id="global-footer">
+        <footer class="sans-serif subtle-fill" id="global-footer">
 
             <h2 class="screen-reader-only">
                 Page Footer
