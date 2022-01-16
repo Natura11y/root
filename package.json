@@ -1,6 +1,6 @@
 {
-  "name": "natura11y-inclusive-framework",
-  "version": "1.0.0-alpha",
+  "name": "natura11y",
+  "version": "0.1.0-alpha",
   "description": "Natura11y Inclusive Framework",
   "private": true,
   "scripts": {
@@ -17,7 +17,7 @@
   "bugs": {
     "url": "https://github.com/cavidano/natura11y/issues"
   },
-  "homepage": "https://github.com/cavidano/natura11y.git#readme",
+  "homepage": "https://gonatura11y.com",
   "devDependencies": {
     "@babel/core": "^7.16.7",
     "@babel/plugin-transform-shorthand-properties": "^7.16.7",
