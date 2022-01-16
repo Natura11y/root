@@ -11,7 +11,7 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;700&display=swap" rel="stylesheet">
 
         <!-- Natura11y Icons -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cavidano/natura11y-icons@main/dist/natura11y-icons.min.css">
@@ -44,8 +44,9 @@
                 --aspect-ratio-custom: 4 / 2
             }
 
-            .sans-serif {
+            .oswald {
                 font-family: 'Oswald', sans-serif;
+                font-weight: 300;
             }
         
         </style>
@@ -78,7 +79,7 @@
 
                 <nav class="primary-nav__menu" aria-label="Main Menu" id="main-menu">
 
-                    <ul class="sans-serif font-size-xl">
+                    <ul class="oswald font-size-xl">
                         <li>
                             <a href="#1">Faucibus</a>
                         </li>
@@ -129,13 +130,13 @@
 
                 <div class="backdrop__cover text-align-center margin-y-5">
 
-                    <div class="container medium margin-y-4">
+                    <div class="container medium">
 
-                        <h1 class="banner-headline text-shadow sans-serif">
+                        <h1 class="banner-headline text-shadow oswald margin-bottom-4">
                             Faucibus scelerisque eleifend donec pretium vulputate sapien.
                         </h1>
 
-                        <div class="container narrow margin-y-4">            
+                        <div class="container narrow">            
                             <a class="button button--has-icon theme-primary" href="#1">
                                 <span class="button__text">Augue Eget Arcu</span>
                                 <span class="icon icon-arrow-right"></span>
@@ -165,7 +166,7 @@
 
                                 <div class="container medium margin-y-3">
                                     
-                                    <h2 class="sans-serif font-weight-normal text-shadow">
+                                    <h2 class="oswald text-shadow">
                                         Integer Vitae Justo Eget
                                     </h2>
 
@@ -192,7 +193,7 @@
                             <div class="backdrop__cover text-shadow">
 
                                 <div class="container medium margin-y-3">
-                                    <h2 class="sans-serif font-weight-normal text-shadow">
+                                    <h2 class="oswald text-shadow">
                                         Que Aliquam Vestibulum Morbi
                                     </h2>
                                     <a class="button button--has-icon border-left border-color-primary font-size-sm" 
@@ -217,7 +218,7 @@
                             <div class="backdrop__cover text-shadow">
 
                                 <div class="container medium margin-y-3">
-                                    <h2 class="sans-serif font-weight-normal text-shadow">
+                                    <h2 class="oswald text-shadow">
                                         Risus Pretium
                                     </h2>
                                     <a class="button button--has-icon border-left border-color-primary font-size-sm" 
@@ -242,7 +243,7 @@
                             <div class="backdrop__cover text-shadow">
 
                                 <div class="container medium margin-y-3">
-                                    <h2 class="sans-serif font-weight-normal text-shadow">
+                                    <h2 class="oswald text-shadow">
                                         Quisque Egestas
                                     </h2>
                                     <a class="button button--has-icon border-left border-color-primary font-size-sm" 
@@ -266,11 +267,15 @@
                 
                 <article class="container narrow medium--lg font-size-lg">
 
-                <div class="grid grid--column-2--md gap-3">
-                
-                        <h2 class="font-weight-normal sans-serif grid__colspan-2--md text-align-center text-color-primary">
+                    <div class="grid grid--column-2--md gap-3">
+
+                        <header class="grid__colspan-2--md">
+                        
+                        <h2 class="h1 oswald  text-align-center opacity-60">
                            Vel Facilisis Volutpat Est Velit Egestas 
                         </h2>
+                        </header>
+                
 
                         <div>
                             <p>
@@ -279,12 +284,13 @@
                         </div>
 
                         <div>
+                        
                             <p>
                                 libero volutpat sed cras ornare arcu dui vivamus arcu felis bibendum ut tristique et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut placerat orci nulla pellentesque dignissim enim sit amet venenatis urna cursus eget nunc scelerisque viverra mauris.
                             </p>
 
-                            <nav class="sans-serif text-color-primary">
-                                <ul class="nav nav--has-icons nav--horizontal">
+                            <nav class="oswald text-color-primary margin-top-4">
+                                <ul class="nav nav--has-icons nav--horizontal ">
                                     <li>
                                         <a href="#1">
                                             <span class="icon icon-recycle"></span>
@@ -306,7 +312,8 @@
                                 </ul>
                             </nav>
                         </div>
-                </div>
+                    
+                    </div>
 
                 </article>
 
@@ -314,7 +321,7 @@
 
         </main>
 
-        <footer class="sans-serif subtle-fill" id="global-footer">
+        <footer class="oswald subtle-fill" id="global-footer">
 
             <h2 class="screen-reader-only">
                 Page Footer

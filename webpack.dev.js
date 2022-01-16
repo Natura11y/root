@@ -12,7 +12,8 @@ const devDir = './dist/html';
 // const devIndex = 'inform.html';
 // const devIndex = 'accordion.html';
 // const devIndex = 'typography.html';
-const devIndex = 'tables.html';
+// const devIndex = 'tables.html';
+const devIndex = 'spacers.html';
 
 module.exports = merge(common, {
     mode: 'development',
