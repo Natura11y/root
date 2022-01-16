@@ -1,17 +1,26 @@
 {
   "name": "natura11y",
   "version": "0.1.0-alpha",
-  "description": "Natura11y Inclusive Framework",
+  "description": "Natura11y is an open-source design system for creating modern, accessible websites.",
   "private": true,
   "scripts": {
     "start": "webpack serve --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js"
-  },
+  }, 
+  "style": "dist/css/natura11y.css",
+  "main": "src/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cavidano/natura11y.git"
   },
-  "keywords": [],
+  "keywords": [
+    "accessibility",
+    "css",
+    "front-end",
+    "framework",
+    "js",
+    "responsive"
+  ],
   "author": "Carl Avidano",
   "license": "MIT",
   "bugs": {
