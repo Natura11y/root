@@ -10,8 +10,9 @@ In this file:
 // E. Headers
 // F. Body Selectors
 // G. Text Align Utilities
-// H. Word Wrap Utilities
-// I. Truncate Text
+// H. Text Transform Utilities
+// I. Word Wrap Utilities
+// J. Truncate Text Utility
 
 */
 
@@ -290,12 +291,24 @@ figure {
     }
 }
 
-.text-transform-uppercase{
+//////////////////////////////////////////////
+// H. Text Transform Utilities
+//////////////////////////////////////////////
+
+.text-transform-capitalize {
+    text-transform: capitalize;
+}
+
+.text-transform-uppercase {
     text-transform: uppercase;
 }
 
+.text-transform-lowercase {
+    text-transform: lowercase;
+}
+
 //////////////////////////////////////////////
-// H. Word Wrap Utilities
+// I. Word Wrap Utilities
 //////////////////////////////////////////////
 
 .nowrap {
@@ -307,7 +320,7 @@ figure {
 }
 
 ////////////////////////////////////////
-// I. Truncate Text
+// J. Truncate Text Utility
 ////////////////////////////////////////
 
 .truncate-text {
