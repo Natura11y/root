@@ -89,7 +89,6 @@ $font-weights: (
 
 @each $key, $value in $font-weights {
     .font-weight-#{$key} {
-        @warn $key;
         font-weight: #{$value};
     }
 }
@@ -291,6 +290,10 @@ figure {
     }
 }
 
+.text-transform-uppercase{
+    text-transform: uppercase;
+}
+
 //////////////////////////////////////////////
 // H. Word Wrap Utilities
 //////////////////////////////////////////////
@@ -300,7 +303,7 @@ figure {
 }
 
 .break-word {
-    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 ////////////////////////////////////////
