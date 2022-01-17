@@ -428,21 +428,6 @@
         <!-- Natura11y Javascript -->
         <script src="../../../../dist/js/natura11y.js"></script>
 
-        <script>
-            
-            const ajax = new XMLHttpRequest();
-
-            ajax.open('GET', './images/natura11y-icons-sprite.svg', true);
-            ajax.send();
-            ajax.onload = () => {
-                const div = document.createElement('div');
-                div.className = 'natura11y-icons-sprite';
-                div.innerHTML = ajax.responseText;
-                document.body.insertBefore(div, document.body.childNodes[0]);
-            };
-
-        </script>
-
     </body>
 
 </html>
