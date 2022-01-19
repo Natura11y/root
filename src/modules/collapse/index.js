@@ -41,7 +41,9 @@ export default class Collapse {
 
                 } else if (isExpanded === 'false') {
                     handleOpen(collapseButton, collapseTarget);
-                    firstFocusableElement.focus();
+                    if (collapseTarget.hasAttribute('data-focus-first')) {
+                        firstFocusableElement.focus();
+                    }
                 }
 
                 collapseTarget.addEventListener('keydown', (event) => {
