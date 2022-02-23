@@ -133,6 +133,8 @@ export default class Accordion {
                         case keyCodes.arrowDown:
                             directionalFocus(1);
                             break;
+                        default:
+                        // do nothing
                     }
 
                 });

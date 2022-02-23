@@ -101,6 +101,9 @@ export default class Tabs {
                         case keyCodes.arrowRight:
                             directionalFocus(1);
                             break;
+                        default:
+                        // do nothing
+        
                     }
 
                 });

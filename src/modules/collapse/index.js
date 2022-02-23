@@ -70,6 +70,8 @@ export default class Collapse {
                         case keyCodes.esc:
                             handleClose(collapseButton, collapseTarget);
                             break;
+                        default:
+                        // do nothing
                     }
 
                 });

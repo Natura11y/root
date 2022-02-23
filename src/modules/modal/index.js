@@ -92,7 +92,11 @@ export default class Modal {
           case keyCodes.esc:
             handleClose();
             break;
+          
+          default:
+          // do nothing
         }
+        
       });
 
       modalCloseList.forEach(modalClose => {

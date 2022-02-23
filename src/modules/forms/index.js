@@ -28,7 +28,7 @@ export default class Forms {
         }
 
         const isEmpty = (value = null) => {
-            if (value === "") return true;
+            if (value === '') return true;
             return false;
         }
 
@@ -163,7 +163,7 @@ export default class Forms {
                 if (inputTag === 'INPUT') {
                     const inputType = formEntryInput.getAttribute('type');
 
-                    if (inputType == 'radio' || inputType == 'checkbox') {
+                    if (inputType === 'radio' || inputType === 'checkbox') {
                         activeTarget = 'label';
                         
                         if (formEntryInput.disabled) {
