@@ -1,6 +1,6 @@
 {
   "name": "natura11y",
-  "version": "0.1.1-alpha",
+  "version": "0.1.2-alpha",
   "description": "Natura11y is an open-source design system for creating modern, accessible websites.",
   "private": false,
   "scripts": {
