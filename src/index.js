@@ -19,8 +19,7 @@ import 'element-closest-polyfill';
 
 import './modules/accents';
 
-import Accessibility from './modules/accessibility';
-new Accessibility();
+import './modules/accessibility';
 
 import Accordion from './modules/accordion';
 new Accordion();

@@ -72,7 +72,7 @@ In this file:
         }
     }
 
-    &:focus {
+    &:focus-visible {
         outline-style: none;
 
         &:not(.focusable-only) {
