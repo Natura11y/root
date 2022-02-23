@@ -8,13 +8,10 @@ export default class Forms {
 
     constructor() {
 
-        // Get each form on page
         const formList = document.querySelectorAll('form[novalidate]');
         
-        // Get each form entry on page (with and without form parent)
         const formEntryList = document.querySelectorAll('.form-entry');
 
-        // Set form submit to false
         let formSubmitAttempted = false;
 
         const checkIfEmpty = (field) => {
