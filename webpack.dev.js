@@ -7,7 +7,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const devDir = './dist/html';
 
-// const devIndex = 'buttons.html';
+const devIndex = 'buttons.html';
 // const devIndex = 'footers.html';
 // const devIndex = 'inform.html';
 // const devIndex = 'accordion.html';
@@ -17,7 +17,7 @@ const devDir = './dist/html';
 // const devIndex = 'buttons.html';
 // const devIndex = 'modal.html';
 // const devIndex = 'form-validation.html';
-const devIndex = 'backdrops.html';
+// const devIndex = 'backdrops.html';
 
 module.exports = merge(common, {
     mode: 'development',
