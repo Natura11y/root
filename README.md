@@ -1,6 +1,5 @@
 # natura11y-icons
 
-
 ## Steps to Make Icons
 
 1.) Save SVG to *original-svg* dir
