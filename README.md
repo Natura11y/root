@@ -5,7 +5,7 @@
 
 1.) Save SVG to *original-svg* dir
 
-2.) Run saved icons through svggo:
+2.) Run saved icons through svgo:
 
 `svgo -f ./original-svg -o ./optimized-svg`
 
@@ -15,4 +15,7 @@
 
 4.) Run css minify
 
-`-d dist -o dist`
+`css-minify -d dist -o dist`
+
+5.) Run svg sprite generate
+`svg-sprite-generate -d ./optimized-svg -o ./dist/natura11y-icons-sprite.svg`
