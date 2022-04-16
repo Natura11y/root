@@ -102,7 +102,10 @@ $rows: math.div($columns, 2);
 
 .grid {
     display: grid;
-    gap: var(--gap-size);
+
+    &[class*="gap"] {
+        gap: var(--gap-size);
+    }
 
     > .form-entry {
         margin: unset;
@@ -142,10 +145,6 @@ $rows: math.div($columns, 2);
 //////////////////////////////////////////////
 // G. Gap Utilities
 //////////////////////////////////////////////
-
-.gap {
-    --gap-size: initial;
-}
 
 .matrix {
     &[class*="gap"] {
