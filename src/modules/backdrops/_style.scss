@@ -61,8 +61,7 @@ In this file:
 
     display: grid;
 
-    align-content: center;
-    justify-content: stretch;
+    place-items: center;
 }
 
 .backdrop__credit {

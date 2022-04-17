@@ -142,6 +142,10 @@ In this file:
         .justify-content-evenly#{$mod} {
             justify-content: space-evenly !important;
         }
+
+        .justify-content-stretch#{$mod} {
+            justify-content: stretch !important;
+        }
     }
 }
 
@@ -165,7 +169,7 @@ In this file:
             justify-self: center;
         }
 
-        .justify-self-between#{$mod} {
+        .justify-self-stretch#{$mod} {
             justify-self: stretch;
         }
     }
@@ -219,23 +223,23 @@ In this file:
         $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
 
         .align-items-start#{$mod} {
-            align-items: flex-start;
+            align-items: flex-start !important;
         }
 
         .align-items-end#{$mod} {
-            align-items: flex-end;
+            align-items: flex-end !important;
         }
 
         .align-items-center#{$mod} {
-            align-items: center;
+            align-items: center !important;
         }
 
         .align-items-baseline#{$mod} {
-            align-items: baseline;
+            align-items: baseline !important;
         }
 
         .align-items-stretch#{$mod} {
-            align-items: stretch;
+            align-items: stretch !important;
         }
 
     }
@@ -250,27 +254,27 @@ In this file:
         $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
 
         .align-self-auto#{$mod} {
-            align-self: auto;
+            align-self: auto !important;
         }
 
         .align-self-start#{$mod} {
-            align-self: flex-start;
+            align-self: flex-start !important;
         }
 
         .align-self-center#{$mod} {
-            align-self: center;
+            align-self: center !important;
         }
 
         .align-self-end#{$mod} {
-            align-self: flex-end;
+            align-self: flex-end !important;
         }
 
         .align-self-baseline#{$mod} {
-            align-self: baseline;
+            align-self: baseline !important;
         }
 
         .align-self-stretch#{$mod} {
-            align-self: stretch;
+            align-self: stretch !important;
         }
         
     }
