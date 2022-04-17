@@ -82,14 +82,19 @@ In this file:
 }
 
 //////////////////////////////////////////////
-// E. Backdrop Breakpoint Modifiers
+// E. Backdrop Stack Modifiers
 //////////////////////////////////////////////
+
+[class*="backdrop--stack"]{
+    overflow: hidden;
+}
 
 @each $breakpoint in map.keys(breakpoints.$breakpoints) {
     @include breakpoints.breakpoints-up($breakpoint) {
         $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
 
         .backdrop--stack#{$mod} {
+
             .backdrop__cover {
                 position: absolute;
             }
