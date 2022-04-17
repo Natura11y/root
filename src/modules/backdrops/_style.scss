@@ -40,7 +40,7 @@ In this file:
 // D. Backdrop Elements
 //////////////////////////////////////////////
 
-.backdrop:not([class*="--stack"]):not([class*="--fixed"]) {
+.backdrop:not([class*="--stack"]){
     .backdrop__cover {
         position: absolute;
     }
@@ -61,7 +61,8 @@ In this file:
 
     display: grid;
 
-    place-content: center;
+    align-content: center;
+    justify-content: stretch;
 }
 
 .backdrop__credit {
@@ -109,10 +110,6 @@ In this file:
 .backdrop--fixed {
     @extend %custom-properties;
 
-    display: grid;
-    
-    place-content: center;
-    
     min-height: var(--backdrop-fixed-height);
 
     .backdrop__image {
@@ -129,10 +126,6 @@ In this file:
             object-fit: cover;
             object-position: 50% 50%;
         }
-    }
-
-    .backdrop__cover {
-        position: relative;
     }
     
     @include breakpoints.breakpoints-down(md) {

@@ -180,31 +180,31 @@ In this file:
         $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
 
         .align-content-start#{$mod} {
-            align-content: flex-start;
+            align-content: flex-start !important;
         }
 
         .align-content-end#{$mod} {
-            align-content: flex-end;
+            align-content: flex-end !important;
         }
 
         .align-content-center#{$mod} {
-            align-content: center;
+            align-content: center !important;
         }
 
         .align-content-between#{$mod} {
-            align-content: space-between;
+            align-content: space-between !important;
         }
 
         .align-content-around#{$mod} {
-            align-content: space-around;
+            align-content: space-around !important;
         }
 
         .align-content-evenly#{$mod} {
-            align-content: space-evenly;
+            align-content: space-evenly !important;
         }
 
         .align-content-stretch#{$mod} {
-            align-content: stretch;
+            align-content: stretch !important;
         }
 
     }
