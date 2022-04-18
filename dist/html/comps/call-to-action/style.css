@@ -28,6 +28,6 @@ html {
 
 .columns {
     column-count: 2;
-    column-width: calc( var(--narrow-width) * 0.75);
+    column-width: calc( var(--narrow-width) * 0.625);
     column-gap: var(--spacer-4);
 }
