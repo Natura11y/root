@@ -9,9 +9,13 @@
     --body-font-size: 22px;
 
     /* --button-border-radius: 0; */
+
+
+    --body-max-width: 2200px;
 }
 
-#introduction.backdrop {
+#introduction.backdrop, 
+#sign-up.backdrop {
     --backdrop-fixed-height: 900px;
 }
 
@@ -23,6 +27,8 @@ html {
     font-family: 'DM Serif Display', serif;
     font-weight: 300;
 }
+
+
 
 /* [class*="gradient-veneer"]{
 --gradient-veneer-opacity: 0.75 !important;
