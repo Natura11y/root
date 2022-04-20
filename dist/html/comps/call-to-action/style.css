@@ -7,6 +7,8 @@
     --secondary-text: white;
 
     --button-border-radius: initial;
+
+    --body-font-size: 24px;
 }
 
 .backdrop {
@@ -23,7 +25,7 @@ html {
 
 
 [class*="gradient-veneer"]{
-    --gradient-veneer-opacity: 0.75 !important;
+    --gradient-veneer-opacity: 0.25 !important;
 }
 
 .oswald {

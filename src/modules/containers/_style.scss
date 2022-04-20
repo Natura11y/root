@@ -36,17 +36,12 @@ In this file:
 
 .container {
     padding-inline: var(--container-padding-x);
+    margin-inline: auto;
 }
 
 //////////////////////////////////////////////
 // D. Narrow, Medium, and Wide Utilities
 //////////////////////////////////////////////
-
-.narrow,
-.medium,
-.wide {
-    margin-inline: auto;
-}
 
 @each $breakpoint in map.keys(breakpoints.$breakpoints) {
     @include breakpoints.breakpoints-up($breakpoint) {
