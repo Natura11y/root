@@ -199,8 +199,8 @@ $headers: (
 //////////////////////////////////////////////
 
 html {
-    --fluid-typ-min: 1rem;
-    --fluid-typ-rec: 0.6vw + 0.9rem;
+    --fluid-typ-min: 0.75rem;
+    --fluid-typ-rec: 0.75vw + 1rem;
     --fluid-typ-max: 1.5rem;
 
     &.fluid-type {
