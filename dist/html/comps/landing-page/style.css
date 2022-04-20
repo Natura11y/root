@@ -1,3 +1,4 @@
+
 :root {
     --dark: #1a1a1a;
     --primary: #cc4632;
@@ -7,10 +8,7 @@
     --secondary-text: white;
 
     --body-font-size: 22px;
-
-    /* --button-border-radius: 0; */
-
-
+    
     --body-max-width: 2200px;
 }
 
@@ -30,6 +28,6 @@ html {
 
 
 
-/* [class*="gradient-veneer"]{
---gradient-veneer-opacity: 0.75 !important;
-} */
+[class*="gradient-veneer"]{
+    --gradient-veneer-opacity: 0.75 !important;
+}

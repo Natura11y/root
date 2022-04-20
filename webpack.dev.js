@@ -7,7 +7,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // const devDir = './dist/html';
 
-const devDir = './dist/html/comps/landing';
+// const devDir = './dist/html/comps/landing';
+const devDir = './dist/html/comps/call-to-action';
+
+
 
 // const devIndex = 'buttons.html';
 // const devIndex = 'footers.html';

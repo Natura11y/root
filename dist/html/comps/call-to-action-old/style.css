@@ -21,11 +21,6 @@ html {
     --aspect-ratio-custom: 4 / 2
 }
 
-
-[class*="gradient-veneer"]{
-    --gradient-veneer-opacity: 0.75 !important;
-}
-
 .oswald {
     font-family: 'Oswald', sans-serif;
     font-weight: 300;

@@ -7,6 +7,13 @@ In this file:
 
 */
 
+////////////////////////////////////////
+// A. Modules
+////////////////////////////////////////
+
+@use "sass:map";
+@use "../breakpoints/style" as breakpoints;
+
 //////////////////////////////////////////////
 // A. Variables
 //////////////////////////////////////////////
@@ -17,45 +24,54 @@ $positions: static, relative, absolute, fixed;
 // B. Position Utilities
 //////////////////////////////////////////////
 
-@each $position in $positions {
-    .position-#{$position} {
-        position: $position;
+
+@each $breakpoint in map.keys(breakpoints.$breakpoints) {
+    @include breakpoints.breakpoints-up($breakpoint) {
+        $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
+
+
+        @each $position in $positions {
+            .position-#{$position}#{$mod} {
+                position: $position;
+            }
+        }
+        .position-absolute#{$mod},
+        .position-top-left#{$mod} {
+            position: absolute;
+            inset-block-start: 0 !important;
+            inset-inline-end: unset !important;
+            inset-block-end: unset !important;
+            inset-inline-start: 0 !important;
+        }
+
+        .position-top-right#{$mod} {
+            position: absolute;
+            inset-block-start: 0 !important;
+            inset-inline-end: 0 !important;
+            inset-block-end: unset !important;
+            inset-block-start: unset !important;
+        }
+
+        .position-bottom-right#{$mod} {
+            position: absolute;
+            inset-block-start: unset !important;
+            inset-inline-end: 0 !important;
+            inset-block-end: 0 !important;
+            inset-inline-start: unset !important;
+        }
+
+        .position-bottom-left#{$mod} {
+            position: absolute;
+            inset-inline-start: unset !important;
+            inset-inline-end: unset !important;
+            inset-block-end: 0 !important;
+            inset-inline-start: 0 !important;
+        }
+
+        .position-sticky-top#{$mod} {
+            position: sticky;
+            inset-block-start: 0;
+        }
+
     }
-}
-.position-absolute,
-.position-top-left {
-    position: absolute;
-    inset-block-start: 0 !important;
-    inset-inline-end: unset !important;
-    inset-block-end: unset !important;
-    inset-inline-start: 0 !important;
-}
-
-.position-top-right {
-    position: absolute;
-    inset-block-start: 0 !important;
-    inset-inline-end: 0 !important;
-    inset-block-end: unset !important;
-    inset-block-start: unset !important;
-}
-
-.position-bottom-right {
-    position: absolute;
-    inset-block-start: unset !important;
-    inset-inline-end: 0 !important;
-    inset-block-end: 0 !important;
-    inset-inline-start: unset !important;
-}
-
-.position-bottom-left {
-    position: absolute;
-    inset-inline-start: unset !important;
-    inset-inline-end: unset !important;
-    inset-block-end: 0 !important;
-    inset-inline-start: 0 !important;
-}
-
-.position-sticky-top {
-    position: sticky;
-    inset-block-start: 0;
 }
