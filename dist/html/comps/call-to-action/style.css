@@ -35,6 +35,6 @@ html {
 
 .columns {
     column-count: 2;
-    column-width: calc( var(--narrow-width) * 0.625);
+    column-width: calc( var(--narrow-width) * 0.375);
     column-gap: var(--spacer-4);
 }
