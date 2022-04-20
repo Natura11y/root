@@ -102,11 +102,13 @@ $rows: math.div($columns, 2);
 
 .grid {
     display: grid;
+    
+    list-style: none;
 
     &[class*="gap"] {
         gap: var(--gap-size);
     }
-
+    
     > .form-entry {
         margin: unset;
     }
