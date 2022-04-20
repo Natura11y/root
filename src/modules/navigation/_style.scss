@@ -385,13 +385,15 @@ In this file:
     display: grid;
     align-items: center;
 
-    z-index: 1000; //???
+    z-index: 10000;
 
     ul {
         @extend %list-style-nav;
     }
 
     > [class*="__logo"] {
+        display: flex;
+
         grid-area: logo;
 
         padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
@@ -459,7 +461,6 @@ In this file:
         "menu";
 
     > [class*="__logo"] {
-        display: flex;
         justify-content: center;
     }
     
