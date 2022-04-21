@@ -158,19 +158,19 @@ In this file:
         $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
 
         .justify-self-start#{$mod} {
-            justify-self: start;
+            justify-self: start !important;
         }
 
         .justify-self-end#{$mod} {
-            justify-self: end;
+            justify-self: end !important;
         }
 
         .justify-self-center#{$mod} {
-            justify-self: center;
+            justify-self: center !important;
         }
 
         .justify-self-stretch#{$mod} {
-            justify-self: stretch;
+            justify-self: stretch !important;
         }
     }
 }
