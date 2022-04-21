@@ -6,22 +6,19 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // const devDir = './dist/html';
-
 // const devDir = './dist/html/comps/landing';
-const devDir = './dist/html/comps/call-to-action';
-
-
+const devDir = './dist/html/comps/bird-landing-page';
 
 // const devIndex = 'buttons.html';
 // const devIndex = 'footers.html';
 // const devIndex = 'accordion.html';
-const devIndex = 'index.html';
 // const devIndex = 'tables.html';
 // const devIndex = 'spacers.html';
 // const devIndex = 'buttons.html';
 // const devIndex = 'modal.html';
 // const devIndex = 'form-validation.html';
 // const devIndex = 'backdrops.html';
+const devIndex = 'index.html';
 
 module.exports = merge(common, {
     mode: 'development',
