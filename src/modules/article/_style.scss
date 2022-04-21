@@ -81,6 +81,7 @@ In this file:
     .article--column-3 {
         .article__header .backdrop__cover > * {
             margin-inline-start: var(--article-sidebar-width);
+            justify-self: stretch;
         }
     }
 }
