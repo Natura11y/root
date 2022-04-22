@@ -49,8 +49,6 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "custom-event-polyfill": "^1.0.7",
-    "element-closest-polyfill": "^1.0.2",
     "file-loader": "^6.2.0"
   },
   "browserslist": [
