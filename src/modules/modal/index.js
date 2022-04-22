@@ -56,16 +56,10 @@ export default class Modal {
       const firstElementOfModal = focusableElements[0];
       const lastElementOfModal = focusableElements[focusableElements.length - 1];
 
-      modalTarget.addEventListener('keydown', event => {
-        const keyCodes = {
-          tab: 9,
-          esc: 27,
-        }
+      modalTarget.addEventListener('keydown', (event) => {
 
-        const key = event.keyCode;
-
-        switch (key) {
-          case keyCodes.tab:
+        switch (event.code) {
+          case 'Tab':
             if (document.activeElement === lastElementOfModal) {
               if (!event.shiftKey) {
                 event.preventDefault();
@@ -89,7 +83,7 @@ export default class Modal {
 
             break;
 
-          case keyCodes.esc:
+          case 'Escape':
             handleClose();
             break;
           

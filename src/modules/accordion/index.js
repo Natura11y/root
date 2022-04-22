@@ -119,18 +119,11 @@ export default class Accordion {
                         }
                     }
 
-                    const key = event.keyCode;
-
-                    const keyCodes = {
-                        arrowUp: 38,
-                        arrowDown: 40
-                    };
-
-                    switch (key) {
-                        case keyCodes.arrowUp:
+                    switch (event.code) {
+                        case 'ArrowUp':
                             directionalFocus(-1);
                             break;
-                        case keyCodes.arrowDown:
+                        case'ArrowDown':
                             directionalFocus(1);
                             break;
                         default:
@@ -140,7 +133,7 @@ export default class Accordion {
                 });
 
                 accordionButton.addEventListener('keyup', (event) => {
-                    if (event.keyCode === 13 && event.target.tagName !== 'BUTTON') {
+                    if (event.code === 'Enter' && event.target.tagName !== 'BUTTON') {
                         initAccordion(event);
                     }
                 });

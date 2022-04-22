@@ -79,26 +79,17 @@ export default class Tabs {
                         }
                     }
 
-                    const keyCodes = {
-                        arrowLeft: 37,
-                        arrowRight: 39,
-                        home: 36,
-                        end: 35
-                    };
-                    
-                    const key = event.keyCode;
-
-                    switch (key) {
-                        case keyCodes.home:
+                    switch (event.code) {
+                        case 'Home':
                             focusFirstTab(event)
                             break;
-                        case keyCodes.end:
+                        case 'End':
                             focusLastTab(event)
                             break;
-                        case keyCodes.arrowLeft:
+                        case 'ArrowLeft':
                             directionalFocus(-1);
                             break;
-                        case keyCodes.arrowRight:
+                        case 'ArrowRight':
                             directionalFocus(1);
                             break;
                         default:

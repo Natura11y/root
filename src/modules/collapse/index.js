@@ -48,15 +48,8 @@ export default class Collapse {
 
                 collapseTarget.addEventListener('keydown', (event) => {
 
-                    const keyCodes = {
-                        tab: 9,
-                        esc: 27
-                    };
-
-                    const key = event.keyCode;
-
-                    switch (key) {
-                        case keyCodes.tab:
+                    switch (event.code) {
+                        case 'Tab':
 
                             if(document.activeElement === firstFocusableElement){
                                 if(event.shiftKey){
@@ -67,7 +60,7 @@ export default class Collapse {
 
                             break;
                         
-                        case keyCodes.esc:
+                        case 'Escape':
                             handleClose(collapseButton, collapseTarget);
                             break;
                         default:
