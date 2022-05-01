@@ -10,7 +10,7 @@ const devDir = './dist/html';
 
 // const devIndex = 'accordion.html';
 // const devIndex = 'alerts.html';
-const devIndex = 'backdrops.html';
+// const devIndex = 'backdrops.html';
 // const devIndex = 'buttons.html';
 // const devIndex = 'footers.html';
 // const devIndex = 'aspect-ratios.html';
@@ -19,6 +19,7 @@ const devIndex = 'backdrops.html';
 // const devIndex = 'spacers.html';
 // const devIndex = 'buttons.html';
 // const devIndex = 'modal.html';
+const devIndex = 'primary-navigation.html';
 // const devIndex = 'form-validation.html';
 // const devIndex = 'index.html';
 // const devIndex = 'typography.html';

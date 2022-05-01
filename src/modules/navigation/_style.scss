@@ -407,10 +407,17 @@ In this file:
         padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
     }
 
+    > [class*="__toggle"]{
+        grid-area: toggle;
+
+        padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
+    }
+
     > [class*="__actions"] {
         grid-area: buttons;
 
         display: flex;
+
         align-items: center;
 
         padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
@@ -433,8 +440,8 @@ In this file:
 
     grid-template-columns: 1fr auto;
     grid-template-areas:
-        "logo buttons"
-        "menu menu";
+        "logo toggle buttons"
+        "menu menu menu";
 
     > [class*="__menu"] {
         align-self: stretch; 
@@ -454,23 +461,24 @@ In this file:
 }
 
 [class*="primary-nav--below--"] {
-    grid-template-columns: 100%;
+    grid-template-columns: 1fr;
     grid-template-areas:
-        "logo"
-        "buttons"
-        "menu";
+        "logo logo"
+        "toggle buttons"
+        "menu menu";
 
     > [class*="__logo"] {
         justify-content: center;
+        border-bottom-width: var(--default-border-width);
+        border-bottom-style: var(--default-border-style);
+        border-bottom-color: inherit;
+
     }
     
     > [class*="__actions"] {
-        justify-content: space-between;
-
         padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
     }
 
-    > [class*="__actions"],
     > [class*="__menu"] {
         border-top-width: var(--default-border-width);
         border-top-style: var(--default-border-style);
@@ -530,7 +538,7 @@ In this file:
                 display: flex !important;
             }
 
-            [class*="__actions"] button.mobile-menu-toggle {
+            [class*="__toggle"] {
                 display: none;
             }
 
@@ -546,7 +554,7 @@ In this file:
                 "logo menu buttons";
 
             [class*="__menu"] {
-                padding: unset;
+            
                 justify-content: flex-end;
 
                 align-items: center;
@@ -567,6 +575,8 @@ In this file:
 
                     > li > .nav__dropdown {
                         position: absolute;
+
+                        margin-block-start: var(--primary-nav-padding-y);
 
                         min-width: 200px;
                         padding: var(--nav-gap);
@@ -594,8 +604,8 @@ In this file:
                 "logo buttons"
                 "menu menu";
 
-            > [class*="__actions"] {
-                border-top-style: none !important;
+            > [class*="__logo"] {
+                border-bottom-style: none !important;
             }
 
             > [class*="__menu"] {
