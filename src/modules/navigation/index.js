@@ -45,5 +45,26 @@ export default class Navigation {
 
         });
 
+        const menuToggleButtonList = document.querySelectorAll('.primary-nav__toggle > button[data-toggle="collapse"]');
+
+        menuToggleButtonList.forEach((menuToggleButton) => {
+            
+            menuToggleButton.addEventListener('click', () => {
+
+                const expanded = menuToggleButton.getAttribute('aria-expanded');
+                const icon = menuToggleButton.querySelector('.icon');
+
+                if(expanded === 'true'){
+                        icon.classList.remove('icon-menu');
+                        icon.classList.add('icon-close');
+                } else {
+                        icon.classList.remove('icon-close');
+                        icon.classList.add('icon-menu');
+                }
+
+            });
+        });
+
+
     }
 }
