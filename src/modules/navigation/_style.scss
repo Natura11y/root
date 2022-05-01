@@ -420,7 +420,8 @@ In this file:
 
         align-items: center;
 
-        padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
+        padding-block: var(--primary-nav-padding-y);
+        padding-inline-end: var(--primary-nav-padding-x);
 
         > .button {
             margin-inline-end: var(--spacer-2);

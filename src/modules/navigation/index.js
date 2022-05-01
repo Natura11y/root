@@ -54,14 +54,9 @@ export default class Navigation {
                 const expanded = menuToggleButton.getAttribute('aria-expanded');
                 const icon = menuToggleButton.querySelector('.icon');
 
-                if(expanded === 'true'){
-                        icon.classList.remove('icon-menu');
-                        icon.classList.add('icon-close');
-                } else {
-                        icon.classList.remove('icon-close');
-                        icon.classList.add('icon-menu');
-                }
-
+                expanded === 'true' ?
+                    icon.classList.replace('icon-menu', 'icon-close') :
+                    icon.classList.replace('icon-close', 'icon-menu')
             });
         });
 
