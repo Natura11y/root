@@ -381,9 +381,11 @@ In this file:
 
 [class*="primary-nav--"] {
     position: relative;
-
+    
     display: grid;
     align-items: center;
+
+    column-gap: var(--primary-nav-padding-x);
 
     z-index: 10000;
 
@@ -395,8 +397,9 @@ In this file:
         display: flex;
 
         grid-area: logo;
-
+        
         padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
+
     }
 
     > [class*="__menu"] {
@@ -405,12 +408,17 @@ In this file:
         @extend .collapse;
 
         padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
+
+        border-top-width: var(--default-border-width);
+        border-top-style: var(--default-border-style);
+        border-top-color: inherit;
     }
 
     > [class*="__toggle"]{
         grid-area: toggle;
 
-        padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
+        padding-block: var(--primary-nav-padding-y);
+        padding-inline-start: var(--primary-nav-padding-x);
     }
 
     > [class*="__actions"] {
@@ -420,8 +428,9 @@ In this file:
 
         align-items: center;
 
-        padding-block: var(--primary-nav-padding-y);
         padding-inline-end: var(--primary-nav-padding-x);
+
+        background-color: rebeccapurple;
 
         > .button {
             margin-inline-end: var(--spacer-2);
@@ -431,6 +440,7 @@ In this file:
     .form-entry:not([class*="active"]) .form-entry__field__input::after {
         display: none;
     }
+
 }
 
 [class*="primary-nav--inline--"] {
@@ -473,17 +483,6 @@ In this file:
         border-bottom-width: var(--default-border-width);
         border-bottom-style: var(--default-border-style);
         border-bottom-color: inherit;
-
-    }
-    
-    > [class*="__actions"] {
-        padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
-    }
-
-    > [class*="__menu"] {
-        border-top-width: var(--default-border-width);
-        border-top-style: var(--default-border-style);
-        border-top-color: inherit;
     }
 
     form[role="search"]{
@@ -556,6 +555,7 @@ In this file:
 
             [class*="__menu"] {
             
+                border-top-style: none !important;
                 justify-content: flex-end;
 
                 align-items: center;
