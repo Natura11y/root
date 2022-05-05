@@ -23,6 +23,7 @@ In this file:
 @use "../accents/style" as accents;
 @use "../spacing/style" as spacing;
 @use "../collapse/style" as collapse;
+@use "../buttons/style" as buttons;
 @use "../links/style" as links;
 @use "../typography/style" as typography;
 
@@ -385,8 +386,6 @@ In this file:
     display: grid;
     align-items: center;
 
-    column-gap: var(--primary-nav-padding-x);
-
     z-index: 10000;
 
     ul {
@@ -394,10 +393,10 @@ In this file:
     }
 
     > [class*="__logo"] {
+        grid-area: logo;
+
         display: flex;
 
-        grid-area: logo;
-        
         padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
 
     }
@@ -414,40 +413,40 @@ In this file:
         border-top-color: inherit;
     }
 
-    > [class*="__toggle"]{
+
+    > [class*="__toggle"] {
         grid-area: toggle;
 
-        padding-block: var(--primary-nav-padding-y);
-        padding-inline-start: var(--primary-nav-padding-x);
+        margin: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
     }
 
     > [class*="__actions"] {
         grid-area: buttons;
 
-        display: flex;
+        @extend .button-group;
+        
+        margin-block: var(--primary-nav-padding-y);
+        margin-inline-end: var(--primary-nav-padding-x);
 
-        align-items: center;
-
-        padding-inline-end: var(--primary-nav-padding-x);
-
-        background-color: rebeccapurple;
-
-        > .button {
-            margin-inline-end: var(--spacer-2);
-        }
     }
 
-    .form-entry:not([class*="active"]) .form-entry__field__input::after {
-        display: none;
+    [class*="__search"] {
+
+        .form-entry:not([class*="active"]) .form-entry__field__input::after {
+            display: none;
+        }
+
+        .form-entry__field {
+            height: var(--button-icon-only-size) !important;
+            border-radius: var(--button-border-radius);
+            input { font-size: 80%; }
+        }
     }
 
 }
 
 [class*="primary-nav--inline--"] {
     --search-width: var(--primary-nav-search-width);
-
-    justify-content: space-between;
-    align-items: center;
 
     grid-template-columns: 1fr auto;
     grid-template-areas:
@@ -464,7 +463,7 @@ In this file:
 
     }
 
-    form[role="search"] .form-entry__field {
+    [class*="__search"] .form-entry__field {
         height: var(--button-icon-only-size);
         border-radius: var(--button-border-radius);
     }
@@ -485,18 +484,18 @@ In this file:
         border-bottom-color: inherit;
     }
 
-    form[role="search"]{
-        
-        .form-entry__field {
-            --form-field-border-radius: 0;
+    [class*="__search"] { 
+        .form-entry__field,
+        .form-entry__field__input {
+            border-radius: 0;
             height: 100%;
-        } 
-    }
+        }
+    } 
 }
 
 .primary-nav__menu {
 
-    > ul > li {
+   nav > ul > li {
         position: relative;
 
         &:not(:last-child) {
@@ -504,21 +503,21 @@ In this file:
         }
     }
 
-    > ul > li > a {
+   nav > ul > li > a {
         @extend .expanded-link;
-    }
-
-    form[role="search"] {
-        margin-top: var(--spacer-2);
-    }
-
-    .form-entry__field {
-        border-width: var(--default-border-width);
-        border-style: var(--default-border-style);
     }
 
     .nav__dropdown {
         padding: var(--nav-gap);
+    }
+}
+
+.primary-nav__menu__search {
+    margin-block-start: var(--spacer-2);
+
+    .form-entry__field {
+        border-width: var(--default-border-width);
+        border-style: var(--default-border-style);
     }
 }
 
@@ -542,7 +541,7 @@ In this file:
                 display: none;
             }
 
-            form[role="search"] {
+            [class*="__search"] {
                 max-width: var( --primary-nav-search-width);
                 margin-top: unset;
             }
@@ -560,11 +559,16 @@ In this file:
 
                 align-items: center;
 
-                > ul {
+                padding: unset;
+
+                nav,
+                nav > ul {
+                    height: 100%;
+                }
+
+                nav > ul {
                     display: flex;
                     align-items: stretch;
-
-                    height: 100%;
 
                     > li {
                         display: flex;
@@ -576,8 +580,6 @@ In this file:
 
                     > li > .nav__dropdown {
                         position: absolute;
-
-                        margin-block-start: var(--primary-nav-padding-y);
 
                         min-width: 200px;
                         padding: var(--nav-gap);
@@ -592,10 +594,11 @@ In this file:
                     }
                 }
 
-                form[role="search"] {
-                    margin-inline-start: var(--primary-nav-padding-x);
-                }
+            }
 
+            [class*="__search"] {
+                margin-inline: var(--primary-nav-padding-x);
+                margin-block: var(--primary-nav-padding-y);
             }
         }
 
@@ -612,63 +615,65 @@ In this file:
             > [class*="__menu"] {
                 padding: unset;
 
-                > ul {
-                    flex-grow: 1;
-                }
-            }
+                display: grid !important;
 
-            > [class*="__menu"] > ul {
-                display: flex;
-                align-items: stretch;
+                grid-template-columns: 1fr auto;
 
-                > li {
+                > nav > ul {
                     display: flex;
-                    flex: 1;
+                    align-items: stretch;
+                        
+                    > li {
+                        display: flex;
+                        
+                        flex-grow: 1;
 
-                    margin-bottom: unset !important;
-                    
-                    border-bottom-style: none !important;
-                    
-                    text-align: center;
+                        margin-bottom: unset !important;
+                        
+                        border-bottom-style: none !important;
+                        
+                        text-align: center;
+                    }
+
+                    > li > button {
+                        width: 100%;
+                    }
+
+                    > li > a, 
+                    > li > button,
+                    > li > .nav__dropdown {
+                        padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
+                    }
+
+                    > li:not(:last-child){
+                        border-inline-end-width: var(--default-border-width);
+                        border-inline-end-style: var(--default-border-style);
+                    }
+
+                    > li > a {
+                        width: 100%;
+                        
+                        padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
+                        
+                        text-align: center;
+                    }
+
+                    [data-toggle="dropdown"] {
+                        justify-content: center;
+                    }
+
+                    .nav__dropdown {
+                        position: absolute;
+
+                        width: 100%;
+                        
+                        inset-inline-start: 0;
+                    }
                 }
-
-                > li > button {
-                    width: 100%;
-                }
-
-                > li > a, 
-                > li > button,
-                > li > .nav__dropdown {
-                    padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
-                }
-
-                > li:not(:last-child){
-                    border-inline-end-width: var(--default-border-width);
-                    border-inline-end-style: var(--default-border-style);
-                }
-
-                > li > a {
-                    width: 100%;
-                    
-                    padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
-                    
-                    text-align: center;
-                }
-
-                [data-toggle="dropdown"] {
-                    justify-content: center;
-                }
-
-                .nav__dropdown {
-                    position: absolute;
-
-                    width: 100%;
-                    
-                    inset-inline-start: 0;
-                }
+            
             }
 
-            form[role="search"] .form-entry__field {
+            [class*="__search"] .form-entry__field {
                 border-block-start-width: 0;
                 border-inline-end-width: 0;
                 border-block-end-width: 0;
