@@ -19,9 +19,9 @@ const devDir = './dist/html';
 // const devIndex = 'spacers.html';
 // const devIndex = 'buttons.html';
 // const devIndex = 'modal.html';
-// const devIndex = 'primary-navigation.html';
+const devIndex = 'primary-navigation.html';
 // const devIndex = 'form-validation.html';
-const devIndex = 'forms.html';
+// const devIndex = 'forms.html';
 // const devIndex = 'index.html';
 // const devIndex = 'typography.html';
 

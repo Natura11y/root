@@ -42,7 +42,7 @@ In this file:
     --primary-nav-padding-x: var(--spacer-3);
     --primary-nav-padding-y: var(--spacer-2);
 
-    --primary-nav-search-width: 200px;
+    --primary-nav-search-width: 300px;
 }
 
 ////////////////////////////////////////
@@ -439,7 +439,10 @@ In this file:
         .form-entry__field {
             height: var(--button-icon-only-size) !important;
             border-radius: var(--button-border-radius);
-            input { font-size: 80%; }
+        }
+
+        .button{
+            font-size: var(--font-size-md);
         }
     }
 

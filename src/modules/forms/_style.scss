@@ -299,11 +299,13 @@ legend {
     }
 
     > .button {
+        --button-padding-y: 0;
         --button-border-radius: 0;
     }
 
     > .button,
     > [class*="button--icon-only"] {
+
         height: unset;
 
         align-self: stretch;
