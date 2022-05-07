@@ -208,8 +208,7 @@ legend {
 *:not([class*="grid"]) {
 
     > .form-entry ~ .form-entry {
-        margin-top: var(--spacer-4);
-        margin-bottom: var(--spacer-4);
+        margin-block: var(--spacer-4);
     }
 }
 
@@ -292,7 +291,7 @@ legend {
 .form-entry__field__input {
     display: flex;
     align-items: center;
-    
+
     height: 100%;
 
     button {
@@ -303,10 +302,11 @@ legend {
         --button-border-radius: 0;
     }
 
+    > .button,
     > [class*="button--icon-only"] {
-        align-self: stretch;
-
         height: unset;
+
+        align-self: stretch;
     }
 
     > .icon,
@@ -329,24 +329,6 @@ legend {
     .form-entry__field__input::after,
     .form-entry__option > div > label::after {
         box-shadow: inset 0 0 0 calc( var(--default-border-width) * 3) currentColor;
-    }
-}
-
-// Field Has Button Modifier
-
-.field--has-button {
-
-    [class*="__group"] {
-        display: grid;
-        gap: var(--spacer-2);
-        grid-template-columns: 1fr auto;
-        
-        button {
-            height: unset;
-            width: unset;
-            
-            padding-inline: var(--form-field-padding-x);
-        }
     }
 }
 
