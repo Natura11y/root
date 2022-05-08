@@ -42,7 +42,7 @@ In this file:
     --primary-nav-padding-x: var(--spacer-3);
     --primary-nav-padding-y: var(--spacer-2);
 
-    --primary-nav-search-width: 300px;
+    --primary-nav-search-width: 250px;
 }
 
 ////////////////////////////////////////
@@ -398,7 +398,6 @@ In this file:
         display: flex;
 
         padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
-
     }
 
     > [class*="__menu"] {
@@ -413,24 +412,20 @@ In this file:
         border-top-color: inherit;
     }
 
-
     > [class*="__toggle"] {
         grid-area: toggle;
+        
+        display: flex;
+        gap: var(--primary-nav-padding-x);
 
         margin: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
     }
 
-    > [class*="__actions"] {
-        grid-area: buttons;
+    > [class*="__search"] {
+        grid-area: search;
 
-        @extend .button-group;
-        
         margin-block: var(--primary-nav-padding-y);
         margin-inline-end: var(--primary-nav-padding-x);
-
-    }
-
-    [class*="__search"] {
 
         .form-entry:not([class*="active"]) .form-entry__field__input::after {
             display: none;
@@ -441,20 +436,33 @@ In this file:
             border-radius: var(--button-border-radius);
         }
 
-        .button{
+        .button {
             font-size: var(--font-size-md);
         }
     }
 
+    > [class*="__actions"] {
+        grid-area: buttons;
+
+        @extend .button-group;
+        
+        margin-block: var(--primary-nav-padding-y);
+        margin-inline: var(--primary-nav-padding-x);
+    }
+
+    > [class*="__search"] + [class*="__actions"]{
+        margin-inline-start: unset !important;
+    }
 }
 
 [class*="primary-nav--inline--"] {
     --search-width: var(--primary-nav-search-width);
 
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
     grid-template-areas:
         "logo toggle buttons"
-        "menu menu menu";
+        "menu menu menu"
+        "search search search";
 
     > [class*="__menu"] {
         align-self: stretch; 
@@ -466,19 +474,17 @@ In this file:
 
     }
 
-    [class*="__search"] .form-entry__field {
-        height: var(--button-icon-only-size);
-        border-radius: var(--button-border-radius);
+    > [class*="__search"] {
+        @extend .collapse;
     }
-
 }
 
 [class*="primary-nav--below--"] {
-    grid-template-columns: 1fr;
+    grid-template-columns: auto 1fr auto;
     grid-template-areas:
-        "logo logo"
-        "toggle buttons"
-        "menu menu";
+        "logo logo logo"
+        "toggle search buttons"
+        "menu menu menu";
 
     > [class*="__logo"] {
         justify-content: center;
@@ -487,13 +493,6 @@ In this file:
         border-bottom-color: inherit;
     }
 
-    [class*="__search"] { 
-        .form-entry__field,
-        .form-entry__field__input {
-            border-radius: 0;
-            height: 100%;
-        }
-    } 
 }
 
 .primary-nav__menu {
@@ -515,9 +514,7 @@ In this file:
     }
 }
 
-.primary-nav__menu__search {
-    margin-block-start: var(--spacer-2);
-
+.primary-nav__search {
     .form-entry__field {
         border-width: var(--default-border-width);
         border-style: var(--default-border-style);
@@ -544,18 +541,26 @@ In this file:
                 display: none;
             }
 
+            > [class*="__menu"],
+            > [class*="__search"] {
+                display: block !important;
+            }
+
             [class*="__search"] {
                 max-width: var( --primary-nav-search-width);
-                margin-top: unset;
             }
         }
 
         .primary-nav--inline#{$mod} {
             grid-template-columns: 1fr auto auto;
             grid-template-areas:
-                "logo menu buttons";
+                "logo menu search buttons";
 
-            [class*="__menu"] {
+            > [class*="__search"] {
+                margin-inline: var(--primary-nav-padding-x);
+            }
+
+            > [class*="__menu"] {
             
                 border-top-style: none !important;
                 justify-content: flex-end;
@@ -599,17 +604,13 @@ In this file:
 
             }
 
-            [class*="__search"] {
-                margin-inline: var(--primary-nav-padding-x);
-                margin-block: var(--primary-nav-padding-y);
-            }
         }
 
         .primary-nav--below#{$mod} {
-            grid-template-columns: 1fr auto;
+            grid-template-columns: 1fr auto auto;
             grid-template-areas:
-                "logo buttons"
-                "menu menu";
+                "logo search buttons"
+                "menu menu menu";
 
             > [class*="__logo"] {
                 border-bottom-style: none !important;
@@ -617,10 +618,6 @@ In this file:
 
             > [class*="__menu"] {
                 padding: unset;
-
-                display: grid !important;
-
-                grid-template-columns: 1fr auto;
 
                 > nav > ul {
                     display: flex;
@@ -675,13 +672,6 @@ In this file:
                 }
             
             }
-
-            [class*="__search"] .form-entry__field {
-                border-block-start-width: 0;
-                border-inline-end-width: 0;
-                border-block-end-width: 0;
-            }
-
         }
 
     }
