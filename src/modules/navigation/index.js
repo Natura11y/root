@@ -45,21 +45,20 @@ export default class Navigation {
 
         });
 
-        const menuToggleButtonList = document.querySelectorAll('.primary-nav__toggle > button[data-toggle="collapse"]');
+        // const menuToggleButtonList = document.querySelectorAll('.primary-nav__toggle > button[data-toggle="collapse"]');
 
-        menuToggleButtonList.forEach((menuToggleButton) => {
+        // menuToggleButtonList.forEach((menuToggleButton) => {
             
-            menuToggleButton.addEventListener('click', () => {
+        //     menuToggleButton.addEventListener('click', () => {
 
-                const expanded = menuToggleButton.getAttribute('aria-expanded');
-                const icon = menuToggleButton.querySelector('.icon');
+        //         const expanded = menuToggleButton.getAttribute('aria-expanded');
+        //         const icon = menuToggleButton.querySelector('.icon');
 
-                expanded === 'true' ?
-                    icon.classList.replace('icon-menu', 'icon-close') :
-                    icon.classList.replace('icon-close', 'icon-menu')
-            });
-        });
-
+        //         expanded === 'true' ?
+        //             icon.classList.replace('icon-menu', 'icon-close') :
+        //             icon.classList.replace('icon-close', 'icon-menu')
+        //     });
+        // });
 
     }
 }
