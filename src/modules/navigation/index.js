@@ -45,20 +45,61 @@ export default class Navigation {
 
         });
 
-        // const menuToggleButtonList = document.querySelectorAll('.primary-nav__toggle > button[data-toggle="collapse"]');
+        const observer = new MutationObserver((mutationList) => {
 
-        // menuToggleButtonList.forEach((menuToggleButton) => {
+            console.log(mutationList);
+
+            mutationList.forEach((mutation) => {
+
+                switch(mutation.attributeName) {
+                    case "aria-expanded":
+
+                        console.log(
+                            'WHOA!!', 
+                            mutation.target.ariaExpanded
+                        );
+                        const icon = mutation.target.querySelector('.icon');
+                        
+                        if(mutation.target.ariaExpanded === 'true') {
+
+                            sessionStorage.setItem('iconClass', icon.classList[1]);
+                            
+                            icon.classList.replace(sessionStorage.getItem('iconClass'), 'icon-close');
+
+                        } else if(mutation.target.ariaExpanded === 'false'){
+                            icon.classList.replace( 'icon-close', sessionStorage.getItem('iconClass'));
+                        }
+
+                        break;
+                    case "class":
+                        break;
+                    }
+            });
             
-        //     menuToggleButton.addEventListener('click', () => {
+        });
 
-        //         const expanded = menuToggleButton.getAttribute('aria-expanded');
-        //         const icon = menuToggleButton.querySelector('.icon');
+        const toggleButtonList = document.querySelectorAll('.primary-nav__toggle button');
 
-        //         expanded === 'true' ?
-        //             icon.classList.replace('icon-menu', 'icon-close') :
-        //             icon.classList.replace('icon-close', 'icon-menu')
-        //     });
-        // });
+        toggleButtonList.forEach((toggleButton) => {
+        
+            const icon = toggleButton.querySelector('.icon');
+
+            // sessionStorage.setItem('iconClass', icon.classList[1]);
+
+            // let cool = sessionStorage.getItem('iconClass');
+
+            // console.log(
+            //                 'COOL!!', 
+            //                 cool
+            //             );
+
+            observer.observe(toggleButton, {
+                subtree: false,
+                attributeFilter: ['aria-expanded'],
+                attributeOldValue: true
+            });
+
+        });
 
     }
 }

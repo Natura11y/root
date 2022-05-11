@@ -6,7 +6,6 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const devDir = './dist/html';
-// const devDir = './dist/html/comps/birds-landing-page';
 
 // const devIndex = 'accordion.html';
 // const devIndex = 'alerts.html';
