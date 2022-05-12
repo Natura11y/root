@@ -17,12 +17,11 @@ const devDir = './dist/html';
 // const devIndex = 'tables.html';
 // const devIndex = 'spacers.html';
 // const devIndex = 'buttons.html';
-const devIndex = 'modal.html';
+// const devIndex = 'modal.html';
 // const devIndex = 'primary-navigation.html';
-// const devIndex = 'form-validation.html';
 // const devIndex = 'forms.html';
 // const devIndex = 'index.html';
-// const devIndex = 'typography.html';
+const devIndex = 'typography.html';
 
 module.exports = merge(common, {
     mode: 'development',

@@ -134,8 +134,8 @@ body > footer:not([class*="theme-"]),
 [class*="theme-"],
 [data-active-theme] [aria-current],
 [data-active-theme] [aria-expanded="true"],
-[data-active-theme] [aria-current] + .nav__dropdown
-{
+[data-active-theme] [aria-current] + .nav__dropdown {
+
     background-color: var(--background-color);
 
     color: var(--text-color);
