@@ -192,59 +192,61 @@ In this file:
         text-align: left;
     }
 
-    .table-scroll__help {
-        position: relative;
-
-        display: none;
-        
-        z-index: 400;
-        
-        margin-block-end: 0.5rem;
-        
-        opacity: 0.75;
-        
-        font-size: var(--font-size-sm);
-
-    }
-
-    .table-scroll__container {
-        position: relative;
-
-        overflow: auto;
-        
-        max-width: 100%;
-
-        table {
-            overflow: hidden;
-            min-width: var(--table-scroll-min-width);
-        }
-
-        &::after {
-            position: absolute;
-            content: "";
-            top: 0;
-            right: 0;
-            bottom: 0;
-            inset-inline-start: 50%;
-
-            display: none;
-            
-            mask-image: linear-gradient(to left, rgba(0, 0, 0, 1.0), transparent);
-            pointer-events: none;
-            
-            z-index: 600;
-        }
-
-        &[data-scrolling=true]::after{
-            opacity: 0;
-        }
-
-    }
-
     &[data-scroll=true] {
         .table-scroll__container::after,
         .table-scroll__help {
             display: block;
         }
     }   
+}
+
+//////////////////////////////////////////////
+// F. Table Scroll Elements
+//////////////////////////////////////////////
+
+.table-scroll__help {
+    position: relative;
+
+    display: none;
+    
+    z-index: 400;
+    
+    margin-block-end: 0.5rem;
+    
+    opacity: 0.75;
+    
+    font-size: var(--font-size-sm);
+}
+
+.table-scroll__container {
+    position: relative;
+
+    overflow: auto;
+    
+    max-width: 100%;
+
+    table {
+        overflow: hidden;
+        min-width: var(--table-scroll-min-width);
+    }
+
+    &::after {
+        position: absolute;
+        content: "";
+        top: 0;
+        right: 0;
+        bottom: 0;
+        inset-inline-start: 50%;
+
+        display: none;
+        
+        mask-image: linear-gradient(to left, rgba(0, 0, 0, 1.0), transparent);
+        pointer-events: none;
+        
+        z-index: 600;
+    }
+
+    &[data-scrolling=true]::after{
+        opacity: 0;
+    }
 }

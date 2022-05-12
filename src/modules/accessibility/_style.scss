@@ -98,8 +98,8 @@ In this file:
     }
 }
 
-a, 
-button {
+
+:is(a, button) {
     --focus-outline-distance: 0;
     --focus-outline-size: calc(var(--default-border-width) * 2);
 

@@ -241,23 +241,17 @@ button {
     
     display: flex;
 
+    gap: var(--gap-size);
+
     min-height: var(--button-icon-only-size);
 
-    > [class*="button"], 
-    > button {
-        &:not(:last-child){
-            margin-inline-end: var(--gap-size);
-        }
-    }
-
-    > [class*="button"]:not(.button--icon-only){
-        min-height: 100%;
-        font-size: 80%;
-    }
-
     > [class*="button"]:not(.button--icon-only) {
+        min-height: 100%;
+
         display: flex;
         align-items: center;
         flex-shrink: 0;
+        
+        font-size: 80%;
     }
 }

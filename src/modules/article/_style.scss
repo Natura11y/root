@@ -77,12 +77,14 @@ In this file:
             "related related";
     }
 
-    .article--column-2,
-    .article--column-3 {
-        .article__header .backdrop__cover > * {
-            margin-inline-start: var(--article-sidebar-width);
-            justify-self: stretch;
-        }
+    :is(
+        .article--column-2,
+        .article--column-3 
+    ) .article__header .backdrop__cover > * {
+        margin-inline-start: var(--article-sidebar-width);
+        justify-self: stretch;
+
+        background-color: red !important;
     }
 }
 
