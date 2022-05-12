@@ -65,6 +65,8 @@ button {
 
 .button {
     --button-opacity-hover: 0.75;
+    
+    --subtle-fill-opacity: 0.05;
 
     position: relative;
 
@@ -86,7 +88,6 @@ button {
 
     &:not([class*="button--outline"]):not([class*="theme-"]):not([class*="background-color"]):not([data-toggle="dropdown"]) {
         @extend %subtle-fill-psuedo;
-        --subtle-fill-opacity: 0.05;
     }
 
     &:hover, 
