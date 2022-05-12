@@ -10,6 +10,10 @@ In this file:
 // A. Collapse Utility
 //////////////////////////////////////////////
 
+.button[aria-expanded="true"] {
+    --subtle-fill-opacity: .15 !important;
+}
+
 .collapse {
     display: none;
     

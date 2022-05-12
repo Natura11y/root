@@ -42,7 +42,7 @@ In this file:
     --primary-nav-padding-x: var(--spacer-2);
     --primary-nav-padding-y: var(--spacer-2);
 
-    --primary-nav-search-width: 250px;
+    --primary-nav-search-width: 300px;
 }
 
 ////////////////////////////////////////
@@ -424,8 +424,8 @@ In this file:
     > [class*="__search"] {
         grid-area: search;
 
-        margin-block: var(--primary-nav-padding-y);
-        margin-inline-end: var(--primary-nav-padding-x);
+        padding-block: var(--primary-nav-padding-y);
+        padding-inline: var(--primary-nav-padding-x);
 
         .form-entry:not([class*="active"]) .form-entry__field__input::after {
             display: none;
@@ -476,6 +476,10 @@ In this file:
 
     > [class*="__search"] {
         @extend .collapse;
+
+        border-top-width: var(--default-border-width);
+        border-top-style: var(--default-border-style);
+        border-top-color: inherit;
     }
 }
 
@@ -493,6 +497,9 @@ In this file:
         border-bottom-color: inherit;
     }
 
+    > [class*="__toggle"] {
+        margin-inline-end: unset;
+    }
 }
 
 .primary-nav__menu {
@@ -557,7 +564,7 @@ In this file:
                 "logo menu search buttons";
 
             > [class*="__search"] {
-                margin-inline: var(--primary-nav-padding-x);
+                border-top-style: none !important;
             }
 
             > [class*="__menu"] {
