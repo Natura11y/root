@@ -233,11 +233,11 @@ p ~ ol:not([class]) {
     }
 }
 
-p ~ ul:not([class]),
-p ~ ol:not([class]) {
-    li {
-        margin-block-end: var(--spacer-1);
-    }
+:is(
+    p ~ ul:not([class]),
+    p ~ ol:not([class]) 
+) li {
+    margin-block-end: var(--spacer-1);
 }
 
 p ~ ul:not([class]) {

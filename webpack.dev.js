@@ -7,13 +7,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const devDir = './dist/html';
 
-const devIndex = 'accordion.html'
+// const devIndex = 'accordion.html'
 // const devIndex = 'alerts.html';
 // const devIndex = 'backdrops.html';
 // const devIndex = 'buttons.html';
 // const devIndex = 'aspect-ratios.html';
 // const devIndex = 'articles.html';
-// const devIndex = 'tables.html';
 // const devIndex = 'spacers.html';
 // const devIndex = 'buttons.html';
 // const devIndex = 'modal.html';
@@ -21,6 +20,7 @@ const devIndex = 'accordion.html'
 // const devIndex = 'footers.html';
 // const devIndex = 'forms.html';
 // const devIndex = 'index.html';
+const devIndex = 'tables.html';
 // const devIndex = 'typography.html';
 
 module.exports = merge(common, {

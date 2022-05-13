@@ -61,8 +61,10 @@ In this file:
         opacity: 0.75;
     }
 
-    th, 
-    td {
+    :is(
+        th, 
+        td 
+    ) {
         padding: var(--table-cell-padding-y) var(--table-cell-padding-x);
         text-align: inherit;
         vertical-align: top;
@@ -105,8 +107,10 @@ In this file:
 .table--divider {
     border-collapse: collapse;
     
-    th,
-    td {
+    :is(
+        th, 
+        td 
+    ) {
 
         &:not(:first-child){
             border-inline-start-width: var(--default-border-width);
@@ -117,8 +121,10 @@ In this file:
 
 .table--edge {
 
-    th,
-    td {
+    :is(
+        th, 
+        td 
+    ) {
         &:first-child {
             padding-inline-start: 0;
         }
@@ -143,7 +149,7 @@ In this file:
                 left: -9999px;
             }
 
-            tr:not(:first-child){
+            tr:not(:first-child) {
                 border-block-start-width: calc(var(--default-border-width) * 2);
                 border-block-start-style: var(--default-border-style);
             }
@@ -158,7 +164,7 @@ In this file:
                 }
             }
             
-            .td-content{
+            .td-content {
                 text-align: end;
             }
 
@@ -167,14 +173,14 @@ In this file:
                 font-weight: bold;
             }
 
-            &.table--edge{
+            &.table--edge {
                 td {
                     padding-inline-start: 0;
                     padding-inline-end: 0;
                 }
             }
 
-            &.table--divider{
+            &.table--divider {
                 border-collapse: collapse;
             }  
         }
