@@ -92,8 +92,10 @@ In this file:
         }
     }
 
-    [aria-current="page"],
-    [aria-selected="true"] {
+    :is(
+        [aria-current="page"],
+        [aria-selected="true"]
+    ) {
         font-weight: var(--body-font-weight-bold);
 
         &::before {
@@ -127,11 +129,13 @@ In this file:
                 > li > a,
                 > li > button {
                     text-align: center;
+                    
                     &::before {
                         bottom: unset;
                         right: 0;
             
                         width: unset;
+
                         height: var(--tab-accent-bar-size);
                     }
                 }
@@ -157,14 +161,13 @@ In this file:
 // E. Tabs With 'theme-*' Utility
 ////////////////////////////////////////
 
-.tabs {
-    &[class*="theme-"] {
-
+.tabs[class*="theme-"] {
+    :is(
         [aria-current="page"],
-        [aria-selected="true"] {
-            &::before {
-                margin: var(--tab-accent-bar-size);
-            }
+        [aria-selected="true"]
+    ) {
+        &::before {
+            margin: var(--tab-accent-bar-size);
         }
     }
 }
