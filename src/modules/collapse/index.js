@@ -43,6 +43,7 @@ export default class Collapse {
                     handleOpen(collapseButton, collapseTarget);
                     if (collapseTarget.hasAttribute('data-focus-first')) {
                         firstFocusableElement.focus();
+
                     }
                 }
 

@@ -80,9 +80,10 @@ In this file:
 }
 
 .nav:not([class*="nav--divider"]):not([class*="nav--breadcrumb"]) {
-    > li:not(:last-child) {
-        margin-block-end: var(--nav-gap);
-    }
+    display: flex;
+    flex-direction: column;
+
+    gap: var(--nav-gap);
 
     > li > .button {
         min-height: 100%;
@@ -113,17 +114,8 @@ In this file:
         $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
 
         .nav:not([class*="nav--divider"]).nav--horizontal#{$mod} {
-            display: flex;
+            flex-direction: row;
             align-items: center;
-
-            margin-inline-start: calc(var(--nav-gap) * -1);
-            margin-inline-end: calc(var(--nav-gap) * -1);
-
-            > li {
-                margin-inline-start: var(--nav-gap);
-                margin-inline-end: var(--nav-gap);
-                margin-bottom: 0 !important;
-            }
 
             > li > .nav__dropdown {
                 position: absolute;
