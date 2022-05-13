@@ -5,23 +5,31 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const devPages = {
+
+    // Default
+    
+    'Index': 'index',
+
+    // Components
+
+    'Accordion': 'accordion',
+    'Alerts': 'alerts',
+    'Articles': 'articles',
+    'Aspect Ratios': 'aspect-ratios',
+    'Buttons': 'buttons',
+    'Footers': 'footers',
+    'Forms': 'forms',
+    'Modal': 'modal',
+    'Navigation': 'navigation',
+    'Spacers': 'spacers',
+    'Tables': 'tables',
+    'Typography': 'typography'
+}
+
 const devDir = './dist/html';
 
-// const devIndex = 'accordion.html'
-// const devIndex = 'alerts.html';
-// const devIndex = 'backdrops.html';
-// const devIndex = 'buttons.html';
-// const devIndex = 'aspect-ratios.html';
-// const devIndex = 'articles.html';
-// const devIndex = 'spacers.html';
-// const devIndex = 'buttons.html';
-// const devIndex = 'modal.html';
-const devIndex = 'navigation.html';
-// const devIndex = 'footers.html';
-// const devIndex = 'forms.html';
-// const devIndex = 'index.html';
-// const devIndex = 'tables.html';
-// const devIndex = 'typography.html';
+const devPage = `${devPages.Typography}.html`;
 
 module.exports = merge(common, {
     mode: 'development',
@@ -33,7 +41,7 @@ module.exports = merge(common, {
         static: {
             directory: path.resolve(__dirname, devDir),
             staticOptions: {
-                index: devIndex
+                index: devPage
             },
         }
     },
@@ -72,7 +80,7 @@ module.exports = merge(common, {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: `./${devDir}/${devIndex}`,
+            template: `./${devDir}/${devPage}`,
             inject: 'body'
         })
     ]
