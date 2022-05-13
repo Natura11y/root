@@ -20,8 +20,8 @@ const devDir = './dist/html';
 // const devIndex = 'footers.html';
 // const devIndex = 'forms.html';
 // const devIndex = 'index.html';
-const devIndex = 'tables.html';
-// const devIndex = 'typography.html';
+// const devIndex = 'tables.html';
+const devIndex = 'typography.html';
 
 module.exports = merge(common, {
     mode: 'development',
