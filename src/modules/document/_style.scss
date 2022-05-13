@@ -131,7 +131,7 @@ body {
 
     margin-inline: auto;
     
-    @extend .theme-white;
+    @extend .theme-canvas !optional;
 }
 
 ////////////////////////////////////////

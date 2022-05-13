@@ -32,7 +32,7 @@ In this file:
     --light: #f2edeb;
 
     // Accessible Link Color
-    // (Used with White and Light Themes)
+    // (Used with canvas and Light Themes)
 
     --a11y-link: #0066cc;
 
@@ -68,25 +68,16 @@ In this file:
     --light-confirm: #007e35;
     --light-warn: #ce1736;
 
-    // White Correlated Colors
+    // canvas Correlated Colors
 
-    --white-text: var(--dark);
-    --white-border: hsla(0, 0%, 50%, 0.25);
-    --white-link: var(--a11y-link);
-    --white-confirm: #008237;
-    --white-warn: #e4193c;
+    --canvas-text: var(--dark);
+    --canvas-border: hsla(0, 0%, 50%, 0.25);
+    --canvas-link: var(--a11y-link);
+    --canvas-confirm: #008237;
+    --canvas-warn: #e4193c;
 }
 
 $theme-colors: (
-
-    "white": (
-        swatch: white,
-        text: var(--white-text),
-        border: var(--white-border),
-        link: var(--white-link),
-        confirm: var(--white-confirm),
-        warn: var(--white-warn)
-    ), 
         
     "primary": (
         swatch: var(--primary),
@@ -122,7 +113,16 @@ $theme-colors: (
         link: var(--light-link),
         confirm: var(--light-confirm),
         warn: var(--light-warn)
-    )
+    ),
+
+    "canvas": (
+        swatch: canvas,
+        text: var(--canvas-text),
+        border: var(--canvas-border),
+        link: var(--canvas-link),
+        confirm: var(--canvas-confirm),
+        warn: var(--canvas-warn)
+    ) 
 );
 
 //////////////////////////////////////////////
@@ -233,5 +233,20 @@ body > footer:not([class*="theme-"]),
                 color: var(--text-color) !important;
             }
         }
+    }
+}
+
+//////////////////////////////////////////////
+// C. Prefers Color Scheme Modifier
+//////////////////////////////////////////////
+
+@media (prefers-color-scheme: dark) {
+    [class*="theme-canvas"][class*="--prefers"]{ 
+        --background-color: var(--dark);
+        --text-color: var(--dark-text);
+        --border-color: var(--dark-border);
+        --link-color: var(--dark-link);
+        --confirm-color: var(--dark-confirm);
+        --warn-color: var(--dark-warn);
     }
 }
