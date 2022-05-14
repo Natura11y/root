@@ -18,6 +18,7 @@ const devPages = {
     'Articles': 'articles',
     'Aspect Ratios': 'aspect-ratios',
     'Buttons': 'buttons',
+    'Backdrops': 'backdrops',
     'Footers': 'footers',
     'Forms': 'forms',
     'Modal': 'modal',
@@ -29,7 +30,7 @@ const devPages = {
 
 const devDir = './dist/html';
 
-const devPage = `${devPages.Buttons}.html`;
+const devPage = `${devPages.Backdrops}.html`;
 
 module.exports = merge(common, {
     mode: 'development',
