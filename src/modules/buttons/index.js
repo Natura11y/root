@@ -7,14 +7,16 @@ import './_style.scss';
 export default class Button {
 
     constructor() {
+        this.iconOnlyButtonList = document.querySelectorAll('.button--icon-only');
+    }
 
-        const iconOnlyButtonList = document.querySelectorAll('.button--icon-only');
-
+    init() {
+    
         let hoverFocusDelay;
 
         const hoverFocusIn = (event) => {
             hoverFocusDelay = setTimeout(() => { 
-                iconOnlyButtonList.forEach((iconOnlyButton) => {
+                this.iconOnlyButtonList.forEach((iconOnlyButton) => {
                     iconOnlyButton.classList.remove('tooltip-show');
                 });
 
@@ -27,7 +29,7 @@ export default class Button {
             event.target.classList.remove('tooltip-show');
         }
 
-        iconOnlyButtonList.forEach((iconOnlyButton) => {
+        this.iconOnlyButtonList.forEach((iconOnlyButton) => {
 
             const tooltipText = iconOnlyButton.getAttribute('aria-label');
 

@@ -24,13 +24,14 @@ const devPages = {
     'Modal': 'modal',
     'Navigation': 'navigation',
     'Spacers': 'spacers',
+    'Tabs': 'tabs',
     'Tables': 'tables',
     'Typography': 'typography'
 }
 
 const devDir = './dist/html';
 
-const devPage = `${devPages.Backdrops}.html`;
+const devPage = `${devPages.Tables}.html`;
 
 module.exports = merge(common, {
     mode: 'development',

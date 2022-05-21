@@ -7,10 +7,12 @@ import './_style.scss';
 export default class Navigation {
 
     constructor() {
+        this.dropdownButtonList = document.querySelectorAll('[data-toggle="dropdown"]');
+    }
 
-        const dropdownButtonList = document.querySelectorAll('[data-toggle="dropdown"]');
-            
-        dropdownButtonList.forEach((dropdownButton) => {
+    init() {
+    
+        this.dropdownButtonList.forEach((dropdownButton) => {
 
             let dropdownButtonParent = dropdownButton.closest('li');
             let dropdownMenu = dropdownButton.nextElementSibling;
@@ -44,6 +46,5 @@ export default class Navigation {
             });
 
         });
-
     }
 }

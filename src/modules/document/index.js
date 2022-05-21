@@ -7,17 +7,13 @@ import './_style.scss';
 export default class Document {
 
     constructor() {
-        
-        ///////////////////////
-        // Copyright Year
-        ///////////////////////
+        this.copyrightYear = document.querySelector('.copyright-year');
+    }
 
-        const copyrightYear = document.querySelector('.copyright-year');
-
-        if (copyrightYear) {
+    init(){
+        if(this.copyrightYear) {
             const currentYear = new Date().getFullYear();
-            copyrightYear.innerHTML = currentYear;
+            this.copyrightYear.innerHTML = currentYear;
         }
-        
     }
 }

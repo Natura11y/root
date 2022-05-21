@@ -7,21 +7,22 @@ import './_style.scss';
 export default class Tables {
 
     constructor() {
+        this.tableStackList = document.querySelectorAll('[class*="table--stack"]');
+        this.tableScrollList = document.querySelectorAll('.table-scroll');
+    }
 
-        // Table Breakpoints
+    init() {
+    
+        this.tableStackList.forEach((tableStack) => {
 
-        const tableStackList = document.querySelectorAll("[class*='table--stack']");
-
-        tableStackList.forEach((tableStack) => {
-
-            const tableHeaderList = tableStack.querySelectorAll("thead th");
-            const tableRowList = tableStack.querySelectorAll("tbody tr");
+            const tableHeaderList = tableStack.querySelectorAll('thead th');
+            const tableRowList = tableStack.querySelectorAll('tbody tr');
 
             let myHeaders = [];
 
             tableHeaderList.forEach((tableHeader) => {
 
-                if (tableHeader.textContent !== "") {
+                if (tableHeader.textContent !== '') {
                     let myTitle = tableHeader.textContent.trim();
                     myHeaders.push(myTitle);
                 }
@@ -30,20 +31,20 @@ export default class Tables {
 
             tableRowList.forEach((tableRow) => {
 
-                const tableDataList = tableRow.querySelectorAll("td");
+                const tableDataList = tableRow.querySelectorAll('td');
 
                 tableDataList.forEach((tableData, index) => {
 
                     let tableDataHTML = tableData.innerHTML;
 
-                    let myNewContent = `
-                            <div class="td-content">
+                    let myNewContent = (`
+                        <div class="td-content">
                             ${tableDataHTML}
-                            </div>
-                        `;
+                        </div>
+                    `);
 
                     tableData.innerHTML = myNewContent;
-                    tableData.setAttribute("data-before", myHeaders[index]);
+                    tableData.setAttribute('data-before', myHeaders[index]);
 
                 });
 
@@ -51,15 +52,11 @@ export default class Tables {
 
         });
 
-        // Table Scrolling
-
-        const tableScrollList = document.querySelectorAll(".table-scroll");
-
         const initTableScroll = () => {
 
-            tableScrollList.forEach((scrollElement) => {
+            this.tableScrollList.forEach((scrollElement) => {
 
-                let scrollTarget = scrollElement.querySelector(".table-scroll__container");
+                let scrollTarget = scrollElement.querySelector('.table-scroll__container');
 
                 let maxWidth = scrollElement.offsetWidth;
                 let scrollWidth = scrollTarget.scrollWidth;
@@ -68,21 +65,16 @@ export default class Tables {
 
                     let scrollPosition = scrollTarget.scrollLeft;
 
-                    if (scrollPosition > 1) {
-                        scrollTarget.setAttribute("data-scrolling", true);
-                    } else {
-                        scrollTarget.setAttribute("data-scrolling", false);
-                    }
-
+                    scrollPosition > 1
+                        ? scrollTarget.setAttribute('data-scrolling', true)
+                        : scrollTarget.setAttribute('data-scrolling', false)
                 }
 
-                if (scrollWidth > maxWidth) {
-                    scrollElement.setAttribute("data-scroll", true);
-                } else {
-                    scrollElement.setAttribute("data-scroll", false);
-                }
+                scrollWidth > maxWidth
+                    ? scrollElement.setAttribute('data-scroll', true)
+                    : scrollElement.setAttribute('data-scroll', false)
 
-                scrollTarget.addEventListener("scroll", removeGradient, {
+                scrollTarget.addEventListener('scroll', removeGradient, {
                     passive: true
                 });
 
@@ -90,6 +82,6 @@ export default class Tables {
         }
     
         initTableScroll();
-        window.addEventListener("resize", initTableScroll);
+        window.addEventListener('resize', initTableScroll);
     }
 }

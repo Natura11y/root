@@ -49,10 +49,12 @@ select,
 textarea {
     display: block;
 
+
     width: 100%;
     
     max-width: 100%;
     
+    font-family: inherit;
     font-size: inherit;
     line-height: normal;
 }

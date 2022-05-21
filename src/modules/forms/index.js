@@ -8,9 +8,13 @@ export default class Forms {
 
     constructor() {
 
-        const formList = document.querySelectorAll('form[novalidate]');
-        
-        const formEntryList = document.querySelectorAll('.form-entry');
+        this.formList = document.querySelectorAll('form[novalidate]');
+        this.formEntryList = document.querySelectorAll('.form-entry');
+        this.fileUploadList = document.querySelectorAll('.file-upload');
+
+    }
+
+    init() {
 
         let formSubmitAttempted = false;
 
@@ -59,7 +63,7 @@ export default class Forms {
             `);
         });
 
-        formList.forEach((form) => {
+        this.formList.forEach((form) => {
 
             // Submission Handler
             form.addEventListener('submit', (event) => {
@@ -131,7 +135,7 @@ export default class Forms {
 
         });
 
-        formEntryList.forEach((formEntry) => {
+        this.formEntryList.forEach((formEntry) => {
 
             const inputSelectors = [
                 'input',
@@ -225,12 +229,8 @@ export default class Forms {
             });
         
         });
-    
-        // File Upload
 
-        const fileUploadList = document.querySelectorAll('.file-upload');
-
-        fileUploadList.forEach((fileUpload) => {
+        this.fileUploadList.forEach((fileUpload) => {
 
             const fileUploadInput = fileUpload.querySelector('input[type="file"]');
 

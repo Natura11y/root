@@ -9,10 +9,12 @@ import { getFocusableElements } from '../../utilities/focus';
 export default class Accordion {
 
     constructor() {
-        
-        const accordionList = document.querySelectorAll('.accordion');
+        this.accordionList = document.querySelectorAll('.accordion');
+    }
 
-        accordionList.forEach((accordion) => {
+    init() {
+
+        this.accordionList.forEach((accordion) => {
 
             const accordionButtonList = accordion.querySelectorAll('[data-toggle="accordion"]');
             const accordionPanelList = accordion.querySelectorAll('[data-accordion="panel"]');
@@ -141,6 +143,5 @@ export default class Accordion {
             });
 
         });
-    
     }
 }

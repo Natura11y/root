@@ -15,10 +15,12 @@ import './modules/accents';
 import './modules/accessibility';
 
 import Accordion from './modules/accordion';
-new Accordion();
+const accordion = new Accordion();
+accordion.init();
 
 import Alerts from './modules/alerts';
-new Alerts();
+const alerts = new Alerts();
+alerts.init();
 
 import './modules/article';
 
@@ -31,12 +33,14 @@ import './modules/borders';
 import './modules/breakpoints';
 
 import Buttons from './modules/buttons';
-new Buttons();
+const buttons = new Buttons();
+buttons.init();
 
 import './modules/cards';
 
 import Collapse from './modules/collapse';
-new Collapse();
+const collapse = new Collapse();
+collapse.init();
 
 import './modules/color';
 
@@ -45,12 +49,14 @@ import './modules/containers';
 import './modules/display';
 
 import Document from './modules/document';
-new Document();
+const document = new Document();
+document.init();
 
 import './modules/flex';
 
 import Forms from './modules/forms';
-new Forms();
+const forms = new Forms();
+forms.init();
 
 import './modules/grid';
 
@@ -59,10 +65,12 @@ import './modules/icons';
 import './modules/links';
 
 import Modal from './modules/modal';
-new Modal();
+const modal = new Modal();
+modal.init();
 
 import Navigation from './modules/navigation';
-new Navigation();
+const navigation = new Navigation();
+navigation.init();
 
 import './modules/opacity';
 
@@ -77,10 +85,12 @@ import './modules/sizing';
 import './modules/spacing';
 
 import Tabs from './modules/tabs';
-new Tabs();
+const tabs = new Tabs();
+tabs.init();
 
 import Tables from './modules/tables';
-new Tables();
+const tables = new Tables();
+tables.init();
 
 import './modules/typography';
 

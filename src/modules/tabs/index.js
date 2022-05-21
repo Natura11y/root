@@ -7,10 +7,12 @@ import './_style.scss';
 export default class Tabs {
 
     constructor() {
+        this.tabsList = document.querySelectorAll('.tabs');
+    }
 
-        const tabsList = document.querySelectorAll('.tabs');
+    init() {
 
-        tabsList.forEach((tab) => {
+        this.tabsList.forEach((tab) => {
 
             const tabsButtonList = tab.querySelectorAll('[role="tab"]');
             const tabsPanelList = tab.querySelectorAll('[role="tabpanel"]');
@@ -94,7 +96,6 @@ export default class Tabs {
                             break;
                         default:
                         // do nothing
-        
                     }
 
                 });
