@@ -11,7 +11,8 @@ module.exports = merge(common, {
     target: 'browserslist',
     output: {
         filename: 'js/[name].js',
-        path: path.resolve(__dirname, 'dist')
+        path: path.resolve(__dirname, 'dist'),
+        iife: true,
     },
     module: {
         rules: [
