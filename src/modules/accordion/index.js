@@ -16,7 +16,7 @@ export default class Accordion {
 
         this.accordionList.forEach((accordion) => {
 
-            const accordionButtonList = accordion.querySelectorAll('[data-toggle="accordion"]');
+            const accordionButtonList = accordion.querySelectorAll('[data-accordion="button"]');
             const accordionPanelList = accordion.querySelectorAll('[data-accordion="panel"]');
 
             const setFocusableElements = (element = document, focusable = false) => {
