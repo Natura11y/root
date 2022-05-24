@@ -444,8 +444,6 @@ In this file:
 }
 
 [class*="primary-nav--inline--"] {
-    --search-width: var(--primary-nav-search-width);
-
     grid-template-columns: 1fr auto auto;
     grid-template-areas:
         "logo toggle buttons"
@@ -541,7 +539,7 @@ In this file:
                 display: block !important;
             }
 
-            [class*="__search"] {
+            [class*="__search"] .form-entry {
                 max-width: var( --primary-nav-search-width);
             }
         }
