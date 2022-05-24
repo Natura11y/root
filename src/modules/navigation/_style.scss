@@ -492,7 +492,7 @@ In this file:
 
 .primary-nav__menu {
 
-   nav > ul > li {
+   > ul > li {
         position: relative;
 
         &:not(:last-child) {
@@ -500,7 +500,7 @@ In this file:
         }
     }
 
-   nav > ul > li > a {
+   > ul > li > a {
         @extend .expanded-link;
     }
 
@@ -564,12 +564,11 @@ In this file:
 
                 padding: unset;
 
-                nav,
-                nav > ul {
+                > ul {
                     height: 100%;
                 }
 
-                nav > ul {
+                > ul {
                     display: flex;
                     align-items: stretch;
 
@@ -614,7 +613,7 @@ In this file:
             > [class*="__menu"] {
                 padding: unset;
 
-                > nav > ul {
+                > ul {
                     display: flex;
                     align-items: stretch;
                         
