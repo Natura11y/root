@@ -26,12 +26,12 @@ const devPages = {
     'Spacers': 'spacers',
     'Tabs': 'tabs',
     'Tables': 'tables',
-    'Typography': 'typography'
+    'Typography': 'Navigation'
 }
 
 const devDir = './dist/html';
 
-const devPage = `${devPages.Navigation}.html`;
+const devPage = `${devPages.Typography}.html`;
 
 module.exports = merge(common, {
     mode: 'development',
