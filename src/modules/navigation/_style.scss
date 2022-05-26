@@ -435,11 +435,7 @@ In this file:
         @extend .button-group;
         
         margin-block: var(--primary-nav-padding-y);
-        margin-inline: var(--primary-nav-padding-x);
-    }
-
-    > [class*="__search"] + [class*="__actions"]{
-        margin-inline-start: unset !important;
+        margin-inline-end: var(--primary-nav-padding-x);
     }
 }
 
@@ -554,13 +550,14 @@ In this file:
             }
 
             > [class*="__menu"] {
-            
                 border-top-style: none !important;
-                justify-content: flex-end;
 
+                justify-content: flex-end;
                 align-items: center;
 
                 padding: unset;
+                
+                margin-inline-end: var(--primary-nav-padding-x);
 
                 > ul {
                     height: 100%;
