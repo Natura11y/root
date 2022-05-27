@@ -41,7 +41,7 @@ import './modules/containers';
 
 import './modules/display';
 
-import Document from './modules/document';
+import './modules/document';
 
 import './modules/flex';
 
