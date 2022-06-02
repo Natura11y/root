@@ -93,9 +93,6 @@ buttons.init();
 const collapse = new Collapse();
 collapse.init();
 
-const document = new Document();
-document.init();
-
 const forms = new Forms();
 forms.init();
 
