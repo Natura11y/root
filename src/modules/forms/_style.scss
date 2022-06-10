@@ -33,6 +33,15 @@ In this file:
     --form-field-padding-y: var(--button-padding-y);
 
     --form-field-border-radius: 0.25em;
+
+    // Icons
+
+    --icon-required: "\f14a";
+    --icon-checkbox-unchecked: "\f10d";
+    --icon-checkbox-checked: "\f10c";
+    --icon-radio-unchecked: "\f138";
+    --icon-radio-checked: "\f137";
+    --icon-disabled: "\f115";
 }
 
 //////////////////////////////////////////////
@@ -48,7 +57,6 @@ input[type="search"],
 select,
 textarea {
     display: block;
-
 
     width: 100%;
     
@@ -151,7 +159,7 @@ legend {
     @extend %icon-font-vars;
     @extend .icon_font;
 
-    content: "\f14a";
+    content: var(--icon-required);
 
     display: inline-block;
 }
@@ -547,11 +555,11 @@ legend {
 .form-entry__option__check > label > input {
 
     ~ .option__label::before {
-        content: "\f10d";
+        content: var(--icon-checkbox-unchecked);
     }
 
     &:checked ~ .option__label::before {
-        content: "\f10c";
+        content: var(--icon-checkbox-checked);
     }
 
 }
@@ -561,11 +569,11 @@ legend {
 .form-entry__option__radio > label > input {
 
     ~ .option__label::before {
-        content: "\f138";
+        content: var(--icon-radio-unchecked);
     }
 
     &:checked ~ .option__label::before {
-        content: "\f137";
+        content: var(--icon-radio-checked);
     }
 
 }
@@ -575,7 +583,7 @@ legend {
 [class*="form-entry__option__"] > label {
 
     > input:disabled ~ .option__label::before {
-        content: "\f115";
+        content: var(--icon-disabled);
     }
 
     &.disabled {
