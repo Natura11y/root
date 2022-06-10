@@ -18,7 +18,9 @@ $z-indexes: 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1500, 2000, 2500;
 //////////////////////////////////////////////
 
 [class*="z-index"] {
-    position: relative;
+    &:not([class*="position-"]) {
+        position: relative;
+    }
 }
 
 @each $z-index in $z-indexes {
