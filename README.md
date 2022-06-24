@@ -16,11 +16,11 @@ Natura11y Icons:
 
 Natura11y Stylesheet:
 
-`<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/natura11y/dist/css/natura11y.css">`
+`<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cavidano/natura11y@1.0/dist/css/natura11y.min.css">`
 
 Natura11y JS:
 
-`<script src="https://cdn.jsdelivr.net/npm/natura11y/dist/js/natura11y.js"></script>`
+`<script src="https://cdn.jsdelivr.net/gh/cavidano/natura11y@1.0/dist/js/natura11y.min.js"></script>`
 
 ---
 
