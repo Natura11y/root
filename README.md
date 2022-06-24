@@ -13,9 +13,11 @@ Natura11y Icons:
 `<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cavidano/natura11y-icons@main/dist/natura11y-icons.min.css">`
 
 Natura11y Stylesheet:
+
 `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/natura11y/dist/css/natura11y.css">`
 
 Natura11y JS:
+
 `<script src="https://cdn.jsdelivr.net/npm/natura11y/dist/js/natura11y.js"></script>`
 
 ## Thanks
