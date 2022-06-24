@@ -6,6 +6,8 @@ Natura11y is an open-source front-end toolkit for building modern websites. It's
 
 [https://gonatura11y.com](https://gonatura11y.com)
 
+---
+
 ## CDNs
 
 Natura11y Icons:
@@ -20,8 +22,12 @@ Natura11y JS:
 
 `<script src="https://cdn.jsdelivr.net/npm/natura11y/dist/js/natura11y.js"></script>`
 
+---
+
 ## Thanks
 
-![Browserstack Logo](https://live.browserstack.com/images/opensource/browserstack-logo.svg)
+<a href="https://www.browserstack.com/">
+  <img src="https://live.browserstack.com/images/opensource/browserstack-logo.svg" alt="BrowserStack" width="192" height="42">
+</a>
 
 Many thanks to [BrowserStack](https://www.browserstack.com/) for the ability to test Natura11y in different browsers.
