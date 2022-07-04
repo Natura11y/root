@@ -113,14 +113,14 @@
 
     clip-path: polygon(
         3% 90%,
-        32% 70%,
-        46% 90%,
-        68% 70%,
-        96% 90%,
-        96% 100%,
-        68% 78%,
-        46% 98%,
-        32% 80%,
+        34% 72%,
+        46% 92%,
+        68% 72%,
+        96% 92%,
+        96% 98%,
+        68% 79%,
+        46% 100%,
+        34% 80%,
         3% 95%
     );
 
@@ -128,12 +128,10 @@
 
 @media screen and (min-width: 1000px) {
 
-
-.banner::after,
-.cats-3-up::after {
-    display: block;
-}
-
+    .banner::after,
+    .cats-3-up::after {
+        display: block;
+    }
 
     .grid-layout {
 
@@ -280,19 +278,20 @@
 .cats-3-up .backdrop:nth-child(1) {
     clip-path: polygon(
         8% 0,
-        100% 5%,
+        96% 4%,
         100% 95%,
-        0 100%
+        0 100%,
+        0% 65%
     );
 }
 
 .cats-3-up .backdrop:nth-child(2) {
     clip-path: polygon(
-        4% 5%,
+        0% 5%,
         97% 0%,
         100% 95%,
         38% 100%,
-        0 95%
+        4% 95%
     );
 }
 
