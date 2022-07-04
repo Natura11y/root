@@ -1,0 +1,248 @@
+/*
+
+// Custom Vars
+
+*/
+
+:root {
+    --dark: #1a1a1a;
+    --primary: #ccb032;
+    --primary-text: var(--dark);
+
+    --canvas: var(--light)
+
+    --secondary: #3E00B0;
+    --secondary-text: white;
+
+    --body-font-family: 'Lato';
+    
+    --body-font-size: 22px;
+    --body-font-family: 'Work Sans', sans-serif;
+    --body-font-weight-bold: 700;
+    
+    --body-max-width: 2200px;
+
+    --active-background-color: var(--primary);
+    --active-text-color: var(--primary-text);
+
+    --button-border-radius: 0;
+}
+
+.bebas {
+    font-family: 'Bebas Neue', cursive;
+}
+
+/*
+
+// Prefers Light / Dark
+
+*/
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --primary: rgb(68, 0, 128);
+        --primary-text: white;
+    }
+
+    .backdrop__image {
+        filter: opacity(75%);
+    }
+
+    .backdrop__cover {
+        filter:  drop-shadow(0 0 4px white);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+
+    .backdrop__image {
+        filter: opacity(50%);
+    }
+
+    .backdrop__cover {
+        filter:  drop-shadow(0 0 4px black);
+    }
+}
+
+/*
+
+// Grid Layout
+
+*/
+
+:root {
+    --gutter: 10%;
+    --sidebar-width: 25%;
+}
+
+.banner .backdrop {
+    aspect-ratio: 2 / 3;
+}
+
+@media screen and (min-width: 1000px) {
+
+    .grid-layout {
+
+        display: grid;
+
+        grid-template-columns: 
+            var(--gutter) 1fr var(--gutter);
+        
+        grid-template-areas:
+            ". header ."
+            "banner banner banner"
+            ". content .";
+    }
+
+    .banner { grid-area: banner; }
+
+    .header { grid-area: header; }
+
+    .content { grid-area: content; }
+
+    .banner .backdrop {
+        aspect-ratio: 2 / 1;
+    }
+
+    .banner .backdrop__cover {
+        --cover-width: 100%;
+        width: calc( var(--cover-width) - calc(var(--gutter) * 2));
+        margin-inline: auto;
+    }
+
+    .banner .backdrop__cover > * {
+        margin-left: var(--sidebar-width);
+    }
+
+    .content {
+        display: grid;
+        grid-template-columns: var(--sidebar-width) 1fr;
+    }
+}
+
+/*
+
+// Clip paths
+
+*/
+
+.mobile-menu-toggle {
+    clip-path: polygon(10% 4%, 90% 0%, 100% 100%, 5% 96%);
+}
+
+.primary-nav__actions .button {
+    clip-path: polygon(0 0, 95% 5%, 100% 90%, 2% 100%);
+}
+
+.nav__dropdown {
+    clip-path: polygon(8px 0px, 96% 5%, 100% 92%, 0% 100%)
+}
+
+.banner .backdrop {
+    clip-path: polygon(0 6%, 96% 0, 100% 90%, 40% 100%, 3% 90%);
+}
+
+@media screen and (min-width: 1000px) {
+    .banner .backdrop {
+        clip-path: polygon(0 6%, 100% 0, 96% 100%, 40% 92%, 3% 96%);
+    }
+}
+
+.content__sidebar .nav li:nth-child(1) a {
+    clip-path: polygon(6% 18%, 100% 0%, 90% 100%, 0% 100%);
+}
+
+.content__sidebar .nav li:nth-child(2) a {
+    clip-path: polygon(0% 14%, 96% 0%, 100% 70%, 94% 100%, 4% 90%)
+}
+
+.content__sidebar .nav li:nth-child(3) {
+    clip-path: polygon(2% 0, 100% 13%, 100% 84%, 60% 100%, 0 90%);
+}
+
+.content__sidebar .nav li:nth-child(4) {
+    clip-path: polygon(2% 14%, 96% 1%, 100% 84%, 0 98%);
+}
+
+.content__sidebar .nav li:nth-child(5) {
+    clip-path: polygon(2% 11%, 100% 0, 99% 100%, 4% 91%, 1% 48%);
+}
+
+.cats-3-up .backdrop:nth-child(1) {
+    clip-path: polygon(8% 0, 100% 5%, 100% 95%, 0 100%);
+}
+
+.cats-3-up .backdrop:nth-child(2) {
+    clip-path: polygon(4% 5%, 97% 2%, 100% 96%, 37% 100%, 0 97%);
+
+}
+
+.cats-3-up .backdrop:nth-child(3) {
+    clip-path: polygon(0 0, 96% 4%, 100% 32%, 92% 100%, 4% 96%);
+
+}
+
+.cat-table {
+    clip-path: polygon(70% 0, 100% 6%, 95% 94%, 4% 100%, 0 7%);
+}
+
+/*
+
+// MISC
+
+*/
+
+[aria-current] {
+    color: var(--active-text-color);
+    background-color: var(--active-background-color);
+}
+
+content__sidebar .nav > li > a {
+    filter: drop-shadow(0 0 60px var(--active-background-color));
+}
+
+/*
+
+// Clip paths vector
+
+*/
+
+/* 
+.clip-paths-svg {
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: -25000px;
+}
+
+#svgPath {
+    --scale-x: calc(1 / 1200);
+    --scale-y: calc(1 / 800);
+
+    transform: scale(var(--scale-x), var(--scale-y));
+} */
+
+/* Clip Paths */
+
+/* 
+.clip-path-12x8 {
+    clip-path: url(#svgPath);
+}
+ */
+/* 
+.clip-me {
+    --cp-top-left: 4% 8%;
+    --cp-top-right: 100% 0%;
+    --cp-bottom-right: 97% 100%;
+    --cp-bottom-left: 0% 93%;
+    
+    clip-path: polygon(
+        var(--cp-top-left),
+        var(--cp-top-right),
+        var(--cp-bottom-right),
+        var(--cp-bottom-left)
+    );
+} */
+
+
+
