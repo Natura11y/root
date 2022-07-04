@@ -79,7 +79,61 @@
     aspect-ratio: 2 / 3;
 }
 
+.banner,
+.cats-3-up {
+    position: relative;
+}
+
+.banner::after,
+.cats-3-up::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    height: 25%;
+    transform: translateY(-75%);
+    background-color: hsla(49, 61%, 50%, 0.375);
+
+    display: none;
+}
+
+.banner::after {
+
+    clip-path: polygon(
+        5% 70%,
+        40% 55%,
+        95% 85%,
+        95% 90%,
+        40% 60%,
+        5% 75%
+    );
+}
+
+.cats-3-up::after {
+
+    clip-path: polygon(
+        3% 90%,
+        32% 70%,
+        46% 90%,
+        68% 70%,
+        96% 90%,
+        96% 100%,
+        68% 78%,
+        46% 98%,
+        32% 80%,
+        3% 95%
+    );
+
+}
+
 @media screen and (min-width: 1000px) {
+
+
+.banner::after,
+.cats-3-up::after {
+    display: block;
+}
+
 
     .grid-layout {
 
@@ -127,68 +181,144 @@
 */
 
 .mobile-menu-toggle {
-    clip-path: polygon(10% 4%, 90% 0%, 100% 100%, 5% 96%);
+    clip-path: polygon(
+        10% 4%,
+        90% 0%,
+        100% 100%,
+        5% 96%
+    );
 }
 
 .primary-nav__actions .button {
-    clip-path: polygon(0 0, 95% 5%, 100% 90%, 2% 100%);
+    clip-path: polygon(
+        0 0,
+        95% 5%,
+        100% 90%,
+        2% 100%
+    );
 }
 
 .nav__dropdown {
-    clip-path: polygon(8px 0px, 96% 5%, 100% 92%, 0% 100%)
+    clip-path: polygon(
+        8px 0px,
+        96% 5%,
+        100% 92%,
+        0% 100%
+    );
 }
 
 .banner .backdrop {
-    clip-path: polygon(0 6%, 96% 0, 100% 90%, 40% 100%, 3% 90%);
+    clip-path: polygon(
+        0 6%,
+        96% 0,
+        100% 90%,
+        40% 100%,
+        3% 90%
+    );
 }
 
 @media screen and (min-width: 1000px) {
     .banner .backdrop {
-        clip-path: polygon(0 6%, 100% 0, 96% 100%, 40% 92%, 3% 96%);
+        clip-path: polygon(
+            0 6%,
+            100% 0,
+            96% 100%,
+            40% 92%,
+            3% 96%
+        );
     }
 }
 
 .content__sidebar .nav li:nth-child(1) a {
-    clip-path: polygon(6% 18%, 100% 0%, 90% 100%, 0% 100%);
+    clip-path: polygon(
+        6% 18%,
+        100% 0%,
+        90% 100%,
+        0% 100%
+    );
 }
 
 .content__sidebar .nav li:nth-child(2) a {
-    clip-path: polygon(0% 14%, 96% 0%, 100% 70%, 94% 100%, 4% 90%)
+    clip-path: polygon(
+        0% 14%,
+        96% 0%,
+        100% 70%,
+        94% 100%,
+        4% 90%
+    );
 }
 
 .content__sidebar .nav li:nth-child(3) {
-    clip-path: polygon(2% 0, 100% 13%, 100% 84%, 60% 100%, 0 90%);
+    clip-path: polygon(
+        2% 0,
+        100% 13%,
+        100% 84%,
+        60% 100%,
+        0 90%
+    );
 }
 
 .content__sidebar .nav li:nth-child(4) {
-    clip-path: polygon(2% 14%, 96% 1%, 100% 84%, 0 98%);
+    clip-path: polygon(
+        2% 14%,
+        96% 1%,
+        100% 84%,
+        0 98%
+    );
 }
 
 .content__sidebar .nav li:nth-child(5) {
-    clip-path: polygon(2% 11%, 100% 0, 99% 100%, 4% 91%, 1% 48%);
+    clip-path: polygon(
+        2% 11%,
+        100% 0,
+        99% 100%,
+        4% 91%,
+        1% 48%
+    );
 }
 
 .cats-3-up .backdrop:nth-child(1) {
-    clip-path: polygon(8% 0, 100% 5%, 100% 95%, 0 100%);
+    clip-path: polygon(
+        8% 0,
+        100% 5%,
+        100% 95%,
+        0 100%
+    );
 }
 
 .cats-3-up .backdrop:nth-child(2) {
-    clip-path: polygon(4% 5%, 97% 2%, 100% 96%, 37% 100%, 0 97%);
-
+    clip-path: polygon(
+        4% 5%,
+        97% 0%,
+        100% 95%,
+        38% 100%,
+        0 95%
+    );
 }
 
 .cats-3-up .backdrop:nth-child(3) {
-    clip-path: polygon(0 0, 96% 4%, 100% 32%, 92% 100%, 4% 96%);
-
+    clip-path: polygon(
+        0 0,
+        96% 4%,
+        100% 32%,
+        92% 100%,
+        4% 96%
+    );
 }
 
 .cat-table {
-    clip-path: polygon(70% 0, 100% 6%, 95% 94%, 4% 100%, 0 7%);
+    clip-path: polygon(
+        70% 0,
+        100% 6%,
+        95% 94%,
+        4% 100%,
+        0 7%
+    );
 }
 
 /*
 
-// MISC
+// Aria Current
 
 */
 
@@ -196,53 +326,3 @@
     color: var(--active-text-color);
     background-color: var(--active-background-color);
 }
-
-content__sidebar .nav > li > a {
-    filter: drop-shadow(0 0 60px var(--active-background-color));
-}
-
-/*
-
-// Clip paths vector
-
-*/
-
-/* 
-.clip-paths-svg {
-    width: 0;
-    height: 0;
-    position: absolute;
-    top: -25000px;
-}
-
-#svgPath {
-    --scale-x: calc(1 / 1200);
-    --scale-y: calc(1 / 800);
-
-    transform: scale(var(--scale-x), var(--scale-y));
-} */
-
-/* Clip Paths */
-
-/* 
-.clip-path-12x8 {
-    clip-path: url(#svgPath);
-}
- */
-/* 
-.clip-me {
-    --cp-top-left: 4% 8%;
-    --cp-top-right: 100% 0%;
-    --cp-bottom-right: 97% 100%;
-    --cp-bottom-left: 0% 93%;
-    
-    clip-path: polygon(
-        var(--cp-top-left),
-        var(--cp-top-right),
-        var(--cp-bottom-right),
-        var(--cp-bottom-left)
-    );
-} */
-
-
-
