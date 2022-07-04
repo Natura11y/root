@@ -9,6 +9,8 @@
     --primary: #ccb032;
     --primary-text: var(--dark);
 
+    --canvas: var(--light)
+
     --secondary: #3E00B0;
     --secondary-text: white;
 
@@ -23,6 +25,22 @@
     --active-text-color: var(--primary-text);
 
     --button-border-radius: 0;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --primary: rgb(68, 0, 128);
+        --primary-text: white;
+    }
+    .backdrop__cover {
+        filter:  drop-shadow(0 0 4px white);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .backdrop__cover {
+        filter:  drop-shadow(0 0 4px black);
+    }
 }
 
 /*
@@ -81,11 +99,68 @@
     }
 }
 
+
+/*
+
+// Clip paths
+
+*/
+
+.clip-path-1 {
+    clip-path: polygon(0 0, 95% 5%, 100% 90%, 2% 100%);
+}
+
+.clip-path-2 {
+    clip-path: polygon(0 6%, 100% 0, 96% 100%, 40% 92%, 3% 96%);
+}
+
+.clip-path-3 {
+    clip-path: polygon(6% 18%, 100% 0%, 90% 100%, 0% 100%);
+}
+
+.clip-path-4 {
+    clip-path: polygon(0% 14%, 96% 6%, 100% 70%, 94% 100%, 4% 90%);
+}
+
+.clip-path-5 {
+    clip-path: polygon(2% 0, 100% 13%, 100% 84%, 60% 100%, 0 90%);
+}
+
+.clip-path-6 {
+    clip-path: polygon(2% 14%, 96% 1%, 100% 84%, 0 98%);
+}
+
+.clip-path-7 {
+    clip-path: polygon(2% 11%, 100% 0, 99% 100%, 4% 91%, 1% 48%);
+}
+
+.clip-path-8 {
+    clip-path: polygon(8% 0, 100% 5%, 100% 95%, 0 100%);
+}
+
+.clip-path-9 {
+    clip-path: polygon(4% 5%, 97% 2%, 100% 96%, 37% 100%, 0 97%);
+
+}
+
+.clip-path-10 {
+    clip-path: polygon(0 0, 96% 4%, 100% 32%, 92% 100%, 4% 96%);
+
+}
+
+.clip-path-11 {
+    clip-path: polygon(70% 0, 100% 6%, 95% 94%, 4% 100%, 0 7%);
+}
+
 /*
 
 // MISC
 
 */
+
+.cool {
+    filter: drop-shadow(0 0 60px var(--active-background-color));
+}
 
 [aria-current] {
     color: var(--active-text-color);
@@ -95,8 +170,17 @@
 .serif {
     font-family: 'DM Serif Display', serif;
     font-weight: 300;
+    filter: drop-shadow(30px 10px 4px #4444dd);
 }
 
+
+/*
+
+// Clip paths vector
+
+*/
+
+/* 
 .clip-paths-svg {
     width: 0;
     height: 0;
@@ -104,20 +188,20 @@
     top: -25000px;
 }
 
-.clip-path-12x8 {
-    /* clip-path: url(#svgPath); */
-    clip-path: polygon(0 0, 95% 5%, 100% 90%, 2% 98%);
-}
-
 #svgPath {
     --scale-x: calc(1 / 1200);
     --scale-y: calc(1 / 800);
 
     transform: scale(var(--scale-x), var(--scale-y));
+} */
+
+/* Clip Paths */
+
+/* 
+.clip-path-12x8 {
+    clip-path: url(#svgPath);
 }
-
-/* Clip Paths*/
-
+ */
 /* 
 .clip-me {
     --cp-top-left: 4% 8%;
