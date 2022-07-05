@@ -1,6 +1,6 @@
 /*
 
-// Custom Vars
+// CSS Properties
 
 */
 
@@ -39,6 +39,7 @@
 */
 
 @media (prefers-color-scheme: light) {
+
     :root {
         --primary: rgb(68, 0, 128);
         --primary-text: white;
@@ -76,7 +77,7 @@
 }
 
 .banner .backdrop {
-    aspect-ratio: 2 / 3;
+    aspect-ratio: 3 / 4;
 }
 
 .banner,
@@ -129,7 +130,6 @@
         34% 80%,
         3% 95%
     );
-
 }
 
 @media screen and (min-width: 1000px) {
