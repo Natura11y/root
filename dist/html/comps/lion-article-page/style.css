@@ -40,9 +40,13 @@
 
 @media (prefers-color-scheme: light) {
 
+    .theme-canvas--prefers {
+        background-color: var(--light);
+    }
+
     :root {
-        --primary: rgb(68, 0, 128);
-        --primary-text: white;
+        --primary: hsl(14, 94%, 37%);
+        --primary-text: rgb(255, 255, 255);
     }
 
     .backdrop__image {
