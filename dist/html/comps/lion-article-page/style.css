@@ -95,40 +95,40 @@
     width: 100%;
     height: 25%;
     
-    transform: translateY(-75%);
+    transform: translateY(-50%);
     
     filter: opacity(25%);
 
     background-color: var(--primary);
 
-    display: none;
+    /* display: none; */
 }
 
 .banner::after {
 
     clip-path: polygon(
-        5% 70%,
-        40% 55%,
-        95% 85%,
-        95% 90%,
-        40% 60%,
-        5% 75%
+        5% 42%,
+        40% 25%,
+        95% 58%,
+        95% 63%,
+        40% 30%,
+        5% 46%
     );
 }
 
 .cats-3-up::after {
 
     clip-path: polygon(
-        3% 90%,
-        34% 72%,
-        46% 92%,
-        68% 72%,
-        96% 92%,
-        96% 98%,
-        68% 79%,
-        46% 100%,
-        34% 80%,
-        3% 95%
+        3% 65%,
+        34% 43%,
+        46% 70%,
+        67% 45%,
+        96% 66%,
+        96% 74%,
+        67% 55%,
+        46% 80%,
+        34% 52%,
+        3% 73%
     );
 }
 
