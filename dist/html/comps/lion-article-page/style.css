@@ -92,7 +92,8 @@
         grid-template-areas:
             ". header ."
             "banner banner banner"
-            ". content .";
+            ". content ."
+            ". footer .";
     }
 
     .banner { grid-area: banner; }
@@ -100,6 +101,8 @@
     .header { grid-area: header; }
 
     .content { grid-area: content; }
+
+    .footer { grid-area: footer; }
 
     .banner .backdrop {
         aspect-ratio: 2 / 1;
@@ -164,7 +167,6 @@
 }
 
 .cats-3-up::after {
-
     clip-path: polygon(
         3% 65%,
         34% 43%,
