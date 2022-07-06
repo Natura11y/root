@@ -35,7 +35,7 @@
         
     </div>
 
-    <body class="grid-layout theme-canvas--prefers wide" id="skip-header-target">
+    <body class="grid-layout theme-dark wide" id="skip-header-target">
 
         <header class="header" id="global-header">
             
@@ -127,24 +127,27 @@
 
         <div class="banner">
 
-            <div class="backdrop backdrop--fixed">
+            <div class="backdrop backdrop--stack--lg">
 
-                <picture class="backdrop__image gradient-veneer-bottom">
-                    <source media="(min-width: 760px)"
-                            srcset="./images/jean-wimmerlin-onzE7gzbyyM-unsplash-desktop.jpg">
-                    <img src="images/jean-wimmerlin-onzE7gzbyyM-unsplash-mobile.jpg" alt="" />
-                </picture>
+                <div class="backdrop__image">
+                    <img src="images/jean-wimmerlin-onzE7gzbyyM-unsplash-desktop.jpg" alt="" />
+                </div>
 
                 <div class="backdrop__cover align-items-end">
-                    <div class="margin-y-6">
+                    <div class="margin-y-6--lg">
                         <div class="container narrow">
 
                             <h1 class="bebas text-color-primary">
                                 Viverra Mauris
                             </h1>
-                            <p class="font-size-lg">
+
+                            <p class="font-size-lg margin-bottom-1">
                                 Diam maecenas sed enim ut sem viverra aliquet eget nunc scelerisque.
                             </p>
+
+                            <p class="font-size-sm opacity-80">
+                              <em>  Photo by <a class="text-underline" href="https://unsplash.com/@jwimmerli" target="_blank">Jean Wimmerlin</a>&nbsp;</em>
+                           </p>
                         </div>
                     </div>
                 </div>
