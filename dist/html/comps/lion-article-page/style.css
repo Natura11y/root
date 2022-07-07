@@ -1,6 +1,6 @@
 /*
 
-// CSS Properties
+// Custom Properties
 
 */
 
@@ -9,30 +9,18 @@
     --primary: #ccb032;
     --primary-text: var(--dark);
 
-    --canvas: var(--light);
-
-    --secondary: #3E00B0;
-    --secondary-text: white;
-
-    --body-font-family: 'Lato';
+    --body-font-family: 'Work Sans', sans-serif;
     
     --body-font-size: 22px;
-    --body-font-family: 'Work Sans', sans-serif;
-    --body-font-weight-bold: 700;
-    
-    --body-max-width: 2200px;
 
     --active-background-color: var(--primary);
     --active-text-color: var(--primary-text);
 
     --button-border-radius: 0;
-
 }
 
 [class*="gradient-veneer"] { 
-    
     --gradient-veneer-opacity: 0.75;
-
 }
 
 .bebas { 
@@ -96,17 +84,13 @@
 
 */
 
-
 .banner,
 .cats-3-up {
     position: relative;
 }
-.backdrop {
-    overflow: unset;
-}
 
 .banner .backdrop__image::before,
-.cats-3-up::after {
+.cats-3-up::before {
     content: '';
 
     position: absolute;
@@ -135,7 +119,7 @@
     );
 }
 
-.cats-3-up::after {
+.cats-3-up::before {
     clip-path: polygon(
         3% 65%,
         34% 43%,
@@ -148,6 +132,13 @@
         34% 52%,
         3% 73%
     );
+
+}
+
+@media screen and (max-width: 760px) {
+    .cats-3-up::before {
+        display: none;
+    }
 }
 
 .mobile-menu-toggle {
