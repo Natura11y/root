@@ -386,26 +386,5 @@
 
     <!-- Natura11y Javascript -->
     <script src="../../../../dist/js/natura11y.js"></script>
-
-    <script>
-    const buttonList = document.querySelectorAll('.button');
-
-    buttonList.forEach((button) => {
     
-    button.addEventListener('focus', event => {
-    
-        button.parentElement.classList.add('yellow-bg');
-    
-    });
-    
-    button.addEventListener('blur', event => {
-    
-        button.parentElement.classList.remove('yellow-bg');
-    
-    });
-
-    });
-  
-    </script>
-
 </html>
