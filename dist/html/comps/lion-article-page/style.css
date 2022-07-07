@@ -41,43 +41,6 @@
 
 /*
 
-// Prefers Light / Dark
-
-*/
-
-@media (prefers-color-scheme: light) {
-
-    .theme-canvas--prefers {
-        background-color: var(--light);
-    }
-
-    :root {
-        --primary: #ce4b3c;
-        --primary-text: rgb(255, 255, 255);
-    }
-
-    .backdrop__image {
-        filter: opacity(85%);
-    }
-
-    .backdrop__cover {
-        filter:  drop-shadow(0 0 4px white);
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-
-    .backdrop__image {
-        filter: opacity(50%);
-    }
-
-    .backdrop__cover {
-        filter:  drop-shadow(0 0 4px black);
-    }
-}
-
-/*
-
 // Grid Layout
 
 */
@@ -157,6 +120,8 @@
     filter: opacity(50%);
 
     background-color: var(--primary);
+
+    z-index: 15000;
 }
 
 .banner .backdrop__image::before {
