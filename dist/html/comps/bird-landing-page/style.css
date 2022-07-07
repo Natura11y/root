@@ -1,4 +1,8 @@
+/*
 
+// Custom Properties
+
+*/
 :root {
     --dark: #1a1a1a;
     --primary: #cc4632;
@@ -24,11 +28,13 @@ html {
     --html-background-color: var(--dark);
 }
 
+/*
+
+// Serif Font
+
+*/
+
 .serif {
     font-family: 'DM Serif Display', serif;
     font-weight: 300;
-}
-
-[class*="gradient-veneer"]{
-    --gradient-veneer-opacity: 0.75 !important;
 }
