@@ -30,6 +30,7 @@ In this file:
     --secondary: #ffcc66;
     --dark: #1f163f;
     --light: #f2edeb;
+    --canvas: white;
 
     // Accessible Link Color
     // (Used with canvas and Light Themes)
@@ -116,7 +117,7 @@ $theme-colors: (
     ),
 
     "canvas": (
-        swatch: canvas,
+        swatch: var(--canvas),
         text: var(--canvas-text),
         border: var(--canvas-border),
         link: var(--canvas-link),
@@ -133,6 +134,7 @@ body:not([class*="theme-"]),
 body > footer:not([class*="theme-"]),
 [class*="theme-"],
 [data-active-theme] [aria-current],
+.backdrop__image__credit,
 [data-active-theme] [aria-expanded="true"],
 [data-active-theme] [aria-current] + .nav__dropdown {
 
