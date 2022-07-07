@@ -145,9 +145,9 @@
                                 Diam maecenas sed enim ut sem viverra aliquet eget nunc scelerisque.
                             </p>
 
-                            <p class="font-size-sm opacity-80">
+                            <span class="font-size-sm">
                               <em>Photo by <a class="text-underline" href="https://unsplash.com/@jwimmerli" target="_blank">Jean Wimmerlin</a>&nbsp;</em>
-                           </p>
+                           </span>
                         </div>
                     </div>
                 </div>
@@ -386,5 +386,26 @@
 
     <!-- Natura11y Javascript -->
     <script src="../../../../dist/js/natura11y.js"></script>
+
+    <script>
+    const buttonList = document.querySelectorAll('.button');
+
+    buttonList.forEach((button) => {
+    
+    button.addEventListener('focus', event => {
+    
+        button.parentElement.classList.add('yellow-bg');
+    
+    });
+    
+    button.addEventListener('blur', event => {
+    
+        button.parentElement.classList.remove('yellow-bg');
+    
+    });
+
+    });
+  
+    </script>
 
 </html>

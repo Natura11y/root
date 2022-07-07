@@ -198,7 +198,7 @@
     );
 }
 
-.content__sidebar .nav li:nth-child(3) {
+.content__sidebar .nav li:nth-child(3) a {
     clip-path: polygon(
         2% 5%,
         95% 0%,
@@ -208,7 +208,7 @@
     );
 }
 
-.content__sidebar .nav li:nth-child(4) {
+.content__sidebar .nav li:nth-child(4) a {
     clip-path: polygon(
         2% 14%,
         96% 1%,
@@ -218,7 +218,7 @@
     );
 }
 
-.content__sidebar .nav li:nth-child(5) {
+.content__sidebar .nav li:nth-child(5) a {
     clip-path: polygon(
         2% 11%,
         92% 0,
@@ -270,11 +270,37 @@
 
 /*
 
-// Aria Current
+// Button Styles
 
 */
 
 [aria-current] {
     color: var(--active-text-color);
     background-color: var(--active-background-color);
+}
+
+.button {
+    transition: transform 0.5s;
+}
+
+.button::before {
+    transition: opacity 0.5s;
+}
+
+.button:hover::after,
+.button:focus::after {
+    display: none;
+}
+
+.button:hover,
+.button:focus {
+    transform: scale(1.12);
+    filter: brightness(1.25);
+    opacity: unset;
+}
+
+.button:hover,
+.button:focus {
+    --subtle-fill-opacity: 0.1;
+    transform: scale(1.12);
 }
