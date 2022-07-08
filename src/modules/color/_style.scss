@@ -133,8 +133,8 @@ $theme-colors: (
 body:not([class*="theme-"]),
 body > footer:not([class*="theme-"]),
 [class*="theme-"],
-[data-active-theme] [aria-current],
 .backdrop__image__credit,
+[data-active-theme] [aria-current],
 [data-active-theme] [aria-expanded="true"],
 [data-active-theme] [aria-current] + .nav__dropdown {
 
