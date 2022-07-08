@@ -1,6 +1,6 @@
 ![Naturally Inclusive Framework Logo](./naturally-logo.svg)
 
-# Natura11y Inclusive Framework
+# Natura11y
 
 Natura11y is an open-source front-end toolkit for building modern websites. It's easy to use for developers at different skill levels.
 
@@ -12,15 +12,15 @@ Natura11y is an open-source front-end toolkit for building modern websites. It's
 
 Natura11y Icons:
 
-`<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cavidano/natura11y-icons@main/dist/natura11y-icons.min.css">`
+`https://cdn.jsdelivr.net/gh/cavidano/natura11y-icons@main/dist/natura11y-icons.min.css`
 
 Natura11y Stylesheet:
 
-`<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cavidano/natura11y@1.0/dist/css/natura11y.min.css">`
+`https://cdn.jsdelivr.net/gh/cavidano/natura11y@1.0/dist/css/natura11y.min.css`
 
 Natura11y JS:
 
-`<script src="https://cdn.jsdelivr.net/gh/cavidano/natura11y@1.0/dist/js/natura11y.min.js"></script>`
+`https://cdn.jsdelivr.net/gh/cavidano/natura11y@1.0/dist/js/natura11y.min.js`
 
 ---
 
