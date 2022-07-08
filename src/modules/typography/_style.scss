@@ -6,13 +6,15 @@ In this file:
 // B. Variables
 // C. Font Weight Utilities
 // D. Font Size Utilities
-// E. Headers
-// F. Fluid Type Utility
-// G. Body Selectors
-// H. Text Align Utilities
-// I. Text Transform Utilities
-// J. Word Wrap Utilities
-// K. Truncate Text Utility
+// E. Headings
+// F. Banner Headline Utility
+// G. Fluid Type Utility
+// H. Body Selectors
+// I. Text Align Utilities
+// J. Text Transform Utilities
+// K. Text Decoration Utilities
+// L. Word Wrap Utilities
+// M. Truncate Text Utility
 
 */
 
@@ -67,7 +69,8 @@ In this file:
 
     // Banner Headline
 
-    --banner-headline-font-size: calc(var(--body-font-size) * 3.8);
+    --banner-headline-font-lg: calc(var(--body-font-size) * 4);
+    --banner-headline-font-sm: calc(var(--body-font-size) * 2.75);
     --banner-headline-font-weight: var(--body-font-weight-normal);
 
     // Paragraph
@@ -118,7 +121,6 @@ $font-sizes: (
     )
 );
 
-
 @each $breakpoint in map.keys(breakpoints.$breakpoints) {
     @include breakpoints.breakpoints-up($breakpoint) {
         $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
@@ -132,13 +134,11 @@ $font-sizes: (
                 }
             }
         }
-
-
     }
 }
 
 //////////////////////////////////////////////
-// E. Headers
+// E. Headings
 //////////////////////////////////////////////
 
 :is(
@@ -198,21 +198,30 @@ $headers: (
     }
 }
 
+//////////////////////////////////////////////
+// F. Banner Headline Utility
+//////////////////////////////////////////////
+
 .banner-headline {
     font-weight: var(--banner-headline-font-weight);
+
+    font-size: var(--banner-headline-font-sm);
+
     line-height: var(--header-line-height);
 
-    font-size: var(--banner-headline-font-size);
+    @include breakpoints.breakpoints-up(lg) {
+        font-size: var(--banner-headline-font-lg);
+    }
 }
 
 //////////////////////////////////////////////
-// F. Fluid Type Utility
+// G. Fluid Type Utility
 //////////////////////////////////////////////
 
 html {
     --fluid-typ-min: 0.75rem;
     --fluid-typ-rec: 0.75vw + 1rem;
-    --fluid-typ-max: 1.5rem;
+    --fluid-typ-max: 1.25rem;
 
     &.fluid-type {
         --body-font-size:
@@ -223,7 +232,7 @@ html {
 }
 
 //////////////////////////////////////////////
-// G. Body Selectors
+// H. Body Selectors
 //////////////////////////////////////////////
 
 body {
@@ -291,8 +300,12 @@ figure {
     }
 }
 
+.blockquote {
+    margin-block-end: var(--paragraph-margin-bottom);
+}
+
 //////////////////////////////////////////////
-// H. Text Align Utilities
+// I. Text Align Utilities
 //////////////////////////////////////////////
 
 @each $breakpoint in map.keys(breakpoints.$breakpoints) {
@@ -315,7 +328,7 @@ figure {
 }
 
 //////////////////////////////////////////////
-// I. Text Transform Utilities
+// J. Text Transform Utilities
 //////////////////////////////////////////////
 
 .text-transform-capitalize {
@@ -331,15 +344,27 @@ figure {
 }
 
 //////////////////////////////////////////////
-// J. Text Decoration Utilities
+// K. Text Decoration Utilities
 //////////////////////////////////////////////
 
+[class*="text-decoration-"] {
+    --line-thickness: auto;
+}
+
 .text-decoration-underline {
-    text-decoration: underline;
+    text-decoration: underline var(--line-thickness);
+}
+
+.text-decoration-line-through {
+    text-decoration: line-through var(--line-thickness);
+}
+
+.text-decoration-none {
+    text-decoration: none;
 }
 
 //////////////////////////////////////////////
-// K. Word Wrap Utilities
+// L. Word Wrap Utilities
 //////////////////////////////////////////////
 
 .nowrap {
@@ -351,7 +376,7 @@ figure {
 }
 
 ////////////////////////////////////////
-// L. Truncate Text Utility
+// M. Truncate Text Utility
 ////////////////////////////////////////
 
 .truncate-text {
