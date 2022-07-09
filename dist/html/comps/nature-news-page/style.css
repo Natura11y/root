@@ -1,0 +1,101 @@
+/*
+
+// Custom Properties
+
+*/
+:root {
+    --dark: #000;
+    --primary: #1B52BF;
+    --primary-text: white;
+
+    --secondary: #3E00B0;
+    --secondary-text: white;
+
+    --body-font-family: 'News Cycle', sans-serif;
+    
+    --body-font-size: 20px;
+
+    --medium-width: calc( var(--narrow-width) * 2);
+    --wide-width: calc( var(--narrow-width) * 3);
+    
+    --subtle-fill-opacity: 0.0375;
+}
+
+
+@media (prefers-color-scheme: dark) {
+    :root{
+        --primary: #0055ff;
+        --subtle-fill-opacity: 0.075;
+    }
+
+    .color-scheme-opacity {
+        filter: opacity(60%);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root{
+        --primary: #1753cc;
+        --subtle-fill-opacity: 0.0375;
+    }
+
+    .color-scheme-opacity {
+        filter: opacity(30%);
+    }
+}
+
+#introduction .backdrop {
+    --backdrop-fixed-height: 300px;
+}
+
+html {
+    --html-background-color: var(--dark);
+}
+
+/*
+
+// Serif Font
+
+*/
+
+.custom-nav {
+    display: grid;
+    
+    gap: var(--spacer-4);
+
+    align-items: center;
+
+    grid-template-columns: auto auto 1fr auto 320px;
+
+    padding: var(--spacer-2) var(--spacer-3);
+
+    grid-template-areas:
+        "brand nav . toggle search";
+}
+
+.custom-nav__brand {
+    grid-area: brand;
+}
+
+.custom-nav__nav {
+    grid-area: nav;
+}
+.custom-nav__toggle {
+    grid-area: toggle;
+    display: none;
+
+}
+.custom-nav__search {
+    grid-area: search;
+}
+
+/*
+
+// Serif Font
+
+*/
+
+.serif {
+    font-family: 'DM Serif Display', serif;
+    font-weight: 300;
+}
