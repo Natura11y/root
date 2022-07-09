@@ -195,7 +195,7 @@ $rows: math.div($columns, 2);
 
         height: var(--grid-divider-border-width);
 
-        transform: translateY(var(--shift));
+        margin-block-start: var(--shift);
     }
 
     > *::after {
@@ -205,8 +205,8 @@ $rows: math.div($columns, 2);
         height: 100%;
 
         width: var(--grid-divider-border-width);
-        
-        transform: translateX(var(--shift));
+
+        margin-inline-end: calc( var(--shift) * -1);
     }
 }
 

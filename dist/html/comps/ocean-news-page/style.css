@@ -16,8 +16,8 @@
     
     --body-font-size: 20px;
 
-    --medium-width: calc( var(--narrow-width) * 2);
-    --wide-width: calc( var(--narrow-width) * 3);
+    --medium-width: calc( var(--narrow-width) * 2.25);
+    --wide-width: calc( var(--narrow-width) * 3.25);
     
     --subtle-fill-opacity: 0.0375;
 }
