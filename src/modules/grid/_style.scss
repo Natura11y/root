@@ -8,8 +8,9 @@ In this file:
 // D. Matrix Modifiers
 // E. Matrix Cell Utilities and Modifiers
 // F. Grid Block
-// G. Gap Utilities
-// H. Order Utilities
+// G. Grid Divider Modifier
+// H. Gap Utilities
+// I. Order Utilities
 
 */
 
@@ -28,6 +29,17 @@ In this file:
 
 $columns: 12;
 $rows: math.div($columns, 2);
+
+// Scoped to Block
+
+%grid-divider-vars {
+    --grid-divider-gap: var(--spacer-3);
+
+    --grid-divider-border-width: var(--default-border-width);
+
+    --grid-divider-border-x-color: var(--canvas-border);
+    --grid-divider-border-y-color: var(--canvas-border);
+}
 
 //////////////////////////////////////////////
 // C. Matrix Block
@@ -141,6 +153,60 @@ $rows: math.div($columns, 2);
             }
         }
 
+    }
+}
+
+//////////////////////////////////////////////
+// G. Grid Divider Modifier
+//////////////////////////////////////////////
+ 
+.grid--divider {
+    @extend %grid-divider-vars;
+    --gap: var(--grid-divider-gap);
+}
+
+.grid--divider,
+.grid--divider > * {
+    position: relative;
+}
+
+.grid--divider {
+    gap: var(--gap);
+
+    overflow: hidden;
+
+    > *:not(:last-child) {
+        &::before,
+        &::after {
+            --shift: calc(var(--gap) * 0.5);
+
+            position: absolute;
+            content: "";
+
+            background-color: var(--canvas-border); 
+        }
+    }
+
+    > *::before {
+        inset-block-start: 100%;
+        inset-inline-start: 0;
+
+        width: calc(100% + var(--gap));
+
+        height: var(--grid-divider-border-width);
+
+        transform: translateY(var(--shift));
+    }
+
+    > *::after {
+        inset-block-start: 0;
+        inset-inline-end: 0;
+
+        height: 100%;
+
+        width: var(--grid-divider-border-width);
+        
+        transform: translateX(var(--shift));
     }
 }
 
