@@ -160,22 +160,27 @@ $rows: math.div($columns, 2);
 // G. Grid Divider Modifier
 //////////////////////////////////////////////
  
-.grid--divider {
+[class*="grid--divider"] {
     @extend %grid-divider-vars;
     --gap: var(--gap-size, var(--grid-divider-gap));
 }
 
-.grid--divider,
-.grid--divider > * {
+[class*="grid--divider"],
+[class*="grid--divider"] > * {
     position: relative;
 }
 
-.grid--divider {
+[class*="grid--divider"] {
+    --divider-x-width: 100%;
+    --divider-x-height: var(--grid-divider-border-width);
+    --divider-y-width: var(--grid-divider-border-width);
+    --divider-y-height: 100%;
+
     gap: var(--gap);
 
     overflow: hidden;
 
-    > *:not(:last-child) {
+    > * {
         &::before,
         &::after {
             --shift: calc(var(--gap) * 0.5);
@@ -183,7 +188,6 @@ $rows: math.div($columns, 2);
             position: absolute;
             content: "";
 
-            background-color: var(--canvas-border); 
         }
     }
 
@@ -191,23 +195,37 @@ $rows: math.div($columns, 2);
         inset-block-start: 100%;
         inset-inline-start: 0;
 
-        width: calc(100% + var(--gap));
+        width: var(--divider-x-width);
+
 
         height: var(--grid-divider-border-width);
 
         margin-block-start: var(--shift);
+        
+        background-color: var(--grid-divider-border-x-color); 
+
     }
 
     > *::after {
         inset-block-start: 0;
         inset-inline-end: 0;
 
-        height: 100%;
+        height: var(--divider-y-height);
 
         width: var(--grid-divider-border-width);
 
         margin-inline-end: calc( var(--shift) * -1);
+
+        background-color: var(--grid-divider-border-y-color); 
     }
+}
+
+.grid--divider--fill-x {
+    --divider-x-width: calc(100% + var(--gap));
+}
+
+.grid--divider--fill-y {
+    --divider-y-height: calc(100% + var(--gap));
 }
 
 //////////////////////////////////////////////

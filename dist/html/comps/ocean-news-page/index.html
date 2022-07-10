@@ -9,10 +9,11 @@
 
         <title>News • Natura11y</title>
 
+        <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=News+Cycle:wght@400;700&display=swap" rel="stylesheet">
-
+        <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Puritan:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        
         <!-- Natura11y Icons -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cavidano/natura11y-icons@main/dist/natura11y-icons.min.css">
 
@@ -39,11 +40,16 @@
             
             </div>
 
-            <div class="custom-nav box-shadow-1">
+            <div class="global-header box-shadow-1">
 
-                <div class="custom-nav__brand text-color-primary">
+                <div class="global-header__brand">
 
-                    <a class="display-block" href="#1" title="Home" data-logo="brand">
+                    <a
+                        class="display-block text-color-primary"
+                        href="#1"
+                        title="Home"
+                        data-logo="brand">
+
                         <!-- Placeholder logo, replace the following <svg> tag with your own -->
                         <svg xmlns="http://www.w3.org/2000/svg" width="126" height="34" viewBox="0 0 126 34">
                             <g>
@@ -57,39 +63,7 @@
 
                 </div>
 
-                <nav class="custom-nav__menu" id="main-menu" aria-label="Main Menu">
-
-                    <ul class="nav nav--horizontal">
-                        <li>
-                            <a href="#1">
-                                Neque
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#1">
-                                Aamet
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#1">
-                                Morbi
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#1">
-                                Senectus
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#1">
-                                Habitant
-                            </a>
-                        </li>
-                    </ul>
-
-                </nav>
-                
-                <div class="custom-nav__toggle font-size-md">
+                <div class="global-header__toggle-menu">
                 
                     <button
                         class="mobile-menu-toggle button button--icon-only"
@@ -102,20 +76,72 @@
 
                 </div>
 
-                <form class="custom-nav__search font-size-sm" role="search" id="search" data-focus-first>
+                <nav class="global-header__menu collapse" id="main-menu" aria-label="Main Menu">
 
-                    <div class="form-entry" aria-label="Search">
-                        <div class="form-entry__field">
-                        <span class="form-entry__field__input">
-                            <input type="text" name="global-search">
-                            <button class="button theme-primary">
-                                Search
-                            </button>
-                        </span>
-                    </div>
-                    </div>
+                    <ul class="nav nav--horizontal--lg sans-serif text-transform-uppercase">
+                        <li>
+                            <a href="#1" aria-current="page">
+                                Neque
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#1">
+                                Amet
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#1">
+                                Morbi
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#1">
+                                Senectus
+                            </a>
+                        </li>
+                    </ul>
 
-                </form>
+                </nav>
+
+                <div class="global-header__toggle-search">
+                
+                    <button
+                        class="mobile-menu-toggle button button--icon-only"
+                        aria-label="Menu"
+                        data-toggle="collapse"
+                        data-target-toggle="#search"
+                        data-target-close="#main-menu">
+                            <span class="icon icon-search"></span>
+                    </button>
+
+                </div>
+
+                <div class="button-group global-header__search">
+                    <a class="button button--outline" href="#1">
+                        Sign In
+                    </a>
+                    <a class="button button--icon-only" href="#1" aria-label="Language">
+                        <span class="icon icon-language" aria-hidden="true"></span>
+                    </a>
+                    <a class="button button--icon-only" href="#1" aria-label="Search">
+                        <span class="icon icon-search" aria-hidden="true"></span>
+                    </a>
+                    <form class=" collapse" id="search" role="search" data-focus-first>
+
+                        <div class="form-entry" aria-label="Search">
+                            <div class="form-entry__field">
+                            <span class="form-entry__field__input">
+                                <input type="text" name="global-search">
+                                <button class="button text-color-primary">
+                                    Search
+                                </button>
+                            </span>
+                        </div>
+                        </div>
+
+                    </form>
+                </div>
+      
 
             </div>
         
@@ -154,20 +180,21 @@
 
                 <div class="container medium padding-y-6">
                 
-                    <ul class="grid grid--divider grid--column-3--lg">
+                    <ul class="grid grid--divider--fill-x gap-4 grid--column-3--lg">
                     
                         <li class="grid__colspan-2--lg grid__colspan-2--lg">
                         
                             <article class="backdrop aspect-ratio-16x9 height-100 backdrop--fixed theme-dark">
 
                                 <div class="backdrop__image gradient-veneer-bottom">
-                                    <img class="opacity-50" src="./images/kris-mikael-krister-tkldDsOBGRg-unsplash.jpg" alt="Placeholder" />
+                                    <img class="opacity-80" src="./images/kris-mikael-krister-tkldDsOBGRg-unsplash.jpg" alt="Placeholder" />
                                 </div>
 
                                 <div class="backdrop__cover align-items-end">
 
                                     <div class="container medium margin-y-4">
-                                        <h1 class="banner-headline text-shadow">
+                                        <span class="sans-serif text-color-primary">Cool Headline</span>
+                                        <h1 class="banner-headline text-transform-capitalize text-shadow">
                                             Lorem ipsum dolor sit consectetur.
                                         </h1>
                                     </div>
@@ -179,48 +206,53 @@
 
                         <li>
                         
-                            <article class="card subtle-fill">
+                            <a href="#1">
 
-                                <img src="./images/dorothea-oldani-RkLvgSrGP30-unsplash.jpg" alt="Placeholder" />
+                                <img class="margin-bottom-2" src="./images/dorothea-oldani-RkLvgSrGP30-unsplash.jpg" alt="Placeholder" />
 
-                                <div class="card__body">
-                                    <h2 class="h6">Stellaria graminea</h2>
-                                    <p>
-                                        Hendrerit dolor magna eget est lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant.
-                                    </p>
-                                </div>
+                                <h2 class="h3">
+                                    Facilisi morbi tempus iaculis urna id volutpat lacus.
+                                </h2>
 
-                                <div class="card__foot subtle-fill font-size-sm">
-                                    <a class="button button--has-icon theme-primary" href="#1">
-                                        <span class="button__text">Button</span>
-                                        <span class="icon icon-arrow-right"></span>
-                                    </a>
-                                </div>
-
-                            </article>
+                                <p>
+                                    Amet commodo nulla facilisi nullam vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi.
+                                </p>
+                            </a>
 
                         </li>
 
                         <li>
-                            <article class="card subtle-fill">
+                        
+                            <a href="#1">
 
-                                <img src="./images/david-clode-Gv-Cx3_clZ4-unsplash.jpg" alt="Placeholder" />
+                                <img class="margin-bottom-2" src="./images/david-clode-Gv-Cx3_clZ4-unsplash.jpg" alt="Placeholder" />
 
-                                <div class="card__body">
-                                    <h2 class="h6">Stellaria graminea</h2>
-                                    <p>
-                                        Hendrerit dolor magna eget est lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant.
-                                    </p>
-                                </div>
+                                <h2 class="h3">
+                                    Facilisi morbi tempus iaculis urna id volutpat lacus.
+                                </h2>
 
-                                <div class="card__foot subtle-fill font-size-sm">
-                                    <a class="button button--has-icon theme-primary" href="#1">
-                                        <span class="button__text">Button</span>
-                                        <span class="icon icon-arrow-right"></span>
-                                    </a>
-                                </div>
+                                <p>
+                                    Amet commodo nulla facilisi nullam vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi.
+                                </p>
+                            </a>
 
-                            </article>
+                        </li>
+
+                        <li>
+                        
+                            <a href="#1">
+
+                                <img class="margin-bottom-2" src="./images/david-clode-Gv-Cx3_clZ4-unsplash.jpg" alt="Placeholder" />
+
+                                <h2 class="h3">
+                                    Facilisi morbi tempus iaculis urna id volutpat lacus.
+                                </h2>
+
+                                <p>
+                                    Amet commodo nulla facilisi nullam vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi.
+                                </p>
+                            </a>
+
                         </li>
 
                         <li>
@@ -248,10 +280,11 @@
                         
                         </li>
 
-                        <li>                        
+                        <li>
+                            
                             <article class="card subtle-fill">
 
-                                <img src="./images/ilse-orsel-71kHyBGC6dQ-unsplash.jpg" alt="Placeholder" />
+                                <img src="./images/mathilda-khoo-J_REyyXY14s-unsplash.jpg" alt="Placeholder" />
 
                                 <div class="card__body">
                                     <h2 class="h6">Stellaria graminea</h2>
@@ -268,6 +301,8 @@
                                 </div>
 
                             </article>
+
+                        
                         </li>
 
                     </ul>
@@ -282,14 +317,14 @@
 
                     <div class="container medium padding-y-6">
                             
-                        <ul class="grid grid--divider grid--column-3--lg">
+                        <ul class="grid grid--divider--fill-y gap-4 grid--column-3--lg">
                             
                             <li class="grid__rowspan-2">
                                 
                                 <article class="backdrop height-100 backdrop--fixed theme-dark">
 
-                                    <div class="backdrop__image gradient-veneer-bottom">
-                                        <img class="opacity-50" src="./images/kris-mikael-krister-tkldDsOBGRg-unsplash.jpg" alt="Placeholder" />
+                                    <div class="backdrop__image">
+                                        <img class="opacity-60" src="./images/joel-filipe-_AjqGGafofE-unsplash.jpg" alt="Placeholder" />
                                     </div>
 
                                     <div class="backdrop__cover">
@@ -311,10 +346,10 @@
 
                                     <img src="./images/dorothea-oldani-RkLvgSrGP30-unsplash.jpg" alt="Placeholder" />
 
-                                    <div class="card__body">
-                                        <h2 class="h6">Stellaria graminea</h2>
+                                    <div class="card__body padding-x-unset">
+                                        <h2 class="h5">Stellaria graminea</h2>
                                         <p>
-                                            Hendrerit dolor magna eget est lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant.
+                                            Amet commodo nulla facilisi nullam vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi.
                                         </p>
                                     </div>
 
@@ -330,24 +365,24 @@
                             </li>
 
                             <li>
-                                <article class="card subtle-fill">
+                                <article>
 
                                     <img src="./images/david-clode-Gv-Cx3_clZ4-unsplash.jpg" alt="Placeholder" />
 
-                                    <div class="card__body">
-                                        <h2 class="h6">Stellaria graminea</h2>
+                                    <div class="flex-column padding-y-3">
+                                    
+                                        <h2 class="h5">Stellaria graminea</h2>
+
                                         <p>
                                             Hendrerit dolor magna eget est lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque habitant.
                                         </p>
-                                    </div>
 
-                                    <div class="card__foot subtle-fill font-size-sm">
-                                        <a class="button button--has-icon theme-primary" href="#1">
+                                        <a class="button button--has-icon font-size-sm theme-primary" href="#1">
                                             <span class="button__text">Button</span>
                                             <span class="icon icon-arrow-right"></span>
                                         </a>
                                     </div>
-
+                                    
                                 </article>
                             </li>
 

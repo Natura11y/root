@@ -14,9 +14,15 @@
     
     --canvas-border: hsla(0, 0%, 50%, 0.5);
 
-    --body-font-family: 'News Cycle', sans-serif;
+    --body-font-family: 'EB Garamond', serif;
     
-    --body-font-size: 20px;
+    --body-font-size: 22px;
+
+    --body-line-height: 1.375;
+
+    --header-line-height: 1.2;
+
+    /* --font-size-md: calc(var(--body-font-size) * 0.6); */
 
     --medium-width: calc( var(--narrow-width) * 2.25);
     --wide-width: calc( var(--narrow-width) * 3.25);
@@ -24,6 +30,15 @@
     --subtle-fill-opacity: 0.0375;
 }
 
+[class*="grid--divider"] {
+    --grid-divider-border-y-color: currentColor;
+}
+
+/*
+
+// Prefers Color Scheme
+
+*/
 
 @media (prefers-color-scheme: dark) {
 
@@ -60,39 +75,97 @@ html {
 
 /*
 
-// Serif Font
+// Sans-serif Font
 
 */
 
-.custom-nav {
+.button,
+.sans-serif {
+    text-transform: uppercase;
+    font-family: 'Puritan', sans-serif;
+}
+
+.grid > li > a {
+    display: block;
+    height: 100%;
+}
+
+.grid > li > a:hover,
+.grid > li > a:focus {
+    text-decoration: unset !important;
+}
+
+/*
+
+// Global Header (Custom)
+
+*/
+
+.global-header {
+    --global-header-padding-x: 0.75em;
+    --global-header-padding-y: 1em;
+
     display: grid;
-    
-    gap: var(--spacer-4);
+
+    position: relative;
 
     align-items: center;
 
-    grid-template-columns: auto auto 1fr auto 320px;
-
-    padding: var(--spacer-2) var(--spacer-3);
+    grid-template-columns: auto 2fr auto;
 
     grid-template-areas:
-        "brand nav . toggle search";
+        "toggle-menu brand toggle-search"
+        "nav nav nav"
+        "search search search";
+
+    font-size: var(--font-size-md);
 }
 
-.custom-nav__brand {
+
+.global-header > * {
+    padding: var(--global-header-padding-y) var(--global-header-padding-x);
+}
+
+.global-header__brand {
     grid-area: brand;
+    display: flex;
+    justify-content: center;
+    align-self: center;
 }
 
-.custom-nav__nav {
+.global-header__menu {
     grid-area: nav;
 }
-.custom-nav__toggle {
-    grid-area: toggle;
-    display: none;
 
+.global-header__toggle-menu {
+    grid-area: toggle-menu;
 }
-.custom-nav__search {
+
+.global-header__toggle-search {
+    grid-area: toggle-search;
+}
+
+.global-header__search {
     grid-area: search;
+}
+
+@media (min-width: 1000px) {
+
+    .global-header {
+        grid-template-areas:
+            "nav brand search";
+    }
+
+    .global-header__toggle-menu
+    /*,.global-header__toggle-search*/ {
+        display: none;    
+    }
+
+    .global-header__menu,
+    .global-header__search {
+        display: block !important;    
+    }
+
 }
 
 /*
