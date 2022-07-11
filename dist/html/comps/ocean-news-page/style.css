@@ -5,18 +5,27 @@
 */
 
 :root {
-    --dark: hsla(0, 0%, 0%, .95);
+    --dark: black;
+
     --primary: #1B52BF;
     --primary-text: white;
 
-    --secondary: #3E00B0;
-    --secondary-text: white;
-
-    --canvas: hsla(25, 100%, 97%, 0.95);
-
-    --html-background-color: white;
+    --canvas-light-h: 25; 
+    --canvas-light-s: 100%; 
+    --canvas-light-l: 97%;
+    --canvas-light-o: 0.75;
     
-    /* --canvas-border: hsla(0, 0%, 50%, 0.5); */
+    --canvas: hsla(
+        var(--canvas-light-h),
+        var(--canvas-light-s),
+        var(--canvas-light-l),
+        var(--canvas-light-o)
+    );
+
+
+    --canvas-border: hsla(0, 0%, 50%, 0.375);
+
+
 
     --body-font-family: 'EB Garamond', serif;
     
@@ -25,8 +34,7 @@
     --body-line-height: 1.375;
 
     --header-line-height: 1.2;
-
-    /* --font-size-md: calc(var(--body-font-size) * 0.6); */
+    --html-background-color: var(--canvas);
 
     --medium-width: calc( var(--narrow-width) * 2.25);
     --wide-width: calc( var(--narrow-width) * 3.25);
@@ -44,23 +52,6 @@
 
 */
 
-@media (prefers-color-scheme: dark) {
-
-    :root {
-        --primary: #0055ff;
-        --subtle-fill-opacity: 0.075;
-    }
-
-    .color-scheme-opacity {
-        filter: opacity(60%);
-    }
-
-    #global-header {
-        background-color:  hsla(0, 0%, 0%, .75);
-    }
-
-}
-
 @media (prefers-color-scheme: light) {
 
     :root {
@@ -68,14 +59,31 @@
         --subtle-fill-opacity: 0.0375;
     }
 
-    .color-scheme-opacity {
-        filter: opacity(30%);
+    .opacity-color-scheme {
+        filter: opacity(50%);
     }
-
 
     #global-header {
-        background-color:  hsla(25, 100%, 97%, 0.875);
+        background-color: hsla(25, 100%, 97%, 0.875);
     }
+}
+
+@media (prefers-color-scheme: dark) {
+
+    :root {
+        --primary: #0055ff;
+        --subtle-fill-opacity: 0.075;
+        --canvas: hsla(0, 0%, 0%, 0.90);
+    }
+
+    .opacity-color-scheme {
+        filter: opacity(33%);
+    }
+
+    #global-header {
+        background-color:  hsla(0, 0%, 0%, 0.875);
+    }
+
 }
 
 #introduction .backdrop {

@@ -183,11 +183,11 @@ $rows: math.div($columns, 2);
     > * {
         &::before,
         &::after {
-            --shift: calc(var(--gap) * 0.5);
+            --shift-divider: calc(var(--gap) * 0.5);
+            --shift-border: calc(var(--grid-divider-border-width) * 0.5);
 
             position: absolute;
             content: "";
-
         }
     }
 
@@ -197,10 +197,9 @@ $rows: math.div($columns, 2);
 
         width: var(--divider-x-width);
 
-
         height: var(--grid-divider-border-width);
 
-        margin-block-start: var(--shift);
+        margin-block-start: calc( var(--shift-divider) - var(--shift-border));
         
         background-color: var(--grid-divider-border-x-color); 
 
@@ -214,7 +213,7 @@ $rows: math.div($columns, 2);
 
         width: var(--grid-divider-border-width);
 
-        margin-inline-end: calc( var(--shift) * -1);
+        margin-inline-end: calc( calc(var(--shift-divider) + var(--shift-border)) * -1 );
 
         background-color: var(--grid-divider-border-y-color); 
     }
