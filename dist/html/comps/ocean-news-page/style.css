@@ -40,8 +40,12 @@
     --subtle-fill-opacity: 0.0375;
 }
 
-[class*="grid--divider"] {
+#the-latest [class*="grid--divider"] {
     --grid-divider-border-y-color: currentColor;
+}
+
+#dont-miss [class*="grid--divider"] {
+    --grid-divider-border-x-color: currentColor;
 }
 
 /*
@@ -70,7 +74,6 @@
 
     :root {
         --primary: #0055ff;
-        --primary: red;
         --subtle-fill-opacity: 0.075;
         --canvas: hsla(0, 0%, 0%, 0.90);
     }
