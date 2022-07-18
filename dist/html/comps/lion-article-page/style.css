@@ -9,6 +9,8 @@
     --primary: #ccb032;
     --primary-text: var(--dark);
 
+    --html-background-color: var(--dark);
+
     --body-font-family: 'Work Sans', sans-serif;
     
     --body-font-size: 22px;
