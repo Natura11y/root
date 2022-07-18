@@ -11,8 +11,8 @@
 
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Puritan:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Lato:ital,wght@0,400;0,900;1,400;1,700&display=swap" rel="stylesheet">
         
         <!-- Natura11y Icons -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/cavidano/natura11y-icons@main/dist/natura11y-icons.min.css">
@@ -142,8 +142,8 @@
         
         </header>
 
-        <div class="container padding-y-1 text-align-center sans-serif font-size-sm box-shadow-1">
-            <strong id="todays-date"></strong>
+        <div class="container padding-y-1 box-shadow-1">
+            <p class="sans-serif text-transform-uppercase text-align-center font-size-sm"><strong id="todays-date"></strong></p>
         </div>
         
         <main id="skip-header-target">
@@ -176,69 +176,79 @@
                 
                     <ul class="grid grid--divider--fill-y gap-4 grid--column-3--lg">
                     
-                        <li class="grid__colspan-2--lg grid__colspan-2--lg">
-                        
-                            <a class="backdrop aspect-ratio-4x3 backdrop--fixed theme-dark" href="#1">
+                        <li class="grid__colspan-2--lg">
 
-                                <div class="backdrop__image gradient-veneer-bottom">
-                                    <img class="opacity-80" src="./images/kris-mikael-krister-tkldDsOBGRg-unsplash.jpg" alt="Placeholder" />
-                                </div>
+                            <a class="theme-dark" href="#1">
 
-                                <div class="backdrop__cover align-items-end">
+                                <article class="backdrop backdrop--stack--lg">
 
-                                    <div class="container medium margin-y-4">
-                                        <span class="sans-serif">Cool Headline</span>
-                                        <h1 class="text-shadow">
-                                            Aliquam malesuada bibendum arcu vitae elementum curabitur.
-                                        </h1>
+                                    <div class="backdrop__image gradient-veneer-bottom">
+
+                                        <img src="./images/kris-mikael-krister-tkldDsOBGRg-unsplash.jpg" alt="Placeholder" />
+                                    
+                                        <div class="backdrop__image__credit">
+                                            <p>Photo by <em>Jane Doe</em> on Unsplash</p>
+                                        </div>
+                                    
                                     </div>
 
-                                </div>
+                                    <div class="backdrop__cover align-items-end">
 
+                                        <div class="container medium margin-y-4">
+                                            <span class="sans-serif">Egestas</span>
+                                            <h1 class="text-shadow">
+                                                Aliquam purus sit amet luctus venenatis lectus magna fringilla.
+                                            </h1>
+
+                                        </div>
+
+                                    </div>
+
+                                </article>
+                                
                             </a>
+                        
                         </li>
 
                         <li>
                         
                             <a href="https://unsplash.com/@jwimmerli" target="_blank">
 
-                                <img class="margin-bottom-2" src="./images/dorothea-oldani-RkLvgSrGP30-unsplash.jpg" alt="Placeholder" />
+                                <article>
+                                    <img class="margin-bottom-2" src="./images/dorothea-oldani-RkLvgSrGP30-unsplash.jpg" alt="Placeholder" />
 
-                                <h2 class="h3">
-                                    Facilisi morbi tempus iaculis urna id volutpat lacus.
-                                </h2>
+                                    <h2 class="h3">
+                                        Facilisi Morbi Tempus Iaculis Urna Id Volutpat Lacus.
+                                    </h2>
 
-                                <p>
-                                    Amet commodo nulla facilisi nullam vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi.
-                                </p>
+                                    <p>
+                                        Vitae purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus in habitasse.
+                                    </p>
 
-                                <p>
-                                    <em class="font-size-sm">
+                                    <p class="sans-serif font-size-sm opacity-60">
                                         Photo by <span class="text-decoration-underline">Jean Wimmerlin</span>
-                                    </em>
-                                </p>
+                                    </p>
+                                </article>
                             </a>
 
                         </li>  
                        
                         <li>
                         
-                            <a href="https://unsplash.com/@jwimmerli" target="_blank">
+                            <a href="https://unsplash.com/@davidclode" target="_blank">
 
                                 <img class="margin-bottom-2" src="./images/david-clode-Gv-Cx3_clZ4-unsplash.jpg" alt="Placeholder" />
 
                                 <h2 class="h3">
-                                    Facilisi morbi tempus iaculis urna id volutpat lacus.
+                                    Facilisi Morbi Tempus Iaculis Urna Id Volutpat Lacus.
                                 </h2>
 
                                 <p>
-                                    Amet commodo nulla facilisi nullam vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi.
+                                    Vitae purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus in habitasse.
                                 </p>
 
-                                <p>
-                                    <em class="font-size-sm">
-                                        Photo by <span class="text-decoration-underline">Jean Wimmerlin</span>
-                                    </em>
+                                <p class="sans-serif font-size-sm opacity-60">
+                                    Photo by <span class="text-decoration-underline">David Clode</span>
                                 </p>
                             </a>
 
@@ -246,22 +256,20 @@
 
                         <li>
                         
-                            <a href="https://unsplash.com/@jwimmerli" target="_blank">
+                            <a href="https://unsplash.com/@alexrose" target="_blank">
 
                                 <img class="margin-bottom-2" src="./images/alex-rose-agmOZV67npw-unsplash.jpg" alt="Placeholder" />
 
                                 <h2 class="h3">
-                                    Facilisi morbi tempus iaculis urna id volutpat lacus.
+                                    Facilisi Morbi Tempus Iaculis Urna Id Volutpat Lacus.
                                 </h2>
 
                                 <p>
-                                    Amet commodo nulla facilisi nullam vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi.
+                                    Vitae purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus in habitasse.
                                 </p>
-
-                                <p>
-                                    <em class="font-size-sm">
-                                        Photo by <span class="text-decoration-underline">Jean Wimmerlin</span>
-                                    </em>
+                                
+                                <p class="sans-serif font-size-sm opacity-60">
+                                    Photo by <span class="text-decoration-underline">Alex Rose</span>
                                 </p>
                             </a>
 
@@ -269,22 +277,20 @@
 
                         <li>
                         
-                            <a href="https://unsplash.com/@jwimmerli" target="_blank">
+                            <a href="https://unsplash.com/@chrisstenger" target="_blank">
 
                                 <img class="margin-bottom-2" src="./images/chris-stenger-URKvqP4B3rI-unsplash.jpg" alt="Placeholder" />
 
                                 <h2 class="h3">
-                                    Facilisi morbi tempus iaculis urna id volutpat lacus.
+                                    Facilisi Morbi Tempus Iaculis Urna Id Volutpat Lacus.
                                 </h2>
 
                                 <p>
-                                    Amet commodo nulla facilisi nullam vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi.
+                                    Vitae purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus in habitasse.
                                 </p>
 
-                                <p>
-                                    <em class="font-size-sm">
-                                        Photo by <span class="text-decoration-underline">Jean Wimmerlin</span>
-                                    </em>
+                                <p class="sans-serif font-size-sm opacity-60">
+                                    Photo by <span class="text-decoration-underline">Chris Stenger</span>
                                 </p>
                             </a>
 
@@ -299,12 +305,8 @@
             <section class="padding-y-6 subtle-fill" id="dont-miss">
 
                 <div class="container narrow medium--lg">
-
-                    <h2 class="sans-serif h6 margin-bottom-1">
-                        Tincidunt lobortis
-                    </h2>
                             
-                    <ul class="grid grid--divider--fill-x grid--column-6--lg padding-top-2 border-top">
+                    <ul class="grid grid--divider--fill-x grid--column-6--lg">
                             
                         <li class="grid__colspan-2--lg grid__rowspan-5--lg">
 
@@ -321,8 +323,8 @@
                                         </h1>
 
                                         <a class="button theme-primary margin-top-3" href="#1">
-    Button
-</a>
+                                            Butpurus gravida
+                                        </a>
                                     </div>
 
                                 </div>
@@ -332,25 +334,25 @@
                         </li>
                             
                         <li class="grid__colspan-4--lg">
-                            <div class="grid grid--column-2 align-items-start gap-3">
-                                <div class="flex-grow-1">
+                            <article class="grid grid--column-2 align-items-start gap-3" href="#1">
+                                <div>
                                     <h2 class="h3">
-                                    Facilisi morbi tempus iaculis urna id volutpat lacus.
-                                </h2>
+                                        Facilisi Morbi Tempus Iaculis Urna Id Volutpat Lacus.
+                                    </h2>
+
+                                    <p>
+                                        Vitae purus faucibus ornare suspendisse sed nisi lacus sed viverra tellus in habitasse.
+                                    </p>
 
                                 <p>
-                                    Amet commodo nulla facilisi nullam vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi.
-                                </p>
-
-                                <p>
-                                    <em class="font-size-sm">
+                                    <em class="sans-serif font-size-sm">
                                         Photo by <span class="text-decoration-underline">Jean Wimmerlin</span>
                                     </em>
                                 </p>
 
                                 </div>
                                 <img src="./images/sebastian-pena-lambarri-Abj_zUko6Mg-unsplash.jpg" alt="">
-                            </div>
+                            </article>
                         </li>
                             
                         <li class="grid__colspan-4--lg">

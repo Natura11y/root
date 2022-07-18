@@ -67,6 +67,8 @@ In this file:
 
     --header-line-height: 1.125;
 
+    --header-margin-bottom: 0.375em;
+
     // Banner Headline
 
     --banner-headline-font-lg: calc(var(--body-font-size) * 4);
@@ -153,7 +155,7 @@ $font-sizes: (
     line-height: var(--header-line-height);
 
     &:not(.accordion__button):not(.alert__title):not(:last-child){
-        margin-block-end: var(--spacer-2);
+        margin-block-end: var(--header-margin-bottom);
     }
 }
 
