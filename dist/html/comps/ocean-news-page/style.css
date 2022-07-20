@@ -10,7 +10,7 @@
     --primary-text: white;
 
     --dark: black;
-    
+
     --canvas-light-h: 25; 
     --canvas-light-s: 100%; 
     --canvas-light-l: 97%;
@@ -37,6 +37,9 @@
 
     --medium-width: calc( var(--narrow-width) * 2.25);
     --wide-width: calc( var(--narrow-width) * 3.25);
+
+    --button-text-transform: uppercase;
+    --button-letter-spacing: 0.125em;
 }
 
 .grid > li > a {
@@ -98,7 +101,6 @@
     }
 
 }
-
 
 /*
 
@@ -210,4 +212,8 @@
     .global-header__search {
         justify-content: end;
     }
+}
+
+.backdrop__image__credit {
+    display: none !important;
 }

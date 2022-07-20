@@ -32,6 +32,8 @@ In this file:
     --button-font-weight: var(--body-font-weight-bold);
     
     --button-text-transform: initial;
+    
+    --button-letter-spacing: normal;
 
     --button-border-radius: 0.25em;
     
@@ -78,6 +80,8 @@ button {
     line-height: normal;
 
     text-transform: var(--button-text-transform);
+
+    letter-spacing: var(--button-letter-spacing);
     
     text-align: center;
     
