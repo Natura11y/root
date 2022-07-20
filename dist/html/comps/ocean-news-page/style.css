@@ -5,11 +5,12 @@
 */
 
 :root {
-    --dark: black;
 
     --primary: #1B52BF;
     --primary-text: white;
 
+    --dark: black;
+    
     --canvas-light-h: 25; 
     --canvas-light-s: 100%; 
     --canvas-light-l: 97%;
