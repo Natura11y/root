@@ -24,8 +24,6 @@ In this file:
 %alert-vars {
     --alert-padding-x: var(--spacer-2);
     --alert-padding-y: var(--spacer-2);
-
-    --alert-border-radius: 0;
 }
 
 //////////////////////////////////////////////
@@ -36,8 +34,6 @@ In this file:
     @extend %alert-vars;
     
     position: relative;
-
-    border-radius: var(--alert-border-radius);
 
     &:not([class*="theme-"]):not([class*="--inverse"]):not([class*="background-"]) {
         @extend %subtle-fill-psuedo;

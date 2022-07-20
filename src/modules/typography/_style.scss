@@ -71,8 +71,8 @@ In this file:
 
     // Banner Headline
 
-    --banner-headline-font-lg: calc(var(--body-font-size) * 4);
-    --banner-headline-font-sm: calc(var(--body-font-size) * 2.75);
+    --banner-headline-font-size-sm: calc(var(--body-font-size) * 2.75);
+    --banner-headline-font-size-lg: calc(var(--body-font-size) * 4);
     --banner-headline-font-weight: var(--body-font-weight-normal);
 
     // Paragraph
@@ -207,12 +207,12 @@ $headers: (
 .banner-headline {
     font-weight: var(--banner-headline-font-weight);
 
-    font-size: var(--banner-headline-font-sm);
+    font-size: var(--banner-headline-font-size-sm);
 
     line-height: var(--header-line-height);
 
     @include breakpoints.breakpoints-up(lg) {
-        font-size: var(--banner-headline-font-lg);
+        font-size: var(--banner-headline-font-size-lg);
     }
 }
 
