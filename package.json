@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "css-minify": "^2.0.0",
     "fantasticon": "^1.2.3",
     "svgo": "^2.7.0"
   }

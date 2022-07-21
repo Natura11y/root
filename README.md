@@ -12,9 +12,5 @@
 
 `fantasticon ./optimized-svg -o ./dist`
 
-4.) Run css minify
-
-`css-minify -d dist -o dist`
-
-5.) Run svg sprite generate
+4.) Run svg sprite generate
 `svg-sprite-generate -d ./optimized-svg -o ./dist/natura11y-icons-sprite.svg`
