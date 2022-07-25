@@ -1,8 +1,8 @@
 @font-face {
     font-family: "natura11y-icons";
-    src: url("./natura11y-icons.ttf?384cbfd97860c5e9c7a69f35b81e13e7") format("truetype"),
-url("./natura11y-icons.woff2?384cbfd97860c5e9c7a69f35b81e13e7") format("woff2"),
-url("./natura11y-icons.woff?384cbfd97860c5e9c7a69f35b81e13e7") format("woff");
+    src: url("./natura11y-icons.ttf?b70f4f0c1c46bce5aad8b12e3ff6a2f6") format("truetype"),
+url("./natura11y-icons.woff2?b70f4f0c1c46bce5aad8b12e3ff6a2f6") format("woff2"),
+url("./natura11y-icons.woff?b70f4f0c1c46bce5aad8b12e3ff6a2f6") format("woff");
 }
 
 .icon:before {
@@ -205,9 +205,6 @@ url("./natura11y-icons.woff?384cbfd97860c5e9c7a69f35b81e13e7") format("woff");
 .icon.icon-shrink:before {
     content: "\f13c";
 }
-.icon.icon-star-fill-half:before {
-    content: "\f13d";
-}
 .icon.icon-star-fill:before {
     content: "\f13e";
 }
@@ -261,4 +258,31 @@ url("./natura11y-icons.woff?384cbfd97860c5e9c7a69f35b81e13e7") format("woff");
 }
 .icon.icon-search-label-open:before {
     content: "\f152";
+}
+.icon.icon-bookmark-add:before {
+    content: "\f153";
+}
+.icon.icon-bookmark-remove:before {
+    content: "\f154";
+}
+.icon.icon-moon:before {
+    content: "\f155";
+}
+.icon.icon-question:before {
+    content: "\f156";
+}
+.icon.icon-share:before {
+    content: "\f157";
+}
+.icon.icon-star-outline:before {
+    content: "\f158";
+}
+.icon.icon-sun:before {
+    content: "\f159";
+}
+.icon.icon-expand:before {
+    content: "\f13d";
+}
+.icon.icon-location:before {
+    content: "\f15a";
 }

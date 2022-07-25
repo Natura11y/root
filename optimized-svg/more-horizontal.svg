@@ -1,3 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
-  <path d="M42 30a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm-18 0a6 6 0 1 1 0-12 6 6 0 0 1 0 12zM6 30a6 6 0 1 1 0-12 6 6 0 0 1 0 12z"/>
+  <circle cx="9" cy="24" r="5"/>
+  <circle cx="24" cy="24" r="5"/>
+  <circle cx="39" cy="24" r="5"/>
 </svg>

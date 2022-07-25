@@ -62,7 +62,6 @@
    "settings": 61754,
    "shopping-cart": 61755,
    "shrink": 61756,
-   "star-fill-half": 61757,
    "star-fill": 61758,
    "switch-off": 61759,
    "switch-on": 61760,
@@ -80,5 +79,14 @@
    "tiktok": 61775,
    "open-new": 61776,
    "menu-label-open": 61777,
-   "search-label-open": 61778
+   "search-label-open": 61778,
+   "bookmark-add": 61779,
+   "bookmark-remove": 61780,
+   "moon": 61781,
+   "question": 61782,
+   "share": 61783,
+   "star-outline": 61784,
+   "sun": 61785,
+   "expand": 61757,
+   "location": 61786
 }
