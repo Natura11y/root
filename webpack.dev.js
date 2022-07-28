@@ -32,7 +32,7 @@ const devPages = {
 
 const devDir = './dist/html';
 
-const devPage = `${devPages.Backdrops}.html`;
+const devPage = `${devPages.Spacers}.html`;
 
 module.exports = merge(common, {
     mode: 'development',

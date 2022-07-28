@@ -21,7 +21,8 @@ In this file:
 //////////////////////////////////////////////
 
 :root {
-    --container-padding-x: var(--spacer-3);
+    --container-padding-x-sm: var(--spacer-2);
+    --container-padding-x-lg: var(--spacer-3);
 
     --narrow-width: 40rem; // Approximately 55 characters wide for readability
     
@@ -35,8 +36,12 @@ In this file:
 //////////////////////////////////////////////
 
 .container {
-    padding-inline: var(--container-padding-x);
+    padding-inline: var(--container-padding-x-sm);
     margin-inline: auto;
+
+    @include breakpoints.breakpoints-up(lg) {
+        padding-inline: var(--container-padding-x-lg);
+    }
 }
 
 //////////////////////////////////////////////

@@ -8,13 +8,12 @@ In this file:
 // D. Font Size Utilities
 // E. Headings
 // F. Banner Headline Utility
-// G. Fluid Type Utility
-// H. Body Selectors
-// I. Text Align Utilities
-// J. Text Transform Utilities
-// K. Text Decoration Utilities
-// L. Word Wrap Utilities
-// M. Truncate Text Utility
+// G. Body Selectors
+// H. Text Align Utilities
+// I. Text Transform Utilities
+// J. Text Decoration Utilities
+// K. Word Wrap Utilities
+// L. Truncate Text Utility
 
 */
 
@@ -217,24 +216,7 @@ $headers: (
 }
 
 //////////////////////////////////////////////
-// G. Fluid Type Utility
-//////////////////////////////////////////////
-
-html {
-    --fluid-typ-min: 0.75rem;
-    --fluid-typ-rec: 0.75vw + 1rem;
-    --fluid-typ-max: 1.5rem;
-
-    &.fluid-type {
-        --body-font-size:
-            clamp(var(--fluid-typ-min), 
-                  var(--fluid-typ-rec),
-                  var(--fluid-typ-max));
-    }
-}
-
-//////////////////////////////////////////////
-// H. Body Selectors
+// G. Body Selectors
 //////////////////////////////////////////////
 
 body {
@@ -307,7 +289,7 @@ figure {
 }
 
 //////////////////////////////////////////////
-// I. Text Align Utilities
+// H. Text Align Utilities
 //////////////////////////////////////////////
 
 @each $breakpoint in map.keys(breakpoints.$breakpoints) {
@@ -330,7 +312,7 @@ figure {
 }
 
 //////////////////////////////////////////////
-// J. Text Transform Utilities
+// I. Text Transform Utilities
 //////////////////////////////////////////////
 
 .text-transform-capitalize {
@@ -346,7 +328,7 @@ figure {
 }
 
 //////////////////////////////////////////////
-// K. Text Decoration Utilities
+// J. Text Decoration Utilities
 //////////////////////////////////////////////
 
 [class*="text-decoration-"] {
@@ -366,7 +348,7 @@ figure {
 }
 
 //////////////////////////////////////////////
-// L. Word Wrap Utilities
+// K. Word Wrap Utilities
 //////////////////////////////////////////////
 
 .nowrap {
@@ -378,7 +360,7 @@ figure {
 }
 
 ////////////////////////////////////////
-// M. Truncate Text Utility
+// L. Truncate Text Utility
 ////////////////////////////////////////
 
 .truncate-text {
