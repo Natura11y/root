@@ -152,7 +152,6 @@
     font-size: var(--font-size-md);
 }
 
-
 .global-header > * {
     padding: var(--global-header-padding-y) var(--global-header-padding-x);
 }
