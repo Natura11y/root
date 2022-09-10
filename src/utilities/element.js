@@ -1,10 +1,12 @@
-export const isElementLoaded = async (selector) => {
+export const isElementLoaded = async (...selectors) => {
 
-	while (document.querySelector(selector) === null) {
+	console.log("Checking for .... ", selectors)
+
+	while (document.querySelector(selectors) === null) {
 		await new Promise((resolve) => requestAnimationFrame(resolve));
 	}
 
-    const els = document.querySelectorAll(selector);
+    const els = document.querySelectorAll(selectors);
 
 	return els;
 };

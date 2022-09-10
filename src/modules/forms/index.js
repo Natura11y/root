@@ -14,7 +14,9 @@ export default class Forms {
 
     }
 
-    init() {
+    init( formEls ) {
+
+        console.log('what are my form elements?', formEls)
 
         let formSubmitAttempted = false;
 

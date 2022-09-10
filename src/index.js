@@ -96,7 +96,9 @@ const collapse = new Collapse();
 isElementLoaded('[data-target-toggle]').then((els) => collapse.init(els));
 
 const forms = new Forms();
-forms.init();
+isElementLoaded('form[novalidate]', '.form-entry', '.file-upload')
+    .then((els) => forms.init(els));
+// forms.init();
 
 const modal = new Modal();
 modal.init();
