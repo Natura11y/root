@@ -87,13 +87,13 @@ const accordion = new Accordion();
 isElementLoaded('.accordion').then((els) => accordion.init(els));
 
 const alerts = new Alerts();
-alerts.init();
+isElementLoaded('.alert--dismissable').then((els) => alerts.init(els));
 
 const buttons = new Buttons();
-buttons.init();
+isElementLoaded('.button--icon-only').then((els) => buttons.init(els));
 
 const collapse = new Collapse();
-collapse.init();
+isElementLoaded('[data-target-toggle]').then((els) => collapse.init(els));
 
 const forms = new Forms();
 forms.init();

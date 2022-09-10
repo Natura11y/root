@@ -8,13 +8,9 @@ import { getFocusableElements } from '../../utilities/focus';
 
 export default class Collapse {
 
-    constructor() {
-        this.collapseButtonList = document.querySelectorAll('[data-target-toggle]');
-    }
+    init( collapseButtonList ) {
 
-    init() {
-
-        this.collapseButtonList.forEach((collapseButton) => {
+        collapseButtonList.forEach((collapseButton) => {
 
             collapseButton.setAttribute('aria-expanded', false);
     

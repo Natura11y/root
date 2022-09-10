@@ -6,11 +6,7 @@ import './_style.scss';
 
 export default class Button {
 
-    constructor() {
-        this.iconOnlyButtonList = document.querySelectorAll('.button--icon-only');
-    }
-
-    init() {
+    init( iconOnlyButtonList ) {
     
         let hoverFocusDelay;
 
@@ -29,7 +25,7 @@ export default class Button {
             event.target.classList.remove('tooltip-show');
         }
 
-        this.iconOnlyButtonList.forEach((iconOnlyButton) => {
+        iconOnlyButtonList.forEach((iconOnlyButton) => {
 
             const tooltipText = iconOnlyButton.getAttribute('aria-label');
 
