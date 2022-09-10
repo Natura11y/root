@@ -7,6 +7,8 @@ In this file:
 
 */
 
+import { isElementLoaded } from './utilities/element'; 
+
 //////////////////////////////////////////////
 // A. Module Imports
 //////////////////////////////////////////////
@@ -82,7 +84,7 @@ import './modules/z-index/index';
 //////////////////////////////////////////////
 
 const accordion = new Accordion();
-accordion.init();
+isElementLoaded('.accordion').then((els) => accordion.init(els));
 
 const alerts = new Alerts();
 alerts.init();

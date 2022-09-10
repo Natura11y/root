@@ -8,13 +8,9 @@ import { getFocusableElements } from '../../utilities/focus';
 
 export default class Accordion {
 
-    constructor() {
-        this.accordionList = document.querySelectorAll('.accordion');
-    }
-
-    init() {
-
-        this.accordionList.forEach((accordion) => {
+    init( accordionList ) {
+    
+        accordionList.forEach((accordion) => {
 
             const accordionButtonList = accordion.querySelectorAll(':scope > [data-accordion="button"]');
             const accordionPanelList = accordion.querySelectorAll(':scope > [data-accordion="panel"]');
