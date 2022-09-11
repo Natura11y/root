@@ -7,8 +7,6 @@ In this file:
 
 */
 
-import { isElementLoaded } from './utilities/element'; 
-
 //////////////////////////////////////////////
 // A. Module Imports
 //////////////////////////////////////////////
@@ -83,21 +81,21 @@ import './modules/z-index/index';
 // B. Initialize JS Modules
 //////////////////////////////////////////////
 
-const accordion = new Accordion();
-isElementLoaded('.accordion').then((els) => accordion.init(els));
+const accordion = new Accordion('.accordion');
+accordion.init();
 
-const alerts = new Alerts();
-isElementLoaded('.alert--dismissable').then((els) => alerts.init(els));
+const alerts = new Alerts('.alert--dismissable');
+alerts.init();
 
-const buttons = new Buttons();
-isElementLoaded('.button--icon-only').then((els) => buttons.init(els));
+const buttons = new Buttons('.button--icon-only');
+buttons.init();
 
-const collapse = new Collapse();
-isElementLoaded('[data-target-toggle]').then((els) => collapse.init(els));
+// const collapse = new Collapse();
+// isElementLoaded('[data-target-toggle]').then((els) => collapse.init(els));
 
-const forms = new Forms();
-isElementLoaded('form[novalidate]', '.form-entry', '.file-upload')
-    .then((els) => forms.init(els));
+// const forms = new Forms();
+// isElementLoaded('form[novalidate]', '.form-entry', '.file-upload')
+//     .then((els) => forms.init(els));
 // forms.init();
 
 const modal = new Modal();
