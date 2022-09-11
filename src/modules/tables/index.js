@@ -6,7 +6,7 @@ import './_style.scss';
 
 export default class Tables {
 
-    constructor() {
+    constructor(tableStack, tableScroll) {
         this.tableStackList = document.querySelectorAll('[class*="table--stack"]');
         this.tableScrollList = document.querySelectorAll('.table-scroll');
     }

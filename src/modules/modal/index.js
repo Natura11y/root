@@ -8,9 +8,9 @@ import { getFocusableElements } from '../../utilities/focus'
 
 export default class Modal {
 
-  constructor() {
-    this.modalList = document.querySelectorAll('.modal');
-    this.modalButtonList = document.querySelectorAll('[data-modal-open]');
+  constructor(modal, modalButton) {
+    this.modalList = document.querySelectorAll(modal);
+    this.modalButtonList = document.querySelectorAll(modalButton);
   }
 
   init() {
@@ -96,7 +96,7 @@ export default class Modal {
         
       });
 
-      modalCloseList.forEach(modalClose => {
+      modalCloseList.forEach((modalClose) => {
         modalClose.addEventListener('click', handleClose);
         modalClose.setAttribute('aria-label', 'Close Modal Window');
       });
@@ -107,7 +107,7 @@ export default class Modal {
 
     }
 
-    this.modalList.forEach(modal => {
+    this.modalList.forEach((modal) => {
       const modalContainer = modal.querySelector('.modal__content');
 
       modalContainer.setAttribute('role', 'dialog');
@@ -116,7 +116,7 @@ export default class Modal {
       modal.setAttribute('aria-hidden', true);
     });
 
-    this.modalButtonList.forEach(modalButton => {
+    this.modalButtonList.forEach((modalButton) => {
 
       modalButton.addEventListener('click', event => {
         const modalTargetID = event.target.getAttribute('data-modal-open').replace(/#/, '');

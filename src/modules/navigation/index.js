@@ -6,8 +6,8 @@ import './_style.scss';
 
 export default class Navigation {
 
-    constructor() {
-        this.dropdownButtonList = document.querySelectorAll('[data-toggle="dropdown"]');
+    constructor(dropdownButton) {
+        this.dropdownButtonList = document.querySelectorAll(dropdownButton);
     }
 
     init() {

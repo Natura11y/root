@@ -6,8 +6,8 @@ import './_style.scss';
 
 export default class Tabs {
 
-    constructor() {
-        this.tabsList = document.querySelectorAll('.tabs');
+    constructor(tabs) {
+        this.tabsList = document.querySelectorAll(tabs);
     }
 
     init() {

@@ -93,19 +93,17 @@ buttons.init();
 const collapse = new Collapse('[data-target-toggle]');
 collapse.init();
 
-// const forms = new Forms();
-// isElementLoaded('form[novalidate]', '.form-entry', '.file-upload')
-//     .then((els) => forms.init(els));
-// forms.init();
+const forms = new Forms('form[novalidate]', '.form-entry', '.file-upload');
+forms.init();
 
-const modal = new Modal();
+const modal = new Modal('.modal', '[data-modal-open]');
 modal.init();
 
-const navigation = new Navigation();
+const navigation = new Navigation('[data-toggle="dropdown"]');
 navigation.init();
 
-const tabs = new Tabs();
-tabs.init();
-
-const tables = new Tables();
+const tables = new Tables('[class*="table--stack"]', '.table-scroll');
 tables.init();
+
+const tabs = new Tabs('.tabs');
+tabs.init();
