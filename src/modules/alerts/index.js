@@ -22,7 +22,7 @@ export default class Alerts {
             
             alertDismissable.insertAdjacentHTML('afterbegin', this.closeButtonHTML);
 
-            const alertCloseButton = alertDismissable.querySelector("button");
+            const alertCloseButton = alertDismissable.querySelector('button');
 
             alertCloseButton.addEventListener('click', (event) => {
                 

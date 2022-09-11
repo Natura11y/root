@@ -90,8 +90,8 @@ alerts.init();
 const buttons = new Buttons('.button--icon-only');
 buttons.init();
 
-// const collapse = new Collapse();
-// isElementLoaded('[data-target-toggle]').then((els) => collapse.init(els));
+const collapse = new Collapse('[data-target-toggle]');
+collapse.init();
 
 // const forms = new Forms();
 // isElementLoaded('form[novalidate]', '.form-entry', '.file-upload')
