@@ -81,6 +81,18 @@ import './modules/z-index/index';
 // B. Initialize JS Modules
 //////////////////////////////////////////////
 
+window.addEventListener('load', (event) => {
+    console.log(`!! I am window.load`);
+});
+
+document.addEventListener('readystatechange', (event) => {
+    console.log(`!! I am document.readystatechange`);
+});
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    console.log(`!! I am document.DOMContentLoaded`);
+});
+
 const accordion = new Accordion('.accordion');
 accordion.init();
 
