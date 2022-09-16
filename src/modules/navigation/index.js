@@ -7,12 +7,13 @@ import './_style.scss';
 export default class Navigation {
 
     constructor(dropdownButton) {
-        this.dropdownButtonList = document.querySelectorAll(dropdownButton);
     }
+    
+    #dropdownButtonList = document.querySelectorAll('[data-toggle="dropdown"]');
 
     init() {
     
-        this.dropdownButtonList.forEach((dropdownButton) => {
+        this.#dropdownButtonList.forEach((dropdownButton) => {
 
             let dropdownButtonParent = dropdownButton.closest('li');
             let dropdownMenu = dropdownButton.nextElementSibling;

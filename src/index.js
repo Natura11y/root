@@ -81,29 +81,29 @@ import './modules/z-index/index';
 // B. Initialize JS Modules
 //////////////////////////////////////////////
 
-const accordion = new Accordion('.accordion');
+const accordion = new Accordion();
 accordion.init();
 
-const alerts = new Alerts('.alert--dismissable');
+const alerts = new Alerts();
 alerts.init();
 
-const buttons = new Buttons('.button--icon-only');
+const buttons = new Buttons();
 buttons.init();
 
-const collapse = new Collapse('[data-target-toggle]');
+const collapse = new Collapse();
 collapse.init();
 
-const forms = new Forms('form[novalidate]', '.form-entry', '.file-upload');
+const forms = new Forms();
 forms.init();
 
-const modal = new Modal('.modal', '[data-modal-open]');
+const modal = new Modal();
 modal.init();
 
-const navigation = new Navigation('[data-toggle="dropdown"]');
+const navigation = new Navigation();
 navigation.init();
 
-const tables = new Tables('[class*="table--stack"]', '.table-scroll');
+const tables = new Tables();
 tables.init();
 
-const tabs = new Tabs('.tabs');
+const tabs = new Tabs();
 tabs.init();

@@ -6,14 +6,12 @@ import './_style.scss';
 
 export default class Tables {
 
-    constructor(tableStack, tableScroll) {
-        this.tableStackList = document.querySelectorAll('[class*="table--stack"]');
-        this.tableScrollList = document.querySelectorAll('.table-scroll');
-    }
+    #tableStackList = document.querySelectorAll('[class*="table--stack"]');
+    #tableScrollList = document.querySelectorAll('.table-scroll');
 
     init() {
     
-        this.tableStackList.forEach((tableStack) => {
+        this.#tableStackList.forEach((tableStack) => {
 
             const tableHeaderList = tableStack.querySelectorAll('thead th');
             const tableRowList = tableStack.querySelectorAll('tbody tr');
@@ -54,7 +52,7 @@ export default class Tables {
 
         const initTableScroll = () => {
 
-            this.tableScrollList.forEach((scrollElement) => {
+            this.#tableScrollList.forEach((scrollElement) => {
 
                 let scrollTarget = scrollElement.querySelector('.table-scroll__container');
 

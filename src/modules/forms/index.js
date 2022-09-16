@@ -6,11 +6,9 @@ import './_style.scss';
 
 export default class Forms {
 
-    constructor(form, formEntry, fileUpload) {
-        this.formList = document.querySelectorAll(form);
-        this.formEntryList = document.querySelectorAll(formEntry);
-        this.fileUploadList = document.querySelectorAll(fileUpload);
-    }
+    #formList = document.querySelectorAll('form[novalidate]');
+    #formEntryList = document.querySelectorAll('.form-entry');
+    #fileUploadList = document.querySelectorAll('.file-upload');
 
     init() {
 
@@ -61,7 +59,7 @@ export default class Forms {
             `);
         });
 
-        this.formList.forEach((form) => {
+        this.#formList.forEach((form) => {
 
             // Submission Handler
             form.addEventListener('submit', (event) => {
@@ -133,7 +131,7 @@ export default class Forms {
 
         });
 
-        this.formEntryList.forEach((formEntry) => {
+        this.#formEntryList.forEach((formEntry) => {
 
             const inputSelectors = [
                 'input',
@@ -228,7 +226,7 @@ export default class Forms {
         
         });
 
-        this.fileUploadList.forEach((fileUpload) => {
+        this.#fileUploadList.forEach((fileUpload) => {
 
             const fileUploadInput = fileUpload.querySelector('input[type="file"]');
 

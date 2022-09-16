@@ -5,14 +5,12 @@ import './_style.scss';
 //////////////////////////////////////////////
 
 export default class Tabs {
-
-    constructor(tabs) {
-        this.tabsList = document.querySelectorAll(tabs);
-    }
+    
+    #tabsList = document.querySelectorAll('.tabs');
 
     init() {
 
-        this.tabsList.forEach((tab) => {
+        this.#tabsList.forEach((tab) => {
 
             const tabsButtonList = tab.querySelectorAll('[role="tab"]');
             const tabsPanelList = tab.querySelectorAll('[role="tabpanel"]');
