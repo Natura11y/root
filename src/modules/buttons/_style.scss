@@ -241,7 +241,7 @@ button {
 .button-group {
     --gap-size: var(--spacer-2);
     
-    --button-padding-y: unset;
+    padding-block: unset;
     
     display: flex;
 
