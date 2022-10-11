@@ -6,6 +6,8 @@ In this file:
 // B. Variables
 // C. Modal Block
 // D. Modal Elements
+// E. Modal Scroll All Modifier
+// F. Body Class
 
 */
 
@@ -28,7 +30,7 @@ In this file:
   --modal-overlay-color: black;
   --modal-overlay-opacity: 0.75;
   
-  --modal-z-index: 8000;
+  --modal-z-index: 25000;
 }
 
 //////////////////////////////////////////////
@@ -132,12 +134,6 @@ In this file:
   overflow-y: auto;
 }
 
-body.modal-open {
-  position: relative;
-
-  overflow: hidden;
-}
-
 //////////////////////////////////////////////
 // E. Modal Scroll All Modifier
 //////////////////////////////////////////////
@@ -152,5 +148,16 @@ body.modal-open {
   .modal__content {
     margin-block: auto;
   }
+}
 
+//////////////////////////////////////////////
+// F. Body Class
+//////////////////////////////////////////////
+
+body.modal-open {
+  position: relative;
+
+  overflow: hidden;
+
+  height: 100vh;
 }
