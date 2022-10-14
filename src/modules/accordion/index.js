@@ -120,14 +120,16 @@ export default class Accordion {
                     }
 
                     switch (event.code) {
+                        case 'ArrowLeft':
                         case 'ArrowUp':
                             directionalFocus(-1);
                             break;
+                        case 'ArrowRight':
                         case'ArrowDown':
                             directionalFocus(1);
                             break;
                         default:
-                        // do nothing
+                            // do nothing
                     }
 
                 });

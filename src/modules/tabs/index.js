@@ -66,6 +66,7 @@ export default class Tabs {
                 tabsButton.addEventListener('keydown', (event) => {
 
                     const directionalFocus = (dir) => {
+                    
                         event.preventDefault();
 
                         let targetFocus = index + dir;
