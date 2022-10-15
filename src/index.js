@@ -2,108 +2,85 @@
 
 In this file:
 
-// A. Module Imports
-// B. Initialize JS Modules
+// A. SCSS
+// B. JS
 
 */
 
 //////////////////////////////////////////////
-// A. Module Imports
+// A. SCSS
 //////////////////////////////////////////////
 
-import './modules/accents';
-
-import './modules/accessibility';
-
-import Accordion from './modules/accordion';
-
-import Alerts from './modules/alerts';
-
-import './modules/article';
-
-import './modules/aspect-ratios';
-
-import './modules/backdrops';
-
-import './modules/borders';
-
-import './modules/breakpoints';
-
-import Buttons from './modules/buttons';
-
-import './modules/cards';
-
-import Collapse from './modules/collapse';
-
-import './modules/color';
-
-import './modules/containers';
-
-import './modules/display';
-
-import './modules/document';
-
-import './modules/flex';
-
-import Forms from './modules/forms';
-
-import './modules/grid';
-
-import './modules/icons';
-
-import './modules/links';
-
-import Modal from './modules/modal';
-
-import Navigation from './modules/navigation';
-
-import './modules/opacity';
-
-import './modules/overflow';
-
-import './modules/position';
-
-import './modules/shadows';
-
-import './modules/sizing';
-
-import './modules/spacing';
-
-import Tabs from './modules/tabs';
-
-import Tables from './modules/tables';
-
-import './modules/typography';
-
-import './modules/z-index/index';
+import './scss/accent.scss';
+import './scss/accessibility.scss';
+import './scss/accordion.scss';
+import './scss/alert.scss';
+import './scss/article.scss';
+import './scss/aspect-ratio.scss';
+import './scss/backdrop.scss';
+import './scss/border.scss';
+import './scss/breakpoints.scss';
+import './modules/button.scss';
+import './modules/card.scss';
+import './modules/collapse.scss';
+import './modules/color.scss';
+import './modules/container.scss';
+import './modules/display.scss';
+import './modules/document.scss';
+import './modules/flex.scss';
+import './modules/form.scss';
+import './modules/grid.scss';
+import './modules/icon.scss';
+import './modules/link.scss';
+import './modules/modal.scss';
+import './modules/navigation.scss';
+import './modules/opacity.scss';
+import './modules/overflow.scss';
+import './modules/position.scss';
+import './modules/shadow.scss';
+import './modules/sizing.scss';
+import './modules/spacing.scss';
+import './modules/tab.scss';
+import './modules/table.scss';
+import './modules/typography.scss';
+import './modules/z-index.scss';
 
 //////////////////////////////////////////////
-// B. Initialize JS Modules
+// B. JS
 //////////////////////////////////////////////
 
+import Accordion from './js/accordion';
 const accordion = new Accordion();
 accordion.init();
 
-const alerts = new Alerts();
-alerts.init();
+import Alert from './js/accordion';
+const alert = new Alert();
+alert.init();
 
-const buttons = new Buttons();
-buttons.init();
+import Button from './js/button';
+const button = new Button();
+button.init();
 
+import Collapse from './js/collapse'
 const collapse = new Collapse();
 collapse.init();
 
-const forms = new Forms();
-forms.init();
+import Form from './js/form';
+const form = new Form();
+form.init();
 
+import Modal from './js/modal';
 const modal = new Modal();
 modal.init();
 
+import Navigation from './js/navigation';
 const navigation = new Navigation();
 navigation.init();
 
-const tables = new Tables();
-tables.init();
+import Table from './js/table';
+const table = new Table();
+table.init();
 
-const tabs = new Tabs();
-tabs.init();
+import Tab from './js/tab';
+const tab = new Tab();
+tab.init();
