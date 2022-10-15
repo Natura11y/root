@@ -12,7 +12,7 @@ In this file:
 ////////////////////////////////////////
 
 @use "sass:map";
-@use "./breakpoint" as breakpoints;
+@use "./breakpoint" as breakpoint;
 
 //////////////////////////////////////////////
 // A. Variables
@@ -24,9 +24,9 @@ $positions: static, relative, absolute, fixed;
 // B. Position Utilities
 //////////////////////////////////////////////
 
-@each $breakpoint in map.keys(breakpoints.$breakpoints) {
-    @include breakpoints.breakpoints-up($breakpoint) {
-        $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
+@each $breakpoint in map.keys(breakpoint.$breakpoints) {
+    @include breakpoint.breakpoint-up($breakpoint) {
+        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
 
         @each $position in $positions {

@@ -20,7 +20,7 @@ In this file:
 
 @use "sass:map";
 @use "sass:math";
-@use "./breakpoint" as breakpoints;
+@use "./breakpoint" as breakpoint;
 @use "./spacing" as spacing;
 
 //////////////////////////////////////////////
@@ -61,9 +61,9 @@ $rows: math.div($columns, 2);
 // D. Matrix Modifiers
 //////////////////////////////////////////////
 
-@each $breakpoint in map.keys(breakpoints.$breakpoints) {
-    @include breakpoints.breakpoints-up($breakpoint) {
-        $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
+@each $breakpoint in map.keys(breakpoint.$breakpoints) {
+    @include breakpoint.breakpoint-up($breakpoint) {
+        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
         .matrix--cell-fill#{$mod} > [class*="matrix__cell"] {
             flex: 1;
@@ -86,9 +86,9 @@ $rows: math.div($columns, 2);
 // E. Matrix Cell Utilities and Modifiers
 //////////////////////////////////////////////
 
-@each $breakpoint in map.keys(breakpoints.$breakpoints) {
-    @include breakpoints.breakpoints-up($breakpoint) {
-        $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
+@each $breakpoint in map.keys(breakpoint.$breakpoints) {
+    @include breakpoint.breakpoint-up($breakpoint) {
+        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
         @for $i from 1 through $columns {
             .matrix > .matrix__cell.matrix--cell-#{$i}#{$mod} {
@@ -132,9 +132,9 @@ $rows: math.div($columns, 2);
     grid-template-columns: repeat(var(--columns), 1fr);
 }
 
-@each $breakpoint in map.keys(breakpoints.$breakpoints) {
-    @include breakpoints.breakpoints-up($breakpoint) {
-        $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
+@each $breakpoint in map.keys(breakpoint.$breakpoints) {
+    @include breakpoint.breakpoint-up($breakpoint) {
+        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
         @for $i from 1 through $columns {
 
@@ -260,9 +260,9 @@ $rows: math.div($columns, 2);
 // H. Order Utilities
 //////////////////////////////////////////////
 
-@each $breakpoint in map.keys(breakpoints.$breakpoints) {
-    @include breakpoints.breakpoints-up($breakpoint) {
-        $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
+@each $breakpoint in map.keys(breakpoint.$breakpoints) {
+    @include breakpoint.breakpoint-up($breakpoint) {
+        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
         @for $i from 1 through $columns {
             .order-#{$i}#{$mod} {

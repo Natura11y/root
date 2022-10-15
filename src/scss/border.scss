@@ -15,7 +15,7 @@ In this file:
 //////////////////////////////////////////////
 
 @use "sass:map";
-@use "./breakpoint" as breakpoints;
+@use "./breakpoint" as breakpoint;
 @use "./color" as color;
 
 //////////////////////////////////////////////
@@ -40,9 +40,9 @@ In this file:
     border-color: inherit;
 }
 
-@each $breakpoint in map.keys(breakpoints.$breakpoints) {
-    @include breakpoints.breakpoints-up($breakpoint) {
-        $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
+@each $breakpoint in map.keys(breakpoint.$breakpoints) {
+    @include breakpoint.breakpoint-up($breakpoint) {
+        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
         .border#{$mod} {
             border-width: var(--default-border-width);
@@ -107,9 +107,9 @@ In this file:
     overflow: hidden;
 }
 
-@each $breakpoint in map.keys(breakpoints.$breakpoints) {
-    @include breakpoints.breakpoints-up($breakpoint) {
-        $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
+@each $breakpoint in map.keys(breakpoint.$breakpoints) {
+    @include breakpoint.breakpoint-up($breakpoint) {
+        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
         .border-radius#{$mod} {
             border-radius: var(--border-radius);

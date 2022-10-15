@@ -13,7 +13,7 @@ In this file:
 // A. Modules
 //////////////////////////////////////////////
 
-@use "./breakpoint" as breakpoints;
+@use "./breakpoint" as breakpoint;
 
 //////////////////////////////////////////////
 // B. Variables
@@ -43,7 +43,7 @@ In this file:
     overflow: hidden;
 }
 
-@include breakpoints.breakpoints-up(lg) {
+@include breakpoint.breakpoint-up(lg) {
 
     .article__header {
         grid-area: header;
@@ -87,7 +87,7 @@ In this file:
     }
 }
 
-@include breakpoints.breakpoints-up(xl) {
+@include breakpoint.breakpoint-up(xl) {
 
     .article--column-3 {
         grid-template-columns: var(--article-sidebar-width) 1fr var(--article-sidebar-width);

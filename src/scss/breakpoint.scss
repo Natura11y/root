@@ -37,22 +37,22 @@ $breakpoints: map.merge((null : 0), $breakpoints);
 // C. Breakpoints Functions
 //////////////////////////////////////////////
 
-// Name of the next breakpoint, or null for the last breakpoints.
+// Name of the next breakpoint, or null for the last breakpoint.
 
-@function breakpoint-value($name, $breakpoints) {
-  $value: map.get($breakpoints, $name);
+@function breakpoint-value($name, $breakpoint) {
+  $value: map.get($breakpoint, $name);
   @return if($value != 0, $value, null);
 }
 
-@function breakpoint-modifier($name, $breakpoints) {
-  @return if(breakpoint-value($name, $breakpoints) == null, "", "--#{$name}");
+@function breakpoint-modifier($name, $breakpoint) {
+  @return if(breakpoint-value($name, $breakpoint) == null, "", "--#{$name}");
 }
 
 //////////////////////////////////////////////
 // D. Breakpoints Mixins
 //////////////////////////////////////////////
 
-@mixin breakpoints-up($breakpoint) {
+@mixin breakpoint-up($breakpoint) {
   @if ($breakpoint != null) {
     @media (min-width: map.get($breakpoints, $breakpoint)) {
       @content;
@@ -63,7 +63,7 @@ $breakpoints: map.merge((null : 0), $breakpoints);
   }
 }
 
-@mixin breakpoints-down($breakpoint) {
+@mixin breakpoint-down($breakpoint) {
   @if ($breakpoint != null) {
     @media (max-width: map.get($breakpoints, $breakpoint)) {
       @content;

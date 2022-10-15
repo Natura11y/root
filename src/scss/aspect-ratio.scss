@@ -16,7 +16,7 @@ In this file:
 @use "sass:list";
 @use "sass:math";
 @use "sass:map";
-@use "./breakpoint" as breakpoints;
+@use "./breakpoint" as breakpoint;
 
 //////////////////////////////////////////////
 // B. Variables
@@ -55,9 +55,9 @@ iframe {
     @extend %aspect-ratio-custom-vars;
 }
 
-@each $breakpoint in map.keys(breakpoints.$breakpoints) {
-    @include breakpoints.breakpoints-up($breakpoint) {
-        $mod: breakpoints.breakpoint-modifier($breakpoint, breakpoints.$breakpoints);
+@each $breakpoint in map.keys(breakpoint.$breakpoints) {
+    @include breakpoint.breakpoint-up($breakpoint) {
+        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
         @each $aspect-ratio in $aspect-ratios {
             $aspect-ratio-x: list.nth($aspect-ratio, 1);
