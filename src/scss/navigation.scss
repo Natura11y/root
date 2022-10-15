@@ -20,10 +20,10 @@ In this file:
 
 @use "sass:map";
 @use "./breakpoint" as breakpoint;
-@use "./accent" as accents;
+@use "./accent" as accent;
 @use "./spacing" as spacing;
 @use "./collapse" as collapse;
-@use "./button" as buttons;
+@use "./button" as button;
 @use "./link" as links;
 @use "./typography" as typography;
 
@@ -430,7 +430,7 @@ In this file:
     }
 
     > [class*="__actions"] {
-        grid-area: buttons;
+        grid-area: button;
 
         @extend .button-group;
         
@@ -442,7 +442,7 @@ In this file:
 [class*="primary-nav--inline--"] {
     grid-template-columns: 1fr auto auto;
     grid-template-areas:
-        "logo toggle buttons"
+        "logo toggle button"
         "menu menu menu"
         "search search search";
 
@@ -469,7 +469,7 @@ In this file:
     grid-template-columns: auto 1fr auto;
     grid-template-areas:
         "logo logo logo"
-        "toggle search buttons"
+        "toggle search button"
         "menu menu menu";
 
     > [class*="__logo"] {
@@ -543,7 +543,7 @@ In this file:
         .primary-nav--inline#{$mod} {
             grid-template-columns: 1fr auto auto;
             grid-template-areas:
-                "logo menu search buttons";
+                "logo menu search button";
 
             > [class*="__search"] {
                 border-top-style: none !important;
@@ -598,7 +598,7 @@ In this file:
         .primary-nav--below#{$mod} {
             grid-template-columns: 1fr auto auto;
             grid-template-areas:
-                "logo search buttons"
+                "logo search button"
                 "menu menu menu";
 
             > [class*="__logo"] {
