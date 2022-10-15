@@ -19,13 +19,13 @@ In this file:
 ////////////////////////////////////////
 
 @use "sass:map";
-@use "../breakpoint/style" as breakpoints;
-@use "../accent/style" as accents;
-@use "../spacing/style" as spacing;
-@use "../collapse/style" as collapse;
-@use "../button/style" as buttons;
-@use "../links/style" as links;
-@use "../typography/style" as typography;
+@use "./breakpoint" as breakpoints;
+@use "./accent" as accents;
+@use "./spacing" as spacing;
+@use "./collapse" as collapse;
+@use "./button" as buttons;
+@use "./link" as links;
+@use "./typography" as typography;
 
 ////////////////////////////////////////
 // B. Variables

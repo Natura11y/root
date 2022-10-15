@@ -1,6 +1,4 @@
-import './_style.scss';
-
-import { getFocusableElements } from '../../utilities/focus';
+import { getFocusableElements } from './utilities/focus';
 
 //////////////////////////////////////////////
 // Collapse

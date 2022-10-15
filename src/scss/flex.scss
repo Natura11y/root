@@ -19,8 +19,8 @@ In this file:
 //////////////////////////////////////////////
 
 @use "sass:map";
-@use "../breakpoint/style" as breakpoints;
-@use "../spacing/style" as spacing;
+@use "./breakpoint" as breakpoints;
+@use "./spacing" as spacing;
 
 //////////////////////////////////////////////
 // B. Flex Direction Utilities 

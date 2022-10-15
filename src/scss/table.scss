@@ -15,8 +15,8 @@ In this file:
 //////////////////////////////////////////////
 
 @use "sass:map";
-@use "../accent/style" as accents;
-@use "../breakpoint/style" as breakpoints;
+@use "./accent" as accents;
+@use "./breakpoint" as breakpoints;
 
 //////////////////////////////////////////////
 // B. Variables

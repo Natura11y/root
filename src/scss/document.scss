@@ -16,8 +16,8 @@ In this file:
 // A. Modules
 //////////////////////////////////////////////
 
-@use "../spacing/style" as spacing;
-@use "../color/style" as color;
+@use "./spacing" as spacing;
+@use "./color" as color;
 
 ////////////////////////////////////////
 // B. Variables

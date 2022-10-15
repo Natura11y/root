@@ -15,8 +15,8 @@ In this file:
 //////////////////////////////////////////////
 
 @use "sass:map";
-@use "../breakpoint/style" as breakpoints;
-@use "../color/style" as color;
+@use "./breakpoint" as breakpoints;
+@use "./color" as color;
 
 //////////////////////////////////////////////
 // B. Variables

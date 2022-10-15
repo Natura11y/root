@@ -22,8 +22,8 @@ In this file:
 //////////////////////////////////////////////
 
 @use "sass:map";
-@use "../breakpoint/style" as breakpoints;
-@use "../border/style" as borders;
+@use "./breakpoint" as breakpoints;
+@use "./border" as borders;
 
 //////////////////////////////////////////////
 // B. Variables
