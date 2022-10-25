@@ -21,9 +21,15 @@ In this file:
 //////////////////////////////////////////////
 
 %box-shadow-vars {
-    --base-shadow-unit: 1rem;
-
+    --box-shadow-hsl: 0 0% 0%;
+    --box-shadow-base: 1rem;
     --base-shadow-opacity: 0.125;
+}
+
+%text-shadow-vars {
+    --text-shadow-hsl: 0 0% 0%;
+    --text-shadow-size: 6px;
+    --text-shadow-opacity: 100%;
 }
 
 [class*="theme-dark"] {
@@ -40,9 +46,9 @@ In this file:
     --shadow-opacity: 0;
 
     box-shadow:
-        0 calc(var(--base-shadow-unit) * 0.25) calc(var(--base-shadow-unit) * 1) rgba(0, 0, 0, calc(var(--shadow-opacity) * 1)),
-        0 calc(var(--base-shadow-unit) * 1) calc(var(--base-shadow-unit) * 2) rgba(0, 0, 0, calc(var(--shadow-opacity) * 0.5)),
-        0 calc(var(--base-shadow-unit) * 1.5) calc(var(--base-shadow-unit) * 3) rgba(0, 0, 0, calc(var(--shadow-opacity) * 0.25));
+        0 calc(var(--box-shadow-base) * 0.25) calc(var(--box-shadow-base) * 1) hsla(var(--box-shadow-hsl) / calc(var(--shadow-opacity) * 1)),
+        0 calc(var(--box-shadow-base) * 1) calc(var(--box-shadow-base) * 2) hsla(var(--box-shadow-hsl) / calc(var(--shadow-opacity) * 0.5)),
+        0 calc(var(--box-shadow-base) * 1.5) calc(var(--box-shadow-base) * 3) hsla(var(--box-shadow-hsl) / calc(var(--shadow-opacity) * 0.25));
 }
 
 @each $breakpoint in map.keys(breakpoint.$breakpoints) {
@@ -50,17 +56,17 @@ In this file:
         $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
         
         .box-shadow-1#{$mod} {
-            --base-shadow-unit: 0.25rem;
+            --box-shadow-base: 0.25rem;
             --shadow-opacity: var(--base-shadow-opacity);
         }
 
         .box-shadow-2#{$mod} {
-            --base-shadow-unit: 1rem;
+            --box-shadow-base: 1rem;
             --shadow-opacity: var(--base-shadow-opacity);
         }
 
         .box-shadow-3#{$mod} {
-            --base-shadow-unit: 2rem;
+            --box-shadow-base: 2rem;
             --shadow-opacity: var(--base-shadow-opacity);
         }
     }
@@ -71,5 +77,8 @@ In this file:
 //////////////////////////////////////////////
 
 .text-shadow {
-    text-shadow: 0 0 6px rgba(black, 0.75);
+    @extend %text-shadow-vars;
+    --primary-color: 255, 0, 0;
+
+    text-shadow: 0 0 var(--text-shadow-size) hsla(var(--text-shadow-hsl) / var(--text-shadow-opacity));
 }
