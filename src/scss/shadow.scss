@@ -5,7 +5,7 @@ In this file:
 // A. Modules
 // B. Variables
 // C. Box Shadow Utilities
-// D. Text Shadow Utility
+// D. Text Shadow Utilities
 
 */
 
@@ -29,7 +29,7 @@ In this file:
 %text-shadow-vars {
     --text-shadow-hsl: 0 0% 0%;
     --text-shadow-base-size: 0.25rem;
-    --text-shadow-base-opacity: 0.75;
+    --text-shadow-base-opacity: 0.5;
 }
 
 [class*="theme-dark"] {
@@ -79,13 +79,20 @@ In this file:
 .text-shadow {
     @extend %text-shadow-vars;
 
-
-    --text-shadow-base-size: 0.15rem;
-    --shadow-opacity: var(--text-shadow-base-opacity);
+    --shadow-opacity: 0;
 
     text-shadow:
-
         0 calc(var(--text-shadow-base-size) * 0.25) calc(var(--text-shadow-base-size) * 1) hsla(var(--text-shadow-hsl) / calc(var(--shadow-opacity) * 1)),
         2px calc(var(--text-shadow-base-size) * 1) calc(var(--text-shadow-base-size) * 2) hsla(var(--text-shadow-hsl) / calc(var(--shadow-opacity) * 0.5)),
         4px calc(var(--text-shadow-base-size) * 1.5) calc(var(--text-shadow-base-size) * 3) hsla(var(--text-shadow-hsl) / calc(var(--shadow-opacity) * 0.25)),
+}
+
+@each $breakpoint in map.keys(breakpoint.$breakpoints) {
+    @include breakpoint.breakpoint-up($breakpoint) {
+        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+        
+        .text-shadow#{$mod} {
+            --shadow-opacity: var(--text-shadow-base-opacity);
+        }
+    }
 }
