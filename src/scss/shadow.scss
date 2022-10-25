@@ -22,18 +22,18 @@ In this file:
 
 %box-shadow-vars {
     --box-shadow-hsl: 0 0% 0%;
-    --box-shadow-base: 1rem;
-    --base-shadow-opacity: 0.125;
+    --box-shadow-base-size: 1rem;
+    --box-shadow-base-opacity: 0.125;
 }
 
 %text-shadow-vars {
     --text-shadow-hsl: 0 0% 0%;
-    --text-shadow-size: 6px;
-    --text-shadow-opacity: 100%;
+    --text-shadow-base-size: 0.25rem;
+    --text-shadow-base-opacity: 0.75;
 }
 
 [class*="theme-dark"] {
-    --base-shadow-opacity: 0.2;
+    --box-shadow-base-opacity: 0.2;
 }
 
 //////////////////////////////////////////////
@@ -46,9 +46,9 @@ In this file:
     --shadow-opacity: 0;
 
     box-shadow:
-        0 calc(var(--box-shadow-base) * 0.25) calc(var(--box-shadow-base) * 1) hsla(var(--box-shadow-hsl) / calc(var(--shadow-opacity) * 1)),
-        0 calc(var(--box-shadow-base) * 1) calc(var(--box-shadow-base) * 2) hsla(var(--box-shadow-hsl) / calc(var(--shadow-opacity) * 0.5)),
-        0 calc(var(--box-shadow-base) * 1.5) calc(var(--box-shadow-base) * 3) hsla(var(--box-shadow-hsl) / calc(var(--shadow-opacity) * 0.25));
+        0 calc(var(--box-shadow-base-size) * 0.25) calc(var(--box-shadow-base-size) * 1) hsla(var(--box-shadow-hsl) / calc(var(--shadow-opacity) * 1)),
+        0 calc(var(--box-shadow-base-size) * 1) calc(var(--box-shadow-base-size) * 2) hsla(var(--box-shadow-hsl) / calc(var(--shadow-opacity) * 0.5)),
+        0 calc(var(--box-shadow-base-size) * 1.5) calc(var(--box-shadow-base-size) * 3) hsla(var(--box-shadow-hsl) / calc(var(--shadow-opacity) * 0.25));
 }
 
 @each $breakpoint in map.keys(breakpoint.$breakpoints) {
@@ -56,18 +56,18 @@ In this file:
         $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
         
         .box-shadow-1#{$mod} {
-            --box-shadow-base: 0.25rem;
-            --shadow-opacity: var(--base-shadow-opacity);
+            --box-shadow-base-size: 0.25rem;
+            --shadow-opacity: var(--box-shadow-base-opacity);
         }
 
         .box-shadow-2#{$mod} {
-            --box-shadow-base: 1rem;
-            --shadow-opacity: var(--base-shadow-opacity);
+            --box-shadow-base-size: 1rem;
+            --shadow-opacity: var(--box-shadow-base-opacity);
         }
 
         .box-shadow-3#{$mod} {
-            --box-shadow-base: 2rem;
-            --shadow-opacity: var(--base-shadow-opacity);
+            --box-shadow-base-size: 2rem;
+            --shadow-opacity: var(--box-shadow-base-opacity);
         }
     }
 }
@@ -78,7 +78,14 @@ In this file:
 
 .text-shadow {
     @extend %text-shadow-vars;
-    --primary-color: 255, 0, 0;
 
-    text-shadow: 0 0 var(--text-shadow-size) hsla(var(--text-shadow-hsl) / var(--text-shadow-opacity));
+
+    --text-shadow-base-size: 0.15rem;
+    --shadow-opacity: var(--text-shadow-base-opacity);
+
+    text-shadow:
+
+        0 calc(var(--text-shadow-base-size) * 0.25) calc(var(--text-shadow-base-size) * 1) hsla(var(--text-shadow-hsl) / calc(var(--shadow-opacity) * 1)),
+        2px calc(var(--text-shadow-base-size) * 1) calc(var(--text-shadow-base-size) * 2) hsla(var(--text-shadow-hsl) / calc(var(--shadow-opacity) * 0.5)),
+        4px calc(var(--text-shadow-base-size) * 1.5) calc(var(--text-shadow-base-size) * 3) hsla(var(--text-shadow-hsl) / calc(var(--shadow-opacity) * 0.25)),
 }
