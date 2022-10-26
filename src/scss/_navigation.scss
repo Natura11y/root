@@ -23,9 +23,9 @@ In this file:
 @use './accent';
 @use './spacing';
 @use './collapse';
-@use "./button" as button;
-@use "./link" as links;
-@use "./typography" as typography;
+@use './button';
+@use './link';
+@use './typography';
 
 ////////////////////////////////////////
 // B. Variables
