@@ -18,8 +18,8 @@ In this file:
 // A. Modules
 //////////////////////////////////////////////
 
-@use "sass:map";
-@use "./breakpoint" as breakpoint;
+@use 'sass:map';
+@use './breakpoint';
 
 //////////////////////////////////////////////
 // B. Flex Direction Utilities 

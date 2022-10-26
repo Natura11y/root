@@ -18,11 +18,11 @@ In this file:
 // A. Modules
 ////////////////////////////////////////
 
-@use "sass:map";
-@use "./breakpoint" as breakpoint;
-@use "./accent" as accent;
-@use "./spacing" as spacing;
-@use "./collapse" as collapse;
+@use 'sass:map';
+@use './breakpoint';
+@use './accent';
+@use './spacing';
+@use './collapse';
 @use "./button" as button;
 @use "./link" as links;
 @use "./typography" as typography;

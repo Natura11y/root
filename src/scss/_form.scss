@@ -18,9 +18,9 @@ In this file:
 // A. Modules
 //////////////////////////////////////////////
 
-@use "sass:map";
-@use "./accent" as accent;
-@use "./icon" as icon;
+@use 'sass:map';
+@use './accent';
+@use './icon';
 
 //////////////////////////////////////////////
 // B. Variables
