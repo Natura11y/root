@@ -23,7 +23,7 @@ import './scss/breakpoint.scss';
 import './scss/button.scss';
 import './scss/card.scss';
 import './scss/collapse.scss';
-import './scss/color.scss';
+// import './scss/color.scss';
 import './scss/container.scss';
 import './scss/display.scss';
 import './scss/document.scss';
