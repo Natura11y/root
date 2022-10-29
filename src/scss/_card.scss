@@ -3,15 +3,13 @@
 In this file:
 
 // A. Variables
-// B. Card Block
-// C. Card Elements
+// B. Component
 
 */
 
 //////////////////////////////////////////////
 // A. Variables
 //////////////////////////////////////////////
-
 
 // Scoped to Block
 
@@ -26,6 +24,8 @@ In this file:
 
 @layer component {
 
+    // Card Block
+
     .card {
         position: relative;
 
@@ -35,7 +35,7 @@ In this file:
         height: 100%;
     }
 
-    // Elements
+    // Card Elements
 
     .card__head {
         padding: calc(var(--card-padding-y) * 0.5) var(--card-padding-x);

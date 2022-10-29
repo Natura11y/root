@@ -100,7 +100,7 @@ In this file:
         padding-block-end: var(--alert-padding-y);
     }
 
-    // Alert Modifier
+    // Alert Dismissable Modifier
 
     .alert--dismissable { 
         display: grid;
@@ -137,13 +137,13 @@ In this file:
 
     @keyframes fadeOut {
 
-    from {
-        opacity: 1;
-    }
+        from {
+            opacity: 1;
+        }
 
-    to {
-        opacity: 0;
-    }
+        to {
+            opacity: 0;
+        }
     
     }
 
