@@ -3,8 +3,7 @@
 In this file:
 
 // A. Generic Links
-// B. Expanded Link
-// C. Logo Link
+// B. Utilities
 
 */
 
@@ -30,11 +29,23 @@ In this file:
         }
     }
 
+    a[data-logo="brand"] {
+        display: inline-block;
+
+        &:focus {
+            opacity: 0.85;
+        }
+
+        > svg {
+            fill: currentColor;
+            display: block;
+        }
+    }
+
 } // end @layer
 
-
 //////////////////////////////////////////////
-// B. Expanded Link
+// B. Utilities
 //////////////////////////////////////////////
 
 @layer utility {
@@ -54,20 +65,3 @@ In this file:
     }
 
 } // end @layer
-
-//////////////////////////////////////////////
-// C. Logo Link
-//////////////////////////////////////////////
-
-a[data-logo="brand"] {
-    display: inline-block;
-
-    &:focus {
-        opacity: 0.85;
-    }
-
-    > svg {
-        fill: currentColor;
-        display: block;
-    }
-}

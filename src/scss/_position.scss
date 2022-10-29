@@ -2,8 +2,9 @@
 
 In this file:
 
-// A. Variables
-// B. Position Utilities
+// A. Modules
+// B. Variables
+// C. Utilities
 
 */
 
@@ -15,7 +16,7 @@ In this file:
 @use './breakpoint';
 
 //////////////////////////////////////////////
-// A. Variables
+// B. Variables
 //////////////////////////////////////////////
 
 $positions: static, relative, absolute, fixed;

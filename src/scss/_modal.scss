@@ -3,16 +3,15 @@
 In this file:
 
 // A. Variables
-// B. Modal Block
-// C. Modal Elements
-// D. Modal Scroll All Modifier
-// E. Body Class
+// B. Component
+// C. Body Class (via JS)
 
 */
 
 //////////////////////////////////////////////
 // A. Variables
 //////////////////////////////////////////////
+
 
 // Scoped to Block
 
@@ -27,11 +26,13 @@ In this file:
 } 
 
 //////////////////////////////////////////////
-// B. Modal Block
+// B. Component
 //////////////////////////////////////////////
 
 @layer component {
 
+  // Modal Block
+  
   .modal, 
   .modal::before {
     position: fixed;
@@ -73,9 +74,7 @@ In this file:
 
   }
 
-  //////////////////////////////////////////////
-  // C. Modal Elements
-  //////////////////////////////////////////////
+  // Modal Elements
 
   .modal__content {
     position: relative;
@@ -129,9 +128,7 @@ In this file:
     overflow-y: auto;
   }
 
-  //////////////////////////////////////////////
-  // D. Modal Scroll All Modifier
-  //////////////////////////////////////////////
+  // Modal Scroll All Modifier
 
   .modal--scroll-all {
     overflow-y: scroll;
@@ -148,7 +145,7 @@ In this file:
 } // end @layer
 
 //////////////////////////////////////////////
-// E. Body Class
+// C. Body Class (via JS)
 //////////////////////////////////////////////
 
 @layer base {
