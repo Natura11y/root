@@ -24,133 +24,141 @@ In this file:
   --modal-overlay-opacity: 0.75;
   
   --modal-z-index: 50000;
-}
+} 
 
 //////////////////////////////////////////////
 // B. Modal Block
 //////////////////////////////////////////////
 
-.modal, 
-.modal::before{
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
+@layer component {
 
-.modal {
-  @extend %modal-vars;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-
-  z-index: var(--modal-z-index);
-  
-  padding: var(--modal-padding);
-
-  &[class*="theme-"]{
-    background-color: transparent !important;
-  }
-  
-  &::before {
-      content: "";
-
-      background-color: var(--modal-overlay-color);
-      
-      opacity: var(--modal-overlay-opacity);
+  .modal, 
+  .modal::before {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
   }
 
-  display: none;
+  .modal {
+    @extend %modal-vars;
 
-  &[aria-hidden="false"] {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+
+    z-index: var(--modal-z-index);
+    
+    padding: var(--modal-padding);
+
+    &[class*="theme-"]{
+      background-color: transparent !important;
+    }
+    
+    &::before {
+        content: "";
+
+        background-color: var(--modal-overlay-color);
+        
+        opacity: var(--modal-overlay-opacity);
+    }
+
+    display: none;
+
+    &[aria-hidden="false"] {
+      display: flex;
+    }
+
   }
 
-}
+  //////////////////////////////////////////////
+  // C. Modal Elements
+  //////////////////////////////////////////////
 
-//////////////////////////////////////////////
-// C. Modal Elements
-//////////////////////////////////////////////
-
-.modal__content {
-  position: relative;
-
-  display: flex;
-  flex-direction: column;
-  
-  max-height: calc(100vh - (var(--modal-padding) * 2));
-  width: 100%;
-
-  z-index: auto;
-  
-  background-color: inherit;
-  
-  margin-inline: auto;
-}
-
-.modal__content__head,
-.modal__content__body, 
-.modal__content__foot {
-  padding: var(--modal-padding-y) var(--modal-padding-x);
-}
-
-.modal__content__head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: var(--modal-padding-y) var(--modal-padding-x);
-
-  :is(
-    h1, .h1, 
-    h2, .h2, 
-    h3, .h3,
-    h4, .h4, 
-    h5, .h5, 
-    h6, .h6
-  ) {
-    margin-block-end: 0 !important;
-  }
-
-  button {
-    flex-shrink: 0;
-  }
-  
-}
-
-.modal__content__body {
-  flex-shrink: 1;
-  
-  overflow-y: auto;
-}
-
-//////////////////////////////////////////////
-// D. Modal Scroll All Modifier
-//////////////////////////////////////////////
-
-.modal--scroll-all {
-  overflow-y: scroll;
-
-  &[aria-hidden="false"] {
-    display: block;
-  }
-  
   .modal__content {
-    margin-block: auto;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    
+    max-height: calc(100vh - (var(--modal-padding) * 2));
+    width: 100%;
+
+    z-index: auto;
+    
+    background-color: inherit;
+    
+    margin-inline: auto;
   }
-}
+
+  .modal__content__head,
+  .modal__content__body, 
+  .modal__content__foot {
+    padding: var(--modal-padding-y) var(--modal-padding-x);
+  }
+
+  .modal__content__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: var(--modal-padding-y) var(--modal-padding-x);
+
+    :is(
+      h1, .h1, 
+      h2, .h2, 
+      h3, .h3,
+      h4, .h4, 
+      h5, .h5, 
+      h6, .h6
+    ) {
+      margin-block-end: 0 !important;
+    }
+
+    button {
+      flex-shrink: 0;
+    }
+    
+  }
+
+  .modal__content__body {
+    flex-shrink: 1;
+    
+    overflow-y: auto;
+  }
+
+  //////////////////////////////////////////////
+  // D. Modal Scroll All Modifier
+  //////////////////////////////////////////////
+
+  .modal--scroll-all {
+    overflow-y: scroll;
+
+    &[aria-hidden="false"] {
+      display: block;
+    }
+    
+    .modal__content {
+      margin-block: auto;
+    }
+  }
+
+} // end @layer
 
 //////////////////////////////////////////////
 // E. Body Class
 //////////////////////////////////////////////
 
-body.modal-open {
-  position: relative;
+@layer base {
 
-  overflow: hidden;
+  body.modal-open {
+    position: relative;
 
-  height: 100vh;
+    overflow: hidden;
+
+    height: 100vh;
+  }
+
 }

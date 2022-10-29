@@ -25,21 +25,6 @@ In this file:
 //////////////////////////////////////////////
 
 span.icon {
-  &[class*="-left"], 
-  &[class*="-right"] {
-    [dir="rtl"] & {
-      transform: scaleX(-1);
-    }
-  }
-}
-
-.natura11y-icons-sprite {
-  width: 0;
-  height: 0;
-  display: none;
-}
-
-span.icon {
   @extend %icon-font-vars;
   
   font-size: var(--icon-size);
@@ -53,6 +38,15 @@ span.icon {
   pointer-events: none;
 }
 
+span.icon {
+  &[class*="-left"], 
+  &[class*="-right"] {
+    [dir="rtl"] & {
+      transform: scaleX(-1);
+    }
+  }
+}
+
 svg.icon {
   --icon-size: 50px;
 
@@ -62,6 +56,12 @@ svg.icon {
   height: var(--icon-size);
   
   fill: currentColor;
+}
+
+.natura11y-icons-sprite {
+  width: 0;
+  height: 0;
+  display: none;
 }
 
 //////////////////////////////////////////////

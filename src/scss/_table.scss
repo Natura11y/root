@@ -111,7 +111,6 @@ In this file:
             th, 
             td 
         ) {
-
             &:not(:first-child){
                 border-inline-start-width: var(--default-border-width);
                 border-inline-start-style: var(--default-border-style);

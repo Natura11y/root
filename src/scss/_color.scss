@@ -134,10 +134,7 @@ $theme-colors: (
     body:not([class*="theme-"]),
     body > footer:not([class*="theme-"]),
     [class*="theme-"],
-    .backdrop__image__credit,
-    [data-active-theme] [aria-current],
-    [data-active-theme] [aria-expanded="true"],
-    [data-active-theme] [aria-current] + .nav__dropdown {
+    .backdrop__image__credit {
 
         background-color: var(--background-color);
 
