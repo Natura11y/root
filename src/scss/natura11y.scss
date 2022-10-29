@@ -1,27 +1,49 @@
+/*
+
+In this file:
+
+// A. Layers Partial
+// B. Required Partials
+// C. Optional Partials
+
+*/
+
+//////////////////////////////////////////////
+// A. Layers Module
+//////////////////////////////////////////////
 
 @use './layers';
 
+//////////////////////////////////////////////
+// B. Required Partials
+//////////////////////////////////////////////
+
 @use './accent';
 @use './accessibility';
+@use './border';
+@use './button';
+@use './collapse';
+@use './color';
+@use './document';
+@use './icon';
+@use './link';
+@use './spacing';
+
+//////////////////////////////////////////////
+// B. Optional Partials
+//////////////////////////////////////////////
+
 @use './accordion';
 @use './alert';
 @use './article';
 @use './aspect-ratio';
 @use './backdrop';
-@use './border';
-// @use './breakpoint';
-@use './button';
 @use './card';
-@use './collapse';
-@use './color';
 @use './container';
 @use './display';
-@use './document';
 @use './flex';
-@use './form';
-@use './grid';
-@use './icon';
-@use './link';
+@use './form'; 
+@use './grid'; 
 @use './modal';
 @use './navigation';
 @use './opacity';
@@ -29,7 +51,6 @@
 @use './position';
 @use './shadow';
 @use './sizing';
-@use './spacing';
 @use './tab';
 @use './table';
 @use './typography';
