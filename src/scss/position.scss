@@ -21,56 +21,61 @@ In this file:
 $positions: static, relative, absolute, fixed;
 
 //////////////////////////////////////////////
-// B. Position Utilities
+// C. Utilities
 //////////////////////////////////////////////
 
-@each $breakpoint in map.keys(breakpoint.$breakpoints) {
-    @include breakpoint.breakpoint-up($breakpoint) {
-        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+@layer utility {
+
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
 
-        @each $position in $positions {
-            .position-#{$position}#{$mod} {
-                position: $position;
+            @each $position in $positions {
+                .position-#{$position}#{$mod} {
+                    position: $position;
+                }
             }
-        }
-        .position-absolute#{$mod},
-        .position-top-left#{$mod} {
-            position: absolute;
-            inset-block-start: 0 !important;
-            inset-inline-end: unset !important;
-            inset-block-end: unset !important;
-            inset-inline-start: 0 !important;
-        }
 
-        .position-top-right#{$mod} {
-            position: absolute;
-            inset-block-start: 0 !important;
-            inset-inline-end: 0 !important;
-            inset-block-end: unset !important;
-            inset-block-start: unset !important;
-        }
+            .position-absolute#{$mod},
+            .position-top-left#{$mod} {
+                position: absolute;
+                inset-block-start: 0;
+                inset-inline-end: unset;
+                inset-block-end: unset;
+                inset-inline-start: 0;
+            }
 
-        .position-bottom-right#{$mod} {
-            position: absolute;
-            inset-block-start: unset !important;
-            inset-inline-end: 0 !important;
-            inset-block-end: 0 !important;
-            inset-inline-start: unset !important;
-        }
+            .position-top-right#{$mod} {
+                position: absolute;
+                inset-block-start: 0;
+                inset-inline-end: 0;
+                inset-block-end: unset;
+                inset-block-start: unset;
+            }
 
-        .position-bottom-left#{$mod} {
-            position: absolute;
-            inset-inline-start: unset !important;
-            inset-inline-end: unset !important;
-            inset-block-end: 0 !important;
-            inset-inline-start: 0 !important;
-        }
+            .position-bottom-right#{$mod} {
+                position: absolute;
+                inset-block-start: unset;
+                inset-inline-end: 0;
+                inset-block-end: 0;
+                inset-inline-start: unset;
+            }
 
-        .position-sticky-top#{$mod} {
-            position: sticky;
-            inset-block-start: 0;
-        }
+            .position-bottom-left#{$mod} {
+                position: absolute;
+                inset-inline-start: unset;
+                inset-inline-end: unset;
+                inset-block-end: 0;
+                inset-inline-start: 0;
+            }
 
+            .position-sticky-top#{$mod} {
+                position: sticky;
+                inset-block-start: 0;
+            }
+
+        }
     }
-}
+
+} // end @layer

@@ -12,39 +12,48 @@ In this file:
 // A. Generic Links
 //////////////////////////////////////////////
 
-a {
-    color: inherit;
+@layer base {
 
-    &.underline{
+    a {
+        color: inherit;
+
+        &.underline{
+            text-decoration: underline;
+        }
+    }
+
+    p > a {
         text-decoration: underline;
-    }
-}
 
-p > a {
-    text-decoration: underline;
-
-    &:focus {
-        display: inline-flex;
+        &:focus {
+            display: inline-flex;
+        }
     }
-}
+
+} // end @layer
+
 
 //////////////////////////////////////////////
 // B. Expanded Link
 //////////////////////////////////////////////
 
-.expanded-link {
-    &::before {
-        position: absolute;
-        content: "";
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        
-        z-index: 1;
-        pointer-events: auto;
+@layer utility {
+
+    .expanded-link {
+        &::before {
+            position: absolute;
+            content: "";
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            
+            z-index: 1;
+            pointer-events: auto;
+        }
     }
-}
+
+} // end @layer
 
 //////////////////////////////////////////////
 // C. Logo Link

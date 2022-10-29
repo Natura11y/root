@@ -20,7 +20,7 @@ In this file:
 
 @layer utility {
 
-    // Flex Row
+    // Flex Row Shared
 
     [class*="flex-row"],
     [class*="flex-column"],
@@ -35,6 +35,8 @@ In this file:
     @each $breakpoint in map.keys(breakpoint.$breakpoints) {
         @include breakpoint.breakpoint-up($breakpoint) {
             $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+            // Flex Row
 
             .flex-row#{$mod} {
                 flex-direction: row;
@@ -52,14 +54,7 @@ In this file:
                 flex-direction: column-reverse;
             }
 
-        }
-    }
-    
-    // Flex Wrap
-
-    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
-        @include breakpoint.breakpoint-up($breakpoint) {
-            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+            // Flex Wrap
 
             .flex-no-wrap#{$mod} {
                 flex-wrap: nowrap;
@@ -73,14 +68,7 @@ In this file:
                 flex-wrap: wrap-reverse;
             }
 
-        }
-    }
-
-    // Flex Grow and Shrink 
-
-    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
-        @include breakpoint.breakpoint-up($breakpoint) {
-            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+            // Flex Grow and Shrink 
 
             .flex-grow-1#{$mod} {
                 flex-grow: 1;
@@ -98,15 +86,8 @@ In this file:
                 flex-shrink: 0;
             }
 
-        }
-    }
-
-    // E. Justify Content
-
-    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
-        @include breakpoint.breakpoint-up($breakpoint) {
-            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
-
+            // Justify Content
+            
             .justify-content-start#{$mod} {
                 justify-content: flex-start;
             }
@@ -134,14 +115,8 @@ In this file:
             .justify-content-stretch#{$mod} {
                 justify-content: stretch;
             }
-        }
-    }
 
-    // Justify Self
-
-    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
-        @include breakpoint.breakpoint-up($breakpoint) {
-            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+            // Justify Self
 
             .justify-self-start#{$mod} {
                 justify-self: start;
@@ -158,14 +133,8 @@ In this file:
             .justify-self-stretch#{$mod} {
                 justify-self: stretch;
             }
-        }
-    }
 
-    // Align Content
-
-    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
-        @include breakpoint.breakpoint-up($breakpoint) {
-            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+            // Align Content
 
             .align-content-start#{$mod} {
                 align-content: flex-start;
@@ -195,15 +164,8 @@ In this file:
                 align-content: stretch;
             }
 
-        }
-    }
-
-    // Align Items
-
-    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
-        @include breakpoint.breakpoint-up($breakpoint) {
-            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
-
+            // Align Items
+        
             .align-items-start#{$mod} {
                 align-items: flex-start;
             }
@@ -224,15 +186,8 @@ In this file:
                 align-items: stretch;
             }
 
-        }
-    }
-
-    // Align Self
-
-    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
-        @include breakpoint.breakpoint-up($breakpoint) {
-            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
-
+           // Align Self
+        
             .align-self-auto#{$mod} {
                 align-self: auto;
             }
@@ -260,4 +215,4 @@ In this file:
         }
     }
 
-}
+} // end @layer

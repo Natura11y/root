@@ -4,10 +4,7 @@ In this file:
 
 // A. Modules
 // B. Variables
-// C. Backdrop Block
-// D. Backdrop Elements
-// E. Backdrop Breakpoint Modifiers
-// F. Backdrop Fixed Modifier
+// C. Component
 
 */
 
@@ -111,7 +108,7 @@ In this file:
         min-height: var(--backdrop-fixed-height);
 
         .backdrop__image {
-            position: absolute;
+            position: absolute !important;
             top: 0;
             left: 0;
             bottom: 0;

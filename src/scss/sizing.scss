@@ -4,8 +4,7 @@ In this file:
 
 // A. Modules
 // B. Variables
-// C. Width Utilities
-// D. Height Utilities
+// C. Utilities
 
 */
 
@@ -43,38 +42,36 @@ $heights: (
 );
 
 //////////////////////////////////////////////
-// C. Width Utilities
+// C. Utilities
 //////////////////////////////////////////////
 
-@each $breakpoint in map.keys(breakpoint.$breakpoints) {
-    @include breakpoint.breakpoint-up($breakpoint) {
-        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+@layer utility {
 
-        @each $key, $value in $widths {
-            .width-#{$key}#{$mod} {
-                width: $value;
-            }
-        }
-    }
-}
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
-//////////////////////////////////////////////
-// D. Height Utilities
-//////////////////////////////////////////////
-
-@each $breakpoint in map.keys(breakpoint.$breakpoints) {
-    @include breakpoint.breakpoint-up($breakpoint) {
-        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
-
-        @each $key, $value in $heights {
-
-            .height-#{$key}#{$mod} {
-                height: $value;
-            }
+            // Width
             
-            .min-height-#{$key}#{$mod} {
-                min-height: $value;
+            @each $key, $value in $widths {
+                .width-#{$key}#{$mod} {
+                    width: $value;
+                }
+            }
+
+            // Height
+            
+            @each $key, $value in $heights {
+
+                .height-#{$key}#{$mod} {
+                    height: $value;
+                }
+                
+                .min-height-#{$key}#{$mod} {
+                    min-height: $value;
+                }
             }
         }
     }
-}
+
+} // end @layer

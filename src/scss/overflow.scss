@@ -10,22 +10,26 @@ In this file:
 // A. Overflow Utilities
 //////////////////////////////////////////////
 
-.overflow-auto {
-    overflow: auto;
-}
+@layer utility {
 
-.overflow-visible {
-    overflow: visible;
-}
+    .overflow-auto {
+        overflow: auto;
+    }
 
-.overflow-hidden {
-    overflow: hidden;
-}
+    .overflow-visible {
+        overflow: visible;
+    }
 
-.overflow-x-scroll {
-    overflow-x: scroll;
-}
+    .overflow-hidden {
+        overflow: hidden;
+    }
 
-.overflow-y-scroll {
-    overflow-y: scroll;
-}
+    .overflow-x-scroll {
+        overflow-x: scroll;
+    }
+
+    .overflow-y-scroll {
+        overflow-y: scroll;
+    }
+
+} // end @layer
