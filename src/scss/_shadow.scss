@@ -20,13 +20,11 @@ In this file:
 // B. Variables
 //////////////////////////////////////////////
 
-%box-shadow-vars {
+:root {
     --box-shadow-hsl: 0 0% 0%;
-    --box-shadow-base-size: 1rem;
+    --box-shadow-base-size: 0.5em;
     --box-shadow-base-opacity: 0.125;
-}
 
-%text-shadow-vars {
     --text-shadow-hsl: 0 0% 0%;
     --text-shadow-base-size: 0.25rem;
     --text-shadow-base-opacity: 0.5;
@@ -41,7 +39,6 @@ In this file:
     // Box Shadow
 
     [class*="box-shadow-"] {
-        @extend %box-shadow-vars;
 
         --shadow-opacity: 0;
 
@@ -75,7 +72,6 @@ In this file:
     // Text Shadow
 
     .text-shadow {
-        @extend %text-shadow-vars;
 
         --shadow-opacity: 0;
 
