@@ -19,6 +19,7 @@ const devPages = {
     'Aspect Ratio': 'aspect-ratio',
     'Button': 'button',
     'Backdrop': 'backdrop',
+    'Card': 'card',
     'Footer': 'footer',
     'Form': 'form',
     'Grid': 'grid',
@@ -32,7 +33,7 @@ const devPages = {
 
 const devDir = './dist/html';
 
-const devPage = `${devPages.Typography}.html`;
+const devPage = `${devPages.Card}.html`;
 
 module.exports = merge(common, {
     mode: 'development',

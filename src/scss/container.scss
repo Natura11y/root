@@ -32,36 +32,44 @@ In this file:
 }
 
 //////////////////////////////////////////////
-// C. Container Utility
+// C. Component
 //////////////////////////////////////////////
 
-.container {
-    padding-inline: var(--container-padding-x-sm);
-    margin-inline: auto;
+@layer component {
 
-    @include breakpoint.breakpoint-up(lg) {
-        padding-inline: var(--container-padding-x-lg);
+    .container {
+        padding-inline: var(--container-padding-x-sm);
+        margin-inline: auto;
+
+        @include breakpoint.breakpoint-up(lg) {
+            padding-inline: var(--container-padding-x-lg);
+        }
     }
-}
+
+} // end @layer
 
 //////////////////////////////////////////////
 // D. Narrow, Medium, and Wide Utilities
 //////////////////////////////////////////////
 
-@each $breakpoint in map.keys(breakpoint.$breakpoints) {
-    @include breakpoint.breakpoint-up($breakpoint) {
-        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+@layer utility {
 
-        .narrow#{$mod} {
-            max-width: var(--narrow-width);
-        }
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
-        .medium#{$mod} {
-            max-width: var(--medium-width);
-        }
+            .narrow#{$mod} {
+                max-width: var(--narrow-width);
+            }
 
-        .wide#{$mod} {
-            max-width: var(--wide-width);
+            .medium#{$mod} {
+                max-width: var(--medium-width);
+            }
+
+            .wide#{$mod} {
+                max-width: var(--wide-width);
+            }
         }
     }
-}
+
+} // end @layer

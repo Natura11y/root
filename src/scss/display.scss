@@ -22,22 +22,26 @@ In this file:
 $display-types: block, inline, inline-block, flex, inline-flex, grid, inline-grid, none, initial;
 
 //////////////////////////////////////////////
-// C. Display Utilities
+// C. Utilities
 //////////////////////////////////////////////
 
-@each $breakpoint in map.keys(breakpoint.$breakpoints) {
-    @include breakpoint.breakpoint-up($breakpoint) {
-        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+@layer utility {
 
-        @each $value in $display-types {
-            .display-#{$value}#{$mod} {
-                display: $value !important;
-                @if $value == none {
-                    &.collapse {
-                        display: $value !important;
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+            @each $value in $display-types {
+                .display-#{$value}#{$mod} {
+                    display: $value !important;
+                    @if $value == none {
+                        &.collapse {
+                            display: $value !important;
+                        }
                     }
                 }
             }
         }
     }
-}
+
+} // end @layer

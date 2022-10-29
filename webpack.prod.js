@@ -62,6 +62,6 @@ module.exports = merge(common, {
         new MiniCssExtractPlugin({
             filename: 'css/[name].css',
         }),
-        new CssMinimizerPlugin()
+        // new CssMinimizerPlugin()
     ]
 });

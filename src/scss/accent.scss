@@ -5,9 +5,7 @@ In this file:
 // A. Modules
 // B. Variables
 // C. Placeholders
-// D. Subtle Fill Utility
-// E. Caret
-// F. Gradient Veneer Utility
+// D. Utilities
 
 */
 
@@ -98,82 +96,84 @@ In this file:
 }
 
 ////////////////////////////////////////
-// D. Subtle Fill Utility
+// D. Utilities
 ////////////////////////////////////////
 
-.subtle-fill {
-    @extend %subtle-fill-psuedo;
-    
-    > * {
-        position: relative;
-        z-index: auto;
-    }
-}
+@layer utility {
 
-////////////////////////////////////////
-// E. Caret Utility
-////////////////////////////////////////
+    // Subtle Fill Utility
 
-.caret {
-    @extend %caret;
-}
-
-////////////////////////////////////////
-// F. Gradient Veneer Utilites
-////////////////////////////////////////
-
-[class*="gradient-veneer"] {
-    @extend %gradient-veneer-vars;
-
-    --gradient-direction: to bottom;
-
-    position: relative;
-
-    &::after {        
-        position: absolute;
-        content: "";
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-
-        background: linear-gradient( var(--gradient-direction), hsla(0, 0%, 100%, 0) var(--gradient-veneer-start), var(--gradient-color) );
-        background-clip: border-box;
-
-        opacity: var(--gradient-veneer-opacity);
+    .subtle-fill {
+        @extend %subtle-fill-psuedo;
         
-        display: none;
-    }
-}
-
-.gradient-veneer-top {
-    --gradient-direction: to top;
-}
-
-.gradient-veneer-right {
-    --gradient-direction: to right;
-}
-
-.gradient-veneer-bottom {
-    --gradient-direction: to bottom;
-}
-
-.gradient-veneer-left {
-    --gradient-direction: to left;
-}
-
-@each $breakpoint in map.keys(breakpoint.$breakpoints) {
-    @include breakpoint.breakpoint-up($breakpoint) {
-        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
-
-        .gradient-veneer-top#{$mod},
-        .gradient-veneer-right#{$mod},
-        .gradient-veneer-bottom#{$mod},
-        .gradient-veneer-left#{$mod} {
-            &::after{
-                display: block !important;
-            }
+        > * {
+            position: relative;
+            z-index: auto;
         }
-        
     }
-}
+
+    // Caret Utility
+
+    .caret {
+        @extend %caret;
+    }
+
+    // Gradient Veneer Utilities
+
+    [class*="gradient-veneer"] {
+        @extend %gradient-veneer-vars;
+
+        --gradient-direction: to bottom;
+
+        position: relative;
+
+        &::after {        
+            position: absolute;
+            content: "";
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+
+            background: linear-gradient( var(--gradient-direction), hsla(0, 0%, 100%, 0) var(--gradient-veneer-start), var(--gradient-color) );
+            background-clip: border-box;
+
+            opacity: var(--gradient-veneer-opacity);
+            
+            display: none;
+        }
+    }
+
+    .gradient-veneer-top {
+        --gradient-direction: to top;
+    }
+
+    .gradient-veneer-right {
+        --gradient-direction: to right;
+    }
+
+    .gradient-veneer-bottom {
+        --gradient-direction: to bottom;
+    }
+
+    .gradient-veneer-left {
+        --gradient-direction: to left;
+    }
+
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+            .gradient-veneer-top#{$mod},
+            .gradient-veneer-right#{$mod},
+            .gradient-veneer-bottom#{$mod},
+            .gradient-veneer-left#{$mod} {
+                &::after{
+                    display: block !important;
+                }
+            }
+            
+        }
+    }
+
+} // end @layer

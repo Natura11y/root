@@ -79,8 +79,10 @@ In this file:
 }
 
 //////////////////////////////////////////////
-// C. Font Weight Utilities
+// D. Utilities
 //////////////////////////////////////////////
+
+// Font Weights Utilities
 
 $font-weights: (
     normal: var(--body-font-weight-normal),
@@ -94,9 +96,7 @@ $font-weights: (
     }
 }
 
-//////////////////////////////////////////////
-// D. Font Size Utilities
-//////////////////////////////////////////////
+// Font Size Utilities
 
 $font-sizes: (
 

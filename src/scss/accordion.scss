@@ -4,8 +4,7 @@ In this file:
 
 // A. Modules
 // B. Variables
-// C. Accordion Block
-// D. Accordion Elements
+// C. Component
 
 */
 
@@ -34,66 +33,70 @@ In this file:
 }
 
 //////////////////////////////////////////////
-// C. Accordion Block
+// C. Component
 //////////////////////////////////////////////
 
-.accordion {
-    @extend %accordion-vars;
-}
+@layer component {
 
-//////////////////////////////////////////////
-// D. Accordion Elements
-//////////////////////////////////////////////
+    // Accordion Block
 
-.accordion__button {
-    position: relative;
-    
-    display: flex;
-    justify-content: space-between;
-
-    width: 100%;
-
-    padding: var(--accordion-button-padding-y) var(--accordion-button-padding-x);
-
-    margin-bottom: 0;
-
-    cursor: pointer;
-
-    @extend %caret;
-
-    &:not(:first-child){
-        border-top-width: var(--default-border-width);
-        border-top-style: var(--default-border-style);
-        border-top-color: inherit;
+    .accordion {
+        @extend %accordion-vars;
     }
 
-    &:not([aria-expanded="true"])::before {
-        transform: rotate(0deg);
-    }
-    
-    &::before {
-       transition: transform var(--accordion-animation);
-    }
+    // Accordion Elements
 
-    &[aria-expanded="true"] {
-        text-decoration: underline;
+    .accordion__button {
+        position: relative;
+        
+        display: flex;
+        justify-content: space-between;
 
-        color: var(--accordion-active-color);
+        width: 100%;
 
+        padding: var(--accordion-button-padding-y) var(--accordion-button-padding-x);
+
+        margin-bottom: 0;
+
+        cursor: pointer;
+
+        @extend %caret;
+
+        &:not(:first-child){
+            border-top-width: var(--default-border-width);
+            border-top-style: var(--default-border-style);
+            border-top-color: inherit;
+        }
+
+        &:not([aria-expanded="true"])::before {
+            transform: rotate(0deg);
+        }
+        
         &::before {
-            transform: rotate(180deg);
+            transition: transform var(--accordion-animation);
+        }
+
+        &[aria-expanded="true"] {
+            text-decoration: underline;
+
+            color: var(--accordion-active-color);
+
+            &::before {
+                transform: rotate(180deg);
+            }
         }
     }
-}
 
-.accordion__panel {
-    overflow: hidden;
+    .accordion__panel {
+        overflow: hidden;
 
-    transition: max-height var(--accordion-animation);
-    
-    max-height: 0;
-}
+        transition: max-height var(--accordion-animation);
+        
+        max-height: 0;
+    }
 
-.accordion__panel__content {
-    padding: var(--accordion-panel-padding-y) var(--accordion-panel-padding-x);
-}
+    .accordion__panel__content {
+        padding: var(--accordion-panel-padding-y) var(--accordion-panel-padding-x);
+    }
+
+} // end @layer

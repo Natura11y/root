@@ -11,18 +11,26 @@ In this file:
 // A. Button Aria Expanded
 //////////////////////////////////////////////
 
-.button[aria-expanded="true"] {
-    --subtle-fill-opacity: .15;
-}
+@layer component {
 
-//////////////////////////////////////////////
-// B. Collapse Utility
-//////////////////////////////////////////////
-
-.collapse {
-    display: none;
-    
-    &.shown {
-        display: block;
+    .button[aria-expanded="true"] {
+        --subtle-fill-opacity: .15;
     }
-}
+
+} // end @layer
+
+//////////////////////////////////////////////
+// B. Utility
+//////////////////////////////////////////////
+
+@layer utility {
+
+    .collapse {
+        display: none;
+        
+        &.shown {
+            display: block;
+        }
+    }
+
+} // end @layer
