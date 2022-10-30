@@ -195,9 +195,7 @@ In this file:
         opacity: 0.8;
     }
 
-    //////////////////////////////////////////////
-    // E. Form Entry Block
-    //////////////////////////////////////////////
+    // Form Entry Block
 
     .form-entry {
 
@@ -232,9 +230,7 @@ In this file:
         }
     }
 
-    //////////////////////////////////////////////
-    // F. Form Entry Elements
-    //////////////////////////////////////////////
+    // Form Entry Elements
 
     .form-entry__field {
         position: relative;
@@ -470,9 +466,7 @@ In this file:
 
     }
 
-    //////////////////////////////////////////////
-    // G. Checkbox and Radio Elements
-    //////////////////////////////////////////////
+    // Checkbox and Radio Elements
 
     .form-entry__option {
         position: relative;
@@ -692,9 +686,7 @@ In this file:
 
     }
 
-    //////////////////////////////////////////////
-    // H. File Upload
-    //////////////////////////////////////////////
+    // File Upload
 
     .file-upload {
         position: relative;
@@ -774,9 +766,7 @@ In this file:
         font-size: var(--font-size-md);
     }
 
-    //////////////////////////////////////////////
-    // I. Form Feedback
-    //////////////////////////////////////////////
+    // Form Feedback
 
     [data-alert="form-errors"],
     .form-entry__feedback {

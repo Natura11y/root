@@ -40,7 +40,7 @@ In this file:
         border-color: inherit !important;
     }
 
-    // Border Directional Utilities
+    // Directional
 
     @each $breakpoint in map.keys(breakpoint.$breakpoints) {
         @include breakpoint.breakpoint-up($breakpoint) {
@@ -74,7 +74,7 @@ In this file:
         }
     }
 
-    // Border Color Utilities
+    // Color 
 
     @each $name, $color-map in color.$theme-colors {
 
@@ -99,7 +99,7 @@ In this file:
         }
     }
 
-    // Border Radius Utilities
+    // Radius
 
     [class*="border-radius"]{
         overflow: hidden;
