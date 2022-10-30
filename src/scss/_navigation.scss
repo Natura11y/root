@@ -67,10 +67,12 @@ In this file:
 }
 
 ////////////////////////////////////////
-// D. Nav Component
+// D. Components
 ////////////////////////////////////////
 
 @layer component {
+
+    // Nav
 
     .nav, 
     .nav li > ul {
@@ -141,9 +143,7 @@ In this file:
         }
     }
 
-    ////////////////////////////////////////
-    // F. Nav Divider Modifier
-    ////////////////////////////////////////
+    // Nav Divider Modifier
 
     .nav--divider {
 
@@ -237,9 +237,7 @@ In this file:
         }
     }
 
-    ////////////////////////////////////////
-    // G. Nav Has Icons Modifier
-    ////////////////////////////////////////
+    // Nav Has Icons Modifier
 
     [class*="nav--has-icons"] {
 
@@ -261,9 +259,7 @@ In this file:
         }
     }
 
-    ////////////////////////////////////////
-    // H. Nav Breadcrumb Component
-    ////////////////////////////////////////
+    // Nav Breadcrumb Component
 
     .nav-breadcrumb {
         @extend %list-style-nav;
@@ -299,9 +295,7 @@ In this file:
         }
     }
 
-    ////////////////////////////////////////
-    // I. Nav Dropdown Elements
-    ////////////////////////////////////////
+    // Nav Dropdown Elements
 
     [data-toggle="dropdown"]:not([class*="button--icon-only"]) {    
         @extend %caret;
@@ -369,9 +363,7 @@ In this file:
         }
     }
 
-    //////////////////////////////////////////////
-    // J. Primary Nav Components
-    //////////////////////////////////////////////
+    // Primary Nav Components
 
     [class*="primary-nav--"] {
         position: relative;
