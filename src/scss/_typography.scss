@@ -79,83 +79,162 @@ In this file:
 }
 
 //////////////////////////////////////////////
-// D. Utilities
+// C. Base Selectors
 //////////////////////////////////////////////
 
-// Font Weights Utilities
+@layer base {
 
-$font-weights: (
-    normal: var(--body-font-weight-normal),
-    medium: var(--body-font-weight-medium),
-    bold: var(--body-font-weight-bold),
-);
+    body {
+        font-family: var(--body-font-family);
 
-@each $key, $value in $font-weights {
-    .font-weight-#{$key} {
-        font-weight: #{$value} !important;
+        font-size: var(--body-font-size);
+        
+        font-weight: var(--body-font-weight-normal);
+        
+        line-height: var(--body-line-height);
     }
-}
 
-// Font Size Utilities
+    p, 
+    p ~ ul:not([class]),
+    p ~ ol:not([class]) {
+        &:not(:last-child){
+            margin-block-end: var(--paragraph-margin-bottom);
+        }
+    }
 
-$font-sizes: (
+    :is(
+        p ~ ul:not([class]),
+        p ~ ol:not([class]) 
+    ) li {
+        margin-block-end: var(--spacer-1);
+    }
 
-    sm: (
-        size: var(--font-size-sm)
-    ),
+    p ~ ul:not([class]) {
+        --list-item-padding: 1em;
 
-    md: (
-        size: var(--font-size-md)
-    ),
+        li {
+            margin-inline-start: var(--list-item-padding);
+        }
+    }
+
+    ol:not([class]) {
+        --list-item-padding: 2em;
+
+        list-style: none;
+
+        counter-reset: list-item-counter;
     
-    rg: (
-        size: var(--font-size-rg)
-    ),
+        li {
+            position: relative;
+            
+            padding-inline-start: var(--list-item-padding);
 
-    lg: (
-        size: var(--font-size-lg)
-    ),
-    
-    xl: (
-        size: var(--font-size-xl)
-    )
-);
+            counter-increment: list-item-counter;
+        }
 
-@each $breakpoint in map.keys(breakpoint.$breakpoints) {
-    @include breakpoint.breakpoint-up($breakpoint) {
-        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+        li::before {
+            position: absolute;
+            inset-inline-start: 0;
 
-        @each $key, $font-size-map in $font-sizes {
-            .font-size-#{$key}#{$mod} {
-                font-size: map.get($font-size-map, "size") !important;
+            content: counters(list-item-counter, ".") ". ";
+        }
 
-                @if map.has-key($font-size-map, "line-height") {
-                    line-height: map.get($font-size-map, "line-height");
+    }
+
+    figure {
+        figcaption {
+            font-size: var(--font-size-sm);
+            opacity: 0.85;
+            margin-block-start: var(--spacer-2);
+        }
+    }
+
+    blockquote {
+        margin-block-end: var(--paragraph-margin-bottom);
+    }
+
+    :is(
+        h1, .h1,
+        h2, .h2, 
+        h3, .h3,
+        h4, .h4,
+        h5, .h5, 
+        h6, .h6 
+    ) {
+        font-weight: var(--body-font-weight-bold);
+        line-height: var(--header-line-height);
+
+        &:not(.accordion__button):not(.alert__title):not(:last-child){
+            margin-block-end: var(--header-margin-bottom);
+        }
+    }
+} // end @layer
+
+//////////////////////////////////////////////
+// D. Font Size and Font Weight Utilities
+//////////////////////////////////////////////
+
+@layer utility {
+
+    // Font Size
+
+    $font-sizes: (
+
+        sm: (
+            size: var(--font-size-sm)
+        ),
+
+        md: (
+            size: var(--font-size-md)
+        ),
+        
+        rg: (
+            size: var(--font-size-rg)
+        ),
+
+        lg: (
+            size: var(--font-size-lg)
+        ),
+        
+        xl: (
+            size: var(--font-size-xl)
+        )
+    );
+
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+            @each $key, $font-size-map in $font-sizes {
+                .font-size-#{$key}#{$mod} {
+                    font-size: map.get($font-size-map, "size");
+
+                    @if map.has-key($font-size-map, "line-height") {
+                        line-height: map.get($font-size-map, "line-height");
+                    }
                 }
             }
         }
     }
-}
 
-//////////////////////////////////////////////
-// E. Headings
-//////////////////////////////////////////////
+    // Font Weight
 
-:is(
-    h1, .h1,
-    h2, .h2, 
-    h3, .h3,
-    h4, .h4,
-    h5, .h5, 
-    h6, .h6 
-) {
-    font-weight: var(--body-font-weight-bold);
-    line-height: var(--header-line-height);
+    $font-weights: (
+        normal: var(--body-font-weight-normal),
+        medium: var(--body-font-weight-medium),
+        bold: var(--body-font-weight-bold),
+    );
 
-    &:not(.accordion__button):not(.alert__title):not(:last-child){
-        margin-block-end: var(--header-margin-bottom);
+    @each $key, $value in $font-weights {
+        .font-weight-#{$key} {
+            font-weight: #{$value};
+        }
     }
-}
+} // end @layer
+
+//////////////////////////////////////////////
+// E. Heading Sizes and Utilities
+//////////////////////////////////////////////
 
 $headers: (
 
@@ -184,186 +263,115 @@ $headers: (
     )
 );
 
-@each $key, $header-map in $headers {
-
-    #{$key} {
-        font-size: map.get($header-map, "size");
-    }
-}
-
-@each $key, $header-map in $headers {
-
-    .#{$key} {
-        font-size: map.get($header-map, "size") !important;
-    }
-}
-
-//////////////////////////////////////////////
-// F. Banner Headline Utility
-//////////////////////////////////////////////
-
-.banner-headline {
-    font-weight: var(--banner-headline-font-weight);
-
-    font-size: var(--banner-headline-font-size-sm);
-
-    line-height: var(--header-line-height);
-
-    @include breakpoint.breakpoint-up(lg) {
-        font-size: var(--banner-headline-font-size-lg);
-    }
-}
-
-//////////////////////////////////////////////
-// G. Body Selectors
-//////////////////////////////////////////////
-
-body {
-    font-family: var(--body-font-family);
-
-    font-size: var(--body-font-size);
-    
-    font-weight: var(--body-font-weight-normal);
-    
-    line-height: var(--body-line-height);
-}
-
-p, 
-p ~ ul:not([class]),
-p ~ ol:not([class]) {
-    &:not(:last-child){
-        margin-block-end: var(--paragraph-margin-bottom);
-    }
-}
-
-:is(
-    p ~ ul:not([class]),
-    p ~ ol:not([class]) 
-) li {
-    margin-block-end: var(--spacer-1);
-}
-
-p ~ ul:not([class]) {
-    --list-item-padding: 1em;
-
-    li {
-        margin-inline-start: var(--list-item-padding);
-    }
-}
-
-ol:not([class]) {
-    --list-item-padding: 2em;
-
-    list-style: none;
-
-    counter-reset: list-item-counter;
-  
-    li {
-        position: relative;
+@layer base {
         
-        padding-inline-start: var(--list-item-padding);
+    @each $key, $header-map in $headers {
 
-        counter-increment: list-item-counter;
-    }
-
-    li::before {
-        position: absolute;
-        inset-inline-start: 0;
-
-        content: counters(list-item-counter, ".") ". ";
-    }
-
-}
-
-figure {
-    figcaption {
-        font-size: var(--font-size-sm);
-        opacity: 0.85;
-        margin-block-start: var(--spacer-2);
-    }
-}
-
-.blockquote {
-    margin-block-end: var(--paragraph-margin-bottom);
-}
-
-//////////////////////////////////////////////
-// H. Text Align Utilities
-//////////////////////////////////////////////
-
-@each $breakpoint in map.keys(breakpoint.$breakpoints) {
-    @include breakpoint.breakpoint-up($breakpoint) {
-        $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
-
-        .text-align-left#{$mod} {
-            text-align: start !important;
+        #{$key} {
+            font-size: map.get($header-map, "size");
         }
-        
-        .text-align-center#{$mod} {
-            text-align: center !important;
-        }
-
-        .text-align-right#{$mod} {
-            text-align: end !important;
-        }
-
     }
-}
+
+} // end @layer
+
+@layer utility {
+
+    // h1 - h6
+
+    @each $key, $header-map in $headers {
+
+        .#{$key} {
+            font-size: map.get($header-map, "size");
+        }
+    }
+
+    // Banner Headline
+
+    .banner-headline {
+        font-weight: var(--banner-headline-font-weight);
+
+        font-size: var(--banner-headline-font-size-sm);
+
+        line-height: var(--header-line-height);
+
+        @include breakpoint.breakpoint-up(lg) {
+            font-size: var(--banner-headline-font-size-lg);
+        }
+    }
+
+} // end @layer
 
 //////////////////////////////////////////////
-// I. Text Transform Utilities
+// F. Text Utilities
 //////////////////////////////////////////////
 
-.text-transform-capitalize {
-    text-transform: capitalize;
-}
+@layer utility {
 
-.text-transform-uppercase {
-    text-transform: uppercase;
-}
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
-.text-transform-lowercase {
-    text-transform: lowercase;
-}
+            // Text Align
 
-//////////////////////////////////////////////
-// J. Text Decoration Utilities
-//////////////////////////////////////////////
+            .text-align-left#{$mod} {
+                text-align: start;
+            }
+            
+            .text-align-center#{$mod} {
+                text-align: center;
+            }
 
-[class*="text-decoration-"] {
-    --line-thickness: auto;
-}
+            .text-align-right#{$mod} {
+                text-align: end;
+            }
 
-.text-decoration-underline {
-    text-decoration: underline var(--line-thickness);
-}
+            // Text Transform
 
-.text-decoration-line-through {
-    text-decoration: line-through var(--line-thickness);
-}
+            .text-transform-capitalize#{$mod} {
+                text-transform: capitalize;
+            }
 
-.text-decoration-none {
-    text-decoration: none;
-}
+            .text-transform-uppercase#{$mod} {
+                text-transform: uppercase;
+            }
 
-//////////////////////////////////////////////
-// K. Word Wrap Utilities
-//////////////////////////////////////////////
+            .text-transform-lowercase#{$mod} {
+                text-transform: lowercase;
+            }
 
-.nowrap {
-    white-space: nowrap;
-}
+            // Text Decoration
 
-.break-word {
-    overflow-wrap: break-word;
-}
+            .text-decoration-underline#{$mod} {
+                text-decoration: underline auto;
+            }
 
-////////////////////////////////////////
-// L. Truncate Text Utility
-////////////////////////////////////////
+            .text-decoration-line-through#{$mod} {
+                text-decoration: line-through auto;
+            }
 
-.truncate-text {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+            .text-decoration-none#{$mod} {
+                text-decoration: none;
+            }
+
+            // Word Wrap
+
+            .nowrap#{$mod} {
+                white-space: nowrap;
+            }
+
+            .break-word#{$mod} {
+                overflow-wrap: break-word;
+            }
+
+            // Truncate Text
+            
+            .truncate-text#{$mod} {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+        }
+    }
+
+} // end @layer

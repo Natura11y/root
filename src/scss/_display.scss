@@ -33,7 +33,8 @@ $display-types: block, inline, inline-block, flex, inline-flex, grid, inline-gri
 
             @each $value in $display-types {
                 .display-#{$value}#{$mod} {
-                    display: $value !important;
+                    display: $value;
+                    
                     @if $value == none {
                         &.collapse {
                             display: $value !important;

@@ -98,7 +98,7 @@ $rows: math.div($columns, 2);
             }
 
             .matrix > .matrix__cell.matrix--cell-fill#{$mod} {
-                flex: 1 !important;
+                flex: 1;
                 max-width: unset;
             }
             
