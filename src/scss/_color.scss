@@ -225,12 +225,12 @@ $theme-colors: (
 
                 .background-color-#{$name}#{$mod}{
                     --background-color: #{$swatch};
-                    background-color: var(--background-color) !important;
+                    background-color: var(--background-color);
                 }
 
                 .text-color-#{$name}#{$mod}{
                     --text-color: #{$swatch};
-                    color: var(--text-color) !important;
+                    color: var(--text-color);
                 }
             }
         }
