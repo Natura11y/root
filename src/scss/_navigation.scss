@@ -191,7 +191,7 @@ In this file:
                 align-items: stretch;
 
                 > li {
-                    border-bottom-style: none !important;
+                    border-bottom-style: none;
 
                     flex-grow: 1;
                     flex-shrink: 0;
@@ -516,7 +516,7 @@ In this file:
                 }
 
                 [class*="__menu"] {
-                    display: flex !important;
+                    display: flex;
                 }
 
                 [class*="__toggle"] {
@@ -538,12 +538,12 @@ In this file:
                 grid-template-areas:
                     "logo menu search button";
 
-                > [class*="__search"] {
+                > [class*="__search"], 
+                > [class*="__menu"] {
                     border-top-style: none !important;
                 }
 
                 > [class*="__menu"] {
-                    border-top-style: none !important;
 
                     justify-content: flex-end;
                     align-items: center;
