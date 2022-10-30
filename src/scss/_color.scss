@@ -5,6 +5,7 @@ In this file:
 // A. Modules
 // B. Variables
 // C. Utilities
+// D. Prefers Color Scheme
 
 */
 
@@ -236,17 +237,20 @@ $theme-colors: (
         }
     }
 
-    // Prefers Color Scheme Modifier
-
-    @media (prefers-color-scheme: dark) {
-        [class*="theme-canvas"][class*="--prefers"] {
-            --canvas: var(--dark);
-            --canvas-text: var(--dark-text);
-            --canvas-border: var(--dark-border);
-            --canvas-link: var(--dark-link);
-            --canvas-confirm: var(--dark-confirm);
-            --canvas-warn: var(--dark-warn);
-        }
-    }
-
 } // end @layer
+
+//////////////////////////////////////////////
+// D. Prefers Color Scheme 
+//////////////////////////////////////////////
+
+@media (prefers-color-scheme: dark) {
+
+    [class*="theme-canvas"][class*="--prefers"] {
+        --canvas: var(--dark);
+        --canvas-text: var(--dark-text);
+        --canvas-border: var(--dark-border);
+        --canvas-link: var(--dark-link);
+        --canvas-confirm: var(--dark-confirm);
+        --canvas-warn: var(--dark-warn);
+    }
+}

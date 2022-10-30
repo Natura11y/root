@@ -94,6 +94,7 @@ In this file:
 
     html {
         @extend %custom-properties;
+        @extend .theme-canvas !optional;
         
         font-size: 1rem;
         line-height: 1.125;
@@ -123,7 +124,6 @@ In this file:
 
         margin-inline: auto;
         
-        @extend .theme-canvas !optional;
         
     }
 
