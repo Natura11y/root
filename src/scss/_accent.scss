@@ -134,28 +134,30 @@ In this file:
             bottom: 0;
             left: 0;
 
-            background: linear-gradient( var(--gradient-direction), hsla(0, 0%, 100%, 0) var(--gradient-veneer-start), var(--gradient-color) );
+            background-image: linear-gradient( var(--gradient-direction), hsla(0, 0%, 100%, 0) var(--gradient-veneer-start), var(--gradient-color) );
             background-clip: border-box;
 
             opacity: var(--gradient-veneer-opacity);
+
+            pointer-events: none;
             
             display: none;
         }
     }
 
-    .gradient-veneer-top {
+    [class*="gradient-veneer-top"] {
         --gradient-direction: to top;
     }
 
-    .gradient-veneer-right {
+    [class*="gradient-veneer-right"] {
         --gradient-direction: to right;
     }
 
-    .gradient-veneer-bottom {
+    [class*="gradient-veneer-bottom"] {
         --gradient-direction: to bottom;
     }
 
-    .gradient-veneer-left {
+    [class*="gradient-veneer-left"] {
         --gradient-direction: to left;
     }
 
@@ -168,7 +170,7 @@ In this file:
             .gradient-veneer-bottom#{$mod},
             .gradient-veneer-left#{$mod} {
                 &::after{
-                    display: block !important;
+                    display: block;
                 }
             }
             
