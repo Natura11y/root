@@ -132,8 +132,7 @@ $theme-colors: (
 
 @layer utility {
 
-    body:not([class*="theme-"]),
-    body > footer:not([class*="theme-"]),
+    html:not([class*="theme-"]),
     [class*="theme-"],
     .backdrop__image__credit {
 
@@ -237,20 +236,20 @@ $theme-colors: (
         }
     }
 
+    @media (prefers-color-scheme: dark) {
+
+        .theme-canvas--prefers {
+            --background-color: var(--dark);
+            --text-color: var(--dark-text);
+            --border-color: var(--dark-border);
+            --link-color: var(--dark-link);
+            --confirm-color: var(--dark-confirm);
+            --warn-color: var(--dark-warn);
+        }
+    }
+
 } // end @layer
 
 //////////////////////////////////////////////
 // D. Prefers Color Scheme 
 //////////////////////////////////////////////
-
-@media (prefers-color-scheme: dark) {
-
-    [class*="theme-canvas"][class*="--prefers"] {
-        --canvas: var(--dark);
-        --canvas-text: var(--dark-text);
-        --canvas-border: var(--dark-border);
-        --canvas-link: var(--dark-link);
-        --canvas-confirm: var(--dark-confirm);
-        --canvas-warn: var(--dark-warn);
-    }
-}
