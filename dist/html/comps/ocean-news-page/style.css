@@ -27,11 +27,9 @@
 
     --body-font-family: 'EB Garamond', serif;
     
-    --body-font-size: 22px;
+    --base-font-size: 0.9rem;
 
     --body-line-height: 1.375;
-
-    --header-line-height: 1.2;
     
     --medium-width: calc( var(--narrow-width) * 2.25);
     --wide-width: calc( var(--narrow-width) * 3.25);
