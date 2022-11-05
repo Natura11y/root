@@ -190,7 +190,7 @@ In this file:
     }
 
     .required-indicator__text {
-        font-size: var(--font-size-md);
+        font-size: var(--font-size-sm);
 
         font-style: italic;
 
@@ -736,7 +736,7 @@ In this file:
         
         pointer-events: none;
 
-        font-size: var(--font-size-md);
+        font-size: var(--font-size-sm);
 
         @extend %subtle-fill-psuedo;
 
@@ -756,7 +756,7 @@ In this file:
         
         pointer-events: none;
         
-        font-size: var(--font-size-md);
+        font-size: var(--font-size-sm);
     }
 
     .file-upload__data {
@@ -765,7 +765,7 @@ In this file:
 
         margin-block-start: var(--form-field-padding-y);
         
-        font-size: var(--font-size-md);
+        font-size: var(--font-size-sm);
     }
 
     // Form Feedback

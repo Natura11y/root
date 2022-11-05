@@ -264,7 +264,7 @@ In this file:
     .nav-breadcrumb {
         @extend %list-style-nav;
 
-        --breadcrumb-font-size: var(--font-size-sm);
+        --breadcrumb-font-size: var(--font-size-md);
 
         display: flex;
         align-items: center;

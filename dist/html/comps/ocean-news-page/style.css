@@ -32,9 +32,7 @@
     --body-line-height: 1.375;
 
     --header-line-height: 1.2;
-
-    --font-size-sm: calc(var(--body-font-size) * 0.6);
-
+    
     --medium-width: calc( var(--narrow-width) * 2.25);
     --wide-width: calc( var(--narrow-width) * 3.25);
 
@@ -149,7 +147,7 @@
         "nav nav nav"
         "search search search";
 
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
 }
 
 .global-header > * {
