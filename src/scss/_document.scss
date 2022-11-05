@@ -23,7 +23,11 @@ In this file:
 
 %custom-properties {
     --body-min-width: 325px;
+
     --body-max-width: 100%;
+    
+    --body-min-height: 100%;
+    
     --html-background-color: var(--canvas);
 }
 
@@ -90,6 +94,15 @@ In this file:
         box-sizing: border-box;
     }
 
+    // HTML, Body 
+
+    html, 
+    body {
+
+        min-height: var(--body-min-height);
+    
+    }
+
     // HTML
 
     html {
@@ -123,8 +136,6 @@ In this file:
         -moz-osx-font-smoothing: grayscale;
 
         margin-inline: auto;
-        
-        
     }
 
     // Horizontal Rule
