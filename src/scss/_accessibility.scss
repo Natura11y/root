@@ -52,12 +52,12 @@ In this file:
 
     :is(a, button) {
         --focus-outline-distance: 0;
-        --focus-outline-size: calc(var(--default-border-width) * 2);
+        --focus-outline-size: calc(var(--border-width) * 2);
 
         @extend %hover-focus;
         
         &.button {
-            --focus-outline-distance: calc(var(--default-border-width) * 4);
+            --focus-outline-distance: calc(var(--border-width) * 4);
         }
     }
 

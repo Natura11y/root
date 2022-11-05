@@ -130,8 +130,8 @@ In this file:
     // Horizontal Rule
 
     hr {
-        border-block-start-width: var(--default-border-width);
-        border-block-start-style: var(--default-border-style);
+        border-block-start-width: var(--border-width);
+        border-block-start-style: var(--border-style);
     }
 
 } // end @layer

@@ -148,8 +148,8 @@ In this file:
     .nav--divider {
 
         > li:not(:last-child) {
-            border-bottom-width: var(--default-border-width);
-            border-bottom-style: var(--default-border-style);
+            border-bottom-width: var(--border-width);
+            border-bottom-style: var(--border-style);
             border-bottom-color: inherit;
         }
 
@@ -201,8 +201,8 @@ In this file:
                 }
 
                 > li:not(:last-child) {
-                    border-inline-end-width: var(--default-border-width);
-                    border-inline-end-style: var(--default-border-style);
+                    border-inline-end-width: var(--border-width);
+                    border-inline-end-style: var(--border-style);
                 }
 
                 > li > a, 
@@ -214,10 +214,10 @@ In this file:
                 &[class*="border"] {
                     > li > .nav__dropdown {
                         border-top-width: 0;
-                        border-width: var(--default-border-width);
-                        border-style: var(--default-border-style);
+                        border-width: var(--border-width);
+                        border-style: var(--border-style);
 
-                        width: calc(100% + (var(--default-border-width) * 2));
+                        width: calc(100% + (var(--border-width) * 2));
                     }
                 }
 
@@ -231,7 +231,7 @@ In this file:
                 // For <ul> tags with borders applied
 
                 &[class*="border"] .nav__dropdown {
-                    margin-inline-start: calc(var(--default-border-width) * -1);
+                    margin-inline-start: calc(var(--border-width) * -1);
                 }
             }
         }
@@ -323,7 +323,7 @@ In this file:
             width:  var(--dropdown-pointer-size);
             height:  var(--dropdown-pointer-size);
             
-            margin-top: calc( var(--dropdown-pointer-size) * -0.5 - var(--default-border-width) );
+            margin-top: calc( var(--dropdown-pointer-size) * -0.5 - var(--border-width) );
 
             background-color: inherit;
 
@@ -392,8 +392,8 @@ In this file:
 
             padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
 
-            border-top-width: var(--default-border-width);
-            border-top-style: var(--default-border-style);
+            border-top-width: var(--border-width);
+            border-top-style: var(--border-style);
             border-top-color: inherit;
         }
 
@@ -452,8 +452,8 @@ In this file:
         > [class*="__search"] {
             @extend .collapse;
 
-            border-top-width: var(--default-border-width);
-            border-top-style: var(--default-border-style);
+            border-top-width: var(--border-width);
+            border-top-style: var(--border-style);
             border-top-color: inherit;
         }
     }
@@ -467,8 +467,8 @@ In this file:
 
         > [class*="__logo"] {
             justify-content: center;
-            border-bottom-width: var(--default-border-width);
-            border-bottom-style: var(--default-border-style);
+            border-bottom-width: var(--border-width);
+            border-bottom-style: var(--border-style);
             border-bottom-color: inherit;
         }
 
@@ -498,8 +498,8 @@ In this file:
 
     .primary-nav__search {
         .form-entry__field {
-            border-width: var(--default-border-width);
-            border-style: var(--default-border-style);
+            border-width: var(--border-width);
+            border-style: var(--border-style);
         }
     }
 
@@ -628,8 +628,8 @@ In this file:
                         }
 
                         > li:not(:last-child){
-                            border-inline-end-width: var(--default-border-width);
-                            border-inline-end-style: var(--default-border-style);
+                            border-inline-end-width: var(--border-width);
+                            border-inline-end-style: var(--border-style);
                         }
 
                         > li > a {

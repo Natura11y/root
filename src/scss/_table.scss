@@ -51,8 +51,8 @@ In this file:
         caption-side: bottom;
 
         caption {
-            border-top-width: var(--default-border-width);
-            border-top-style: var(--default-border-style);
+            border-top-width: var(--border-width);
+            border-top-style: var(--border-style);
 
             padding: var(--table-cell-padding-y) var(--table-cell-padding-x);
             
@@ -73,8 +73,8 @@ In this file:
         }
 
         td {
-            border-top-width: var(--default-border-width);
-            border-top-style: var(--default-border-style);
+            border-top-width: var(--border-width);
+            border-top-style: var(--border-style);
         }
 
         thead {
@@ -112,8 +112,8 @@ In this file:
             td 
         ) {
             &:not(:first-child){
-                border-inline-start-width: var(--default-border-width);
-                border-inline-start-style: var(--default-border-style);
+                border-inline-start-width: var(--border-width);
+                border-inline-start-style: var(--border-style);
             }
         }
     }
@@ -149,8 +149,8 @@ In this file:
                 }
 
                 tr:not(:first-child) {
-                    border-block-start-width: calc(var(--default-border-width) * 2);
-                    border-block-start-style: var(--default-border-style);
+                    border-block-start-width: calc(var(--border-width) * 2);
+                    border-block-start-style: var(--border-style);
                 }
 
                 td {

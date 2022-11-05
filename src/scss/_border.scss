@@ -23,9 +23,9 @@ In this file:
 // Scoped to Root
 
 :root {
-    --default-border-width: 1px;
+    --border-width: 1px;
     
-    --default-border-style: solid;
+    --border-style: solid;
 
     --border-radius: 0.5em;
 }
@@ -36,8 +36,8 @@ In this file:
 
 @layer utility {
 
-    [class*="border"]:not([class*="theme-"]){
-        border-color: inherit !important;
+    [class*="border"]{
+        border-color: var(--border-color, inherit);
     }
 
     // Directional
@@ -47,28 +47,28 @@ In this file:
             $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
             .border#{$mod} {
-                border-width: var(--default-border-width);
-                border-style: var(--default-border-style);
+                border-width: var(--border-width);
+                border-style: var(--border-style);
             }
 
             .border-top#{$mod} {
-                border-block-start-width: var(--default-border-width);
-                border-block-start-style: var(--default-border-style);
+                border-block-start-width: var(--border-width);
+                border-block-start-style: var(--border-style);
             }
 
             .border-right#{$mod} {
-                border-inline-end-width: var(--default-border-width);
-                border-inline-end-style: var(--default-border-style);
+                border-inline-end-width: var(--border-width);
+                border-inline-end-style: var(--border-style);
             }
 
             .border-bottom#{$mod} {
-                border-block-end-width: var(--default-border-width);
-                border-block-end-style: var(--default-border-style);
+                border-block-end-width: var(--border-width);
+                border-block-end-style: var(--border-style);
             }
 
             .border-left#{$mod} {
-                border-inline-start-width: var(--default-border-width);
-                border-inline-start-style: var(--default-border-style);
+                border-inline-start-width: var(--border-width);
+                border-inline-start-style: var(--border-style);
             }
             
         }

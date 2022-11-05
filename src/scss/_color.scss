@@ -144,8 +144,8 @@ $theme-colors: (
         border-color: var(--border-color);
 
         * {
-            &:not([class*="theme-"]):not(textarea):not(select):not(footer) {
-                border-color: inherit;
+            &:not([class*="theme-"]):not([class*="border"]):not(select):not(footer) {
+                border-color: var(--border-color, inherit);
             }
         }
 

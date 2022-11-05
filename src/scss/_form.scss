@@ -178,8 +178,8 @@ In this file:
 
         padding-block: 0.25em;
 
-        border-block-end-width: var(--default-border-width);
-        border-block-end-style: var(--default-border-style);
+        border-block-end-width: var(--border-width);
+        border-block-end-style: var(--border-style);
 
         > .icon {
             font-size: 75%;
@@ -300,7 +300,7 @@ In this file:
 
             pointer-events: none;
             
-            box-shadow: inset 0 0 0 var(--default-border-width) currentColor;
+            box-shadow: inset 0 0 0 var(--border-width) currentColor;
             
             transition: box-shadow 200ms;
         }
@@ -350,7 +350,7 @@ In this file:
         .form-entry__field__select::after,
         .form-entry__field__input::after,
         .form-entry__option > div > label::after {
-            box-shadow: inset 0 0 0 calc( var(--default-border-width) * 3) currentColor;
+            box-shadow: inset 0 0 0 calc( var(--border-width) * 3) currentColor;
         }
     }
 
@@ -471,8 +471,8 @@ In this file:
     .form-entry__option {
         position: relative;
 
-        border-width: var(--default-border-width);
-        border-style: var(--default-border-style);
+        border-width: var(--border-width);
+        border-style: var(--border-style);
         border-radius: var(--form-field-border-radius);
 
         > div {
@@ -482,8 +482,8 @@ In this file:
         }
 
         > div:not(:last-child) {
-            border-block-end-width: var(--default-border-width);
-            border-block-end-style: var(--default-border-style);
+            border-block-end-width: var(--border-width);
+            border-block-end-style: var(--border-style);
             border-block-end-color: inherit;
         }
 
