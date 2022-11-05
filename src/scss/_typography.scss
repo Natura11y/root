@@ -50,11 +50,9 @@ In this file:
 
     // Font Sizes
 
-    --font-size-sm: calc(var(--body-font-size) * 0.75);  // ~ 16.5px
-    --font-size-md: calc(var(--body-font-size) * 0.825);  // ~ 18px
-    --font-size-rg: calc(var(--body-font-size) * 1);    // = 22px
-    --font-size-lg: calc(var(--body-font-size) * 1.375);  // ~ 26px
-    --font-size-xl: calc(var(--body-font-size) * 1.75);  // ~ 30px
+    --font-size-sm: calc(var(--body-font-size) * 0.75);
+    --font-size-rg: var(--body-font-size);
+    --font-size-lg: calc(var(--body-font-size) * 1.5);
 
     // Headers
 
@@ -185,10 +183,6 @@ In this file:
             size: var(--font-size-sm)
         ),
 
-        md: (
-            size: var(--font-size-md)
-        ),
-        
         rg: (
             size: var(--font-size-rg)
         ),
@@ -197,9 +191,6 @@ In this file:
             size: var(--font-size-lg)
         ),
         
-        xl: (
-            size: var(--font-size-xl)
-        )
     );
 
     @each $breakpoint in map.keys(breakpoint.$breakpoints) {
