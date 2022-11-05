@@ -3,9 +3,8 @@
 In this file:
 
 // A. Variables
-// B. Shared Styles
-// C. Icon Font Utility Class
-// D. Rotating Utility Class
+// B. Selectors
+// C. Utilities
 
 */
 
@@ -21,74 +20,83 @@ In this file:
 }
 
 //////////////////////////////////////////////
-// B. Icon Classes
+// B. Selectors
 //////////////////////////////////////////////
 
-span.icon {
-  @extend %icon-font-vars;
-  
-  font-size: var(--icon-size);
+@layer base {
 
-  display: inline-flex;
+  span.icon {
+    @extend %icon-font-vars;
+    
+    font-size: var(--icon-size);
 
-  vertical-align: middle;
+    display: inline-flex;
 
-  position: relative;
+    vertical-align: middle;
 
-  pointer-events: none;
-}
+    position: relative;
 
-span.icon {
-  &[class*="-left"], 
-  &[class*="-right"] {
-    [dir="rtl"] & {
-      transform: scaleX(-1);
+    pointer-events: none;
+  }
+
+  span.icon {
+    &[class*="-left"], 
+    &[class*="-right"] {
+      [dir="rtl"] & {
+        transform: scaleX(-1);
+      }
     }
   }
-}
 
-svg.icon {
-  --icon-size: 50px;
+  svg.icon {
+    --icon-size: 50px;
 
-  display: block;
-  
-  width: var(--icon-size);
-  height: var(--icon-size);
-  
-  fill: currentColor;
-}
-
-.natura11y-icons-sprite {
-  width: 0;
-  height: 0;
-  display: none;
-}
-
-//////////////////////////////////////////////
-// C. Icon Font Utility Class
-//////////////////////////////////////////////
-
-.icon_font {
-  font-family: var(--icon-font-family);
-  font-size: var(--icon-size);
-  font-style: normal;
-}
-
-//////////////////////////////////////////////
-// D. Rotating Utility Class
-//////////////////////////////////////////////
-
-.icon-loading {
-  &.icon--rotate {
-    animation: rotate360 1s linear infinite;
+    display: block;
+    
+    width: var(--icon-size);
+    height: var(--icon-size);
+    
+    fill: currentColor;
   }
-}
 
-@keyframes rotate360 {
-  from {
-    transform: rotate(0);
+  .natura11y-icons-sprite {
+    width: 0;
+    height: 0;
+    display: none;
   }
-  to {
-    transform: rotate(360deg);
+
+} // end @layer
+
+
+//////////////////////////////////////////////
+// C. Utilities
+//////////////////////////////////////////////
+
+@layer utility {
+
+  // Icon Font
+
+  .icon_font {
+    font-family: var(--icon-font-family);
+    font-size: var(--icon-size);
+    font-style: normal;
   }
-}
+
+  // Rotating (loading)
+
+  .icon-loading {
+    &.icon--rotate {
+      animation: rotate360 1s linear infinite;
+    }
+  }
+
+  @keyframes rotate360 {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+} // end @layer

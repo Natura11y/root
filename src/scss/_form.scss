@@ -5,12 +5,8 @@ In this file:
 // A. Modules
 // B. Variables
 // C. Selector Resets
-// D. Required Indicator
-// E. Form Entry Block
-// F. Form Entry Elements
-// G. Checkbox and Radio Elements
-// H. File Upload
-// I. Form Feedback
+// D. Placeholders
+// E. Components
 
 */
 
@@ -154,21 +150,27 @@ In this file:
 } // end @layer
 
 //////////////////////////////////////////////
-// D. Components
+// D. Placeholders
+//////////////////////////////////////////////
+
+%required-icon {
+    --icon-size: 0.675em;
+
+    @extend %icon-font-vars;
+    @extend .icon_font;
+
+    content: var(--icon-required);
+
+    display: inline-block;
+}
+
+//////////////////////////////////////////////
+// E. Components
 //////////////////////////////////////////////
 
 @layer component {
 
-    %required-icon {
-        --icon-size: 0.675em;
-
-        @extend %icon-font-vars;
-        @extend .icon_font;
-
-        content: var(--icon-required);
-
-        display: inline-block;
-    }
+    // Required Indicator
 
     .required-indicator {
         display: flex;
