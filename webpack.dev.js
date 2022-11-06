@@ -34,7 +34,7 @@ const devPages = {
 
 const devDir = './dist/html';
 
-const devPage = `${devPages.Card}.html`;
+const devPage = `${devPages.Grid}.html`;
 
 module.exports = merge(common, {
     mode: 'development',
