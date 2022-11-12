@@ -161,7 +161,7 @@ In this file:
 
     content: var(--icon-required);
 
-    display: inline-block;
+    // display: inline-block;
 }
 
 //////////////////////////////////////////////
@@ -267,7 +267,7 @@ In this file:
             display: none;
 
             [data-required="true"] & { 
-                display: block !important;
+                display: inline-block !important;
             }
         }
     }
