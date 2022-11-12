@@ -21,6 +21,7 @@ const devPages = {
     'Border': 'border',
     'Backdrop': 'backdrop',
     'Card': 'card',
+    'Color': 'color',
     'Footer': 'footer',
     'Form': 'form',
     'Grid': 'grid',
@@ -34,7 +35,7 @@ const devPages = {
 
 const devDir = './dist/html';
 
-const devPage = `${devPages.Typography}.html`;
+const devPage = `${devPages.Form}.html`;
 
 module.exports = merge(common, {
     mode: 'development',
