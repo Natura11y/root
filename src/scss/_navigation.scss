@@ -46,7 +46,7 @@ In this file:
 }
 
 ////////////////////////////////////////
-// C.  Placeholders 
+// C. Placeholders 
 ////////////////////////////////////////
 
 %list-style-nav {
@@ -57,12 +57,17 @@ In this file:
     > li {
         position: relative;
     }
-
+    
     [aria-selected="true"],
     [aria-current] {
         font-weight: var(--body-font-weight-bold);
+    }
 
-        text-decoration: underline;
+    &:not([class*="nav--has-icons"]) {
+        [aria-selected="true"],
+        [aria-current] {
+            text-decoration: underline;
+        }
     }
 }
 
@@ -194,7 +199,8 @@ In this file:
                     border-bottom-style: none;
 
                     flex-grow: 1;
-                    flex-shrink: 0;
+                    flex-shrink: 1;
+                    flex-basis: 100%;
                     
                     display: flex;
                     align-items: stretch;
