@@ -1,6 +1,6 @@
 {
   "dependencies": {
     "fantasticon": "^1.2.3",
-    "svgo": "^2.7.0"
+    "svgo": "^2.8.0"
   }
 }
