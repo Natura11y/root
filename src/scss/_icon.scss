@@ -25,6 +25,7 @@ In this file:
 
 @layer base {
 
+  [class*="fa-"][class*="fa-"],
   span.icon {
     
     font-size: var(--icon-size);
