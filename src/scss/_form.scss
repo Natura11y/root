@@ -154,10 +154,9 @@ In this file:
 //////////////////////////////////////////////
 
 %required-icon {
-    --icon-size: 0.675em;
-
-    @extend %icon-font-vars;
     @extend .icon_font;
+
+    --icon-size: 0.675em;
 
     content: var(--icon-required);
 }
@@ -539,7 +538,6 @@ In this file:
     .option__label {
 
         &::before {
-            @extend %icon-font-vars;
             @extend .icon_font;
 
             position: absolute;

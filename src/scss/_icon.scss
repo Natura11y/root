@@ -12,9 +12,9 @@ In this file:
 // A. Variables
 //////////////////////////////////////////////
 
-// Scoped to Block
+// Scoped to Root
 
-%icon-font-vars {
+:root {
   --icon-size: 1.25em;
   --icon-font-family: 'natura11y-icons';
 }
@@ -26,7 +26,6 @@ In this file:
 @layer base {
 
   span.icon {
-    @extend %icon-font-vars;
     
     font-size: var(--icon-size);
 
