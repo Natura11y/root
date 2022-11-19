@@ -19,9 +19,7 @@ In this file:
 // B. Variables
 //////////////////////////////////////////////
 
-// Scoped to Block
-
-%custom-properties {
+:root {
     --backdrop-fixed-height: 400px;
 }
 
@@ -97,8 +95,6 @@ In this file:
     // Backdrop Fixed Modifier
 
     .backdrop--fixed {
-        @extend %custom-properties;
-
         overflow: hidden;
 
         display: grid;

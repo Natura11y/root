@@ -18,9 +18,7 @@ In this file:
 // B. Variables
 //////////////////////////////////////////////
 
-// Scoped to Block
-
-%accordion-vars {
+:root {
     --accordion-button-padding-x: var(--spacer-3);
     --accordion-button-padding-y: var(--button-padding-y);
 
@@ -37,12 +35,6 @@ In this file:
 //////////////////////////////////////////////
 
 @layer component {
-
-    // Accordion Block
-
-    .accordion {
-        @extend %accordion-vars;
-    }
 
     // Accordion Elements
 

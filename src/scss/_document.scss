@@ -19,9 +19,7 @@ In this file:
 // B. Variables
 ////////////////////////////////////////
 
-// Scoped to Block
-
-%custom-properties {
+:root {
     --body-min-width: 325px;
 
     --body-max-width: 100%;
@@ -104,7 +102,6 @@ In this file:
     // HTML
 
     html {
-        @extend %custom-properties;
         @extend .theme-canvas !optional;
 
         font-size: 1rem;
@@ -139,8 +136,7 @@ In this file:
     // Horizontal Rule
 
     hr {
-        border-block-start-width: var(--border-width);
-        border-block-start-style: var(--border-style);
+        border-block-start: var(--border-width) var(--border-style);
     }
 
 } // end @layer

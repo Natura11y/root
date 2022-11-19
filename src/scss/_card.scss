@@ -11,9 +11,7 @@ In this file:
 // A. Variables
 //////////////////////////////////////////////
 
-// Scoped to Block
-
-.card {
+:root {
     --card-padding-x: var(--spacer-3);
     --card-padding-y: var(--spacer-3);
 }

@@ -22,9 +22,7 @@ In this file:
 // B. Variables
 //////////////////////////////////////////////
 
-// Scoped to Block
-
-%table-vars {
+:root {
     --table-cell-padding-x: var(--spacer-3);
     --table-cell-padding-y: 0.75em;
  
@@ -38,7 +36,6 @@ In this file:
 @layer component {
 
     .table {
-        @extend %table-vars;
         
         table-layout: fixed;
 

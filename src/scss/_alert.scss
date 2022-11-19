@@ -18,9 +18,7 @@ In this file:
 // B. Variables
 //////////////////////////////////////////////
 
-// Scoped to Block
-
-%alert-vars {
+:root {
     --alert-padding-x: var(--spacer-2);
     --alert-padding-y: var(--spacer-2);
 }
@@ -34,8 +32,6 @@ In this file:
     // Alert Block
 
     .alert {
-        @extend %alert-vars;
-        
         position: relative;
 
         &:not([class*="theme-"]):not([class*="--inverse"]):not([class*="background-"]) {

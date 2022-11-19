@@ -20,21 +20,14 @@ In this file:
 // B. Variables
 ////////////////////////////////////////
 
-// Scoped to Root
-
 :root {
+
+    // Subtle Fill
+
     --subtle-fill-opacity: 0.075;
-}
 
-// Scoped to Block
+    // Gradient Veneer
 
-%caret-vars {
-    --caret-size: 0.25em;
-
-    --caret-margin: 0.375em;
-}
-
-%gradient-veneer-vars {
     --gradient-veneer-start: 50%;
 
     --gradient-veneer-opacity: 1;
@@ -69,8 +62,9 @@ In this file:
 }
 
 %caret {
-    @extend %caret-vars;
-    
+    --caret-size: 0.25em;
+    --caret-margin: 0.375em;
+
     display: inline-flex;
     flex-direction: row-reverse;
     align-items: center;
@@ -120,8 +114,6 @@ In this file:
     // Gradient Veneer Utilities
 
     [class*="gradient-veneer"] {
-        @extend %gradient-veneer-vars;
-
         --gradient-direction: to bottom;
         
         position: relative;
