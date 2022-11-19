@@ -28,8 +28,7 @@ module.exports = merge(common, {
                             ]
                         ],
                         plugins: [
-                            '@babel/plugin-transform-shorthand-properties',
-                            '@babel/plugin-proposal-object-rest-spread'
+                            '@babel/plugin-transform-shorthand-properties'
                         ]
                     }
                 }
@@ -41,17 +40,8 @@ module.exports = merge(common, {
                         loader: MiniCssExtractPlugin.loader
                     },
                     'css-loader',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            postcssOptions: {
-                                plugins: [
-                                    [
-                                        'autoprefixer'
-                                    ],
-                                ],
-                            },
-                        },
+                    { 
+                        loader: 'postcss-loader'
                     },
                     'sass-loader',
                 ],
