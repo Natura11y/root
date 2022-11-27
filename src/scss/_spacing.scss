@@ -144,7 +144,15 @@ $spacers: (
                 .padding-0#{$mod} {
                     padding: 0;
                 }
+                
+                .padding-x-0#{$mod} {
+                    padding-inline: 0;
+                }
 
+                .padding-y-0#{$mod} {
+                    padding-block: 0;
+                }
+                
                 .margin-0#{$mod} {
                     margin: 0;
                 }
