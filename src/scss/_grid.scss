@@ -27,6 +27,11 @@ In this file:
 // B. Variables
 //////////////////////////////////////////////
 
+$columns: 12;
+$rows: math.div($columns, 2);
+
+// Scoped to Root
+
 :root {
     --grid-divider-gap: var(--spacer-3);
 
@@ -35,10 +40,9 @@ In this file:
 
     --grid-divider-border-x-color: var(--canvas-border);
     --grid-divider-border-y-color: var(--canvas-border);
-}
 
-$columns: 12;
-$rows: math.div($columns, 2);
+    --grid-sidebar-width: var(--article-sidebar-width);
+}
 
 //////////////////////////////////////////////
 // C. Components
@@ -173,7 +177,7 @@ $rows: math.div($columns, 2);
         --divider-y-height: 100%;
 
         gap: var(--gap);
-
+        
         overflow: hidden;
 
         > * {
@@ -197,8 +201,7 @@ $rows: math.div($columns, 2);
 
             margin-block-start: calc( var(--shift-divider) - var(--shift-border));
             
-            background-color: var(--grid-divider-border-x-color); 
-
+            background-color: var(--grid-divider-border-x-color);
         }
 
         > *::after {
@@ -221,6 +224,46 @@ $rows: math.div($columns, 2);
 
     .grid--divider--fill-y {
         --divider-y-height: calc(100% + var(--gap));
+    }
+
+    // Grid Sidebar
+
+    [class*="grid--sidebar"] {
+         &[class*="grid--divider"] > *::after {
+            display: none;
+        }
+    }
+
+    @include breakpoint.breakpoint-up(lg) {
+    
+        [class*="grid--sidebar"][class*="grid--divider"] {
+            overflow: visible;
+
+            > *::before {
+                display: none;
+            }
+
+            > *:not(:last-child)::after {
+                display: block;
+            }
+        }
+
+        .grid--sidebar-left {
+            grid-template-columns: 1fr var(--grid-sidebar-width);
+        }
+
+        .grid--sidebar-right {
+            grid-template-columns: var(--grid-sidebar-width) 1fr;
+        }
+        
+    }
+
+    @include breakpoint.breakpoint-up(xl) {
+
+        .grid--sidebar-left-right {
+            grid-template-columns: var(--grid-sidebar-width) 1fr var(--grid-sidebar-width);
+        }
+
     }
 
 } // end @layer
