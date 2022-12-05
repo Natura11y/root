@@ -41,7 +41,9 @@ In this file:
 
   span.icon {
     &[class*="-left"], 
-    &[class*="-right"] {
+    &[class*="-right"],
+    &[class*="-checked"],
+    &[class*="-confirm"] {
       [dir="rtl"] & {
         transform: scaleX(-1);
       }
