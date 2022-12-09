@@ -226,44 +226,61 @@ $rows: math.div($columns, 2);
         --divider-y-height: calc(100% + var(--gap));
     }
 
-    // Grid Sidebar
+    // Grid Sidebar Component
 
     [class*="grid--sidebar"] {
-         &[class*="grid--divider"] > *::after {
+        &[class*="grid--divider"] > *::after {
             display: none;
         }
     }
 
     @include breakpoint.breakpoint-up(lg) {
     
-        [class*="grid--sidebar"][class*="grid--divider"] {
+        .grid--sidebar-left,
+        .grid--sidebar-right {
             overflow: visible;
 
-            > *::before {
-                display: none;
-            }
+            &[class*="grid--divider"] {
+            
+                > *::before {
+                    display: none;
+                }
 
-            > *:not(:last-child)::after {
-                display: block;
+                > *:not(:last-child)::after {
+                    display: block;
+                }
+
             }
         }
 
         .grid--sidebar-left {
-            grid-template-columns: 1fr var(--grid-sidebar-width);
+            grid-template-columns: var(--grid-sidebar-width) 1fr;
         }
 
         .grid--sidebar-right {
-            grid-template-columns: var(--grid-sidebar-width) 1fr;
+            grid-template-columns: 1fr var(--grid-sidebar-width);
         }
         
     }
 
     @include breakpoint.breakpoint-up(xl) {
 
-        .grid--sidebar-left-right {
+        .grid--sidebars {
+            overflow: visible;
+            
+            &[class*="grid--divider"] {
+
+                > *::before {
+                    display: none;
+                }
+
+                > *:not(:last-child)::after {
+                    display: block;
+                }
+            }
+
             grid-template-columns: var(--grid-sidebar-width) 1fr var(--grid-sidebar-width);
         }
-
     }
 
 } // end @layer
