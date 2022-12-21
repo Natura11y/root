@@ -139,7 +139,7 @@ $spacers: (
                     margin-inline-start: calc(#{$value} * -1);
                 }
                     
-                // D. Zero and Auto
+                // Zero and Auto
                 
                 .padding-0#{$mod} {
                     padding: 0;
@@ -152,9 +152,37 @@ $spacers: (
                 .padding-y-0#{$mod} {
                     padding-block: 0;
                 }
+
+                .padding-top-0#{$mod} {
+                    padding-block-start: 0;
+                }
+
+                .padding-right-0#{$mod} {
+                    padding-inline-end: 0;
+                }
+
+                .padding-bottom-0#{$mod} {
+                    padding-block-end: 0;
+                }
+
+                .padding-left-0#{$mod} {
+                    padding-inline-start: 0;
+                }
+
+                .padding-right-0#{$mod} {
+                    padding-block: 0;
+                }
                 
                 .margin-0#{$mod} {
                     margin: 0;
+                }
+
+                .margin-x-0#{$mod} {
+                    margin-inline: 0;
+                }
+
+                .margin-y-0#{$mod} {
+                    margin-block: 0;
                 }
 
                 .margin-top-0#{$mod} {
