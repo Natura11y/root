@@ -15,18 +15,10 @@ In this file:
 
     a {
         color: inherit;
-
-        &.underline{
-            text-decoration: underline;
-        }
     }
 
     p > a {
         text-decoration: underline;
-
-        &:focus {
-            display: inline-flex;
-        }
     }
 
     a[data-logo="brand"] {
