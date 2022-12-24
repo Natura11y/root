@@ -30,8 +30,6 @@ In this file:
 $columns: 12;
 $rows: math.div($columns, 2);
 
-// Scoped to Root
-
 :root {
     --grid-divider-gap: var(--spacer-3);
 
