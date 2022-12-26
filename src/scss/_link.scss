@@ -14,11 +14,16 @@ In this file:
 @layer base {
 
     a {
-        color: inherit;
+        color: currentColor;
     }
 
     p > a {
         text-decoration: underline;
+
+        &:hover,
+        &:focus {
+            text-decoration: none;
+        }
     }
 
     a[data-logo="brand"] {
