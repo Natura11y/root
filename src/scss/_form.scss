@@ -449,7 +449,7 @@ In this file:
         &::before {
             @extend %caret;
 
-            position: absolute;
+            position: absolute !important;
             content: "";
             inset-inline-end: 0;
             inset-block-start: 50%;
