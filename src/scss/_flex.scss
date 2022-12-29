@@ -26,7 +26,6 @@ In this file:
     [class*="flex-column"],
     [class*="flex-row-reverse"],
     [class*="flex-column-reverse"] {
-        display: flex;
         flex-wrap: wrap;
 
         width: 100%;
@@ -39,18 +38,24 @@ In this file:
             // Flex Row
 
             .flex-row#{$mod} {
+                display: flex;
                 flex-direction: row;
             }
 
-            .flex-column#{$mod} {
-                flex-direction: column;
-            }
-
             .flex-row-reverse#{$mod} {
+                display: flex;
                 flex-direction: row-reverse;
             }
             
+            // Flex Column
+
+            .flex-column#{$mod} {
+                display: flex;
+                flex-direction: column;
+            }
+
             .flex-column-reverse#{$mod} {
+                display: flex;
                 flex-direction: column-reverse;
             }
 
