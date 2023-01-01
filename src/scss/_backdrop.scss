@@ -101,7 +101,9 @@ In this file:
         
         place-content: inherit;
 
-        min-height: var(--backdrop-fixed-height);
+        &:not([class*='aspect-ratio-']) {
+            min-height: var(--backdrop-fixed-height);
+        }
 
         .backdrop__image {
             position: absolute !important;
@@ -121,10 +123,6 @@ In this file:
 
         .backdrop__cover {
             position: relative;
-        }
-        
-        @include breakpoint.breakpoint-down(md) {
-            min-height: calc(var(--backdrop-fixed-height) * 0.75);
         }
     }
 
