@@ -121,6 +121,36 @@ In this file:
                 justify-content: stretch;
             }
 
+            // Justify Items
+            
+            .justify-items-start#{$mod} {
+                justify-items: flex-start;
+            }
+
+            .justify-items-end#{$mod} {
+                justify-items: flex-end;
+            }
+
+            .justify-items-center#{$mod} {
+                justify-items: center;
+            }
+
+            .justify-items-between#{$mod} {
+                justify-items: space-between;
+            }
+
+            .justify-items-around#{$mod} {
+                justify-items: space-around;
+            }
+
+            .justify-items-evenly#{$mod} {
+                justify-items: space-evenly;
+            }
+
+            .justify-items-stretch#{$mod} {
+                justify-items: stretch;
+            }
+
             // Justify Self
 
             .justify-self-start#{$mod} {
