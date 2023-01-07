@@ -345,8 +345,7 @@ In this file:
 
     .active {
         .form-entry__field__select::after,
-        .form-entry__field__input::after,
-        .form-entry__option > div > label::after {
+        .form-entry__field__input::after {
             box-shadow: inset 0 0 0 calc( var(--border-width) * 3) currentColor;
         }
     }
@@ -484,6 +483,14 @@ In this file:
             border-block-end-color: inherit;
         }
 
+        > div > label:focus-within {
+        
+            &::before {
+                background-color: currentColor;
+            }
+        
+        }
+
         > div > label {
             position: relative;
 
@@ -501,9 +508,6 @@ In this file:
                 opacity: 0.05;
             }
 
-            &.active::before {
-                background-color: currentColor;
-            }
         }
     }
 
