@@ -46,14 +46,12 @@ export default class Form {
             }
             
             return (`
-                <div class="form-entry__feedback">
-                    <small>
-                        <span class="icon icon-warn" aria-hidden="true"></span>
-                        <span class="message">
-                            <strong>${desc}</strong> ${inst !== undefined ? inst : ''}
-                        </span>
-                    </small>
-                </div>
+                <small class="form-entry__feedback">
+                    <span class="icon icon-warn" aria-hidden="true"></span>
+                    <span class="message">
+                        <strong>${desc}</strong> ${inst !== undefined ? inst : ''}
+                    </span>
+                </small>
             `);
         });
 

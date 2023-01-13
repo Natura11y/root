@@ -775,20 +775,17 @@ In this file:
 
     .form-entry__feedback {
         order: 3;
+        display: flex;
+        align-items: center;
 
-        padding-inline: calc( var(--form-field-padding-x) * 0.5);
-
+        font-size: 0.8em;
+       
         margin-block-start: 0.5rem;
 
-        > small {
-            display: flex;
-            align-items: center;
+        padding-inline: calc(var(--form-field-padding-x) * 0.5);
 
-            font-size: 0.8em;
-        }
-
-        > small > .icon,
-        > small strong {
+        > .icon,
+        > .message > strong {
             margin-inline-end: var(--spacer-1);
         }
     }
