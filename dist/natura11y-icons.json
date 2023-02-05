@@ -89,5 +89,8 @@
    "sun": 61785,
    "expand": 61757,
    "location": 61786,
-   "plane": 61787
+   "plane": 61787,
+   "car": 61788,
+   "sign-in": 61789,
+   "sign-out": 61790
 }
