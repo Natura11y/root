@@ -47,67 +47,6 @@ $rows: math.div($columns, 2);
 
 @layer component {
 
-    // Matrix Block
-
-    .matrix {
-        display: flex;
-        flex-wrap: wrap;
-        min-width: 100%;
-    }
-
-    [class*="matrix__cell"] {
-        flex: 1 1 100%;
-        max-width: 100%;
-    }
-
-    // Matrix Block Modifiers
-
-    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
-        @include breakpoint.breakpoint-up($breakpoint) {
-            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
-
-            .matrix--cell-fill#{$mod} > [class*="matrix__cell"] {
-                flex: 1;
-            }
-
-            .matrix--cell-fit#{$mod} > [class*="matrix__cell"] {
-                flex: none;
-            }
-            
-            @for $i from 1 through $columns {
-                .matrix--cell-#{$i}#{$mod} > [class*="matrix__cell"] {
-                    flex: 0 0 math.div(100%, $columns) * $i;
-                    max-width: math.div(100%, $columns) * $i;
-                }
-            }
-        }
-    }
-
-    // Matrix Cell Modifiers
-
-    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
-        @include breakpoint.breakpoint-up($breakpoint) {
-            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
-
-            @for $i from 1 through $columns {
-                .matrix > .matrix__cell.matrix--cell-#{$i}#{$mod} {
-                    flex: 0 0 math.div(100%, $columns) * $i;
-                    max-width: math.div(100%, $columns) * $i;
-                }
-            }
-
-            .matrix > .matrix__cell.matrix--cell-fill#{$mod} {
-                flex: 1;
-                max-width: unset;
-            }
-            
-            .matrix > .matrix__cell.matrix--cell-fit#{$mod} {
-                flex: none;
-                max-width: unset;
-            }
-        }
-    }
-
     // Grid Block
 
     .grid {
@@ -289,20 +228,6 @@ $rows: math.div($columns, 2);
 @layer utility {
 
     // Gap
-
-    .matrix {
-        &[class*="gap"] {
-            margin-block-start: calc(var(--gap-size) * -1);
-            margin-inline-end: calc(var(--gap-size) * -0.5);
-            margin-inline-start: calc(var(--gap-size) * -0.5);
-
-            > [class*="matrix__cell"] {
-                margin-block-start: var(--gap-size);
-                padding-inline-start: calc(var(--gap-size) * 0.5);
-                padding-inline-end: calc(var(--gap-size) * 0.5);
-            }
-        }
-    }
 
     @each $spacer, $value in spacing.$spacers {
         .gap-#{$spacer} {
