@@ -89,7 +89,12 @@ In this file:
 
         transition: opacity 0.5s ease-out;
 
-        &:not([class*="button--outline"]):not([class*="theme-"]):not([class*="background-color"]):not([data-toggle="dropdown"]) {
+        &:not(
+            [class*="button--outline"],
+            [class*="theme-"],
+            [class*="background-color"],
+            [data-toggle="dropdown"]
+        ) {
             @extend %subtle-fill-psuedo;
         }
 

@@ -199,7 +199,12 @@ In this file:
         :is(
             select,
             textarea,
-            input:not([type="radio"]):not([type="checkbox"]):not([type="file"]):not([type="range"]) 
+            input:not(
+                [type="radio"],
+                [type="checkbox"],
+                [type="file"],
+                [type="range"]
+            ) 
         ) {
             border: 0;
             border-radius: inherit;

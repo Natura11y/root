@@ -34,7 +34,11 @@ In this file:
     .alert {
         position: relative;
 
-        &:not([class*="theme-"]):not([class*="--inverse"]):not([class*="background-"]) {
+        &:not(
+            [class*="theme-"],
+            [class*="--inverse"],
+            [class*="background-"]
+        ) {
             @extend %subtle-fill-psuedo;
             --subtle-fill-opacity: 0.1;
         }    
