@@ -19,16 +19,11 @@ In this file:
 // B. Variables
 //////////////////////////////////////////////
 
-$bp-sm: 400px; 
-$bp-md: 768px;
-$bp-lg: 1024px;
-$bp-xl: 1280px;
-
 $breakpoints: (
-  sm: $bp-sm,
-  md: $bp-md,
-  lg: $bp-lg,
-  xl: $bp-xl,
+  'sm': 400px,
+  'md': 768px,
+  'lg': 1024px,
+  'xl': 1280px
 );
 
 $breakpoints: map.merge((null : 0), $breakpoints);
@@ -52,9 +47,15 @@ $breakpoints: map.merge((null : 0), $breakpoints);
 // D. Breakpoints Mixins
 //////////////////////////////////////////////
 
+:root,
+.cool {
+  container-type: inline-size;
+  container-name: global;
+}
+
 @mixin breakpoint-up($breakpoint) {
   @if ($breakpoint != null) {
-    @media (min-width: map.get($breakpoints, $breakpoint)) {
+    @container global (inline-size >= #{map.get($breakpoints, $breakpoint)}) {
       @content;
     }
   }
@@ -65,7 +66,7 @@ $breakpoints: map.merge((null : 0), $breakpoints);
 
 @mixin breakpoint-down($breakpoint) {
   @if ($breakpoint != null) {
-    @media (max-width: map.get($breakpoints, $breakpoint)) {
+    @container global (inline-size <= #{map.get($breakpoints, $breakpoint)}) {
       @content;
     }
   }

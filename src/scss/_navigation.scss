@@ -279,7 +279,7 @@ In this file:
             font-style: italic;
             font-weight: bold;
 
-            @extend .truncate-text;
+            // @extend .truncate-text;
         }
         
         > li:not(:last-child) {
