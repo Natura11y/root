@@ -35,13 +35,13 @@ const devPages = {
 
 const devDir = './dist/html';
 
-const devPage = `${devPages.Navigation}.html`;
+const devPage = `${devPages.Grid}.html`;
 
 module.exports = merge(common, {
     mode: 'development',
     target: 'web',
     devServer: {
-        port: 8000, 
+        port: 8060, 
         hot: true,
         open: true,
         static: {
