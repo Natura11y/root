@@ -4,8 +4,9 @@ In this file:
 
 // A. Modules
 // B. Variables
-// C. Breakpoints Functions
-// D. Breakpoints Mixins
+// C.  Context for @container
+// D. Breakpoints Functions
+// E. Breakpoints Mixins
 
 */
 
@@ -29,7 +30,17 @@ $breakpoints: (
 $breakpoints: map.merge((null : 0), $breakpoints);
 
 //////////////////////////////////////////////
-// C. Breakpoints Functions
+// C.  Context for @container
+//////////////////////////////////////////////
+
+:root,
+.natura11y-context {
+  container-type: inline-size;
+  container-name: natura11y;
+}
+
+//////////////////////////////////////////////
+// D. Breakpoints Functions
 //////////////////////////////////////////////
 
 // Name of the next breakpoint, or null for the last breakpoint.
@@ -44,23 +55,17 @@ $breakpoints: map.merge((null : 0), $breakpoints);
 }
 
 //////////////////////////////////////////////
-// D. Breakpoints Mixins
+// E. Breakpoints Mixins
 //////////////////////////////////////////////
 
-:root,
-.global-context {
-  container-type: inline-size;
-  container-name: global;
-}
-
 /* 
-  // Hopefully VSCode will resolve the below misleading error
+  // Hopefully VSCode will soon resolve the below misleading error
   // The interpolation within @container rule is valid and compliles correctly
 */
 
 @mixin breakpoint-up($breakpoint) {
   @if ($breakpoint != null) {
-    @container global (inline-size >= #{map.get($breakpoints, $breakpoint)}) {
+    @container natura11y (inline-size >= #{map.get($breakpoints, $breakpoint)}) {
       @content;
     }
   }
@@ -71,7 +76,7 @@ $breakpoints: map.merge((null : 0), $breakpoints);
 
 @mixin breakpoint-down($breakpoint) {
   @if ($breakpoint != null) {
-    @container global (inline-size <= #{map.get($breakpoints, $breakpoint)}) {
+    @container natura11y (inline-size <= #{map.get($breakpoints, $breakpoint)}) {
       @content;
     }
   }
