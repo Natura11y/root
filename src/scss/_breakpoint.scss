@@ -48,10 +48,15 @@ $breakpoints: map.merge((null : 0), $breakpoints);
 //////////////////////////////////////////////
 
 :root,
-.cool {
+.global-context {
   container-type: inline-size;
   container-name: global;
 }
+
+/* 
+  // Hopefully VSCode will resolve the below misleading error
+  // The interpolation within @container rule is valid and compliles correctly
+*/
 
 @mixin breakpoint-up($breakpoint) {
   @if ($breakpoint != null) {

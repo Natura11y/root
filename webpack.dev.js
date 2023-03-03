@@ -41,7 +41,7 @@ module.exports = merge(common, {
     mode: 'development',
     target: 'web',
     devServer: {
-        port: 8080, 
+        port: 8000, 
         hot: true,
         open: true,
         static: {
