@@ -25,6 +25,8 @@ In this file:
 :root {
     --table-cell-padding-x: var(--spacer-3);
     --table-cell-padding-y: 0.75em;
+
+    --table-font-size: var(--font-size-md);
  
     --table-scroll-min-width: 800px;
 }
@@ -43,7 +45,7 @@ In this file:
         
         border-collapse: collapse;
 
-        font-size: var(--font-size-sm);
+        font-size: var(--table-font-size);
 
         caption-side: bottom;
 
@@ -165,7 +167,7 @@ In this file:
                 }
 
                 td::after {
-                    content: attr(data-before);
+                    content: attr(data-header);
                     font-weight: bold;
                 }
 

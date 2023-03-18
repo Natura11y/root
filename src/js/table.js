@@ -19,8 +19,8 @@ export default class Table {
             tableHeaderList.forEach((tableHeader) => {
 
                 if (tableHeader.textContent !== '') {
-                    let myTitle = tableHeader.textContent.trim();
-                    myHeaders.push(myTitle);
+                    const title = tableHeader.textContent.trim();
+                    myHeaders.push(title);
                 }
 
             });
@@ -40,7 +40,7 @@ export default class Table {
                     `);
 
                     tableData.innerHTML = myNewContent;
-                    tableData.setAttribute('data-before', myHeaders[index]);
+                    tableData.setAttribute('data-header', myHeaders[index]);
 
                 });
 
