@@ -193,11 +193,12 @@ export default class Form {
                         checkIfEmpty(formEntryInput);
                     }
 
-                    // if (formEntryInput.value !== '') {
-                    //     formEntryInput.closest('.form-entry').classList.add('has-value');
-                    // } else {
-                    //     formEntryInput.closest('.form-entry').classList.remove('has-value');
-                    // }
+                    if (formEntryInput.value !== '') {
+                        formEntryInput.closest('.form-entry').classList.add('has-value');
+                    } else {
+                        formEntryInput.closest('.form-entry').classList.remove('has-value');
+                    }
+                    
                 });
 
                 if (isInputText) {

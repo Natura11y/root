@@ -12,6 +12,7 @@
     --html-background-color: var(--dark);
 
     --body-font-family: 'Work Sans', sans-serif;
+    --type-scale: 1.25;
 
     --active-background-color: var(--primary);
     --active-text-color: var(--primary-text);
