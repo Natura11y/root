@@ -1,4 +1,4 @@
-![Naturally Inclusive Framework Logo](./naturally-logo.svg)
+<img src="./naturally-logo.svg" alt="Logo for Natura11y Inclusive Framework" />
 
 # Natura11y Inclusive Framework
 
