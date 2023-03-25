@@ -1,16 +1,28 @@
-# natura11y-icons
+![Logo for Natura11y Inclusive Framework](naturally-logo.svg)
 
-## Steps to Make Icons
+# Natura11y Icons
 
-1.) Save SVG to *original-svg* dir
+Make your own icon font or expand on Naturally's open source [icon library](https://www.example.com).
 
-2.) Run saved icons through svgo:
+---
 
-`svgo -f ./original-svg -o ./optimized-svg`
+## Steps to make icons
 
-3.) Run fantasticon
+1. Save your SVGs to `./original-svg` dir
 
-`fantasticon ./optimized-svg -o ./dist`
+2. Run saved icons through svgo: `svgo -f ./original-svg -o ./optimized-svg`
 
-4.) Run svg sprite generate
-`svg-sprite-generate -d ./optimized-svg -o ./dist/natura11y-icons-sprite.svg`
+3. Run fantasticon `fantasticon ./optimized-svg -o ./dist`
+
+---
+
+## The icon font
+
+The above steps generate an icon font stylesheet. If you wish, you can customize the this stylesheet using `.fantasticonrc.js`.
+
+---
+
+Related Repos:
+
+- [Natura11y Inclusive Framework](https://github.com/cavidano/natura11y)
+- [Natura11y React Components](https://github.com/cavidano/natura11y-react)
