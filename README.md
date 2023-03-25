@@ -22,7 +22,8 @@ The above steps generate an icon font stylesheet. If you wish, you can customize
 
 ---
 
-Related Repos:
+Related:
 
-- [Natura11y Inclusive Framework](https://github.com/cavidano/natura11y)
-- [Natura11y React Components](https://github.com/cavidano/natura11y-react)
+- [Repo: Natura11y Inclusive Framework](https://github.com/cavidano/natura11y)
+- [Repo: Natura11y React Components](https://github.com/cavidano/natura11y-react)
+- [Docs: Natura11y Docs](https://gonatura11y.com)
