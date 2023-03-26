@@ -24,6 +24,13 @@ Natura11y JS:
 
 ---
 
+Related:
+
+- [Repo: Natura11y Icons](https://github.com/cavidano/natura11y-icons)
+- [Repo: Natura11y React Components](https://github.com/cavidano/natura11y-react)
+- [Docs: Natura11y Docs](https://gonatura11y.com)
+---
+
 ## Thanks
 
 <a href="https://www.browserstack.com/">
