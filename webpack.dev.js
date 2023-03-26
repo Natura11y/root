@@ -14,31 +14,33 @@ const devPages = {
     // Components
 
     'Accordion': 'accordion',
-    'Alerts': 'alerts',
-    'Articles': 'articles',
-    'Aspect Ratios': 'aspect-ratios',
-    'Buttons': 'buttons',
-    'Backdrops': 'backdrops',
-    'Footers': 'footers',
-    'Forms': 'forms',
+    'Alert': 'alert',
+    'Article': 'article',
+    'Aspect Ratio': 'aspect-ratio',
+    'Button': 'button',
+    'Border': 'border',
+    'Backdrop': 'backdrop',
+    'Card': 'card',
+    'Color': 'color',
+    'Footer': 'footer',
+    'Form': 'form',
     'Grid': 'grid',
     'Modal': 'modal',
     'Navigation': 'navigation',
-    'Spacers': 'spacers',
-    'Tabs': 'tabs',
-    'Tables': 'tables',
+    'Spacer': 'spacer',
+    'Tab': 'tab',
+    'Table': 'table',
     'Typography': 'typography'
 }
 
 const devDir = './dist/html';
 
-const devPage = `${devPages.Accordion}.html`;
+const devPage = `${devPages.Backdrop}.html`;
 
 module.exports = merge(common, {
     mode: 'development',
     target: 'web',
     devServer: {
-        port: 8080, 
         hot: true,
         open: true,
         static: {
@@ -64,17 +66,8 @@ module.exports = merge(common, {
                         },
                     },
                     'css-loader',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            postcssOptions: {
-                                plugins: [
-                                    [
-                                        'autoprefixer'
-                                    ],
-                                ],
-                            },
-                        },
+                    { 
+                        loader: 'postcss-loader'
                     },
                     'sass-loader',
                 ],

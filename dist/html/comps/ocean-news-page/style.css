@@ -27,19 +27,15 @@
 
     --body-font-family: 'EB Garamond', serif;
     
-    --body-font-size: 22px;
-
-    --body-line-height: 1.375;
-
-    --header-line-height: 1.2;
-
-    --font-size-sm: calc(var(--body-font-size) * 0.6);
-
+    --body-line-height: 1.4;
+    
     --medium-width: calc( var(--narrow-width) * 2.25);
     --wide-width: calc( var(--narrow-width) * 3.25);
 
     --button-text-transform: uppercase;
     --button-letter-spacing: 0.125em;
+
+    --form-field-padding-x: 0.75em;
 }
 
 .grid > li > a {
@@ -112,6 +108,7 @@
 .backdrop__image__credit,
 .sans-serif {
     font-family: 'Lato', sans-serif;
+    /* --body-font-family: */
 }
 
 .grid > li > a {
@@ -149,7 +146,7 @@
         "nav nav nav"
         "search search search";
 
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-sm);
 }
 
 .global-header > * {

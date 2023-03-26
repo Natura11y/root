@@ -1,0 +1,87 @@
+/*
+
+In this file:
+
+// A. Modules
+// B. Variables
+// C.  Context for @container
+// D. Breakpoints Functions
+// E. Breakpoints Mixins
+
+*/
+
+//////////////////////////////////////////////
+// A. Modules
+//////////////////////////////////////////////
+
+@use 'sass:map';
+
+//////////////////////////////////////////////
+// B. Variables
+//////////////////////////////////////////////
+
+$breakpoints: (
+  'sm': 400px,
+  'md': 768px,
+  'lg': 1024px,
+  'xl': 1280px,
+  'xxl': 1536px
+);
+
+$breakpoints: map.merge((null : 0), $breakpoints);
+
+//////////////////////////////////////////////
+// C.  Context for @container
+//////////////////////////////////////////////
+
+:root,
+.natura11y-context {
+  container-type: inline-size;
+  container-name: natura11y;
+}
+
+//////////////////////////////////////////////
+// D. Breakpoints Functions
+//////////////////////////////////////////////
+
+// Name of the next breakpoint, or null for the last breakpoint.
+
+@function breakpoint-value($name, $breakpoint) {
+  $value: map.get($breakpoint, $name);
+  @return if($value != 0, $value, null);
+}
+
+@function breakpoint-modifier($name, $breakpoint) {
+  @return if(breakpoint-value($name, $breakpoint) == null, "", "--#{$name}");
+}
+
+//////////////////////////////////////////////
+// E. Breakpoints Mixins
+//////////////////////////////////////////////
+
+/* 
+  // Hopefully VSCode will soon resolve the below misleading error
+  // The interpolation within @container rule is valid and compliles correctly
+*/
+
+@mixin breakpoint-up($breakpoint) {
+  @if ($breakpoint != null) {
+    @container natura11y (inline-size >= #{map.get($breakpoints, $breakpoint)}) {
+      @content;
+    }
+  }
+  @else {
+    @content;
+  }
+}
+
+@mixin breakpoint-down($breakpoint) {
+  @if ($breakpoint != null) {
+    @container natura11y (inline-size <= #{map.get($breakpoints, $breakpoint)}) {
+      @content;
+    }
+  }
+  @else {
+    @content;
+  }
+}

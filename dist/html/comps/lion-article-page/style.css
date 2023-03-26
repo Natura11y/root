@@ -12,8 +12,7 @@
     --html-background-color: var(--dark);
 
     --body-font-family: 'Work Sans', sans-serif;
-    
-    --body-font-size: 22px;
+    --type-scale: 1.25;
 
     --active-background-color: var(--primary);
     --active-text-color: var(--primary-text);
@@ -27,6 +26,18 @@
 
 .bebas { 
     font-family: 'Bebas Neue', cursive;
+}
+
+/*
+
+// Reduce Type Scale for Mobile
+
+*/
+
+@media screen and (max-width: 1000px) {
+    :root {
+        --type-scale: 1.125;
+    }
 }
 
 /*
