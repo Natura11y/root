@@ -157,7 +157,6 @@ export default class Form {
                     const inputType = formEntryInput.getAttribute('type');
 
                     if (inputType === 'radio' || inputType === 'checkbox') {
-                        // activeTarget = 'label';
                         
                         if (formEntryInput.disabled) {
                             formEntryInput.closest('label').classList.add('disabled');
