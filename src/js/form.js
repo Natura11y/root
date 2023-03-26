@@ -186,8 +186,6 @@ export default class Form {
                 
                 formEntryInput.addEventListener('change', () => {
 
-                    console.log("My value is", formEntryInput.value);
-
                     if (formSubmitAttempted === true && isRequired === true) {
                         checkIfEmpty(formEntryInput);
                     }
@@ -207,7 +205,6 @@ export default class Form {
                         let clickInput = event.target.closest('.form-entry__field__input').querySelector('input');
 
                         if(clickTarget === 'SPAN') {
-                            console.log(event.target.nextSibling)
                             clickInput.focus();
                         }
 
