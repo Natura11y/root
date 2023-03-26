@@ -1,7 +1,7 @@
 {
   "name": "natura11y",
-  "version": "1.3.0",
-  "description": "Natura11y is an open-source design system for creating modern, accessible websites.",
+  "version": "2.0.0-alpha",
+  "description": "Natura11y is an open-source design ecosystem for creating modern, accessible websites.",
   "private": false,
   "scripts": {
     "start": "webpack serve --config webpack.dev.js",
