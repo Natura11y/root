@@ -1,3 +1,14 @@
-node_modules
+#.npmignore
 
-dist/html/
+#Folders
+node_modules
+dist/html
+
+#Files
+postcss.config.js
+naturally-logo.svg
+postcss.config.js
+
+webpack.common.js
+webpack.dev.js
+webpack.prod.js
