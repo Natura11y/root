@@ -162,6 +162,8 @@ In this file:
         width: var(--button-icon-only-size);
         height: var(--button-icon-only-size);
 
+        aspect-ratio: 1;
+
         [class*="icon-"] {
             --icon-size: 1.25em;
 

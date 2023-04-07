@@ -23,7 +23,11 @@ In this file:
     --tab-button-padding-x: var(--spacer-3);
     --tab-button-padding-y: var(--button-padding-y);
 
-    --tab-accent-bar-size: calc(var(--border-width) * 2);
+    --tab-button-color: var(--link-color, currentColor);
+    --tab-active-button-color: currentColor;
+
+    --tab-active-bar-size: calc(var(--border-width) * 3);
+    --tab-active-bar-color: currentColor;
 }
 
 ////////////////////////////////////////
@@ -41,21 +45,20 @@ In this file:
 
         > li {
             position: relative;
+            --separator-size: calc(var(--border-width) * 2);
 
             &::before {
                 position: absolute;
                 content: "";
-                top: 0;
-                right: 0;
-                left: 0;
+                inset-block-start: 0;
+                inset-inline-end: 0;
+                inset-inline-start: 0;
 
-                height: var(--tab-accent-bar-size);
+                height: var(--separator-size);
 
-                transform: translateY(calc(var(--tab-accent-bar-size) * -0.5));
+                transform: translateY(calc(var(--separator-size) * -0.5));
                 
-                background-color: currentColor;
-                
-                opacity: 0.125;
+                background-color: var(--border-color);
             }
 
             &:first-child::before {
@@ -74,17 +77,21 @@ In this file:
             padding: var(--tab-button-padding-y) var(--tab-button-padding-x);
             
             text-align: left;
+
+            line-height: normal;
+
+            color: var(--tab-button-color);
         
             &::before {
                 position: absolute;
                 content: "";
-                top: 0;
-                left: 0;
-                bottom: 0;
+                inset-block-start: 0;
+                inset-block-end: 0;
+                inset-inline-start: 0;
 
-                width: var(--tab-accent-bar-size);
-                
-                background-color: currentColor;
+                width: var(--tab-active-bar-size);
+
+                background-color: var(--tab-active-bar-color);
                 
                 opacity: 0;
             }
@@ -95,6 +102,8 @@ In this file:
             [aria-selected="true"]
         ) {
             font-weight: var(--body-font-weight-bold);
+
+            color: var(--tab-active-button-color);
 
             &::before {
                 opacity: 1;
@@ -131,12 +140,12 @@ In this file:
                         text-align: center;
                         
                         &::before {
-                            bottom: unset;
-                            right: 0;
+                            inset-block-end: unset;
+                            inset-inline-end: 0;
                 
                             width: unset;
 
-                            height: var(--tab-accent-bar-size);
+                            height: var(--tab-active-bar-size);
                         }
                     }
 
@@ -163,7 +172,7 @@ In this file:
             [aria-selected="true"]
         ) {
             &::before {
-                margin: var(--tab-accent-bar-size);
+                margin: var(--tab-active-bar-size);
             }
         }
     }

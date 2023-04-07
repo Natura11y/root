@@ -3,6 +3,7 @@
 #Folders
 node_modules
 dist/html
+.vscode
 
 #Files
 postcss.config.js
