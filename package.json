@@ -1,7 +1,7 @@
 {
   "name": "natura11y",
   "version": "2.0.0",
-  "description": "Natura11y is an open-source design ecosystem for creating modern, accessible websites.",
+  "description": "Natura11y is an open-source front-end ecosystem for creating modern, accessible websites.",
   "private": false,
   "scripts": {
     "start": "webpack serve --config webpack.dev.js",
@@ -16,10 +16,13 @@
   "keywords": [
     "accessibility",
     "css",
-    "front-end",
     "framework",
+    "front-end",
+    "sass",
+    "scss",
     "js",
-    "responsive"
+    "responsive",
+    "web"
   ],
   "author": "Carl Avidano",
   "license": "MIT",
