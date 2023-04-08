@@ -211,7 +211,7 @@ In this file:
             border-radius: inherit;
             background-color: transparent;
             color: inherit;
-            width: 100%;
+            width: auto;
         }
 
         :is(
@@ -316,6 +316,10 @@ In this file:
 
         height: 100%;
 
+        input {
+            flex-grow: 1;
+        }
+
         button {
             flex-shrink: 0;
         }
@@ -323,21 +327,18 @@ In this file:
         > .button {
             --button-padding-y: 0;
             --button-border-radius: 0;
-        }
 
-        > .button:not([class*="button--icon-only"]) {
             align-self: stretch;
+            
+            height: unset;
         }
 
-        >  [class*="button--icon-only"] {
-            margin: var(--spacer-1);
-        }
-
-        > :is(
-            .icon,
-            .button-group
-        ) {
+        > .icon {
             margin-inline-start: var(--form-field-padding-x);
+        }
+
+        > .button-group {
+            margin: var(--gap-size);
         }
     }
 
