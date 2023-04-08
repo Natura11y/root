@@ -6,6 +6,7 @@ dist/html
 .vscode
 
 #Files
+package-lock.json
 postcss.config.js
 naturally-logo.svg
 postcss.config.js
