@@ -195,11 +195,6 @@
         display: none;    
     }
 
-    .form-entry__field {
-        height: var(--button-icon-only-size) !important;
-        border-radius: var(--button-border-radius);
-    }
-
     .global-header__menu,
     .global-header__search {
         display: flex !important;    
