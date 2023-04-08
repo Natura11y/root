@@ -10,7 +10,7 @@ module.exports = merge(common, {
     mode: 'production',
     target: 'browserslist',
     output: {
-        filename: 'js/[name].js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
         iife: true,
     },
@@ -50,7 +50,7 @@ module.exports = merge(common, {
     },
     plugins: [
         new MiniCssExtractPlugin({
-            filename: 'css/[name].css',
+            filename: '[name].css',
         }),
         new CssMinimizerPlugin()
     ]
