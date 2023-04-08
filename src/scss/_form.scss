@@ -323,12 +323,12 @@ In this file:
             --button-border-radius: 0;
         }
 
-        > :is(
-        .button,
-        [class*="button--icon-only"] 
-        ) {
-            height: unset;
+        >  [class*="button--icon-only"] {
+            margin: var(--spacer-1);
+        }
 
+        > .button:not([class*="button--icon-only"]) {
+            // height: unset;
             align-self: stretch;
         }
 
@@ -773,17 +773,12 @@ In this file:
 
     // Form Feedback
 
-    [data-alert="form-errors"],
-    .form-entry__feedback {
-        display: none;
-    }
-
     .form-entry__feedback {
         order: 3;
         display: flex;
         align-items: center;
 
-        font-size: 0.8em;
+        font-size: 80%;
        
         margin-block-start: 0.5rem;
 
@@ -795,6 +790,11 @@ In this file:
         }
     }
 
+    [data-alert="form-errors"],
+    .form-entry:not(.is-invalid) .form-entry__feedback {
+        display: none;
+    }
+    
     .is-invalid {
 
         .form-entry__help {

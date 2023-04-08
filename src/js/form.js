@@ -130,9 +130,11 @@ export default class Form {
         this.#formEntryList.forEach((formEntry) => {
 
             const inputSelectors = [
+                'email',
                 'input',
                 'select',
-                'textarea',
+                'tel',
+                'textarea'
             ];
 
             const formEntryInputList = formEntry.querySelectorAll(inputSelectors);
