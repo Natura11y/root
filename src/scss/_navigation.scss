@@ -39,8 +39,6 @@ In this file:
 
     --primary-nav-padding-x: var(--spacer-2);
     --primary-nav-padding-y: var(--spacer-2);
-
-    --primary-nav-search-width: 300px;
 }
 
 ////////////////////////////////////////
@@ -532,9 +530,6 @@ In this file:
                     display: block !important;
                 }
 
-                [class*="__search"] .form-entry {
-                    max-width: var( --primary-nav-search-width);
-                }
             }
 
             .primary-nav--inline#{$mod} {
