@@ -29,6 +29,10 @@ In this file:
         flex-wrap: wrap;
 
         width: 100%;
+        
+        &[class*="gap-"] {
+            gap: var(--gap-size);
+        }
     }
 
     @each $breakpoint in map.keys(breakpoint.$breakpoints) {

@@ -40,6 +40,12 @@ $display-types: block, inline, inline-block, flex, inline-flex, grid, inline-gri
                             display: $value !important;
                         }
                     }
+                    
+                    @if $value == flex or $value == inline-flex {
+                        &[class*="gap-"] {
+                            gap: var(--gap-size);
+                        }
+                    }
                 }
             }
         }
