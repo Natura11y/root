@@ -36,10 +36,6 @@ In this file:
 
     // Article Elements and Modifiers
     
-    .article__body {
-        overflow: hidden;
-    }
-
     @include breakpoint.breakpoint-up(lg) {
 
         .article__header {
