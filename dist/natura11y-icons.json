@@ -92,5 +92,6 @@
    "plane": 61787,
    "car": 61788,
    "sign-in": 61789,
-   "sign-out": 61790
+   "sign-out": 61790,
+   "clear": 61791
 }
