@@ -6,14 +6,17 @@ import { getFocusableElements } from './utilities/focus';
 
 export default class Modal {
 
-    #modalList = document.querySelectorAll('.modal');
-    #modalButtonList = document.querySelectorAll('[data-modal-open]');
+  #modalList = document.querySelectorAll('.modal');
+  #modalButtonList = document.querySelectorAll('[data-has-overlay]');
+  #scrollPosition = 0;
 
   init() {
-  
+
     const initModal = (modalTarget) => {
 
-      document.querySelector('body').classList.add('modal-open');
+      this.#scrollPosition = window.pageYOffset;
+      document.body.style.setProperty('--scroll-position', `-${this.#scrollPosition}px`); 
+      document.querySelector('body').classList.add('has-overlay');
 
       modalTarget.setAttribute('aria-hidden', false);
 
@@ -45,7 +48,9 @@ export default class Modal {
 
         lastFocusedElement.focus();
 
-        document.querySelector('body').classList.remove('modal-open');
+        document.querySelector('body').classList.remove('has-overlay');
+
+        window.scrollTo({ top: this.#scrollPosition, behavior: 'instant' });
 
         window.removeEventListener('click', handleCloseOutside);
       }
@@ -115,7 +120,7 @@ export default class Modal {
     this.#modalButtonList.forEach((modalButton) => {
 
       modalButton.addEventListener('click', event => {
-        const modalTargetID = event.target.getAttribute('data-modal-open').replace(/#/, '');
+        const modalTargetID = event.target.getAttribute('data-has-overlay').replace(/#/, '');
         const modalTarget = document.getElementById(modalTargetID)
 
         initModal(modalTarget);

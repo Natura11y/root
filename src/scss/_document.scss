@@ -134,3 +134,23 @@ In this file:
     }
 
 } // end @layer
+
+
+//////////////////////////////////////////////
+// C. Overlay Class (set via JS)
+//////////////////////////////////////////////
+
+@layer base {
+
+  body.has-overlay {
+    --top: var(--scroll-position, 0);
+
+    position: fixed;
+    top: var(--top);
+
+    overflow: hidden;
+
+    width: 100%;
+  }
+
+}

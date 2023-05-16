@@ -138,19 +138,3 @@ In this file:
   }
 
 } // end @layer
-
-//////////////////////////////////////////////
-// C. Body Class (via JS)
-//////////////////////////////////////////////
-
-@layer base {
-
-  body.modal-open {
-    position: relative;
-
-    overflow: hidden;
-
-    height: 100vh;
-  }
-
-}
