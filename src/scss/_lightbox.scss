@@ -1,0 +1,156 @@
+/*
+
+In this file:
+
+// A. Modules
+// B. Variables
+// C. Lightbox Block
+
+*/
+
+////////////////////////////////////////
+// A. Modules
+////////////////////////////////////////
+
+@use "./icon" as icon;
+
+//////////////////////////////////////////////
+// B. Variables
+//////////////////////////////////////////////
+
+// Scoped to Block
+
+:root {
+  --lightbox-padding-x: var(--spacer-2);
+  --lightbox-padding-y: var(--spacer-2);
+
+  --lightbox-overlay-color: black;
+  --lightbox-overlay-opacity: 0.8;
+  
+  --lightbox-z-index: 100000;
+}
+
+//////////////////////////////////////////////
+// C. Lightbox Block
+//////////////////////////////////////////////
+
+.lightbox,
+.lightbox::before {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+.lightbox {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+
+  padding: var(--lightbox-padding);
+  
+  z-index: var(--lightbox-z-index);
+
+  &::before {
+      content: "";
+
+      background-color: var(--lightbox-overlay-color);
+      
+      opacity: var(--lightbox-overlay-opacity);
+
+      z-index: -1;
+      
+      pointer-events: none;
+  }
+
+  img {
+    max-width: 90vw;
+    max-height: 80vh;
+
+    cursor: pointer;
+  }
+
+  display: none;
+
+  &[aria-hidden="false"] {
+    display: flex;
+  }
+
+}
+
+.lightbox__buttons {
+  justify-content: center;
+  margin-block: 1em;
+  color: white;
+
+  button {
+    backdrop-filter: blur(4px) brightness(50%);
+  }
+}
+
+.lightbox__container {
+    margin: auto;
+
+    min-width: 350px;
+
+    display: table;
+
+    caption-side: bottom;
+
+    > figcaption {
+        display: table-caption;
+        text-align: left;
+    }
+
+    img{min-width: 100%;}
+}
+
+.lightbox__caption {
+    color: white;
+    font-size: var(--font-size-md);
+    text-align: center;
+    margin-block-start: 1em;
+}
+
+.lightbox-element {
+    --button-icon-only-size: 1em;
+
+    display: flex;
+
+    text-align: center;
+
+    position: relative;
+    
+    cursor: pointer;
+
+    &::after {
+
+        @extend .icon_font;
+        content: '\f13d';
+
+        display: inline-flex;
+        flex-shrink: 0;
+
+        align-items: center;
+        justify-content: center;
+
+        width: var(--button-icon-only-size);
+        height: var(--button-icon-only-size);
+
+        padding: 20px;
+
+        position: absolute;
+        inset-block-end: 0;
+        inset-inline-end: 0;
+
+        color: white;
+
+        opacity: 0.875;
+        
+        background-color: var(--lightbox-overlay-color);
+        
+        aspect-ratio: 1 / 1;
+    }
+}

@@ -2,14 +2,14 @@
 
 In this file:
 
-// A. Focusable Elements
+// A. Overlay Open and Close
 
 */
 
 import { focusTrap } from './focus';
 
 //////////////////////////////////////////////
-// A. Overlay
+// A. Overlay Open and Close
 //////////////////////////////////////////////
 
 let scrollPosition = 0;
@@ -31,7 +31,7 @@ export const handleOverlayOpen = (element) => {
     focusTrap(element);
 }
 
-export const handleOverlayClose = (element) => {
+export const handleOverlayClose = (element, event) => {
 
     rootElement.removeAttribute('style');
 

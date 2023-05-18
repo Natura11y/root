@@ -37,6 +37,10 @@ import Form from './js/form';
 const form = new Form();
 form.init();
 
+import Lightbox from './js/lightbox';
+const lightbox = new Lightbox();
+lightbox.init();
+
 import Modal from './js/modal';
 const modal = new Modal();
 modal.init();
