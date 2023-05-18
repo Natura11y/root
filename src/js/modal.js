@@ -1,4 +1,4 @@
-import { getFocusableElements } from './utilities/focus';
+import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 
 //////////////////////////////////////////////
 // Modal
@@ -8,7 +8,6 @@ export default class Modal {
 
   #modalList = document.querySelectorAll('.modal');
   #modalButtonList = document.querySelectorAll('[data-modal-open]');
-  #scrollPosition = 0;
 
   init() {
 
@@ -19,15 +18,7 @@ export default class Modal {
         return;
       }
 
-      this.#scrollPosition = window.pageYOffset;
-
-      document.querySelector('html').style.setProperty('--scroll-position', `-${this.#scrollPosition}px`);;
-
-      document.querySelector('html').classList.add('has-overlay');
-
-      modalTarget.setAttribute('aria-hidden', false);
-
-      const lastFocusedElement = document.activeElement;
+      handleOverlayOpen(modalTarget);
 
       const modalContent = modalTarget.querySelector('.modal__content');
 
@@ -46,72 +37,26 @@ export default class Modal {
 
       const modalCloseList = modalTarget.querySelectorAll('[data-modal-close]');
 
-      const handleCloseOutside = event => {
+      const handleCloseOutside = (event) => {
         
         let modalContentClick = modalContent.contains(event.target);
 
         if (!modalContentClick) {
-          handleClose();
+          handleOverlayClose(modalTarget);
         }
-      }
-
-      const handleClose = () => {
-        modalTarget.setAttribute('aria-hidden', true);
-
-        lastFocusedElement.focus();
-
-        document.querySelector('html').classList.remove('has-overlay');
-
-        window.scrollTo({ top: this.#scrollPosition, behavior: 'instant' });
 
         window.removeEventListener('click', handleCloseOutside);
+      
       }
 
-      const focusableElements = getFocusableElements(modalTarget);
-
-      const firstElementOfModal = focusableElements[0];
-      const lastElementOfModal = focusableElements[focusableElements.length - 1];
-
-      modalTarget.addEventListener('keydown', (event) => {
-
-        switch (event.code) {
-          case 'Tab':
-            if (document.activeElement === lastElementOfModal) {
-              if (!event.shiftKey) {
-                event.preventDefault();
-                firstElementOfModal.focus();
-              }
-            }
-
-            if (document.activeElement === firstElementOfModal) {
-              if (event.shiftKey) {
-                event.preventDefault();
-                lastElementOfModal.focus();
-              }
-            }
-
-            if (document.activeElement === modalContent) {
-              if (event.shiftKey) {
-                event.preventDefault();
-                firstElementOfModal.focus();
-              }
-            }
-
-            break;
-
-          case 'Escape':
-            handleClose();
-            break;
-          
-          default:
-          // do nothing
-        }
-        
-      });
-
       modalCloseList.forEach((modalClose) => {
-        modalClose.addEventListener('click', handleClose);
+
+        modalClose.addEventListener('click', () => {
+          handleOverlayClose(modalTarget)
+        });
+
         modalClose.setAttribute('aria-label', 'Close Modal Window');
+      
       });
 
       if (modalTarget.dataset.modalCloseOutside === 'true') {
