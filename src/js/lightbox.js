@@ -25,7 +25,7 @@ export default class Lightbox {
 	#lightboxVideoHTML = '<video controls><source src="" type="video/mp4"></video>';
 	#lightboxElementHTML = '<img src="https://source.unsplash.com/1600x900" />';
 
-	lightboxes = [];
+	#lightboxes = [];
 
 	wrap = (el, wrapper) => {
 		el.parentNode.insertBefore(wrapper, el);
@@ -54,7 +54,7 @@ export default class Lightbox {
 			const wrapper = document.createElement('button');
 			wrapper.setAttribute('class', 'lightbox-element');
 			this.wrap(image, wrapper);
-			this.lightboxes.push(this.setImgProperties(image));
+			this.#lightboxes.push(this.setImgProperties(image));
 			const imageBtn = image.closest('button');
 			imageBtn.addEventListener('click', this.handleClick(image, index));
 		});
@@ -95,22 +95,22 @@ export default class Lightbox {
 
 		let lightboxElementTarget;
 
-		if (this.lightboxes[index].imgType === 'video') {
+		if (this.#lightboxes[index].imgType === 'video') {
 			lightboxElement.innerHTML = this.#lightboxVideoHTML;
 			lightboxElementTarget = lightboxElement.querySelector('source');
 		} else {
 			lightboxElement.innerHTML = this.#lightboxElementHTML;
 			lightboxElementTarget = lightboxElement.querySelector('img');
-			lightboxElementTarget.alt = this.lightboxes[index].imgAlt;
+			lightboxElementTarget.alt = this.#lightboxes[index].imgAlt;
 		}
 
-		lightboxElementTarget.src = this.lightboxes[index].imgSrc;
-		lightboxCaption.innerHTML = this.lightboxes[index].imgCaption;
+		lightboxElementTarget.src = this.#lightboxes[index].imgSrc;
+		lightboxCaption.innerHTML = this.#lightboxes[index].imgCaption;
 
-		if (this.lightboxes[index].imgWidth) {
+		if (this.#lightboxes[index].imgWidth) {
 			lightboxElementTarget.setAttribute(
 				'width',
-				this.lightboxes[index].imgWidth
+				this.#lightboxes[index].imgWidth
 			);
 		}
 	};
@@ -136,8 +136,8 @@ export default class Lightbox {
 	updateDirection = (dir) => {
 		this.currentLB += dir;
 		if (this.currentLB < 0) {
-			this.currentLB = this.lightboxes.length - 1;
-		} else if (this.currentLB >= this.lightboxes.length) {
+			this.currentLB = this.#lightboxes.length - 1;
+		} else if (this.currentLB >= this.#lightboxes.length) {
 			this.currentLB = 0;
 		}
 		this.updateLightbox(this.currentLB);

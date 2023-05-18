@@ -39,7 +39,7 @@ export const focusTrap = (element) => {
     let firstFocusableElement = focusableElements[0];
     let lastFocusableElement = focusableElements[focusableElements.length - 1];
 
-    firstFocusableElement.focus();
+    // firstFocusableElement.focus();
 
     element.addEventListener('keydown', (event) => {
 
