@@ -20,9 +20,10 @@ export default class Modal {
       }
 
       this.#scrollPosition = window.pageYOffset;
-      document.body.style.setProperty('--scroll-position', `-${this.#scrollPosition}px`);
-      
-      document.querySelector('body').classList.add('has-overlay');
+
+      document.querySelector('html').style.setProperty('--scroll-position', `-${this.#scrollPosition}px`);;
+
+      document.querySelector('html').classList.add('has-overlay');
 
       modalTarget.setAttribute('aria-hidden', false);
 
@@ -59,7 +60,7 @@ export default class Modal {
 
         lastFocusedElement.focus();
 
-        document.querySelector('body').classList.remove('has-overlay');
+        document.querySelector('html').classList.remove('has-overlay');
 
         window.scrollTo({ top: this.#scrollPosition, behavior: 'instant' });
 
