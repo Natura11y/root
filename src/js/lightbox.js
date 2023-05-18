@@ -1,6 +1,7 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 
 export default class Lightbox {
+
 	#lightboxImages = document.querySelectorAll('img[data-lightbox]');
 
 	#lightboxHTML = `
@@ -25,8 +26,6 @@ export default class Lightbox {
 	#lightboxElementHTML = '<img src="https://source.unsplash.com/1600x900" />';
 
 	lightboxes = [];
-	currentLB = null;
-	lightbox = null;
 
 	wrap = (el, wrapper) => {
 		el.parentNode.insertBefore(wrapper, el);
@@ -78,9 +77,11 @@ export default class Lightbox {
 		switch (e.code) {
 			case 'ArrowLeft':
 				dir = -1;
+        document.querySelector('[data-lightbox-previous]').focus();
 				break;
 			case 'ArrowRight':
 				dir = 1;
+        document.querySelector('[data-lightbox-next]').focus();
 				break;
 			default:
 				return; // do nothing
