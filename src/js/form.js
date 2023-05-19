@@ -1,269 +1,270 @@
 //////////////////////////////////////////////
-// Form
+// Form - Part 1
 //////////////////////////////////////////////
 
 export default class Form {
+	#formList = document.querySelectorAll('form[novalidate]');
+	#formEntryList = document.querySelectorAll('.form-entry');
+	#fileUploadList = document.querySelectorAll('.file-upload');
 
-    #formList = document.querySelectorAll('form[novalidate]');
-    #formEntryList = document.querySelectorAll('.form-entry');
-    #fileUploadList = document.querySelectorAll('.file-upload');
+	#formSubmitAttempted = false;
 
-    init() {
+	#invalidClasses = ['is-invalid'];
 
-        let formSubmitAttempted = false;
+	isEmpty(value = null) {
+		return value === '';
+	}
 
-        const checkIfEmpty = (field) => {
-            if (isEmpty(field.value)) {
-                setInvalid(field);
-                return true;
-            } else {
-                setValid(field);
-                return false;
-            }
-        }
+	checkIfEmpty(field) {
+		if (this.isEmpty(field.value)) {
+			this.setInvalid(field);
+			return true;
+		} else {
+			this.setValid(field);
+			return false;
+		}
+	}
 
-        const isEmpty = (value = null) => {
-            if (value === '') return true;
-            return false;
-        }
+	setInvalid(field) {
+		let entryRoot = field.closest('.form-entry');
+		entryRoot.classList.add(...this.#invalidClasses);
+	}
 
-        const invalidClasses = ['is-invalid'];
+	setValid(field) {
+		let entryRoot = field.closest('.form-entry');
+		entryRoot.classList.remove(...this.#invalidClasses);
+	}
 
-        const setInvalid = (field) => {
-            let entryRoot = field.closest('.form-entry');
-            entryRoot.classList.add(...invalidClasses);
-        }
+	createErrorMessage(desc, inst) {
+		if (desc === null) {
+			desc = 'This field is Required';
+		}
+		return `
+            <small class="form-entry__feedback">
+                <span class="icon icon-warn" aria-hidden="true"></span>
+                <span class="message">
+                    <strong>${desc}</strong> ${inst !== undefined ? inst : ''}
+                </span>
+            </small>
+        `;
+	}
 
-        const setValid = (field) => {
-            let entryRoot = field.closest('.form-entry');
-            entryRoot.classList.remove(...invalidClasses);
-        }
+	handleFormSubmission(form) {
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			this.#formSubmitAttempted = true;
 
-        const createErrorMessage = ((desc, inst) => {
-            
-            if(desc === null) {
-                desc = 'This field is Required';
-            }
-            
-            return (`
-                <small class="form-entry__feedback">
-                    <span class="icon icon-warn" aria-hidden="true"></span>
-                    <span class="message">
-                        <strong>${desc}</strong> ${inst !== undefined ? inst : ''}
-                    </span>
-                </small>
-            `);
-        });
+			let errorsArray = [];
 
-        this.#formList.forEach((form) => {
+			let formErrorsList = form.querySelectorAll(':invalid');
 
-            // Submission Handler
-            form.addEventListener('submit', (event) => {
+			this.processFormErrors(formErrorsList, errorsArray);
 
-                event.preventDefault();
+			if (errorsArray.length > 0) {
+				event.preventDefault();
+			}
 
-                formSubmitAttempted = true;
-        
-                let errorsArray = [];
-        
-                // Create list of elements that fail to validate
-                let formErrorsList = form.querySelectorAll(':invalid');
+			this.scrollToFirstError(form);
+		});
+	}
 
-                formErrorsList.forEach((formError) => {
+	processFormErrors(formErrorsList, errorsArray) {
 
-                    let formErrorEntry = formError.closest('.form-entry');
-                    let formErrorEntryLabel = formErrorEntry.querySelector('.form-entry__field__label');
+		formErrorsList.forEach((formError) => {
 
-                    // Add error class to .form-entry selector
-                    formErrorEntry.classList.add('is-invalid');
+			let formErrorEntry = formError.closest('.form-entry');
+			let formErrorEntryLabel = formErrorEntry.querySelector(
+				'.form-entry__field__label'
+			);
 
-                    // Form Entry Feedback
-                    const formEntryFeedback = formErrorEntry.querySelector('.form-entry__feedback');
+			formErrorEntry.classList.add('is-invalid');
 
-                    // Form Entry Feedback
-                    const formEntryHelp = formErrorEntry.querySelector('.form-entry__help');
+			const formEntryFeedback = formErrorEntry.querySelector(
+				'.form-entry__feedback'
+			);
 
-                    let entryHelpText;
+			const formEntryHelp = formErrorEntry.querySelector('.form-entry__help');
 
-                    if(formEntryHelp) {
-                        entryHelpText = formEntryHelp.innerHTML.toString();
-                    }
+			let entryHelpText;
 
-                    let errorMessage = formErrorEntry.getAttribute('data-error-message');
-                    let errorFeedback = [errorMessage, entryHelpText];
+			if (formEntryHelp) {
+				entryHelpText = formEntryHelp.innerHTML.toString();
+			}
 
-                    // Send errors to errorArray
-                    errorsArray.push(errorFeedback);
+			let errorMessage = formErrorEntry.getAttribute('data-error-message');
+			let errorFeedback = [errorMessage, entryHelpText];
 
-                    if (formEntryFeedback === null) {
-                        formErrorEntryLabel.insertAdjacentHTML('afterend', createErrorMessage(errorMessage, entryHelpText));
-                    }
-                });
+			errorsArray.push(errorFeedback);
 
-                // If errors exist, do not submit the form
-                if (errorsArray.length > 0) {
-                    event.preventDefault();
-                }
-                
-                // Scroll to first error
+			if (formEntryFeedback === null) {
+				formErrorEntryLabel.insertAdjacentHTML(
+					'afterend',
+					this.createErrorMessage(errorMessage, entryHelpText)
+				);
+			}
+		});
+	}
 
-                let firstError = form.querySelector('[class*="alert"], [class*="invalid"]');
-                
-                if (firstError) {
+	scrollToFirstError(form) {
+		let firstError = form.querySelector('[class*="alert"], [class*="invalid"]');
 
-                    if (firstError.hasAttribute('data-alert')) {
-                        firstError.style.display = 'block';
-                    }
+		if (firstError) {
+			if (firstError.hasAttribute('data-alert')) {
+				firstError.style.display = 'block';
+			}
+			let myScroll = firstError.offsetTop - 16;
 
-                    let myScroll = firstError.offsetTop - 16;
+			window.scrollTo({
+				top: myScroll,
+				behavior: 'smooth',
+			});
+		}
+	}
 
-                    window.scrollTo({
-                        top: myScroll,
-                        behavior: 'smooth'
-                    });
-                }
+	handleFormInputs(formEntry) {
+		const inputSelectors = ['email', 'input', 'select', 'tel', 'textarea'];
 
-            });
+		const formEntryInputList = formEntry.querySelectorAll(inputSelectors);
 
-        });
+		let isRequired = formEntry.hasAttribute('data-required');
 
-        this.#formEntryList.forEach((formEntry) => {
+		formEntryInputList.forEach((formEntryInput) =>
+			this.processFormEntryInput(formEntryInput, isRequired)
+		);
+	}
 
-            const inputSelectors = [
-                'email',
-                'input',
-                'select',
-                'tel',
-                'textarea'
-            ];
+	processFormEntryInput(formEntryInput, isRequired) {
+		const isInputText = formEntryInput
+			.closest('.form-entry')
+			.querySelector('.form-entry__field__input');
+		const inputTag = formEntryInput.tagName;
 
-            const formEntryInputList = formEntry.querySelectorAll(inputSelectors);
+		let activeTarget = '.form-entry';
 
-            let isRequired;
+		if (inputTag === 'INPUT') {
+			const inputType = formEntryInput.getAttribute('type');
 
-            if(formEntry.hasAttribute('data-required')) {
-                isRequired = true;
-            } else {
-                isRequired = false;
-            }
+			if (inputType === 'radio' || inputType === 'checkbox') {
+				if (formEntryInput.disabled) {
+					formEntryInput.closest('label').classList.add('disabled');
+				}
+			}
+		}
 
-            formEntryInputList.forEach((formEntryInput) => {
-                
-                const isInputText = formEntry.querySelector('.form-entry__field__input');
-                
-                const inputTag = formEntryInput.tagName;
+		formEntryInput.addEventListener('focusin', this.focusIn(activeTarget));
+		formEntryInput.addEventListener('focusout', this.focusOut(activeTarget));
 
-                let activeTarget = '.form-entry';
+		if (isRequired) {
+			formEntryInput.setAttribute('required', 'true');
+			formEntryInput.setAttribute('aria-required', true);
+		}
 
-                if (inputTag === 'INPUT') {
-                    const inputType = formEntryInput.getAttribute('type');
+		formEntryInput.addEventListener('change', () =>
+			this.handleInputChange(formEntryInput, isRequired)
+		);
 
-                    if (inputType === 'radio' || inputType === 'checkbox') {
-                        
-                        if (formEntryInput.disabled) {
-                            formEntryInput.closest('label').classList.add('disabled');
-                        }
+		if (isInputText) {
+			isInputText.addEventListener('click', this.handleClickOnInputText);
+		}
+	}
 
-                    }
+	focusIn(activeTarget) {
+		return function () {
+			this.closest(activeTarget).classList.add('active');
+		};
+	}
 
-                }
-                
-                // Call focus (in out) functions
-                formEntryInput.addEventListener('focusin', focusIn);
-                formEntryInput.addEventListener('focusout', focusOut);
+	focusOut(activeTarget) {
+		return function () {
+			this.closest(activeTarget).classList.remove('active');
+		};
+	}
 
-                function focusIn() {
-                    this.closest(activeTarget).classList.add('active');
-                }
+	handleInputChange(formEntryInput, isRequired) {
+		if (this.#formSubmitAttempted && isRequired) {
+			this.checkIfEmpty(formEntryInput);
+		}
 
-                function focusOut() {
-                    this.closest(activeTarget).classList.remove('active');
-                }
-                
-                // Set required inputs
-                if (isRequired === true) {  
-                    formEntryInput.setAttribute('required', 'true');
-                    formEntryInput.setAttribute('aria-required', true);
-                }
-                
-                formEntryInput.addEventListener('change', () => {
+		if (formEntryInput.value !== '') {
+			formEntryInput.closest('.form-entry').classList.add('has-value');
+		} else {
+			formEntryInput.closest('.form-entry').classList.remove('has-value');
+		}
+	}
 
-                    if (formSubmitAttempted === true && isRequired === true) {
-                        checkIfEmpty(formEntryInput);
-                    }
+	handleClickOnInputText(event) {
+		let clickTarget = event.target.tagName;
+		let clickInput = event.target
+			.closest('.form-entry__field__input')
+			.querySelector('input');
 
-                    if (formEntryInput.value !== '') {
-                        formEntryInput.closest('.form-entry').classList.add('has-value');
-                    } else {
-                        formEntryInput.closest('.form-entry').classList.remove('has-value');
-                    }
-                    
-                });
+		if (clickTarget === 'SPAN') {
+			clickInput.focus();
+		}
 
-                if (isInputText) {
-                    isInputText.addEventListener('click', (event) => {
+		if (clickTarget === 'BUTTON') {
+			return;
+		}
+	}
 
-                        let clickTarget = event.target.tagName;
-                        let clickInput = event.target.closest('.form-entry__field__input').querySelector('input');
+	handleFileUpload(fileUpload) {
+		const fileUploadInput = fileUpload.querySelector('input[type="file"]');
 
-                        if(clickTarget === 'SPAN') {
-                            clickInput.focus();
-                        }
+		fileUploadInput.addEventListener(
+			'change',
+			this.handleFileChange(fileUpload)
+		);
 
-                        if(clickTarget === 'BUTTON') {
-                            return;
-                        }
+		fileUpload.addEventListener('dragenter', this.dragOver);
+		fileUpload.addEventListener('dragleave', this.dragOff);
+		fileUpload.addEventListener('dragend', this.dragOff);
+		fileUpload.addEventListener('drop', this.dropped);
+	}
 
-                    });
-                }
+	handleFileChange(fileUpload) {
+		return function (event) {
+			const [file] = event.target.files;
+			const { name: fileName, size } = file;
+			const fileSize = (size / 1000).toFixed(2);
 
-            });
-        
-        });
+			const dataHTML = `
+                <span class="file-upload__data">
+                    <span class="file-name">${fileName}</span>
+                    <span class="file-size">${fileSize} kb</span>
+                </span>
+            `;
 
-        this.#fileUploadList.forEach((fileUpload) => {
+			const fileUploadData = fileUpload.querySelector('.file-upload__data');
 
-            const fileUploadInput = fileUpload.querySelector('input[type="file"]');
+			if (fileUploadData) {
+				fileUploadData.remove();
+			}
 
-            fileUploadInput.addEventListener('change', (event) => {
+			fileUpload.insertAdjacentHTML('beforeend', dataHTML);
+		};
+	}
 
-                const [file] = event.target.files;
-                const { name: fileName, size } = file;
-                const fileSize = (size / 1000).toFixed(2);
+	dragOver() {
+		this.closest('.form-entry').classList.add('active');
+	}
 
-                const dataHTML = (`
-                    <span class="file-upload__data">
-                        <span class="file-name">${fileName}</span>
-                        <span class="file-size">${fileSize} kb</span>
-                    </span>
-                `);
-                
-                const fileUploadData = fileUpload.querySelector(".file-upload__data");
+	dragOff() {
+		this.closest('.form-entry').classList.remove('active');
+	}
 
-                if (fileUploadData) {
-                    fileUploadData.remove();
-                }
+	dropped() {
+		this.closest('.form-entry').classList.remove('active');
+	}
 
-                fileUpload.insertAdjacentHTML('beforeend', dataHTML);
+	init() {
 
-            });
+		this.#formList.forEach((form) => this.handleFormSubmission(form));
+		this.#formEntryList.forEach((formEntry) =>
+			this.handleFormInputs(formEntry)
+		);
 
-            const dragOver = () => {
-                fileUpload.closest('.form-entry').classList.add('active');
-            }
-
-            const dragOff = () => {
-                fileUpload.closest('.form-entry').classList.remove('active');
-            }
-
-            const dropped = () => {
-                fileUpload.closest('.form-entry').classList.remove('active');
-            }
-
-            fileUpload.addEventListener('dragenter', dragOver);
-            fileUpload.addEventListener('dragleave', dragOff);
-            fileUpload.addEventListener('dragend', dragOff);
-            fileUpload.addEventListener('drop', dropped);
-        });
-    }
+		this.#fileUploadList.forEach((fileUpload) =>
+			this.handleFileUpload(fileUpload)
+		);
+	}
 }
