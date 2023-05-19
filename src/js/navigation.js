@@ -1,5 +1,5 @@
 //////////////////////////////////////////////
-// Tab
+// Navigation
 //////////////////////////////////////////////
 
 export default class Navigation {
@@ -44,7 +44,6 @@ export default class Navigation {
         });
 
         this.#dropdownButtonList.forEach((dropdownButton) => {
-            let dropdownButtonParent = dropdownButton.closest('li');
             let dropdownMenu = dropdownButton.nextElementSibling;
 
             // Check if dropdown button has corresponding dropdown menu
