@@ -1,31 +1,51 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 
 export default class Lightbox {
-
 	#lightboxImages = document.querySelectorAll('img[data-lightbox]');
 
 	#lightboxHTML = `
-      <div class="button-group lightbox__buttons">
-        <button class="button button--icon-only" data-lightbox-previous>
-            <span class="icon icon-arrow-left" aria-label="Previous" aria-hidden="true"></span>
-        </button>
-        <button class="button button--icon-only" data-lightbox-next>
-            <span class="icon icon-arrow-right" aria-label="Next" aria-hidden="true"></span>
-        </button>
-        <button class="button button--icon-only" data-lightbox-close>
-            <span class="icon icon-close" aria-label="Close" aria-hidden="true"></span>
-        </button>
-      </div>
-      <figure class="lightbox__container">
-          <div class="lightbox__image"></div>           
-        <figcaption class="lightbox__caption">A caption for the image.</figcaption>
-      </figure>
-    `;
+    <div class="button-group lightbox__buttons">
+      <button class="button button--icon-only" data-lightbox-previous>
+          <span class="icon icon-arrow-left" aria-label="Previous" aria-hidden="true"></span>
+      </button>
+      <button class="button button--icon-only" data-lightbox-next>
+          <span class="icon icon-arrow-right" aria-label="Next" aria-hidden="true"></span>
+      </button>
+      <button class="button button--icon-only" data-lightbox-close>
+          <span class="icon icon-close" aria-label="Close" aria-hidden="true"></span>
+      </button>
+    </div>
+    <figure class="lightbox__container">
+        <div class="lightbox__image"></div>           
+      <figcaption class="lightbox__caption">A caption for the image.</figcaption>
+    </figure>
+  `;
 
-	#lightboxVideoHTML = '<video controls><source src="" type="video/mp4"></video>';
-	#lightboxElementHTML = '<img src="https://source.unsplash.com/1600x900" />';
+	#lightboxVideoHTML = `<video controls><source src="" type="video/mp4"></video>`;
+	#lightboxElementHTML = `<img src="https://source.unsplash.com/1600x900" />`;
 
 	#lightboxes = [];
+
+	init() {
+		this.configureLightboxElements();
+		this.initEventListeners();
+	}
+
+	configureLightboxElements() {
+		this.#lightboxImages.forEach((image, index) => {
+			const wrapper = document.createElement('button');
+			wrapper.setAttribute('class', 'lightbox-element');
+			this.wrap(image, wrapper);
+			this.#lightboxes.push(this.setImgProperties(image));
+		});
+	}
+
+	initEventListeners() {
+		this.#lightboxImages.forEach((image, index) => {
+			const imageBtn = image.closest('button');
+			imageBtn.addEventListener('click', this.handleClick(image, index));
+		});
+	}
 
 	wrap = (el, wrapper) => {
 		el.parentNode.insertBefore(wrapper, el);
@@ -35,7 +55,8 @@ export default class Lightbox {
 	setImgProperties = (image) => {
 		const lbType = image.getAttribute('data-lightbox') || 'image';
 		const lbSrc = image.getAttribute('data-lightbox-src') || image.src || null;
-		const lbCaption = image.getAttribute('data-lightbox-caption') || image.alt || null;
+		const lbCaption =
+			image.getAttribute('data-lightbox-caption') || image.alt || null;
 		const lbAlt = image.getAttribute('data-lightbox-alt') || image.alt || '';
 		const lbWidth = image.getAttribute('data-lightbox-width') || null;
 
@@ -48,19 +69,6 @@ export default class Lightbox {
 		};
 	};
 
-	init = () => {
-
-		this.#lightboxImages.forEach((image, index) => {
-			const wrapper = document.createElement('button');
-			wrapper.setAttribute('class', 'lightbox-element');
-			this.wrap(image, wrapper);
-			this.#lightboxes.push(this.setImgProperties(image));
-			const imageBtn = image.closest('button');
-			imageBtn.addEventListener('click', this.handleClick(image, index));
-		});
-    
-	};
-
 	handleClick = (image, index) => (e) => {
 		e.preventDefault();
 		this.lightbox = this.createLightbox();
@@ -70,6 +78,13 @@ export default class Lightbox {
 		window.addEventListener('keyup', this.handleLightboxUpdate);
 	};
 
+	handleLightboxClose = (e) => {
+		if (e.target !== e.currentTarget) return;
+		handleOverlayClose(this.lightbox);
+		document.body.removeChild(this.lightbox);
+		this.removeLightboxUpdateHandler();
+	};
+
 	handleLightboxUpdate = (e) => {
 		e.preventDefault();
 
@@ -77,16 +92,31 @@ export default class Lightbox {
 		switch (e.code) {
 			case 'ArrowLeft':
 				dir = -1;
-        document.querySelector('[data-lightbox-previous]').focus();
+				document.querySelector('[data-lightbox-previous]').focus();
 				break;
 			case 'ArrowRight':
 				dir = 1;
-        document.querySelector('[data-lightbox-next]').focus();
+				document.querySelector('[data-lightbox-next]').focus();
 				break;
 			default:
-				return; // do nothing
+				return;
 		}
 		this.updateDirection(dir);
+	};
+
+	removeLightboxUpdateHandler() {
+		window.removeEventListener('keyup', this.handleLightboxUpdate);
+	}
+
+	handleNextPrevious = (e) => {
+		let dir;
+		if (e.target.hasAttribute('data-lightbox-previous')) {
+			dir = -1;
+		} else if (e.target.hasAttribute('data-lightbox-next')) {
+			dir = 1;
+		}
+		this.updateDirection(dir);
+		e.preventDefault();
 	};
 
 	updateLightbox = (index) => {
@@ -113,24 +143,6 @@ export default class Lightbox {
 				this.#lightboxes[index].imgWidth
 			);
 		}
-	};
-
-	handleLightboxClose = (e) => {
-		if (e.target !== e.currentTarget) return;
-		handleOverlayClose(this.lightbox);
-		document.body.removeChild(this.lightbox);
-		window.removeEventListener('keyup', this.handleLightboxUpdate);
-	};
-
-	handleNextPrevious = (e) => {
-		let dir;
-		if (e.target.hasAttribute('data-lightbox-previous')) {
-			dir = -1;
-		} else if (e.target.hasAttribute('data-lightbox-next')) {
-			dir = 1;
-		}
-		this.updateDirection(dir);
-		e.preventDefault();
 	};
 
 	updateDirection = (dir) => {
