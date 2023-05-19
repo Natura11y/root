@@ -4,7 +4,7 @@ In this file:
 
 // A. Modules
 // B. Variables
-// C. Lightbox Block
+// C. Component
 
 */
 
@@ -31,127 +31,136 @@ In this file:
 }
 
 //////////////////////////////////////////////
-// C. Lightbox Block
+// C. Component
 //////////////////////////////////////////////
 
-.lightbox,
-.lightbox::before {
-  position: fixed;
-  inset-block-start: 0;
-  inset-inline-start: 0;
+@layer component {
 
-  width: 100%;
-  height: 100%;
-}
+    // Lightbox Block
 
-.lightbox {
-  display: flex;
-  flex-direction: column;
-  align-content: center;
+  .lightbox,
+  .lightbox::before {
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline-start: 0;
 
-  padding: var(--lightbox-padding);
-  
-  z-index: var(--lightbox-z-index);
-
-  &::before {
-      content: "";
-
-      background-color: var(--lightbox-overlay-color);
-      
-      opacity: var(--lightbox-overlay-opacity);
-
-      z-index: -1;
-      
-      pointer-events: none;
+    width: 100%;
+    height: 100%;
   }
 
-  img {
-    max-width: 90vw;
-    max-height: 80vh;
-
-    cursor: pointer;
-  }
-
-  display: none;
-
-  &[aria-hidden="false"] {
+  .lightbox {
     display: flex;
-  }
+    flex-direction: column;
+    align-content: center;
 
-}
-
-.lightbox__buttons {
-  justify-content: center;
-  margin-block: 1em;
-  color: white;
-
-  button {
-    backdrop-filter: blur(4px) brightness(50%);
-  }
-}
-
-.lightbox__container {
-    margin: auto;
-
-    min-width: 350px;
-
-    display: table;
-
-    caption-side: bottom;
-
-    > figcaption {
-        display: table-caption;
-        text-align: left;
-    }
-
-    img{min-width: 100%;}
-}
-
-.lightbox__caption {
-    color: white;
-    font-size: var(--font-size-md);
-    text-align: center;
-    margin-block-start: 1em;
-}
-
-.lightbox-element {
-    --button-icon-only-size: 1em;
-
-    display: flex;
-
-    text-align: center;
-
-    position: relative;
+    padding: var(--lightbox-padding);
     
-    cursor: pointer;
+    z-index: var(--lightbox-z-index);
 
-    &::after {
+    &::before {
+        content: "";
 
-        @extend .icon_font;
-        
-        content: '\f13d';
-
-        display: inline-flex;
-        flex-shrink: 0;
-
-        align-items: center;
-        justify-content: center;
-
-        width: var(--button-icon-only-size);
-        height: var(--button-icon-only-size);
-
-        padding: 20px;
-
-        position: absolute;
-        inset-block-end: 0;
-        inset-inline-end: 0;
-
-        color: white;
-
-        opacity: 0.875;
-        
         background-color: var(--lightbox-overlay-color);
         
-        aspect-ratio: 1 / 1;
+        opacity: var(--lightbox-overlay-opacity);
+
+        z-index: -1;
+        
+        pointer-events: none;
     }
-}
+
+    img {
+      max-width: 90vw;
+      max-height: 80vh;
+
+      cursor: pointer;
+    }
+
+    display: none;
+
+    &[aria-hidden="false"] {
+      display: flex;
+    }
+
+  }
+
+
+  // Lightbox Elements
+
+  .lightbox__buttons {
+    justify-content: center;
+    margin-block: 1em;
+    color: white;
+
+    button {
+      backdrop-filter: blur(4px) brightness(50%);
+    }
+  }
+
+  .lightbox__container {
+      margin: auto;
+
+      min-width: 350px;
+
+      display: table;
+
+      caption-side: bottom;
+
+      > figcaption {
+          display: table-caption;
+          text-align: left;
+      }
+
+      img{min-width: 100%;}
+  }
+
+  .lightbox__caption {
+      color: white;
+      font-size: var(--font-size-md);
+      text-align: center;
+      margin-block-start: 1em;
+  }
+
+  .lightbox-element {
+      --button-icon-only-size: 1em;
+
+      display: flex;
+
+      text-align: center;
+
+      position: relative;
+      
+      cursor: pointer;
+
+      &::after {
+
+          @extend .icon_font;
+          
+          content: '\f13d';
+
+          display: inline-flex;
+          flex-shrink: 0;
+
+          align-items: center;
+          justify-content: center;
+
+          width: var(--button-icon-only-size);
+          height: var(--button-icon-only-size);
+
+          padding: 20px;
+
+          position: absolute;
+          inset-block-end: 0;
+          inset-inline-end: 0;
+
+          color: white;
+
+          opacity: 0.875;
+          
+          background-color: var(--lightbox-overlay-color);
+          
+          aspect-ratio: 1 / 1;
+      }
+  }
+
+} // end @layer
