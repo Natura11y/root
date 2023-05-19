@@ -4,80 +4,70 @@
 
 export default class Table {
 
-    #tableStackList = document.querySelectorAll('[class*="table--stack"]');
-    #tableScrollList = document.querySelectorAll('.table-scroll');
+	#tableStackList = document.querySelectorAll('[class*="table--stack"]');
+	#tableScrollList = document.querySelectorAll('.table-scroll');
 
-    init() {
-    
-        this.#tableStackList.forEach((tableStack) => {
+	populateHeaders(tableStack) {
+		const tableHeaderList = tableStack.querySelectorAll('thead th');
+		const tableRowList = tableStack.querySelectorAll('tbody tr');
+		let headers = [];
 
-            const tableHeaderList = tableStack.querySelectorAll('thead th');
-            const tableRowList = tableStack.querySelectorAll('tbody tr');
+		tableHeaderList.forEach((tableHeader) => {
+			if (tableHeader.textContent !== '') {
+				const title = tableHeader.textContent.trim();
+				headers.push(title);
+			}
+		});
 
-            let myHeaders = [];
+		tableRowList.forEach((tableRow) => {
+			const tableDataList = tableRow.querySelectorAll('td');
 
-            tableHeaderList.forEach((tableHeader) => {
+			tableDataList.forEach((tableData, index) => {
+				let tableDataHTML = tableData.innerHTML;
 
-                if (tableHeader.textContent !== '') {
-                    const title = tableHeader.textContent.trim();
-                    myHeaders.push(title);
-                }
+				let myNewContent = `
+                    <div class="td-content">
+                        ${tableDataHTML}
+                    </div>
+                `;
 
-            });
+				tableData.innerHTML = myNewContent;
+				tableData.setAttribute('data-header', headers[index]);
+			});
+		});
+	}
 
-            tableRowList.forEach((tableRow) => {
+	initTableScroll() {
+		this.#tableScrollList.forEach((scrollElement) => {
+			let scrollTarget = scrollElement.querySelector(
+				'.table-scroll__container'
+			);
+			let maxWidth = scrollElement.offsetWidth;
+			let scrollWidth = scrollTarget.scrollWidth;
 
-                const tableDataList = tableRow.querySelectorAll('td');
+			const removeGradient = () => {
+				let scrollPosition = scrollTarget.scrollLeft;
+				scrollPosition > 1
+					? scrollTarget.setAttribute('data-scrolling', true)
+					: scrollTarget.setAttribute('data-scrolling', false);
+			};
 
-                tableDataList.forEach((tableData, index) => {
+			scrollWidth > maxWidth
+				? scrollElement.setAttribute('data-scroll', true)
+				: scrollElement.setAttribute('data-scroll', false);
 
-                    let tableDataHTML = tableData.innerHTML;
+			scrollTarget.addEventListener('scroll', removeGradient, {
+				passive: true,
+			});
+		});
+	}
 
-                    let myNewContent = (`
-                        <div class="td-content">
-                            ${tableDataHTML}
-                        </div>
-                    `);
+	init() {
+		this.#tableStackList.forEach((tableStack) => {
+			this.populateHeaders(tableStack);
+		});
 
-                    tableData.innerHTML = myNewContent;
-                    tableData.setAttribute('data-header', myHeaders[index]);
-
-                });
-
-            });
-
-        });
-
-        const initTableScroll = () => {
-
-            this.#tableScrollList.forEach((scrollElement) => {
-
-                let scrollTarget = scrollElement.querySelector('.table-scroll__container');
-
-                let maxWidth = scrollElement.offsetWidth;
-                let scrollWidth = scrollTarget.scrollWidth;
-
-                const removeGradient = () => {
-
-                    let scrollPosition = scrollTarget.scrollLeft;
-
-                    scrollPosition > 1
-                        ? scrollTarget.setAttribute('data-scrolling', true)
-                        : scrollTarget.setAttribute('data-scrolling', false)
-                }
-
-                scrollWidth > maxWidth
-                    ? scrollElement.setAttribute('data-scroll', true)
-                    : scrollElement.setAttribute('data-scroll', false)
-
-                scrollTarget.addEventListener('scroll', removeGradient, {
-                    passive: true
-                });
-
-            });
-        }
-    
-        initTableScroll();
-        window.addEventListener('resize', initTableScroll);
-    }
+		this.initTableScroll();
+		window.addEventListener('resize', () => this.initTableScroll());
+	}
 }

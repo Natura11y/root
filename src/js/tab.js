@@ -3,102 +3,83 @@
 //////////////////////////////////////////////
 
 export default class Tab {
-    
-    #tabsList = document.querySelectorAll('.tabs');
 
-    init() {
+	#tabsList = document.querySelectorAll('.tabs');
 
-        this.#tabsList.forEach((tab) => {
+	// Helper methods
+	activateTab(tab, tabsButtonList, tabsPanelList) {
+		// Deactivate all other tabs
+		this.deactivateTabs(tabsButtonList, tabsPanelList);
 
-            const tabsButtonList = tab.querySelectorAll('[role="tab"]');
-            const tabsPanelList = tab.querySelectorAll('[role="tabpanel"]');
+		// Set the tab as selected
+		tab.setAttribute('aria-selected', 'true');
 
-            tabsButtonList.forEach((tabsButton, index) => {
+		// Get the value of aria-controls (which is an ID)
+		let controls = tab.getAttribute('aria-controls');
+		let currentTabPanel = document.getElementById(controls);
 
-                const activateTab = (tab) => {
-                
-                    // Deactivate all other tabs
-                    deactivateTabs();
+		currentTabPanel.classList.add('shown');
+		currentTabPanel.removeAttribute('hidden');
+	}
 
-                    // Set the tab as selected
-                    tab.setAttribute('aria-selected', 'true');
+	deactivateTabs(tabsButtonList, tabsPanelList) {
+		tabsButtonList.forEach((tab) => {
+			tab.setAttribute('aria-selected', 'false');
+		});
 
-                    // Get the value of aria-controls (which is an ID)
-                    let controls = tab.getAttribute('aria-controls');
+		tabsPanelList.forEach((panel) => {
+			panel.classList.remove('shown');
+			panel.setAttribute('hidden', '');
+		});
+	}
 
-                    let currentTabPanel = document.getElementById(controls);
+	directionalFocus(event, index, tabsButtonList, dir) {
+		event.preventDefault();
 
-                    currentTabPanel.classList.add('shown');
-                    currentTabPanel.removeAttribute('hidden');
+		let targetFocus = index + dir;
 
-                }
+		if (dir === -1 && targetFocus < 0) {
+			tabsButtonList[tabsButtonList.length - 1].focus();
+		} else if (dir === 1 && targetFocus >= tabsButtonList.length) {
+			tabsButtonList[0].focus();
+		} else {
+			tabsButtonList[targetFocus].focus();
+		}
+	}
 
-                const deactivateTabs = () => {
+	// Init method
+	init() {
+		this.#tabsList.forEach((tab) => {
+			const tabsButtonList = tab.querySelectorAll('[role="tab"]');
+			const tabsPanelList = tab.querySelectorAll('[role="tabpanel"]');
 
-                    tabsButtonList.forEach((tab) => {
-                        tab.setAttribute('aria-selected', 'false');
-                    });
+			tabsButtonList.forEach((tabsButton, index) => {
+				tabsButton.addEventListener('click', (event) => {
+					let tab = event.target;
+					this.activateTab(tab, tabsButtonList, tabsPanelList);
+				});
 
-                    tabsPanelList.forEach((panel) => {
-                        panel.classList.remove('shown');
-                        panel.setAttribute('hidden', '');
-                    });
-                    
-                };
-
-                const focusLastTab = (event) => {
-                    event.preventDefault();
-                    tabsButtonList[tabsButtonList.length - 1].focus();
-                };
-
-                const focusFirstTab = (event) => {
-                    event.preventDefault();
-                    tabsButtonList[0].focus();
-                };
-
-                tabsButton.addEventListener('click', (event) => {
-                    let tab = event.target;
-                    activateTab(tab);
-                });
-
-                tabsButton.addEventListener('keydown', (event) => {
-
-                    const directionalFocus = (dir) => {
-                    
-                        event.preventDefault();
-
-                        let targetFocus = index + dir;
-
-                        if (dir === -1 && targetFocus < 0) {
-                            tabsButtonList[tabsButtonList.length - 1].focus();
-                        } else if (dir === 1 && targetFocus >= tabsButtonList.length) {
-                            tabsButtonList[0].focus();
-                        } else {
-                            tabsButtonList[targetFocus].focus();
-                        }
-                    }
-
-                    switch (event.code) {
-                        case 'Home':
-                            focusFirstTab(event)
-                            break;
-                        case 'End':
-                            focusLastTab(event)
-                            break;
-                        case 'ArrowLeft':
-                            directionalFocus(-1);
-                            break;
-                        case 'ArrowRight':
-                            directionalFocus(1);
-                            break;
-                        default:
-                        // do nothing
-                    }
-
-                });
-
-            });
-
-        });
-    }
+				tabsButton.addEventListener('keydown', (event) => {
+					switch (event.code) {
+						case 'Home':
+							event.preventDefault();
+							tabsButtonList[0].focus();
+							break;
+						case 'End':
+							event.preventDefault();
+							tabsButtonList[tabsButtonList.length - 1].focus();
+							break;
+						case 'ArrowLeft':
+							this.directionalFocus(event, index, tabsButtonList, -1);
+							break;
+						case 'ArrowRight':
+							this.directionalFocus(event, index, tabsButtonList, 1);
+							break;
+						default:
+						// do nothing
+					}
+				});
+			});
+		});
+	}
 }

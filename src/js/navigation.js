@@ -3,44 +3,48 @@
 //////////////////////////////////////////////
 
 export default class Navigation {
-    
-    #dropdownButtonList = document.querySelectorAll('[data-toggle="dropdown"]');
 
-    init() {
-    
-        this.#dropdownButtonList.forEach((dropdownButton) => {
+	#dropdownButtonList = document.querySelectorAll('[data-toggle="dropdown"]');
 
-            let dropdownButtonParent = dropdownButton.closest('li');
-            let dropdownMenu = dropdownButton.nextElementSibling;
+	// Helper methods
+	toggleDropdown(dropdownButton, dropdownMenu) {
+		dropdownMenu.classList.toggle('shown');
+		let expanded = dropdownButton.getAttribute('aria-expanded');
 
-            dropdownButton.setAttribute('aria-expanded', false);
-            dropdownButton.setAttribute('aria-haspopup', true);
+		if (expanded === 'true') {
+			dropdownButton.setAttribute('aria-expanded', false);
+		} else if (expanded === 'false') {
+			dropdownButton.setAttribute('aria-expanded', true);
+		}
+	}
 
-            dropdownButton.addEventListener('click', (event) => {
+	closeDropdown(dropdownButton, dropdownMenu) {
+		dropdownMenu.classList.remove('shown');
+		dropdownButton.setAttribute('aria-expanded', false);
+	}
 
-                event.preventDefault();
+	// Init method
+	init() {
+		this.#dropdownButtonList.forEach((dropdownButton) => {
+			let dropdownButtonParent = dropdownButton.closest('li');
+			let dropdownMenu = dropdownButton.nextElementSibling;
 
-                dropdownMenu.classList.toggle('shown');
+			dropdownButton.setAttribute('aria-expanded', false);
+			dropdownButton.setAttribute('aria-haspopup', true);
 
-                let expanded = dropdownButton.getAttribute('aria-expanded');
+			// Handle click event on the dropdown button
+			dropdownButton.addEventListener('click', (event) => {
+				event.preventDefault();
+				this.toggleDropdown(dropdownButton, dropdownMenu);
+			});
 
-                if (expanded === 'true') {
-                    dropdownButton.setAttribute('aria-expanded', false);
-                } else if (expanded === 'false') {
-                    dropdownButton.setAttribute('aria-expanded', true);
-                }
-            });
-
-            window.addEventListener('click', (event) => {
-
-                let dropdownButtonClick = dropdownButtonParent.contains(event.target);
-
-                if (!dropdownButtonClick) {
-                    dropdownMenu.classList.remove('shown');
-                    dropdownButton.setAttribute('aria-expanded', false);
-                }
-            });
-
-        });
-    }
+			// Handle click event anywhere on the window
+			window.addEventListener('click', (event) => {
+				let dropdownButtonClick = dropdownButtonParent.contains(event.target);
+				if (!dropdownButtonClick) {
+					this.closeDropdown(dropdownButton, dropdownMenu);
+				}
+			});
+		});
+	}
 }

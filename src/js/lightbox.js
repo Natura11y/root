@@ -1,6 +1,7 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 
 export default class Lightbox {
+
 	#lightboxImages = document.querySelectorAll('img[data-lightbox]');
 
 	#lightboxHTML = `

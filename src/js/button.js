@@ -4,70 +4,82 @@
 
 export default class Button {
 
-    #buttonIconOnlyList = document.querySelectorAll('.button--icon-only');
+	#buttonIconOnlyList = document.querySelectorAll('.button--icon-only');
 
-    init() {
-    
-        let hoverFocusDelay;
+	hoverFocusIn(event, buttonList) {
+		const hoverFocusDelay = setTimeout(() => {
+			buttonList.forEach((buttonIconOnly) => {
+				buttonIconOnly.classList.remove('tooltip-show');
+			});
 
-        const hoverFocusIn = (event) => {
-            hoverFocusDelay = setTimeout(() => { 
-                this.#buttonIconOnlyList.forEach((buttonIconOnly) => {
-                    buttonIconOnly.classList.remove('tooltip-show');
-                });
+			event.target.classList.add('tooltip-show');
+		}, 300);
+		return hoverFocusDelay;
+	}
 
-                event.target.classList.add('tooltip-show');
-                
-            }, 300);
-        };
+	hoverFocusOut(event, hoverFocusDelay) {
+		clearTimeout(hoverFocusDelay);
+		event.target.classList.remove('tooltip-show');
+	}
 
-        const hoverFocusOut = (event) => {
-            clearTimeout(hoverFocusDelay);
-            event.target.classList.remove('tooltip-show');
-        }
+	tooltipPosition(buttonIconOnly, buttonTooltip) {
+		const buttonTooltipWidth = buttonTooltip.offsetWidth / 2;
+		const buttonPositionLeft = buttonIconOnly.offsetLeft;
+		const buttonPositionRight =
+			window.innerWidth -
+			(buttonIconOnly.offsetLeft + buttonIconOnly.offsetWidth);
 
-        this.#buttonIconOnlyList.forEach((buttonIconOnly) => {
+		if (buttonTooltipWidth > buttonPositionLeft) {
+			buttonTooltip.classList.add('left');
+		}
 
-            const tooltipText = buttonIconOnly.getAttribute('aria-label');
+		if (buttonTooltipWidth > buttonPositionRight) {
+			buttonTooltip.classList.add('right');
+		}
+	}
 
-            const tooltipHTML = (`
-                <span class="button__tooltip">
-                    ${tooltipText}
-                </span>
-            `);
+	handleTooltip(buttonIconOnly, tooltipText) {
 
-            if(tooltipText) {
+		const tooltipHTML = `
+            <span class="button__tooltip">
+                ${tooltipText}
+            </span>
+        `;
 
-                buttonIconOnly.insertAdjacentHTML('beforeend', tooltipHTML);
-                
-                const buttonTooltip = buttonIconOnly.querySelector('.button__tooltip');
+		if (tooltipText) {
+			buttonIconOnly.insertAdjacentHTML('beforeend', tooltipHTML);
 
-                const tooltipPosition = () => {
+			const buttonTooltip = buttonIconOnly.querySelector('.button__tooltip');
 
-                    const buttonTooltipWidth = buttonTooltip.offsetWidth / 2;
-                    const buttonPositionLeft = buttonIconOnly.offsetLeft;
-                    const buttonPositionRight = window.innerWidth - (buttonIconOnly.offsetLeft + buttonIconOnly.offsetWidth);
+			this.tooltipPosition(buttonIconOnly, buttonTooltip);
+			window.addEventListener('resize', () =>
+				this.tooltipPosition(buttonIconOnly, buttonTooltip)
+			);
 
-                    if (buttonTooltipWidth > buttonPositionLeft) {
-                        buttonTooltip.classList.add('left');
-                    }
+			let hoverFocusDelay;
 
-                    if (buttonTooltipWidth > buttonPositionRight) {
-                        buttonTooltip.classList.add('right');
-                    }
+			buttonIconOnly.addEventListener('mouseenter', (event) => {
+				hoverFocusDelay = this.hoverFocusIn(event, this.#buttonIconOnlyList);
+			});
 
-                };
+			buttonIconOnly.addEventListener('focusin', (event) => {
+				hoverFocusDelay = this.hoverFocusIn(event, this.#buttonIconOnlyList);
+			});
 
-                tooltipPosition();
-                window.addEventListener('resize', tooltipPosition);
+			buttonIconOnly.addEventListener('mouseleave', (event) => {
+				this.hoverFocusOut(event, hoverFocusDelay);
+			});
 
-                buttonIconOnly.addEventListener('mouseenter', hoverFocusIn);
-                buttonIconOnly.addEventListener('focusin', hoverFocusIn);
+			buttonIconOnly.addEventListener('focusout', (event) => {
+				this.hoverFocusOut(event, hoverFocusDelay);
+			});
+		}
+	}
 
-                buttonIconOnly.addEventListener('mouseleave', hoverFocusOut);
-                buttonIconOnly.addEventListener('focusout', hoverFocusOut);
-            }
-            
-        });
-    }
+	init() {
+		this.#buttonIconOnlyList.forEach((buttonIconOnly) => {
+			const tooltipText = buttonIconOnly.getAttribute('aria-label');
+			this.handleTooltip(buttonIconOnly, tooltipText);
+		});
+	}
 }
