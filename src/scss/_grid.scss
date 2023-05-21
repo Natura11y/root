@@ -4,13 +4,8 @@ In this file:
 
 // A. Modules
 // B. Variables
-// C. Matrix Block
-// D. Matrix Modifiers
-// E. Matrix Cell Utilities and Modifiers
-// F. Grid Block
-// G. Grid Divider Modifier
-// H. Gap Utilities
-// I. Order Utilities
+// C. Components
+// D. Gap and Order Utilities
 
 */
 
@@ -49,7 +44,8 @@ $rows: math.div($columns, 2);
 
     // Grid Block
 
-    .grid {
+    .grid,
+    [class*="grid-sidebar"] {
         display: grid;
         
         list-style: none;
@@ -57,7 +53,9 @@ $rows: math.div($columns, 2);
         &[class*="gap"] {
             gap: var(--gap-size);
         }
-        
+    }
+
+    .grid {
         > .form-entry {
             margin: unset;
         }
@@ -135,7 +133,7 @@ $rows: math.div($columns, 2);
 
             height: var(--grid-divider-border-width);
 
-            margin-block-start: calc( var(--shift-divider) - var(--shift-border));
+            margin-block-start: calc(var(--shift-divider) - var(--shift-border));
             
             background-color: var(--grid-divider-border-x-color);
         }
@@ -164,44 +162,85 @@ $rows: math.div($columns, 2);
 
     // Grid Sidebar Component
 
-    [class*="grid--sidebar"] {
+    [class*="grid-sidebar"] {
+        
         &[class*="grid--divider"] > *::after {
             display: none;
+        }
+
+        > [class*="major"] {
+            grid-area: major;
+        }
+
+        > [class*="minor"] {
+            grid-area: minor;
+        }
+    }
+
+    .grid-sidebar--left,
+    .grid-sidebar--right {
+        grid-template-areas: 
+            "minor"
+            "major";
+    }
+    .grid-sidebars {
+        
+        grid-template-areas: 
+            "minor-start"
+            "major"
+            "minor-end";
+
+        > [class*="major"] {
+            grid-area: major;
+        }
+
+        > [class*="minor-end"] {
+            grid-area: minor-end;
+        }
+
+        > [class*="minor-start"] {
+            grid-area: minor-start;
         }
     }
 
     @include breakpoint.breakpoint-up(lg) {
     
-        .grid--sidebar-left,
-        .grid--sidebar-right {
+        .grid-sidebar--left,
+        .grid-sidebar--right {
             overflow: visible;
 
             &[class*="grid--divider"] {
-            
                 > *::before {
                     display: none;
                 }
-
-                > *:not(:last-child)::after {
-                    display: block;
-                }
-
             }
         }
 
-        .grid--sidebar-left {
+        .grid-sidebar--left {
+
+            [class*="__minor"]::after {
+                display: block;
+            }
+
             grid-template-columns: var(--grid-sidebar-width) 1fr;
+            grid-template-areas: "minor major";
         }
 
-        .grid--sidebar-right {
+        .grid-sidebar--right {
+
+            [class*="__major"]::after {
+                display: block;
+            }
+
             grid-template-columns: 1fr var(--grid-sidebar-width);
+            grid-template-areas: "major minor";
         }
         
     }
 
     @include breakpoint.breakpoint-up(xl) {
 
-        .grid--sidebars {
+        .grid-sidebars {
             overflow: visible;
             
             &[class*="grid--divider"] {
@@ -216,13 +255,14 @@ $rows: math.div($columns, 2);
             }
 
             grid-template-columns: var(--grid-sidebar-width) 1fr var(--grid-sidebar-width);
+            grid-template-areas: "minor-start major minor-end";
         }
     }
 
 } // end @layer
 
 //////////////////////////////////////////////
-// G. Gap and Order Utilities
+// D. Gap and Order Utilities
 //////////////////////////////////////////////
 
 @layer utility {
