@@ -160,7 +160,7 @@ $rows: math.div($columns, 2);
         --divider-y-height: calc(100% + var(--gap));
     }
 
-    // Grid Sidebar Component
+    // Grid Sidebar Components
 
     [class*="grid-sidebar"] {
         
@@ -183,6 +183,7 @@ $rows: math.div($columns, 2);
             "minor"
             "major";
     }
+
     .grid-sidebars {
         
         grid-template-areas: 
