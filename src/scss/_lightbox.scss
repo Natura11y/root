@@ -53,7 +53,7 @@ In this file:
     flex-direction: column;
     align-content: center;
 
-    padding: var(--lightbox-padding);
+    padding: var(--lightbox-padding-y) var(--lightbox-padding-x);
     
     z-index: var(--lightbox-z-index);
 
@@ -70,7 +70,7 @@ In this file:
     }
 
     img {
-      max-width: 90vw;
+      // max-width: 90vw;
       max-height: 80vh;
 
       cursor: pointer;
@@ -87,10 +87,10 @@ In this file:
   // Lightbox Elements
 
   .lightbox__buttons {
-    justify-content: center;
-
-    margin-block: var(--spacer-2);
+    justify-content: end;
     
+    // padding: var(--spacer-2);
+
     color: white;
 
     button {
@@ -116,7 +116,6 @@ In this file:
 
       > figcaption {
           display: table-caption;
-          text-align: left;
       }
 
       img {
@@ -127,11 +126,9 @@ In this file:
   .lightbox__caption {
       font-size: var(--font-size-md);
 
-      text-align: center;
-      
       color: white;
       
-      margin-block-start: 1em;
+      margin-block-start: var(--lightbox-padding-y);
   }
 
   .lightbox-element {

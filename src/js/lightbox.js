@@ -94,6 +94,7 @@ export default class Lightbox {
 		e.preventDefault();
 
 		let dir;
+
 		switch (e.code) {
 			case 'ArrowLeft':
 				dir = -1;
@@ -106,6 +107,7 @@ export default class Lightbox {
 			default:
 				return;
 		}
+		
 		this.updateDirection(dir);
 	};
 
