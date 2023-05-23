@@ -34,6 +34,32 @@ export default class Lightbox {
 	init() {
 		this.configureLightboxElements();
 		this.initEventListeners();
+		this.initLazyLoading();
+	}
+
+	initLazyLoading() {
+		const options = {
+			root: null, // relative to document viewport 
+			rootMargin: '0px', // margin around root. Values are similar to css property. Unitless values not allowed
+			threshold: 0.1 // visible amount of item shown in relation to root
+		};
+
+		// Create a new observer with the above options and a callback that loads an image when it enters the viewport
+		const observer = new IntersectionObserver((entries, observer) => {
+			entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				// The image is now in the viewport, load it and stop observing it
+				const lazyImage = entry.target;
+				lazyImage.src = lazyImage.dataset.lightboxSrc;
+				observer.unobserve(lazyImage);
+			}
+			});
+		}, options);
+
+		// Observe each lightbox image
+		this.#lightboxImages.forEach((image) => {
+			observer.observe(image);
+		});
 	}
 
 	configureLightboxElements() {
@@ -107,7 +133,7 @@ export default class Lightbox {
 			default:
 				return;
 		}
-		
+
 		this.updateDirection(dir);
 	};
 
@@ -116,14 +142,17 @@ export default class Lightbox {
 	}
 
 	handleNextPrevious = (e) => {
+		e.preventDefault();
+
 		let dir;
+		
 		if (e.target.hasAttribute('data-lightbox-previous')) {
 			dir = -1;
 		} else if (e.target.hasAttribute('data-lightbox-next')) {
 			dir = 1;
 		}
+		
 		this.updateDirection(dir);
-		e.preventDefault();
 	};
 
 	updateLightbox = (index) => {
