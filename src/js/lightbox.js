@@ -8,23 +8,23 @@ export default class Lightbox {
 
 	#lightboxImages = document.querySelectorAll('img[data-lightbox]');
 
-	#lightboxHTML = `
-    <div class="button-group lightbox__buttons">
-      <button class="button button--icon-only" data-lightbox-previous>
-          <span class="icon icon-arrow-left" aria-label="Previous" aria-hidden="true"></span>
-      </button>
-      <button class="button button--icon-only" data-lightbox-next>
-          <span class="icon icon-arrow-right" aria-label="Next" aria-hidden="true"></span>
-      </button>
-      <button class="button button--icon-only" data-lightbox-close>
-          <span class="icon icon-close" aria-label="Close" aria-hidden="true"></span>
-      </button>
-    </div>
-    <figure class="lightbox__container">
-        <div class="lightbox__image"></div>           
-      <figcaption class="lightbox__caption">A caption for the image.</figcaption>
-    </figure>
-  `;
+	#lightboxHTML = (`
+		<div class="button-group lightbox__buttons">
+		<button class="button button--icon-only" data-lightbox-previous>
+			<span class="icon icon-arrow-left" aria-label="Previous" aria-hidden="true"></span>
+		</button>
+		<button class="button button--icon-only" data-lightbox-next>
+			<span class="icon icon-arrow-right" aria-label="Next" aria-hidden="true"></span>
+		</button>
+		<button class="button button--icon-only" data-lightbox-close>
+			<span class="icon icon-close" aria-label="Close" aria-hidden="true"></span>
+		</button>
+		</div>
+		<figure class="lightbox__container">
+			<div class="lightbox__image"></div>           
+		<figcaption class="lightbox__caption">A caption for the image.</figcaption>
+		</figure>
+	`);
 
 	#lightboxVideoHTML = `<video controls><source src="" type="video/mp4"></video>`;
 	#lightboxElementHTML = `<img src="https://source.unsplash.com/1600x900" />`;
@@ -38,29 +38,34 @@ export default class Lightbox {
 	}
 
 	initLazyLoading() {
-		const options = {
-			root: null, // relative to document viewport 
-			rootMargin: '0px', // margin around root. Values are similar to css property. Unitless values not allowed
-			threshold: 0.1 // visible amount of item shown in relation to root
-		};
+    const options = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1 
+    };
 
-		// Create a new observer with the above options and a callback that loads an image when it enters the viewport
-		const observer = new IntersectionObserver((entries, observer) => {
-			entries.forEach(entry => {
-			if (entry.isIntersecting) {
-				// The image is now in the viewport, load it and stop observing it
-				const lazyImage = entry.target;
-				lazyImage.src = lazyImage.dataset.lightboxSrc;
-				observer.unobserve(lazyImage);
-			}
-			});
-		}, options);
+    const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const lazyImage = entry.target;
+                observer.unobserve(lazyImage);
 
-		// Observe each lightbox image
-		this.#lightboxImages.forEach((image) => {
-			observer.observe(image);
-		});
-	}
+                // Create and load hidden large image
+                const hiddenLargeImage = new Image();
+                hiddenLargeImage.src = lazyImage.dataset.lightboxSrc || lazyImage.src;
+                hiddenLargeImage.style.display = 'none';
+                document.body.appendChild(hiddenLargeImage);
+                this.#lightboxes[Number(lazyImage.dataset.index)].hiddenImage = hiddenLargeImage;
+            }
+        });
+    }, options);
+
+    this.#lightboxImages.forEach((image, index) => {
+        image.dataset.index = index;
+        observer.observe(image);
+    });
+}
+
 
 	configureLightboxElements() {
 		this.#lightboxImages.forEach((image, index) => {
@@ -86,8 +91,7 @@ export default class Lightbox {
 	setImgProperties = (image) => {
 		const lbType = image.getAttribute('data-lightbox') || 'image';
 		const lbSrc = image.getAttribute('data-lightbox-src') || image.src || null;
-		const lbCaption =
-			image.getAttribute('data-lightbox-caption') || image.alt || null;
+		const lbCaption = image.getAttribute('data-lightbox-caption') || image.alt || null;
 		const lbAlt = image.getAttribute('data-lightbox-alt') || image.alt || '';
 		const lbWidth = image.getAttribute('data-lightbox-width') || null;
 
