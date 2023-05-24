@@ -12,28 +12,29 @@ export default class Alert {
         </button>
     `;
 
-    closeAlert(event, alertDismissable) {
-        event.preventDefault();
+    #handleAlertClose = (alertDismissable) => {
+        return (event) => {
+            event.preventDefault();
 
-        alertDismissable.classList.add('dismissed');
+            alertDismissable.classList.add('dismissed');
 
-        const dismissed = document.querySelector('.dismissed');
+            const dismissed = document.querySelector('.dismissed');
 
-        dismissed.addEventListener('animationend', () => {
-            alertDismissable.remove();
-        });
+            dismissed.addEventListener('animationend', () => {
+                alertDismissable.remove();
+            });
+        }
     }
 
     init() {
+    
         this.#alertDismissableList.forEach((alertDismissable) => {
 
             alertDismissable.insertAdjacentHTML('afterbegin', this.#closeButtonHTML);
 
             const alertCloseButton = alertDismissable.querySelector('button');
 
-            alertCloseButton.addEventListener('click', (event) => {
-                this.closeAlert(event, alertDismissable);
-            });
+            alertCloseButton.addEventListener('click', this.#handleAlertClose(alertDismissable));
 
         });
     }

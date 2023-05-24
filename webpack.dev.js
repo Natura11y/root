@@ -36,7 +36,7 @@ const devPages = {
 
 const devDir = './dist/html';
 
-const devPage = `${devPages.Lightbox}.html`;
+const devPage = `${devPages.Alert}.html`;
 
 module.exports = merge(common, {
     mode: 'development',
