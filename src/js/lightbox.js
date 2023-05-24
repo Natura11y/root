@@ -5,6 +5,7 @@ import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 //////////////////////////////////////////////
 
 export default class Lightbox {
+
   #lightboxImages = document.querySelectorAll('img[data-lightbox]');
 
   #lightboxHTML = (`
@@ -31,16 +32,20 @@ export default class Lightbox {
   #lightboxes = [];
 
   #handleLightboxOpen = (image, index) => (e) => {
-  
+
+	const hasLightbox = document.querySelector('.lightbox');
+
+	if (hasLightbox) return;
+
     e.preventDefault();
-    
-    this.lightbox = this.createLightbox();
+
+    this.lightbox = this.#createLightbox();
     
     this.currentLB = index;
     
     handleOverlayOpen(this.lightbox);
     
-    this.updateLightbox(index);
+    this.#updateLightbox(index);
   };
 
   #handleLightboxClose = (e) => {
@@ -59,9 +64,9 @@ export default class Lightbox {
     e.preventDefault();
 
     if (e.target.hasAttribute('data-lightbox-previous')) {
-      this.updateDirection(-1);
+      this.#updateDirection(-1);
     } else if (e.target.hasAttribute('data-lightbox-next')) {
-      this.updateDirection(1);
+      this.#updateDirection(1);
     } else {
       return;
     }
@@ -72,11 +77,11 @@ export default class Lightbox {
 
     switch (e.code) {
       case 'ArrowLeft':
-        this.updateDirection(-1);
+        this.#updateDirection(-1);
         this.lightbox.querySelector('[data-lightbox-previous]').focus();
         break;
       case 'ArrowRight':
-        this.updateDirection(1);
+        this.#updateDirection(1);
         this.lightbox.querySelector('[data-lightbox-next]').focus();
         break;
       case 'Escape':
@@ -87,18 +92,19 @@ export default class Lightbox {
     }
   };
 
-  updateDirection(dir) {
-    console.log(`hello?, ${dir}`);
+  #updateDirection(dir) {
     this.currentLB += dir;
+
     if (this.currentLB < 0) {
       this.currentLB = this.#lightboxes.length - 1;
     } else if (this.currentLB >= this.#lightboxes.length) {
       this.currentLB = 0;
     }
-    this.updateLightbox(this.currentLB);
+    
+	this.#updateLightbox(this.currentLB);
   }
 
-  updateLightbox(index) {
+  #updateLightbox(index) {
     const lightboxElement = this.lightbox.querySelector('.lightbox__image');
     const lightboxCaption = this.lightbox.querySelector('.lightbox__caption');
 
@@ -121,7 +127,7 @@ export default class Lightbox {
     }
   }
 
-  createLightbox() {
+  #createLightbox() {
     const lightbox = document.createElement('div');
 
     lightbox.classList.add('lightbox');
@@ -146,21 +152,21 @@ export default class Lightbox {
     return lightbox;
   }
 
-  configureLightboxElements() {
+  #configureLightboxElements() {
     this.#lightboxImages.forEach((image, index) => {
       const wrapper = document.createElement('button');
       wrapper.setAttribute('class', 'lightbox-element');
-      this.wrap(image, wrapper);
-      this.#lightboxes.push(this.setImgProperties(image));
+      this.#wrapWithButton(image, wrapper);
+      this.#lightboxes.push(this.#setImgProperties(image));
     });
   }
 
-  wrap(el, wrapper) {
+  #wrapWithButton(el, wrapper) {
     el.parentNode.insertBefore(wrapper, el);
     wrapper.appendChild(el);
   }
 
-  setImgProperties(image) {
+  #setImgProperties(image) {
     const lbType = image.getAttribute('data-lightbox') || 'image';
     const lbSrc = image.getAttribute('data-lightbox-src') || image.src || null;
     const lbCaption = image.getAttribute('data-lightbox-caption') || image.alt || null;
@@ -176,7 +182,7 @@ export default class Lightbox {
     };
   }
 
-  initLazyLoading() {
+  #initLazyLoading() {
     const options = {
       root: null,
       rootMargin: '0px',
@@ -207,7 +213,7 @@ export default class Lightbox {
     });
   }
 
-  initEventListeners() {
+  #initEventListeners() {
     this.#lightboxImages.forEach((image, index) => {
       const imageBtn = image.closest('button');
       imageBtn.addEventListener('click', this.#handleLightboxOpen(image, index));
@@ -215,8 +221,8 @@ export default class Lightbox {
   }
 
   init() {
-    this.configureLightboxElements();
-    this.initEventListeners();
-    this.initLazyLoading();
+    this.#configureLightboxElements();
+    this.#initEventListeners();
+    this.#initLazyLoading();
   }
 }
