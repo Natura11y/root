@@ -31,12 +31,6 @@ export default class Lightbox {
 
 	#lightboxes = [];
 
-	init() {
-		this.configureLightboxElements();
-		this.initEventListeners();
-		this.initLazyLoading();
-	}
-
 	initLazyLoading() {
 		const options = {
 			root: null,
@@ -66,7 +60,6 @@ export default class Lightbox {
 		});
 	}
 
-
 	configureLightboxElements() {
 		this.#lightboxImages.forEach((image, index) => {
 			const wrapper = document.createElement('button');
@@ -79,7 +72,7 @@ export default class Lightbox {
 	initEventListeners() {
 		this.#lightboxImages.forEach((image, index) => {
 			const imageBtn = image.closest('button');
-			imageBtn.addEventListener('click', this.handleClick(image, index));
+			imageBtn.addEventListener('click', this.handleLightboxOpen(image, index));
 		});
 	}
 
@@ -104,62 +97,81 @@ export default class Lightbox {
 		};
 	};
 
-	handleClick = (image, index) => (e) => {
+	handleLightboxOpen = (image, index) => (e) => {
 		e.preventDefault();
+		
 		this.lightbox = this.createLightbox();
+		
 		this.currentLB = index;
+		
 		handleOverlayOpen(this.lightbox);
+		
 		this.updateLightbox(index);
-		window.addEventListener('keyup', this.handleLightboxUpdate);
+
 	};
 
 	handleLightboxClose = (e) => {
-		if (e.target !== e.currentTarget) return;
+
+		e.stopPropagation();
+
+		if (e.target !== e.currentTarget && e.type === 'click') return;
+
 		handleOverlayClose(this.lightbox);
-		document.body.removeChild(this.lightbox);
-		this.removeLightboxUpdateHandler();
+		
+		this.lightbox.parentElement.removeChild(this.lightbox);
+
+		window.removeEventListener('keyup', this.handleLightboxUpdateKey);
 	};
 
-	handleLightboxUpdate = (e) => {
+	handleLightboxUpdateClick = (e) => {
+	
 		e.preventDefault();
 
-		let dir;
+		if (e.target.hasAttribute('data-lightbox-previous')) {
+			this.updateDirection(-1);
+		} else if (e.target.hasAttribute('data-lightbox-next')) {
+			this.updateDirection(1);
+		} else {
+			return;
+		}
+
+	};
+
+	handleLightboxUpdateKey = (e) => {
+	
+		e.preventDefault();
 
 		switch (e.code) {
 			case 'ArrowLeft':
-				dir = -1;
-				document.querySelector('[data-lightbox-previous]').focus();
+				this.updateDirection(-1);
+				this.lightbox.querySelector('[data-lightbox-previous]').focus();
 				break;
 			case 'ArrowRight':
-				dir = 1;
-				document.querySelector('[data-lightbox-next]').focus();
+				this.updateDirection(1);
+				this.lightbox.querySelector('[data-lightbox-next]').focus();
+				break;
+			case 'Escape':
+				this.handleLightboxClose(e);
 				break;
 			default:
 				return;
 		}
 
-		this.updateDirection(dir);
 	};
 
-	removeLightboxUpdateHandler() {
-		window.removeEventListener('keyup', this.handleLightboxUpdate);
-	}
-
-	handleNextPrevious = (e) => {
-		e.preventDefault();
-
-		let dir;
-		
-		if (e.target.hasAttribute('data-lightbox-previous')) {
-			dir = -1;
-		} else if (e.target.hasAttribute('data-lightbox-next')) {
-			dir = 1;
+	updateDirection = (dir) => {
+		console.log(`hello?, ${dir}`);
+		this.currentLB += dir;
+		if (this.currentLB < 0) {
+			this.currentLB = this.#lightboxes.length - 1;
+		} else if (this.currentLB >= this.#lightboxes.length) {
+			this.currentLB = 0;
 		}
-		
-		this.updateDirection(dir);
+		this.updateLightbox(this.currentLB);
 	};
 
 	updateLightbox = (index) => {
+
 		const lightboxElement = this.lightbox.querySelector('.lightbox__image');
 		const lightboxCaption = this.lightbox.querySelector('.lightbox__caption');
 
@@ -185,18 +197,9 @@ export default class Lightbox {
 		}
 	};
 
-	updateDirection = (dir) => {
-		this.currentLB += dir;
-		if (this.currentLB < 0) {
-			this.currentLB = this.#lightboxes.length - 1;
-		} else if (this.currentLB >= this.#lightboxes.length) {
-			this.currentLB = 0;
-		}
-		this.updateLightbox(this.currentLB);
-	};
-
 	createLightbox = () => {
 		const lightbox = document.createElement('div');
+
 		lightbox.classList.add('lightbox');
 		lightbox.setAttribute('aria-hidden', true);
 		lightbox.innerHTML = this.#lightboxHTML;
@@ -211,9 +214,17 @@ export default class Lightbox {
 		lightboxClose.addEventListener('click', this.handleLightboxClose);
 		lightbox.addEventListener('click', this.handleLightboxClose);
 
-		lightboxPrevious.addEventListener('click', this.handleNextPrevious);
-		lightboxNext.addEventListener('click', this.handleNextPrevious);
+		lightboxPrevious.addEventListener('click', this.handleLightboxUpdateClick);
+		lightboxNext.addEventListener('click', this.handleLightboxUpdateClick);
+
+		window.addEventListener('keyup', this.handleLightboxUpdateKey);
 
 		return lightbox;
 	};
+
+	init() {
+		this.configureLightboxElements();
+		this.initEventListeners();
+		this.initLazyLoading();
+	}
 }
