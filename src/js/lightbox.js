@@ -38,33 +38,33 @@ export default class Lightbox {
 	}
 
 	initLazyLoading() {
-    const options = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1 
-    };
+		const options = {
+			root: null,
+			rootMargin: '0px',
+			threshold: 0.1 
+		};
 
-    const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const lazyImage = entry.target;
-                observer.unobserve(lazyImage);
+		const observer = new IntersectionObserver((entries, observer) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					const lazyImage = entry.target;
+					observer.unobserve(lazyImage);
 
-                // Create and load hidden large image
-                const hiddenLargeImage = new Image();
-                hiddenLargeImage.src = lazyImage.dataset.lightboxSrc || lazyImage.src;
-                hiddenLargeImage.style.display = 'none';
-                document.body.appendChild(hiddenLargeImage);
-                this.#lightboxes[Number(lazyImage.dataset.index)].hiddenImage = hiddenLargeImage;
-            }
-        });
-    }, options);
+					// Create and load hidden large image
+					const hiddenLargeImage = new Image();
+					hiddenLargeImage.src = lazyImage.dataset.lightboxSrc || lazyImage.src;
+					hiddenLargeImage.style.display = 'none';
+					document.body.appendChild(hiddenLargeImage);
+					this.#lightboxes[Number(lazyImage.dataset.index)].hiddenImage = hiddenLargeImage;
+				}
+			});
+		}, options);
 
-    this.#lightboxImages.forEach((image, index) => {
-        image.dataset.index = index;
-        observer.observe(image);
-    });
-}
+		this.#lightboxImages.forEach((image, index) => {
+			image.dataset.index = index;
+			observer.observe(image);
+		});
+	}
 
 
 	configureLightboxElements() {
