@@ -1,230 +1,217 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 
-//////////////////////////////////////////////
-// Lightbox
-//////////////////////////////////////////////
-
 export default class Lightbox {
+  
+  #lightboxImages = document.querySelectorAll('img[data-lightbox]');
 
-	#lightboxImages = document.querySelectorAll('img[data-lightbox]');
+  #lightboxHTML = `
+    <div class="button-group lightbox__buttons">
+      <button class="button button--icon-only" data-lightbox-previous>
+        <span class="icon icon-arrow-left" aria-label="Previous" aria-hidden="true"></span>
+      </button>
+      <button class="button button--icon-only" data-lightbox-next>
+        <span class="icon icon-arrow-right" aria-label="Next" aria-hidden="true"></span>
+      </button>
+      <button class="button button--icon-only" data-lightbox-close>
+        <span class="icon icon-close" aria-label="Close" aria-hidden="true"></span>
+      </button>
+    </div>
+    <figure class="lightbox__container">
+      <div class="lightbox__image"></div>
+      <figcaption class="lightbox__caption">A caption for the image.</figcaption>
+    </figure>
+  `;
+  
+  #lightboxVideoHTML = `<video controls><source src="" type="video/mp4"></video>`;
+  #lightboxElementHTML = `<img src="https://source.unsplash.com/1600x900" />`;
+  
+  #lightboxes = [];
 
-	#lightboxHTML = (`
-		<div class="button-group lightbox__buttons">
-		<button class="button button--icon-only" data-lightbox-previous>
-			<span class="icon icon-arrow-left" aria-label="Previous" aria-hidden="true"></span>
-		</button>
-		<button class="button button--icon-only" data-lightbox-next>
-			<span class="icon icon-arrow-right" aria-label="Next" aria-hidden="true"></span>
-		</button>
-		<button class="button button--icon-only" data-lightbox-close>
-			<span class="icon icon-close" aria-label="Close" aria-hidden="true"></span>
-		</button>
-		</div>
-		<figure class="lightbox__container">
-			<div class="lightbox__image"></div>           
-		<figcaption class="lightbox__caption">A caption for the image.</figcaption>
-		</figure>
-	`);
+  initLazyLoading() {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
 
-	#lightboxVideoHTML = `<video controls><source src="" type="video/mp4"></video>`;
-	#lightboxElementHTML = `<img src="https://source.unsplash.com/1600x900" />`;
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const lazyImage = entry.target;
+          observer.unobserve(lazyImage);
 
-	#lightboxes = [];
+          const hiddenLargeImage = new Image();
+          hiddenLargeImage.src = lazyImage.dataset.lightboxSrc || lazyImage.src;
+          hiddenLargeImage.style.display = 'none';
+          document.body.appendChild(hiddenLargeImage);
+          this.#lightboxes[Number(lazyImage.dataset.index)].hiddenImage = hiddenLargeImage;
+        }
+      });
+    }, options);
 
-	initLazyLoading() {
-		const options = {
-			root: null,
-			rootMargin: '0px',
-			threshold: 0.1 
-		};
+    this.#lightboxImages.forEach((image, index) => {
+      image.dataset.index = index;
+      observer.observe(image);
+    });
+  }
 
-		const observer = new IntersectionObserver((entries, observer) => {
-			entries.forEach(entry => {
-				if (entry.isIntersecting) {
-					const lazyImage = entry.target;
-					observer.unobserve(lazyImage);
+  configureLightboxElements() {
+    this.#lightboxImages.forEach((image, index) => {
+      const wrapper = document.createElement('button');
+      wrapper.setAttribute('class', 'lightbox-element');
+      this.wrap(image, wrapper);
+      this.#lightboxes.push(this.setImgProperties(image));
+    });
+  }
 
-					// Create and load hidden large image
-					const hiddenLargeImage = new Image();
-					hiddenLargeImage.src = lazyImage.dataset.lightboxSrc || lazyImage.src;
-					hiddenLargeImage.style.display = 'none';
-					document.body.appendChild(hiddenLargeImage);
-					this.#lightboxes[Number(lazyImage.dataset.index)].hiddenImage = hiddenLargeImage;
-				}
-			});
-		}, options);
+  initEventListeners() {
+    this.#lightboxImages.forEach((image, index) => {
+      const imageBtn = image.closest('button');
+      imageBtn.addEventListener('click', this.handleLightboxOpen(image, index));
+    });
+  }
 
-		this.#lightboxImages.forEach((image, index) => {
-			image.dataset.index = index;
-			observer.observe(image);
-		});
-	}
+  wrap = (el, wrapper) => {
+    el.parentNode.insertBefore(wrapper, el);
+    wrapper.appendChild(el);
+  };
 
-	configureLightboxElements() {
-		this.#lightboxImages.forEach((image, index) => {
-			const wrapper = document.createElement('button');
-			wrapper.setAttribute('class', 'lightbox-element');
-			this.wrap(image, wrapper);
-			this.#lightboxes.push(this.setImgProperties(image));
-		});
-	}
+  setImgProperties = (image) => {
+    const lbType = image.getAttribute('data-lightbox') || 'image';
+    const lbSrc = image.getAttribute('data-lightbox-src') || image.src || null;
+    const lbCaption = image.getAttribute('data-lightbox-caption') || image.alt || null;
+    const lbAlt = image.getAttribute('data-lightbox-alt') || image.alt || '';
+    const lbWidth = image.getAttribute('data-lightbox-width') || null;
 
-	initEventListeners() {
-		this.#lightboxImages.forEach((image, index) => {
-			const imageBtn = image.closest('button');
-			imageBtn.addEventListener('click', this.handleLightboxOpen(image, index));
-		});
-	}
+    return {
+      imgType: lbType,
+      imgSrc: lbSrc,
+      imgCaption: lbCaption,
+      imgAlt: lbAlt,
+      imgWidth: lbWidth,
+    };
+  };
 
-	wrap = (el, wrapper) => {
-		el.parentNode.insertBefore(wrapper, el);
-		wrapper.appendChild(el);
-	};
+  handleLightboxOpen = (image, index) => (e) => {
+    e.preventDefault();
 
-	setImgProperties = (image) => {
-		const lbType = image.getAttribute('data-lightbox') || 'image';
-		const lbSrc = image.getAttribute('data-lightbox-src') || image.src || null;
-		const lbCaption = image.getAttribute('data-lightbox-caption') || image.alt || null;
-		const lbAlt = image.getAttribute('data-lightbox-alt') || image.alt || '';
-		const lbWidth = image.getAttribute('data-lightbox-width') || null;
+    this.lightbox = this.createLightbox();
 
-		return {
-			imgType: lbType,
-			imgSrc: lbSrc,
-			imgCaption: lbCaption,
-			imgAlt: lbAlt,
-			imgWidth: lbWidth,
-		};
-	};
+    this.currentLB = index;
 
-	handleLightboxOpen = (image, index) => (e) => {
-		e.preventDefault();
-		
-		this.lightbox = this.createLightbox();
-		
-		this.currentLB = index;
-		
-		handleOverlayOpen(this.lightbox);
-		
-		this.updateLightbox(index);
+    handleOverlayOpen(this.lightbox);
 
-	};
+    this.updateLightbox(index);
+  };
 
-	handleLightboxClose = (e) => {
+  handleLightboxClose = (e) => {
+    e.stopPropagation();
 
-		e.stopPropagation();
+    if (e.target !== e.currentTarget && e.type === 'click') return;
 
-		if (e.target !== e.currentTarget && e.type === 'click') return;
+    handleOverlayClose(this.lightbox);
 
-		handleOverlayClose(this.lightbox);
-		
-		this.lightbox.parentElement.removeChild(this.lightbox);
+    this.lightbox.parentElement.removeChild(this.lightbox);
 
-		window.removeEventListener('keyup', this.handleLightboxUpdateKey);
-	};
+    window.removeEventListener('keyup', this.handleLightboxUpdateKey);
+  };
 
-	handleLightboxUpdateClick = (e) => {
-	
-		e.preventDefault();
+  handleLightboxUpdateClick = (e) => {
+    e.preventDefault();
 
-		if (e.target.hasAttribute('data-lightbox-previous')) {
-			this.updateDirection(-1);
-		} else if (e.target.hasAttribute('data-lightbox-next')) {
-			this.updateDirection(1);
-		} else {
-			return;
-		}
+    if (e.target.hasAttribute('data-lightbox-previous')) {
+      this.updateDirection(-1);
+    } else if (e.target.hasAttribute('data-lightbox-next')) {
+      this.updateDirection(1);
+    } else {
+      return;
+    }
+  };
 
-	};
+  handleLightboxUpdateKey = (e) => {
+    e.preventDefault();
 
-	handleLightboxUpdateKey = (e) => {
-	
-		e.preventDefault();
+    switch (e.code) {
+      case 'ArrowLeft':
+        this.updateDirection(-1);
+        this.lightbox.querySelector('[data-lightbox-previous]').focus();
+        break;
+      case 'ArrowRight':
+        this.updateDirection(1);
+        this.lightbox.querySelector('[data-lightbox-next]').focus();
+        break;
+      case 'Escape':
+        this.handleLightboxClose(e);
+        break;
+      default:
+        return;
+    }
+  };
 
-		switch (e.code) {
-			case 'ArrowLeft':
-				this.updateDirection(-1);
-				this.lightbox.querySelector('[data-lightbox-previous]').focus();
-				break;
-			case 'ArrowRight':
-				this.updateDirection(1);
-				this.lightbox.querySelector('[data-lightbox-next]').focus();
-				break;
-			case 'Escape':
-				this.handleLightboxClose(e);
-				break;
-			default:
-				return;
-		}
+  updateDirection = (dir) => {
+    this.currentLB += dir;
+    if (this.currentLB < 0) {
+      this.currentLB = this.#lightboxes.length - 1;
+    } else if (this.currentLB >= this.#lightboxes.length) {
+      this.currentLB = 0;
+    }
+    this.updateLightbox(this.currentLB);
+  };
 
-	};
+  updateLightbox = (index) => {
+    const lightboxElement = this.lightbox.querySelector('.lightbox__image');
+    const lightboxCaption = this.lightbox.querySelector('.lightbox__caption');
 
-	updateDirection = (dir) => {
-		console.log(`hello?, ${dir}`);
-		this.currentLB += dir;
-		if (this.currentLB < 0) {
-			this.currentLB = this.#lightboxes.length - 1;
-		} else if (this.currentLB >= this.#lightboxes.length) {
-			this.currentLB = 0;
-		}
-		this.updateLightbox(this.currentLB);
-	};
+    let lightboxElementTarget;
 
-	updateLightbox = (index) => {
+    if (this.#lightboxes[index].imgType === 'video') {
+      lightboxElement.innerHTML = this.#lightboxVideoHTML;
+      lightboxElementTarget = lightboxElement.querySelector('source');
+    } else {
+      lightboxElement.innerHTML = this.#lightboxElementHTML;
+      lightboxElementTarget = lightboxElement.querySelector('img');
+      lightboxElementTarget.alt = this.#lightboxes[index].imgAlt;
+    }
 
-		const lightboxElement = this.lightbox.querySelector('.lightbox__image');
-		const lightboxCaption = this.lightbox.querySelector('.lightbox__caption');
+    lightboxElementTarget.src = this.#lightboxes[index].imgSrc;
+    lightboxCaption.innerHTML = this.#lightboxes[index].imgCaption;
 
-		let lightboxElementTarget;
+    if (this.#lightboxes[index].imgWidth) {
+      lightboxElementTarget.setAttribute(
+        'width',
+        this.#lightboxes[index].imgWidth
+      );
+    }
+  };
 
-		if (this.#lightboxes[index].imgType === 'video') {
-			lightboxElement.innerHTML = this.#lightboxVideoHTML;
-			lightboxElementTarget = lightboxElement.querySelector('source');
-		} else {
-			lightboxElement.innerHTML = this.#lightboxElementHTML;
-			lightboxElementTarget = lightboxElement.querySelector('img');
-			lightboxElementTarget.alt = this.#lightboxes[index].imgAlt;
-		}
+  createLightbox = () => {
+    const lightbox = document.createElement('div');
 
-		lightboxElementTarget.src = this.#lightboxes[index].imgSrc;
-		lightboxCaption.innerHTML = this.#lightboxes[index].imgCaption;
+    lightbox.classList.add('lightbox');
+    lightbox.setAttribute('aria-hidden', true);
+    lightbox.innerHTML = this.#lightboxHTML;
 
-		if (this.#lightboxes[index].imgWidth) {
-			lightboxElementTarget.setAttribute(
-				'width',
-				this.#lightboxes[index].imgWidth
-			);
-		}
-	};
+    document.body.appendChild(lightbox);
 
-	createLightbox = () => {
-		const lightbox = document.createElement('div');
+    const lightboxPrevious = lightbox.querySelector('[data-lightbox-previous]');
+    const lightboxNext = lightbox.querySelector('[data-lightbox-next]');
+    const lightboxClose = lightbox.querySelector('[data-lightbox-close]');
 
-		lightbox.classList.add('lightbox');
-		lightbox.setAttribute('aria-hidden', true);
-		lightbox.innerHTML = this.#lightboxHTML;
+    lightbox.querySelector('.lightbox__image').classList.add('box-shadow-3');
+    lightboxClose.addEventListener('click', this.handleLightboxClose);
+    lightbox.addEventListener('click', this.handleLightboxClose);
 
-		document.body.appendChild(lightbox);
+    lightboxPrevious.addEventListener('click', this.handleLightboxUpdateClick);
+    lightboxNext.addEventListener('click', this.handleLightboxUpdateClick);
 
-		const lightboxPrevious = lightbox.querySelector('[data-lightbox-previous]');
-		const lightboxNext = lightbox.querySelector('[data-lightbox-next]');
-		const lightboxClose = lightbox.querySelector('[data-lightbox-close]');
+    window.addEventListener('keyup', this.handleLightboxUpdateKey);
 
-		lightbox.querySelector('.lightbox__image').classList.add('box-shadow-3');
-		lightboxClose.addEventListener('click', this.handleLightboxClose);
-		lightbox.addEventListener('click', this.handleLightboxClose);
+    return lightbox;
+  };
 
-		lightboxPrevious.addEventListener('click', this.handleLightboxUpdateClick);
-		lightboxNext.addEventListener('click', this.handleLightboxUpdateClick);
-
-		window.addEventListener('keyup', this.handleLightboxUpdateKey);
-
-		return lightbox;
-	};
-
-	init() {
-		this.configureLightboxElements();
-		this.initEventListeners();
-		this.initLazyLoading();
-	}
+  init() {
+    this.configureLightboxElements();
+    this.initEventListeners();
+    this.initLazyLoading();
+  }
 }
