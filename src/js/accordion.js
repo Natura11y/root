@@ -5,129 +5,172 @@ import { getFocusableElements } from './utilities/focus';
 //////////////////////////////////////////////
 
 export default class Accordion {
+	#accordionList = document.querySelectorAll('.accordion');
 
-    #accordionList = document.querySelectorAll('.accordion');
+	#setFocusableElements(element = document, focusable = false) {
+		const focusableElementList = getFocusableElements(element);
+		for (const focusableElement of focusableElementList) {
+			if (focusable === true) {
+				focusableElement.setAttribute('tabindex', 0);
+			} else if (focusable === false) {
+				focusableElement.setAttribute('tabindex', -1);
+			}
+		}
+	}
 
-    setFocusableElements(element = document, focusable = false) {
-        const focusableElementList = getFocusableElements(element);
-        for (const focusableElement of focusableElementList) {
-            if (focusable === true) {
-                focusableElement.setAttribute('tabindex', 0);
-            } else if (focusable === false) {
-                focusableElement.setAttribute('tabindex', -1);
-            }
-        }
-    }
+	#handleAccordionToggle = (
+		accordionButton,
+		currentAccordionPanel,
+		accordionPanelList
+	) => {
+		return (event) => {
+			event.preventDefault();
+			event.stopPropagation();
 
-    initAccordion(event, accordionButton, currentAccordionPanel, accordionPanelList) {
-        event.preventDefault();
-        event.stopPropagation();
+			for (const otherAccordionPanel of accordionPanelList) {
+				otherAccordionPanel.classList.remove('show');
 
-        for (const otherAccordionPanel of accordionPanelList) {
-            otherAccordionPanel.classList.remove('show');
+				if (otherAccordionPanel !== currentAccordionPanel) {
+					otherAccordionPanel.classList.remove('shown');
+					otherAccordionPanel.style.maxHeight = null;
+					otherAccordionPanel.previousElementSibling.setAttribute(
+						'aria-expanded',
+						false
+					);
+					otherAccordionPanel.setAttribute('aria-hidden', true);
 
-            if (otherAccordionPanel !== currentAccordionPanel) {
-                otherAccordionPanel.classList.remove('shown');
-                otherAccordionPanel.style.maxHeight = null;
-                otherAccordionPanel.previousElementSibling.setAttribute('aria-expanded', false);
-                otherAccordionPanel.setAttribute('aria-hidden', true);
+					this.#setFocusableElements(otherAccordionPanel, false);
+				}
+			}
 
-                this.setFocusableElements(otherAccordionPanel, false);
-            }
-        }
+			currentAccordionPanel.classList.toggle('shown');
 
-        currentAccordionPanel.classList.toggle('shown');
+			let isExpanded = accordionButton.getAttribute('aria-expanded');
 
-        let isExpanded = accordionButton.getAttribute('aria-expanded');
+			if (isExpanded === 'true') {
+				accordionButton.setAttribute('aria-expanded', false);
+				currentAccordionPanel.setAttribute('aria-hidden', true);
 
-        if (isExpanded === 'true') {
-            accordionButton.setAttribute('aria-expanded', false);
-            currentAccordionPanel.setAttribute('aria-hidden', true);
+				this.#setFocusableElements(currentAccordionPanel, false);
+			} else if (isExpanded === 'false') {
+				accordionButton.setAttribute('aria-expanded', true);
+				currentAccordionPanel.setAttribute('aria-hidden', false);
 
-            this.setFocusableElements(currentAccordionPanel, false);
+				this.#setFocusableElements(currentAccordionPanel, true);
+			}
 
-        } else if (isExpanded === 'false') {
-            accordionButton.setAttribute('aria-expanded', true);
-            currentAccordionPanel.setAttribute('aria-hidden', false);
+			if (currentAccordionPanel.style.maxHeight) {
+				currentAccordionPanel.style.maxHeight = null;
+			} else {
+				currentAccordionPanel.style.maxHeight =
+					currentAccordionPanel.scrollHeight + 'px';
+				currentAccordionPanel.setAttribute('aria-hidden', false);
+			}
 
-            this.setFocusableElements(currentAccordionPanel, true);
-        }
+			let accTrigger = new Event('accTrigger', { bubbles: true });
+			document.dispatchEvent(accTrigger);
+		};
+	};
 
-        if (currentAccordionPanel.style.maxHeight) {
-            currentAccordionPanel.style.maxHeight = null;
-        } else {
-            currentAccordionPanel.style.maxHeight = currentAccordionPanel.scrollHeight + 'px';
-            currentAccordionPanel.setAttribute('aria-hidden', false);
-        }
+	#handleKeyDown = (accordionButton, accordionButtonList, index) => {
+		return (event) => {
 
-        let accTrigger = new Event('accTrigger', { bubbles: true });
-        document.dispatchEvent(accTrigger);
-    }
+			const directionalFocus = (dir) => {
+				event.preventDefault();
 
-    init() {
-        this.#accordionList.forEach((accordion) => {
-            const accordionButtonList = accordion.querySelectorAll(':scope > [data-accordion="button"]');
-            const accordionPanelList = accordion.querySelectorAll(':scope > [data-accordion="panel"]');
+				let targetFocus = index + dir;
 
-            accordionButtonList.forEach((accordionButton, index) => {
-                const currentAccordionPanel = accordionButton.nextElementSibling;
-                let isExpanded = accordionButton.getAttribute('aria-expanded');
+				if (dir === -1 && targetFocus < 0) {
+					accordionButtonList[accordionButtonList.length - 1].focus();
+				} else if (dir === 1 && targetFocus >= accordionButtonList.length) {
+					accordionButtonList[0].focus();
+				} else {
+					accordionButtonList[targetFocus].focus();
+				}
+			};
 
-                accordionButton.setAttribute('tabindex', 0);
+			switch (event.code) {
+				case 'ArrowLeft':
+				case 'ArrowUp':
+					directionalFocus(-1);
+					break;
+				case 'ArrowRight':
+				case 'ArrowDown':
+					directionalFocus(1);
+					break;
+				default:
+				// do nothing
+			}
+		};
+	};
 
-                if (isExpanded === 'true') {
-                    currentAccordionPanel.style.maxHeight = currentAccordionPanel.scrollHeight + 'px';
-                    currentAccordionPanel.classList.add('show');
+	#handleKeyUp = (
+		accordionButton,
+		currentAccordionPanel,
+		accordionPanelList
+	) => {
+		return (event) => {
+			if (event.code === 'Enter' && event.target.tagName !== 'BUTTON') {
+				this.initAccordion(
+					event,
+					accordionButton,
+					currentAccordionPanel,
+					accordionPanelList
+				);
+			}
+		};
+	};
 
-                    this.setFocusableElements(currentAccordionPanel, true);
+	init() {
+		this.#accordionList.forEach((accordion) => {
 
-                } else {
-                    accordionButton.setAttribute('aria-expanded', false);
-                    currentAccordionPanel.style.maxHeight = null;
-                    currentAccordionPanel.setAttribute('aria-hidden', true);
+			const accordionButtonList = accordion.querySelectorAll(':scope > [data-accordion="button"]');
+			const accordionPanelList = accordion.querySelectorAll(':scope > [data-accordion="panel"]');
 
-                    this.setFocusableElements(currentAccordionPanel, false);
-                }
+			accordionButtonList.forEach((accordionButton, index) => {
+		
+        		const currentAccordionPanel = accordionButton.nextElementSibling;
+				let isExpanded = accordionButton.getAttribute('aria-expanded');
 
-                accordionButton.addEventListener('click', (event) => {
-                    this.initAccordion(event, accordionButton, currentAccordionPanel, accordionPanelList);
-                });
+				accordionButton.setAttribute('tabindex', 0);
 
-                accordionButton.addEventListener('keydown', (event) => {
-                    const directionalFocus = (dir) => {
-                        event.preventDefault();
+				if (isExpanded === 'true') {
+					currentAccordionPanel.style.maxHeight = currentAccordionPanel.scrollHeight + 'px';
+					currentAccordionPanel.classList.add('show');
 
-                        let targetFocus = index + dir;
+					this.#setFocusableElements(currentAccordionPanel, true);
+				} else {
+					accordionButton.setAttribute('aria-expanded', false);
+					currentAccordionPanel.style.maxHeight = null;
+					currentAccordionPanel.setAttribute('aria-hidden', true);
 
-                        if (dir === -1 && targetFocus < 0) {
-                            accordionButtonList[accordionButtonList.length -1].focus();
-                        } else if (dir === 1 && targetFocus >= accordionButtonList.length) {
-                            accordionButtonList[0].focus();
-                        } else {
-                            accordionButtonList[targetFocus].focus();
-                        }
-                    }
+					this.#setFocusableElements(currentAccordionPanel, false);
+				}
 
-                    switch (event.code) {
-                        case 'ArrowLeft':
-                        case 'ArrowUp':
-                            directionalFocus(-1);
-                            break;
-                        case 'ArrowRight':
-                        case'ArrowDown':
-                            directionalFocus(1);
-                            break;
-                        default:
-                            // do nothing
-                    }
-                });
+				accordionButton.addEventListener(
+					'click',
+					this.#handleAccordionToggle(
+						accordionButton,
+						currentAccordionPanel,
+						accordionPanelList
+					)
+				);
 
-                accordionButton.addEventListener('keyup', (event) => {
-                    if (event.code === 'Enter' && event.target.tagName !== 'BUTTON') {
-                        this.initAccordion(event, accordionButton, currentAccordionPanel, accordionPanelList);
-                    }
-                });
-            });
+				accordionButton.addEventListener(
+					'keydown',
+					this.#handleKeyDown(accordionButton, accordionButtonList, index)
+				);
+
+				accordionButton.addEventListener(
+					'keyup',
+					this.#handleKeyUp(
+						accordionButton,
+						currentAccordionPanel,
+						accordionPanelList
+					)
+				);
+			});
+		
         });
-    }
+	}
 }
