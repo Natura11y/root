@@ -8,12 +8,12 @@ export default class Collapse {
 
 	#collapseButtonList = document.querySelectorAll('[data-target-toggle]');
 
-	handleClose(button, target) {
+	#handleCollapseClose(button, target) {
 		button.setAttribute('aria-expanded', false);
 		target.classList.remove('shown');
 	}
 
-	handleOpen(button, target, focusFirst) {
+	#handleCollapseOpen(button, target, focusFirst) {
 		button.setAttribute('aria-expanded', true);
 		target.classList.add('shown');
 		if (focusFirst) {
@@ -21,7 +21,7 @@ export default class Collapse {
 		}
 	}
 
-	toggleCollapse(event, collapseButton) {
+	#toggleCollapse(event, collapseButton) {
 		const collapseTargetID = event.target
 			.getAttribute('data-target-toggle')
 			.replace(/#/, '');
@@ -34,9 +34,9 @@ export default class Collapse {
 		const isExpanded = collapseButton.getAttribute('aria-expanded');
 
 		if (isExpanded === 'true') {
-			this.handleClose(collapseButton, collapseTarget);
+			this.#handleCollapseClose(collapseButton, collapseTarget);
 		} else if (isExpanded === 'false') {
-			this.handleOpen(
+			this.#handleCollapseOpen(
 				collapseButton,
 				collapseTarget,
 				collapseTarget.hasAttribute('data-focus-first')
@@ -48,7 +48,7 @@ export default class Collapse {
 		return { collapseTarget, firstFocusableElement };
 	}
 
-	handleKeyDown(event, collapseButton, collapseTarget, firstFocusableElement) {
+	#handleKeyDown(event, collapseButton, collapseTarget, firstFocusableElement) {
 		switch (event.code) {
 			case 'Tab':
 				if (
@@ -60,7 +60,7 @@ export default class Collapse {
 				}
 				break;
 			case 'Escape':
-				this.handleClose(collapseButton, collapseTarget);
+				this.#handleCollapseClose(collapseButton, collapseTarget);
 				break;
 			default:
 			// do nothing
@@ -69,16 +69,18 @@ export default class Collapse {
 
 	init() {
 		this.#collapseButtonList.forEach((collapseButton) => {
+
 			collapseButton.setAttribute('aria-expanded', false);
 
 			collapseButton.addEventListener('click', (event) => {
-				const { collapseTarget, firstFocusableElement } = this.toggleCollapse(
+				
+				const { collapseTarget, firstFocusableElement } = this.#toggleCollapse(
 					event,
 					collapseButton
 				);
 
 				collapseTarget.addEventListener('keydown', (event) => {
-					this.handleKeyDown(
+					this.#handleKeyDown(
 						event,
 						collapseButton,
 						collapseTarget,
@@ -95,7 +97,7 @@ export default class Collapse {
 						`[data-target-toggle="#${closeTargetID}"]`
 					);
 
-					this.handleClose(closeTargetButton, closeTarget);
+					this.#handleCollapseClose(closeTargetButton, closeTarget);
 				}
 			});
 		});

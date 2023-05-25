@@ -31,23 +31,31 @@ export default class Modal {
   }
 
   initModal(modalTarget) {
+
     if (!modalTarget) {
       console.warn('Modal target not found.');
       return;
     }
+
     handleOverlayOpen(modalTarget);
+    
     const modalContent = modalTarget.querySelector('.modal__content');
+    
     if (!modalContent) {
       console.warn('Modal content not found.');
       return;
     }
+
     modalContent.setAttribute('tabindex', 0);
     modalContent.focus();
     modalContent.setAttribute('tabindex', -1);
+
     if (modalTarget.classList.contains('modal--scroll-all')) {
       modalTarget.scrollTop = 0;
     }
+
     const modalCloseList = modalTarget.querySelectorAll('[data-modal-close]');
+    
     const handleCloseOutside = (event) => {
       let modalContentClick = modalContent.contains(event.target);
       if (!modalContentClick) {
@@ -55,6 +63,7 @@ export default class Modal {
         this.#removeOutsideClickHandler(modalTarget);
       }
     }
+
     modalCloseList.forEach((modalClose) => {
       modalClose.addEventListener('click', () => {
         handleOverlayClose(modalTarget);
@@ -62,6 +71,7 @@ export default class Modal {
       });
       modalClose.setAttribute('aria-label', 'Close Modal Window');
     });
+
     if (modalTarget.dataset.modalCloseOutside === 'true') {
       this.#addOutsideClickHandler(modalTarget, handleCloseOutside);
     }

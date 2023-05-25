@@ -30,9 +30,7 @@ export default class Button {
     #tooltipPosition(buttonIconOnly, buttonTooltip) {
         const buttonTooltipWidth = buttonTooltip.offsetWidth / 2;
         const buttonPositionLeft = buttonIconOnly.offsetLeft;
-        const buttonPositionRight =
-            window.innerWidth -
-            (buttonIconOnly.offsetLeft + buttonIconOnly.offsetWidth);
+        const buttonPositionRight = window.innerWidth - (buttonIconOnly.offsetLeft + buttonIconOnly.offsetWidth);
 
         if (buttonTooltipWidth > buttonPositionLeft) {
             buttonTooltip.classList.add('left');

@@ -5,6 +5,7 @@ import { getFocusableElements } from './utilities/focus';
 //////////////////////////////////////////////
 
 export default class Accordion {
+
 	#accordionList = document.querySelectorAll('.accordion');
 
 	#setFocusableElements(element = document, focusable = false) {

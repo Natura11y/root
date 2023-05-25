@@ -3,43 +3,42 @@
 //////////////////////////////////////////////
 
 export default class Form {
-	#formList = document.querySelectorAll('form[novalidate]');
-	#formEntryList = document.querySelectorAll('.form-entry');
-	#fileUploadList = document.querySelectorAll('.file-upload');
 
-	#formSubmitAttempted = false;
+  #formList = document.querySelectorAll('form[novalidate]');
+  #formEntryList = document.querySelectorAll('.form-entry');
+  #fileUploadList = document.querySelectorAll('.file-upload');
+  #invalidClasses = ['is-invalid'];
+  #formSubmitAttempted = false;
 
-	#invalidClasses = ['is-invalid'];
+  #isEmpty(value = null) {
+    return value === '';
+  }
 
-	isEmpty(value = null) {
-		return value === '';
-	}
+  #setInvalid(field) {
+    let entryRoot = field.closest('.form-entry');
+    entryRoot.classList.add(...this.#invalidClasses);
+  }
 
-	checkIfEmpty(field) {
-		if (this.isEmpty(field.value)) {
-			this.setInvalid(field);
-			return true;
-		} else {
-			this.setValid(field);
-			return false;
-		}
-	}
+  #setValid(field) {
+    let entryRoot = field.closest('.form-entry');
+    entryRoot.classList.remove(...this.#invalidClasses);
+  }
 
-	setInvalid(field) {
-		let entryRoot = field.closest('.form-entry');
-		entryRoot.classList.add(...this.#invalidClasses);
-	}
+  #checkIfEmpty(field) {
+    if (this.#isEmpty(field.value)) {
+      this.#setInvalid(field);
+      return true;
+    } else {
+      this.#setValid(field);
+      return false;
+    }
+  }
 
-	setValid(field) {
-		let entryRoot = field.closest('.form-entry');
-		entryRoot.classList.remove(...this.#invalidClasses);
-	}
-
-	createErrorMessage(desc, inst) {
-		if (desc === null) {
-			desc = 'This field is Required';
-		}
-		return `
+  #createErrorMessage(desc, inst) {
+    if (desc === null) {
+      desc = 'This field is Required';
+    }
+    return `
             <small class="form-entry__feedback">
                 <span class="icon icon-warn" aria-hidden="true"></span>
                 <span class="message">
@@ -47,224 +46,218 @@ export default class Form {
                 </span>
             </small>
         `;
-	}
+  }
 
-	handleFormSubmission(form) {
-		form.addEventListener('submit', (event) => {
-			event.preventDefault();
-			this.#formSubmitAttempted = true;
+  #handleFormSubmission(form) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      this.#formSubmitAttempted = true;
 
-			let errorsArray = [];
+      let errorsArray = [];
 
-			let formErrorsList = form.querySelectorAll(':invalid');
+      let formErrorsList = form.querySelectorAll(':invalid');
 
-			this.processFormErrors(formErrorsList, errorsArray);
+      this.#processFormErrors(formErrorsList, errorsArray);
 
-			if (errorsArray.length > 0) {
-				event.preventDefault();
-			}
+      if (errorsArray.length > 0) {
+        event.preventDefault();
+      }
 
-			this.scrollToFirstError(form);
-		});
-	}
+      this.#scrollToFirstError(form);
+    });
+  }
 
-	processFormErrors(formErrorsList, errorsArray) {
+  #processFormErrors(formErrorsList, errorsArray) {
+    formErrorsList.forEach((formError) => {
+      let formErrorEntry = formError.closest('.form-entry');
+      let formErrorEntryLabel = formErrorEntry.querySelector('.form-entry__field__label');
 
-		formErrorsList.forEach((formError) => {
+      formErrorEntry.classList.add('is-invalid');
 
-			let formErrorEntry = formError.closest('.form-entry');
-			let formErrorEntryLabel = formErrorEntry.querySelector(
-				'.form-entry__field__label'
-			);
+      const formEntryFeedback = formErrorEntry.querySelector('.form-entry__feedback');
+      const formEntryHelp = formErrorEntry.querySelector('.form-entry__help');
 
-			formErrorEntry.classList.add('is-invalid');
+      let entryHelpText;
 
-			const formEntryFeedback = formErrorEntry.querySelector(
-				'.form-entry__feedback'
-			);
+      if (formEntryHelp) {
+        entryHelpText = formEntryHelp.innerHTML.toString();
+      }
 
-			const formEntryHelp = formErrorEntry.querySelector('.form-entry__help');
+      let errorMessage = formErrorEntry.getAttribute('data-error-message');
+      let errorFeedback = [errorMessage, entryHelpText];
 
-			let entryHelpText;
+      errorsArray.push(errorFeedback);
 
-			if (formEntryHelp) {
-				entryHelpText = formEntryHelp.innerHTML.toString();
-			}
+      if (formEntryFeedback === null) {
+        formErrorEntryLabel.insertAdjacentHTML(
+          'afterend',
+          this.#createErrorMessage(errorMessage, entryHelpText)
+        );
+      }
+    });
+  }
 
-			let errorMessage = formErrorEntry.getAttribute('data-error-message');
-			let errorFeedback = [errorMessage, entryHelpText];
+  #scrollToFirstError(form) {
+    let firstError = form.querySelector('[class*="alert"], [class*="invalid"]');
+  
+    if (firstError) {
+      if (firstError.hasAttribute('data-alert')) {
+        firstError.style.display = 'block';
+      }
+      let myScroll = firstError.offsetTop - 16;
+  
+      window.scrollTo({
+        top: myScroll,
+        behavior: 'smooth',
+      });
+    }
+  }
 
-			errorsArray.push(errorFeedback);
+  #handleFormInputs(formEntry) {
+    const inputSelectors = ['email', 'input', 'select', 'tel', 'textarea'];
+    const formEntryInputList = formEntry.querySelectorAll(inputSelectors);
 
-			if (formEntryFeedback === null) {
-				formErrorEntryLabel.insertAdjacentHTML(
-					'afterend',
-					this.createErrorMessage(errorMessage, entryHelpText)
-				);
-			}
-		});
-	}
+    let isRequired = formEntry.hasAttribute('data-required');
 
-	scrollToFirstError(form) {
-		let firstError = form.querySelector('[class*="alert"], [class*="invalid"]');
+    formEntryInputList.forEach((formEntryInput) =>
+      this.#processFormEntryInput(formEntryInput, isRequired)
+    );
+  }
 
-		if (firstError) {
-			if (firstError.hasAttribute('data-alert')) {
-				firstError.style.display = 'block';
-			}
-			let myScroll = firstError.offsetTop - 16;
+  #processFormEntryInput(formEntryInput, isRequired) {
+    const isInputText = formEntryInput
+      .closest('.form-entry')
+      .querySelector('.form-entry__field__input');
+    const inputTag = formEntryInput.tagName;
 
-			window.scrollTo({
-				top: myScroll,
-				behavior: 'smooth',
-			});
-		}
-	}
+    let activeTarget = '.form-entry';
 
-	handleFormInputs(formEntry) {
-		const inputSelectors = ['email', 'input', 'select', 'tel', 'textarea'];
+    if (inputTag === 'INPUT') {
+      const inputType = formEntryInput.getAttribute('type');
 
-		const formEntryInputList = formEntry.querySelectorAll(inputSelectors);
+      if (inputType === 'radio' || inputType === 'checkbox') {
+        if (formEntryInput.disabled) {
+          formEntryInput.closest('label').classList.add('disabled');
+        }
+      }
+    }
 
-		let isRequired = formEntry.hasAttribute('data-required');
+    formEntryInput.addEventListener('focusin', this.#handleFocusIn(activeTarget).bind(this));
+    formEntryInput.addEventListener('focusout', this.#handleFocusOut(activeTarget).bind(this));
 
-		formEntryInputList.forEach((formEntryInput) =>
-			this.processFormEntryInput(formEntryInput, isRequired)
-		);
-	}
+    if (isRequired) {
+      formEntryInput.setAttribute('required', 'true');
+      formEntryInput.setAttribute('aria-required', true);
+    }
 
-	processFormEntryInput(formEntryInput, isRequired) {
-		const isInputText = formEntryInput
-			.closest('.form-entry')
-			.querySelector('.form-entry__field__input');
-		const inputTag = formEntryInput.tagName;
+    formEntryInput.addEventListener('change', () =>
+      this.#handleInputChange(formEntryInput, isRequired)
+    );
 
-		let activeTarget = '.form-entry';
+    if (isInputText) {
+      isInputText.addEventListener('click', this.handleClickOnInputText);
+    }
+  }
 
-		if (inputTag === 'INPUT') {
-			const inputType = formEntryInput.getAttribute('type');
+  #handleFocusIn(activeTarget) {
+    return (event) => {
+      event.target.closest(activeTarget).classList.add('active');
+    };
+  }
 
-			if (inputType === 'radio' || inputType === 'checkbox') {
-				if (formEntryInput.disabled) {
-					formEntryInput.closest('label').classList.add('disabled');
-				}
-			}
-		}
+  #handleFocusOut(activeTarget) {
+    return (event) => {
+      event.target.closest(activeTarget).classList.remove('active');
+    };
+  }
 
-		formEntryInput.addEventListener('focusin', this.focusIn(activeTarget));
-		formEntryInput.addEventListener('focusout', this.focusOut(activeTarget));
+  #handleInputChange(formEntryInput, isRequired) {
+  
+    if (this.#formSubmitAttempted && isRequired) {
+      this.#checkIfEmpty(formEntryInput);
+    }
 
-		if (isRequired) {
-			formEntryInput.setAttribute('required', 'true');
-			formEntryInput.setAttribute('aria-required', true);
-		}
+    if (formEntryInput.value !== '') {
+      formEntryInput.closest('.form-entry').classList.add('has-value');
+    } else {
+      formEntryInput.closest('.form-entry').classList.remove('has-value');
+    }
+  }
 
-		formEntryInput.addEventListener('change', () =>
-			this.handleInputChange(formEntryInput, isRequired)
-		);
+  handleClickOnInputText(event) {
+    let clickTarget = event.target.tagName;
+    let clickInput = event.target
+      .closest('.form-entry__field__input')
+      .querySelector('input');
 
-		if (isInputText) {
-			isInputText.addEventListener('click', this.handleClickOnInputText);
-		}
-	}
+    if (clickTarget === 'SPAN') {
+      clickInput.focus();
+    }
 
-	focusIn(activeTarget) {
-		return function () {
-			this.closest(activeTarget).classList.add('active');
-		};
-	}
+    if (clickTarget === 'BUTTON') {
+      return;
+    }
+  }
 
-	focusOut(activeTarget) {
-		return function () {
-			this.closest(activeTarget).classList.remove('active');
-		};
-	}
+  #handleFileUpload(fileUpload) {
+    const fileUploadInput = fileUpload.querySelector('input[type="file"]');
 
-	handleInputChange(formEntryInput, isRequired) {
-		if (this.#formSubmitAttempted && isRequired) {
-			this.checkIfEmpty(formEntryInput);
-		}
+    fileUploadInput.addEventListener(
+      'change',
+      this.#handleFileChange(fileUpload)
+    );
 
-		if (formEntryInput.value !== '') {
-			formEntryInput.closest('.form-entry').classList.add('has-value');
-		} else {
-			formEntryInput.closest('.form-entry').classList.remove('has-value');
-		}
-	}
+    fileUpload.addEventListener('dragenter', this.dragOver);
+    fileUpload.addEventListener('dragleave', this.dragOff);
+    fileUpload.addEventListener('dragend', this.dragOff);
+    fileUpload.addEventListener('drop', this.dropped);
+  }
 
-	handleClickOnInputText(event) {
-		let clickTarget = event.target.tagName;
-		let clickInput = event.target
-			.closest('.form-entry__field__input')
-			.querySelector('input');
+  #handleFileChange(fileUpload) {
+    return function (event) {
+      const [file] = event.target.files;
+      const { name: fileName, size } = file;
+      const fileSize = (size / 1000).toFixed(2);
 
-		if (clickTarget === 'SPAN') {
-			clickInput.focus();
-		}
+      const dataHTML = `
+        <span class="file-upload__data">
+            <span class="file-name">${fileName}</span>
+            <span class="file-size">${fileSize} kb</span>
+        </span>
+      `;
 
-		if (clickTarget === 'BUTTON') {
-			return;
-		}
-	}
+      const fileUploadData = fileUpload.querySelector('.file-upload__data');
 
-	handleFileUpload(fileUpload) {
-		const fileUploadInput = fileUpload.querySelector('input[type="file"]');
+      if (fileUploadData) {
+        fileUploadData.remove();
+      }
 
-		fileUploadInput.addEventListener(
-			'change',
-			this.handleFileChange(fileUpload)
-		);
+      fileUpload.insertAdjacentHTML('beforeend', dataHTML);
+    };
+  }
 
-		fileUpload.addEventListener('dragenter', this.dragOver);
-		fileUpload.addEventListener('dragleave', this.dragOff);
-		fileUpload.addEventListener('dragend', this.dragOff);
-		fileUpload.addEventListener('drop', this.dropped);
-	}
+  dragOver() {
+    this.closest('.form-entry').classList.add('active');
+  }
 
-	handleFileChange(fileUpload) {
-		return function (event) {
-			const [file] = event.target.files;
-			const { name: fileName, size } = file;
-			const fileSize = (size / 1000).toFixed(2);
+  dragOff() {
+    this.closest('.form-entry').classList.remove('active');
+  }
 
-			const dataHTML = `
-                <span class="file-upload__data">
-                    <span class="file-name">${fileName}</span>
-                    <span class="file-size">${fileSize} kb</span>
-                </span>
-            `;
+  dropped() {
+    this.closest('.form-entry').classList.remove('active');
+  }
 
-			const fileUploadData = fileUpload.querySelector('.file-upload__data');
+  init() {
+    this.#formList.forEach((form) => this.#handleFormSubmission(form));
 
-			if (fileUploadData) {
-				fileUploadData.remove();
-			}
+    this.#formEntryList.forEach((formEntry) =>
+      this.#handleFormInputs(formEntry)
+    );
 
-			fileUpload.insertAdjacentHTML('beforeend', dataHTML);
-		};
-	}
-
-	dragOver() {
-		this.closest('.form-entry').classList.add('active');
-	}
-
-	dragOff() {
-		this.closest('.form-entry').classList.remove('active');
-	}
-
-	dropped() {
-		this.closest('.form-entry').classList.remove('active');
-	}
-
-	init() {
-
-		this.#formList.forEach((form) => this.handleFormSubmission(form));
-		this.#formEntryList.forEach((formEntry) =>
-			this.handleFormInputs(formEntry)
-		);
-
-		this.#fileUploadList.forEach((fileUpload) =>
-			this.handleFileUpload(fileUpload)
-		);
-	}
+    this.#fileUploadList.forEach((fileUpload) =>
+      this.#handleFileUpload(fileUpload)
+    );
+  }
 }
+
