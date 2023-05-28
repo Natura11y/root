@@ -35,7 +35,6 @@ export default class Lightbox {
     this.#lightboxElementHTML = `<img src="https://source.unsplash.com/1600x900" />`;
   }
 
-
   // Private methods
 
   #handleLightboxOpen = (image, index) => (e) => {

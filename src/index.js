@@ -1,12 +1,3 @@
-/*
-
-In this file:
-
-// A. SCSS
-// B. JS
-
-*/
-
 //////////////////////////////////////////////
 // A. SCSS
 //////////////////////////////////////////////
@@ -18,47 +9,56 @@ import './scss/natura11y.scss';
 //////////////////////////////////////////////
 
 import Accordion from './js/accordion';
-const accordion = new Accordion();
-accordion.render();
-
 import AlertDismissable from './js/alert';
-const alertDismissable = new AlertDismissable();
-alertDismissable.render();
-
 import Button from './js/button';
-const button = new Button();
-button.render();
-
-import Collapse from './js/collapse'
-const collapse = new Collapse();
-collapse.render();
-
-import FormInputs, { FormSubmission, FormFileUpload } from './js/form';
-
-const formInputs = new FormInputs();
-const formSubmission = new FormSubmission();
-const formFileUpload = new FormFileUpload();
-
-formInputs.render();
-formSubmission.render();
-formFileUpload.render();
-
+import Collapse from './js/collapse';
+import FormInput, { FormSubmission, FormFileUpload } from './js/form';
 import Lightbox from './js/lightbox';
-const lightbox = new Lightbox();
-lightbox.render();
-
 import Modal from './js/modal';
-const modal = new Modal();
-modal.init();
-
 import Navigation from './js/navigation';
-const navigation = new Navigation();
-navigation.init();
-
 import Table from './js/table';
-const table = new Table();
-table.render();
-
 import Tab from './js/tab';
-const tab = new Tab();
-tab.render();
+
+//////////////////////////////////////////////
+// C. Class Instantiation
+//////////////////////////////////////////////
+
+document.addEventListener('DOMContentLoaded', () => {
+
+  const accordion = new Accordion();
+  accordion.render();
+
+  const alertDismissable = new AlertDismissable();
+  alertDismissable.render();
+
+  const button = new Button();
+  button.render();
+
+  const collapse = new Collapse();
+  collapse.render();
+
+  const formInput = new FormInput();
+  formInput.render();
+
+  const formSubmission = new FormSubmission();
+  formSubmission.render();
+  
+  const formFileUpload = new FormFileUpload();
+  formFileUpload.render();
+
+  const lightbox = new Lightbox();
+  lightbox.render();
+
+  const modal = new Modal();
+  modal.render();
+
+  const navigation = new Navigation();
+  navigation.render();
+
+  const table = new Table();
+  table.render();
+
+  const tab = new Tab();
+  tab.render();
+
+});

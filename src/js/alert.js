@@ -1,20 +1,17 @@
 export default class AlertDismissable {
 
   // Private properties
-  #alertDismissableList;
-  #closeButtonHTML;
+  
+  #alertDismissableList = document.querySelectorAll('.alert--dismissable');
 
-  constructor() {
-    this.#alertDismissableList = document.querySelectorAll('.alert--dismissable');
-
-    this.#closeButtonHTML = `
-      <button class="button button--icon-only">
-          <span class="icon icon-close" aria-label="Close" aria-hidden="true">
-      </button>
-    `;
-  }
+  #closeButtonHTML = `
+    <button class="button button--icon-only">
+        <span class="icon icon-close" aria-label="Close" aria-hidden="true">
+    </button>
+  `;
 
   // Private methods
+
   #handleAlertClose = (alertDismissable) => {
     return (event) => {
       event.preventDefault();
@@ -30,7 +27,9 @@ export default class AlertDismissable {
   }
 
   // Public methods
+
   render() {
+  
     this.#alertDismissableList.forEach((alertDismissable) => {
       // Insert close button
       alertDismissable.insertAdjacentHTML('afterbegin', this.#closeButtonHTML);
@@ -39,5 +38,6 @@ export default class AlertDismissable {
       const alertCloseButton = alertDismissable.querySelector('button');
       alertCloseButton.addEventListener('click', this.#handleAlertClose(alertDismissable));
     });
+    
   }
 }

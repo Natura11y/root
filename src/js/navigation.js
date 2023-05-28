@@ -1,16 +1,14 @@
 export default class Navigation {
 
+    // Private properties
+    
     #dropdownButtonList = document.querySelectorAll('[data-toggle="dropdown"]');
+
+    // Private methods
 
     #toggleDropdown(dropdownButton, dropdownMenu) {
         dropdownMenu.classList.toggle('shown');
-        let expanded = dropdownButton.getAttribute('aria-expanded');
-
-        if (expanded === 'true') {
-            dropdownButton.setAttribute('aria-expanded', 'false');
-        } else if (expanded === 'false') {
-            dropdownButton.setAttribute('aria-expanded', 'true');
-        }
+        dropdownButton.setAttribute('aria-expanded', dropdownButton.getAttribute('aria-expanded') === 'true' ? 'false' : 'true');
     }
 
     #closeDropdown(dropdownButton, dropdownMenu) {
@@ -18,13 +16,9 @@ export default class Navigation {
         dropdownButton.setAttribute('aria-expanded', 'false');
     }
 
-    init() {
-	
-        // Check if there are dropdown buttons
-        if (!this.#dropdownButtonList) {
-            console.warn('No dropdown buttons found');
-            return;
-        }
+    // Public methods
+
+    render() {
 
         // Single click listener for window
         window.addEventListener('click', (event) => {

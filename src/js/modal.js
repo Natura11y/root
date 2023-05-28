@@ -2,31 +2,28 @@ import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 
 export default class Modal {
 
+  // Private properties
+
   #modalList = document.querySelectorAll('.modal');
   #modalButtonList = document.querySelectorAll('[data-modal-open]');
   #outsideClickHandlers = new Map();
 
-  #configureModalElements() {
-    this.#modalList.forEach((modal) => {
-      const modalContainer = modal.querySelector('.modal__content');
-      modalContainer.setAttribute('role', 'dialog');
-      modalContainer.setAttribute('aria-modal', true);
-      modal.setAttribute('aria-hidden', true);
-    });
+  #addOutsideClickHandler(modal, handler) {
+    window.addEventListener('click', handler);
+    this.#outsideClickHandlers.set(modal, handler);
   }
 
-  #initEventListeners() {
-    this.#modalButtonList.forEach((modalButton) => {
-      modalButton.addEventListener('click', (event) => {
-        const modalTargetID = event.target.getAttribute('data-modal-open').replace(/#/, '');
-        const modalTarget = document.getElementById(modalTargetID)
-        this.initModal(modalTarget);
-        event.stopPropagation();
-      });
-    });
+  #removeOutsideClickHandler(modal) {
+    const handler = this.#outsideClickHandlers.get(modal);
+    if (handler) {
+      window.removeEventListener('click', handler);
+      this.#outsideClickHandlers.delete(modal);
+    }
   }
 
-  initModal(modalTarget) {
+  // Public methods
+
+  openModal(modalTarget) {
 
     if (!modalTarget) {
       console.warn('Modal target not found.');
@@ -73,21 +70,21 @@ export default class Modal {
     }
   }
 
-  #addOutsideClickHandler(modal, handler) {
-    window.addEventListener('click', handler);
-    this.#outsideClickHandlers.set(modal, handler);
-  }
+  render() {
+    this.#modalList.forEach((modal) => {
+      const modalContainer = modal.querySelector('.modal__content');
+      modalContainer.setAttribute('role', 'dialog');
+      modalContainer.setAttribute('aria-modal', true);
+      modal.setAttribute('aria-hidden', true);
+    });
 
-  #removeOutsideClickHandler(modal) {
-    const handler = this.#outsideClickHandlers.get(modal);
-    if (handler) {
-      window.removeEventListener('click', handler);
-      this.#outsideClickHandlers.delete(modal);
-    }
-  }
-
-  init() {
-    this.#configureModalElements();
-    this.#initEventListeners();
+    this.#modalButtonList.forEach((modalButton) => {
+      modalButton.addEventListener('click', (event) => {
+        const modalTargetID = event.target.getAttribute('data-modal-open').replace(/#/, '');
+        const modalTarget = document.getElementById(modalTargetID)
+        this.openModal(modalTarget);
+        event.stopPropagation();
+      });
+    });
   }
 }
