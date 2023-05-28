@@ -33,9 +33,15 @@ import Collapse from './js/collapse'
 const collapse = new Collapse();
 collapse.render();
 
-import Form from './js/Form';
-const form = new Form();
-form.init();
+import FormInputs, { FormSubmission, FormFileUpload } from './js/form';
+
+const formInputs = new FormInputs();
+const formSubmission = new FormSubmission();
+const formFileUpload = new FormFileUpload();
+
+formInputs.render();
+formSubmission.render();
+formFileUpload.render();
 
 import Lightbox from './js/lightbox';
 const lightbox = new Lightbox();
