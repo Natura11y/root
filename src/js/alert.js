@@ -1,4 +1,5 @@
 export default class AlertDismissable {
+
   // Private properties
   #alertDismissableList;
   #closeButtonHTML;

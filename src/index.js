@@ -21,7 +21,7 @@ import Accordion from './js/accordion';
 const accordion = new Accordion();
 accordion.render();
 
-import AlertDismissable from './js/alertDismissable';
+import AlertDismissable from './js/alert';
 const alertDismissable = new AlertDismissable();
 alertDismissable.render();
 

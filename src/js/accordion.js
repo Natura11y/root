@@ -1,6 +1,7 @@
 import { getFocusableElements } from './utilities/focus';
 
 export default class Accordion {
+
   // Private properties
   #accordionList;
 

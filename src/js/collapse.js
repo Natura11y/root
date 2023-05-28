@@ -59,6 +59,8 @@ export default class Collapse {
                 );
             }
 
+            collapseTarget.addEventListener('keydown', this.#handleKeyDown(collapseButton, collapseTarget, firstFocusableElement));
+
             return { collapseTarget, firstFocusableElement };
         };
     }
@@ -68,16 +70,17 @@ export default class Collapse {
         this.#collapseButtonList.forEach((collapseButton) => {
             collapseButton.setAttribute('aria-expanded', false);
 
-            collapseButton.addEventListener('click', this.#toggleCollapse(collapseButton));
+            collapseButton.addEventListener('click', (event) => {
+                const { collapseTarget, firstFocusableElement } = this.#toggleCollapse(collapseButton)(event);
 
-            if (collapseButton.hasAttribute('data-target-close')) {
+                if (collapseButton.hasAttribute('data-target-close')) {
+                    const closeTargetID = event.target.getAttribute('data-target-close').replace(/#/, '');
+                    const closeTarget = document.getElementById(closeTargetID);
+                    const closeTargetButton = document.querySelector(`[data-target-toggle="#${closeTargetID}"]`);
 
-                const closeTargetID = collapseButton.getAttribute('data-target-close').replace(/#/, '');
-                const closeTarget = document.getElementById(closeTargetID);
-
-				const closeTargetButton = document.querySelector(`[data-target-toggle="#${closeTargetID}"]`);
-				this.#handleCollapseClose(closeTargetButton, closeTarget);
-            }
+                    this.#handleCollapseClose(closeTargetButton, closeTarget);
+                }
+            });
         });
     }
 }

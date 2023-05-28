@@ -1,16 +1,20 @@
 export default class Button {
 
-    #buttonIconOnlyList = document.querySelectorAll('.button--icon-only');
+    // Private properties
+    #buttonIconOnlyList;
+
+    constructor() {
+        this.#buttonIconOnlyList = document.querySelectorAll('.button--icon-only');
+    }
 
     // Private methods
-
+    
     #handleHoverFocusIn = (buttonList) => {
         return (event) => {
             const hoverFocusDelay = setTimeout(() => {
                 buttonList.forEach((buttonIconOnly) => {
                     buttonIconOnly.classList.remove('tooltip-show');
                 });
-
                 event.target.classList.add('tooltip-show');
             }, 300);
 
@@ -25,6 +29,7 @@ export default class Button {
         };
     }
 
+    // Calculate the position of the tooltip and apply corresponding CSS classes
     #tooltipPosition(buttonIconOnly, buttonTooltip) {
         const buttonTooltipWidth = buttonTooltip.offsetWidth / 2;
         const buttonPositionLeft = buttonIconOnly.offsetLeft;
@@ -39,7 +44,8 @@ export default class Button {
         }
     }
 
-    #handleTooltip(buttonIconOnly, tooltipText) {
+    // Handle the creation and position of the tooltip, as well as the hover and focus in/out events
+    #handleTooltip = (buttonIconOnly, tooltipText) => {
         const tooltipHTML = `
             <span class="button__tooltip">
                 ${tooltipText}
@@ -48,14 +54,10 @@ export default class Button {
 
         if (tooltipText) {
             buttonIconOnly.insertAdjacentHTML('beforeend', tooltipHTML);
-
             const buttonTooltip = buttonIconOnly.querySelector('.button__tooltip');
 
             this.#tooltipPosition(buttonIconOnly, buttonTooltip);
-            
-            window.addEventListener('resize', () =>
-                this.#tooltipPosition(buttonIconOnly, buttonTooltip)
-            );
+            window.addEventListener('resize', () => this.#tooltipPosition(buttonIconOnly, buttonTooltip));
 
             let hoverFocusDelay;
 
@@ -78,7 +80,6 @@ export default class Button {
     }
 
     // Public methods
-
     render() {
         this.#buttonIconOnlyList.forEach((buttonIconOnly) => {
             const tooltipText = buttonIconOnly.getAttribute('aria-label');
