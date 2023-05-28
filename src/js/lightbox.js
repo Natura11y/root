@@ -1,31 +1,42 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 
 export default class Lightbox {
+  
+  // Private properties
+  #lightboxImages;
+  #lightboxHTML;
+  #lightboxVideoHTML;
+  #lightboxElementHTML;
 
-  #lightboxImages = document.querySelectorAll('img[data-lightbox]');
+  constructor() {
+      
+    this.#lightboxImages = document.querySelectorAll('img[data-lightbox]');
 
-  #lightboxHTML = (`
-    <div class="button-group lightbox__buttons">
-      <button class="button button--icon-only" data-lightbox-previous>
-        <span class="icon icon-arrow-left" aria-label="Previous" aria-hidden="true"></span>
-      </button>
-      <button class="button button--icon-only" data-lightbox-next>
-        <span class="icon icon-arrow-right" aria-label="Next" aria-hidden="true"></span>
-      </button>
-      <button class="button button--icon-only" data-lightbox-close>
-        <span class="icon icon-close" aria-label="Close" aria-hidden="true"></span>
-      </button>
-    </div>
-    <figure class="lightbox__container">
-      <div class="lightbox__image"></div>           
-      <figcaption class="lightbox__caption">A caption for the image.</figcaption>
-    </figure>
-  `);
+    this.#lightboxHTML = (`
+      <div class="button-group lightbox__buttons">
+        <button class="button button--icon-only" data-lightbox-previous>
+          <span class="icon icon-arrow-left" aria-label="Previous" aria-hidden="true"></span>
+        </button>
+        <button class="button button--icon-only" data-lightbox-next>
+          <span class="icon icon-arrow-right" aria-label="Next" aria-hidden="true"></span>
+        </button>
+        <button class="button button--icon-only" data-lightbox-close>
+          <span class="icon icon-close" aria-label="Close" aria-hidden="true"></span>
+        </button>
+      </div>
+      <figure class="lightbox__container">
+        <div class="lightbox__image"></div>           
+        <figcaption class="lightbox__caption">A caption for the image.</figcaption>
+      </figure>
+    `);
 
-  #lightboxVideoHTML = `<video controls><source src="" type="video/mp4"></video>`;
-  #lightboxElementHTML = `<img src="https://source.unsplash.com/1600x900" />`;
+    this.#lightboxVideoHTML = `<video controls><source src="" type="video/mp4"></video>`;
+    this.#lightboxElementHTML = `<img src="https://source.unsplash.com/1600x900" />`;
+  }
 
   #lightboxes = [];
+
+  // Private methods
 
   #handleLightboxOpen = (image, index) => (e) => {
 
@@ -97,7 +108,7 @@ export default class Lightbox {
       this.currentLB = 0;
     }
     
-	this.#updateLightbox(this.currentLB);
+    this.#updateLightbox(this.currentLB);
   }
 
   #updateLightbox(index) {
@@ -216,7 +227,7 @@ export default class Lightbox {
     });
   }
 
-  init() {
+  render() {
     this.#configureLightboxElements();
     this.#initEventListeners();
     this.#initLazyLoading();

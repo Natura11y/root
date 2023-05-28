@@ -45,7 +45,7 @@ formFileUpload.render();
 
 import Lightbox from './js/lightbox';
 const lightbox = new Lightbox();
-lightbox.init();
+lightbox.render();
 
 import Modal from './js/modal';
 const modal = new Modal();
