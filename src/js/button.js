@@ -1,10 +1,8 @@
-//////////////////////////////////////////////
-// Buttons
-//////////////////////////////////////////////
-
 export default class Button {
 
     #buttonIconOnlyList = document.querySelectorAll('.button--icon-only');
+
+    // Private methods
 
     #handleHoverFocusIn = (buttonList) => {
         return (event) => {
@@ -54,6 +52,7 @@ export default class Button {
             const buttonTooltip = buttonIconOnly.querySelector('.button__tooltip');
 
             this.#tooltipPosition(buttonIconOnly, buttonTooltip);
+            
             window.addEventListener('resize', () =>
                 this.#tooltipPosition(buttonIconOnly, buttonTooltip)
             );
@@ -78,7 +77,9 @@ export default class Button {
         }
     }
 
-    init() {
+    // Public methods
+
+    render() {
         this.#buttonIconOnlyList.forEach((buttonIconOnly) => {
             const tooltipText = buttonIconOnly.getAttribute('aria-label');
             this.#handleTooltip(buttonIconOnly, tooltipText);

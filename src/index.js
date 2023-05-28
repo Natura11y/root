@@ -19,21 +19,21 @@ import './scss/natura11y.scss';
 
 import Accordion from './js/accordion';
 const accordion = new Accordion();
-accordion.init();
+accordion.render();
 
-import Alert from './js/alert';
-const alert = new Alert();
-alert.init();
+import AlertDismissable from './js/alertDismissable';
+const alertDismissable = new AlertDismissable();
+alertDismissable.render();
 
 import Button from './js/button';
 const button = new Button();
-button.init();
+button.render();
 
 import Collapse from './js/collapse'
 const collapse = new Collapse();
-collapse.init();
+collapse.render();
 
-import Form from './js/form';
+import Form from './js/Form';
 const form = new Form();
 form.init();
 

@@ -260,4 +260,3 @@ export default class Form {
     );
   }
 }
-
