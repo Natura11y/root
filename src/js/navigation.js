@@ -1,7 +1,3 @@
-//////////////////////////////////////////////
-// Navigation
-//////////////////////////////////////////////
-
 export default class Navigation {
 
     #dropdownButtonList = document.querySelectorAll('[data-toggle="dropdown"]');

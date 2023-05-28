@@ -7,6 +7,7 @@ export default class Lightbox {
   #lightboxHTML;
   #lightboxVideoHTML;
   #lightboxElementHTML;
+  #lightboxes = [];
 
   constructor() {
       
@@ -34,7 +35,6 @@ export default class Lightbox {
     this.#lightboxElementHTML = `<img src="https://source.unsplash.com/1600x900" />`;
   }
 
-  #lightboxes = [];
 
   // Private methods
 
@@ -209,7 +209,7 @@ export default class Lightbox {
 
           document.body.appendChild(hiddenLargeImage);
           
-		  this.#lightboxes[Number(lazyImage.dataset.index)].hiddenImage = hiddenLargeImage;
+		      this.#lightboxes[Number(lazyImage.dataset.index)].hiddenImage = hiddenLargeImage;
         }
       });
     }, options);
@@ -226,6 +226,8 @@ export default class Lightbox {
       imageBtn.addEventListener('click', this.#handleLightboxOpen(image, index));
     });
   }
+
+  // Public methods
 
   render() {
     this.#configureLightboxElements();

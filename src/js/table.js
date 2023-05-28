@@ -1,13 +1,18 @@
-//////////////////////////////////////////////
-// Table
-//////////////////////////////////////////////
-
 export default class Table {
 
-	#tableStackList = document.querySelectorAll('[class*="table--stack"]');
-	#tableScrollList = document.querySelectorAll('.table-scroll');
+	// Private properties
 
-	populateHeaders(tableStack) {
+	#tableStackList;
+	#tableScrollList;
+
+	constructor() {	
+		this.#tableStackList = document.querySelectorAll('[class*="table--stack"]');
+		this.#tableScrollList = document.querySelectorAll('.table-scroll');
+	}
+
+	// Private methods
+
+	#populateHeaders(tableStack) {
 		const tableHeaderList = tableStack.querySelectorAll('thead th');
 		const tableRowList = tableStack.querySelectorAll('tbody tr');
 		let headers = [];
@@ -37,7 +42,7 @@ export default class Table {
 		});
 	}
 
-	initTableScroll() {
+	#handleTableScroll() {
 		this.#tableScrollList.forEach((scrollElement) => {
 			let scrollTarget = scrollElement.querySelector(
 				'.table-scroll__container'
@@ -62,12 +67,14 @@ export default class Table {
 		});
 	}
 
-	init() {
+	// Public methods
+
+	render() {
 		this.#tableStackList.forEach((tableStack) => {
-			this.populateHeaders(tableStack);
+			this.#populateHeaders(tableStack);
 		});
 
-		this.initTableScroll();
-		window.addEventListener('resize', () => this.initTableScroll());
+		this.#handleTableScroll();
+		window.addEventListener('resize', () => this.#handleTableScroll());
 	}
 }

@@ -1,9 +1,5 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 
-//////////////////////////////////////////////
-// Modal
-//////////////////////////////////////////////
-
 export default class Modal {
 
   #modalList = document.querySelectorAll('.modal');

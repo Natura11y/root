@@ -57,8 +57,8 @@ navigation.init();
 
 import Table from './js/table';
 const table = new Table();
-table.init();
+table.render();
 
 import Tab from './js/tab';
 const tab = new Tab();
-tab.init();
+tab.render();
