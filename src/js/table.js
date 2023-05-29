@@ -62,7 +62,7 @@ export default class Table {
 
 	// Public methods
 
-	render() {
+	init() {
 	
 		this.#tableStackList.forEach((tableStack) => {
 			this.#populateHeaders(tableStack);

@@ -78,7 +78,7 @@ export default class Button {
 
     // Public methods
 
-    render() {
+    init() {
 
         this.#buttonIconOnlyList.forEach((buttonIconOnly) => {
             const tooltipText = buttonIconOnly.getAttribute('aria-label');

@@ -70,7 +70,7 @@ export default class Modal {
     }
   }
 
-  render() {
+  init() {
     this.#modalList.forEach((modal) => {
       const modalContainer = modal.querySelector('.modal__content');
       modalContainer.setAttribute('role', 'dialog');

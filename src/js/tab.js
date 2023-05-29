@@ -47,7 +47,8 @@ export default class Tab {
     }
 
     // Init method
-    render() {
+    init() {
+
         this.#tabsList.forEach((tab) => {
             const tabsButtonList = tab.querySelectorAll('[role="tab"]');
             const tabsPanelList = tab.querySelectorAll('[role="tabpanel"]');
@@ -80,5 +81,6 @@ export default class Tab {
                 });
             });
         });
+        
     }
 }

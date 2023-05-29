@@ -28,7 +28,7 @@ export default class AlertDismissable {
 
   // Public methods
 
-  render() {
+  init() {
   
     this.#alertDismissableList.forEach((alertDismissable) => {
       // Insert close button

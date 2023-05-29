@@ -222,7 +222,7 @@ export default class Lightbox {
 
   // Public methods
 
-  render() {
+  init() {
 
     this.#configureLightboxElements();
     this.#initEventListeners();

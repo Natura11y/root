@@ -123,7 +123,7 @@ export default class FormInput {
 
     // Public methods
 
-    render() {
+    init() {
         this.#formEntryList.forEach((formEntry) =>
             this.#handleFormInputs(formEntry)
         );
@@ -260,7 +260,7 @@ export class FormSubmission {
 
     // Public methods
 
-    render() {
+    init() {
         this.#formList.forEach((form) => this.#handleFormSubmission(form));
     }
 }
@@ -326,7 +326,8 @@ export class FormFileUpload {
     }
 
     // Public methods
-    render() {
+
+    init() {
         this.#fileUploadList.forEach((fileUpload) =>
             this.#handleFileUpload(fileUpload)
         );

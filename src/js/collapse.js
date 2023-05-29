@@ -61,7 +61,7 @@ export default class Collapse {
 
   // Public methods
 
-  render() {
+  init() {
 
     this.#collapseButtonList.forEach((collapseButton) => {
       collapseButton.setAttribute('aria-expanded', false);

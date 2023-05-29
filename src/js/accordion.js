@@ -22,6 +22,7 @@ export default class Accordion {
 		accordionPanelList
 	) => {
 		return (event) => {
+
 			event.preventDefault();
 			event.stopPropagation();
 
@@ -70,13 +71,11 @@ export default class Accordion {
 		};
 	};
 
-	// Event handlers
-
 	#handleKeyDown = (
-    accordionButton, 
-    accordionButtonList, 
-    index
-  ) => {
+		accordionButton, 
+		accordionButtonList, 
+		index
+  	) => {
 		return (event) => {
 			const directionalFocus = (dir) => {
 				event.preventDefault();
@@ -125,7 +124,7 @@ export default class Accordion {
 
 	// Public methods
 
-	render() {
+	init() {
 
 		this.#accordionList.forEach((accordion) => {
 			const accordionButtonList = Array.from(
@@ -198,7 +197,6 @@ export default class Accordion {
 				}
 			});
 		});
-	
-  }
+  	}
 
 }

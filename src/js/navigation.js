@@ -18,7 +18,7 @@ export default class Navigation {
 
     // Public methods
 
-    render() {
+    init() {
 
         // Single click listener for window
         window.addEventListener('click', (event) => {

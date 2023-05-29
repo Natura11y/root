@@ -26,39 +26,39 @@ import Tab from './js/tab';
 document.addEventListener('DOMContentLoaded', () => {
 
   const accordion = new Accordion();
-  accordion.render();
+  accordion.init();
 
   const alertDismissable = new AlertDismissable();
-  alertDismissable.render();
+  alertDismissable.init();
 
   const button = new Button();
-  button.render();
+  button.init();
 
   const collapse = new Collapse();
-  collapse.render();
+  collapse.init();
 
   const formInput = new FormInput();
-  formInput.render();
+  formInput.init();
 
   const formSubmission = new FormSubmission();
-  formSubmission.render();
+  formSubmission.init();
   
   const formFileUpload = new FormFileUpload();
-  formFileUpload.render();
+  formFileUpload.init();
 
   const lightbox = new Lightbox();
-  lightbox.render();
+  lightbox.init();
 
   const modal = new Modal();
-  modal.render();
+  modal.init();
 
   const navigation = new Navigation();
-  navigation.render();
+  navigation.init();
 
   const table = new Table();
-  table.render();
+  table.init();
 
   const tab = new Tab();
-  tab.render();
+  tab.init();
 
 });
