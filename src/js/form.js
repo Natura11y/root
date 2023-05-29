@@ -5,6 +5,7 @@
 export default class FormInput {
 
     // Private properties
+
     #formEntryList = document.querySelectorAll('.form-entry');
     #invalidClasses = ['is-invalid'];
     #formSubmitAttempted = false;
@@ -134,6 +135,7 @@ export default class FormInput {
 
 export class FormSubmission {
     // Private properties
+
     #formList = document.querySelectorAll('form[novalidate]');
     #invalidClasses = ['is-invalid'];
     #formSubmitAttempted = false;
@@ -270,6 +272,7 @@ export class FormSubmission {
 export class FormFileUpload {
 
     // Private properties
+    
     #fileUploadList = document.querySelectorAll('.file-upload');
 
     // Private methods

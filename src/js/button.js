@@ -1,11 +1,8 @@
 export default class Button {
 
     // Private properties
-    #buttonIconOnlyList;
 
-    constructor() {
-        this.#buttonIconOnlyList = document.querySelectorAll('.button--icon-only');
-    }
+    #buttonIconOnlyList = document.querySelectorAll('.button--icon-only');
 
     // Private methods
     
@@ -80,10 +77,13 @@ export default class Button {
     }
 
     // Public methods
+
     render() {
+
         this.#buttonIconOnlyList.forEach((buttonIconOnly) => {
             const tooltipText = buttonIconOnly.getAttribute('aria-label');
             this.#handleTooltip(buttonIconOnly, tooltipText);
         });
+        
     }
 }
