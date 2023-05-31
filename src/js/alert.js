@@ -14,12 +14,14 @@ export default class AlertDismissable {
 
   #handleAlertClose = (alertDismissable) => {
     return (event) => {
+
       event.preventDefault();
+    
       alertDismissable.classList.add('dismissed');
 
       const dismissed = document.querySelector('.dismissed');
 
-      // Handle animation end
+      // Remove the alert after the animation ends
       dismissed.addEventListener('animationend', () => {
         alertDismissable.remove();
       });
@@ -29,15 +31,15 @@ export default class AlertDismissable {
   // Public methods
 
   init() {
-  
-    this.#alertDismissableList.forEach((alertDismissable) => {
-      // Insert close button
-      alertDismissable.insertAdjacentHTML('afterbegin', this.#closeButtonHTML);
-
-      // Get close button and add event listener
-      const alertCloseButton = alertDismissable.querySelector('button');
-      alertCloseButton.addEventListener('click', this.#handleAlertClose(alertDismissable));
-    });
     
+    this.#alertDismissableList.forEach((alertDismissable) => {
+          
+        alertDismissable.insertAdjacentHTML('afterbegin', this.#closeButtonHTML);
+
+        const alertCloseButton = alertDismissable.querySelector('button');
+
+        alertCloseButton.addEventListener('click', this.#handleAlertClose(alertDismissable));
+
+    });
   }
 }

@@ -11,9 +11,9 @@ export default class Accordion {
 	#setFocusableElements(element = document, focusable = false) {
 		const focusableElementList = getFocusableElements(element);
 
-		for (const focusableElement of focusableElementList) {
+		focusableElementList.forEach((focusableElement) => {
 			focusableElement.setAttribute('tabindex', focusable ? 0 : -1);
-		}
+		});
 	}
 
 	#handleAccordionToggle = (
@@ -185,8 +185,7 @@ export default class Accordion {
 				accordionButton.setAttribute('tabindex', 0);
 
 				if (isExpanded === 'true') {
-					currentAccordionPanel.style.maxHeight =
-						currentAccordionPanel.scrollHeight + 'px';
+					currentAccordionPanel.style.maxHeight = currentAccordionPanel.scrollHeight + 'px';
 					currentAccordionPanel.classList.add('show');
 					this.#setFocusableElements(currentAccordionPanel, true);
 				} else {

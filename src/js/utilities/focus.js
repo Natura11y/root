@@ -46,28 +46,28 @@ export const focusTrap = (element) => {
         switch (event.code) {
             case 'Tab':
 
-            if (document.activeElement === lastFocusableElement) {
-                if (!event.shiftKey) {
-                    event.preventDefault();
-                    firstFocusableElement.focus();
+                if (document.activeElement === lastFocusableElement) {
+                    if (!event.shiftKey) {
+                        event.preventDefault();
+                        firstFocusableElement.focus();
+                    }
                 }
-            }
 
-            if (document.activeElement === firstFocusableElement) {
-                if (event.shiftKey) {
-                    event.preventDefault();
-                    lastFocusableElement.focus();
+                if (document.activeElement === firstFocusableElement) {
+                    if (event.shiftKey) {
+                        event.preventDefault();
+                        lastFocusableElement.focus();
+                    }
                 }
-            }
 
-            break;
+                break;
 
             case 'Escape':
-            handleOverlayClose(element);
-            break;
+                handleOverlayClose(element);
+                break;
             
             default:
-            // do nothing
+                // do nothing
         }
     
     });
