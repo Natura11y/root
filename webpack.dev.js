@@ -16,7 +16,6 @@ const devPages = {
     'Accordion': 'accordion',
     'Alert': 'alert',
     'Article': 'article',
-    'Aspect Ratio': 'aspect-ratio',
     'Button': 'button',
     'Border': 'border',
     'Backdrop': 'backdrop',
@@ -36,7 +35,7 @@ const devPages = {
 
 const devDir = './dist/html';
 
-const devPage = `${devPages.Accordion}.html`;
+const devPage = `${devPages.Table}.html`;
 
 module.exports = merge(common, {
     mode: 'development',
