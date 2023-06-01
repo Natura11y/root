@@ -196,6 +196,6 @@ export default class Accordion {
 				}
 			});
 		});
+		
   	}
-
 }

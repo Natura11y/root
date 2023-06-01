@@ -5,6 +5,7 @@ export default class Tab {
     #tabsList = document.querySelectorAll('.tabs');
 
     // Private methods
+
     #directionalFocus(event, index, tabsButtonList, dir) {
         event.preventDefault();
 
@@ -31,14 +32,13 @@ export default class Tab {
     }
 
     // Public methods
+
     activateTab(tab, tabsButtonList, tabsPanelList) {
-        // Deactivate all other tabs
+    
         this.#deactivateTabs(tabsButtonList, tabsPanelList);
 
-        // Set the tab as selected
         tab.setAttribute('aria-selected', 'true');
 
-        // Get the value of aria-controls (which is an ID)
         let controls = tab.getAttribute('aria-controls');
         let currentTabPanel = document.getElementById(controls);
 
@@ -46,7 +46,8 @@ export default class Tab {
         currentTabPanel.removeAttribute('hidden');
     }
 
-    // Init method
+    // Public methods
+    
     init() {
 
         this.#tabsList.forEach((tab) => {

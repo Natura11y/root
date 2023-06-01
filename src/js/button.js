@@ -26,7 +26,6 @@ export default class Button {
         };
     }
 
-    // Calculate the position of the tooltip and apply corresponding CSS classes
     #tooltipPosition(buttonIconOnly, buttonTooltip) {
         const buttonTooltipWidth = buttonTooltip.offsetWidth / 2;
         const buttonPositionLeft = buttonIconOnly.offsetLeft;
@@ -41,7 +40,6 @@ export default class Button {
         }
     }
 
-    // Handle the creation and position of the tooltip, as well as the hover and focus in/out events
     #handleTooltip = (buttonIconOnly, tooltipText) => {
         const tooltipHTML = `
             <span class="button__tooltip">

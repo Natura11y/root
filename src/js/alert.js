@@ -21,7 +21,6 @@ export default class AlertDismissable {
 
       const dismissed = document.querySelector('.dismissed');
 
-      // Remove the alert after the animation ends
       dismissed.addEventListener('animationend', () => {
         alertDismissable.remove();
       });
@@ -41,5 +40,6 @@ export default class AlertDismissable {
         alertCloseButton.addEventListener('click', this.#handleAlertClose(alertDismissable));
 
     });
+    
   }
 }

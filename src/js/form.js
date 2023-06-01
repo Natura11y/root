@@ -1,5 +1,17 @@
+/*
+
+In this file:
+
+// A. Modules
+// B. Variables
+// C. Selector Resets
+// D. Placeholders
+// E. Components
+
+*/
+
 //////////////////////////////////////////////
-// Input 
+// A. Form Input 
 //////////////////////////////////////////////
 
 export default class FormInput {
@@ -131,10 +143,11 @@ export default class FormInput {
 }
 
 //////////////////////////////////////////////
-// FormSubmission 
+// B. FormSubmission 
 //////////////////////////////////////////////
 
 export class FormSubmission {
+
     // Private properties
 
     #formList = document.querySelectorAll('form[novalidate]');
@@ -228,8 +241,11 @@ export class FormSubmission {
     }
 
   #handleFormSubmission(form) {
+    
     form.addEventListener('submit', (event) => {
+
         event.preventDefault();
+
         this.#formSubmitAttempted = true;
 
         let errorsArray = [];
@@ -267,7 +283,7 @@ export class FormSubmission {
 }
 
 //////////////////////////////////////////////
-// Form File Upload
+// C. Form File Upload
 //////////////////////////////////////////////
 
 export class FormFileUpload {
@@ -277,6 +293,7 @@ export class FormFileUpload {
     #fileUploadList = document.querySelectorAll('.file-upload');
 
     // Private methods
+    
     #handleFileChange(fileUpload) {
         return function (event) {
             const [file] = event.target.files;

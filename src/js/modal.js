@@ -71,6 +71,7 @@ export default class Modal {
   }
 
   init() {
+
     this.#modalList.forEach((modal) => {
       const modalContainer = modal.querySelector('.modal__content');
       modalContainer.setAttribute('role', 'dialog');
@@ -86,5 +87,6 @@ export default class Modal {
         event.stopPropagation();
       });
     });
+    
   }
 }

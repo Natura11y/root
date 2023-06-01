@@ -64,9 +64,11 @@ export default class Collapse {
   init() {
 
     this.#collapseButtonList.forEach((collapseButton) => {
+
       collapseButton.setAttribute('aria-expanded', false);
 
       collapseButton.addEventListener('click', (event) => {
+      
         this.#toggleCollapse(event, collapseButton);
 
         if (collapseButton.hasAttribute('data-target-close')) {
@@ -76,7 +78,9 @@ export default class Collapse {
 
           this.#handleCollapseClose(closeTargetButton, closeTarget);
         }
+
       });
+
     });
 
   }

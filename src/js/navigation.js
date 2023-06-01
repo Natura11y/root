@@ -20,7 +20,6 @@ export default class Navigation {
 
     init() {
 
-        // Single click listener for window
         window.addEventListener('click', (event) => {
             this.#dropdownButtonList.forEach((dropdownButton) => {
                 let dropdownButtonParent = dropdownButton.closest('li');
@@ -36,7 +35,6 @@ export default class Navigation {
         this.#dropdownButtonList.forEach((dropdownButton) => {
             let dropdownMenu = dropdownButton.nextElementSibling;
 
-            // Check if dropdown button has corresponding dropdown menu
             if (!dropdownMenu) {
                 console.warn(`No dropdown menu found for dropdown button ${dropdownButton}`);
                 return;
@@ -45,7 +43,6 @@ export default class Navigation {
             dropdownButton.setAttribute('aria-expanded', 'false');
             dropdownButton.setAttribute('aria-haspopup', 'true');
 
-            // Handle click event on the dropdown button
             dropdownButton.addEventListener('click', (event) => {
                 event.preventDefault();
                 this.#toggleDropdown(dropdownButton, dropdownMenu);
