@@ -26,12 +26,14 @@ export const handleOverlayOpen = (element) => {
 
     rootElement.classList.add('has-overlay');
 
-    element.setAttribute('aria-hidden', false);
+    if(element && element.getAttribute('aria-hidden') === 'true') {
+        element.setAttribute('aria-hidden', false);
+    }
 
     focusTrap(element);
 }
 
-export const handleOverlayClose = (element, event) => {
+export const handleOverlayClose = (element) => {
 
     rootElement.removeAttribute('style');
 
@@ -40,8 +42,10 @@ export const handleOverlayClose = (element, event) => {
     if(!rootElement.classList.length){ 
         rootElement.removeAttribute('class');
     }
-    
-    element.setAttribute('aria-hidden', true);
+
+    if(element && element.getAttribute('aria-hidden') === 'false') {
+        element.setAttribute('aria-hidden', true);
+    }
 
     window.scrollTo({ top: scrollPosition, behavior: 'instant' });
     

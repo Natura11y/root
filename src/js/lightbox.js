@@ -141,8 +141,8 @@ export default class Lightbox {
     const lightboxClose = lightbox.querySelector('[data-lightbox-close]');
 
     lightbox.querySelector('.lightbox__image').classList.add('box-shadow-3');
-    lightboxClose.addEventListener('click', this.#handleLightboxClose);
     lightbox.addEventListener('click', this.#handleLightboxClose);
+    lightboxClose.addEventListener('click', this.#handleLightboxClose);
 
     lightboxPrevious.addEventListener('click', this.#handleLightboxUpdateClick);
     lightboxNext.addEventListener('click', this.#handleLightboxUpdateClick);
