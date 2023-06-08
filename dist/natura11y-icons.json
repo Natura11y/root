@@ -93,5 +93,7 @@
    "car": 61788,
    "sign-in": 61789,
    "sign-out": 61790,
-   "clear": 61791
+   "clear": 61791,
+   "zoom-in": 61792,
+   "zoom-out": 61793
 }
