@@ -26,8 +26,12 @@ In this file:
 
   --lightbox-overlay-color: black;
   --lightbox-overlay-opacity: 0.8;
-  
+
   --lightbox-z-index: 100000;
+
+  // Icon
+
+  --icon-enlarge: "\f160";
 }
 
 //////////////////////////////////////////////
@@ -36,7 +40,7 @@ In this file:
 
 @layer component {
 
-    // Lightbox Block
+  // Lightbox Block
 
   .lightbox,
   .lightbox::before {
@@ -69,19 +73,56 @@ In this file:
         pointer-events: none;
     }
 
-    img {
-      // max-width: 90vw;
-      max-height: 80vh;
-
-      cursor: pointer;
-    }
-
     display: none;
 
     &[aria-hidden="false"] {
       display: flex;
     }
 
+  }
+
+  // Lightbox Button
+
+  .lightbox-button {
+      --button-icon-only-size: 1em;
+
+      display: flex;
+
+      text-align: center;
+
+      position: relative;
+      
+      cursor: pointer;
+
+      &::after {
+
+          @extend .icon_font;
+          
+          content: var(--icon-enlarge);
+
+          display: inline-flex;
+          flex-shrink: 0;
+
+          align-items: center;
+          justify-content: center;
+
+          width: var(--button-icon-only-size);
+          height: var(--button-icon-only-size);
+
+          padding: 20px;
+
+          position: absolute;
+          inset-block-end: 0;
+          inset-inline-end: 0;
+
+          color: white;
+
+          opacity: 0.875;
+          
+          background-color: var(--lightbox-overlay-color);
+          
+          aspect-ratio: 1 / 1;
+      }
   }
 
   // Lightbox Elements
@@ -123,6 +164,11 @@ In this file:
       }
   }
 
+  .lightbox__media {
+    max-width: 100vw;
+    max-height: 80vh;
+  }
+
   .lightbox__caption {
       font-size: var(--font-size-md);
 
@@ -130,47 +176,5 @@ In this file:
       
       margin-block-start: var(--lightbox-padding-y);
   }
-
-  .lightbox-element {
-      --button-icon-only-size: 1em;
-
-      display: flex;
-
-      text-align: center;
-
-      position: relative;
-      
-      cursor: pointer;
-
-      &::after {
-
-          @extend .icon_font;
-          
-          content: '\f13d';
-
-          display: inline-flex;
-          flex-shrink: 0;
-
-          align-items: center;
-          justify-content: center;
-
-          width: var(--button-icon-only-size);
-          height: var(--button-icon-only-size);
-
-          padding: 20px;
-
-          position: absolute;
-          inset-block-end: 0;
-          inset-inline-end: 0;
-
-          color: white;
-
-          opacity: 0.875;
-          
-          background-color: var(--lightbox-overlay-color);
-          
-          aspect-ratio: 1 / 1;
-      }
-  }
-
+  
 } // end @layer

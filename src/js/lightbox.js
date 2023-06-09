@@ -19,12 +19,17 @@ export default class Lightbox {
       </button>
     </div>
     <figure class="lightbox__container">
-      <div class="lightbox__image"></div>           
+      <div class="lightbox__media"></div>           
       <figcaption class="lightbox__caption">A caption for the image.</figcaption>
     </figure>
   `);
 
-  #lightboxVideoHTML = `<video controls><source src="" type="video/mp4"></video>`;
+  #lightboxVideoHTML = (`
+    <video controls>
+      <source src="" type="video/mp4">
+    </video>
+  `);
+  
   #lightboxElementHTML = `<img src="https://source.unsplash.com/1600x900" />`;
   
   #lightboxes = [];
@@ -105,7 +110,7 @@ export default class Lightbox {
   }
 
   #updateLightbox(index) {
-    const lightboxElement = this.lightbox.querySelector('.lightbox__image');
+    const lightboxElement = this.lightbox.querySelector('.lightbox__media');
     const lightboxCaption = this.lightbox.querySelector('.lightbox__caption');
 
     let lightboxElementTarget;
@@ -140,7 +145,7 @@ export default class Lightbox {
     const lightboxNext = lightbox.querySelector('[data-lightbox-next]');
     const lightboxClose = lightbox.querySelector('[data-lightbox-close]');
 
-    lightbox.querySelector('.lightbox__image').classList.add('box-shadow-3');
+    lightbox.querySelector('.lightbox__media').classList.add('box-shadow-3');
     lightbox.addEventListener('click', this.#handleLightboxClose);
     lightboxClose.addEventListener('click', this.#handleLightboxClose);
 
@@ -155,7 +160,7 @@ export default class Lightbox {
   #configureLightboxElements() {
     this.#lightboxImages.forEach((image, index) => {
       const wrapper = document.createElement('button');
-      wrapper.setAttribute('class', 'lightbox-element');
+      wrapper.setAttribute('class', 'lightbox-button');
       this.#wrapWithButton(image, wrapper);
       this.#lightboxes.push(this.#setImgProperties(image));
     });
