@@ -34,6 +34,9 @@ export default class Lightbox {
   
   #lightboxes = [];
 
+#originalWidth = 0;
+#originalHeight = 0;
+
   // Private methods
 
   #handleLightboxOpen = (image, index) => (e) => {
@@ -51,6 +54,15 @@ export default class Lightbox {
     handleOverlayOpen(this.lightbox);
     
     this.#updateLightbox(index);
+
+
+  // Capture the original size
+  const lightboxMedia = this.lightbox.querySelector('.lightbox__media');
+  this.#originalWidth = lightboxMedia.offsetWidth;
+  this.#originalHeight = lightboxMedia.offsetHeight;
+
+  // call initResizeObserver after the lightbox has been created and updated
+  this.#initResizeObserver();
   };
 
   #handleLightboxClose = (e) => {
@@ -225,6 +237,37 @@ export default class Lightbox {
     });
   }
 
+
+#initResizeObserver() {
+  const lightbox = this.lightbox;
+  const lightboxMedia = lightbox.querySelector('.lightbox__media');
+  
+  // Get the initial aspect ratio of the lightboxMedia
+  const aspectRatio = this.#originalWidth / this.#originalHeight;
+  
+  // Create the ResizeObserver
+  const resizeObserver = new ResizeObserver(entries => {
+    for (let entry of entries) {
+      // Only handle changes to the lightbox element
+      if (entry.target === lightbox) {
+        // Calculate the new dimensions based on the aspect ratio
+        let newHeight = entry.contentRect.width / aspectRatio;
+        let newWidth = entry.contentRect.height * aspectRatio;
+
+        // Limit the size to the original size
+        newHeight = Math.min(newHeight, this.#originalHeight);
+        newWidth = Math.min(newWidth, this.#originalWidth);
+
+        // Apply the new dimensions to the lightboxMedia
+        lightboxMedia.style.height = `${newHeight}px`;
+        lightboxMedia.style.width = `${newWidth}px`;
+      }
+    }
+  });
+
+  // Start observing the lightbox
+  resizeObserver.observe(lightbox);
+}
   // Public methods
 
   init() {
