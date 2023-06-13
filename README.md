@@ -12,7 +12,7 @@ Natura11y is an open-source front-end toolkit for building modern websites. It's
 
 Natura11y Icons:
 
-`https://cdn.jsdelivr.net/gh/cavidano/natura11y-icons@latest/dist/natura11y-icons.min.css`
+`https://cdn.jsdelivr.net/gh/cavidano/natura11y-icons@main/dist/natura11y-icons.min.css`
 
 Natura11y Stylesheet:
 
