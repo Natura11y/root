@@ -34,16 +34,17 @@ export default class Lightbox {
   
   #lightboxes = [];
 
-#originalWidth = 0;
-#originalHeight = 0;
-
   // Private methods
 
   #handleLightboxOpen = (image, index) => (e) => {
 
-	const hasLightbox = document.querySelector('.lightbox');
+    const lbTybe = image.getAttribute('data-lightbox') || 'image';
 
-	if (hasLightbox) return;
+    console.log('my image is', lbTybe);
+
+    const hasLightbox = document.querySelector('.lightbox');
+
+    if (hasLightbox) return;
 
     e.preventDefault();
 
@@ -54,15 +55,6 @@ export default class Lightbox {
     handleOverlayOpen(this.lightbox);
     
     this.#updateLightbox(index);
-
-
-  // Capture the original size
-  const lightboxMedia = this.lightbox.querySelector('.lightbox__media');
-  this.#originalWidth = lightboxMedia.offsetWidth;
-  this.#originalHeight = lightboxMedia.offsetHeight;
-
-  // call initResizeObserver after the lightbox has been created and updated
-  this.#initResizeObserver();
   };
 
   #handleLightboxClose = (e) => {
@@ -130,7 +122,34 @@ export default class Lightbox {
     if (this.#lightboxes[index].imgType === 'video') {
       lightboxElement.innerHTML = this.#lightboxVideoHTML;
       lightboxElementTarget = lightboxElement.querySelector('source');
+
+      let video = lightboxElement.querySelector('video');
+
+      video.addEventListener('loadedmetadata', function() {
+
+        // The intrinsic width and height of the video
+        let intrinsicWidth = this.videoWidth;
+        let intrinsicHeight = this.videoHeight;
+
+        // The aspect ratio of the video
+        let aspectRatio = intrinsicWidth / intrinsicHeight;
+
+        console.log('aspectRatio', intrinsicWidth, intrinsicHeight, aspectRatio);
+
+        lightboxElement.style.aspectRatio = `${intrinsicWidth} / ${intrinsicHeight}`;
+
+      });
+
     } else {
+
+      // ?: How do I remove style aspect ratio from lightbox element if it's not a video?
+
+
+      if (lightboxElement.hasAttribute('style')) {
+        lightboxElement.removeAttribute('style');
+      }
+
+
       lightboxElement.innerHTML = this.#lightboxElementHTML;
       lightboxElementTarget = lightboxElement.querySelector('img');
       lightboxElementTarget.alt = this.#lightboxes[index].imgAlt;
@@ -142,6 +161,7 @@ export default class Lightbox {
     if (this.#lightboxes[index].imgWidth) {
       lightboxElementTarget.setAttribute('width', this.#lightboxes[index].imgWidth);
     }
+
   }
 
   #createLightbox() {
@@ -237,37 +257,6 @@ export default class Lightbox {
     });
   }
 
-
-#initResizeObserver() {
-  const lightbox = this.lightbox;
-  const lightboxMedia = lightbox.querySelector('.lightbox__media');
-  
-  // Get the initial aspect ratio of the lightboxMedia
-  const aspectRatio = this.#originalWidth / this.#originalHeight;
-  
-  // Create the ResizeObserver
-  const resizeObserver = new ResizeObserver(entries => {
-    for (let entry of entries) {
-      // Only handle changes to the lightbox element
-      if (entry.target === lightbox) {
-        // Calculate the new dimensions based on the aspect ratio
-        let newHeight = entry.contentRect.width / aspectRatio;
-        let newWidth = entry.contentRect.height * aspectRatio;
-
-        // Limit the size to the original size
-        newHeight = Math.min(newHeight, this.#originalHeight);
-        newWidth = Math.min(newWidth, this.#originalWidth);
-
-        // Apply the new dimensions to the lightboxMedia
-        lightboxMedia.style.height = `${newHeight}px`;
-        lightboxMedia.style.width = `${newWidth}px`;
-      }
-    }
-  });
-
-  // Start observing the lightbox
-  resizeObserver.observe(lightbox);
-}
   // Public methods
 
   init() {
@@ -277,4 +266,5 @@ export default class Lightbox {
     this.#initLazyLoading();
     
   }
+
 }
