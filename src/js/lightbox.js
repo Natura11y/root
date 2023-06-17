@@ -120,16 +120,17 @@ export default class Lightbox {
     let lightboxElementTarget;
 
     if (this.#lightboxes[index].imgType === 'video') {
+
       lightboxElement.innerHTML = this.#lightboxVideoHTML;
       lightboxElementTarget = lightboxElement.querySelector('source');
 
       let video = lightboxElement.querySelector('video');
 
-      video.addEventListener('loadedmetadata', function() {
-
+      video.addEventListener('loadedmetadata', () => {
+      
         // The intrinsic width and height of the video
-        let intrinsicWidth = this.videoWidth;
-        let intrinsicHeight = this.videoHeight;
+        let intrinsicWidth = video.videoWidth;
+        let intrinsicHeight = video.videoHeight;
 
         // The aspect ratio of the video
         let aspectRatio = intrinsicWidth / intrinsicHeight;
@@ -137,18 +138,13 @@ export default class Lightbox {
         console.log('aspectRatio', intrinsicWidth, intrinsicHeight, aspectRatio);
 
         lightboxElement.style.aspectRatio = `${intrinsicWidth} / ${intrinsicHeight}`;
-
       });
 
     } else {
 
-      // ?: How do I remove style aspect ratio from lightbox element if it's not a video?
-
-
       if (lightboxElement.hasAttribute('style')) {
         lightboxElement.removeAttribute('style');
       }
-
 
       lightboxElement.innerHTML = this.#lightboxElementHTML;
       lightboxElementTarget = lightboxElement.querySelector('img');
@@ -177,7 +173,6 @@ export default class Lightbox {
     const lightboxNext = lightbox.querySelector('[data-lightbox-next]');
     const lightboxClose = lightbox.querySelector('[data-lightbox-close]');
 
-    lightbox.querySelector('.lightbox__media').classList.add('box-shadow-3');
     lightbox.addEventListener('click', this.#handleLightboxClose);
     lightboxClose.addEventListener('click', this.#handleLightboxClose);
 
@@ -220,6 +215,7 @@ export default class Lightbox {
   }
 
   #initLazyLoading() {
+
     const options = {
       root: null,
       rootMargin: '0px',
