@@ -91,6 +91,11 @@ In this file:
       display: flex;
     }
 
+    outline: 3px solid rgb(55, 0, 255);
+    outline-offset: -3px;
+
+    overflow-y: scroll;
+
   }
 
   // Lightbox Button
@@ -105,6 +110,7 @@ In this file:
       position: relative;
       
       cursor: pointer;
+
 
       &::after {
 
@@ -142,7 +148,11 @@ In this file:
   .lightbox__buttons {
     justify-content: end;
     
-    // padding: var(--spacer-2);
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline-end: 0;
+
+    padding: var(--lightbox-padding-y) var(--lightbox-padding-x);
 
     color: white;
 
@@ -164,14 +174,18 @@ In this file:
 
       min-width: 350px;
 
+    min-height: 500px;
+
+
+
+    outline: 3px solid rgb(255, 0, 55);
+
       display: flex;
       flex-direction: column;
 
       > figcaption {
           display: table-caption;
       }
-  
-      outline: 3px solid red;
 
   }
 
@@ -179,7 +193,7 @@ In this file:
     outline: 3px solid rgb(47, 0, 255);
 
     max-width: 100vw;
-      max-height: 80vh;
+      max-height: 100%;
     flex-shrink: 1;
 
     img,
@@ -192,7 +206,7 @@ In this file:
     }
 
     img {
-      min-width: 100%;
+      // min-width: 100%;
     }
 
     video {
