@@ -26,7 +26,7 @@ export default class Lightbox {
 
   #lightboxVideoHTML = (`
     <video controls>
-      <source type="video/mp4">
+      <source src="" type="video/mp4">
     </video>
   `);
   
@@ -39,6 +39,8 @@ export default class Lightbox {
   #handleLightboxOpen = (image, index) => (e) => {
 
     const lbTybe = image.getAttribute('data-lightbox') || 'image';
+
+    console.log('my image is', lbTybe);
 
     const hasLightbox = document.querySelector('.lightbox');
 
@@ -131,7 +133,10 @@ export default class Lightbox {
         let intrinsicHeight = video.videoHeight;
 
         // The aspect ratio of the video
-        lightboxElement.style.maxWidth = `${intrinsicWidth}px`;
+        let aspectRatio = intrinsicWidth / intrinsicHeight;
+
+        console.log('aspectRatio', intrinsicWidth, intrinsicHeight, aspectRatio);
+
         lightboxElement.style.aspectRatio = `${intrinsicWidth} / ${intrinsicHeight}`;
       });
 
