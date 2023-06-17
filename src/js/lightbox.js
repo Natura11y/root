@@ -26,7 +26,7 @@ export default class Lightbox {
 
   #lightboxVideoHTML = (`
     <video controls>
-      <source src="" type="video/mp4">
+      <source type="video/mp4">
     </video>
   `);
   
@@ -38,9 +38,11 @@ export default class Lightbox {
 
   #handleLightboxOpen = (image, index) => (e) => {
 
-	const hasLightbox = document.querySelector('.lightbox');
+    const lbTybe = image.getAttribute('data-lightbox') || 'image';
 
-	if (hasLightbox) return;
+    const hasLightbox = document.querySelector('.lightbox');
+
+    if (hasLightbox) return;
 
     e.preventDefault();
 
@@ -116,9 +118,29 @@ export default class Lightbox {
     let lightboxElementTarget;
 
     if (this.#lightboxes[index].imgType === 'video') {
+
       lightboxElement.innerHTML = this.#lightboxVideoHTML;
       lightboxElementTarget = lightboxElement.querySelector('source');
+
+      let video = lightboxElement.querySelector('video');
+
+      video.addEventListener('loadedmetadata', () => {
+      
+        // The intrinsic width and height of the video
+        let intrinsicWidth = video.videoWidth;
+        let intrinsicHeight = video.videoHeight;
+
+        // The aspect ratio of the video
+        lightboxElement.style.maxWidth = `${intrinsicWidth}px`;
+        lightboxElement.style.aspectRatio = `${intrinsicWidth} / ${intrinsicHeight}`;
+      });
+
     } else {
+
+      if (lightboxElement.hasAttribute('style')) {
+        lightboxElement.removeAttribute('style');
+      }
+
       lightboxElement.innerHTML = this.#lightboxElementHTML;
       lightboxElementTarget = lightboxElement.querySelector('img');
       lightboxElementTarget.alt = this.#lightboxes[index].imgAlt;
@@ -130,6 +152,7 @@ export default class Lightbox {
     if (this.#lightboxes[index].imgWidth) {
       lightboxElementTarget.setAttribute('width', this.#lightboxes[index].imgWidth);
     }
+
   }
 
   #createLightbox() {
@@ -145,7 +168,6 @@ export default class Lightbox {
     const lightboxNext = lightbox.querySelector('[data-lightbox-next]');
     const lightboxClose = lightbox.querySelector('[data-lightbox-close]');
 
-    lightbox.querySelector('.lightbox__media').classList.add('box-shadow-3');
     lightbox.addEventListener('click', this.#handleLightboxClose);
     lightboxClose.addEventListener('click', this.#handleLightboxClose);
 
@@ -188,6 +210,7 @@ export default class Lightbox {
   }
 
   #initLazyLoading() {
+
     const options = {
       root: null,
       rootMargin: '0px',
@@ -234,4 +257,5 @@ export default class Lightbox {
     this.#initLazyLoading();
     
   }
+
 }
