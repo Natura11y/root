@@ -145,13 +145,25 @@ export default class Lightbox {
     if (lightboxElement.hasAttribute('style')) {
       lightboxElement.removeAttribute('style');
     }
+    // Add spinner
+    const spinner = document.createElement('div');
+    spinner.className = 'spinner';
+    spinner.innerHTML = '<span class="icon icon-loading icon--rotate" aria-hidden="true"></span>';
 
     lightboxElement.innerHTML = this.#lightboxElementHTML;
+
+    lightboxElement.appendChild(spinner);
   
     const lightboxElementTarget = lightboxElement.querySelector('img');
   
     lightboxElementTarget.alt = lbAlt;
     lightboxElementTarget.src = lbSrc;
+
+    lightboxElementTarget.onload = () => {
+			if (spinner && spinner.parentNode) {
+				spinner.parentNode.removeChild(spinner);
+			}
+		};
 
     if (lbWidth) {
       lightboxElementTarget.setAttribute('width', lbWidth);
@@ -181,7 +193,6 @@ export default class Lightbox {
 
     return lightboxElementTarget;
   }
-
 
   #createLightbox() {
     const lightbox = document.createElement('div');

@@ -207,4 +207,18 @@ In this file:
     margin-block: var(--lightbox-padding-y);
   }
   
+.lightbox__media {
+  position: relative;
+}
+
+.spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+
+
 } // end @layer
