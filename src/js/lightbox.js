@@ -249,7 +249,7 @@ export default class Lightbox {
   }
 
   #initLazyLoading() {
-
+    
     const options = {
       root: null,
       rootMargin: '0px',
@@ -268,13 +268,16 @@ export default class Lightbox {
           hiddenLargeImage.style.display = 'none';
 
           document.body.appendChild(hiddenLargeImage);
-          
-		      this.#lightboxes[Number(lazyImage.dataset.index)].hiddenImage = hiddenLargeImage;
+
+          this.#lightboxes[Number(lazyImage.dataset.index)].hiddenImage = hiddenLargeImage;
         }
       });
     }, options);
 
-    this.#lightboxImages.forEach((image, index) => {
+    // Filter out video elements before observing
+    const lazyImages = Array.from(this.#lightboxImages).filter(img => img.getAttribute('data-lightbox') === 'image');
+
+    lazyImages.forEach((image, index) => {
       image.dataset.index = index;
       observer.observe(image);
     });
