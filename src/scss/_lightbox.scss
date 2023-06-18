@@ -97,7 +97,9 @@ In this file:
 
   // Lightbox Button
 
-  .lightbox-button {
+  // .lightbox-button {}
+
+  .lightbox-button--has-icon {
     --button-icon-only-size: 1em;
 
     display: flex;
@@ -108,9 +110,6 @@ In this file:
 
     cursor: pointer;
 
-  }
-
-  .lightbox-button--has-icon {
     &::after {
       @extend .icon_font;
 
@@ -213,9 +212,11 @@ In this file:
 
   .lightbox__media__loader {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+
     transform: translate(-50%, -50%);
+    
     color: white;
   }
     

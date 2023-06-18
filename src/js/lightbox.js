@@ -256,10 +256,13 @@ export default class Lightbox {
         lightboxButton.setAttribute('data-lightbox', lightboxTarget.getAttribute('data-lightbox'));
 
         lightboxButton.setAttribute('data-lightbox-src', lightboxTarget.getAttribute('data-lightbox-src') || null);
-        lightboxButton.setAttribute('data-lightbox-caption', lightboxTarget.getAttribute('data-lightbox-caption') || null);
+
+        let caption = lightboxTarget.getAttribute('data-lightbox-caption');
+        if (caption !== null) {
+          lightboxButton.setAttribute('data-lightbox-caption', caption);
+        }
 
         lightboxButton.setAttribute('data-lightbox-src', lightboxTarget.getAttribute('data-lightbox-src') || null);
-        lightboxButton.setAttribute('data-lightbox-caption', lightboxTarget.getAttribute('data-lightbox-caption') || null);
 
         lightboxTarget.removeAttribute('data-lightbox');
         lightboxTarget.removeAttribute('data-lightbox-src');
