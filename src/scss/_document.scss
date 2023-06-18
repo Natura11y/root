@@ -156,8 +156,12 @@ In this file:
 
         overflow: hidden;
 
+        display: flex;
+        justify-content: center;
+
         body {
             top: var(--top);
+            margin-inline: auto;
         }
     }
 

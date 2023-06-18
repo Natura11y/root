@@ -34,7 +34,7 @@ export default class Lightbox {
     <div class="lightbox__media__loader">
       <span class="icon icon-loading icon--rotate" aria-hidden="true"></span>
     </div>
-    <div class="lightbox__media__error">
+    <div class="lightbox__media__error" style="display: none;">
       <span class="icon icon-warn" aria-hidden="true"></span>
       <p>Failed to load content. Please try again later.</p>
     </div>
@@ -239,8 +239,6 @@ export default class Lightbox {
   #configureLightboxElements() {
 
     this.#lightboxTargetList.forEach((lightboxTarget) => {
-
-      console.log(lightboxTarget.nodeName);
       
       let lightboxButton;
 
@@ -400,8 +398,6 @@ export default class Lightbox {
   // Public methods
 
   init() {
-
-    console.log('my light boxes are: ', this.#lightboxes);
 
     this.#configureLightboxElements();
     this.#initLazyLoading();
