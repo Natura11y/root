@@ -98,44 +98,44 @@ In this file:
   // Lightbox Button
 
   .lightbox-button {
-      --button-icon-only-size: 1em;
+    --button-icon-only-size: 1em;
 
-      display: flex;
+    display: flex;
 
-      text-align: center;
+    text-align: center;
 
-      position: relative;
-      
-      cursor: pointer;
+    position: relative;
 
-      &::after {
-          @extend .icon_font;
-          
-          content: var(--icon-enlarge);
+    cursor: pointer;
 
-          display: inline-flex;
-          flex-shrink: 0;
+    &::after {
+      @extend .icon_font;
 
-          align-items: center;
-          justify-content: center;
+      content: var(--icon-enlarge);
 
-          width: var(--button-icon-only-size);
-          height: var(--button-icon-only-size);
+      display: inline-flex;
+      flex-shrink: 0;
 
-          padding: 20px;
+      align-items: center;
+      justify-content: center;
 
-          position: absolute;
-          inset-block-end: 0;
-          inset-inline-end: 0;
+      width: var(--button-icon-only-size);
+      height: var(--button-icon-only-size);
 
-          color: white;
+      padding: 20px;
 
-          opacity: 0.875;
-          
-          background-color: var(--lightbox-overlay-color);
-          
-          aspect-ratio: 1 / 1;
-      }
+      position: absolute;
+      inset-block-end: 0;
+      inset-inline-end: 0;
+
+      color: white;
+
+      opacity: 0.875;
+
+      background-color: var(--lightbox-overlay-color);
+
+      aspect-ratio: 1 / 1;
+    }
   }
 
   // Lightbox Elements
@@ -175,6 +175,7 @@ In this file:
   }
 
   .lightbox__media {
+    position: relative;
     max-width: 100vw;
 
     img,
@@ -199,26 +200,23 @@ In this file:
 
   .lightbox__caption {
     display: table-caption;
-    
+
     font-size: var(--font-size-md);
 
     color: white;
-    
+
     margin-block: var(--lightbox-padding-y);
   }
-  
-.lightbox__media {
-  position: relative;
 
-  .loader {
+  .lightbox__media__loader {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
   }
-
-  .error-message{
+    
+  .lightbox__media__error {
     text-align: center;
     min-width: 20rem;
     display: block;
@@ -228,6 +226,5 @@ In this file:
       margin-block-end: 0.25em;
     }
   }
-}
-
+  
 } // end @layer

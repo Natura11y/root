@@ -7,7 +7,7 @@ export default class Lightbox {
   #lightboxImages = document.querySelectorAll('img[data-lightbox]');
 
   #lightboxHTML = (`
-    <div class="button-group lightbox__buttons">
+    <div class="lightbox__buttons button-group">
       <button class="button button--icon-only" data-lightbox-previous>
         <span class="icon icon-arrow-left" aria-label="Previous" aria-hidden="true"></span>
       </button>
@@ -31,8 +31,10 @@ export default class Lightbox {
   `);
 
   #lighboxLoaderHTML = (`
-    <span class="icon icon-loading icon--rotate" aria-hidden="true"></span>
-    <div class="error-message" style="display: none;">
+    <div class="lightbox__media__loader">
+      <span class="icon icon-loading icon--rotate" aria-hidden="true"></span>
+    </div>
+    <div class="lightbox__media__error">
       <span class="icon icon-warn" aria-hidden="true"></span>
       <p>Failed to load content. Please try again later.</p>
     </div>
@@ -132,7 +134,13 @@ export default class Lightbox {
     let lightboxElementTarget;
 
     // Extract lightbox object data into variables
-    const { lbType, lbSrc, lbAlt, lbCaption, lbWidth } = this.#lightboxes[index];
+    const { 
+      lbType, 
+      lbSrc, 
+      lbAlt, 
+      lbCaption, 
+      lbWidth 
+    } = this.#lightboxes[index];
 
     // Update caption display based on attribute presence
     const shouldDisplayCaption = lbCaption !== null;
@@ -269,7 +277,7 @@ export default class Lightbox {
 
     const loader = document.createElement('div');
   
-    loader.className = 'loader';
+    loader.className = 'lightbox__media__loader';
     loader.innerHTML = this.#lighboxLoaderHTML;
     return loader;
   };
@@ -289,8 +297,8 @@ export default class Lightbox {
     });
 
     media.onerror = () => {
-      const loaderIcon = loader.querySelector('.icon-loading');
-      const errorMessage = loader.querySelector('.error-message');
+      const loaderIcon = loader.querySelector('.lightbox__media__loader');
+      const errorMessage = loader.querySelector('.lightbox__media__error');
     
       // Hide the media on error
       media.style.display = 'none';
@@ -300,7 +308,6 @@ export default class Lightbox {
       errorMessage.style.display = 'block';
     };
   };
-
 
   #initLazyLoading() {
     
@@ -314,14 +321,26 @@ export default class Lightbox {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const lazyImage = entry.target;
+
+          // Check if lazy image has a valid source
+          const src = lazyImage.dataset.lightboxSrc || lazyImage.src;
+          if (!src) return;
+
           observer.unobserve(lazyImage);
 
           // Create and load hidden large image
           const hiddenLargeImage = new Image();
-          hiddenLargeImage.src = lazyImage.dataset.lightboxSrc || lazyImage.src;
-          hiddenLargeImage.style.display = 'none';
+          
+          hiddenLargeImage.onload = () => {
+            document.body.appendChild(hiddenLargeImage);
+          };
 
-          document.body.appendChild(hiddenLargeImage);
+          hiddenLargeImage.onerror = () => {
+            console.error(`Failed to load image: ${src}`);
+          };
+          
+          hiddenLargeImage.src = src;
+          hiddenLargeImage.style.display = 'none';
 
           this.#lightboxes[Number(lazyImage.dataset.index)].hiddenImage = hiddenLargeImage;
         }
