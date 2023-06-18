@@ -367,4 +367,17 @@ export default class Lightbox {
     
   }
 
+  initLightbox(element, lbType = 'image', lbSrc, lbCaption = null, lbAlt = '', lbWidth = null) {
+    if (element instanceof HTMLImageElement) {
+      const wrapper = document.createElement('button');
+      wrapper.setAttribute('class', 'lightbox-button');
+      this.#wrapWithButton(element, wrapper);
+      this.#lightboxes.push(this.#setImgProperties(element, lbType, lbSrc, lbCaption, lbAlt, lbWidth));
+    } else if (element instanceof HTMLButtonElement) {
+      this.#lightboxes.push(this.#setImgProperties(element, lbType, lbSrc, lbCaption, lbAlt, lbWidth));
+    } else {
+      console.error('Invalid element provided. Please provide a valid HTMLImageElement or HTMLButtonElement.');
+    }
+  }
+
 }
