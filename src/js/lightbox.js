@@ -118,52 +118,70 @@ export default class Lightbox {
 
     let lightboxElementTarget;
 
-    switch (this.#lightboxes[index].lbType) {
+    // Extract lightbox object data into variables
+    const { lbType, lbSrc, lbAlt, lbCaption, lbWidth } = this.#lightboxes[index];
+
+    switch (lbType) {
 
       case 'image':
-
-        if (lightboxElement.hasAttribute('style')) {
-          lightboxElement.removeAttribute('style');
-        }
-
-        lightboxElement.innerHTML = this.#lightboxElementHTML;
-        lightboxElementTarget = lightboxElement.querySelector('img');
-        lightboxElementTarget.alt = this.#lightboxes[index].lbAlt;
-
+        // Call image update function
+        lightboxElementTarget = this.#updateLightboxImage(lightboxElement, lbSrc, lbAlt, lbWidth);
         break;
 
       case 'video':
-
-        lightboxElement.innerHTML = this.#lightboxVideoHTML;
-        lightboxElementTarget = lightboxElement.querySelector('source');
-
-        let video = lightboxElement.querySelector('video');
-
-        video.addEventListener('loadedmetadata', () => {
-        
-          // The intrinsic width and height of the video
-          let intrinsicWidth = video.videoWidth;
-          let intrinsicHeight = video.videoHeight;
-
-          // The aspect ratio of the video
-          lightboxElement.style.maxWidth = `${intrinsicWidth}px`;
-          lightboxElement.style.aspectRatio = `${intrinsicWidth} / ${intrinsicHeight}`;
-        });
-
+        // Call video update function
+        lightboxElementTarget = this.#updateLightboxVideo(lightboxElement, lbSrc);
         break;
     
       default:
         break;
     }
 
-    lightboxElementTarget.src = this.#lightboxes[index].lbSrc;
-    lightboxCaption.innerHTML = this.#lightboxes[index].lbCaption;
+    lightboxCaption.innerHTML = lbCaption;
+  }
 
-    if (this.#lightboxes[index].lbWidth) {
-      lightboxElementTarget.setAttribute('width', this.#lightboxes[index].lbWidth);
+  #updateLightboxImage(lightboxElement, lbSrc, lbAlt, lbWidth) {
+
+    if (lightboxElement.hasAttribute('style')) {
+      lightboxElement.removeAttribute('style');
     }
 
+    lightboxElement.innerHTML = this.#lightboxElementHTML;
+  
+    const lightboxElementTarget = lightboxElement.querySelector('img');
+  
+    lightboxElementTarget.alt = lbAlt;
+    lightboxElementTarget.src = lbSrc;
+
+    if (lbWidth) {
+      lightboxElementTarget.setAttribute('width', lbWidth);
+    }
+
+    return lightboxElementTarget;
   }
+
+  #updateLightboxVideo(lightboxElement, lbSrc) {
+  
+    lightboxElement.innerHTML = this.#lightboxVideoHTML;
+  
+    const lightboxElementTarget = lightboxElement.querySelector('source');
+    const video = lightboxElement.querySelector('video');
+
+    video.addEventListener('loadedmetadata', () => {
+      // The intrinsic width and height of the video
+      let intrinsicWidth = video.videoWidth;
+      let intrinsicHeight = video.videoHeight;
+
+      // The aspect ratio of the video
+      lightboxElement.style.maxWidth = `${intrinsicWidth}px`;
+      lightboxElement.style.aspectRatio = `${intrinsicWidth} / ${intrinsicHeight}`;
+    });
+
+    lightboxElementTarget.src = lbSrc;
+
+    return lightboxElementTarget;
+  }
+
 
   #createLightbox() {
     const lightbox = document.createElement('div');
