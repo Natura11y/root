@@ -139,7 +139,7 @@ export default class Lightbox {
       lbSrc, 
       lbAlt, 
       lbCaption, 
-      lbWidth 
+      lbWidth
     } = this.#lightboxes[index];
 
     // Update caption display based on attribute presence
