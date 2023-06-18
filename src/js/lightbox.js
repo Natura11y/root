@@ -20,7 +20,7 @@ export default class Lightbox {
     </div>
     <figure class="lightbox__container">
       <div class="lightbox__media"></div>           
-      <figcaption class="lightbox__caption">A caption for the image.</figcaption>
+      <figcaption class="lightbox__caption"></figcaption>
     </figure>
   `);
 
@@ -132,7 +132,10 @@ export default class Lightbox {
     let lightboxElementTarget;
 
     // Extract lightbox object data into variables
-    const { lbType, lbSrc, lbAlt, lbCaption, lbWidth } = this.#lightboxes[index];
+    const { lbType, lbSrc, lbAlt, lbCaption, lbWidth, lbCaptionDisplay } = this.#lightboxes[index];
+
+    // Set initial caption display state based on attribute
+    this.#handleCaptionDisplay(lbCaptionDisplay);
 
     switch (lbType) {
 
@@ -249,6 +252,7 @@ export default class Lightbox {
     const lbCaption = image.getAttribute('data-lightbox-caption') || image.alt || null;
     const lbAlt = image.getAttribute('data-lightbox-alt') || image.alt || '';
     const lbWidth = image.getAttribute('data-lightbox-width') || null;
+    const lbCaptionDisplay = image.getAttribute('data-lightbox-caption-display') === 'true' ? true : false;
 
     return {
       lbType: lbType,
@@ -256,6 +260,7 @@ export default class Lightbox {
       lbCaption: lbCaption,
       lbAlt: lbAlt,
       lbWidth: lbWidth,
+      lbCaptionDisplay: lbCaptionDisplay,
     };
   }
 
@@ -274,6 +279,11 @@ export default class Lightbox {
     media.closest(media.nodeName === 'SOURCE' ? 'video' : 'img').addEventListener(mediaLoadEvent, () => {
       if (loader && loader.parentNode) {
         loader.parentNode.removeChild(loader);
+      }
+
+      // Ensure the caption is visible when the media is loaded correctly, only if lbCaptionDisplay is true
+      if(this.#lightboxes[this.currentLB].lbCaptionDisplay) {
+        this.#handleCaptionDisplay(true);
       }
     });
 
