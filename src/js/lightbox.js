@@ -132,10 +132,11 @@ export default class Lightbox {
     let lightboxElementTarget;
 
     // Extract lightbox object data into variables
-    const { lbType, lbSrc, lbAlt, lbCaption, lbWidth, lbCaptionDisplay } = this.#lightboxes[index];
+    const { lbType, lbSrc, lbAlt, lbCaption, lbWidth } = this.#lightboxes[index];
 
-    // Set initial caption display state based on attribute
-    this.#handleCaptionDisplay(lbCaptionDisplay);
+    // Update caption display based on attribute presence
+    const shouldDisplayCaption = lbCaption !== null;
+    this.#handleCaptionDisplay(shouldDisplayCaption);
 
     switch (lbType) {
 
@@ -153,7 +154,9 @@ export default class Lightbox {
         break;
     }
 
-    lightboxCaption.innerHTML = lbCaption;
+    if (shouldDisplayCaption) {
+      lightboxCaption.innerHTML = lbCaption;
+    }
   }
 
   #updateLightboxImage(lightboxElement, lbSrc, lbAlt, lbWidth) {
@@ -249,18 +252,16 @@ export default class Lightbox {
   #setImgProperties(image) {
     const lbType = image.getAttribute('data-lightbox') || 'image';
     const lbSrc = image.getAttribute('data-lightbox-src') || image.src || null;
-    const lbCaption = image.getAttribute('data-lightbox-caption') || image.alt || null;
+    const lbCaption = image.getAttribute('data-lightbox-caption') || null;
     const lbAlt = image.getAttribute('data-lightbox-alt') || image.alt || '';
     const lbWidth = image.getAttribute('data-lightbox-width') || null;
-    const lbCaptionDisplay = image.getAttribute('data-lightbox-caption-display') === 'true' ? true : false;
 
     return {
       lbType: lbType,
       lbSrc: lbSrc,
       lbCaption: lbCaption,
       lbAlt: lbAlt,
-      lbWidth: lbWidth,
-      lbCaptionDisplay: lbCaptionDisplay,
+      lbWidth: lbWidth
     };
   }
 
@@ -281,8 +282,8 @@ export default class Lightbox {
         loader.parentNode.removeChild(loader);
       }
 
-      // Ensure the caption is visible when the media is loaded correctly, only if lbCaptionDisplay is true
-      if(this.#lightboxes[this.currentLB].lbCaptionDisplay) {
+      // Ensure the caption is visible when the media is loaded correctly, only if lbCaption is present
+      if(this.#lightboxes[this.currentLB].lbCaption) {
         this.#handleCaptionDisplay(true);
       }
     });
