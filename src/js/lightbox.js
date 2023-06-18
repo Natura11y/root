@@ -4,7 +4,7 @@ export default class Lightbox {
   
   // Private properties
 
-  #lightboxImages = document.querySelectorAll('img[data-lightbox]');
+  #lightboxTriggerList = document.querySelectorAll('[data-lightbox]');
 
   #lightboxHTML = (`
     <div class="lightbox__buttons button-group">
@@ -239,11 +239,11 @@ export default class Lightbox {
   }
 
   #configureLightboxElements() {
-    this.#lightboxImages.forEach((image, index) => {
+    this.#lightboxTriggerList.forEach((lightboxTrigger, index) => {
       const wrapper = document.createElement('button');
       wrapper.setAttribute('class', 'lightbox-button');
-      this.#wrapWithButton(image, wrapper);
-      this.#lightboxes.push(this.#setImgProperties(image));
+      this.#wrapWithButton(lightboxTrigger, wrapper);
+      this.#lightboxes.push(this.#setLightboxProperties(lightboxTrigger));
     });
   }
 
@@ -252,11 +252,11 @@ export default class Lightbox {
     wrapper.appendChild(el);
   }
 
-  #setImgProperties(image) {
-    const lbType = image.getAttribute('data-lightbox') || 'image';
-    const lbSrc = image.getAttribute('data-lightbox-src') || image.src || null;
-    const lbCaption = image.getAttribute('data-lightbox-caption') || null;
-    const lbAlt = image.getAttribute('data-lightbox-alt') || image.alt || '';
+  #setLightboxProperties(trigger) {
+    const lbType = trigger.getAttribute('data-lightbox') || 'image';
+    const lbSrc = trigger.getAttribute('data-lightbox-src') || trigger.src || null;
+    const lbCaption = trigger.getAttribute('data-lightbox-caption') || null;
+    const lbAlt = trigger.getAttribute('data-lightbox-alt') || trigger.alt || '';
 
     return {
       lbType: lbType,
@@ -341,7 +341,7 @@ export default class Lightbox {
     }, options);
 
     // Filter out video elements before observing
-    const lazyImages = Array.from(this.#lightboxImages).filter(img => img.getAttribute('data-lightbox') === 'image');
+    const lazyImages = Array.from(this.#lightboxTriggerList).filter(img => img.getAttribute('data-lightbox') === 'image');
 
     lazyImages.forEach((image, index) => {
       image.dataset.index = index;
@@ -351,7 +351,7 @@ export default class Lightbox {
   }
 
   #initEventListeners() {
-    this.#lightboxImages.forEach((image, index) => {
+    this.#lightboxTriggerList.forEach((image, index) => {
       const imageBtn = image.closest('button');
       imageBtn.addEventListener('click', this.#handleLightboxOpen(image, index));
     });
@@ -365,19 +365,6 @@ export default class Lightbox {
     this.#initEventListeners();
     this.#initLazyLoading();
     
-  }
-
-  initLightbox(element, lbType = 'image', lbSrc, lbCaption = null, lbAlt = '', lbWidth = null) {
-    if (element instanceof HTMLImageElement) {
-      const wrapper = document.createElement('button');
-      wrapper.setAttribute('class', 'lightbox-button');
-      this.#wrapWithButton(element, wrapper);
-      this.#lightboxes.push(this.#setImgProperties(element, lbType, lbSrc, lbCaption, lbAlt, lbWidth));
-    } else if (element instanceof HTMLButtonElement) {
-      this.#lightboxes.push(this.#setImgProperties(element, lbType, lbSrc, lbCaption, lbAlt, lbWidth));
-    } else {
-      console.error('Invalid element provided. Please provide a valid HTMLImageElement or HTMLButtonElement.');
-    }
   }
 
 }
