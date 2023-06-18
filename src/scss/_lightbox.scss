@@ -108,6 +108,9 @@ In this file:
 
     cursor: pointer;
 
+  }
+
+  .lightbox-button--has-icon {
     &::after {
       @extend .icon_font;
 
