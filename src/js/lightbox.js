@@ -252,7 +252,7 @@ export default class Lightbox {
         lightboxButton.classList.add('lightbox-button--has-icon');
         
         this.#wrapWithButton(lightboxTarget, lightboxButton);
-        
+
         lightboxButton.setAttribute('data-lightbox', lightboxTarget.getAttribute('data-lightbox'));
 
         lightboxButton.setAttribute('data-lightbox-src', lightboxTarget.getAttribute('data-lightbox-src') || null);
@@ -322,7 +322,7 @@ export default class Lightbox {
       }
 
       // Ensure the caption is visible when the media is loaded correctly, only if lbCaption is present
-      if(this.#lightboxes[this.currentLB].lbCaption) {
+      if(this.#lightboxes[this.currentLB].lbCaption !== null) {
         this.#handleCaptionDisplay(true);
       }
     });
