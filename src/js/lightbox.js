@@ -138,8 +138,7 @@ export default class Lightbox {
       lbType, 
       lbSrc, 
       lbAlt, 
-      lbCaption, 
-      lbWidth
+      lbCaption
     } = this.#lightboxes[index];
 
     // Update caption display based on attribute presence
@@ -150,7 +149,7 @@ export default class Lightbox {
 
       case 'image':
         // Call image update function
-        lightboxElementTarget = this.#updateLightboxImage(lightboxElement, lbSrc, lbAlt, lbWidth);
+        lightboxElementTarget = this.#updateLightboxImage(lightboxElement, lbSrc, lbAlt);
         break;
 
       case 'video':
@@ -167,7 +166,7 @@ export default class Lightbox {
     }
   }
 
-  #updateLightboxImage(lightboxElement, lbSrc, lbAlt, lbWidth) {
+  #updateLightboxImage(lightboxElement, lbSrc, lbAlt) {
 
     if (lightboxElement.hasAttribute('style')) {
       lightboxElement.removeAttribute('style');
@@ -184,10 +183,6 @@ export default class Lightbox {
     lightboxElementTarget.src = lbSrc;
 
     this.#handleMediaLoading(lightboxElementTarget, loader);
-
-    if (lbWidth) {
-      lightboxElementTarget.setAttribute('width', lbWidth);
-    }
 
     return lightboxElementTarget;
   }
@@ -262,14 +257,12 @@ export default class Lightbox {
     const lbSrc = image.getAttribute('data-lightbox-src') || image.src || null;
     const lbCaption = image.getAttribute('data-lightbox-caption') || null;
     const lbAlt = image.getAttribute('data-lightbox-alt') || image.alt || '';
-    const lbWidth = image.getAttribute('data-lightbox-width') || null;
 
     return {
       lbType: lbType,
       lbSrc: lbSrc,
       lbCaption: lbCaption,
-      lbAlt: lbAlt,
-      lbWidth: lbWidth
+      lbAlt: lbAlt
     };
   }
 
