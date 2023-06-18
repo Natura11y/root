@@ -112,45 +112,55 @@ export default class Lightbox {
   }
 
   #updateLightbox(index) {
+
     const lightboxElement = this.lightbox.querySelector('.lightbox__media');
     const lightboxCaption = this.lightbox.querySelector('.lightbox__caption');
 
     let lightboxElementTarget;
 
-    if (this.#lightboxes[index].imgType === 'video') {
+    switch (this.#lightboxes[index].lbType) {
 
-      lightboxElement.innerHTML = this.#lightboxVideoHTML;
-      lightboxElementTarget = lightboxElement.querySelector('source');
+      case 'image':
 
-      let video = lightboxElement.querySelector('video');
+        if (lightboxElement.hasAttribute('style')) {
+          lightboxElement.removeAttribute('style');
+        }
 
-      video.addEventListener('loadedmetadata', () => {
-      
-        // The intrinsic width and height of the video
-        let intrinsicWidth = video.videoWidth;
-        let intrinsicHeight = video.videoHeight;
+        lightboxElement.innerHTML = this.#lightboxElementHTML;
+        lightboxElementTarget = lightboxElement.querySelector('img');
+        lightboxElementTarget.alt = this.#lightboxes[index].lbAlt;
 
-        // The aspect ratio of the video
-        lightboxElement.style.maxWidth = `${intrinsicWidth}px`;
-        lightboxElement.style.aspectRatio = `${intrinsicWidth} / ${intrinsicHeight}`;
-      });
+        break;
 
-    } else {
+      case 'video':
 
-      if (lightboxElement.hasAttribute('style')) {
-        lightboxElement.removeAttribute('style');
-      }
+        lightboxElement.innerHTML = this.#lightboxVideoHTML;
+        lightboxElementTarget = lightboxElement.querySelector('source');
 
-      lightboxElement.innerHTML = this.#lightboxElementHTML;
-      lightboxElementTarget = lightboxElement.querySelector('img');
-      lightboxElementTarget.alt = this.#lightboxes[index].imgAlt;
+        let video = lightboxElement.querySelector('video');
+
+        video.addEventListener('loadedmetadata', () => {
+        
+          // The intrinsic width and height of the video
+          let intrinsicWidth = video.videoWidth;
+          let intrinsicHeight = video.videoHeight;
+
+          // The aspect ratio of the video
+          lightboxElement.style.maxWidth = `${intrinsicWidth}px`;
+          lightboxElement.style.aspectRatio = `${intrinsicWidth} / ${intrinsicHeight}`;
+        });
+
+        break;
+    
+      default:
+        break;
     }
 
-    lightboxElementTarget.src = this.#lightboxes[index].imgSrc;
-    lightboxCaption.innerHTML = this.#lightboxes[index].imgCaption;
+    lightboxElementTarget.src = this.#lightboxes[index].lbSrc;
+    lightboxCaption.innerHTML = this.#lightboxes[index].lbCaption;
 
-    if (this.#lightboxes[index].imgWidth) {
-      lightboxElementTarget.setAttribute('width', this.#lightboxes[index].imgWidth);
+    if (this.#lightboxes[index].lbWidth) {
+      lightboxElementTarget.setAttribute('width', this.#lightboxes[index].lbWidth);
     }
 
   }
@@ -201,11 +211,11 @@ export default class Lightbox {
     const lbWidth = image.getAttribute('data-lightbox-width') || null;
 
     return {
-      imgType: lbType,
-      imgSrc: lbSrc,
-      imgCaption: lbCaption,
-      imgAlt: lbAlt,
-      imgWidth: lbWidth,
+      lbType: lbType,
+      lbSrc: lbSrc,
+      lbCaption: lbCaption,
+      lbAlt: lbAlt,
+      lbWidth: lbWidth,
     };
   }
 
