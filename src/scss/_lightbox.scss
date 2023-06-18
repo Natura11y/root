@@ -24,10 +24,14 @@ In this file:
   --lightbox-padding-x: var(--spacer-2);
   --lightbox-padding-y: var(--spacer-2);
 
-  --lightbox-overlay-color: black;
+  --lightbox-text-color: hsl(0, 0%, 100%);
+  --lightbox-overlay-color: hsl(0, 0%, 0%);
+  
   --lightbox-overlay-opacity: 0.8;
 
-  --lightbox-z-index: 100000;
+  --lightbox-media-shadow: 0 0.125rem 1rem 0.5rem rgba(0, 0, 0, 0.25);
+  
+  --lightbox-z-index: 10000;
 
   // Icon
 
@@ -53,6 +57,11 @@ In this file:
 @layer component {
 
   // Lightbox Block
+
+  .lightbox,
+  .lightbox-button {
+    color: var(--lightbox-text-color);
+  }
 
   .lightbox,
   .lightbox::before {
@@ -130,9 +139,7 @@ In this file:
       inset-block-end: 0;
       inset-inline-end: 0;
 
-      color: white;
-
-      opacity: 0.875;
+      opacity: var(--lightbox-overlay-opacity);
 
       background-color: var(--lightbox-overlay-color);
 
@@ -152,8 +159,6 @@ In this file:
     z-index: 10;
 
     padding: var(--lightbox-padding-y) var(--lightbox-padding-x);
-
-    color: white;
 
     button {
       backdrop-filter: blur(4px) brightness(50%);
@@ -180,6 +185,8 @@ In this file:
     position: relative;
     max-width: 100vw;
 
+    box-shadow: var(--lightbox-media-shadow);
+
     img,
     video {
       display: block;
@@ -205,10 +212,10 @@ In this file:
 
     font-size: var(--font-size-md);
 
-    color: white;
-
     margin-block: var(--lightbox-padding-y);
   }
+
+  // Lightbox Media States
 
   .lightbox__media__loader {
     position: absolute;
@@ -216,8 +223,6 @@ In this file:
     inset-inline-start: 50%;
 
     transform: translate(-50%, -50%);
-    
-    color: white;
   }
     
   .lightbox__media__error {

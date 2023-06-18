@@ -256,6 +256,7 @@ export default class Lightbox {
         lightboxButton.setAttribute('data-lightbox-src', lightboxTarget.getAttribute('data-lightbox-src') || null);
 
         let caption = lightboxTarget.getAttribute('data-lightbox-caption');
+        
         if (caption !== null) {
           lightboxButton.setAttribute('data-lightbox-caption', caption);
         }
