@@ -145,25 +145,18 @@ export default class Lightbox {
     if (lightboxElement.hasAttribute('style')) {
       lightboxElement.removeAttribute('style');
     }
-    // Add spinner
-    const spinner = document.createElement('div');
-    spinner.className = 'spinner';
-    spinner.innerHTML = '<span class="icon icon-loading icon--rotate" aria-hidden="true"></span>';
 
     lightboxElement.innerHTML = this.#lightboxElementHTML;
 
-    lightboxElement.appendChild(spinner);
+    const loader = this.#createLoader();
+    lightboxElement.appendChild(loader);
   
     const lightboxElementTarget = lightboxElement.querySelector('img');
   
     lightboxElementTarget.alt = lbAlt;
     lightboxElementTarget.src = lbSrc;
 
-    lightboxElementTarget.onload = () => {
-			if (spinner && spinner.parentNode) {
-				spinner.parentNode.removeChild(spinner);
-			}
-		};
+    this.#handleMediaLoading(lightboxElementTarget, loader);
 
     if (lbWidth) {
       lightboxElementTarget.setAttribute('width', lbWidth);
@@ -175,6 +168,9 @@ export default class Lightbox {
   #updateLightboxVideo(lightboxElement, lbSrc) {
   
     lightboxElement.innerHTML = this.#lightboxVideoHTML;
+
+    const loader = this.#createLoader();
+    lightboxElement.appendChild(loader);
   
     const lightboxElementTarget = lightboxElement.querySelector('source');
     const video = lightboxElement.querySelector('video');
@@ -188,6 +184,8 @@ export default class Lightbox {
       lightboxElement.style.maxWidth = `${intrinsicWidth}px`;
       lightboxElement.style.aspectRatio = `${intrinsicWidth} / ${intrinsicHeight}`;
     });
+
+    this.#handleMediaLoading(lightboxElementTarget, loader);
 
     lightboxElementTarget.src = lbSrc;
 
@@ -248,6 +246,39 @@ export default class Lightbox {
     };
   }
 
+  #createLoader = () => {
+
+    const loader = document.createElement('div');
+  
+    loader.className = 'loader';
+    loader.innerHTML = `
+      <span class="icon icon-loading icon--rotate" aria-hidden="true"></span>
+      <p class="error-message" style="display: none;">Failed to load content. Please try again later.</p>
+    `;
+    return loader;
+  };
+
+  #handleMediaLoading = (media, loader) => {
+    const mediaLoadEvent = media.nodeName === 'SOURCE' ? 'loadeddata' : 'load';
+
+    media.closest(media.nodeName === 'SOURCE' ? 'video' : 'img').addEventListener(mediaLoadEvent, () => {
+      if (loader && loader.parentNode) {
+        loader.parentNode.removeChild(loader);
+      }
+    });
+
+    media.onerror = () => {
+      const loaderIcon = loader.querySelector('.icon-loading');
+      const errorMessage = loader.querySelector('.error-message');
+    
+      // Hide the media on error
+      media.style.display = 'none';
+
+      loaderIcon.style.display = 'none';
+      errorMessage.style.display = 'block';
+    };
+  };
+
   #initLazyLoading() {
     
     const options = {
@@ -281,6 +312,7 @@ export default class Lightbox {
       image.dataset.index = index;
       observer.observe(image);
     });
+
   }
 
   #initEventListeners() {
