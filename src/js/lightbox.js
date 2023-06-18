@@ -29,6 +29,14 @@ export default class Lightbox {
       <source type="video/mp4">
     </video>
   `);
+
+  #lighboxLoaderHTML = (`
+    <span class="icon icon-loading icon--rotate" aria-hidden="true"></span>
+    <div class="error-message" style="display: none;">
+      <span class="icon icon-warn" aria-hidden="true"></span>
+      <p>Failed to load content. Please try again later.</p>
+    </div>
+  `);
   
   #lightboxElementHTML = `<img src="https://source.unsplash.com/1600x900" />`;
   
@@ -65,6 +73,11 @@ export default class Lightbox {
     this.lightbox.parentElement.removeChild(this.lightbox);
 
     window.removeEventListener('keyup', this.#handleLightboxUpdateKey);
+  };
+
+  #handleCaptionDisplay = (show = true) => {
+    const captionElement = this.lightbox.querySelector('.lightbox__caption');
+    captionElement.style.display = show ? 'block' : 'none';
   };
 
   #handleLightboxUpdateClick = (e) => {
@@ -251,10 +264,7 @@ export default class Lightbox {
     const loader = document.createElement('div');
   
     loader.className = 'loader';
-    loader.innerHTML = `
-      <span class="icon icon-loading icon--rotate" aria-hidden="true"></span>
-      <p class="error-message" style="display: none;">Failed to load content. Please try again later.</p>
-    `;
+    loader.innerHTML = this.#lighboxLoaderHTML;
     return loader;
   };
 
@@ -273,11 +283,13 @@ export default class Lightbox {
     
       // Hide the media on error
       media.style.display = 'none';
+      this.#handleCaptionDisplay(false);
 
       loaderIcon.style.display = 'none';
       errorMessage.style.display = 'block';
     };
   };
+
 
   #initLazyLoading() {
     

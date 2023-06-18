@@ -217,6 +217,17 @@ In this file:
     transform: translate(-50%, -50%);
     color: white;
   }
+
+  .error-message{
+    text-align: center;
+    min-width: 20rem;
+    display: block;
+
+    span.icon {
+      font-size: 2em;
+      margin-block-end: 0.25em;
+    }
+  }
 }
 
 } // end @layer
