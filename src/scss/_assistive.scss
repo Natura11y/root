@@ -57,9 +57,12 @@ In this file:
             --focus-outline-distance: calc(var(--focus-outline-size) * -2);
         }
         
-        &.button--outline {
+        &.button--outline,
+        &.lightbox-button--icon,
+        &[class*="backdrop"] {
             --focus-outline-distance: calc(var(--focus-outline-size) * -3);
         }
+
     }
 
 } // end @layer

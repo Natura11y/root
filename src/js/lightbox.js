@@ -345,6 +345,7 @@ export default class Lightbox {
     });
 
     media.onerror = () => {
+
       const loaderIcon = loader.querySelector('.lightbox__media__loader');
       const errorMessage = loader.querySelector('.lightbox__media__error');
     
@@ -416,8 +417,8 @@ export default class Lightbox {
   init() {
 
     this.#configureLightboxElements();
-    this.#initLazyLoading();
     this.#initEventListeners();
+    this.#initLazyLoading();
     
   }
 

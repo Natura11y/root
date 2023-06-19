@@ -30,7 +30,7 @@ In this file:
   
   --lightbox-overlay-opacity: 0.8;
   
-  --lightbox-media-border-radius: unset;
+  --lightbox-media-border-radius: 0.75em;
 
   --lightbox-media-shadow: 0 0.125rem 1rem 0.5rem rgba(0, 0, 0, 0.25);
   
@@ -39,7 +39,7 @@ In this file:
   // Icons
 
   --lightbox-button-icon-image: "\f160";
-  --lightbox-button-icon-video: "\f10a";
+  --lightbox-button-icon-video: "\f163";
 }
 
 ////////////////////////////////////////
@@ -115,7 +115,7 @@ In this file:
   // Lightbox Button
 
   .lightbox-button--icon {
-    --button-icon-only-size: 1em;
+    --button-icon-only-size: 1.25em;
 
     display: flex;
 
@@ -128,7 +128,9 @@ In this file:
     &::after {
       @extend .icon_font;
 
-      content: var(--lightbox-button-icon);
+      --button-icon: var(--lightbox-button-icon-image);
+
+      content: var(--button-icon);
 
       display: inline-flex;
       flex-shrink: 0;
@@ -139,7 +141,7 @@ In this file:
       width: var(--button-icon-only-size);
       height: var(--button-icon-only-size);
 
-      padding: 1.25rem;
+      // padding: 1.25rem;
 
       position: absolute;
       inset-block-end: 0;
@@ -150,10 +152,13 @@ In this file:
       background-color: var(--lightbox-overlay-color);
 
       aspect-ratio: 1 / 1;
+
+      width: var(--button-icon-only-size);
     }
 
     &[data-lightbox="video"]::after {
-      --lightbox-button-icon: "\f10a";
+      --button-icon: var(--lightbox-button-icon-video);
+      --icon-size: 1.75em;
 
       inset-block-start: 50%;
       inset-inline-start: 50%;
@@ -202,18 +207,27 @@ In this file:
     position: relative;
     max-width: 100vw;
 
-    border-radius: var(--lightbox-media-border-radius);
-    overflow: hidden;
 
-    box-shadow: var(--lightbox-media-shadow);
+
+    display: flex;
+    flex-direction: column;
+
 
     img,
     video {
       display: block;
+
       margin: auto;
+      
       width: 100%;
       height: 100%;
+      
       object-fit: contain;
+
+      border-radius: var(--lightbox-media-border-radius);
+      overflow: hidden;
+
+      box-shadow: var(--lightbox-media-shadow);
     }
 
     img {
@@ -238,21 +252,25 @@ In this file:
   // Lightbox Media States
 
   .lightbox__media__loader {
-    position: absolute;
-    inset-block-start: 50%;
-    inset-inline-start: 50%;
+      position: absolute;
+      inset-block-start: 50%;
+      inset-inline-start: 50%;
 
-    transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
   }
     
   .lightbox__media__error {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
     text-align: center;
     min-width: 20rem;
-    display: block;
+    margin-block: 0.25em;
 
     span.icon {
       font-size: 2em;
-      margin-block-end: 0.25em;
+
     }
   }
   
