@@ -67,6 +67,10 @@ In this file:
       display: flex;
     }
 
+    &:focus {
+      outline: none;
+    }
+
   }
 
   // Modal Elements

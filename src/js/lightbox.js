@@ -48,9 +48,9 @@ export default class Lightbox {
 
   #handleLightboxOpen = (index) => (e) => {
 
-    const hasLightbox = document.querySelector('.lightbox');
+    const lightbox = document.querySelector('.lightbox');
 
-    if (hasLightbox) return;
+    if (lightbox) return;
 
     e.preventDefault();
 
@@ -61,6 +61,7 @@ export default class Lightbox {
     handleOverlayOpen(this.lightbox);
     
     this.#updateLightbox(index);
+
   };
 
   #handleLightboxClose = (e) => {
@@ -94,6 +95,10 @@ export default class Lightbox {
 
   #handleLightboxUpdateKey = (e) => {
     e.preventDefault();
+
+    if (this.#lightboxes.length <= 1 && (e.code === 'ArrowLeft' || e.code === 'ArrowRight')) {
+      return;
+    }
 
     switch (e.code) {
       case 'ArrowLeft':
@@ -213,6 +218,9 @@ export default class Lightbox {
   }
 
   #createLightbox() {
+
+    console.log('my lbs', this.#lightboxes);
+
     const lightbox = document.createElement('div');
 
     lightbox.classList.add('lightbox');
@@ -224,6 +232,13 @@ export default class Lightbox {
     const lightboxPrevious = lightbox.querySelector('[data-lightbox-previous]');
     const lightboxNext = lightbox.querySelector('[data-lightbox-next]');
     const lightboxClose = lightbox.querySelector('[data-lightbox-close]');
+
+    if (this.#lightboxes.length <= 1) {
+      lightboxPrevious.setAttribute('disabled', true);
+      lightboxNext.setAttribute('disabled', true);
+      lightboxPrevious.style.display = 'none';
+      lightboxNext.style.display = 'none';
+    };
 
     lightbox.addEventListener('click', this.#handleLightboxClose);
     lightboxClose.addEventListener('click', this.#handleLightboxClose);
@@ -247,7 +262,7 @@ export default class Lightbox {
         lightboxButton = document.createElement('button');
 
         lightboxButton.classList.add('lightbox-button');
-        lightboxButton.classList.add('lightbox-button--has-icon');
+        lightboxButton.classList.add('lightbox-button--icon');
         
         this.#wrapWithButton(lightboxTarget, lightboxButton);
 
@@ -256,7 +271,7 @@ export default class Lightbox {
         lightboxButton.setAttribute('data-lightbox-src', lightboxTarget.getAttribute('data-lightbox-src') || null);
 
         let caption = lightboxTarget.getAttribute('data-lightbox-caption');
-        
+
         if (caption !== null) {
           lightboxButton.setAttribute('data-lightbox-caption', caption);
         }

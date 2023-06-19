@@ -8,6 +8,8 @@ export default class Modal {
   #modalButtonList = document.querySelectorAll('[data-modal-open]');
   #outsideClickHandlers = new Map();
 
+  // Private methods
+
   #addOutsideClickHandler(modal, handler) {
     window.addEventListener('click', handler);
     this.#outsideClickHandlers.set(modal, handler);
@@ -38,10 +40,6 @@ export default class Modal {
       console.warn('Modal content not found.');
       return;
     }
-
-    modalContent.setAttribute('tabindex', 0);
-    modalContent.focus();
-    modalContent.setAttribute('tabindex', -1);
 
     if (modalTarget.classList.contains('modal--scroll-all')) {
       modalTarget.scrollTop = 0;

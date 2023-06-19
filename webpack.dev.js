@@ -24,7 +24,7 @@ const devPages = {
     'Footer': 'footer',
     'Form': 'form',
     'Grid': 'grid',
-    'Lightbox': 'lightbox',
+    'Lightbox': 'lightbox-single',
     'Modal': 'modal',
     'Navigation': 'navigation',
     'Spacer': 'spacer',

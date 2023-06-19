@@ -102,13 +102,15 @@ In this file:
       display: flex;
     }
 
+    &:focus {
+      outline: none;
+    }
+
   }
 
   // Lightbox Button
 
-  // .lightbox-button {}
-
-  .lightbox-button--has-icon {
+  .lightbox-button--icon {
     --button-icon-only-size: 1em;
 
     display: flex;
