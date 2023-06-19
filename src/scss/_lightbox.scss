@@ -25,17 +25,21 @@ In this file:
   --lightbox-padding-y: var(--spacer-2);
 
   --lightbox-text-color: hsl(0, 0%, 100%);
+
   --lightbox-overlay-color: hsl(0, 0%, 0%);
   
   --lightbox-overlay-opacity: 0.8;
+  
+  --lightbox-media-border-radius: unset;
 
   --lightbox-media-shadow: 0 0.125rem 1rem 0.5rem rgba(0, 0, 0, 0.25);
   
   --lightbox-z-index: 10000;
 
-  // Icon
+  // Icons
 
-  --icon-enlarge: "\f160";
+  --lightbox-button-icon-image: "\f160";
+  --lightbox-button-icon-video: "\f10a";
 }
 
 ////////////////////////////////////////
@@ -124,7 +128,7 @@ In this file:
     &::after {
       @extend .icon_font;
 
-      content: var(--icon-enlarge);
+      content: var(--lightbox-button-icon);
 
       display: inline-flex;
       flex-shrink: 0;
@@ -135,7 +139,7 @@ In this file:
       width: var(--button-icon-only-size);
       height: var(--button-icon-only-size);
 
-      padding: 20px;
+      padding: 1.25rem;
 
       position: absolute;
       inset-block-end: 0;
@@ -146,6 +150,17 @@ In this file:
       background-color: var(--lightbox-overlay-color);
 
       aspect-ratio: 1 / 1;
+    }
+
+    &[data-lightbox="video"]::after {
+      --lightbox-button-icon: "\f10a";
+
+      inset-block-start: 50%;
+      inset-inline-start: 50%;
+      transform: translate(-50%, -50%);
+
+      border-radius: 100%;
+
     }
   }
 
@@ -186,6 +201,9 @@ In this file:
   .lightbox__media {
     position: relative;
     max-width: 100vw;
+
+    border-radius: var(--lightbox-media-border-radius);
+    overflow: hidden;
 
     box-shadow: var(--lightbox-media-shadow);
 
