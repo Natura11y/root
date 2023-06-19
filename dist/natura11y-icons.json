@@ -95,5 +95,7 @@
    "sign-out": 61790,
    "clear": 61791,
    "zoom-in": 61792,
-   "zoom-out": 61793
+   "zoom-out": 61793,
+   "pause": 61794,
+   "play": 61795
 }
