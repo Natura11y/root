@@ -36,6 +36,8 @@ In this file:
   
   --lightbox-z-index: 10000;
 
+  --lightbox-caption-text-align: center;
+
   // Icons
 
   --lightbox-button-icon-image: "\f160";
@@ -141,8 +143,6 @@ In this file:
       width: var(--button-icon-only-size);
       height: var(--button-icon-only-size);
 
-      // padding: 1.25rem;
-
       position: absolute;
       inset-block-end: 0;
       inset-inline-end: 0;
@@ -242,6 +242,8 @@ In this file:
     display: table-caption;
 
     font-size: var(--font-size-md);
+
+    text-align: var(--lightbox-caption-text-align);
 
     margin-block: var(--lightbox-padding-y);
   }
