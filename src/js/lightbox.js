@@ -48,8 +48,8 @@ export default class Lightbox {
 
   #handleLightboxOpen = (index) => (e) => {
 
+    // Check if lightbox exists
     const lightbox = document.querySelector('.lightbox');
-
     if (lightbox) return;
 
     e.preventDefault();
@@ -251,51 +251,6 @@ export default class Lightbox {
     return lightbox;
   }
 
-  #configureLightboxElements() {
-
-    this.#lightboxTargetList.forEach((lightboxTarget) => {
-      
-      let lightboxButton;
-
-      if (lightboxTarget.nodeName === 'IMG') {
-
-        lightboxButton = document.createElement('button');
-
-        lightboxButton.classList.add('lightbox-button');
-        lightboxButton.classList.add('lightbox-button--icon');
-        
-        this.#wrapWithButton(lightboxTarget, lightboxButton);
-
-        lightboxButton.setAttribute('data-lightbox', lightboxTarget.getAttribute('data-lightbox'));
-
-        lightboxButton.setAttribute('data-lightbox-src', lightboxTarget.getAttribute('data-lightbox-src') || null);
-
-        let caption = lightboxTarget.getAttribute('data-lightbox-caption');
-
-        if (caption !== null) {
-          lightboxButton.setAttribute('data-lightbox-caption', caption);
-        }
-
-        lightboxButton.setAttribute('data-lightbox-src', lightboxTarget.getAttribute('data-lightbox-src') || null);
-
-        lightboxTarget.removeAttribute('data-lightbox');
-        lightboxTarget.removeAttribute('data-lightbox-src');
-        lightboxTarget.removeAttribute('data-lightbox-caption');
-
-      } else {
-        lightboxButton = lightboxTarget;
-        lightboxButton.classList.add('lightbox-button');
-      };
-
-      this.#lightboxes.push(this.#setLightboxProperties(lightboxButton));
-    });
-  }
-
-  #wrapWithButton(el, wrapper) {
-    el.parentNode.insertBefore(wrapper, el);
-    wrapper.appendChild(el);
-  }
-
   #setLightboxProperties(lightboxButton) {
 
     let defaultSrc = null;
@@ -321,8 +276,13 @@ export default class Lightbox {
     };
   }
 
-  #createLoader = () => {
+  #configureLightboxElements() {
+    this.#lightboxTargetList.forEach((lightboxTarget) => {
+      this.#lightboxes.push(this.#setLightboxProperties(lightboxTarget));
+    });
+  }
 
+  #createLoader = () => {
     const loader = document.createElement('div');
   
     loader.className = 'lightbox__media__loader';
@@ -373,7 +333,7 @@ export default class Lightbox {
 
           // Check if lazy image has a valid source
           const src = lazyImage.dataset.lightboxSrc || lazyImage.src;
-          // if (!src) return;
+          if (!src) return;
 
           observer.unobserve(lazyImage);
 
@@ -397,17 +357,22 @@ export default class Lightbox {
     }, options);
 
     // Filter out video elements before observing
-    const lazyImages = Array.from(this.#lightboxTargetList).filter(img => img.getAttribute('data-lightbox') === 'image');
+    const imageLightboxList = Array.from(this.#lightboxTargetList).filter(lb => lb.getAttribute('data-lightbox') === 'image');
 
-    lazyImages.forEach((image, index) => {
-      image.dataset.index = index;
-      observer.observe(image);
+    imageLightboxList.forEach((imageLightbox, index) => {
+      const lazyImage = imageLightbox.querySelector('img');
+
+      if (!lazyImage) return;
+      
+      lazyImage.dataset.index = index;
+
+      observer.observe(lazyImage);
     });
 
   }
 
   #initEventListeners() {
-    document.querySelectorAll('.lightbox-button').forEach((lbButton, index) => {
+    this.#lightboxTargetList.forEach((lbButton, index) => {
       lbButton.addEventListener('click', this.#handleLightboxOpen(index));
     });
   };
