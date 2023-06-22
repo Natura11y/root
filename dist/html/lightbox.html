@@ -39,23 +39,27 @@
                         
                         <button
                             class="button theme-primary width-100 margin-bottom-3"
-                            data-lightbox="embed"
-                            data-lightbox-src='#lightbox-1'
-                            >
-                            Open Lightbox
+                            data-lightbox="video"
+                            data-lightbox-src="https://www.youtube.com/embed/YyBQe-EtTOA"
+                        >
+                            Open Youtube Video
                         </button>
 
                         <button
                             class="button theme-primary width-100 margin-bottom-3"
-                            data-lightbox="embed"
-                            data-lightbox-src='#lightbox-2'
+                            data-lightbox="video"
+                            data-lightbox-src='https://player.vimeo.com/video/182932029?h=2f9ac7d329'
                             >
-                            Open Lightbox
+                                Open Vimeo Video
                         </button>
 
                         <figure>
 
-                            <button class="backdrop theme-dark border-radius" data-lightbox="image">
+                            <button
+                                class="backdrop theme-dark border-radius"
+                                data-lightbox="video"
+                                data-lightbox-src="./pexels-dmitry-varennikov-5527699-1280x720-30fps.mp4"
+                            >
 
                                 <div class="backdrop__image gradient-veneer-bottom">
                                     <img class="opacity-80" src="https://picsum.photos/id/288/1600/900" alt="Placeholder" />
@@ -64,10 +68,10 @@
                                 <div class="backdrop__cover align-items-end justify-content-start container padding-y-3">
 
                                     <div>
-                                    <h2 class="h4 display-flex align-items-center gap-1">
-                                        <span class="icon icon-play" aria-hidden="true"></span>
-                                        Watch Video
-                                    </h2>
+                                        <h2 class="h4 display-flex align-items-center gap-1">
+                                            <span class="icon icon-play" aria-hidden="true"></span>
+                                            Watch Video
+                                        </h2>
                                     </div>
 
                                 </div>
@@ -154,17 +158,6 @@
             </section>
         
         </main>
-
-        <iframe
-            class="lightbox-src aspect-ratio-16x9"
-            id="lightbox-1"
-            src="https://www.youtube.com/embed/YyBQe-EtTOA"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen 
-        ></iframe>
-
-        <iframe class="lightbox-src aspect-ratio-16x9" id="lightbox-2" src="https://player.vimeo.com/video/182932029?h=2f9ac7d329" style="width:1600px" frameborder="0" allow="autoplay; fullscreen;" allowfullscreen></iframe>
 
     </body>
 

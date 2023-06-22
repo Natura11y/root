@@ -30,6 +30,14 @@ export default class Lightbox {
     </video>
   `;
 
+	#lightboxVideoIframeHTML = `
+    <iframe
+        frameborder="0"
+        allow="autoplay; fullscreen;"
+        allowfullscreen
+    ></iframe>
+  `;
+
 	#lighboxLoaderHTML = `
     <div class="lightbox__media__loader">
       <span class="icon icon-loading icon--rotate" aria-hidden="true"></span>
@@ -164,14 +172,6 @@ export default class Lightbox {
 				);
 				break;
 
-			case 'embed':
-				const myCustomEmbed = document.querySelector(lbSrc) || `<p> Source not found </p>`;
-          lightboxElementTarget = this.#updateLightboxEmbed(
-            lightboxElement,
-            myCustomEmbed.cloneNode(true)
-          );
-				break;
-
 			default:
 				break;
 		}
@@ -202,41 +202,52 @@ export default class Lightbox {
 	}
 
 	#updateLightboxVideo(lightboxElement, lbSrc) {
-		lightboxElement.innerHTML = this.#lightboxVideoHTML;
+    // Check if the string contains 'youtube' (case-insensitive)
+    const hasYouTube = /youtube/i.test(lbSrc);
 
-		const loader = this.#createLoader();
-		lightboxElement.appendChild(loader);
+    // Check if the string contains 'vimeo' (case-insensitive)
+    const hasVimeo = /vimeo/i.test(lbSrc);
 
-		const lightboxElementTarget = lightboxElement.querySelector('source');
-		const video = lightboxElement.querySelector('video');
+    let lightboxElementTarget;
 
-		video.addEventListener('loadedmetadata', () => {
-			// The intrinsic width and height of the video
-			let intrinsicWidth = video.videoWidth;
-			let intrinsicHeight = video.videoHeight;
+    if (hasYouTube || hasVimeo) {
 
-			// The aspect ratio of the video
-			lightboxElement.style.maxWidth = `${intrinsicWidth}px`;
-			lightboxElement.style.aspectRatio = `${intrinsicWidth} / ${intrinsicHeight}`;
-		});
+      // If the video is from YouTube or Vimeo, use an iframe
+      lightboxElement.innerHTML = this.#lightboxVideoIframeHTML;
+      lightboxElementTarget = lightboxElement.querySelector('iframe');
+      lightboxElementTarget.src = lbSrc;
+    
+    } else {
 
-		this.#handleMediaLoading(lightboxElementTarget, loader);
+      // If the video is not from YouTube or Vimeo, use a video element
+      lightboxElement.innerHTML = this.#lightboxVideoHTML;
 
-		lightboxElementTarget.src = lbSrc;
+      const loader = this.#createLoader();
+      lightboxElement.appendChild(loader);
+      
+      lightboxElementTarget = lightboxElement.querySelector('source');
+      
+      const video = lightboxElement.querySelector('video');
 
-		return lightboxElementTarget;
-	}
+      video.addEventListener('loadedmetadata', () => {
+        // The intrinsic width and height of the video
+        let intrinsicWidth = video.videoWidth;
+        let intrinsicHeight = video.videoHeight;
 
-	#updateLightboxEmbed(lightboxElement, lbSrcClone) {
-		lbSrcClone.removeAttribute('id'); // Remove the id
-		lbSrcClone.classList.remove('lightbox-src'); // Remove the class 'lightbox-src'
-		lightboxElement.appendChild(lbSrcClone); // Append the clone to the lightbox
-		return lightboxElement.firstChild;
-	}
+        // The aspect ratio of the video
+        lightboxElement.style.maxWidth = `${intrinsicWidth}px`;
+        lightboxElement.style.aspectRatio = `${intrinsicWidth} / ${intrinsicHeight}`;
+      });
+
+      this.#handleMediaLoading(lightboxElementTarget, loader);
+
+      lightboxElementTarget.src = lbSrc;
+    }
+
+    return lightboxElementTarget;
+  }
 
 	#createLightbox() {
-		console.log('my lbs', this.#lightboxes);
-
 		const lightbox = document.createElement('div');
 
 		lightbox.classList.add('lightbox');
