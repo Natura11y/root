@@ -28,18 +28,29 @@
                 <section>
 
                     <div class="container narrow margin-y-5">
+
                         <h2>
                             Majestic Peaks
                         </h2>
+
                         <p>
                             Mountains are awe-inspiring geological formations that rise high above the surrounding landscape. They are characterized by steep slopes, towering peaks, and breathtaking vistas. These natural wonders are often the result of tectonic forces and volcanic activity over millions of years. The majestic beauty of mountains attracts adventurers, nature enthusiasts, and photographers from around the world.
                         </p>
+                        
+                        <button
+                            class="button theme-primary width-100 margin-bottom-3"
+                            data-lightbox="embed"
+                            data-lightbox-src='#lightbox-1'
+                            >
+                            Open Lightbox
+                        </button>
 
                         <button
                             class="button theme-primary width-100 margin-bottom-3"
-                            data-lightbox="video"
-                            data-lightbox-src="./pexels-dmitry-varennikov-5527698-3840x2160-30fps.mp4">
-                                Button
+                            data-lightbox="embed"
+                            data-lightbox-src='#lightbox-2'
+                            >
+                            Open Lightbox
                         </button>
 
                         <figure>
@@ -143,6 +154,17 @@
             </section>
         
         </main>
+
+        <iframe
+            class="lightbox-src aspect-ratio-16x9"
+            id="lightbox-1"
+            src="https://www.youtube.com/embed/YyBQe-EtTOA"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen 
+        ></iframe>
+
+        <iframe class="lightbox-src aspect-ratio-16x9" id="lightbox-2" src="https://player.vimeo.com/video/182932029?h=2f9ac7d329" style="width:1600px" frameborder="0" allow="autoplay; fullscreen;" allowfullscreen></iframe>
 
     </body>
 
