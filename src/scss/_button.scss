@@ -33,7 +33,10 @@ In this file:
     --button-outline-border-width: calc( var(--border-width) * 2);
 
     --button-icon-only-size: 2.5em;
-    
+
+    --button-icon-over-text-width: 5rem; 
+    --button-icon-over-text-border-radius: var(--button-border-radius); 
+
     --button-group-gap: 0.5em;
 }
 
@@ -93,6 +96,7 @@ In this file:
 
         &:not(
             [class*="button--outline"],
+            [class*="button--icon-over-text"],
             [class*="theme-"],
             [class*="background-color"],
             [data-toggle="dropdown"]
@@ -102,12 +106,11 @@ In this file:
 
         &:hover, 
         &:focus, 
-        &:active
-        {
+        &:active {
             opacity: var(--button-opacity-hover);
         }
 
-        &:not([class*="button--icon-only"]) {
+        &:not([class*="button--icon-only"]):not([class*="button--icon-over-text"]) {
             padding: var(--button-padding-y) var(--button-padding-x);
             font-weight: var(--button-font-weight);
         }
@@ -230,6 +233,58 @@ In this file:
 
         to {
             opacity: 1;
+        }
+
+    }
+
+    // Button Icon Label Modifier
+
+    .button--icon-over-text {
+        --font-size-sm: 0.75rem;
+        --focus-outline-offset: -4px;
+
+        display: flex;
+        flex-direction: column;
+
+        text-align: center;
+        
+        gap: 0.25em;
+
+        width: var(--button-icon-over-text-width);
+
+        span.icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-inline: auto;
+
+            width: var(--button-icon-only-size);
+            height: var(--button-icon-only-size);
+
+            aspect-ratio: 1;
+
+            border-radius: var(--button-icon-over-text-border-radius);
+
+            @extend %subtle-fill-psuedo;
+        }
+
+        [class*="__text"] {
+            min-width: 100%;
+
+            font-size: var(--font-size-sm);
+
+            font-weight: var(--body-font-weight-bold);
+        }
+
+        &:focus-visible {
+
+            outline: unset;
+
+            > [class*="icon"] {
+                outline: var(--focus-outline-size) var(--focus-outline-style) var(--focus-outline-color);
+                outline-offset: var(--focus-outline-offset);
+            }
         }
 
     }
