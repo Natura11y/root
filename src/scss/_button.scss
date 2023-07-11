@@ -51,11 +51,11 @@ In this file:
         
         font-family: inherit;
 
-        &:not([class*="theme-"]){
+        &:not([class*="theme-"]) {
             background-color: transparent;
         }
 
-        &:not([class*="border-"]){
+        &:not([class*="border-"]) {
             border: none;
         }
 
