@@ -7,46 +7,46 @@ export default class Lightbox {
 	#lightboxTargetList = document.querySelectorAll('[data-lightbox]');
 
 	#lightboxHTML = `
-    <div class="lightbox__buttons button-group">
-      <button class="button button--icon-only" data-lightbox-previous>
-        <span class="icon icon-arrow-left" aria-label="Previous" aria-hidden="true"></span>
-      </button>
-      <button class="button button--icon-only" data-lightbox-next>
-        <span class="icon icon-arrow-right" aria-label="Next" aria-hidden="true"></span>
-      </button>
-      <button class="button button--icon-only" data-lightbox-close>
-        <span class="icon icon-close" aria-label="Close" aria-hidden="true"></span>
-      </button>
-    </div>
-    <figure class="lightbox__container" aria-live="polite" aria-atomic="true">
-      <div class="lightbox__media"></div>           
-      <figcaption class="lightbox__caption"></figcaption>
-    </figure>
-  `;
+		<div class="lightbox__buttons button-group">
+		<button class="button button--icon-only" data-lightbox-previous>
+			<span class="icon icon-arrow-left" aria-label="Previous" aria-hidden="true"></span>
+		</button>
+		<button class="button button--icon-only" data-lightbox-next>
+			<span class="icon icon-arrow-right" aria-label="Next" aria-hidden="true"></span>
+		</button>
+		<button class="button button--icon-only" data-lightbox-close>
+			<span class="icon icon-close" aria-label="Close" aria-hidden="true"></span>
+		</button>
+		</div>
+		<figure class="lightbox__container" aria-live="polite" aria-atomic="true">
+		<div class="lightbox__media"></div>           
+		<figcaption class="lightbox__caption"></figcaption>
+		</figure>
+  	`;
 
 	#lightboxVideoHTML = `
-    <video controls>
-      <source type="video/mp4">
-    </video>
-  `;
+		<video controls>
+		<source type="video/mp4">
+		</video>
+	`;
 
 	#lightboxVideoIframeHTML = `
-    <iframe
-        frameborder="0"
-        allow="autoplay; fullscreen;"
-        allowfullscreen
-    ></iframe>
-  `;
+		<iframe
+			frameborder="0"
+			allow="autoplay; fullscreen;"
+			allowfullscreen
+		></iframe>
+	`;
 
 	#lighboxLoaderHTML = `
-    <div class="lightbox__media__loader">
-      <span class="icon icon-loading icon--rotate" aria-hidden="true"></span>
-    </div>
-    <div class="lightbox__media__error" style="display: none;">
-      <span class="icon icon-warn" aria-hidden="true"></span>
-      <p>Failed to load content. Please try again later.</p>
-    </div>
-  `;
+		<div class="lightbox__media__loader">
+			<span class="icon icon-loading icon--rotate" aria-hidden="true"></span>
+		</div>
+		<div class="lightbox__media__error" style="display: none;">
+			<span class="icon icon-warn" aria-hidden="true"></span>
+			<p>Failed to load content. Please try again later.</p>
+		</div>
+	`;
 
 	#lightboxElementHTML = `<img src="https://source.unsplash.com/1600x900" />`;
 

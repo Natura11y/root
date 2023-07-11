@@ -44,6 +44,15 @@ In this file:
         outline: var(--focus-outline-size) var(--focus-outline-style) var(--focus-outline-color);
         outline-offset: var(--focus-outline-distance);
     }
+
+    &[class*="backdrop"]:focus-visible {
+          position: relative;
+          z-index: 1;
+
+        > * {
+            z-index: -1;
+        }
+    }
 }
 
 @layer base {
