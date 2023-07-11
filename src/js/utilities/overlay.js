@@ -20,7 +20,7 @@ export const handleOverlayOpen = (element) => {
 
     lastFocusedElement = document.activeElement;
 
-    scrollPosition = window.pageYOffset;
+    scrollPosition = window.scrollY;
 
     rootElement.style.setProperty('--scroll-position', `-${scrollPosition}px`);
 
