@@ -34,9 +34,12 @@ In this file:
 
     --button-icon-only-size: 2.5em;
 
-    --button-icon-over-text-width: 5rem; 
-    --button-icon-over-text-border-radius: var(--button-border-radius); 
+    --button-icon-over-text-width: 5em; 
+    
+    --button-icon-over-text-border-radius: var(--button-border-radius);
 
+    --button-icon-over-text-font-size: 0.675em;
+    
     --button-group-gap: 0.5em;
 }
 
@@ -245,10 +248,10 @@ In this file:
 
         display: flex;
         flex-direction: column;
-
+        
         text-align: center;
         
-        gap: 0.25em;
+        gap: 0.375em;
 
         width: var(--button-icon-over-text-width);
 
@@ -272,7 +275,7 @@ In this file:
         [class*="__text"] {
             min-width: 100%;
 
-            font-size: var(--font-size-sm);
+            font-size: var(--button-icon-over-text-font-size);
 
             font-weight: var(--body-font-weight-bold);
         }
