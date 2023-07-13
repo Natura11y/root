@@ -14,9 +14,11 @@ In this file:
 
 :root {
   --modal-padding-x: var(--spacer-2);
+
   --modal-padding-y: var(--spacer-2);
 
   --modal-overlay-color: #000;
+  
   --modal-overlay-opacity: 0.75;
   
   --modal-z-index: 50000;

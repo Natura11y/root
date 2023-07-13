@@ -24,18 +24,25 @@ In this file:
 
 :root {
     --form-field-padding-x: var(--spacer-3);
+
     --form-field-padding-y: var(--button-padding-y);
 
     --form-field-border-radius: 0.25em;
+    
     --form-field-border-color: currentColor;
 
     // Icons
 
     --icon-required: "\f14a";
+    
     --icon-checkbox-unchecked: "\f10d";
+    
     --icon-checkbox-checked: "\f10c";
+    
     --icon-radio-unchecked: "\f138";
+    
     --icon-radio-checked: "\f137";
+    
     --icon-disabled: "\f115";
 }
 

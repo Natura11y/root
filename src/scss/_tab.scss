@@ -20,13 +20,20 @@ In this file:
 ////////////////////////////////////////
 
 :root {
+    // Tabs Nav
+
     --tab-button-padding-x: var(--spacer-3);
+
     --tab-button-padding-y: var(--button-padding-y);
 
     --tab-button-color: var(--link-color, currentColor);
+
+    // Active Tab
+    
     --tab-active-button-color: currentColor;
 
     --tab-active-bar-size: calc(var(--border-width) * 3);
+    
     --tab-active-bar-color: currentColor;
 }
 

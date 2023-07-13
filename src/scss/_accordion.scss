@@ -20,9 +20,11 @@ In this file:
 
 :root {
     --accordion-button-padding-x: var(--spacer-3);
+
     --accordion-button-padding-y: var(--button-padding-y);
 
     --accordion-panel-padding-x: var(--spacer-3);
+    
     --accordion-panel-padding-y: var(--spacer-3);
     
     --accordion-active-color: currentColor;

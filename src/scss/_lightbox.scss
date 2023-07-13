@@ -22,6 +22,7 @@ In this file:
 
 :root {
   --lightbox-padding-x: var(--spacer-2);
+
   --lightbox-padding-y: var(--spacer-2);
 
   --lightbox-text-color: hsl(0, 0%, 100%);
@@ -41,6 +42,7 @@ In this file:
   // Icons
 
   --lightbox-button-icon-image: "\f160";
+  
   --lightbox-button-icon-video: "\f163";
 }
 

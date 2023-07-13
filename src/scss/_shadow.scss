@@ -20,12 +20,21 @@ In this file:
 //////////////////////////////////////////////
 
 :root {
+
+    // Box Shadow
+    
     --box-shadow-hsl: 0 0% 0%;
+
     --box-shadow-base-size: 0.5em;
+    
     --box-shadow-base-opacity: 0.125;
 
+    // Text Shadow
+    
     --text-shadow-hsl: 0 0% 0%;
+    
     --text-shadow-base-size: 0.25rem;
+    
     --text-shadow-base-opacity: 0.5;
 }
 
