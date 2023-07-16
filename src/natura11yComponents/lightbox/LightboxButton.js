@@ -1,19 +1,35 @@
 import React, { useEffect } from 'react';
 
-const LightboxButton = ({ type, src, caption, onClick, onMount }) => {
-  
-  useEffect(() => {
-    onMount({ type, src, caption });
-  }, []);
+import classNames from 'classnames';
 
-  return (
-    <button
-      className="lightbox-button"
-      onClick={() => onClick(src, caption, type)}
-    >
-      Open {type}
-    </button>
-  );
+const LightboxButton = (props) => {
+
+	const {
+		type,
+		src,
+		caption,
+		onClick,
+		onMount,
+		utilities = null,
+		children = 'Lightbox Button',
+	} = props;
+
+	useEffect(() => {
+		onMount({ type, src, caption });
+	}, []);
+
+	const componentClasses = classNames({
+		[`${utilities}`]: utilities !== null,
+	});
+
+	return (
+		<button
+			class={componentClasses}
+			onClick={() => onClick(src, caption, type)}
+		>
+			{children}
+		</button>
+	);
 };
 
 export default LightboxButton;

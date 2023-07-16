@@ -3,6 +3,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import LightboxButton from './LightboxButton';
 import Lightbox from './Lightbox';
 
+import LocalImage from './_assets/eberhard-grossgasteiger-yF9Tm4qrYmM-unsplash.jpg';
+
+import LocalVideoThumb from './_assets/pexels-dmitry-varennikov-5527698-thumbnail.jpg';
+import LocalVideo from './_assets/pexels-dmitry-varennikov-5527698-1080p.mp4';
+
 const LightboxParent = () => {
 
     const [mediaArray, setMediaArray] = useState([]);
@@ -19,15 +24,15 @@ const LightboxParent = () => {
         caption: '',
     });
 
-    const handleMount = (media) => {
+    const lightboxButtonMount = (media) => {
         setMediaArray((prevArray) => [...prevArray, media]);
     };
 
-    const handleClick = (src, caption, type) => {
+    const lightboxOpenHandler = (src, caption, type) => {
         setLightboxState({ isOpen: true, src, caption, type });
     };
 
-    const handleClose = () => {
+    const lightboxCloseHandler = () => {
         setLightboxState({ isOpen: false, src: '', caption: '', type: '' });
     };
 
@@ -42,7 +47,7 @@ const LightboxParent = () => {
 				lbNext.current.focus();
 				break;
 			case 'Escape':
-				handleClose();
+				lightboxCloseHandler();
 				break;
 			default:
 				return;
@@ -89,31 +94,40 @@ const LightboxParent = () => {
 
     return (
         <div>
+
+        <div className="grid grid--column-2 gap-2">
         
             <LightboxButton
+                utilities='lightbox-button'
                 type='image'
-                src='https://picsum.photos/id/29/1600/900'
+                src={LocalImage}
                 caption='Caption for example 1'
-                onClick={handleClick}
-                onMount={handleMount}
-            />
-
+                onClick={lightboxOpenHandler}
+                onMount={lightboxButtonMount}
+            >
+                <img src={LocalImage} alt='Placeholder' />
+            </LightboxButton>
+        
             <LightboxButton
-                type='image'
-                src='https://picsum.photos/id/30/1600/900'
-                caption='Caption for example 2'
-                onClick={handleClick}
-                onMount={handleMount}
-            />
+                utilities='lightbox-button'
+                type='video'
+                src={LocalVideo}
+                caption='Caption for example 1'
+                onClick={lightboxOpenHandler}
+                onMount={lightboxButtonMount}
+            >
+                <img src={LocalVideoThumb} alt='Placeholder' />
+            </LightboxButton>
 
             <LightboxButton
                 type='vimeo'
                 src='54802209?h=53340e8e30'
                 caption='Caption for example 2'
-                onClick={handleClick}
-                onMount={handleMount}
+                onClick={lightboxOpenHandler}
+                onMount={lightboxButtonMount}
             />
 
+        </div>
             <Lightbox
                 refs={{lbPrevious, lbNext, lbClose}}
                 isOpen={lightboxState.isOpen}
@@ -122,7 +136,7 @@ const LightboxParent = () => {
                 type={lightboxState.type}
                 onNext={() => handleNextPrevious(1)}
                 onPrevious={() => handleNextPrevious(-1)}
-                onClose={handleClose}
+                onClose={lightboxCloseHandler}
             />
         </div>
     );
