@@ -10,6 +10,7 @@ const Lightbox = (props) => {
         onClose,
         onNext,
         onPrevious,
+        onClickOutside,
         refs
     } = props;
 
@@ -54,6 +55,7 @@ const Lightbox = (props) => {
             className='lightbox'
             ref={refs.lbContainer}
             aria-hidden={!isOpen}
+            onClick={onClickOutside}
         >
             <div className='button-group lightbox__buttons'>
                 <button

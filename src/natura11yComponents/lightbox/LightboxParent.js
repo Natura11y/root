@@ -85,6 +85,13 @@ const LightboxParent = () => {
         setCurrentLB(newLB);
     };
 
+
+  const handleCloseOutside = (event) => {
+    if (event.target.classList.contains('lightbox')) {
+      lightboxCloseHandler();
+    }
+  };
+
     useEffect(() => {
         const currentMedia = mediaArray[currentLB];
 
@@ -167,6 +174,7 @@ const LightboxParent = () => {
                 onNext={() => handleNextPrevious(1)}
                 onPrevious={() => handleNextPrevious(-1)}
                 onClose={lightboxCloseHandler}
+                onClickOutside={handleCloseOutside}
             />
         </Fragment>
     );
