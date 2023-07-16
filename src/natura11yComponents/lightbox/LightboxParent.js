@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef, Fragment } from 'react';
 
+import { handleOverlayOpen, handleOverlayClose } from '../../utilities/overlay';
+
 import LightboxButton from './LightboxButton';
 import Lightbox from './Lightbox';
 
@@ -13,9 +15,17 @@ const LightboxParent = () => {
     const [mediaArray, setMediaArray] = useState([]);
 	const [currentLB, setCurrentLB] = useState(0);
 
+    const lbContainer = useRef(null);
     const lbPrevious = useRef(null);
     const lbNext = useRef(null);
     const lbClose = useRef(null);
+
+    const lightboxRefs = {
+        lbContainer, 
+        lbPrevious, 
+        lbNext, 
+        lbClose
+    };
 
     const [lightboxState, setLightboxState] = useState({
         isOpen: false,
@@ -30,10 +40,15 @@ const LightboxParent = () => {
 
     const lightboxOpenHandler = (src, caption, type) => {
         setLightboxState({ isOpen: true, src, caption, type });
+
+        console.log(lbContainer.current, 'lbContainer.current');
+
+		handleOverlayOpen(lbContainer.current);
     };
 
     const lightboxCloseHandler = () => {
         setLightboxState({ isOpen: false, src: '', caption: '', type: '' });
+        handleOverlayClose(lbContainer.current);
     };
 
 	const handleLightboxUpdate = (e) => {
@@ -112,7 +127,7 @@ const LightboxParent = () => {
                     utilities='lightbox-button'
                     type='video'
                     src={LocalVideo}
-                    caption='Caption for example 1'
+                    caption='Caption for example 2'
                     onClick={lightboxOpenHandler}
                     onMount={lightboxButtonMount}
                 >
@@ -144,7 +159,7 @@ const LightboxParent = () => {
             </div>
 
             <Lightbox
-                refs={{lbPrevious, lbNext, lbClose}}
+                refs={lightboxRefs}
                 isOpen={lightboxState.isOpen}
                 src={lightboxState.src}
                 caption={lightboxState.caption}

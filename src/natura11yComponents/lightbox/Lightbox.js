@@ -1,7 +1,5 @@
 import React, { Fragment, useEffect, useState, useRef, forwardRef } from 'react';
 
-import { handleOverlayOpen, handleOverlayClose } from '../../utilities/overlay';
-
 const Lightbox = (props) => {
 
     const { 
@@ -14,8 +12,6 @@ const Lightbox = (props) => {
         onPrevious,
         refs
     } = props;
-
-    const LightboxContainer = useRef(null);
 
     const updateLightboxContent = () => {
 
@@ -56,7 +52,7 @@ const Lightbox = (props) => {
 
         <div
             className='lightbox'
-            ref={LightboxContainer}
+            ref={refs.lbContainer}
             aria-hidden={!isOpen}
         >
             <div className='button-group lightbox__buttons'>

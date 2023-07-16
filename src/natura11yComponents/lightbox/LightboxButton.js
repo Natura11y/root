@@ -24,7 +24,7 @@ const LightboxButton = (props) => {
 
 	return (
 		<button
-			class={componentClasses}
+			className={componentClasses}
 			onClick={() => onClick(src, caption, type)}
 		>
 			{children}
