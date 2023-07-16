@@ -1,12 +1,12 @@
-import React, { Fragment, useEffect, useState, useRef, forwardRef } from 'react';
+import React from 'react';
 
 const Lightbox = (props) => {
 
     const { 
         isOpen,
-        type,
-        src,
-        caption,
+        lbType,
+        lbSrc,
+        lbCaption,
         onClose,
         onNext,
         onPrevious,
@@ -16,27 +16,27 @@ const Lightbox = (props) => {
 
     const updateLightboxContent = () => {
 
-        if (type === 'video') {
+        if (lbType === 'video') {
             return (
                 <video controls>
-                    <source src={src} type='video/mp4' />
+                    <source src={lbSrc} type='video/mp4' />
                 </video>
             );
-        } else if (type === 'youtube') {
+        } else if (lbType === 'youtube') {
             return (
                 <iframe
                 title='YouTube Video'
-                src={`https://www.youtube.com/embed/${src}`}
+                src={`https://www.youtube.com/embed/${lbSrc}`}
                 frameBorder='0'
                 allow='autoplay; fullscreen;'
                 allowFullScreen
                 ></iframe>
             );
-        } else if (type === 'vimeo') {
+        } else if (lbType === 'vimeo') {
             return (
                 <iframe
                 title='Vimeo Video'
-                src={`https://player.vimeo.com/video/${src}`}
+                src={`https://player.vimeo.com/video/${lbSrc}`}
                 frameBorder='0'
                 allow='autoplay; fullscreen;'
                 allowFullScreen
@@ -44,7 +44,7 @@ const Lightbox = (props) => {
             );
         } else {
             return (
-                <img src={src} alt="" />
+                <img src={lbSrc} alt="" />
             );
         }
     };
@@ -57,7 +57,7 @@ const Lightbox = (props) => {
             aria-hidden={!isOpen}
             onClick={onClickOutside}
         >
-            <div className='button-group lightbox__buttons'>
+            <div className='lightbox__buttons'>
                 <button
                     className='button button--icon-only'
                     ref={refs.lbPrevious}
@@ -84,7 +84,7 @@ const Lightbox = (props) => {
             <figure className='lightbox__container'>
                 <div className='lightbox__media'>{updateLightboxContent()}</div>
                 <figcaption className='lightbox__caption'>
-                    {caption}
+                    {lbCaption}
                 </figcaption>
             </figure>
         </div>

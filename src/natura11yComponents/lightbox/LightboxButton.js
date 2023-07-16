@@ -5,9 +5,9 @@ import classNames from 'classnames';
 const LightboxButton = (props) => {
 
 	const {
-		type,
-		src,
-		caption,
+		lbType,
+		lbSrc,
+		lbCaption,
 		onClick,
 		onMount,
 		utilities = null,
@@ -15,7 +15,7 @@ const LightboxButton = (props) => {
 	} = props;
 
 	useEffect(() => {
-		onMount({ type, src, caption });
+		onMount({ lbType, lbSrc, lbCaption });
 	}, []);
 
 	const componentClasses = classNames({
@@ -25,7 +25,7 @@ const LightboxButton = (props) => {
 	return (
 		<button
 			className={componentClasses}
-			onClick={() => onClick(src, caption, type)}
+			onClick={() => onClick( lbType, lbSrc, lbCaption)}
 		>
 			{children}
 		</button>

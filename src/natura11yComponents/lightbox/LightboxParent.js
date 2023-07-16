@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, Fragment } from 'react';
+import React, { Fragment, useState, useEffect, useRef } from 'react';
 
 import { handleOverlayOpen, handleOverlayClose } from '../../utilities/overlay';
 
@@ -14,6 +14,12 @@ const LightboxParent = () => {
 
     const [mediaArray, setMediaArray] = useState([]);
 	const [currentLB, setCurrentLB] = useState(0);
+    const [lightboxState, setLightboxState] = useState({
+        isOpen: false,
+        lbType: '',
+        lbSrc: '',
+        lbCaption: '',
+    });
 
     const lbContainer = useRef(null);
     const lbPrevious = useRef(null);
@@ -27,19 +33,12 @@ const LightboxParent = () => {
         lbClose
     };
 
-    const [lightboxState, setLightboxState] = useState({
-        isOpen: false,
-        type: '',
-        src: '',
-        caption: '',
-    });
-
     const lightboxButtonMount = (media) => {
         setMediaArray((prevArray) => [...prevArray, media]);
     };
 
-    const lightboxOpenHandler = (src, caption, type) => {
-        setLightboxState({ isOpen: true, src, caption, type });
+    const lightboxOpenHandler = (lbType, lbSrc, lbCaption) => {
+        setLightboxState({ isOpen: true, lbType, lbSrc, lbCaption });
 
         console.log(lbContainer.current, 'lbContainer.current');
 
@@ -47,7 +46,7 @@ const LightboxParent = () => {
     };
 
     const lightboxCloseHandler = () => {
-        setLightboxState({ isOpen: false, src: '', caption: '', type: '' });
+        setLightboxState({ isOpen: false, lbType: '', lbSrc: '', lbCaption: '' });
         handleOverlayClose(lbContainer.current);
     };
 
@@ -85,12 +84,11 @@ const LightboxParent = () => {
         setCurrentLB(newLB);
     };
 
-
-  const handleCloseOutside = (event) => {
-    if (event.target.classList.contains('lightbox')) {
-      lightboxCloseHandler();
-    }
-  };
+    const handleCloseOutside = (event) => {
+        if (event.target.classList.contains('lightbox')) {
+        lightboxCloseHandler();
+        }
+    };
 
     useEffect(() => {
         const currentMedia = mediaArray[currentLB];
@@ -98,9 +96,9 @@ const LightboxParent = () => {
         if (currentMedia) {
             setLightboxState({
                 isOpen: true,
-                src: currentMedia.src,
-                caption: currentMedia.caption,
-                type: currentMedia.type
+                lbType: currentMedia.lbType,
+                lbSrc: currentMedia.lbSrc,
+                lbCaption: currentMedia.lbCaption
             });
         }
     }, [currentLB]);
@@ -117,13 +115,13 @@ const LightboxParent = () => {
     return (
         <Fragment>
 
-            <div className="grid grid--column-2 gap-3">
+            <div className="container narrow grid gap-3">
             
                 <LightboxButton
                     utilities='lightbox-button'
-                    type='image'
-                    src={LocalImage}
-                    caption='Caption for example 1'
+                    lbType='image'
+                    lbSrc={LocalImage}
+                    lbCaption='Caption for example 1'
                     onClick={lightboxOpenHandler}
                     onMount={lightboxButtonMount}
                 >
@@ -132,9 +130,9 @@ const LightboxParent = () => {
             
                 <LightboxButton
                     utilities='lightbox-button'
-                    type='video'
-                    src={LocalVideo}
-                    caption='Caption for example 2'
+                    lbType='video'
+                    lbSrc={LocalVideo}
+                    lbCaption='Caption for example 2'
                     onClick={lightboxOpenHandler}
                     onMount={lightboxButtonMount}
                 >
@@ -143,9 +141,9 @@ const LightboxParent = () => {
 
                 <LightboxButton
                     utilities='button theme-primary width-100'
-                    type='youtube'
-                    src='k3ftlbnbwuc'
-                    caption='Caption for example 3'
+                    lbType='youtube'
+                    lbSrc='k3ftlbnbwuc'
+                    lbCaption='Caption for example 3'
                     onClick={lightboxOpenHandler}
                     onMount={lightboxButtonMount}
                 >
@@ -154,9 +152,9 @@ const LightboxParent = () => {
 
                 <LightboxButton
                     utilities='button theme-primary width-100'
-                    type='vimeo'
-                    src='54802209?h=53340e8e30'
-                    caption='Caption for example 4'
+                    lbType='vimeo'
+                    lbSrc='54802209?h=53340e8e30'
+                    lbCaption='Caption for example 4'
                     onClick={lightboxOpenHandler}
                     onMount={lightboxButtonMount}
                 >
@@ -168,9 +166,9 @@ const LightboxParent = () => {
             <Lightbox
                 refs={lightboxRefs}
                 isOpen={lightboxState.isOpen}
-                src={lightboxState.src}
-                caption={lightboxState.caption}
-                type={lightboxState.type}
+                lbType={lightboxState.lbType}
+                lbSrc={lightboxState.lbSrc}
+                lbCaption={lightboxState.lbCaption}
                 onNext={() => handleNextPrevious(1)}
                 onPrevious={() => handleNextPrevious(-1)}
                 onClose={lightboxCloseHandler}
