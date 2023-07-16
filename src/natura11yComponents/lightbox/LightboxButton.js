@@ -24,8 +24,9 @@ const LightboxButton = (props) => {
 
 	return (
 		<button
+			data-lightbox-type={lbType}
 			className={componentClasses}
-			onClick={() => onClick( lbType, lbSrc, lbCaption)}
+			onClick={() => onClick(lbType, lbSrc, lbCaption)}
 		>
 			{children}
 		</button>

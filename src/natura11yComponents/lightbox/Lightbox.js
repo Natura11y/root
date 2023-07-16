@@ -83,9 +83,11 @@ const Lightbox = (props) => {
 
             <figure className='lightbox__container'>
                 <div className='lightbox__media'>{updateLightboxContent()}</div>
-                <figcaption className='lightbox__caption'>
-                    {lbCaption}
-                </figcaption>
+                {lbCaption && (
+                    <figcaption className='lightbox__caption'>
+                        {lbCaption}
+                    </figcaption>
+                )}
             </figure>
         </div>
     
