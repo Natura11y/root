@@ -157,7 +157,7 @@ In this file:
 
       width: var(--button-icon-only-size);
     }
-
+    
     &[data-lightbox="video"]::after {
       --button-icon: var(--lightbox-button-icon-video);
       --icon-size: 1.75em;
@@ -167,14 +167,17 @@ In this file:
       transform: translate(-50%, -50%);
 
       border-radius: 100%;
-
     }
+  
   }
 
   // Lightbox Elements
 
-  .lightbox__buttons {
-    justify-content: end;
+  .lightbox__controls {
+    display: flex;
+    justify-content: flex-end;
+
+    gap: 0.5em;
     
     position: fixed;
     inset-block-start: 0;
@@ -196,6 +199,8 @@ In this file:
 
   }
 
+  // Lightbox Container
+
   .lightbox__container {
     display: flex;
     flex-direction: column;
@@ -204,6 +209,8 @@ In this file:
 
     margin: auto;
   }
+
+  // Lightbox Media
 
   .lightbox__media {
     position: relative;
@@ -249,9 +256,7 @@ In this file:
 
   }
 
-  .lightbox-src{
-  display: none;
-  }
+  // Lightbox Caption
 
   .lightbox__caption {
     display: table-caption;

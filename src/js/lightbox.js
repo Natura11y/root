@@ -7,7 +7,7 @@ export default class Lightbox {
 	#lightboxTargetList = document.querySelectorAll('[data-lightbox]');
 
 	#lightboxHTML = `
-		<div class="lightbox__buttons button-group">
+		<div class="lightbox__controls">
 			<button class="button button--icon-only" data-lightbox-previous>
 				<span class="icon icon-arrow-left" aria-label="Previous" aria-hidden="true"></span>
 			</button>
