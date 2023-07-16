@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Fragment } from 'react';
 
 import LightboxButton from './LightboxButton';
 import Lightbox from './Lightbox';
@@ -93,41 +93,56 @@ const LightboxParent = () => {
 	}, [lightboxState, mediaArray]);
 
     return (
-        <div>
+        <Fragment>
 
-        <div className="grid grid--column-2 gap-2">
-        
-            <LightboxButton
-                utilities='lightbox-button'
-                type='image'
-                src={LocalImage}
-                caption='Caption for example 1'
-                onClick={lightboxOpenHandler}
-                onMount={lightboxButtonMount}
-            >
-                <img src={LocalImage} alt='Placeholder' />
-            </LightboxButton>
-        
-            <LightboxButton
-                utilities='lightbox-button'
-                type='video'
-                src={LocalVideo}
-                caption='Caption for example 1'
-                onClick={lightboxOpenHandler}
-                onMount={lightboxButtonMount}
-            >
-                <img src={LocalVideoThumb} alt='Placeholder' />
-            </LightboxButton>
+            <div className="grid grid--column-2 gap-3">
+            
+                <LightboxButton
+                    utilities='lightbox-button'
+                    type='image'
+                    src={LocalImage}
+                    caption='Caption for example 1'
+                    onClick={lightboxOpenHandler}
+                    onMount={lightboxButtonMount}
+                >
+                    <img src={LocalImage} alt='Placeholder' />
+                </LightboxButton>
+            
+                <LightboxButton
+                    utilities='lightbox-button'
+                    type='video'
+                    src={LocalVideo}
+                    caption='Caption for example 1'
+                    onClick={lightboxOpenHandler}
+                    onMount={lightboxButtonMount}
+                >
+                    <img src={LocalVideoThumb} alt='Placeholder' />
+                </LightboxButton>
 
-            <LightboxButton
-                type='vimeo'
-                src='54802209?h=53340e8e30'
-                caption='Caption for example 2'
-                onClick={lightboxOpenHandler}
-                onMount={lightboxButtonMount}
-            />
+                <LightboxButton
+                    utilities='button theme-primary width-100'
+                    type='youtube'
+                    src='k3ftlbnbwuc'
+                    caption='Caption for example 3'
+                    onClick={lightboxOpenHandler}
+                    onMount={lightboxButtonMount}
+                >
+                    Open YouTube Video
+                </LightboxButton>
 
-        </div>
+                <LightboxButton
+                    utilities='button theme-primary width-100'
+                    type='vimeo'
+                    src='54802209?h=53340e8e30'
+                    caption='Caption for example 4'
+                    onClick={lightboxOpenHandler}
+                    onMount={lightboxButtonMount}
+                >
+                    Open Vimeo Video
+                </LightboxButton>
+
+            </div>
+
             <Lightbox
                 refs={{lbPrevious, lbNext, lbClose}}
                 isOpen={lightboxState.isOpen}
@@ -138,7 +153,7 @@ const LightboxParent = () => {
                 onPrevious={() => handleNextPrevious(-1)}
                 onClose={lightboxCloseHandler}
             />
-        </div>
+        </Fragment>
     );
 };
 
