@@ -18,7 +18,7 @@ import PrimaryNavigation from '../natura11yComponents/navigation/PrimaryNavigati
 
 import ModalParent from '../natura11yComponents/modal/ModalParent';
 
-import LightboxParent from '../natura11yComponents/lightbox/LightboxParent';
+import LightboxExample from '../natura11yComponents/lightbox/LightboxExample';
 
 import Tabs from '../natura11yComponents/tab/Tabs';
 
@@ -127,7 +127,7 @@ const Example = ({ examples }) => {
 			case 'lightbox':
 				return (
 					<div className='medium margin-x-auto'>
-						<LightboxParent />
+						<LightboxExample />
 					</div>
 				);
 

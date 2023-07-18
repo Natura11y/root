@@ -1,20 +1,10 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import classNames from 'classnames';
-
-// import { LightboxContext } from '../../context/LightboxContext';
+import { LightboxContext } from '../../context/LightboxContext';
 
 const LightboxButton = (props) => {
-  const { 
-    lbType, 
-    lbSrc, 
-    lbCaption, 
-    onMount, 
-    utilities = null, 
-    children = 'Lightbox Button', 
-    lightboxOpenHandler 
-  } = props;
-  
-  // const { openLightbox } = useContext(LightboxContext);
+  const { lbType, lbSrc, lbCaption, onMount, utilities = null, children = 'Lightbox Button' } = props;
+  const { addToMediaArray, lightboxOpenHandler } = useContext(LightboxContext);
 
   useEffect(() => {
     onMount({ lbType, lbSrc, lbCaption });
@@ -24,15 +14,16 @@ const LightboxButton = (props) => {
     [`${utilities}`]: utilities !== null,
   });
 
+  const handleClick = () => {
+    lightboxOpenHandler(lbType, lbSrc, lbCaption);
+  };
+
   return (
-    <button
-      data-lightbox-type={lbType}
-      className={componentClasses}
-      onClick={() => lightboxOpenHandler(lbType, lbSrc, lbCaption)} // Updated here
-    >
+    <button data-lightbox-type={lbType} className={componentClasses} onClick={handleClick}>
       {children}
     </button>
   );
 };
 
 export default LightboxButton;
+

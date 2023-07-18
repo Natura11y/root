@@ -1,104 +1,70 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { LightboxContext } from '../../context/LightboxContext';
 
-const Lightbox = (props) => {
+const Lightbox = () => {
+  const { mediaArray, lightboxState, onNext, onPrevious, onClose, onClickOutside, lbContainer, lbPrevious, lbNext, lbClose } = useContext(LightboxContext);
 
-    const { 
-        mediaArray,
-        isOpen,
-        lbType,
-        lbSrc,
-        lbCaption,
-        onClose,
-        onNext,
-        onPrevious,
-        onClickOutside,
-        refs
-    } = props;
+  const { isOpen, lbType, lbSrc, lbCaption } = lightboxState;
 
-    const updateLightboxContent = () => {
 
-        if (lbType === 'video') {
-            return (
-                <video controls>
-                    <source src={lbSrc} type='video/mp4' />
-                </video>
-            );
-        } else if (lbType === 'youtube') {
-            return (
-                <iframe
-                title='YouTube Video'
-                src={`https://www.youtube.com/embed/${lbSrc}`}
-                frameBorder='0'
-                allow='autoplay; fullscreen;'
-                allowFullScreen
-                ></iframe>
-            );
-        } else if (lbType === 'vimeo') {
-            return (
-                <iframe
-                title='Vimeo Video'
-                src={`https://player.vimeo.com/video/${lbSrc}`}
-                frameBorder='0'
-                allow='autoplay; fullscreen;'
-                allowFullScreen
-                ></iframe>
-            );
-        } else {
-            return (
-                <img src={lbSrc} alt="" />
-            );
-        }
-    };
-    
-	return (
+  const updateLightboxContent = () => {
+    if (lbType === 'video') {
+      return (
+        <video controls>
+          <source src={lbSrc} type='video/mp4' />
+        </video>
+      );
+    } else if (lbType === 'youtube') {
+      return (
+        <iframe
+          title='YouTube Video'
+          src={`https://www.youtube.com/embed/${lbSrc}`}
+          frameBorder='0'
+          allow='autoplay; fullscreen;'
+          allowFullScreen
+        ></iframe>
+      );
+    } else if (lbType === 'vimeo') {
+      return (
+        <iframe
+          title='Vimeo Video'
+          src={`https://player.vimeo.com/video/${lbSrc}`}
+          frameBorder='0'
+          allow='autoplay; fullscreen;'
+          allowFullScreen
+        ></iframe>
+      );
+    } else {
+      return <img src={lbSrc} alt='' />;
+    }
+  };
 
-        <div
-            className='lightbox'
-            ref={refs.lbContainer}
-            aria-hidden={!isOpen}
-            onClick={onClickOutside}
-        >
-            <div className='lightbox__buttons'>
-                {mediaArray.length > 1 && (
-                    <>
-                        <button
-                            className='button button--icon-only'
-                            ref={refs.lbPrevious}
-                            onClick={onPrevious}
-                        >
-                            <span className='icon icon-arrow-left' aria-label='Previous'></span>
-                        </button>
+  return (
+    <div className='lightbox' ref={lbContainer} aria-hidden={!isOpen} onClick={onClickOutside}>
+      <div className='lightbox__buttons'>
+        {mediaArray.length > 1 && (
+          <>
+            <button className='button button--icon-only' ref={lbPrevious} onClick={onPrevious}>
+              <span className='icon icon-arrow-left' aria-label='Previous'></span>
+            </button>
 
-                        <button
-                            className='button button--icon-only'
-                            ref={refs.lbNext}
-                            onClick={onNext}
-                        >
-                            <span className='icon icon-arrow-right' aria-label='Next'></span>
-                        </button>
-                    </>
-                )}
+            <button className='button button--icon-only' ref={lbNext} onClick={onNext}>
+              <span className='icon icon-arrow-right' aria-label='Next'></span>
+            </button>
+          </>
+        )}
 
-                <button
-                    className='button button--icon-only'
-                    ref={refs.lbClose}
-                    onClick={onClose}
-                >
-                    <span className='icon icon-close' aria-label='Close'></span>
-                </button>
-            </div>
+        <button className='button button--icon-only' ref={lbClose} onClick={onClose}>
+          <span className='icon icon-close' aria-label='Close'></span>
+        </button>
+      </div>
 
-            <figure className='lightbox__container'>
-                <div className='lightbox__media'>{updateLightboxContent()}</div>
-                {lbCaption && (
-                    <figcaption className='lightbox__caption'>
-                        {lbCaption}
-                    </figcaption>
-                )}
-            </figure>
-        </div>
-    
-    );
+      <figure className='lightbox__container'>
+        <div className='lightbox__media'>{updateLightboxContent()}</div>
+        {lbCaption && <figcaption className='lightbox__caption'>{lbCaption}</figcaption>}
+      </figure>
+    </div>
+  );
 };
 
 export default Lightbox;
