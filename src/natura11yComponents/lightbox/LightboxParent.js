@@ -51,6 +51,11 @@ const LightboxParent = () => {
     };
 
 	const handleLightboxUpdate = (e) => {
+
+		if (mediaArray.length <= 1) {
+			return;
+		}
+
 		switch (e.code) {
 			case 'ArrowLeft':
 				updateDirection(-1);
@@ -68,9 +73,14 @@ const LightboxParent = () => {
 		}
 	};
 
-	const handleNextPrevious = (dir) => {
-		updateDirection(dir);
-	};
+    const handleNextPrevious = (dir) => {
+
+        if (mediaArray.length <= 1) {
+            return;
+        }
+
+        updateDirection(dir);
+    };
 
     const updateDirection = (dir) => {
         let newLB = currentLB + dir;
@@ -104,7 +114,7 @@ const LightboxParent = () => {
     }, [currentLB]);
 
     useEffect(() => {
-        console.log(mediaArray, 'mediaArray');
+        console.log(mediaArray, '?? mediaArray');
 		document.addEventListener('keydown', handleLightboxUpdate);
 
 		return () => {
@@ -165,6 +175,7 @@ const LightboxParent = () => {
 
             <Lightbox
                 refs={lightboxRefs}
+                mediaArray={mediaArray}
                 isOpen={lightboxState.isOpen}
                 lbType={lightboxState.lbType}
                 lbSrc={lightboxState.lbSrc}

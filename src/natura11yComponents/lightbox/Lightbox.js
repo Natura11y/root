@@ -11,7 +11,8 @@ const Lightbox = (props) => {
         onNext,
         onPrevious,
         onClickOutside,
-        refs
+        refs,
+        mediaArray
     } = props;
 
     const updateLightboxContent = () => {
@@ -58,20 +59,26 @@ const Lightbox = (props) => {
             onClick={onClickOutside}
         >
             <div className='lightbox__buttons'>
-                <button
-                    className='button button--icon-only'
-                    ref={refs.lbPrevious}
-                    onClick={onPrevious}
-                >
-                    <span className='icon icon-arrow-left' aria-label='Previous'></span>
-                </button>
-                <button
-                    className='button button--icon-only'
-                    ref={refs.lbNext}
-                    onClick={onNext}
-                >
-                    <span className='icon icon-arrow-right' aria-label='Next'></span>
-                </button>
+                {mediaArray.length > 1 && (
+                    <>
+                        <button
+                            className='button button--icon-only'
+                            ref={refs.lbPrevious}
+                            onClick={onPrevious}
+                        >
+                            <span className='icon icon-arrow-left' aria-label='Previous'></span>
+                        </button>
+
+                        <button
+                            className='button button--icon-only'
+                            ref={refs.lbNext}
+                            onClick={onNext}
+                        >
+                            <span className='icon icon-arrow-right' aria-label='Next'></span>
+                        </button>
+                    </>
+                )}
+
                 <button
                     className='button button--icon-only'
                     ref={refs.lbClose}
