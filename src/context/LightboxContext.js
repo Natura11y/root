@@ -3,6 +3,7 @@ import React, { createContext, useState } from 'react';
 export const LightboxContext = createContext();
 
 export const LightboxProvider = ({ children }) => {
+
   const [mediaArray, setMediaArray] = useState([]);
   const [lightboxState, setLightboxState] = useState({
     isOpen: false,
