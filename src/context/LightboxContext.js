@@ -11,30 +11,38 @@ export const LightboxProvider = ({ children }) => {
     lbCaption: '',
   });
 
-  const openLightbox = (lbType, lbSrc, lbCaption) => {
-    setLightboxState({
-      isOpen: true,
-      lbType,
-      lbSrc,
-      lbCaption,
-    });
-  };
+  // const openLightbox = (lbType, lbSrc, lbCaption) => {
+  //   setLightboxState({
+  //     isOpen: true,
+  //     lbType,
+  //     lbSrc,
+  //     lbCaption,
+  //   });
+  // };
 
-  const closeLightbox = () => {
-    setLightboxState({
-      isOpen: false,
-      lbType: '',
-      lbSrc: '',
-      lbCaption: '',
-    });
-  };
+  // const closeLightbox = () => {
+  //   setLightboxState({
+  //     isOpen: false,
+  //     lbType: '',
+  //     lbSrc: '',
+  //     lbCaption: '',
+  //   });
+  // };
 
   const addToMediaArray = (media) => {
     setMediaArray((prevArray) => [...prevArray, media]);
   };
 
   return (
-    <LightboxContext.Provider value={{ mediaArray, addToMediaArray, lightboxState, openLightbox, closeLightbox }}
+    <LightboxContext.Provider value={
+      { 
+        mediaArray,
+        addToMediaArray,
+        lightboxState, 
+        // openLightbox, 
+        // closeLightbox 
+      }
+    }
     >
       {children}
     </LightboxContext.Provider>

@@ -1,11 +1,20 @@
 import React, { useEffect, useContext } from 'react';
 import classNames from 'classnames';
 
-import { LightboxContext } from '../../context/LightboxContext';
+// import { LightboxContext } from '../../context/LightboxContext';
 
 const LightboxButton = (props) => {
-  const { lbType, lbSrc, lbCaption, onMount, utilities = null, children = 'Lightbox Button', lightboxOpenHandler } = props;
-  const { openLightbox } = useContext(LightboxContext);
+  const { 
+    lbType, 
+    lbSrc, 
+    lbCaption, 
+    onMount, 
+    utilities = null, 
+    children = 'Lightbox Button', 
+    lightboxOpenHandler 
+  } = props;
+  
+  // const { openLightbox } = useContext(LightboxContext);
 
   useEffect(() => {
     onMount({ lbType, lbSrc, lbCaption });

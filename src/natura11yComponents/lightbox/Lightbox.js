@@ -3,6 +3,7 @@ import React from 'react';
 const Lightbox = (props) => {
 
     const { 
+        mediaArray,
         isOpen,
         lbType,
         lbSrc,
@@ -11,8 +12,7 @@ const Lightbox = (props) => {
         onNext,
         onPrevious,
         onClickOutside,
-        refs,
-        mediaArray
+        refs
     } = props;
 
     const updateLightboxContent = () => {

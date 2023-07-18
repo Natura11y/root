@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { LightboxProvider } from './context/LightboxContext';
-import LightboxParent from './natura11yComponents/lightbox/LightboxParent';
 
 import classNames from 'classnames';
 
@@ -66,14 +65,13 @@ const App = () => {
 			<Header />
 			
 			<LightboxProvider>
-			<main className={classNames('container', 'medium')}>
-			<LightboxParent />
-				<Routes>
-					<Route path='/' element={<Home examples={examples} />}>
-						<Route path=':slug' element={<Example examples={examples} />} />
-					</Route>
-				</Routes>
-			</main>
+				<main className={classNames('container', 'medium')}>
+					<Routes>
+						<Route path='/' element={<Home examples={examples} />}>
+							<Route path=':slug' element={<Example examples={examples} />} />
+						</Route>
+					</Routes>
+				</main>
 			</LightboxProvider>
 		</Router>
 	);

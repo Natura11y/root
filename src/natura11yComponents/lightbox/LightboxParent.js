@@ -10,173 +10,179 @@ import LocalVideoThumb from './_assets/pexels-dmitry-varennikov-5527698-thumbnai
 import LocalVideo from './_assets/pexels-dmitry-varennikov-5527698-1080p.mp4';
 
 const LightboxParent = () => {
-  const [mediaArray, setMediaArray] = useState([]);
-  const [currentLB, setCurrentLB] = useState(0);
-  const [lightboxState, setLightboxState] = useState({
-    isOpen: false,
-    lbType: '',
-    lbSrc: '',
-    lbCaption: '',
-  });
 
-  const lbContainer = useRef(null);
-  const lbPrevious = useRef(null);
-  const lbNext = useRef(null);
-  const lbClose = useRef(null);
+	const [mediaArray, setMediaArray] = useState([]);
+	const [lightboxState, setLightboxState] = useState({
+		isOpen: false,
+		lbType: '',
+		lbSrc: '',
+		lbCaption: '',
+	});
+	const [currentLB, setCurrentLB] = useState(0);
 
-  const lightboxRefs = {
-    lbContainer,
-    lbPrevious,
-    lbNext,
-    lbClose,
-  };
+	const lbContainer = useRef(null);
+	const lbPrevious = useRef(null);
+	const lbNext = useRef(null);
+	const lbClose = useRef(null);
 
-  const lightboxButtonMount = (media) => {
-    setMediaArray((prevArray) => [...prevArray, media]);
-  };
+	const lightboxRefs = {
+		lbContainer,
+		lbPrevious,
+		lbNext,
+		lbClose,
+	};
 
-  const lightboxOpenHandler = (lbType, lbSrc, lbCaption) => {
-    setLightboxState({ isOpen: true, lbType, lbSrc, lbCaption });
+	const lightboxButtonMount = (media) => {
+		setMediaArray((prevArray) => [...prevArray, media]);
+	};
 
-    handleOverlayOpen(lbContainer.current);
-  };
+	const lightboxOpenHandler = (lbType, lbSrc, lbCaption) => {
+		setLightboxState({ isOpen: true, lbType, lbSrc, lbCaption });
 
-  const lightboxCloseHandler = () => {
-    setLightboxState({ isOpen: false, lbType: '', lbSrc: '', lbCaption: '' });
-    handleOverlayClose(lbContainer.current);
-  };
+		handleOverlayOpen(lbContainer.current);
+	};
 
-  const handleLightboxUpdate = (e) => {
-    if (mediaArray.length <= 1) {
-      return;
-    }
+	const lightboxCloseHandler = () => {
+		setLightboxState({ isOpen: false, lbType: '', lbSrc: '', lbCaption: '' });
+		handleOverlayClose(lbContainer.current);
+	};
 
-    switch (e.code) {
-      case 'ArrowLeft':
-        updateDirection(-1);
-        lbPrevious.current.focus();
-        break;
-      case 'ArrowRight':
-        updateDirection(1);
-        lbNext.current.focus();
-        break;
-      case 'Escape':
-        lightboxCloseHandler();
-        break;
-      default:
-        return;
-    }
-  };
+	const handleLightboxUpdate = (e) => {
+  
+		if (mediaArray.length <= 1) {
+			return;
+		}
 
-  const handleNextPrevious = (dir) => {
-    if (mediaArray.length <= 1) {
-      return;
-    }
+		switch (e.code) {
+			case 'ArrowLeft':
+				updateDirection(-1);
+				lbPrevious.current.focus();
+				break;
+			case 'ArrowRight':
+				updateDirection(1);
+				lbNext.current.focus();
+				break;
+			case 'Escape':
+				lightboxCloseHandler();
+				break;
+			default:
+				return;
+		}
+	};
 
-    updateDirection(dir);
-  };
+	const handleNextPrevious = (dir) => {
+		if (mediaArray.length <= 1) {
+			return;
+		}
 
-  const updateDirection = (dir) => {
-    let newLB = currentLB + dir;
+		updateDirection(dir);
+	};
 
-    if (newLB < 0) {
-      newLB = mediaArray.length - 1;
-    } else if (newLB >= mediaArray.length) {
-      newLB = 0;
-    }
+	const updateDirection = (dir) => {
+		let newLB = currentLB + dir;
 
-    setCurrentLB(newLB);
-  };
+		if (newLB < 0) {
+			newLB = mediaArray.length - 1;
+		} else if (newLB >= mediaArray.length) {
+			newLB = 0;
+		}
 
-  const handleCloseOutside = (event) => {
-    if (event.target.classList.contains('lightbox')) {
-      lightboxCloseHandler();
-    }
-  };
+		setCurrentLB(newLB);
+	};
 
-  useEffect(() => {
-    const currentMedia = mediaArray[currentLB];
+	const handleCloseOutside = (event) => {
+		if (event.target.classList.contains('lightbox')) {
+			lightboxCloseHandler();
+		}
+	};
 
-    if (currentMedia) {
-      setLightboxState({
-        isOpen: true,
-        lbType: currentMedia.lbType,
-        lbSrc: currentMedia.lbSrc,
-        lbCaption: currentMedia.lbCaption,
-      });
-    }
-  }, [currentLB]);
+	useEffect(() => {
+		const currentMedia = mediaArray[currentLB];
 
-  useEffect(() => {
-    document.addEventListener('keydown', handleLightboxUpdate);
+		if (currentMedia) {
+			setLightboxState({
+				isOpen: true,
+				lbType: currentMedia.lbType,
+				lbSrc: currentMedia.lbSrc,
+				lbCaption: currentMedia.lbCaption,
+			});
+		}
+	}, [currentLB]);
 
-    return () => {
-      document.removeEventListener('keydown', handleLightboxUpdate);
-    };
-  }, [lightboxState, mediaArray]);
+	useEffect(() => {
 
-  return (
-    <Fragment>
-      <div className="container narrow grid gap-3">
-        <LightboxButton
-          utilities="lightbox-button"
-          lbType="image"
-          lbSrc={LocalImage}
-          lbCaption="Caption for example 1"
-          lightboxOpenHandler={lightboxOpenHandler}
-          onMount={lightboxButtonMount}
-        >
-          <img src={LocalImage} alt="Placeholder" />
-        </LightboxButton>
+		if (lightboxState.isOpen) {
+			document.addEventListener('keydown', handleLightboxUpdate);
+		}
 
-        <LightboxButton
-          utilities="lightbox-button"
-          lbType="video"
-          lbSrc={LocalVideo}
-          lbCaption="Caption for example 2"
-          lightboxOpenHandler={lightboxOpenHandler}
-          onMount={lightboxButtonMount}
-        >
-          <img src={LocalVideoThumb} alt="Placeholder" />
-        </LightboxButton>
+		return () => {
+			document.removeEventListener('keydown', handleLightboxUpdate);
+		};
+	
+  }, [lightboxState.isOpen, mediaArray, updateDirection, lbPrevious, lbNext]);
 
-        <LightboxButton
-          utilities="button theme-primary width-100"
-          lbType="youtube"
-          lbSrc="k3ftlbnbwuc"
-          lbCaption="Caption for example 3"
-          lightboxOpenHandler={lightboxOpenHandler}
-          onMount={lightboxButtonMount}
-        >
-          Open YouTube Video
-        </LightboxButton>
+	return (
+		<Fragment>
+			<div className='container narrow grid gap-3'>
+				<LightboxButton
+					utilities='lightbox-button'
+					lbType='image'
+					lbSrc={LocalImage}
+					lbCaption='Caption for example 1'
+					lightboxOpenHandler={lightboxOpenHandler}
+					onMount={lightboxButtonMount}
+				>
+					<img src={LocalImage} alt='Placeholder' />
+				</LightboxButton>
 
-        <LightboxButton
-          utilities="button theme-primary width-100"
-          lbType="vimeo"
-          lbSrc="54802209?h=53340e8e30"
-          lbCaption="Caption for example 4"
-          lightboxOpenHandler={lightboxOpenHandler}
-          onMount={lightboxButtonMount}
-        >
-          Open Vimeo Video
-        </LightboxButton>
-      </div>
+				<LightboxButton
+					utilities='lightbox-button'
+					lbType='video'
+					lbSrc={LocalVideo}
+					lbCaption='Caption for example 2'
+					lightboxOpenHandler={lightboxOpenHandler}
+					onMount={lightboxButtonMount}
+				>
+					<img src={LocalVideoThumb} alt='Placeholder' />
+				</LightboxButton>
 
-      <Lightbox
-        refs={lightboxRefs}
-        mediaArray={mediaArray}
-        isOpen={lightboxState.isOpen}
-        lbType={lightboxState.lbType}
-        lbSrc={lightboxState.lbSrc}
-        lbCaption={lightboxState.lbCaption}
-        onNext={() => handleNextPrevious(1)}
-        onPrevious={() => handleNextPrevious(-1)}
-        onClose={lightboxCloseHandler}
-        onClickOutside={handleCloseOutside}
-      />
-    </Fragment>
-  );
+				<LightboxButton
+					utilities='button theme-primary width-100'
+					lbType='youtube'
+					lbSrc='k3ftlbnbwuc'
+					lbCaption='Caption for example 3'
+					lightboxOpenHandler={lightboxOpenHandler}
+					onMount={lightboxButtonMount}
+				>
+					Open YouTube Video
+				</LightboxButton>
+
+				<LightboxButton
+					utilities='button theme-primary width-100'
+					lbType='vimeo'
+					lbSrc='54802209?h=53340e8e30'
+					lbCaption='Caption for example 4'
+					lightboxOpenHandler={lightboxOpenHandler}
+					onMount={lightboxButtonMount}
+				>
+					Open Vimeo Video
+				</LightboxButton>
+			</div>
+
+			<Lightbox
+				refs={lightboxRefs}
+				mediaArray={mediaArray}
+				isOpen={lightboxState.isOpen}
+				lbType={lightboxState.lbType}
+				lbSrc={lightboxState.lbSrc}
+				lbCaption={lightboxState.lbCaption}
+				onNext={() => handleNextPrevious(1)}
+				onPrevious={() => handleNextPrevious(-1)}
+				onClose={lightboxCloseHandler}
+				onClickOutside={handleCloseOutside}
+			/>
+		</Fragment>
+	);
 };
 
 export default LightboxParent;
