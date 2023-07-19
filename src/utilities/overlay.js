@@ -50,6 +50,8 @@ export const handleOverlayClose = (element = null) => {
     }
 
     window.scrollTo({ top: scrollPosition, behavior: 'instant' });
-    
-    lastFocusedElement.focus();
+
+    if(lastFocusedElement){
+        lastFocusedElement.focus();
+    }
 }
