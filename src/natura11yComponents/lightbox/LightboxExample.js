@@ -15,7 +15,7 @@ const LightboxExample = () => {
 
   return (
     <Fragment>
-      <div className='container narrow grid gap-3'>
+      <div className='container narrow grid grid--column-2 gap-3'>
         <LightboxButton
           utilities='lightbox-button'
           lbType='image'
@@ -25,6 +25,17 @@ const LightboxExample = () => {
           onMount={lightboxButtonMount}
         >
           <img src={LocalImage} alt='Placeholder' />
+        </LightboxButton>
+
+        <LightboxButton
+          utilities='lightbox-button'
+          lbType='video'
+          lbSrc={LocalVideo}
+          lbCaption='Caption for example 2'
+          lightboxOpenHandler={lightboxOpenHandler}
+          onMount={lightboxButtonMount}
+        >
+          <img src={LocalVideoThumb} alt='Placeholder' />
         </LightboxButton>
       </div>
     </Fragment>

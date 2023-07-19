@@ -34,12 +34,12 @@ export const LightboxProvider = ({ children }) => {
   };
 
   const handleNextPrevious = (dir) => {
-    if (mediaArray.length <= 1) {
-      return;
-    }
+		if (mediaArray.length <= 1) {
+			return;
+		}
 
-    updateDirection(dir);
-  };
+		updateDirection(dir);
+	};
 
   const updateDirection = (dir) => {
     let newLB = currentLB + dir;
@@ -90,17 +90,17 @@ export const LightboxProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const currentMedia = mediaArray[currentLB];
+		const currentMedia = mediaArray[currentLB];
 
-    if (currentMedia) {
-      setLightboxState({
-        isOpen: false,
-        lbType: currentMedia.lbType,
-        lbSrc: currentMedia.lbSrc,
-        lbCaption: currentMedia.lbCaption,
-      });
-    }
-  }, [currentLB, mediaArray]);
+		if (currentMedia) {
+			setLightboxState((prevState) => ({
+				...prevState,
+				lbType: currentMedia.lbType,
+				lbSrc: currentMedia.lbSrc,
+				lbCaption: currentMedia.lbCaption,
+			}));
+		}
+	}, [currentLB, mediaArray]);
 
   const lightboxContextValue = {
     mediaArray,
@@ -123,4 +123,3 @@ export const LightboxProvider = ({ children }) => {
     </LightboxContext.Provider>
   );
 };
-
