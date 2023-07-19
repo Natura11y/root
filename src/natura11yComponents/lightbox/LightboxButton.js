@@ -15,15 +15,11 @@ const LightboxButton = (props) => {
     [`${utilities}`]: utilities !== null,
   });
 
-  const handleClick = () => {
-    lightboxOpenHandler(lbType, lbSrc, lbCaption);
-  };
-
   return (
     <button
       data-lightbox-type={lbType}
       className={componentClasses}
-      onClick={handleClick}
+      onClick={() => lightboxOpenHandler(lbType, lbSrc, lbCaption)}
     >
       {children}
     </button>

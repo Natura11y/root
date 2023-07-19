@@ -1,46 +1,40 @@
 import React, { createContext, useState, useRef, useEffect } from 'react';
+
 import { handleOverlayOpen, handleOverlayClose } from '../utilities/overlay';
+
 import Lightbox from '../natura11yComponents/lightbox/Lightbox';
 
 export const LightboxContext = createContext();
 
 export const LightboxProvider = ({ children }) => {
+
   const [mediaArray, setMediaArray] = useState([]);
-  const [currentLB, setCurrentLB] = useState(0);
   const [lightboxState, setLightboxState] = useState({
     isOpen: false,
     lbType: '',
     lbSrc: '',
     lbCaption: '',
   });
+  const [currentLB, setCurrentLB] = useState(0);
 
   const lbContainer = useRef(null);
   const lbPrevious = useRef(null);
   const lbNext = useRef(null);
   const lbClose = useRef(null);
-
+  
   const addToMediaArray = (media) => {
     setMediaArray((prevArray) => [...prevArray, media]);
   };
 
   const lightboxOpenHandler = (lbType, lbSrc, lbCaption) => {
     setLightboxState({ isOpen: true, lbType, lbSrc, lbCaption });
-    handleOverlayOpen(lbContainer.current);
   };
 
   const lightboxCloseHandler = () => {
     setLightboxState({ isOpen: false, lbType: '', lbSrc: '', lbCaption: '' });
     handleOverlayClose(lbContainer.current);
   };
-
-  const handleOverlayOpen = () => {
-    document.addEventListener('keydown', handleLightboxUpdate);
-  };
-
-  const handleOverlayClose = () => {
-    document.removeEventListener('keydown', handleLightboxUpdate);
-  };
-
+  
   const handleLightboxUpdate = (e) => {
 
     if (!lightboxState.isOpen || mediaArray.length <= 1) {
@@ -90,27 +84,33 @@ export const LightboxProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-		const currentMedia = mediaArray[currentLB];
-
-		if (currentMedia) {
-			setLightboxState((prevState) => ({
-				...prevState,
-				lbType: currentMedia.lbType,
-				lbSrc: currentMedia.lbSrc,
-				lbCaption: currentMedia.lbCaption,
-			}));
-		}
-
+	useEffect(() => {
+  
 		if (lightboxState.isOpen) {
 			document.addEventListener('keydown', handleLightboxUpdate);
-		}
+      handleOverlayOpen(lbContainer.current);
+		} else {
+      document.removeEventListener('keydown', handleLightboxUpdate);
+    }
 
 		return () => {
 			document.removeEventListener('keydown', handleLightboxUpdate);
 		};
 	
-	}, [lightboxState, currentLB, mediaArray]);
+  }, [lightboxState, mediaArray]);
+
+	useEffect(() => {
+		const currentMedia = mediaArray[currentLB];
+
+		if (currentMedia) {
+			setLightboxState({
+				isOpen: true,
+				lbType: currentMedia.lbType,
+				lbSrc: currentMedia.lbSrc,
+				lbCaption: currentMedia.lbCaption,
+			});
+		}
+	}, [currentLB]);
 
   const lightboxContextValue = {
     mediaArray,
@@ -123,13 +123,15 @@ export const LightboxProvider = ({ children }) => {
     lbContainer,
     lbPrevious,
     lbNext,
-    lbClose,
+    lbClose
   };
 
   return (
     <LightboxContext.Provider value={lightboxContextValue}>
       {children}
-      {lightboxState.isOpen && <Lightbox />}
+      {lightboxState.isOpen ? (
+        <Lightbox />
+      ) : null}
     </LightboxContext.Provider>
   );
 };

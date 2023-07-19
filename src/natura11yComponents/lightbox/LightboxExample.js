@@ -7,7 +7,7 @@ import LocalVideoThumb from './_assets/pexels-dmitry-varennikov-5527698-thumbnai
 import LocalVideo from './_assets/pexels-dmitry-varennikov-5527698-1080p.mp4';
 
 const LightboxExample = () => {
-  const { addToMediaArray, lightboxOpenHandler, mediaArray } = useContext(LightboxContext);
+  const { addToMediaArray, lightboxOpenHandler } = useContext(LightboxContext);
 
   const lightboxButtonMount = (media) => {
     addToMediaArray(media);
@@ -37,7 +37,6 @@ const LightboxExample = () => {
         >
           <img src={LocalVideoThumb} alt='Placeholder' />
         </LightboxButton>
-
 
 				<LightboxButton
 					utilities='button theme-primary width-100'

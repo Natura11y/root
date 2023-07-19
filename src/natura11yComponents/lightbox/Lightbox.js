@@ -15,7 +15,12 @@ const Lightbox = () => {
     lbClose
   } = useContext(LightboxContext);
 
-  const { isOpen, lbType, lbSrc, lbCaption } = lightboxState;
+  const {
+    isOpen, 
+    lbType, 
+    lbSrc, 
+    lbCaption 
+  } = lightboxState;
 
   const updateLightboxContent = () => {
     if (lbType === 'video') {
