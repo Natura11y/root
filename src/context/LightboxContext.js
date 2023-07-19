@@ -22,6 +22,8 @@ export const LightboxProvider = ({ children }) => {
   const lbNext = useRef(null);
   const lbClose = useRef(null);
 
+  const previousIsOpen = useRef(lightboxData.isOpen);
+
   const addToMediaArray = (media) => {
     setMediaArray((prevArray) => [...prevArray, media]);
   };
@@ -94,19 +96,24 @@ export const LightboxProvider = ({ children }) => {
     }
   };
 
-	useEffect(() => {
+  useEffect(() => {
 		if (lightboxData.isOpen) {
 			document.addEventListener('keydown', handleLightboxUpdate);
-      handleOverlayOpen(lbContainer.current);
-		} else {
-      document.removeEventListener('keydown', handleLightboxUpdate);
-    }
+
+      if(!previousIsOpen.current) { 
+        handleOverlayOpen(lbContainer.current);
+      }
+		
+    } else if (!lightboxData.isOpen) {
+			document.removeEventListener('keydown', handleLightboxUpdate);
+		}
+
+		previousIsOpen.current = lightboxData.isOpen;
 
 		return () => {
 			document.removeEventListener('keydown', handleLightboxUpdate);
 		};
-	
-  }, [lightboxData, mediaArray]);
+	}, [lightboxData, mediaArray]);
 
 	useEffect(() => {
 		const currentMedia = mediaArray[lightboxData.currentLB];
