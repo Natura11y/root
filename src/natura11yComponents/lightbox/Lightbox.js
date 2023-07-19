@@ -5,7 +5,7 @@ const Lightbox = () => {
 
   const {
     mediaArray, 
-    lightboxState, 
+    lightboxData, 
     lightboxCloseHandler,
     handleNextPrevious,
     handleCloseOutside,
@@ -20,7 +20,7 @@ const Lightbox = () => {
     lbType, 
     lbSrc, 
     lbCaption 
-  } = lightboxState;
+  } = lightboxData;
 
   const updateLightboxContent = () => {
     if (lbType === 'video') {
