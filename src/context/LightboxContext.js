@@ -9,52 +9,68 @@ export const LightboxContext = createContext();
 export const LightboxProvider = ({ children }) => {
 
   const [mediaArray, setMediaArray] = useState([]);
-  const [lightboxState, setLightboxState] = useState({
+  const [lightboxData, setLightboxData] = useState({
     isOpen: false,
     lbType: '',
     lbSrc: '',
     lbCaption: '',
+    currentLB: 0,
   });
-  const [currentLB, setCurrentLB] = useState(0);
 
   const lbContainer = useRef(null);
   const lbPrevious = useRef(null);
   const lbNext = useRef(null);
   const lbClose = useRef(null);
-  
+
   const addToMediaArray = (media) => {
     setMediaArray((prevArray) => [...prevArray, media]);
   };
 
+  const updateLightboxState = (lbType, lbSrc, lbCaption, isOpen) => {
+    setLightboxData(prevState => ({
+      ...prevState,
+      isOpen,
+      lbType,
+      lbSrc,
+      lbCaption
+    }));
+  };
+
   const lightboxOpenHandler = (lbType, lbSrc, lbCaption) => {
-    setLightboxState({ isOpen: true, lbType, lbSrc, lbCaption });
+    updateLightboxState(lbType, lbSrc, lbCaption, true);
   };
 
   const lightboxCloseHandler = () => {
-    setLightboxState({ isOpen: false, lbType: '', lbSrc: '', lbCaption: '' });
+    updateLightboxState('', '', '', false);
     handleOverlayClose(lbContainer.current);
   };
-  
+
+  const updateCurrentLB = (newIndex) => {
+    setLightboxData(prevState => ({ ...prevState, currentLB: newIndex }));
+  };
+
+  const updateLightboxAndFocus = (direction, refToFocus) => {
+    updateDirection(direction);
+    refToFocus.current.focus();
+  };
+
   const handleLightboxUpdate = (e) => {
 
-    if (!lightboxState.isOpen || mediaArray.length <= 1) {
+    if (!lightboxData.isOpen || mediaArray.length <= 1) {
       return;
     }
 
     switch (e.code) {
       case 'ArrowLeft':
-        updateDirection(-1);
-        lbPrevious.current.focus();
+        updateLightboxAndFocus(-1, lbPrevious);
         break;
       case 'ArrowRight':
-        updateDirection(1);
-        lbNext.current.focus();
+        updateLightboxAndFocus(1, lbNext);
         break;
       case 'Escape':
         lightboxCloseHandler();
         break;
       default:
-        return;
     }
   };
 
@@ -67,7 +83,7 @@ export const LightboxProvider = ({ children }) => {
 	};
 
   const updateDirection = (dir) => {
-    let newLB = currentLB + dir;
+    let newLB = lightboxData.currentLB + dir;
 
     if (newLB < 0) {
       newLB = mediaArray.length - 1;
@@ -75,7 +91,7 @@ export const LightboxProvider = ({ children }) => {
       newLB = 0;
     }
 
-    setCurrentLB(newLB);
+    updateCurrentLB(newLB);
   };
 
   const handleCloseOutside = (event) => {
@@ -85,8 +101,8 @@ export const LightboxProvider = ({ children }) => {
   };
 
 	useEffect(() => {
-  
-		if (lightboxState.isOpen) {
+
+		if (lightboxData.isOpen) {
 			document.addEventListener('keydown', handleLightboxUpdate);
       handleOverlayOpen(lbContainer.current);
 		} else {
@@ -97,25 +113,20 @@ export const LightboxProvider = ({ children }) => {
 			document.removeEventListener('keydown', handleLightboxUpdate);
 		};
 	
-  }, [lightboxState, mediaArray]);
+  }, [lightboxData, mediaArray]);
 
 	useEffect(() => {
-		const currentMedia = mediaArray[currentLB];
+		const currentMedia = mediaArray[lightboxData.currentLB];
 
 		if (currentMedia) {
-			setLightboxState({
-				isOpen: true,
-				lbType: currentMedia.lbType,
-				lbSrc: currentMedia.lbSrc,
-				lbCaption: currentMedia.lbCaption,
-			});
+			updateLightboxState(currentMedia.lbType, currentMedia.lbSrc, currentMedia.lbCaption, true);
 		}
-	}, [currentLB]);
+	}, [lightboxData.currentLB]);
 
   const lightboxContextValue = {
     mediaArray,
     addToMediaArray,
-    lightboxState,
+    lightboxData,
     lightboxOpenHandler,
     lightboxCloseHandler,
     handleNextPrevious,
@@ -129,7 +140,7 @@ export const LightboxProvider = ({ children }) => {
   return (
     <LightboxContext.Provider value={lightboxContextValue}>
       {children}
-      {lightboxState.isOpen ? (
+      {lightboxData.isOpen ? (
         <Lightbox />
       ) : null}
     </LightboxContext.Provider>
