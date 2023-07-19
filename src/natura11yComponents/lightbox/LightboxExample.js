@@ -37,6 +37,29 @@ const LightboxExample = () => {
         >
           <img src={LocalVideoThumb} alt='Placeholder' />
         </LightboxButton>
+
+
+				<LightboxButton
+					utilities='button theme-primary width-100'
+					lbType='youtube'
+					lbSrc='k3ftlbnbwuc'
+					lbCaption='Caption for example 3'
+					lightboxOpenHandler={lightboxOpenHandler}
+					onMount={lightboxButtonMount}
+				>
+					Open YouTube Video
+				</LightboxButton>
+
+				<LightboxButton
+					utilities='button theme-primary width-100'
+					lbType='vimeo'
+					lbSrc='54802209?h=53340e8e30'
+					lbCaption='Caption for example 4'
+					lightboxOpenHandler={lightboxOpenHandler}
+					onMount={lightboxButtonMount}
+				>
+					Open Vimeo Video
+				</LightboxButton>
       </div>
     </Fragment>
   );

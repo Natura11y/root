@@ -4,7 +4,8 @@ import { LightboxContext } from '../../context/LightboxContext';
 
 const LightboxButton = (props) => {
   const { lbType, lbSrc, lbCaption, onMount, utilities = null, children = 'Lightbox Button' } = props;
-  const { addToMediaArray, lightboxOpenHandler } = useContext(LightboxContext);
+
+  const { lightboxOpenHandler } = useContext(LightboxContext);
 
   useEffect(() => {
     onMount({ lbType, lbSrc, lbCaption });
@@ -19,11 +20,14 @@ const LightboxButton = (props) => {
   };
 
   return (
-    <button data-lightbox-type={lbType} className={componentClasses} onClick={handleClick}>
+    <button
+      data-lightbox-type={lbType}
+      className={componentClasses}
+      onClick={handleClick}
+    >
       {children}
     </button>
   );
 };
 
 export default LightboxButton;
-

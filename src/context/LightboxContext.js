@@ -33,6 +33,37 @@ export const LightboxProvider = ({ children }) => {
     handleOverlayClose(lbContainer.current);
   };
 
+  const handleOverlayOpen = () => {
+    document.addEventListener('keydown', handleLightboxUpdate);
+  };
+
+  const handleOverlayClose = () => {
+    document.removeEventListener('keydown', handleLightboxUpdate);
+  };
+
+  const handleLightboxUpdate = (e) => {
+
+    if (!lightboxState.isOpen || mediaArray.length <= 1) {
+      return;
+    }
+
+    switch (e.code) {
+      case 'ArrowLeft':
+        updateDirection(-1);
+        lbPrevious.current.focus();
+        break;
+      case 'ArrowRight':
+        updateDirection(1);
+        lbNext.current.focus();
+        break;
+      case 'Escape':
+        lightboxCloseHandler();
+        break;
+      default:
+        return;
+    }
+  };
+
   const handleNextPrevious = (dir) => {
 		if (mediaArray.length <= 1) {
 			return;
@@ -59,36 +90,6 @@ export const LightboxProvider = ({ children }) => {
     }
   };
 
-  const handleOverlayOpen = () => {
-    document.addEventListener('keydown', handleLightboxUpdate);
-  };
-
-  const handleOverlayClose = () => {
-    document.removeEventListener('keydown', handleLightboxUpdate);
-  };
-
-  const handleLightboxUpdate = (e) => {
-    if (!lightboxState.isOpen || mediaArray.length <= 1) {
-      return;
-    }
-
-    switch (e.code) {
-      case 'ArrowLeft':
-        updateDirection(-1);
-        lbPrevious.current.focus();
-        break;
-      case 'ArrowRight':
-        updateDirection(1);
-        lbNext.current.focus();
-        break;
-      case 'Escape':
-        lightboxCloseHandler();
-        break;
-      default:
-        return;
-    }
-  };
-
   useEffect(() => {
 		const currentMedia = mediaArray[currentLB];
 
@@ -100,7 +101,16 @@ export const LightboxProvider = ({ children }) => {
 				lbCaption: currentMedia.lbCaption,
 			}));
 		}
-	}, [currentLB, mediaArray]);
+
+		if (lightboxState.isOpen) {
+			document.addEventListener('keydown', handleLightboxUpdate);
+		}
+
+		return () => {
+			document.removeEventListener('keydown', handleLightboxUpdate);
+		};
+	
+	}, [lightboxState, currentLB, mediaArray]);
 
   const lightboxContextValue = {
     mediaArray,
