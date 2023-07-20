@@ -3,7 +3,15 @@ import classNames from 'classnames';
 import { LightboxContext } from '../../context/LightboxContext';
 
 const LightboxButton = (props) => {
-  const { lbType, lbSrc, lbCaption, utilities = null, children = 'Lightbox Button' } = props;
+
+  const {
+    lbType = 'image',
+    lbSrc = '', 
+    lbCaption = 'A caption for the image',
+    utilities = null,
+    children = 'Lightbox Button'
+  } = props;
+
   const { lightboxOpenHandler } = useContext(LightboxContext);
 
   const componentClasses = classNames({

@@ -4,9 +4,9 @@ import { LightboxContext } from '../../context/LightboxContext';
 
 import LightboxButton from './LightboxButton';
 
-import LocalImage from './_assets/eberhard-grossgasteiger-yF9Tm4qrYmM-unsplash.jpg';
-import LocalVideoThumb from './_assets/pexels-dmitry-varennikov-5527698-thumbnail.jpg';
-import LocalVideo from './_assets/pexels-dmitry-varennikov-5527698-1080p.mp4';
+import LocalImage from './images/eberhard-grossgasteiger-yF9Tm4qrYmM-unsplash.jpg';
+import LocalVideoThumb from './images/pexels-dmitry-varennikov-5527698-thumbnail.jpg';
+import LocalVideo from './images/pexels-dmitry-varennikov-5527698-1080p.mp4';
 
 const LightboxExample = () => {
   const { addToMediaArray } = useContext(LightboxContext);
