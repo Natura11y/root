@@ -1,5 +1,7 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 
+import { focusTrap } from './utilities/focus';
+
 export default class Lightbox {
 
 	// Private properties
@@ -146,6 +148,8 @@ export default class Lightbox {
 		lightboxElement.innerHTML = '';
 
 		let lightboxElementTarget;
+
+		focusTrap(this.lightbox);
 
 		// Extract lightbox object data into variables
 		const { lbType, lbSrc, lbAlt, lbCaption } = this.#lightboxes[index];

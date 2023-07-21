@@ -27,10 +27,11 @@ export const getFocusableElements = (element = document) => {
         'summary',
         'textarea',
         'select',
-        '[tabindex]:not([tabindex="-1"])',
+        '[tabindex]:not([tabindex="-1"])'
     ];
 
     return [...element.querySelectorAll(els)].filter((el) => {
+        console.log(el);
         return !el.hasAttribute('disabled') && 
         !el.getAttribute('aria-hidden');
     });
