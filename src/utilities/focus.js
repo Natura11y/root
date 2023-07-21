@@ -22,7 +22,10 @@ export const getFocusableElements = (element = document) => {
       'textarea',
       'select',
       'details',
-      '[tabindex]:not([tabindex="-1"])'
+      '[tabindex]:not([tabindex="-1"])',
+      'video',
+      'audio',
+      'iframe',
     ];
 
     return [...element.querySelectorAll(els)].filter(

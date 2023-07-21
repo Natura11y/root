@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 
 import classNames from 'classnames';
 
+import { Link } from 'react-router-dom';
+
 import ButtonIconOnly from '../button/ButtonIconOnly';
 import Button from '../button';
-
-import { Link } from 'react-router-dom';
 
 import Dropdown from './Dropdown';
 import Brand from './Brand';

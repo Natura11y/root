@@ -1,6 +1,8 @@
-import React, { useRef, forwardRef, useImperativeHandle } from 'react';
+import React, { useRef, forwardRef, useImperativeHandle, useEffect } from 'react';
 
 import { getFocusableElements } from '../../utilities/focus';
+
+import ButtonIconOnly from '../button/ButtonIconOnly';
 
 const Modal = forwardRef((props, ref) => {
 
@@ -9,7 +11,7 @@ const Modal = forwardRef((props, ref) => {
 		closeOutside = false,
 		title = 'Modal Title',
 		isOpen = isOpen,
-		modalCloseHandler = modalCloseHandler,
+		handleModalClose = handleModalClose,
 		children = <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 
 	} = props;
@@ -22,6 +24,8 @@ const Modal = forwardRef((props, ref) => {
   	let classScrolAll = scrollAll === true ? ' modal--scroll-all' : '';
 
 	const handleKeyDown = (event) => {
+
+		console.log('hello?? ', event.code);
 
 		const focusableElements = getFocusableElements(modalContent.current);
 		const firstElementOfModal = focusableElements[0];
@@ -54,7 +58,7 @@ const Modal = forwardRef((props, ref) => {
 				break;
 
 			case 'Escape':
-				modalCloseHandler();
+				handleModalClose();
 				break;
 			
 			default:
@@ -63,12 +67,23 @@ const Modal = forwardRef((props, ref) => {
 
 	};
 
+  useEffect(() => {
+		if (isOpen) {
+			document.addEventListener('keydown', handleKeyDown);
+		} else {
+			document.removeEventListener('keydown', handleKeyDown);
+		}
+		return () => {
+			document.removeEventListener('keydown', handleKeyDown);
+		};
+	}, [isOpen]);
+
 	const handleCloseOutside = (event) => {
 
 		const modalContentClick = modalContent.current.contains(event.target);
 
 		if (closeOutside && !modalContentClick) {
-			modalCloseHandler();
+			handleModalClose();
 		}
 	};
 
@@ -85,18 +100,19 @@ const Modal = forwardRef((props, ref) => {
 				className='modal__content narrow border-radius box-shadow-3'
 				aria-labelledby='modal-example-01-title'
 				ref={modalContent}
-				onKeyDown={handleKeyDown}
 			>
 				<header className='modal__content__head border-bottom'>
+
 					<h2 id='modal-example-01-title'>
 						{title}
 					</h2>
-					<button
-						className='button button--icon-only'
-						onClick={modalCloseHandler}
-					>
-						<span className='icon icon-close' aria-hidden='true'></span>
-					</button>
+
+					<ButtonIconOnly
+						buttonType='button'
+						iconHandle='close'
+						clickHandler={handleModalClose}
+					/>
+				
 				</header>
 
 				<main className='modal__content__body' id='modal-example-01-content'>

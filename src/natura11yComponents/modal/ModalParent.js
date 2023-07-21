@@ -7,12 +7,13 @@ import { handleOverlayOpen, handleOverlayClose } from '../../utilities/overlay';
 import Modal from './Modal';
 
 const ModalParent = () => {
+
 	const [isOpen, setIsOpen] = useState(false);
 	const [modalExample, setModalExample] = useState(null);
 	const lastFocused = useRef(null);
 	const modalContainer = useRef(null);
 
-	const modalOpenHandler = (e) => {
+	const handleModalOpen = (e) => {
 		const example = e.currentTarget.getAttribute('data-modal-open');
 		setModalExample(example);
 		setIsOpen(true);
@@ -20,13 +21,14 @@ const ModalParent = () => {
 		lastFocused.current = e.target;
 	};
 
-	const modalCloseHandler = () => {
+	const handleModalClose = () => {
 		setIsOpen(false);
 		handleOverlayClose(modalContainer.current);
 		lastFocused.current.focus();
 	};
 
-	const bodyDefault = (
+	const modalBody = {
+		default: (
 		<p>
 			The <strong>meerkat</strong> (Suricata suricatta) or suricate is a small{' '}
 			<Link to='#1'>mongoose</Link> found in southern Africa. It is
@@ -38,10 +40,9 @@ const ModalParent = () => {
 			have foreclaws adapted for digging and have the ability to thermoregulate
 			to survive in their harsh, dry habitat. Three subspecies are recognised.
 		</p>
-	);
-
-	const bodyScrollAll = (
-		<>
+		),
+		scrollAll: (
+			<>
 			<p>
 				The <strong>meerkat</strong> (Suricata suricatta) or suricate is a small{' '}
 				<Link to='#1'>mongoose</Link> found in southern Africa. It is
@@ -92,7 +93,8 @@ const ModalParent = () => {
 				widely depicted in television, movies, and other media.
 			</p>
 		</>
-	);
+		)
+	};
 
 	return (
 		<>
@@ -100,7 +102,7 @@ const ModalParent = () => {
 				<button
 					className='button width-100 theme-primary'
 					data-modal-open='default'
-					onClick={modalOpenHandler}
+					onClick={handleModalOpen}
 				>
 					Modal (default)
 				</button>
@@ -108,7 +110,7 @@ const ModalParent = () => {
 				<button
 					className='button width-100 theme-primary'
 					data-modal-open='scrollAll'
-					onClick={modalOpenHandler}
+					onClick={handleModalOpen}
 				>
 					Modal (scroll all)
 				</button>
@@ -116,13 +118,13 @@ const ModalParent = () => {
 
 			<Modal
 				isOpen={isOpen}
-				modalCloseHandler={modalCloseHandler}
+				handleModalClose={handleModalClose}
 				closeOutside={true}
 				scrollAll={modalExample === 'scrollAll' ? true : false}
 				title='Suricata Suricatta'
 				ref={modalContainer}
 			>
-				{modalExample === 'scrollAll' ? bodyScrollAll : bodyDefault}
+				{modalExample === 'scrollAll' ? modalBody.scrollAll : modalBody.default}
 			</Modal>
 		</>
 	);

@@ -21,41 +21,37 @@ const Button = (props) => {
 	const componentClasses = classNames('button', {
 		'button--outline': outline,
 		'button--has-icon': iconHandle !== null,
-		[`${utilities}`]: utilities !== null,
+		[`${utilities}`]: utilities !== null, // For example, 'theme-primary'
 	});
 
-	const buttonContents = () => {
-		return iconHandle !== null ? (
-			<>
-				<Icon iconHandle={iconHandle} />
-				<span className='button__text'>{title}</span>
-			</>
-		) : (
-			title
-		);
-	}
-
-	return (
+	const buttonContents = iconHandle !== null ? (
 		<>
-			{tag === 'button' && (
-				<button className={componentClasses} onClick={clickHandler}>
-					{buttonContents()}
-				</button>
-			)}
-
-			{tag === 'link' && (
-				<Link className={componentClasses} to={linkUrl}>
-					{buttonContents()}
-				</Link>
-			)}
-
-			{tag !== 'button' && tag !== 'link' && (
-				<a className={componentClasses} href={linkUrl}>
-					{buttonContents()}
-				</a>
-			)}
+			<Icon iconHandle={iconHandle} />
+			<span className='button__text'>{title}</span>
 		</>
+	) : (
+		title
 	);
+
+	const Component = {
+		button: (
+			<button className={componentClasses} onClick={clickHandler}>
+				{buttonContents}
+			</button>
+		),
+		link: (
+			<Link className={componentClasses} to={linkUrl}>
+				{buttonContents}
+			</Link>
+		),
+		a: (
+			<a className={componentClasses} href={linkUrl}>
+				{buttonContents}
+			</a>
+		),
+	};
+
+	return Component[tag] || Component.link;
 };
 
 export default Button;

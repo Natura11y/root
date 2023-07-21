@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import classNames from 'classnames';
 
 import ButtonIconOnly from '../button/ButtonIconOnly';
+
 import Icon from '../icon/Icon';
 
 const Alert = ( props ) => {
@@ -13,7 +14,7 @@ const Alert = ( props ) => {
 		handleAlertClose = null,
 		title = 'Alert Title',
 		children = <p>Alert Description</p>,
-		utilities = null
+		utilities = null, // For example, 'theme-primary'
 	} = props;
 
 	const closeButtonRef = useRef();

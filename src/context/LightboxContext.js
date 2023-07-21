@@ -42,11 +42,11 @@ export const LightboxProvider = ({ children }) => {
     setLightboxData(prevState => ({ ...prevState, currentLB: newIndex }));
   };
 
-  const lightboxOpenHandler = (lbType, lbSrc, lbCaption) => {
+  const handleLightboxOpen = (lbType, lbSrc, lbCaption) => {
     updateLightboxState(lbType, lbSrc, lbCaption, true);
   };
 
-  const lightboxCloseHandler = () => {
+  const handleLightboxClose = () => {
     updateLightboxState('', '', '', false);
     handleOverlayClose(lbContainer.current);
   };
@@ -64,7 +64,7 @@ export const LightboxProvider = ({ children }) => {
     const keyHandlers = {
       ArrowLeft: () => updateLightboxAndFocus(-1, lbPrevious),
       ArrowRight: () => updateLightboxAndFocus(1, lbNext),
-      Escape: lightboxCloseHandler,
+      Escape: handleLightboxClose,
     };
 
     return keyHandlers[e.code]?.();
@@ -92,7 +92,7 @@ export const LightboxProvider = ({ children }) => {
 
   const handleCloseOutside = (event) => {
     if (event.target.classList.contains('lightbox')) {
-      lightboxCloseHandler();
+      handleLightboxClose();
     }
   };
 
@@ -127,8 +127,8 @@ export const LightboxProvider = ({ children }) => {
     mediaArray,
     addToMediaArray,
     lightboxData,
-    lightboxOpenHandler,
-    lightboxCloseHandler,
+    handleLightboxOpen,
+    handleLightboxClose,
     handleNextPrevious,
     handleCloseOutside,
     lbContainer,

@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 
 import { LightboxContext } from '../../context/LightboxContext';
 
+import ButtonIconOnly from '../button/ButtonIconOnly';
+
 const mediaTypes = {
   video: lbSrc => (
     <video controls key={lbSrc}>
@@ -32,10 +34,11 @@ const mediaTypes = {
 };
 
 const Lightbox = () => {
+
   const {
     mediaArray, 
     lightboxData, 
-    lightboxCloseHandler,
+    handleLightboxClose,
     handleNextPrevious,
     handleCloseOutside,
     lbContainer,
@@ -56,35 +59,40 @@ const Lightbox = () => {
   };
 
   return (
-    <div className='lightbox' ref={lbContainer} aria-hidden={!isOpen} onClick={handleCloseOutside}>
+    <div
+      className='lightbox'
+      ref={lbContainer}
+      aria-hidden={!isOpen}
+      onClick={handleCloseOutside}
+    >
       <div className='lightbox__buttons'>
+
         {mediaArray.length > 1 && (
           <>
-            <button
-              className='button button--icon-only'
+            <ButtonIconOnly
               ref={lbPrevious}
-              onClick={() => handleNextPrevious(-1)}
-            >
-              <span className='icon icon-arrow-left' aria-label='Previous'></span>
-            </button>
+              buttonType='button'
+              iconHandle='arrow-left'
+              clickHandler={() => handleNextPrevious(-1)}
+            />
 
-            <button
-              className='button button--icon-only'
-              ref={lbNext} 
-              onClick={() => handleNextPrevious(1)}
-            >
-              <span className='icon icon-arrow-right' aria-label='Next'></span>
-            </button>
+            <ButtonIconOnly
+              ref={lbNext}  
+              buttonType='button'
+              iconHandle='arrow-right'
+              clickHandler={() => handleNextPrevious(-1)}
+            />
+
           </>
         )}
 
-        <button
-          className='button button--icon-only'
-          ref={lbClose}
-          onClick={lightboxCloseHandler}
-        >
-          <span className='icon icon-close' aria-label='Close'></span>
-        </button>
+        <ButtonIconOnly
+          ref={lbClose}  
+          buttonType='button'
+          iconHandle='close'
+          clickHandler={handleLightboxClose}
+        />
+
       </div>
 
       <figure className='lightbox__container'>

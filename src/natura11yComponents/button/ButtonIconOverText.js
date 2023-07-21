@@ -20,17 +20,11 @@ const ButtonIconOverText = forwardRef((props, ref) => {
 		ariaExpanded = null,
 	} = props;
 
-	const componentClasses = classNames(
-		'button', 
-		'button--icon-over-text'
-	);
+	const componentClasses = classNames('button', 'button--icon-over-text');
 
-	const textClasses = classNames(
-        'button__text',
-        {
-            [`${textUtilities}`] : textUtilities !== null
-        }
-    );
+	const textClasses = classNames('button__text', {
+		[`${textUtilities}`]: textUtilities !== null,
+	});
 
 	const buttonContent = (
 		<>
@@ -39,33 +33,39 @@ const ButtonIconOverText = forwardRef((props, ref) => {
 		</>
 	);
 
-	return (
-		<>
-			{tag === 'button' && (
-				<button
-					ref={ref}
-					className={componentClasses}
-					onClick={clickHandler}
-					aria-label={ariaLabel}
-					aria-expanded={ariaExpanded}
-				>
-					{buttonContent}
-				</button>
-			)}
+	const Component = {
+		button: (
+			<button
+				ref={ref}
+				className={componentClasses}
+				onClick={clickHandler}
+				aria-label={ariaLabel}
+				aria-expanded={ariaExpanded}
+			>
+				{buttonContent}
+			</button>
+		),
+		link: (
+			<Link
+				className={componentClasses}
+				to={linkUrl}
+				aria-label={ariaLabel}
+			>
+				{buttonContent}
+			</Link>
+		),
+		a: (
+			<a
+				className={componentClasses}
+				href={linkUrl}
+				aria-label={ariaLabel}
+			>
+				{buttonContent}
+			</a>
+		),
+	};
 
-			{tag === 'link' && (
-				<Link className={componentClasses} to={linkUrl} aria-label={ariaLabel}>
-					{buttonContent}
-				</Link>
-			)}
-
-			{tag !== 'button' && tag !== 'link' && (
-				<a className={componentClasses} href={linkUrl} aria-label={ariaLabel}>
-					{buttonContent}
-				</a>
-			)}
-		</>
-	);
+	return Component[tag] || Component.button;
 });
 
 export default ButtonIconOverText;
