@@ -65,6 +65,11 @@ const Lightbox = () => {
       aria-hidden={!isOpen}
       onClick={handleCloseOutside}
     >
+      <figure className='lightbox__container'>
+        <div className='lightbox__media'>{updateLightboxContent()}</div>
+        {lbCaption && <figcaption className='lightbox__caption'>{lbCaption}</figcaption>}
+      </figure>
+      
       <div className='lightbox__buttons'>
 
         {mediaArray.length > 1 && (
@@ -95,11 +100,6 @@ const Lightbox = () => {
 
       </div>
 
-      <figure className='lightbox__container'>
-        <div className='lightbox__media'>{updateLightboxContent()}</div>
-        {lbCaption && <figcaption className='lightbox__caption'>{lbCaption}</figcaption>}
-      </figure>
-      
     </div>
   );
 };
