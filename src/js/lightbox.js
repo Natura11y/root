@@ -1,6 +1,6 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 
-import { focusTrap } from './utilities/focus';
+import { focusTrap, getFocusableElements } from './utilities/focus';
 
 export default class Lightbox {
 
@@ -9,6 +9,10 @@ export default class Lightbox {
 	#lightboxTargetList = document.querySelectorAll('[data-lightbox]');
 
 	#lightboxHTML = `
+		<figure class="lightbox__container" aria-live="polite" aria-atomic="true">
+			<div class="lightbox__media"></div>           
+			<figcaption class="lightbox__caption"></figcaption>
+		</figure>
 		<div class="lightbox__controls">
 			<button class="button button--icon-only" data-lightbox-previous>
 				<span class="icon icon-arrow-left" aria-label="Previous" aria-hidden="true"></span>
@@ -20,14 +24,10 @@ export default class Lightbox {
 				<span class="icon icon-close" aria-label="Close" aria-hidden="true"></span>
 			</button>
 		</div>
-		<figure class="lightbox__container" aria-live="polite" aria-atomic="true">
-			<div class="lightbox__media"></div>           
-			<figcaption class="lightbox__caption"></figcaption>
-		</figure>
   	`;
 
 	#lightboxVideoHTML = `
-		<video controls>
+		<video controls tabindex="0">
 			<source type="video/mp4">
 		</video>
 	`;
@@ -37,6 +37,8 @@ export default class Lightbox {
 			frameborder="0"
 			allow="autoplay; fullscreen;"
 			allowfullscreen
+			controls
+			tabindex="0"
 		></iframe>
 	`;
 
@@ -67,9 +69,8 @@ export default class Lightbox {
 
 		this.currentLB = index;
 
-		handleOverlayOpen(this.lightbox);
-
 		this.#updateLightbox(index);
+		handleOverlayOpen(this.lightbox);
 	};
 
 	#handleLightboxClose = (e) => {
@@ -128,6 +129,18 @@ export default class Lightbox {
 		}
 	};
 
+	// Add this private method in your class
+    #handleVideoFocus = (lightboxElement) => {
+        const handleFocusEvent = (event) => {
+            event.preventDefault();
+            lightboxElement.children[0].focus();
+            getFocusableElements(lightboxElement.children[0]);
+        }
+
+        lightboxElement.setAttribute('tabindex', 0);
+        lightboxElement.addEventListener('focus', handleFocusEvent);
+    };
+
 	#updateDirection(dir) {
 		this.currentLB += dir;
 
@@ -146,10 +159,9 @@ export default class Lightbox {
 
 		// Clear the previous lightbox content before inserting a new one
 		lightboxElement.innerHTML = '';
+		
 
 		let lightboxElementTarget;
-
-		focusTrap(this.lightbox);
 
 		// Extract lightbox object data into variables
 		const { lbType, lbSrc, lbAlt, lbCaption } = this.#lightboxes[index];
@@ -174,15 +186,21 @@ export default class Lightbox {
 					lightboxElement,
 					lbSrc
 				);
+
 				break;
 
 			default:
 				break;
 		}
 
+		// Handle video focus
+		this.#handleVideoFocus(lightboxElement);
+
 		if (shouldDisplayCaption) {
 			lightboxCaption.innerHTML = lbCaption;
 		}
+
+		focusTrap(this.lightbox);
 	}
 
 	#updateLightboxImage(lightboxElement, lbSrc, lbAlt) {
@@ -206,56 +224,57 @@ export default class Lightbox {
 	}
 
 	#updateLightboxVideo(lightboxElement, lbSrc) {
-    // Check if the string contains 'youtube' (case-insensitive)
-    const hasYouTube = /youtube/i.test(lbSrc);
+		// Check if the string contains 'youtube' (case-insensitive)
+		const hasYouTube = /youtube/i.test(lbSrc);
 
-    // Check if the string contains 'vimeo' (case-insensitive)
-    const hasVimeo = /vimeo/i.test(lbSrc);
+		// Check if the string contains 'vimeo' (case-insensitive)
+		const hasVimeo = /vimeo/i.test(lbSrc);
 
-    let lightboxElementTarget;
+		let lightboxElementTarget;
 
-    if (hasYouTube || hasVimeo) {
+		if (hasYouTube || hasVimeo) {
 
-      // If the video is from YouTube or Vimeo, use an iframe
-      lightboxElement.innerHTML = this.#lightboxVideoIframeHTML;
-      lightboxElementTarget = lightboxElement.querySelector('iframe');
-      lightboxElementTarget.src = lbSrc;
-    
-    } else {
+			// If the video is from YouTube or Vimeo, use an iframe
+			lightboxElement.innerHTML = this.#lightboxVideoIframeHTML;
+			lightboxElementTarget = lightboxElement.querySelector('iframe');
+			lightboxElementTarget.src = lbSrc;
+		
+		} else {
 
-      // If the video is not from YouTube or Vimeo, use a video element
-      lightboxElement.innerHTML = this.#lightboxVideoHTML;
+			// If the video is not from YouTube or Vimeo, use a video element
+			lightboxElement.innerHTML = this.#lightboxVideoHTML;
 
-      const loader = this.#createLoader();
-      lightboxElement.appendChild(loader);
-      
-      lightboxElementTarget = lightboxElement.querySelector('source');
-      
-      const video = lightboxElement.querySelector('video');
+			const loader = this.#createLoader();
+			lightboxElement.appendChild(loader);
+			
+			lightboxElementTarget = lightboxElement.querySelector('source');
+			
+			const video = lightboxElement.querySelector('video');
 
-      video.addEventListener('loadedmetadata', () => {
-        // The intrinsic width and height of the video
-        let intrinsicWidth = video.videoWidth;
-        let intrinsicHeight = video.videoHeight;
+			video.addEventListener('loadedmetadata', () => {
+				// The intrinsic width and height of the video
+				let intrinsicWidth = video.videoWidth;
+				let intrinsicHeight = video.videoHeight;
 
-        // The aspect ratio of the video
-        lightboxElement.style.maxWidth = `${intrinsicWidth}px`;
-        lightboxElement.style.aspectRatio = `${intrinsicWidth} / ${intrinsicHeight}`;
-      });
+				// The aspect ratio of the video
+				lightboxElement.style.maxWidth = `${intrinsicWidth}px`;
+				lightboxElement.style.aspectRatio = `${intrinsicWidth} / ${intrinsicHeight}`;
+			});
 
-      this.#handleMediaLoading(lightboxElementTarget, loader);
+			this.#handleMediaLoading(lightboxElementTarget, loader);
 
-      lightboxElementTarget.src = lbSrc;
-    }
+			lightboxElementTarget.src = lbSrc;
+		}
 
-    return lightboxElementTarget;
-  }
+		return lightboxElementTarget;
+	}
 
 	#createLightbox() {
 		const lightbox = document.createElement('div');
 
 		lightbox.classList.add('lightbox');
 		lightbox.setAttribute('aria-hidden', true);
+		lightbox.setAttribute('aria-live', 'polite');
 		lightbox.innerHTML = this.#lightboxHTML;
 
 		document.body.appendChild(lightbox);
@@ -283,23 +302,32 @@ export default class Lightbox {
 	}
 
 	#setLightboxProperties(lightboxButton) {
+
+		if (!lightboxButton) {
+			console.error("No lightbox button provided");
+			return;
+		}
+
 		let defaultSrc = null;
 		let defaultAlt = '';
 
 		const hasImage = lightboxButton.querySelector('img') !== null;
 
 		if (hasImage) {
-			defaultSrc = lightboxButton.querySelector('img').src || null;
-			defaultAlt = lightboxButton.querySelector('img').alt || '';
+			const img = lightboxButton.querySelector('img');
+			defaultSrc = img.src || null;
+			defaultAlt = img.alt || '';
 		}
 
 		const lbType = lightboxButton.getAttribute('data-lightbox') || 'image';
-		const lbSrc =
-			lightboxButton.getAttribute('data-lightbox-src') || defaultSrc;
-		const lbCaption =
-			lightboxButton.getAttribute('data-lightbox-caption') || null;
-		const lbAlt =
-			lightboxButton.getAttribute('data-lightbox-alt') || defaultAlt;
+		const lbSrc = lightboxButton.getAttribute('data-lightbox-src') || defaultSrc;
+		const lbCaption = lightboxButton.getAttribute('data-lightbox-caption') || null;
+		const lbAlt = lightboxButton.getAttribute('data-lightbox-alt') || defaultAlt;
+
+		if (lbSrc === null) {
+			console.error("No source provided for lightbox");
+			return;
+		}
 
 		return {
 			lbType: lbType,
@@ -384,8 +412,7 @@ export default class Lightbox {
 					hiddenLargeImage.src = src;
 					hiddenLargeImage.style.display = 'none';
 
-					this.#lightboxes[Number(lazyImage.dataset.index)].hiddenImage =
-						hiddenLargeImage;
+					this.#lightboxes[Number(lazyImage.dataset.index)].hiddenImage = hiddenLargeImage;
 				}
 			});
 		}, options);

@@ -27,13 +27,13 @@ export const getFocusableElements = (element = document) => {
         'summary',
         'textarea',
         'select',
-        '[tabindex]:not([tabindex="-1"])'
+        '[tabindex]:not([tabindex="-1"])',
+        'video',
+        'audio'
     ];
 
     return [...element.querySelectorAll(els)].filter((el) => {
-        console.log(el);
-        return !el.hasAttribute('disabled') && 
-        !el.getAttribute('aria-hidden');
+        return !el.hasAttribute('disabled');
     });
 }
 
@@ -43,6 +43,7 @@ export const getFocusableElements = (element = document) => {
 
 export const focusTrap = (element, firstFocusTarget = element) => {
     let focusableElements = getFocusableElements(element);
+    
     let firstFocusableElement = focusableElements[0];
     let lastFocusableElement = focusableElements[focusableElements.length - 1];
 

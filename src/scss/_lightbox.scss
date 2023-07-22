@@ -104,10 +104,8 @@ In this file:
         pointer-events: none;
     }
 
-    display: none;
-
-    &[aria-hidden="false"] {
-      display: flex;
+    &[aria-hidden="true"] {
+      display: none;
     }
 
     &:focus {
@@ -245,6 +243,10 @@ In this file:
     iframe {
       max-width: 100%;
       max-height: 100%;
+
+      &:focus {
+        outline: none;
+      }
     }
 
     iframe {
@@ -252,6 +254,10 @@ In this file:
       aspect-ratio: 16 / 9;
 
       background-color: var(--lightbox-overlay-color);
+    }
+
+    &:focus-within {
+      outline: var(--focus-outline-size) var(--focus-outline-style) var(--focus-outline-color);
     }
 
   }

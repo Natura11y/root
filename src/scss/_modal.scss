@@ -63,14 +63,12 @@ In this file:
         opacity: var(--modal-overlay-opacity);
     }
 
-    display: none;
-
-    &[aria-hidden="false"] {
-      display: flex;
-    }
-
     &:focus {
       outline: none;
+    }
+
+    &[aria-hidden="true"] {
+      display: none;
     }
 
   }
