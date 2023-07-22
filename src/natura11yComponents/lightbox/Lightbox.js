@@ -66,7 +66,7 @@ const Lightbox = () => {
       onClick={handleCloseOutside}
     >
       <figure className='lightbox__container'>
-        <div className='lightbox__media'>{updateLightboxContent()}</div>
+        <div className='lightbox__media' tabIndex={0}>{updateLightboxContent()}</div>
         {lbCaption && <figcaption className='lightbox__caption'>{lbCaption}</figcaption>}
       </figure>
       
@@ -74,6 +74,7 @@ const Lightbox = () => {
 
         {mediaArray.length > 1 && (
           <>
+          
             <ButtonIconOnly
               ref={lbPrevious}
               buttonType='button'

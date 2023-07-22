@@ -51,7 +51,7 @@ const ButtonIconOnly = forwardRef((props, ref) => {
 			>
 				<Icon iconHandle={iconHandle} />
 			</a>
-		),
+		)
 	};
 
 	return Component[tag] || Component.button;
