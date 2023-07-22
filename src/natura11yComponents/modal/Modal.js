@@ -25,8 +25,6 @@ const Modal = forwardRef((props, ref) => {
 
 	const handleKeyDown = (event) => {
 
-		console.log('hello?? ', event.code);
-
 		const focusableElements = getFocusableElements(modalContent.current);
 		const firstElementOfModal = focusableElements[0];
 		const lastElementOfModal = focusableElements[focusableElements.length - 1];

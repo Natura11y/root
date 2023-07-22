@@ -70,7 +70,7 @@ const Lightbox = () => {
         {lbCaption && <figcaption className='lightbox__caption'>{lbCaption}</figcaption>}
       </figure>
       
-      <div className='lightbox__buttons'>
+      <div className='lightbox__controls'>
 
         {mediaArray.length > 1 && (
           <>
