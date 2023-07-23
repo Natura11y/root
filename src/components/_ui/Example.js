@@ -4,7 +4,7 @@ import Accordion from '../natura11y/accordion/Accordion'
 
 import AlertParent from '../natura11y/alert/AlertParent';
 
-import Backdrop from '../natura11y/backdrop/Backdrop';
+import Backdrop from '../_ui/Backdrop';
 
 import Button from '../natura11y/button';
 
@@ -19,7 +19,6 @@ import PrimaryNavigation from '../natura11y/navigation/PrimaryNavigation';
 import ModalParent from '../natura11y/modal/ModalParent';
 
 import LightboxExample from '../natura11y/lightbox/LightboxExample';
-import LightboxButton from '../natura11y/lightbox/LightboxButton';
 
 import Tabs from '../natura11y/tab/Tabs';
 
@@ -58,13 +57,6 @@ const Example = ({ examples }) => {
 				return (
 					<div className='narrow margin-x-auto'>
 						<AlertParent />
-					</div>
-				);
-
-			case 'backdrop':
-				return (
-					<div className='medium margin-x-auto'>
-						<Backdrop stack='lg' utilities='theme-primary' />
 					</div>
 				);
 			

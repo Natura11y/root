@@ -22,10 +22,6 @@ const App = () => {
 			slug: 'alert'
 		},
 		{
-			title: 'Backdrop',
-			slug: 'backdrop'
-		},
-		{
 			title: 'Button',
 			slug: 'button'
 		},
