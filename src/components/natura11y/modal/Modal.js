@@ -93,6 +93,7 @@ const Modal = forwardRef((props, ref) => {
 			role='dialog'
 			aria-hidden={isOpen ? false : true}
 			onClick={handleCloseOutside}
+			tabIndex={isOpen ? 0 : -1}
 		>
 			<div
 				className='modal__content narrow border-radius box-shadow-3'

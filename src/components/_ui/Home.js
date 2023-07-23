@@ -1,8 +1,4 @@
-/*
-
-// Home
-
-*/
+import React from 'react';
 
 import { useParams, Outlet } from 'react-router-dom';
 

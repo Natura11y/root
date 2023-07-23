@@ -38,12 +38,15 @@ export const getFocusableElements = (element = document) => {
 //////////////////////////////////////////////
 
 export const focusTrap = (element) => {
-    let focusableElements = getFocusableElements(element);
-    let firstFocusableElement = focusableElements[0];
-    let lastFocusableElement = focusableElements[focusableElements.length - 1];
 
-    firstFocusableElement.focus();
+    console.log('focusTrap()', element);
 
+    const focusableElements = getFocusableElements(element);
+    const firstFocusableElement = focusableElements[0];
+    const lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+    element.focus();
+    
     element.addEventListener('keydown', (event) => {
 
         switch (event.code) {
@@ -74,4 +77,5 @@ export const focusTrap = (element) => {
         }
     
     });
+
 }

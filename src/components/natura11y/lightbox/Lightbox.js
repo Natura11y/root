@@ -63,10 +63,11 @@ const Lightbox = () => {
       className='lightbox'
       ref={lbContainer}
       aria-hidden={!isOpen}
+      tabIndex={isOpen ? 0 : -1}
       onClick={handleCloseOutside}
     >
       <figure className='lightbox__container'>
-        <div className='lightbox__media' tabIndex={0}>{updateLightboxContent()}</div>
+        <div className='lightbox__media' tabIndex={isOpen ? 0 : -1}>{updateLightboxContent()}</div>
         {lbCaption && <figcaption className='lightbox__caption'>{lbCaption}</figcaption>}
       </figure>
       
