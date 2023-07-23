@@ -1,7 +1,7 @@
 {
   "name": "natura11y",
-  "version": "2.2.2",
-  "description": "Natura11y is an open-source front-end ecosystem for creating modern, accessible websites.",
+  "version": "2.2.3",
+  "description": "Natura11y is a user-friendly, open-source framework designed for crafting modern, accessible websites.",
   "private": false,
   "scripts": {
     "start": "webpack serve --config webpack.dev.js",
