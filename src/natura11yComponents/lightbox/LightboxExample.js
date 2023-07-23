@@ -52,7 +52,7 @@ const LightboxExample = () => {
   }, []);
 
   return (
-    <div className='container narrow grid grid--column-2 gap-3'>
+    <div className='container narrow grid gap-4'>
       <LightboxButton {...localImageMedia}>
         <img src={LocalImage} alt='Placeholder' />
       </LightboxButton>
