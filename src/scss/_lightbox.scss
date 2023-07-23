@@ -41,9 +41,9 @@ In this file:
 
   // Icons
 
-  --lightbox-button-icon-image: "\f160";
+  --lightbox-thumbnail-icon-image: "\f160";
   
-  --lightbox-button-icon-video: "\f163";
+  --lightbox-thumbnail-icon-video: "\f163";
 }
 
 ////////////////////////////////////////
@@ -67,7 +67,7 @@ In this file:
   // Lightbox Block
 
   .lightbox,
-  .lightbox-button {
+  .lightbox-thumbnail {
     color: var(--lightbox-text-color);
   }
 
@@ -116,7 +116,7 @@ In this file:
 
   // Lightbox Button
 
-  .lightbox-button {
+  .lightbox-thumbnail {
     --button-icon-only-size: 1.25em;
 
     display: flex;
@@ -130,7 +130,7 @@ In this file:
     &::after {
       @extend .icon_font;
 
-      --button-icon: var(--lightbox-button-icon-image);
+      --button-icon: var(--lightbox-thumbnail-icon-image);
 
       content: var(--button-icon);
 
@@ -157,7 +157,7 @@ In this file:
     }
     
     &[data-lightbox="video"]::after {
-      --button-icon: var(--lightbox-button-icon-video);
+      --button-icon: var(--lightbox-thumbnail-icon-video);
       --icon-size: 1.75em;
 
       inset-block-start: 50%;

@@ -67,7 +67,7 @@ In this file:
         }
         
         &.button--outline,
-        &.lightbox-button,
+        &.lightbox-thumbnail,
         &[class*="backdrop"] {
             --focus-outline-distance: calc(var(--focus-outline-size) * -3);
         }
