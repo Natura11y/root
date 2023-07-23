@@ -1,6 +1,6 @@
 import React, { useRef, forwardRef, useImperativeHandle, useEffect } from 'react';
 
-import { getFocusableElements } from '../../utilities/focus';
+import { getFocusableElements } from '../../../utilities/focus';
 
 import ButtonIconOnly from '../button/ButtonIconOnly';
 

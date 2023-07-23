@@ -6,7 +6,7 @@
 
 import { useParams, Outlet } from 'react-router-dom';
 
-import Preview from '../_uiComponents/Preview';
+import Preview from './Preview';
 
 const Home = ({ examples }) => {
 

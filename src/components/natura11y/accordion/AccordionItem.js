@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
 
-import {getFocusableElements} from '../../utilities/focus';
+import {getFocusableElements} from '../../../utilities/focus';
 
 const AccordionItem = ( props ) => {
 

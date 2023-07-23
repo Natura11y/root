@@ -1,31 +1,31 @@
 import { useParams } from 'react-router-dom';
 
-import Accordion from '../natura11yComponents/accordion/Accordion'
+import Accordion from '../natura11y/accordion/Accordion'
 
-import AlertParent from '../natura11yComponents/alert/AlertParent';
+import AlertParent from '../natura11y/alert/AlertParent';
 
-import Backdrop from '../natura11yComponents/backdrop/Backdrop';
+import Backdrop from '../natura11y/backdrop/Backdrop';
 
-import Button from '../natura11yComponents/button';
+import Button from '../natura11y/button';
 
-import ButtonIconOnly from '../natura11yComponents/button/ButtonIconOnly';
+import ButtonIconOnly from '../natura11y/button/ButtonIconOnly';
 
-import ButtonIconOverText from '../natura11yComponents/button/ButtonIconOverText';
+import ButtonIconOverText from '../natura11y/button/ButtonIconOverText';
 
-import FormValidation from '../natura11yComponents/form/FormValidation';
+import FormValidation from '../natura11y/form/FormValidation';
 
-import PrimaryNavigation from '../natura11yComponents/navigation/PrimaryNavigation';
+import PrimaryNavigation from '../natura11y/navigation/PrimaryNavigation';
 
-import ModalParent from '../natura11yComponents/modal/ModalParent';
+import ModalParent from '../natura11y/modal/ModalParent';
 
-import LightboxExample from '../natura11yComponents/lightbox/LightboxExample';
-import LightboxButton from '../natura11yComponents/lightbox/LightboxButton';
+import LightboxExample from '../natura11y/lightbox/LightboxExample';
+import LightboxButton from '../natura11y/lightbox/LightboxButton';
 
-import Tabs from '../natura11yComponents/tab/Tabs';
+import Tabs from '../natura11y/tab/Tabs';
 
-import Table from '../natura11yComponents/table/Table';
+import Table from '../natura11y/table/Table';
 
-import TableScroll from '../natura11yComponents/table/TableScroll';
+import TableScroll from '../natura11y/table/TableScroll';
 
 const Example = ({ examples }) => {
 

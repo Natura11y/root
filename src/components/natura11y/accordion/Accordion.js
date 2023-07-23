@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import AccordionItem from './AccordionItem';
 
-import { getFilteredElements } from '../../utilities/filter';
+import { getFilteredElements } from '../../../utilities/filter';
 
 const Accordion = () => {
 

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import classNames from 'classnames';
 
-import { LightboxContext } from '../../context/LightboxContext';
+import { LightboxContext } from '../../../context/LightboxContext';
 
 const LightboxButton = (props) => {
 

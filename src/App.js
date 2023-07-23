@@ -6,9 +6,9 @@ import classNames from 'classnames';
 
 import 'natura11y/src/scss/natura11y.scss';
 
-import Header from './_uiComponents/Header';
-import Home from './_uiComponents/Home';
-import Example from './_uiComponents/Example';
+import Header from './components/_ui/Header';
+import Home from './components/_ui/Home';
+import Example from './components/_ui/Example';
 
 const App = () => {
 

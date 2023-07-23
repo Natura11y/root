@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { handleOverlayOpen, handleOverlayClose } from '../../utilities/overlay';
+import { handleOverlayOpen, handleOverlayClose } from '../../../utilities/overlay';
 
 import Modal from './Modal';
 

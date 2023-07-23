@@ -2,7 +2,7 @@ import React, { createContext, useState, useRef, useEffect } from 'react';
 
 import { handleOverlayOpen, handleOverlayClose } from '../utilities/overlay';
 
-import Lightbox from '../natura11yComponents/lightbox/Lightbox';
+import Lightbox from '../components/natura11y/lightbox/Lightbox';
 
 export const LightboxContext = createContext(null);
 

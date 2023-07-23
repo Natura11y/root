@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { LightboxContext } from '../../context/LightboxContext';
+import { LightboxContext } from '../../../context/LightboxContext';
 
 import ButtonIconOnly from '../button/ButtonIconOnly';
 

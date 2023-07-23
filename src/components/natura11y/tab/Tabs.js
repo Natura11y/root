@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import { getFilteredElements } from '../../utilities/filter';
+import { getFilteredElements } from '../../../utilities/filter';
 
 import TabsNav from './TabsNav';
 import TabPanel from './TabPanel';
