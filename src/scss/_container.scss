@@ -25,11 +25,17 @@ In this file:
     
     --container-padding-x-lg: var(--spacer-3);
 
+    --container-padding-x: var(--container-padding-x-sm);
+
     --narrow-width: 40rem; // Approximately 55 characters wide for readability
     
     --medium-width: calc( var(--narrow-width) * 1.75);
     
     --wide-width: calc( var(--narrow-width) * 2.5);
+
+    @include breakpoint.breakpoint-up(lg) {
+        --container-padding-x: var(--container-padding-x-lg);
+    }
 }
 
 //////////////////////////////////////////////
@@ -39,12 +45,8 @@ In this file:
 @layer component {
 
     .container {
-        padding-inline: var(--container-padding-x-sm);
+        padding-inline: var(--container-padding-x);
         margin-inline: auto;
-
-        @include breakpoint.breakpoint-up(lg) {
-            padding-inline: var(--container-padding-x-lg);
-        }
     }
 
 } // end @layer

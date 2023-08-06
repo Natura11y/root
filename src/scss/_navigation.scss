@@ -38,7 +38,7 @@ In this file:
 
     --nav-divider-padding-x: var(--spacer-3);
 
-    --primary-nav-padding-x: var(--spacer-2);
+    --primary-nav-padding-x: var(--container-padding-x);
     
     --primary-nav-padding-y: var(--spacer-2);
 }
@@ -64,7 +64,8 @@ In this file:
     &:not([class*="nav--has-icons"]) {
         [aria-selected="true"],
         [aria-current] {
-            text-decoration: underline;
+            text-decoration-line: underline;
+            --text-decoration-color: red;
         }
     }
 }

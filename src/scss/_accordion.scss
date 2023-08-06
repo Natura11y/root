@@ -56,7 +56,7 @@ In this file:
 
         @extend %caret;
 
-        &:not(:first-child){
+        &:not(:first-child) {
             border-top-width: var(--border-width);
             border-top-style: var(--border-style);
             border-top-color: inherit;

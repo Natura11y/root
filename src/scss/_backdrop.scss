@@ -67,14 +67,15 @@ In this file:
     }
 
     .backdrop__cover {
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        inset: 0;
 
         display: grid;
 
-        place-items: center;
+        align-content: center;
+
+        > * {
+            width: 100%;
+        }
     }
 
     // Backdrop Stack Modifiers
@@ -98,8 +99,6 @@ In this file:
         overflow: hidden;
 
         display: grid;
-        
-        place-content: inherit;
 
         &:not([class*='aspect-ratio-']) {
             min-height: var(--backdrop-fixed-height);
