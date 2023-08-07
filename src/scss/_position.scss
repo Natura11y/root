@@ -21,6 +21,10 @@ In this file:
 
 $positions: static, relative, absolute, fixed;
 
+:root {
+    --position-sticky-offset: 0;
+}
+
 //////////////////////////////////////////////
 // C. Utilities
 //////////////////////////////////////////////
@@ -73,7 +77,7 @@ $positions: static, relative, absolute, fixed;
 
             .position-sticky-top#{$mod} {
                 position: sticky;
-                inset-block-start: 0;
+                inset-block-start: var(--position-sticky-offset);
             }
 
         }

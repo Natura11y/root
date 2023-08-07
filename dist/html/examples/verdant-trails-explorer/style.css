@@ -9,6 +9,7 @@
     
     --dark: #000000;
     --light: hsl(35, 35%, 95%);
+    --canvas: hsla(0, 0%, 100%, 1);
 
     --primary-h: 140;
     --primary-s: 75%;
@@ -32,11 +33,17 @@
 
     --canvas-border: hsla(0, 0%, 75%, 0.5);
 
-    --body-font-family: 'Lora', serif;
+    --body-font-family: "Lora", serif;
+
+    --header-font-family: "Oswald", sans-serif;
 
     --base-font-size: 0.9rem;
 
+    --type-scale: 1.22;
+
     --grid-sidebar-width: calc((3 / 12) * 100% - var(--gutter));
+
+    --position-sticky-offset: var(--spacer-3);
 }
 
 /*
@@ -46,14 +53,12 @@
 */
 
 .oswald,
-.button,
-aside > nav,
-:is(h1, h2, h3, h4, h5, h6) {
-    font-family: 'Oswald', sans-serif;
+.button {
+    font-family: "Oswald", sans-serif;
 }
 
 #introduction.backdrop {
-    --backdrop-fixed-height: 800px;
+    --backdrop-fixed-height: 850px;
     --gradient-veneer-opacity: 0.875;
 }
 
@@ -72,6 +77,35 @@ aside > nav,
     #introduction.backdrop {
         --backdrop-fixed-height: 450px;
     }
+}
+
+
+@media (prefers-color-scheme: dark) {
+
+    :root {
+        --primary-s: 50%;
+        --primary-l: 50%;
+
+        --primary-text: var(--secondary);
+        
+        --light: hsla(0, 0%, 15%);
+
+        --light-text: white;
+        /* --canvas: hsla(0, 0%, 0%, 0.90); */
+    }
+
+    .theme-canvas--prefers {
+        --dark-border: hsla(0, 0%, 100%, 0.2);
+    }
+
+    .opacity-color-scheme {
+        filter: opacity(33%);
+    }
+
+    #global-header {
+        background-color:  hsla(0, 0%, 0%, 0.875);
+    }
+
 }
 
 .grid-sidebar__major__container {
@@ -109,9 +143,7 @@ aside > nav,
         }
     }
 
-
     @media screen and (min-width: 1024px) {
-
         --container-width: calc((8 / 9) * 100%);
         --text-width: calc((5 / 8) * 100% - calc( var(--gutter) /2));
 
@@ -130,6 +162,5 @@ aside > nav,
         > section figure {
             margin-inline-start: calc(var(--container-padding-x) * -1);
         }
-
     }
 }

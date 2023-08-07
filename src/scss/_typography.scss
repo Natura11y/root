@@ -34,13 +34,17 @@ In this file:
 
 :root {
 
-    // Body Font Stack
+    // Font Families and Weights
 
     --body-font-family: "Source Sans Pro", sans-serif;
+
+    --header-font-family: var(--body-font-family);
     
     --body-font-weight-normal: 400;
     --body-font-weight-medium: 600;
     --body-font-weight-bold: 700;
+
+    // Base Font Size and Type Scale
 
     --base-font-size: 0.9rem; // Smallest Font Size
 
@@ -164,6 +168,7 @@ In this file:
         h5, .h5, 
         h6, .h6 
     ) {
+        font-family: var(--header-font-family);
         font-weight: var(--body-font-weight-bold);
         line-height: var(--header-line-height);
 
