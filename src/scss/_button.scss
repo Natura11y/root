@@ -86,10 +86,6 @@ In this file:
         vertical-align: middle;
         
         line-height: normal;
-
-        text-transform: var(--button-text-transform);
-
-        letter-spacing: var(--button-letter-spacing);
         
         text-align: center;
         
@@ -98,6 +94,14 @@ In this file:
         border-radius: var(--button-border-radius);
 
         transition: opacity 0.5s ease-out;
+
+        &:not([class*="button--icon-only"]) {
+            font-family: var(--button-font-family);
+
+            text-transform: var(--button-text-transform);
+
+            letter-spacing: var(--button-letter-spacing);
+        }
 
         &:not(
             [class*="button--outline"],

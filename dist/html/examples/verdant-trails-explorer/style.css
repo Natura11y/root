@@ -6,8 +6,10 @@
 
 :root {
     --gutter: 16px;
+
+    /* Colors */
     
-    --dark: #000000;
+    --dark: hsl(120, 10%, 7%);
     --light: hsl(35, 35%, 95%);
     --canvas: hsla(0, 0%, 100%, 1);
 
@@ -33,13 +35,19 @@
 
     --canvas-border: hsla(0, 0%, 75%, 0.5);
 
+    /* Font Families and Sizes */
+
     --body-font-family: "Lora", serif;
 
     --header-font-family: "Oswald", sans-serif;
 
+    --button-font-family: var(--header-font-family);
+
     --base-font-size: 0.9rem;
 
     --type-scale: 1.22;
+
+    /* Misc */
 
     --grid-sidebar-width: calc((3 / 12) * 100% - var(--gutter));
 
@@ -52,8 +60,7 @@
 
 */
 
-.oswald,
-.button {
+.oswald {
     font-family: "Oswald", sans-serif;
 }
 
@@ -79,7 +86,6 @@
     }
 }
 
-
 @media (prefers-color-scheme: dark) {
 
     :root {
@@ -100,10 +106,6 @@
 
     .opacity-color-scheme {
         filter: opacity(33%);
-    }
-
-    #global-header {
-        background-color:  hsla(0, 0%, 0%, 0.875);
     }
 
 }
