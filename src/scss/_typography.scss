@@ -83,6 +83,12 @@ In this file:
     --paragraph-margin-bottom: 1.25em;
     
     --header-margin-bottom: 0.25em;
+
+    // Blockquote
+
+    --blockquote-border-width: var(--border-width);
+    --blockquote-border-color: currentColor;
+    --blockquot-font-size: 1.25em; 
 }
 
 //////////////////////////////////////////////
@@ -157,7 +163,19 @@ In this file:
     }
 
     blockquote {
-        margin-block-end: var(--paragraph-margin-bottom);
+        &:not(:last-child){
+            margin-block-end: var(--paragraph-margin-bottom);
+        }
+
+        footer {
+            font-size: 0.875em;
+            font-style: normal;
+            margin-block-start: 0.5em;
+        }
+
+        cite {
+            font-style: italic;
+        }
     }
 
     :is(
@@ -316,6 +334,25 @@ $headers: (
         font-size: var(--banner-headline-font-size);
 
         line-height: var(--header-line-height);
+    }
+
+    .blockquote {
+        --border-width: var(--blockquote-border-width);
+        --border-color: var(--blockquote-border-color);
+    
+        font-size: var(--blockquot-font-size);
+
+        padding-inline-start: 1.25em;
+
+        border-inline-start: 
+            var(--border-width)
+            var(--border-style)
+            var(--border-color);
+
+        p {
+            margin-block-end: 0.5em;
+        }
+
     }
 
 } // end @layer
