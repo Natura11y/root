@@ -97,5 +97,8 @@
    "zoom-in": 61792,
    "zoom-out": 61793,
    "pause": 61794,
-   "play": 61795
+   "play": 61795,
+   "twitter-x": 61796,
+   "volume-mute": 61797,
+   "volume": 61798
 }
