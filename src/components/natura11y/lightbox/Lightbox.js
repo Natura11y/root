@@ -4,6 +4,8 @@ import { LightboxContext } from '../../../context/LightboxContext';
 
 import ButtonIconOnly from '../button/ButtonIconOnly';
 
+import ImageWithLoading from './ImageWithLoading';
+
 const Lightbox = () => {
 
   const {
@@ -49,7 +51,7 @@ const Lightbox = () => {
         allowFullScreen
       />
     ),
-    default: lbSrc => <img src={lbSrc} alt='Lightbox content' key={lbSrc} />
+    default: lbSrc => <ImageWithLoading src={lbSrc} alt='Lightbox content' key={lbSrc} />
   };
 
   const updateLightboxContent = () => {
@@ -66,7 +68,7 @@ const Lightbox = () => {
     >
       <figure className='lightbox__container'>
         <div
-          className='lightbox__media'
+          className='lightbox__media display-block'
           tabIndex={isOpen ? 0 : -1}
         >
           {updateLightboxContent()}

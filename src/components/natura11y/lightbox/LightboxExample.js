@@ -12,14 +12,14 @@ const LightboxExample = () => {
   const { addToMediaArray } = useContext(LightboxContext);
 
   const localImageMedia = {
-    utilities: 'lightbox-button',
+    utilities: 'lightbox-thumbnail',
     lbType: 'image',
     lbSrc: LocalImage,
     lbCaption: 'Caption for example 1',
   };
 
   const localVideoMedia = {
-    utilities: 'lightbox-button',
+    utilities: 'lightbox-thumbnail',
     lbType: 'video',
     lbSrc: LocalVideo,
     lbCaption: 'Caption for example 2',
