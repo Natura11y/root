@@ -4,16 +4,11 @@ In this file:
 
 // A. Modules
 // B. Variables
-// C. Font Weight Utilities
-// D. Font Size Utilities
-// E. Headings
-// F. Banner Headline Utility
-// G. Body Selectors
-// H. Text Align Utilities
-// I. Text Transform Utilities
-// J. Text Decoration Utilities
-// K. Word Wrap Utilities
-// L. Truncate Text Utility
+// C. Base Selectors
+// D. Font Size and Font Weight Utilities
+// E. Heading Sizes and Utilities
+// F. Text Utilities
+// G. Blockquote Utility
 
 */
 
@@ -428,6 +423,33 @@ $headers: (
             }
 
         }
+    }
+
+} // end @layer
+
+//////////////////////////////////////////////
+// G. Blockquote Utility
+//////////////////////////////////////////////
+
+@layer utility {
+
+    .blockquote {
+        --border-width: var(--blockquote-border-width);
+        --border-color: var(--blockquote-border-color);
+    
+        font-size: var(--blockquot-font-size);
+
+        padding-inline-start: 1.25em;
+
+        border-inline-start: 
+            var(--border-width)
+            var(--border-style)
+            var(--border-color);
+
+        p {
+            margin-block-end: 0.5em;
+        }
+
     }
 
 } // end @layer
