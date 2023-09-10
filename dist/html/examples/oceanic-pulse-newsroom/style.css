@@ -6,6 +6,8 @@
 
 :root {
 
+    /* Colors */
+
     --primary: #1B52BF;
     --primary-text: white;
 
@@ -108,7 +110,6 @@
 .backdrop__image__credit,
 .sans-serif {
     font-family: 'Lato', sans-serif;
-    /* --body-font-family: */
 }
 
 .grid > li > a {
