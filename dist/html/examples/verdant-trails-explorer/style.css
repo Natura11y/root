@@ -6,6 +6,8 @@
 
 :root {
 
+    --gutter: 16px;
+    
     /* Colors */
     
     --dark: hsl(120, 10%, 7%);
