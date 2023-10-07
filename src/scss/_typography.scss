@@ -105,7 +105,7 @@ In this file:
     p, 
     p ~ ul:not([class]),
     p ~ ol:not([class]) {
-        &:not(:last-child){
+        &:not(:last-child) {
             margin-block-end: var(--paragraph-margin-bottom);
         }
     }
