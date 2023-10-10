@@ -39,6 +39,8 @@ In this file:
     --body-font-weight-medium: 600;
     --body-font-weight-bold: 700;
 
+    --header-font-weight: var(--body-font-weight-bold);
+
     // Base Font Size and Type Scale
 
     --base-font-size: 0.9rem; // Smallest Font Size
@@ -182,7 +184,8 @@ In this file:
         h6, .h6 
     ) {
         font-family: var(--header-font-family);
-        font-weight: var(--body-font-weight-bold);
+        font-weight: var(--header-font-weight);
+        
         line-height: var(--header-line-height);
 
         &:not(.accordion__button):not(.alert__title):not(:last-child){
