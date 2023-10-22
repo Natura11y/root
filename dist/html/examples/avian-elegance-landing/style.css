@@ -27,15 +27,9 @@
     --base-font-size: 1rem;
 
     --type-scale: 1.2;
-
-    --body-max-width: 2200px;
 }
 
 #introduction.backdrop, 
 #sign-up.backdrop {
     --backdrop-fixed-height: 900px;
-}
-
-html {
-    --html-background-color: var(--dark);
 }

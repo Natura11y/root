@@ -35,7 +35,7 @@ const devPages = {
 
 const devDir = './dist/html';
 
-const devPage = `${devPages.Color}.html`;
+const devPage = `${devPages.Form}.html`;
 
 module.exports = merge(common, {
     mode: 'development',
