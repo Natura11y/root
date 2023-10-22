@@ -1,3 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
-  <path d="M39 6h-8l-2-2H19l-2 2H9a2 2 0 0 0 0 4h30a2 2 0 0 0 0-4ZM11 40a4 4 0 0 0 4 4h18a4 4 0 0 0 4-4V12H11v28Z"/>
+<svg width="24" height="24" viewBox="0 0 24 24">
+   <path d="m8.5 3 1-1h5l1 1h4a1 1 0 1 1 0 2h-15a1 1 0 1 1 0-2h4Zm10 3h-13v14a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V6Z"/>
 </svg>
