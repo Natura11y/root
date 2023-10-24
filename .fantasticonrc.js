@@ -7,7 +7,6 @@ module.exports = {
   assetTypes: ['css', 'json', 'html'],
   name: 'natura11y-icons',
   codepoints: codepoints,
-  // prefix: null,
   selector: '.icon',
   tag: 'span',
   formatOptions: {
