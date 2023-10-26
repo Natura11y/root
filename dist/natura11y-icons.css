@@ -1,8 +1,8 @@
 @font-face {
     font-family: "natura11y-icons";
-    src: url("./natura11y-icons.ttf?649a5981570b06ade375cc9da575066a") format("truetype"),
-url("./natura11y-icons.woff2?649a5981570b06ade375cc9da575066a") format("woff2"),
-url("./natura11y-icons.woff?649a5981570b06ade375cc9da575066a") format("woff");
+    src: url("./natura11y-icons.ttf?0d2804f2a541aa1a07cf38019ea8075f") format("truetype"),
+url("./natura11y-icons.woff2?0d2804f2a541aa1a07cf38019ea8075f") format("woff2"),
+url("./natura11y-icons.woff?0d2804f2a541aa1a07cf38019ea8075f") format("woff");
 }
 
 .icon:before {
@@ -271,7 +271,7 @@ url("./natura11y-icons.woff?649a5981570b06ade375cc9da575066a") format("woff");
 .icon.icon-skrink:before {
     content: "\f167";
 }
-.icon.icon-star:before {
+.icon.icon-star-outline:before {
     content: "\f14e";
 }
 .icon.icon-star-fill:before {
@@ -568,8 +568,8 @@ url("./natura11y-icons.woff?649a5981570b06ade375cc9da575066a") format("woff");
 .icon.icon-icon-star-fill:before {
     content: "\f1b8";
 }
-.icon.icon-icon-star:before {
-    content: "\f1b9";
+.icon.icon-icon-star-outline:before {
+    content: "\f1c9";
 }
 .icon.icon-icon-sun:before {
     content: "\f1ba";
