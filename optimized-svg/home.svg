@@ -1,0 +1,11 @@
+<svg id="as" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <style>
+      .ds{fill-rule:evenodd}
+    </style>
+  </defs>
+  <g id="at">
+    <path class="ds" d="M8 28v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V30h8v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V28L24 14 8 28Z"/>
+    <path class="ds" d="M43.33 22.505 40 19.546V8h-6v6.213l-8.67-7.708a2 2 0 0 0-2.66 0l-18 16a2 2 0 0 0 2.66 2.99L24 10.675l16.67 14.82c.383.338.856.505 1.329.505a2 2 0 0 0 1.33-3.495Z"/>
+  </g>
+</svg>
