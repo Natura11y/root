@@ -179,8 +179,6 @@ In this file:
         aspect-ratio: 1;
 
         [class*="icon-"] {
-            --icon-size: 1.25em;
-
             display: flex;
         }
     }
@@ -261,17 +259,19 @@ In this file:
 
         width: var(--button-icon-over-text-width);
 
-        span.icon {
+        [class*="__icon"] {
             display: flex;
+
             align-items: center;
+            
             justify-content: center;
 
             margin-inline: auto;
 
+            aspect-ratio: 1;
+
             width: var(--button-icon-only-size);
             height: var(--button-icon-only-size);
-
-            aspect-ratio: 1;
 
             border-radius: var(--button-icon-over-text-border-radius);
 
