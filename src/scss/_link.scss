@@ -47,22 +47,6 @@ In this file:
 
 @layer utility {
 
-    // Expanded Link 
-
-    .expanded-link {
-        &::before {
-            position: absolute;
-            content: "";
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            
-            z-index: 1;
-            pointer-events: auto;
-        }
-    }
-
     // Link with Icon
 
     .link {
@@ -87,9 +71,21 @@ In this file:
                 text-decoration: underline;
             }
         }
+    }
 
-        > [class*="icon-"] {
-            margin-right: 0.5rem;
+    // Expanded Link 
+
+    .expanded-link {
+        &::before {
+            position: absolute;
+            content: "";
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            
+            z-index: 1;
+            pointer-events: auto;
         }
     }
 

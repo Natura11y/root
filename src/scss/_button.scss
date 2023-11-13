@@ -145,16 +145,12 @@ In this file:
         justify-content: center;
         align-items: center;
 
+        gap: 0.375em;
+
         &:hover,
         &:focus {
             .button__text {
                 text-decoration: underline;
-            }
-        }
-
-        &:not([class*="--disperse"]) {
-            .button__text {
-                margin-inline: 0.5em;
             }
         }
     }
