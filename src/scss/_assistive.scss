@@ -41,10 +41,10 @@ In this file:
             text-decoration: underline;
         }
 
-        [class*="button"]:not([class*="has-icon"]),
-        [class*="has-icon"] [class*="__text"] {
-            text-decoration: underline;
-        }
+        // [class*="button"]:not([class*="has-icon"]),
+        // [class*="has-icon"] [class*="__text"] {
+        //     text-decoration: underline;
+        // }
     }
 
     &:not([class*="button--icon-over-text"]):focus-visible {

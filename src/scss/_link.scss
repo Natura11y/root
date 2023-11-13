@@ -79,6 +79,7 @@ In this file:
         display: inline-flex;
         align-items: center;
 
+        gap: 0.25em;
 
         &:hover,
         &:focus {
@@ -86,8 +87,6 @@ In this file:
                 text-decoration: underline;
             }
         }
-
-        gap: 0.25em;
 
         > [class*="icon-"] {
             margin-right: 0.5rem;
