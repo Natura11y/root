@@ -63,4 +63,35 @@ In this file:
         }
     }
 
+    // Link with Icon
+
+    .link {
+        font-weight: var(--button-font-weight);
+        
+        &:not([class*="text-color"]) {
+            color: var(--link-color);
+        }
+    }
+
+    // Has Icon Modifiers
+
+    [class*="link--has-icon"] {
+        display: inline-flex;
+        align-items: center;
+
+
+        &:hover,
+        &:focus {
+            .link__text {
+                text-decoration: underline;
+            }
+        }
+
+        gap: 0.25em;
+
+        > [class*="icon-"] {
+            margin-right: 0.5rem;
+        }
+    }
+
 } // end @layer

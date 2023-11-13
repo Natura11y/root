@@ -33,9 +33,16 @@ In this file:
         &:not(
             [aria-disabled="true"],
             [class*="icon"],
+            [class*="backdrop"],
+            [class*="no-hover-focus"],
             [class*="nav--has-icons"] > li > *,
             p > a
         ) {
+            text-decoration: underline;
+        }
+
+        [class*="button"]:not([class*="has-icon"]),
+        [class*="has-icon"] [class*="__text"] {
             text-decoration: underline;
         }
     }

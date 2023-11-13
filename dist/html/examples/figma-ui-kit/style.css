@@ -1,0 +1,91 @@
+/*
+
+// Custom Properties
+
+*/
+
+:root {
+    /* Color */
+
+    /* Misc */
+
+    --grid-sidebar-width: calc((3 / 12) * 100% - var(--gutter));
+
+    --position-sticky-offset: var(--spacer-3);
+}
+
+@layer component {
+
+    #introduction.backdrop {
+        --backdrop-fixed-height: 850px;
+        --gradient-veneer-opacity: 0.875;
+    }
+}
+
+.grid--features {
+    display: grid;
+
+    grid-gap: var(--spacer-3);
+
+    > .backdrop {
+        --backdrop-fixed-height: 0;
+
+        aspect-ratio: 16 / 9;
+
+        max-width: 100%;
+
+        display: flex;
+    }
+
+    > .backdrop {
+        &:nth-of-type(1) {
+            grid-area: primary;
+        }
+
+        &:nth-of-type(2) {
+            grid-area: secondary;
+        }
+
+        &:nth-of-type(3) {
+            grid-area: tertiary;
+        }
+    }
+
+    grid-template-areas:
+        "primary"
+        "secondary"
+        "tertiary";
+
+    @media screen and (min-width: 1024px) {
+        grid-template-columns: 2fr 1fr;
+
+        grid-template-areas:
+            "primary secondary"
+            "primary tertiary";
+    
+        >  .backdrop:nth-of-type(2),
+        >  .backdrop:nth-of-type(3) {
+            aspect-ratio: unset;
+        }
+    }
+}
+
+.thumb-button {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-inline-start: var(--spacer-3);
+
+    background-color: var(--canvas);
+
+    border-left: 0.4rem solid var(--secondary);
+}
+
+.thumb-button__text { 
+    font-weight: var(--body-font-weight-bold);
+}
+
+.thumb-button__image {
+    max-width: 160px;
+}
