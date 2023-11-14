@@ -5,8 +5,8 @@
 */
 
 :root {
-    --dark: #1d1920;
-    --primary: #ccb032;
+    --dark: #26212a;
+    --primary: hsl(40, 65%, 50%);
     --primary-text: var(--dark);
 
     --html-background-color: var(--dark);
@@ -18,14 +18,13 @@
     --active-text-color: var(--primary-text);
 
     --button-border-radius: 0;
+
+
+    --button-font-family: 'Bebas Neue', cursive;
 }
 
 [class*="gradient-veneer"] { 
     --gradient-veneer-opacity: 0.75;
-}
-
-.bebas { 
-    font-family: 'Bebas Neue', cursive;
 }
 
 /*
