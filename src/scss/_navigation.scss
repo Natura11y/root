@@ -493,7 +493,7 @@ In this file:
         }
 
     > ul > li > a {
-            @extend .expanded-link;
+            @extend .link-expanded !optional;
         }
 
         .nav__dropdown {

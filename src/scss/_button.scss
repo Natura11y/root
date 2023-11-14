@@ -84,7 +84,7 @@ In this file:
         display: inline-block;
         
         vertical-align: middle;
-        
+
         line-height: normal;
         
         text-align: center;
@@ -145,11 +145,11 @@ In this file:
         justify-content: center;
         align-items: center;
 
-        gap: 0.375em;
+        gap: 0.5em;
 
         &:hover,
         &:focus {
-            .button__text {
+            [class*="__text"] {
                 text-decoration: underline;
             }
         }
@@ -165,7 +165,6 @@ In this file:
     .button--icon-only {
         display: inline-flex;
         flex-shrink: 0;
-
         align-items: center;
         justify-content: center;
 
@@ -290,6 +289,15 @@ In this file:
                 outline-offset: var(--focus-outline-offset);
             }
         }
+
+        &:hover,
+        &:focus {
+            [class*="__text"] {
+                text-decoration: underline;
+            }
+        }
+
+        
     }
 
     // Button Group

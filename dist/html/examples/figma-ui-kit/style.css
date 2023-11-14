@@ -18,7 +18,6 @@
 
     #introduction.backdrop {
         --backdrop-fixed-height: 850px;
-        --gradient-veneer-opacity: 0.875;
     }
 }
 
