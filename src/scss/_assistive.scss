@@ -31,12 +31,12 @@ In this file:
     &:hover,
     &:focus {
         &:not(
+            p > a,
             [aria-disabled="true"],
             [class*="icon"],
             [class*="backdrop"],
             [class*="no-hover-focus"],
-            [class*="nav--has-icons"] > li > *,
-            p > a
+            [class*="nav--has-icons"] > li > *
         ) {
             text-decoration: underline;
         }
@@ -55,10 +55,6 @@ In this file:
             z-index: -1;
         }
     }
-
-    // &:has(> [class*="__text"]) {
-    //     background-color: red !important;
-    // }
 }
 
 @layer base {
@@ -112,7 +108,7 @@ In this file:
 
     .focusable-only {
 
-        &:not(:focus) {
+        &:not(:focus) { 
             @extend .screen-reader-only;
         }
 
