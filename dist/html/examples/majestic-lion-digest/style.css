@@ -5,8 +5,8 @@
 */
 
 :root {
-    --dark: #26212a;
-    --primary: hsl(40, 65%, 50%);
+    --dark: #1d1920;
+    --primary: #d39934;
     --primary-text: var(--dark);
 
     --html-background-color: var(--dark);
@@ -37,6 +37,16 @@
     :root {
         --type-scale: 1.125;
     }
+}
+
+/*
+
+// Font Utility
+
+*/
+
+.bebas {
+    font-family: 'Bebas Neue', cursive;
 }
 
 /*
