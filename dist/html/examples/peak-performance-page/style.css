@@ -1,18 +1,8 @@
 /*
 
-// Custom Properties
+// Backdrop
 
 */
-
-:root {
-    /* Color */
-
-    /* Misc */
-
-    --grid-sidebar-width: calc((3 / 12) * 100% - var(--gutter));
-
-    --position-sticky-offset: var(--spacer-3);
-}
 
 @layer component {
 
@@ -21,19 +11,26 @@
     }
 }
 
+/*
+
+// Grid
+
+*/
+
 .grid--features {
     display: grid;
 
     grid-gap: var(--spacer-3);
 
     > .backdrop {
-        --backdrop-fixed-height: 0;
 
+        --backdrop-fixed-height: unset;
+        
         aspect-ratio: 16 / 9;
 
-        max-width: 100%;
-
         display: flex;
+
+        max-width: 100%;
     }
 
     > .backdrop {
@@ -68,6 +65,12 @@
         }
     }
 }
+
+/*
+
+// Thumbnail Button
+
+*/
 
 .thumb-button {
     display: flex;

@@ -29,7 +29,7 @@ In this file:
     a[data-logo="brand"] {
         display: inline-block;
 
-        &:focus {
+        &:focus-visible {
             opacity: 0.85;
         }
 
