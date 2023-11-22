@@ -4,6 +4,17 @@
 
 */
 
+
+@media screen and (max-width: 1024px) {
+    :root {
+        --type-scale: 1.1375;
+        --spacer-base: 0.675rem;
+    }
+    #introduction.backdrop {
+        --backdrop-fixed-height: 450px;
+    }
+}
+
 @layer component {
 
     #introduction.backdrop {
@@ -18,8 +29,10 @@
 */
 
 .grid--features {
-    display: grid;
+    --backdrop-fixed-height: 0;
 
+    display: grid;
+        
     grid-gap: var(--spacer-3);
 
     > .backdrop {
@@ -82,10 +95,24 @@
     background-color: var(--canvas);
 
     border-left: 0.4rem solid var(--secondary);
+
+    > p {
+        margin: unset;
+    }
+
+    &:hover [class*="__text"] {
+        text-decoration: underline;
+    }
 }
 
 .thumb-button__text { 
     font-weight: var(--body-font-weight-bold);
+}
+
+.thumb-button__credit { 
+    font-size: var(--font-size-sm);
+display: block;
+opacity: 0.75;
 }
 
 .thumb-button__image {
