@@ -25,7 +25,7 @@ In this file:
 
     --button-font-family: var(--body-font-family);
 
-    --button-font-weight: var(--body-font-weight-bold);
+    --button-font-weight: var(--font-weight-bold);
     
     --button-text-transform: initial;
     
@@ -278,7 +278,7 @@ In this file:
 
             font-size: var(--button-icon-over-text-font-size);
 
-            font-weight: var(--body-font-weight-bold);
+            font-weight: var(--font-weight-bold);
         }
 
         &:focus-visible {

@@ -106,7 +106,7 @@
 }
 
 .thumb-button__text { 
-    font-weight: var(--body-font-weight-bold);
+    font-weight: var(--font-weight-bold);
 }
 
 .thumb-button__credit { 

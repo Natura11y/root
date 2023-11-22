@@ -29,8 +29,7 @@ const devPages = {
     'Spacer': 'spacer',
     'Tab': 'tab',
     'Table': 'table',
-    'Typography': 'typography',
-    'TypographyScale': 'typography-scale'
+    'Typography': 'typography'
 }
 
 const devDir = './dist/html';

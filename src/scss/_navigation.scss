@@ -58,7 +58,7 @@ In this file:
     
     [aria-selected="true"],
     [aria-current] {
-        font-weight: var(--body-font-weight-bold);
+        font-weight: var(--font-weight-bold);
     }
 
     &:not([class*="nav--has-icons"]) {
