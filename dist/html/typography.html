@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" dir="ltr">
+<html class="theme-canvas--prefers" lang="en" dir="ltr">
 
     <head>
         <meta charset="utf-8">
@@ -29,41 +29,41 @@
 
                     <div class="grid gap-3">
 
-                        <div class="card border">
+                        <div class="card border border-radius">
                             <div class="card__head border-bottom">
                                 Banner Headline
                             </div>
                             <div class="card__body">
-                                <h1 class="banner-headline">Banner Headline</h1>
+                                <h1 class="banner-headline display-fs">Banner Headline</h1>
                             </div>
                         </div>
                     
-                        <div class="card border">
+                        <div class="card border border-radius">
                             <div class="card__head border-bottom">
                                 Headers
                             </div>
                             <div class="card__body">
-                                <p class="h1">Header 1</p>
-                                <p class="h2">Header 2</p>
-                                <p class="h3">Header 3</p>
-                                <p class="h4">Header 4</p>
-                                <p class="h5">Header 5</p>
-                                <p class="h6">Header 6</p>
+                                <p class="h1 display-fs">Header 1</p>
+                                <p class="h2 display-fs">Header 2</p>
+                                <p class="h3 display-fs">Header 3</p>
+                                <p class="h4 display-fs">Header 4</p>
+                                <p class="h5 display-fs">Header 5</p>
+                                <p class="h6 display-fs">Header 6</p>
                             </div>
                         </div>
                         
-                        <div class="card border">
+                        <div class="card border border-radius">
                             <div class="card__head border-bottom">
                                 Font Sizes
                             </div>
                             <div class="card__body">
-                                <p class="font-size-lg margin-bottom-1">Large</p>
-                                <p class="font-size-rg margin-bottom-1">Regular</p>
-                                <p class="font-size-sm">Small</p>
+                                <p class="font-size-lg margin-bottom-1 display-fs">Large</p>
+                                <p class="font-size-rg margin-bottom-1 display-fs">Regular</p>
+                                <p class="font-size-sm display-fs">Small</p>
                             </div>  
                         </div>
                         
-                        <div class="card border">
+                        <div class="card border border-radius">
                             <div class="card__head border-bottom">
                                 Text Transform
                             </div>
@@ -74,7 +74,7 @@
                             </div>  
                         </div>
 
-                        <div class="card border">
+                        <div class="card border border-radius">
                             <div class="card__head border-bottom">
                                 Text Decoration
                             </div>
@@ -84,7 +84,7 @@
                             </div>  
                         </div>
                         
-                        <div class="card border">
+                        <div class="card border border-radius">
                             <div class="card__head border-bottom">
                                 Blockquote
                             </div>
@@ -99,7 +99,17 @@
                             </div>  
                         </div>
 
-                        <div class="card border">
+                        <div class="card border border-radius">
+                            <div class="card__head border-bottom">
+                                Superscript and Subscript
+                            </div>
+                            <div class="card__body">
+                                <p class="margin-bottom-1">10<sup>4</sup></p>
+                                <p class="margin-bottom-1">10<sub>4</sub></p>
+                            </div>  
+                        </div>
+
+                        <div class="card border border-radius">
                             <div class="card__head border-bottom">
                                 Article Text 
                             </div>
@@ -228,6 +238,44 @@
             </section>
 
         </main>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Function to create and return a new span element for font size
+                const createFontSizeDisplay = (fontSize) => {
+                    const fontSizeDisplay = document.createElement('span');
+                    fontSizeDisplay.className = 'display-fs__text font-weight-normal opacity-70 font-size-sm';
+                    fontSizeDisplay.textContent = `${fontSize}px `;
+                    return fontSizeDisplay;
+                };
+
+                // Function to wrap existing content in a new span
+                const wrapContentInSpan = (element) => {
+                    const textWrapper = document.createElement('span');
+                    textWrapper.innerHTML = element.innerHTML;
+                    return textWrapper;
+                };
+
+                // Main function to display font size
+                const displayFontSize = (selector) => {
+                    const elements = document.querySelectorAll(selector);
+
+                    elements.forEach(element => {
+                        element.classList.add('flex-row', 'align-items-baseline', 'gap-3');
+                        
+                        const fontSize = Math.round(parseFloat(window.getComputedStyle(element).fontSize));
+                        const fontSizeDisplay = createFontSizeDisplay(fontSize);
+                        const textWrapper = wrapContentInSpan(element);
+
+                        element.innerHTML = '';
+                        element.appendChild(fontSizeDisplay);
+                        element.appendChild(textWrapper);
+                    });
+                };
+
+                displayFontSize('.display-fs');
+            });
+        </script>
 
     </body>
 
