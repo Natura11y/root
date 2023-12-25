@@ -64,6 +64,7 @@
 
     .grid-layout {
 
+
         display: grid;
 
         grid-template-columns: 
@@ -90,10 +91,7 @@
         margin-inline: auto;
     }
 
-    .banner .backdrop__cover > * {
-        margin-left: var(--sidebar-width);
-    }
-
+    .banner .backdrop__cover > *,
     .content {
         display: grid;
         grid-template-columns: var(--sidebar-width) 1fr;
