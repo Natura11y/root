@@ -146,19 +146,19 @@ In this file:
 
                 // Corner specific
 
-                .border-top-left-radius-#{$i}#{$mod} {
+                .border-radius-top-left-#{$i}#{$mod} {
                     border-start-start-radius: var(--border-radius-#{$i});
                 }
 
-                .border-top-right-radius-#{$i}#{$mod} {
+                .border-radius-top-right-#{$i}#{$mod} {
                     border-start-end-radius: var(--border-radius-#{$i});
                 }
 
-                .border-bottom-right-radius-#{$i}#{$mod} {
+                .border-radius-bottom-right-#{$i}#{$mod} {
                     border-end-end-radius: var(--border-radius-#{$i});
                 }
                 
-                .border-bottom-left-radius-#{$i}#{$mod} {
+                .border-radius-bottom-left-#{$i}#{$mod} {
                     border-end-start-radius: var(--border-radius-#{$i});
                 }
             }
