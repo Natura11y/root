@@ -604,6 +604,14 @@ In this file:
     }
 
     // Shared Focus and Checked States
+    
+    .form-entry__option__check {
+        --focus-border-radius: calc( var(--form-field-border-radius) * 0.5);
+    }
+    
+    .form-entry__option__radio {
+        --focus-border-radius: 100%;
+    }
 
     [class*="form-entry__option__"] > label > input {
 
@@ -611,10 +619,20 @@ In this file:
             text-decoration: underline;
 
             &::before {
-                opacity: 0.75;
+                opacity: 1;
             }
+
         }
 
+        &:focus-visible ~ .option__label {
+        
+            &::before {
+                outline: var(--focus-outline-size) solid var(--link-color);
+                border-radius: var(--focus-border-radius);
+            }
+        
+        }
+        
         &:checked ~ .option__label {
             &::before {
                 opacity: 1;
