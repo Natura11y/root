@@ -94,7 +94,7 @@ export default class Navigation {
                 this.#dropdownButtonList.forEach((dropdownButton) => {
                     const dropdownMenu = document.getElementById(dropdownButton.getAttribute('aria-controls'));
                     
-                    if (dropdownButton.getAttribute('aria-expanded') === 'true' && dropdownButton.dataset.trigger !== 'hover') {
+                    if (dropdownButton.getAttribute('aria-expanded') === 'true') {
                         this.#closeDropdown(dropdownButton, dropdownMenu);
                         dropdownButton.focus();
                     }
