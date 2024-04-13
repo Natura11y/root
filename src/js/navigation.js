@@ -24,7 +24,6 @@ export default class Navigation {
         const handleHoverDropdownOpen = () => {
             clearTimeout(delayClose);
             this.#openDropdown(dropdownButton, dropdownMenu);
-
         };
 
         const handleHoverDropdownClose = () => {
