@@ -1,4 +1,5 @@
 import { getFocusableElements } from './utilities/focus';
+import { focusTrap } from './utilities/focus';
 
 export default class Navigation {
 
@@ -20,13 +21,16 @@ export default class Navigation {
     #setupListeners(dropdownButton, dropdownMenu) {
         let delayClose;
 
-        const handleDropdownOpen = () => {
+        const handleHoverDropdownOpen = () => {
             clearTimeout(delayClose);
             this.#openDropdown(dropdownButton, dropdownMenu);
+
         };
 
-        const handleDropdownClose = () => {
-            delayClose = setTimeout(() => this.#closeDropdown(dropdownButton, dropdownMenu), 300);
+        const handleHoverDropdownClose = () => {
+            delayClose = setTimeout(() => {
+                this.#closeDropdown(dropdownButton, dropdownMenu);
+            }, 300);
         };
         
         const handleFocusout = () => {
@@ -38,13 +42,12 @@ export default class Navigation {
         };
         
         if (dropdownButton.dataset.trigger === 'hover') {
-            dropdownButton.addEventListener('mouseenter', handleDropdownOpen);
-            dropdownButton.addEventListener('mouseleave', handleDropdownClose);
-            dropdownMenu.addEventListener('mouseenter', () => clearTimeout(delayClose));
-            dropdownMenu.addEventListener('mouseleave', handleDropdownClose);
+            dropdownButton.addEventListener('mouseenter', handleHoverDropdownOpen);
+            dropdownButton.addEventListener('mouseleave', handleHoverDropdownClose);
+            dropdownButton.addEventListener('focus', handleHoverDropdownOpen);
 
-            // Ensure dropdown stays open when focused (accessibility enhancement)
-            dropdownButton.addEventListener('focus', handleDropdownOpen);
+            dropdownMenu.addEventListener('mouseenter', () => clearTimeout(delayClose));
+            dropdownMenu.addEventListener('mouseleave', handleHoverDropdownClose);
         }
 
         else {
@@ -77,6 +80,7 @@ export default class Navigation {
 
             dropdownButton.setAttribute('aria-expanded', 'false');
             dropdownButton.setAttribute('aria-haspopup', 'true');
+            
             this.#setupListeners(dropdownButton, dropdownMenu);
         });
 
@@ -102,5 +106,4 @@ export default class Navigation {
             }
         });
     }
-
 }
