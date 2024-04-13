@@ -305,6 +305,10 @@ In this file:
     [data-toggle="dropdown"]:not([class*="button--icon-only"]) {    
         @extend %caret;
 
+        &[aria-expanded="true"]{
+            text-decoration: underline;
+        }
+
         &[aria-expanded="true"]::before {
             transform: rotate(180deg);
         }
@@ -556,6 +560,16 @@ In this file:
 
                     > ul {
                         height: 100%;
+                    }
+
+                    [data-trigger="hover"] {
+                        &::after {
+                            content: "";
+                            position: absolute;
+                            inset: 0;
+                            width: 100%;
+                            height: 100%;
+                        }
                     }
 
                     > ul {

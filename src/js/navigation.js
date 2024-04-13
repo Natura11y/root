@@ -18,20 +18,25 @@ export default class Navigation {
     }
 
     #setupListeners(dropdownButton, dropdownMenu) {
-        let delayClose;  // Shared timeout variable for hover-based auto close
+        let delayClose;
 
-        // Function to open the dropdown
         const handleDropdownOpen = () => {
             clearTimeout(delayClose);
             this.#openDropdown(dropdownButton, dropdownMenu);
         };
 
-        // Function to close the dropdown
         const handleDropdownClose = () => {
             delayClose = setTimeout(() => this.#closeDropdown(dropdownButton, dropdownMenu), 300);
         };
-
-        // Handle mouse enter/leave and focus events for hover-triggered dropdowns
+        
+        const handleFocusout = () => {
+            delayClose = setTimeout(() => {
+                if (!dropdownMenu.contains(document.activeElement) && !dropdownButton.contains(document.activeElement)) {
+                    this.#closeDropdown(dropdownButton, dropdownMenu);
+                }
+            }, 10);
+        };
+        
         if (dropdownButton.dataset.trigger === 'hover') {
             dropdownButton.addEventListener('mouseenter', handleDropdownOpen);
             dropdownButton.addEventListener('mouseleave', handleDropdownClose);
@@ -53,15 +58,6 @@ export default class Navigation {
             });
         }
 
-        // Focusout handling for both hover and click-triggered dropdowns
-        const handleFocusout = () => {
-            delayClose = setTimeout(() => {
-                if (!dropdownMenu.contains(document.activeElement) && !dropdownButton.contains(document.activeElement)) {
-                    this.#closeDropdown(dropdownButton, dropdownMenu);
-                }
-            }, 10);
-        };
-        
         dropdownButton.addEventListener('focusout', handleFocusout);
         dropdownMenu.addEventListener('focusout', handleFocusout);
     }
@@ -69,6 +65,7 @@ export default class Navigation {
     // Public methods
 
     init() {
+    
         this.#dropdownButtonList.forEach((dropdownButton) => {
             const dropdownMenuId = dropdownButton.getAttribute('aria-controls');
             const dropdownMenu = document.getElementById(dropdownMenuId);
