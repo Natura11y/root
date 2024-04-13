@@ -61,8 +61,13 @@
 
                     <ul class="nav nav--divider border nav--horizontal--lg">
                         <li>
-                            <button data-toggle="dropdown">Dropdown</button>
-                            <ul class="nav__dropdown box-shadow-1--lg">
+                            <button
+                                data-toggle="dropdown"
+                                aria-controls="dropdown-1"
+                                >
+                                    Dropdown
+                            </button>
+                            <ul class="nav__dropdown box-shadow-1--lg" id="dropdown-1">
                                 <li>
                                     <a href="#1">Link</a>
                                 </li>
@@ -108,8 +113,13 @@
 
                             <ul>
                                 <li>
-                                    <button data-toggle="dropdown">Dropdown</button>
-                                    <ul class="nav__dropdown box-shadow-1--lg">
+                                    <button
+                                        data-toggle="dropdown"
+                                        aria-controls="dropdown-2"
+                                        >
+                                            Dropdown
+                                    </button>
+                                    <ul class="nav__dropdown box-shadow-1--lg" id="dropdown-2">
                                         <li>
                                             <a href="#1">Link</a>
                                         </li>
@@ -211,14 +221,14 @@
                                 <li>
                                     <button
                                         data-toggle="dropdown"
+                                        aria-controls="dropdown-3"
                                         aria-haspopup="true"
-                                        aria-controls="dropdown-1"
                                     >
                                         Dropdown
                                     </button>
                                     <ul
                                         class="nav__dropdown box-shadow-1--lg"
-                                        id="dropdown-1"
+                                        id="dropdown-3"
                                     >
                                         <li>
                                             <a href="#1">Link</a>
