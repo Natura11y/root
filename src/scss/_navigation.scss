@@ -76,6 +76,21 @@ In this file:
 
 @layer component {
 
+    .primary-nav__mega-menu {
+        position: absolute; 
+        inset-block-start: 100%;
+        inset-inline-start: 0;
+        inset-inline-end: 0;
+
+        display: none;
+
+        &.shown {
+            display: block;
+        }
+        z-index: 10000;
+
+    }
+
     // Nav
 
     .nav, 
