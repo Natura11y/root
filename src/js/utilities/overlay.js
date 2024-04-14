@@ -55,12 +55,6 @@ export const handleOverlayClose = (element) => {
 }
 
 
-
-
-
-
-
-
 export const handleMenuOpen = (element) => {
 
     lastFocusedElement = document.activeElement;
@@ -68,18 +62,4 @@ export const handleMenuOpen = (element) => {
     console.log('handleMenuOpen', lastFocusedElement);
 
     focusLead(element, element, lastFocusedElement);
-}
-
-
-export const handleMenuClose = (element) => {
-
-    console.log('handleMenuClose', lastFocusedElement);
-
-    if(element && element.getAttribute('aria-hidden') === 'false') {
-        element.setAttribute('aria-hidden', true);
-    }
-    
-    // if(lastFocusedElement) {
-    //     lastFocusedElement.focus();
-    // }
 }

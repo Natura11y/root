@@ -11,21 +11,20 @@ export default class Navigation {
     // Private methods
     
     #openDropdown(dropdownButton, dropdownMenu) {
+        window.addEventListener('click', this.#handleWindowClick);
+
         dropdownMenu.classList.add('shown');
         dropdownButton.setAttribute('aria-expanded', 'true');
-
         if (dropdownMenu.classList.contains('primary-nav__mega-menu')) {
             handleMenuOpen(dropdownMenu);
         }
     }
 
     #closeDropdown(dropdownButton, dropdownMenu) {
+        window.removeEventListener('click', this.#handleWindowClick);
+
         dropdownMenu.classList.remove('shown');
         dropdownButton.setAttribute('aria-expanded', 'false');
-
-        if (dropdownMenu.classList.contains('primary-nav__mega-menu')) {
-            handleMenuClose(dropdownMenu);
-        }
     }
 
     #setupListeners(dropdownButton, dropdownMenu) {
@@ -76,6 +75,15 @@ export default class Navigation {
         dropdownMenu.addEventListener('focusout', handleFocusout);
     }
 
+    #handleWindowClick = (event) => {
+        this.#dropdownButtonList.forEach((dropdownButton) => {
+            const dropdownMenu = document.getElementById(dropdownButton.getAttribute('aria-controls'));
+            if (dropdownMenu && !dropdownMenu.contains(event.target) && !dropdownButton.contains(event.target)) {
+                this.#closeDropdown(dropdownButton, dropdownMenu);
+            }
+        });
+    };
+
     // Public methods
 
     init() {
@@ -94,16 +102,5 @@ export default class Navigation {
             
             this.#setupListeners(dropdownButton, dropdownMenu);
         });
-
-        const handleWindowClick = (event) => {
-            this.#dropdownButtonList.forEach((dropdownButton) => {
-                const dropdownMenu = document.getElementById(dropdownButton.getAttribute('aria-controls'));
-                if (dropdownMenu && !dropdownMenu.contains(event.target) && !dropdownButton.contains(event.target)) {
-                    this.#closeDropdown(dropdownButton, dropdownMenu);
-                }
-            });
-        };
-
-        window.addEventListener('click', handleWindowClick);
     }
 }
