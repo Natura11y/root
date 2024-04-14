@@ -53,13 +53,3 @@ export const handleOverlayClose = (element) => {
         lastFocusedElement.focus();
     }
 }
-
-
-export const handleMenuOpen = (element) => {
-
-    lastFocusedElement = document.activeElement;
-
-    console.log('handleMenuOpen', lastFocusedElement);
-
-    focusLead(element, element, lastFocusedElement);
-}

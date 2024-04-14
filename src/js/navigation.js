@@ -1,116 +1,171 @@
 import { getFocusableElements } from './utilities/focus';
-import { focusTrap } from './utilities/focus';
-
-import { handleMenuOpen } from './utilities/overlay';
 
 export default class Navigation {
+	// Private properties
+	#dropdownButtonList = document.querySelectorAll('[data-toggle="dropdown"]');
+	#isAnyDropdownOpen = false;
 
-    // Private properties
-    #dropdownButtonList = document.querySelectorAll('[data-toggle="dropdown"]');
-    #isAnyDropdownOpen = false;
+	// Private methods
 
-    // Private methods
-    
-    #openDropdown(dropdownButton, dropdownMenu) {
-        this.#isAnyDropdownOpen = true;
-        dropdownMenu.classList.add('shown');
-        dropdownButton.setAttribute('aria-expanded', 'true');
-        if (dropdownMenu.classList.contains('primary-nav__mega-menu')) {
-            handleMenuOpen(dropdownMenu);
-        }
-    }
+	#openDropdown(dropdownButton, dropdownMenu) {
+		this.#isAnyDropdownOpen = true;
+		dropdownMenu.classList.add('shown');
+		dropdownButton.setAttribute('aria-expanded', 'true');
+		if (dropdownMenu.classList.contains('primary-nav__mega-menu')) {
+			this.#handleMegaMenuOpen(dropdownButton, dropdownMenu);
+		}
+	}
 
-    #closeDropdown(dropdownButton, dropdownMenu) {
-        this.#isAnyDropdownOpen = this.#checkAnyDropdownOpen();
-        dropdownMenu.classList.remove('shown');
-        dropdownButton.setAttribute('aria-expanded', 'false');
-    }
+	#closeDropdown(dropdownButton, dropdownMenu) {
+		this.#isAnyDropdownOpen = this.#checkAnyDropdownOpen();
+		dropdownMenu.classList.remove('shown');
+		dropdownButton.setAttribute('aria-expanded', 'false');
+	}
 
-    #setupListeners(dropdownButton, dropdownMenu) {
+	#setupListeners(dropdownButton, dropdownMenu) {
+		let delayClose;
 
-        let delayClose;
+		const handleHoverFocusOpen = () => {
+			clearTimeout(delayClose);
+			this.#openDropdown(dropdownButton, dropdownMenu);
+		};
 
-        const handleHoverFocusOpen = () => {
-            clearTimeout(delayClose);
-            this.#openDropdown(dropdownButton, dropdownMenu);
+		const handleHoverFocusClose = () => {
+			delayClose = setTimeout(() => {
+				this.#closeDropdown(dropdownButton, dropdownMenu);
+			}, 250);
+		};
 
-        };
+		const handleFocusout = () => {
+			delayClose = setTimeout(() => {
+				if (
+					!dropdownMenu.contains(document.activeElement) &&
+					!dropdownButton.contains(document.activeElement)
+				) {
+					this.#closeDropdown(dropdownButton, dropdownMenu);
+				}
+			}, 10);
+		};
 
-        const handleHoverFocusClose = () => {
-            delayClose = setTimeout(() => {
-                this.#closeDropdown(dropdownButton, dropdownMenu);
-            }, 250);
-        };
-        
-        const handleFocusout = () => {
-            delayClose = setTimeout(() => {
-                if (!dropdownMenu.contains(document.activeElement) && !dropdownButton.contains(document.activeElement)) {
-                    this.#closeDropdown(dropdownButton, dropdownMenu);
+		if (dropdownButton.dataset.trigger === 'hover') {
+			dropdownButton.addEventListener('mouseenter', handleHoverFocusOpen);
+			dropdownButton.addEventListener('focus', handleHoverFocusOpen);
+			dropdownButton.addEventListener('mouseleave', handleHoverFocusClose);
+
+			dropdownMenu.addEventListener('mouseenter', () =>
+				clearTimeout(delayClose)
+			);
+			dropdownMenu.addEventListener('mouseleave', handleHoverFocusClose);
+		} else {
+			dropdownButton.addEventListener('click', (event) => {
+				event.preventDefault();
+				const isShown = dropdownMenu.classList.contains('shown');
+
+				isShown
+					? this.#closeDropdown(dropdownButton, dropdownMenu)
+					: this.#openDropdown(dropdownButton, dropdownMenu);
+			});
+		}
+
+		dropdownButton.addEventListener('focusout', handleFocusout);
+		dropdownMenu.addEventListener('focusout', handleFocusout);
+	}
+
+	#checkAnyDropdownOpen() {
+		return Array.from(this.#dropdownButtonList).some((button) => {
+			const menu = document.getElementById(
+				button.getAttribute('aria-controls')
+			);
+			return menu.classList.contains('shown');
+		});
+	}
+
+	#handleWindowClick = (event) => {
+		if (!this.#isAnyDropdownOpen) return;
+
+		this.#dropdownButtonList.forEach((dropdownButton) => {
+			const dropdownMenu = document.getElementById(
+				dropdownButton.getAttribute('aria-controls')
+			);
+			if (
+				dropdownMenu &&
+				!dropdownMenu.contains(event.target) &&
+				!dropdownButton.contains(event.target)
+			) {
+				this.#closeDropdown(dropdownButton, dropdownMenu);
+			}
+		});
+	};
+
+	#handleMegaMenuOpen = (dropdownButton, dropdownMenu) => {
+		let lastFocusedElement = document.activeElement;
+		let NextFocusTarget;
+
+		console.log('handleMenuOpen', lastFocusedElement);
+
+		let focusableElements = getFocusableElements(dropdownMenu);
+
+		let firstFocusableElement = focusableElements[0];
+		let lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+		dropdownMenu.setAttribute('tabindex', '-1');
+		dropdownMenu.focus();
+
+		if (dropdownMenu.hasAttribute('data-next-focus-target')) {
+			let focusTarget = dropdownMenu.getAttribute('data-next-focus-target');
+			NextFocusTarget = document.getElementById(focusTarget);
+		}
+
+		dropdownMenu.addEventListener('keydown', (event) => {
+			if (document.activeElement === lastFocusableElement) {
+				if (!event.shiftKey) {
+					event.preventDefault();
+					NextFocusTarget.focus();
+				}
+			} else if (document.activeElement === firstFocusableElement) {
+                if (event.shiftKey) {
+                    event.preventDefault();
+                    dropdownButton.focus();
                 }
-            }, 10);
-        };
-        
-        if (dropdownButton.dataset.trigger === 'hover') {
-            dropdownButton.addEventListener('mouseenter', handleHoverFocusOpen);
-            dropdownButton.addEventListener('focus', handleHoverFocusOpen);
-            dropdownButton.addEventListener('mouseleave', handleHoverFocusClose);
-
-            dropdownMenu.addEventListener('mouseenter', () => clearTimeout(delayClose));
-            dropdownMenu.addEventListener('mouseleave', handleHoverFocusClose);
-        }
-
-        else {
-            dropdownButton.addEventListener('click', (event) => {
-                event.preventDefault();
-                const isShown = dropdownMenu.classList.contains('shown');
-
-                isShown ? 
-                    this.#closeDropdown(dropdownButton, dropdownMenu) : 
-                    this.#openDropdown(dropdownButton, dropdownMenu);
-            });
-        }
-
-        dropdownButton.addEventListener('focusout', handleFocusout);
-        dropdownMenu.addEventListener('focusout', handleFocusout);
-    }
-
-    #handleWindowClick = (event) => {
-        if (!this.#isAnyDropdownOpen) return;
-
-        this.#dropdownButtonList.forEach((dropdownButton) => {
-            const dropdownMenu = document.getElementById(dropdownButton.getAttribute('aria-controls'));
-            if (dropdownMenu && !dropdownMenu.contains(event.target) && !dropdownButton.contains(event.target)) {
-                this.#closeDropdown(dropdownButton, dropdownMenu);
             }
-        });
-    };
+		});
+	};
 
-    #checkAnyDropdownOpen() {
-        return Array.from(this.#dropdownButtonList).some(button => {
-            const menu = document.getElementById(button.getAttribute('aria-controls'));
-            return menu.classList.contains('shown');
-        });
-    }
+	#handleEscapeKeyPress = (event) => {
+		if (event.key === 'Escape' && this.#isAnyDropdownOpen) {
+			this.#dropdownButtonList.forEach((dropdownButton) => {
+				const dropdownMenu = document.getElementById(
+					dropdownButton.getAttribute('aria-controls')
+				);
+				if (dropdownMenu.classList.contains('shown')) {
+					this.#closeDropdown(dropdownButton, dropdownMenu);
+					dropdownButton.focus();
+				}
+			});
 
-    // Public methods
+			this.#isAnyDropdownOpen = false;
+		}
+	};
 
-    init() {
-    
-        this.#dropdownButtonList.forEach((dropdownButton) => {
-            const dropdownMenuId = dropdownButton.getAttribute('aria-controls');
-            const dropdownMenu = document.getElementById(dropdownMenuId);
+	// Public methods
 
-            if (!dropdownMenu) {
-                console.warn(`No dropdown menu found for ${dropdownMenuId}`);
-                return;
-            }
+	init() {
+		this.#dropdownButtonList.forEach((dropdownButton) => {
+			const dropdownMenuId = dropdownButton.getAttribute('aria-controls');
+			const dropdownMenu = document.getElementById(dropdownMenuId);
 
-            dropdownButton.setAttribute('aria-expanded', 'false');
-            dropdownButton.setAttribute('aria-haspopup', 'true');
-            
-            this.#setupListeners(dropdownButton, dropdownMenu);
-        });
+			if (!dropdownMenu) {
+				console.warn(`No dropdown menu found for ${dropdownMenuId}`);
+				return;
+			}
 
-        window.addEventListener('click', this.#handleWindowClick);
-    }
+			dropdownButton.setAttribute('aria-expanded', 'false');
+			dropdownButton.setAttribute('aria-haspopup', 'true');
+
+			this.#setupListeners(dropdownButton, dropdownMenu);
+		});
+
+		window.addEventListener('click', this.#handleWindowClick);
+		document.addEventListener('keydown', this.#handleEscapeKeyPress);
+	}
 }
