@@ -77,6 +77,11 @@ In this file:
 @layer component {
 
     .mega-menu {
+        position: absolute; 
+        inset-block-start: 100%;
+        inset-inline-start: 0;
+        inset-inline-end: 0;
+
         display: none;
 
         &:focus-visible {
@@ -86,6 +91,33 @@ In this file:
 
         &.shown {
             display: block;
+        }
+
+        &::after {
+            position: absolute;
+            content: "";
+            inset: 0;
+            background-color: var(--background-color);
+            z-index: -1;
+            box-shadow: 0 0 34px rgba(0, 0, 0, 0.9);
+        }
+
+        z-index: 1000;
+
+        &::before {
+            position: fixed;
+            content: "";
+            right: 0;
+            left: 0;
+            top: 0;
+            inset-inline-start: 50%;
+            transform: translateX(-50%);
+            width: var(--body-max-width, 100%);
+            width: 100vw;
+            height: 100vh;
+            background-color: hsla(0, 0%, 0%, 0.5);
+            z-index: -2;
+            pointer-events: none;
         }
     }
 
