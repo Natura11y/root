@@ -1,6 +1,7 @@
 import { getFocusableElements } from './utilities/focus';
 
 export default class Navigation {
+
 	// Private properties
 	#dropdownButtonList = document.querySelectorAll('[data-toggle="dropdown"]');
 	#isAnyDropdownOpen = false;
@@ -11,7 +12,7 @@ export default class Navigation {
 		this.#isAnyDropdownOpen = true;
 		dropdownMenu.classList.add('shown');
 		dropdownButton.setAttribute('aria-expanded', 'true');
-		if (dropdownMenu.classList.contains('primary-nav__mega-menu')) {
+		if (dropdownMenu.classList.contains('mega-menu')) {
 			this.#handleMegaMenuOpen(dropdownButton, dropdownMenu);
 		}
 	}
@@ -99,7 +100,7 @@ export default class Navigation {
 
 	#handleMegaMenuOpen = (dropdownButton, dropdownMenu) => {
 		let lastFocusedElement = document.activeElement;
-		let NextFocusTarget;
+        let openedByHover = (dropdownButton.dataset.trigger === 'hover');
 
 		console.log('handleMenuOpen', lastFocusedElement);
 
@@ -109,23 +110,32 @@ export default class Navigation {
 		let lastFocusableElement = focusableElements[focusableElements.length - 1];
 
 		dropdownMenu.setAttribute('tabindex', '-1');
-		dropdownMenu.focus();
 
-		if (dropdownMenu.hasAttribute('data-next-focus-target')) {
-			let focusTarget = dropdownMenu.getAttribute('data-next-focus-target');
-			NextFocusTarget = document.getElementById(focusTarget);
-		}
+        if (openedByHover) {
+            firstFocusableElement.focus();
+        } else {
+    		dropdownMenu.focus();
+        }
+		
+        let previousFocusTargetId = dropdownMenu.getAttribute('data-previous-focus-target');
+        let nextFocusTargetId = dropdownMenu.getAttribute('data-next-focus-target');
+        let previousFocusTarget = previousFocusTargetId ? document.getElementById(previousFocusTargetId) : null;
+        let nextFocusTarget = nextFocusTargetId ? document.getElementById(nextFocusTargetId) : null;
 
 		dropdownMenu.addEventListener('keydown', (event) => {
 			if (document.activeElement === lastFocusableElement) {
 				if (!event.shiftKey) {
 					event.preventDefault();
-					NextFocusTarget.focus();
+                    nextFocusTarget.focus();
 				}
 			} else if (document.activeElement === firstFocusableElement) {
                 if (event.shiftKey) {
                     event.preventDefault();
-                    dropdownButton.focus();
+                    if (openedByHover) {
+                        previousFocusTarget.focus();
+                    } else {
+                        dropdownButton.focus();
+                    }
                 }
             }
 		});

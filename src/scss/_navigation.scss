@@ -76,12 +76,7 @@ In this file:
 
 @layer component {
 
-    .primary-nav__mega-menu {
-        position: absolute; 
-        inset-block-start: 100%;
-        inset-inline-start: 0;
-        inset-inline-end: 0;
-
+    .mega-menu {
         display: none;
 
         &:focus-visible {
