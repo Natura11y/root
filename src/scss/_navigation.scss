@@ -84,6 +84,11 @@ In this file:
 
         display: none;
 
+        &:focus-visible {
+            display: block;
+            outline: none;
+        }
+
         &.shown {
             display: block;
         }

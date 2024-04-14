@@ -6,7 +6,7 @@ In this file:
 
 */
 
-import { focusTrap } from './focus';
+import { focusTrap, focusLead } from './focus';
 
 //////////////////////////////////////////////
 // A. Overlay Open and Close
@@ -52,4 +52,34 @@ export const handleOverlayClose = (element) => {
     if(lastFocusedElement) {
         lastFocusedElement.focus();
     }
+}
+
+
+
+
+
+
+
+
+export const handleMenuOpen = (element) => {
+
+    lastFocusedElement = document.activeElement;
+
+    console.log('handleMenuOpen', lastFocusedElement);
+
+    focusLead(element, element, lastFocusedElement);
+}
+
+
+export const handleMenuClose = (element) => {
+
+    console.log('handleMenuClose', lastFocusedElement);
+
+    if(element && element.getAttribute('aria-hidden') === 'false') {
+        element.setAttribute('aria-hidden', true);
+    }
+    
+    // if(lastFocusedElement) {
+    //     lastFocusedElement.focus();
+    // }
 }

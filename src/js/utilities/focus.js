@@ -81,3 +81,61 @@ export const focusTrap = (element, firstFocusTarget = element) => {
     
     });
 }
+
+export const focusLead = (element, firstFocusTarget = element, NextFocusTarget = element) => {
+    let focusableElements = getFocusableElements(element);
+    
+    let firstFocusableElement = focusableElements[0];
+    let lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+    firstFocusTarget.setAttribute('tabindex', '-1');
+    firstFocusTarget.focus();
+
+    if (element.hasAttribute('data-next-focus-target')) {
+        let focusTarget = element.getAttribute('data-next-focus-target');
+        NextFocusTarget = document.getElementById(focusTarget);
+    }
+
+    element.addEventListener('keydown', (event) => {
+        
+
+        switch (event.code) {
+            case 'Tab':
+
+                if (document.activeElement === lastFocusableElement) {
+                    if (!event.shiftKey) {
+                        event.preventDefault();
+                        NextFocusTarget.focus();
+                    }
+                }
+
+                if (document.activeElement === firstFocusableElement) {
+                    if (event.shiftKey) {
+                        event.preventDefault();
+                        lastFocusableElement.focus();
+                    }
+                }
+
+                break;
+
+            case 'Escape':
+                handleOverlayClose(element);
+                break;
+            
+            default:
+                // do nothing
+        }
+    
+    });
+}
+
+
+
+
+
+
+
+
+
+
+

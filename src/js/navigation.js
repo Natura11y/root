@@ -1,6 +1,8 @@
 import { getFocusableElements } from './utilities/focus';
 import { focusTrap } from './utilities/focus';
 
+import { handleMenuOpen, handleMenuClose } from './utilities/overlay';
+
 export default class Navigation {
 
     // Private properties
@@ -11,25 +13,35 @@ export default class Navigation {
     #openDropdown(dropdownButton, dropdownMenu) {
         dropdownMenu.classList.add('shown');
         dropdownButton.setAttribute('aria-expanded', 'true');
+
+        if (dropdownMenu.classList.contains('primary-nav__mega-menu')) {
+            handleMenuOpen(dropdownMenu);
+        }
     }
 
     #closeDropdown(dropdownButton, dropdownMenu) {
         dropdownMenu.classList.remove('shown');
         dropdownButton.setAttribute('aria-expanded', 'false');
+
+        if (dropdownMenu.classList.contains('primary-nav__mega-menu')) {
+            handleMenuClose(dropdownMenu);
+        }
     }
 
     #setupListeners(dropdownButton, dropdownMenu) {
+
         let delayClose;
 
-        const handleHoverDropdownOpen = () => {
+        const handleHoverFocusOpen = () => {
             clearTimeout(delayClose);
             this.#openDropdown(dropdownButton, dropdownMenu);
+
         };
 
-        const handleHoverDropdownClose = () => {
+        const handleHoverFocusClose = () => {
             delayClose = setTimeout(() => {
                 this.#closeDropdown(dropdownButton, dropdownMenu);
-            }, 300);
+            }, 250);
         };
         
         const handleFocusout = () => {
@@ -41,12 +53,12 @@ export default class Navigation {
         };
         
         if (dropdownButton.dataset.trigger === 'hover') {
-            dropdownButton.addEventListener('mouseenter', handleHoverDropdownOpen);
-            dropdownButton.addEventListener('mouseleave', handleHoverDropdownClose);
-            dropdownButton.addEventListener('focus', handleHoverDropdownOpen);
+            dropdownButton.addEventListener('mouseenter', handleHoverFocusOpen);
+            dropdownButton.addEventListener('focus', handleHoverFocusOpen);
+            dropdownButton.addEventListener('mouseleave', handleHoverFocusClose);
 
             dropdownMenu.addEventListener('mouseenter', () => clearTimeout(delayClose));
-            dropdownMenu.addEventListener('mouseleave', handleHoverDropdownClose);
+            dropdownMenu.addEventListener('mouseleave', handleHoverFocusClose);
         }
 
         else {
@@ -83,26 +95,15 @@ export default class Navigation {
             this.#setupListeners(dropdownButton, dropdownMenu);
         });
 
-        window.addEventListener('click', (event) => {
+        const handleWindowClick = (event) => {
             this.#dropdownButtonList.forEach((dropdownButton) => {
                 const dropdownMenu = document.getElementById(dropdownButton.getAttribute('aria-controls'));
                 if (dropdownMenu && !dropdownMenu.contains(event.target) && !dropdownButton.contains(event.target)) {
                     this.#closeDropdown(dropdownButton, dropdownMenu);
                 }
             });
-        });
+        };
 
-        document.addEventListener('keydown', (event) => {
-            if (event.key === 'Escape') {
-                this.#dropdownButtonList.forEach((dropdownButton) => {
-                    const dropdownMenu = document.getElementById(dropdownButton.getAttribute('aria-controls'));
-                    
-                    if (dropdownButton.getAttribute('aria-expanded') === 'true') {
-                        this.#closeDropdown(dropdownButton, dropdownMenu);
-                        dropdownButton.focus();
-                    }
-                });
-            }
-        });
+        window.addEventListener('click', handleWindowClick);
     }
 }
