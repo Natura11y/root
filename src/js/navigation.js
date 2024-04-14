@@ -1,18 +1,18 @@
 import { getFocusableElements } from './utilities/focus';
 import { focusTrap } from './utilities/focus';
 
-import { handleMenuOpen, handleMenuClose } from './utilities/overlay';
+import { handleMenuOpen } from './utilities/overlay';
 
 export default class Navigation {
 
     // Private properties
     #dropdownButtonList = document.querySelectorAll('[data-toggle="dropdown"]');
+    #isAnyDropdownOpen = false;
 
     // Private methods
     
     #openDropdown(dropdownButton, dropdownMenu) {
-        window.addEventListener('click', this.#handleWindowClick);
-
+        this.#isAnyDropdownOpen = true;
         dropdownMenu.classList.add('shown');
         dropdownButton.setAttribute('aria-expanded', 'true');
         if (dropdownMenu.classList.contains('primary-nav__mega-menu')) {
@@ -21,8 +21,7 @@ export default class Navigation {
     }
 
     #closeDropdown(dropdownButton, dropdownMenu) {
-        window.removeEventListener('click', this.#handleWindowClick);
-
+        this.#isAnyDropdownOpen = this.#checkAnyDropdownOpen();
         dropdownMenu.classList.remove('shown');
         dropdownButton.setAttribute('aria-expanded', 'false');
     }
@@ -76,6 +75,8 @@ export default class Navigation {
     }
 
     #handleWindowClick = (event) => {
+        if (!this.#isAnyDropdownOpen) return;
+
         this.#dropdownButtonList.forEach((dropdownButton) => {
             const dropdownMenu = document.getElementById(dropdownButton.getAttribute('aria-controls'));
             if (dropdownMenu && !dropdownMenu.contains(event.target) && !dropdownButton.contains(event.target)) {
@@ -83,6 +84,13 @@ export default class Navigation {
             }
         });
     };
+
+    #checkAnyDropdownOpen() {
+        return Array.from(this.#dropdownButtonList).some(button => {
+            const menu = document.getElementById(button.getAttribute('aria-controls'));
+            return menu.classList.contains('shown');
+        });
+    }
 
     // Public methods
 
@@ -102,5 +110,7 @@ export default class Navigation {
             
             this.#setupListeners(dropdownButton, dropdownMenu);
         });
+
+        window.addEventListener('click', this.#handleWindowClick);
     }
 }
