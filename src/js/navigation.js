@@ -12,9 +12,6 @@ export default class Navigation {
 		this.#isAnyDropdownOpen = true;
 		dropdownMenu.classList.add('shown');
 		dropdownButton.setAttribute('aria-expanded', 'true');
-		if (dropdownMenu.classList.contains('mega-menu')) {
-			this.#handleMegaMenuOpen(dropdownButton, dropdownMenu);
-		}
 	}
 
 	#closeDropdown(dropdownButton, dropdownMenu) {
@@ -34,7 +31,7 @@ export default class Navigation {
 		const handleHoverFocusClose = () => {
 			delayClose = setTimeout(() => {
 				this.#closeDropdown(dropdownButton, dropdownMenu);
-			}, 250);
+			}, 200);
 		};
 
 		const handleFocusout = () => {
@@ -95,49 +92,6 @@ export default class Navigation {
 			) {
 				this.#closeDropdown(dropdownButton, dropdownMenu);
 			}
-		});
-	};
-
-	#handleMegaMenuOpen = (dropdownButton, dropdownMenu) => {
-		let lastFocusedElement = document.activeElement;
-        let openedByHover = (dropdownButton.dataset.trigger === 'hover');
-
-		console.log('handleMenuOpen', lastFocusedElement);
-
-		let focusableElements = getFocusableElements(dropdownMenu);
-
-		let firstFocusableElement = focusableElements[0];
-		let lastFocusableElement = focusableElements[focusableElements.length - 1];
-
-		dropdownMenu.setAttribute('tabindex', '-1');
-
-        if (openedByHover) {
-            firstFocusableElement.focus();
-        } else {
-    		dropdownMenu.focus();
-        }
-		
-        let previousFocusTargetId = dropdownMenu.getAttribute('data-previous-focus-target');
-        let nextFocusTargetId = dropdownMenu.getAttribute('data-next-focus-target');
-        let previousFocusTarget = previousFocusTargetId ? document.getElementById(previousFocusTargetId) : null;
-        let nextFocusTarget = nextFocusTargetId ? document.getElementById(nextFocusTargetId) : null;
-
-		dropdownMenu.addEventListener('keydown', (event) => {
-			if (document.activeElement === lastFocusableElement) {
-				if (!event.shiftKey) {
-					event.preventDefault();
-                    nextFocusTarget.focus();
-				}
-			} else if (document.activeElement === firstFocusableElement) {
-                if (event.shiftKey) {
-                    event.preventDefault();
-                    if (openedByHover) {
-                        previousFocusTarget.focus();
-                    } else {
-                        dropdownButton.focus();
-                    }
-                }
-            }
 		});
 	};
 

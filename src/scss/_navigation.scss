@@ -52,7 +52,7 @@ In this file:
 
     line-height: normal;
 
-    > li {
+    > li:has([class*="nav__dropdown"]) {
         position: relative;
     }
     
@@ -75,51 +75,6 @@ In this file:
 ////////////////////////////////////////
 
 @layer component {
-
-    .mega-menu {
-        position: absolute; 
-        inset-block-start: 100%;
-        inset-inline-start: 0;
-        inset-inline-end: 0;
-
-        display: none;
-
-        &:focus-visible {
-            display: block;
-            outline: none;
-        }
-
-        &.shown {
-            display: block;
-        }
-
-        &::after {
-            position: absolute;
-            content: "";
-            inset: 0;
-            background-color: var(--background-color);
-            z-index: -1;
-            box-shadow: 0 0 34px rgba(0, 0, 0, 0.9);
-        }
-
-        z-index: 1000;
-
-        &::before {
-            position: fixed;
-            content: "";
-            right: 0;
-            left: 0;
-            top: 0;
-            inset-inline-start: 50%;
-            transform: translateX(-50%);
-            width: var(--body-max-width, 100%);
-            width: 100vw;
-            height: 100vh;
-            background-color: hsla(0, 0%, 0%, 0.5);
-            z-index: -2;
-            pointer-events: none;
-        }
-    }
 
     // Nav
 
@@ -431,6 +386,10 @@ In this file:
             @extend %list-style-nav;
         }
 
+        li:has([class*="nav__dropdown"]) {
+            position: relative;
+        }
+
         > [class*="__logo"] {
             grid-area: logo;
 
@@ -533,15 +492,17 @@ In this file:
 
     .primary-nav__menu {
 
-    > ul > li {
+        > ul > li:not(:has([class*="mega-menu"])) {
             position: relative;
+        }
 
+        > ul > li {
             &:not(:last-child) {
                 margin-bottom: var(--nav-gap);
             }
         }
 
-    > ul > li > a {
+        > ul > li > a {
             @extend .link-expanded !optional;
         }
 
@@ -595,7 +556,6 @@ In this file:
                 }
 
                 > [class*="__menu"] {
-
                     justify-content: flex-end;
                     align-items: center;
 
@@ -608,12 +568,14 @@ In this file:
                     }
 
                     [data-trigger="hover"] {
-                        &::after {
+                        position: relative;
+
+                        &[aria-expanded="true"]::after {
                             content: "";
                             position: absolute;
                             inset: 0;
                             width: 100%;
-                            height: 100%;
+                            height: 250%;
                         }
                     }
 
@@ -715,6 +677,62 @@ In this file:
                     }   
                 }
             }
+        }
+    }
+
+    [class*="mega-menu"] {
+        inset-block-start: 100%;
+        inset-inline: 0;
+        
+        text-align: start;
+
+        display: none;
+
+        &:focus-visible {
+            display: block;
+            outline: none;
+        }
+
+        &.shown {
+            display: block;
+        }
+
+        &::after {
+            position: absolute;
+            content: "";
+            inset: 0;
+            background-color: var(--background-color);
+            z-index: -1;
+        }
+
+        z-index: 1000;
+
+        &::before {
+            position: absolute;
+            content: "";
+            inset-block-start: 0;
+            inset-inline-start: 0;
+            inset-inline-end: 0;
+            inset-inline-start: 50%;
+            transform: translateX(-50%);
+            width: var(--body-max-width, 100%);
+            width: 100vw;
+            height: 100vh;
+            background-color: hsla(0, 0%, 0%, 0.5);
+            z-index: -2;
+            pointer-events: none;
+        }
+    }
+
+
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+            .mega-menu#{$mod} {
+                position: absolute;
+            }
+
         }
     }
 
