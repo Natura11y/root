@@ -20,7 +20,6 @@ export default class Navigation {
 	}
 
 	#closeDropdown(dropdownButton, dropdownMenu) {
-		console.log('closeDropdown');
 		this.#isAnyDropdownOpen = this.#checkAnyDropdownOpen();
 
 		dropdownMenu.classList.remove('shown');
