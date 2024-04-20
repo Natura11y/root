@@ -81,10 +81,14 @@ export default class Navigation {
 	#handleWindowClick = (event) => {
 		if (!this.#isAnyDropdownOpen) return;
 
+		console.log('window click', event.target);
+
 		this.#dropdownButtonList.forEach((dropdownButton) => {
 			const dropdownMenu = document.getElementById(
 				dropdownButton.getAttribute('aria-controls')
 			);
+
+			// Chat GPT, Can you please explain this, if statement?
 			if (
 				dropdownMenu &&
 				!dropdownMenu.contains(event.target) &&

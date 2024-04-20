@@ -25,7 +25,7 @@ const devPages = {
     'Grid': 'grid',
     'Lightbox': 'lightbox',
     'Modal': 'modal',
-    'MegaMenu': 'mega-menu',
+    'MegaMenu': 'mega-menu2',
     'Navigation': 'navigation',
     'Spacer': 'spacer',
     'Tab': 'tab',

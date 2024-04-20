@@ -6,17 +6,19 @@ In this file:
 
 */
 
-import { focusTrap, focusLead } from './focus';
+import { focusTrap } from './focus';
 
 //////////////////////////////////////////////
 // A. Overlay Open and Close
 //////////////////////////////////////////////
 
 let scrollPosition = 0;
-let rootElement = document.querySelector('html');
+let rootElement = document.querySelector(':root');
 let lastFocusedElement;
 
 export const handleOverlayOpen = (element) => {
+
+    console.log('handleOverlayOpen', rootElement, element);
 
     lastFocusedElement = document.activeElement;
 
