@@ -32,7 +32,10 @@ export const handleOverlayOpen = (element) => {
         element.setAttribute('aria-hidden', false);
     }
 
-    focusTrap(element);
+    if (element && element.classList.contains('modal')) {
+        focusTrap(element);
+    }
+
 }
 
 export const handleOverlayClose = (element) => {
@@ -45,13 +48,13 @@ export const handleOverlayClose = (element) => {
         rootElement.removeAttribute('class');
     }
 
+    window.scrollTo({ top: scrollPosition, behavior: 'instant' });
+
     if(element && element.getAttribute('aria-hidden') === 'false') {
         element.setAttribute('aria-hidden', true);
     }
 
-    window.scrollTo({ top: scrollPosition, behavior: 'instant' });
-    
-    if(lastFocusedElement) {
+    if (element && lastFocusedElement) {
         lastFocusedElement.focus();
     }
 }

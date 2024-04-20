@@ -1,4 +1,5 @@
-import { getFocusableElements } from './utilities/focus';
+
+import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 
 export default class Navigation {
 
@@ -12,12 +13,20 @@ export default class Navigation {
 		this.#isAnyDropdownOpen = true;
 		dropdownMenu.classList.add('shown');
 		dropdownButton.setAttribute('aria-expanded', 'true');
+
+		if (dropdownMenu.classList.contains('mega-menu--lg')) {
+            handleOverlayOpen();
+        }
 	}
 
 	#closeDropdown(dropdownButton, dropdownMenu) {
 		this.#isAnyDropdownOpen = this.#checkAnyDropdownOpen();
 		dropdownMenu.classList.remove('shown');
 		dropdownButton.setAttribute('aria-expanded', 'false');
+
+		if (dropdownMenu.classList.contains('mega-menu--lg')) {
+            handleOverlayClose();
+        }
 	}
 
 	#setupListeners(dropdownButton, dropdownMenu) {
