@@ -1,4 +1,3 @@
-
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 
 export default class Navigation {
@@ -11,8 +10,9 @@ export default class Navigation {
 
 	#openDropdown(dropdownButton, dropdownMenu) {
 		this.#isAnyDropdownOpen = true;
-		dropdownMenu.classList.add('shown');
+
 		dropdownButton.setAttribute('aria-expanded', 'true');
+		dropdownMenu.classList.add('shown');
 
 		if (dropdownMenu.classList.contains('mega-menu--lg')) {
             handleOverlayOpen();
@@ -20,7 +20,9 @@ export default class Navigation {
 	}
 
 	#closeDropdown(dropdownButton, dropdownMenu) {
+		console.log('closeDropdown');
 		this.#isAnyDropdownOpen = this.#checkAnyDropdownOpen();
+
 		dropdownMenu.classList.remove('shown');
 		dropdownButton.setAttribute('aria-expanded', 'false');
 
@@ -80,23 +82,17 @@ export default class Navigation {
 
 	#checkAnyDropdownOpen() {
 		return Array.from(this.#dropdownButtonList).some((button) => {
-			const menu = document.getElementById(
-				button.getAttribute('aria-controls')
-			);
-			return menu.classList.contains('shown');
+			const dropdownMenu = document.getElementById(button.getAttribute('aria-controls'));
+			return dropdownMenu.classList.contains('shown');
 		});
 	}
 
 	#handleWindowClick = (event) => {
 		if (!this.#isAnyDropdownOpen) return;
 
-		console.log('window click', event.target);
-
 		this.#dropdownButtonList.forEach((dropdownButton) => {
 
-			const dropdownMenu = document.getElementById(
-				dropdownButton.getAttribute('aria-controls')
-			);
+			const dropdownMenu = document.getElementById(dropdownButton.getAttribute('aria-controls'));
 
 			if (
 				dropdownMenu &&

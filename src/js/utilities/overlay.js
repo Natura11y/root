@@ -39,7 +39,6 @@ export const handleOverlayOpen = (element) => {
 }
 
 export const handleOverlayClose = (element) => {
-
     rootElement.removeAttribute('style');
 
     rootElement.classList.remove('has-overlay');
@@ -57,4 +56,5 @@ export const handleOverlayClose = (element) => {
     if (element && lastFocusedElement) {
         lastFocusedElement.focus();
     }
+
 }
