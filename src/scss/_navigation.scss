@@ -65,7 +65,7 @@ In this file:
         [aria-selected="true"],
         [aria-current] {
             text-decoration-line: underline;
-            --text-decoration-color: red;
+            // --text-decoration-color: red;
         }
     }
 }
@@ -488,6 +488,10 @@ In this file:
         > [class*="__toggle"] {
             margin-inline-end: unset;
         }
+
+        // > [class*="primary-nav__menu"] ul > li > :not([aria-expanded="true"]) {
+        //     border-bottom: var(--border-width) var(--border-style) var(--border-color);
+        // }
     }
 
     .primary-nav__menu {
@@ -680,6 +684,8 @@ In this file:
         }
     }
 
+    // Mega Menu
+
     [class*="mega-menu"] {
         inset-block-start: 100%;
         inset-inline: 0;
@@ -711,7 +717,6 @@ In this file:
             position: absolute;
             content: "";
             inset-block-start: 0;
-            inset-inline-start: 0;
             inset-inline-end: 0;
             inset-inline-start: 50%;
             transform: translateX(-50%);
@@ -723,7 +728,6 @@ In this file:
             pointer-events: none;
         }
     }
-
 
     @each $breakpoint in map.keys(breakpoint.$breakpoints) {
         @include breakpoint.breakpoint-up($breakpoint) {

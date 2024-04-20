@@ -3,6 +3,7 @@ import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 export default class Navigation {
 
 	// Private properties
+	
 	#dropdownButtonList = document.querySelectorAll('[data-toggle="dropdown"]');
 	#isAnyDropdownOpen = false;
 
