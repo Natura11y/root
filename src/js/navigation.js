@@ -14,7 +14,7 @@ export default class Navigation {
 		dropdownButton.setAttribute('aria-expanded', 'true');
 		dropdownMenu.classList.add('shown');
 
-		if (dropdownMenu.classList.contains('mega-menu--lg')) {
+		if (dropdownMenu.className.includes('mega-menu')) {
             handleOverlayOpen();
         }
 	}
@@ -25,7 +25,7 @@ export default class Navigation {
 		dropdownMenu.classList.remove('shown');
 		dropdownButton.setAttribute('aria-expanded', 'false');
 
-		if (dropdownMenu.classList.contains('mega-menu--lg')) {
+		if (dropdownMenu.className.includes('mega-menu')) {
             handleOverlayClose();
         }
 	}
@@ -107,9 +107,8 @@ export default class Navigation {
 	#handleEscapeKeyPress = (event) => {
 		if (event.key === 'Escape' && this.#isAnyDropdownOpen) {
 			this.#dropdownButtonList.forEach((dropdownButton) => {
-				const dropdownMenu = document.getElementById(
-					dropdownButton.getAttribute('aria-controls')
-				);
+				const dropdownMenu = document.getElementById(dropdownButton.getAttribute('aria-controls'));
+
 				if (dropdownMenu.classList.contains('shown')) {
 					this.#closeDropdown(dropdownButton, dropdownMenu);
 					dropdownButton.focus();
