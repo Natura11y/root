@@ -84,13 +84,14 @@ export default class Navigation {
 		console.log('window click', event.target);
 
 		this.#dropdownButtonList.forEach((dropdownButton) => {
+
 			const dropdownMenu = document.getElementById(
 				dropdownButton.getAttribute('aria-controls')
 			);
 
-			// Chat GPT, Can you please explain this, if statement?
 			if (
 				dropdownMenu &&
+				dropdownMenu.classList.contains('shown') &&
 				!dropdownMenu.contains(event.target) &&
 				!dropdownButton.contains(event.target)
 			) {
