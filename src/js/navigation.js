@@ -3,7 +3,6 @@ import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 export default class Navigation {
 
 	// Private properties
-	
 	#dropdownButtonList = document.querySelectorAll('[data-toggle="dropdown"]');
 	#isAnyDropdownOpen = false;
 
@@ -45,15 +44,16 @@ export default class Navigation {
 			}, 200);
 		};
 
-		const handleFocusout = () => {
-			delayClose = setTimeout(() => {
-				if (
-					!dropdownMenu.contains(document.activeElement) &&
-					!dropdownButton.contains(document.activeElement)
-				) {
-					this.#closeDropdown(dropdownButton, dropdownMenu);
-				}
-			}, 10);
+		const handleFocusout = (event) => {
+			const relatedTarget = event.relatedTarget;
+			
+			if (
+				relatedTarget && 
+				!dropdownMenu.contains(relatedTarget) && 
+				!dropdownButton.contains(relatedTarget)
+			) {
+				this.#closeDropdown(dropdownButton, dropdownMenu);
+			}
 		};
 
 		if (dropdownButton.dataset.trigger === 'hover') {
@@ -100,6 +100,7 @@ export default class Navigation {
 				!dropdownMenu.contains(event.target) &&
 				!dropdownButton.contains(event.target)
 			) {
+			console.log('click outside');
 				this.#closeDropdown(dropdownButton, dropdownMenu);
 			}
 		});
