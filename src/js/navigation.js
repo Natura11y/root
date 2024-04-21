@@ -46,7 +46,7 @@ export default class Navigation {
 
 		const handleFocusout = (event) => {
 			const relatedTarget = event.relatedTarget;
-			
+
 			if (
 				relatedTarget && 
 				!dropdownMenu.contains(relatedTarget) && 
@@ -100,7 +100,6 @@ export default class Navigation {
 				!dropdownMenu.contains(event.target) &&
 				!dropdownButton.contains(event.target)
 			) {
-			console.log('click outside');
 				this.#closeDropdown(dropdownButton, dropdownMenu);
 			}
 		});
