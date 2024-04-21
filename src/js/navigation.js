@@ -33,18 +33,28 @@ export default class Navigation {
 	#setupListeners(dropdownButton, dropdownMenu) {
 		let delayClose;
 
-		const handleHoverFocusOpen = () => {
+		const handleButtonHoverFocusOpen = () => {
 			clearTimeout(delayClose);
 			this.#openDropdown(dropdownButton, dropdownMenu);
 		};
 
-		const handleHoverFocusClose = () => {
+		const handleButtonHoverClose = () => {
 			delayClose = setTimeout(() => {
 				this.#closeDropdown(dropdownButton, dropdownMenu);
-			}, 200);
+			}, 10);
 		};
 
-		const handleFocusout = (event) => {
+		const handleMenuHoverOpen = () => {
+			clearTimeout(delayClose);
+		};
+
+		const handleMenuHoverClose = () => {
+			delayClose = setTimeout(() => {
+				this.#closeDropdown(dropdownButton, dropdownMenu);
+			}, 350);
+		};
+
+		const handleButtonMenuFocusout = (event) => {
 			const relatedTarget = event.relatedTarget;
 
 			if (
@@ -57,14 +67,13 @@ export default class Navigation {
 		};
 
 		if (dropdownButton.dataset.trigger === 'hover') {
-			dropdownButton.addEventListener('mouseenter', handleHoverFocusOpen);
-			dropdownButton.addEventListener('focus', handleHoverFocusOpen);
-			dropdownButton.addEventListener('mouseleave', handleHoverFocusClose);
+			dropdownButton.addEventListener('focus', handleButtonHoverFocusOpen);
+			dropdownButton.addEventListener('mouseenter', handleButtonHoverFocusOpen);
+			dropdownButton.addEventListener('mouseleave', handleButtonHoverClose);
 
-			dropdownMenu.addEventListener('mouseenter', () =>
-				clearTimeout(delayClose)
-			);
-			dropdownMenu.addEventListener('mouseleave', handleHoverFocusClose);
+			dropdownMenu.addEventListener('mouseenter', handleMenuHoverOpen);
+			dropdownMenu.addEventListener('mouseleave', handleMenuHoverClose);
+
 		} else {
 			dropdownButton.addEventListener('click', (event) => {
 				event.preventDefault();
@@ -76,8 +85,8 @@ export default class Navigation {
 			});
 		}
 
-		dropdownButton.addEventListener('focusout', handleFocusout);
-		dropdownMenu.addEventListener('focusout', handleFocusout);
+		dropdownButton.addEventListener('focusout', handleButtonMenuFocusout);
+		dropdownMenu.addEventListener('focusout', handleButtonMenuFocusout);
 	}
 
 	#checkAnyDropdownOpen() {
