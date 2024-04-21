@@ -55,9 +55,9 @@ In this file:
     > li:has([class*="nav__dropdown"]) {
         position: relative;
     }
-    
-    [aria-selected="true"],
-    [aria-current] {
+
+    [aria-current],
+    [aria-selected="true"] {
         font-weight: var(--font-weight-bold);
     }
 
@@ -114,6 +114,7 @@ In this file:
             margin-inline-end: calc(var(--nav-gap) * -1);
 
             padding: var(--nav-gap);
+
         }
     }
 
@@ -690,11 +691,6 @@ In this file:
 
         display: none;
 
-        &:focus-visible {
-            display: block;
-            outline: none;
-        }
-
         &.shown {
             display: block;
         }
@@ -712,11 +708,9 @@ In this file:
         &::before {
             position: absolute;
             content: "";
-            inset-block-start: 0;
-            inset-inline-end: 0;
+            inset: 0;
             inset-inline-start: 50%;
             transform: translateX(-50%);
-            width: var(--body-max-width, 100%);
             width: 100vw;
             height: 100vh;
             background-color: hsla(0, 0%, 0%, 0.5);

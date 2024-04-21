@@ -27,12 +27,8 @@ export const handleOverlayOpen = (element) => {
 
     if(element && element.getAttribute('aria-hidden') === 'true') {
         element.setAttribute('aria-hidden', false);
-    }
-
-    if (element && element.classList.contains('modal')) {
         focusTrap(element);
     }
-
 }
 
 export const handleOverlayClose = (element) => {
@@ -53,5 +49,4 @@ export const handleOverlayClose = (element) => {
     if (element && lastFocusedElement) {
         lastFocusedElement.focus();
     }
-
 }
