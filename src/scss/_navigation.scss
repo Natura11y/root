@@ -426,7 +426,6 @@ In this file:
         &:has([class*="__actions"]):not(:has([class*="__search"])) {
             --_template-area-row-1-m: "logo toggle button";
             --_template-area-row-1-d: "logo menu button";
-            background-color: red;
         }
 
         &:not(:has([class*="__search"])),
