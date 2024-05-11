@@ -9,7 +9,7 @@
         <title>Navigation • Natura11y</title>
         
         <!-- Natura11y Icons -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/natura11y-icons@v1/dist/natura11y-icons.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/natura11y-icons@v1/dist/natura11y-icons.min.css" />
 
     </head>
 
@@ -29,7 +29,7 @@
 
                     <ul class="nav">
                         <li>
-                            <a href="#1">Link</a>
+                            <a href="#1" aria-current="page">Link</a>
                         </li>
                         <li>
                             <a href="#1">Link</a>
@@ -55,6 +55,27 @@
                         </li>
                     </ul>
 
+                    <ul class="nav nav--has-icons nav--horizontal--lg margin-y-5" role="menu">
+                        <li>
+                            <a href="#1">
+                                <span class="icon icon-home"></span>
+                                <span class="nav__text">Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#1">
+                                <span class="icon icon-calendar"></span>
+                                <span class="nav__text">Calendar</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#1">
+                                <span class="icon icon-bell"></span>
+                                <span class="nav__text">Notifications</span>
+                            </a>
+                        </li>
+                    </ul>
+
                 </figure>
 
                 <figure class="container narrow margin-x-auto margin-bottom-6 z-index-1000">
@@ -64,7 +85,7 @@
                             <button
                                 data-toggle="dropdown"
                                 aria-controls="dropdown-1"
-                                >
+                            >
                                     Dropdown
                             </button>
                             <ul class="nav__dropdown box-shadow-1--lg" id="dropdown-1">
@@ -109,18 +130,20 @@
 
                         </div>
 
-                        <nav class="primary-nav__menu" id="main-menu">
+                        <nav class="primary-nav__menu" id="main-menu-2" aria-label="Main Menu">
 
                             <ul>
                                 <li>
                                     <button
                                         data-toggle="dropdown"
-                                        data-trigger="hover"
                                         aria-controls="dropdown-2"
-                                        >
-                                            Dropdown
+                                    >
+                                        Dropdown
                                     </button>
-                                    <ul class="nav__dropdown box-shadow-1--lg" id="dropdown-2">
+                                    <ul
+                                        class="nav__dropdown box-shadow-1--lg"
+                                        id="dropdown-2"
+                                    >
                                         <li>
                                             <a href="#1">Link</a>
                                         </li>
@@ -133,10 +156,7 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <a href="#1">Link</a>
-                                </li>
-                                <li>
-                                    <a href="#1">Link</a>
+                                    <a href="#1" id="my-button">Link</a>
                                 </li>
                                 <li>
                                     <a href="#1">Link</a>
@@ -144,35 +164,38 @@
                             </ul>
 
                         </nav>
-                        
-                        <div class="primary-nav__toggle">
+
+                        <div class="primary-nav__toggle font-size-md">
                         
                             <button
                                 class="mobile-menu-toggle button button--icon-only"
                                 aria-label="Menu"
                                 data-toggle="collapse"
-                                data-target-toggle="#main-menu"
-                                data-target-close="#search">
+                                data-target-toggle="#main-menu-2"
+                                data-target-close="#search"
+                                >
                                     <span class="icon icon-menu"></span>
                             </button>
-                        
+
+
                             <button
                                 class="mobile-menu-toggle button button--icon-only"
-                                aria-label="Search"
+                                aria-label="Menu"
                                 data-toggle="collapse"
                                 data-target-toggle="#search"
-                                data-target-close="#main-menu">
+                                data-target-close="#main-menu-2"
+                            >
                                     <span class="icon icon-search"></span>
                             </button>
 
                         </div>
 
-                        <form class="primary-nav__search" role="search" id="search" data-focus-first>
+                        <form class="primary-nav__search font-size-md" role="search" id="search" data-focus-first>
 
                             <div class="form-entry" aria-label="Search">
                                 <div class="form-entry__field">
                                     <span class="form-entry__field__input">
-                                        <input type="text" name="global-search" />
+                                        <input type="text" name="global-search">
                                         <button class="button">
                                             Search
                                         </button>
@@ -182,7 +205,7 @@
 
                         </form>
 
-                        <div class="primary-nav__actions">
+                        <div class="primary-nav__actions font-size-md">
 
                             <button
                                 class="button button--icon-only"
@@ -191,12 +214,13 @@
                             </button>
 
                         </div>
-
+                            
+                        
                     </div>
 
                 </figure>
 
-                <figure class="wide margin-x-auto margin-bottom-6">
+                <figure class="wide margin-x-auto">
                             
                     <div class="primary-nav--below--lg box-shadow-1">
 
@@ -216,21 +240,20 @@
 
                         </div>
 
-                        <nav class="primary-nav__menu" id="main-menu-2" aria-label="Main Menu">
+                        <nav class="primary-nav__menu" id="main-menu-3" aria-label="Main Menu">
 
                             <ul>
                                 <li>
                                     <button
                                         data-toggle="dropdown"
-                                        aria-controls="dropdown-3"
-                                        id="my-cool-button"
+                                        aria-controls="dropdown-4"
                                         data-trigger="hover"
                                     >
                                         Dropdown
                                     </button>
                                     <ul
                                         class="nav__dropdown box-shadow-1--lg"
-                                        id="dropdown-3"
+                                        id="dropdown-4"
                                     >
                                         <li>
                                             <a href="#1">Link</a>
@@ -246,14 +269,14 @@
                                 <li>
                                     <button
                                         data-toggle="dropdown"
-                                        aria-controls="dropdown-4"
+                                        aria-controls="dropdown-5"
                                         data-trigger="hover"
                                     >
                                         Dropdown
                                     </button>
                                     <div 
                                         class="mega-menu--lg box-shadow-1--lg padding-4"
-                                        id="dropdown-4">
+                                        id="dropdown-5">
 
                                         <div class="grid grid--column-2 grid--column-4--lg gap-4 font-size-md">
 
@@ -376,13 +399,13 @@
 
                         </nav>
 
-                        <div class="primary-nav__toggle">
+                        <div class="primary-nav__toggle font-size-md">
                         
                             <button
                                 class="mobile-menu-toggle button button--icon-only"
                                 aria-label="Menu"
                                 data-toggle="collapse"
-                                data-target-toggle="#main-menu-2">
+                                data-target-toggle="#main-menu-3">
                                     <span class="icon icon-menu"></span>
                             </button>
 
@@ -403,7 +426,7 @@
 
                         </form>
                             
-                        <div class="primary-nav__actions display-none">
+                        <div class="primary-nav__actions font-size-md">
 
                             <button
                                 class="button button--icon-only"
@@ -412,7 +435,6 @@
                             </button>
 
                         </div>
-
                         
                     </div>
 

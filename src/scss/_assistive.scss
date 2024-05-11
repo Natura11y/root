@@ -28,18 +28,15 @@ In this file:
 
 %hover-focus {
 
-    &:hover,
-    &:focus {
-        &:not(
-            p > a,
-            [aria-disabled="true"],
-            [class*="icon"],
-            [class*="backdrop"],
-            [class*="no-hover-focus"],
-            [class*="nav--has-icons"] > li > *
-        ) {
-            text-decoration: underline;
-        }
+    &:is(:hover, :focus):not(
+        p > a,
+        [aria-disabled="true"],
+        [class*="icon"],
+        [class*="backdrop"],
+        [class*="no-hover-focus"],
+        [class*="nav--has-icons"] > li > *
+    ) {
+        text-decoration: underline;
     }
 
     &:not([class*="button--icon-over-text"]):focus-visible {
@@ -148,12 +145,11 @@ In this file:
             border-radius: var(--button-border-radius);
             overflow: hidden;
 
-            &::before,
-            &::after {
+            &:is(::before, ::after) {
                 content: "";
                 inset: 0;
             }
-
+            
             &::before {
                 position: absolute;
                 z-index: -1;

@@ -16,6 +16,7 @@ export default class Collapse {
   #handleCollapseOpen(button, target, focusFirst) {
     button.setAttribute('aria-expanded', true);
     target.classList.add('shown');
+    
     if (focusFirst) {
       focusFirst.focus();
     }
