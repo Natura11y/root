@@ -3,6 +3,7 @@ import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 export default class Navigation {
 
 	// Private properties
+	
 	#dropdownButtonList = document.querySelectorAll('[data-toggle="dropdown"]');
 	#isAnyDropdownOpen = false;
 
@@ -15,8 +16,8 @@ export default class Navigation {
 		dropdownMenu.classList.add('shown');
 
 		if (dropdownMenu.className.includes('mega-menu')) {
-            handleOverlayOpen();
-        }
+			handleOverlayOpen();
+		}
 	}
 
 	#closeDropdown(dropdownButton, dropdownMenu) {
@@ -26,32 +27,18 @@ export default class Navigation {
 		dropdownButton.setAttribute('aria-expanded', 'false');
 
 		if (dropdownMenu.className.includes('mega-menu')) {
-            handleOverlayClose();
-        }
+			handleOverlayClose();
+		}
 	}
 
 	#setupListeners(dropdownButton, dropdownMenu) {
-		let delayClose;
+		const handleButtonClick = (event) => {
+			event.preventDefault();
+			const isShown = dropdownMenu.classList.contains('shown');
 
-		const handleButtonHoverFocusOpen = () => {
-			clearTimeout(delayClose);
-			this.#openDropdown(dropdownButton, dropdownMenu);
-		};
-
-		const handleButtonHoverClose = () => {
-			delayClose = setTimeout(() => {
-				this.#closeDropdown(dropdownButton, dropdownMenu);
-			}, 10);
-		};
-
-		const handleMenuHoverOpen = () => {
-			clearTimeout(delayClose);
-		};
-
-		const handleMenuHoverClose = () => {
-			delayClose = setTimeout(() => {
-				this.#closeDropdown(dropdownButton, dropdownMenu);
-			}, 350);
+			isShown
+				? this.#closeDropdown(dropdownButton, dropdownMenu)
+				: this.#openDropdown(dropdownButton, dropdownMenu);
 		};
 
 		const handleButtonMenuFocusout = (event) => {
@@ -66,25 +53,7 @@ export default class Navigation {
 			}
 		};
 
-		if (dropdownButton.dataset.trigger === 'hover') {
-			dropdownButton.addEventListener('focus', handleButtonHoverFocusOpen);
-			dropdownButton.addEventListener('mouseenter', handleButtonHoverFocusOpen);
-			dropdownButton.addEventListener('mouseleave', handleButtonHoverClose);
-
-			dropdownMenu.addEventListener('mouseenter', handleMenuHoverOpen);
-			dropdownMenu.addEventListener('mouseleave', handleMenuHoverClose);
-
-		} else {
-			dropdownButton.addEventListener('click', (event) => {
-				event.preventDefault();
-				const isShown = dropdownMenu.classList.contains('shown');
-
-				isShown
-					? this.#closeDropdown(dropdownButton, dropdownMenu)
-					: this.#openDropdown(dropdownButton, dropdownMenu);
-			});
-		}
-
+		dropdownButton.addEventListener('click', handleButtonClick);
 		dropdownButton.addEventListener('focusout', handleButtonMenuFocusout);
 		dropdownMenu.addEventListener('focusout', handleButtonMenuFocusout);
 	}
@@ -100,7 +69,6 @@ export default class Navigation {
 		if (!this.#isAnyDropdownOpen) return;
 
 		this.#dropdownButtonList.forEach((dropdownButton) => {
-
 			const dropdownMenu = document.getElementById(dropdownButton.getAttribute('aria-controls'));
 
 			if (
