@@ -51,8 +51,8 @@ In this file:
         caption-side: bottom;
 
         caption {
-            border-top-width: var(--border-width);
-            border-top-style: var(--border-style);
+            border-block-start-width: var(--border-width);
+            border-block-start-style: var(--border-style);
 
             padding: var(--table-cell-padding-y) var(--table-cell-padding-x);
             
@@ -73,8 +73,8 @@ In this file:
         }
 
         td {
-            border-top-width: var(--border-width);
-            border-top-style: var(--border-style);
+            border-block-start-width: var(--border-width);
+            border-block-start-style: var(--border-style);
         }
 
         thead {
@@ -84,7 +84,7 @@ In this file:
             }
 
             tr {
-                border-top-style: unset;
+                border-block-start-style: unset;
             }
         }
     }
