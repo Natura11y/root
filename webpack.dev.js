@@ -27,6 +27,7 @@ const devPages = {
     'Modal': 'modal',
     'Megamenu': 'megamenu',
     'Navigation': 'navigation',
+    'New': 'new-features',
     'Spacer': 'spacer',
     'Tab': 'tab',
     'Table': 'table',
@@ -34,7 +35,7 @@ const devPages = {
 }
 
 const devDir = './dist/html';
-const devPage = `${devPages.Navigation}.html`;
+const devPage = `${devPages.New}.html`;
 
 module.exports = merge(common, {
     mode: 'development',

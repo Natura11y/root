@@ -21,7 +21,6 @@ export default class Navigation {
 
   #closeDropdown(dropdownButton, dropdownMenu) {
     this.#isAnyDropdownOpen = this.#checkAnyDropdownOpen();
-
     dropdownMenu.classList.remove('shown');
     dropdownButton.setAttribute('aria-expanded', 'false');
 

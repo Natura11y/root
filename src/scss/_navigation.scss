@@ -90,6 +90,7 @@ In this file:
 
         > li > .button {
             min-height: 100%;
+
         }
 
         > li > .nav__dropdown {
@@ -351,7 +352,7 @@ In this file:
     [class*="primary-nav--"] {
         position: relative;
         
-        display: grid  !important;
+        display: grid;
 
         align-items: center;
 
@@ -379,6 +380,12 @@ In this file:
             border: var(--border-width);
             border-block-start-style: var(--border-style);
             border-block-start-color: inherit;
+        }
+
+        > [class*="__toggle"],
+        > [class*="__actions"],
+        > [class*="__search"] {
+            font-size: var(--font-size-md);
         }
 
         > [class*="__toggle"] {
@@ -466,14 +473,6 @@ In this file:
             border-block-start-style: var(--border-style);
             border-block-start-color: inherit;
         }
-
-        // > :is( 
-        //     [class*="__actibons"],
-        //     [class*="__togglbe"],
-        //     [class*="__searcbh"]
-        // ) {
-        //     margin-inline: var(--nav-gap);
-        // }
     }
 
     [class*="primary-nav--below--"] {
@@ -539,8 +538,8 @@ In this file:
             justify-content: space-between;
 
             width: 100%;
-
-            padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
+            
+            padding: var(--nav-divider-padding-y) var(--primary-nav-padding-x);
         }
 
         > ul > li:not(:has([class*="mega-menu"])) {
@@ -684,7 +683,7 @@ In this file:
                         }
 
                         > li > button {
-                            width: 100%;
+                            // width: 100%;
                         }
 
                         > li:not(:last-child){
