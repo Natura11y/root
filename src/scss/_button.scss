@@ -174,10 +174,14 @@ In this file:
         align-items: center;
         justify-content: center;
 
+        container-type: size;
+
         aspect-ratio: 1;
 
         [class*="icon-"] {
             display: flex;
+            // background-color: aqua;
+            --icon-size: 60cqi;
         }
     }
 

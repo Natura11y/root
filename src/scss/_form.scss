@@ -328,7 +328,10 @@ In this file:
         }
 
         button {
+            --adjusted-target-size: calc(var(--form-field-target-size) * 0.75);
             flex-shrink: 0;
+            margin: 0.25em;
+            --button-target-size: var(--adjusted-target-size);
         }
 
         > .button:not([class*='--icon-only']) {
@@ -348,8 +351,8 @@ In this file:
             padding-inline-start: unset;
         }
 
-        > .button-group {
-            margin: var(--gap-size);
+        > input + button {
+            // outline: 2px solid red;
         }
     }
 
