@@ -24,44 +24,57 @@
                     </h1>
                 </header>
 
-                <figure class="container narrow margin-bottom-4">
+                <figure class="container narrow margin-bottom-4 font-size-md">
 
-                    <ul class="nav text-align-center">
+                    <ul class="grid gap-4">
                         <li>
-                            <a class="button theme-primary" href="#1">
+                            <a class="button" href="#1">
+                                <span class="icon icon-lock"></span>
                                 Label
                             </a>  
                         </li>
+
+                        <li class="width-100">
+                            <a class="button button--disperse font-size-sm" href="#1">
+                                 <span class="text">Label</span>
+                                <span class="icon icon-arrow-right" aria-hidden="true"></span>
+                            </a>  
+                        </li>
+
                         <li>
-                            <a class="button button--has-icon button--outline" href="#1">
+                            <a class="button button--outline" href="#1">
                                 <span class="icon icon-lock"></span>
-                                <span class="button__text">Label</span>
+                                <span class="text">Label</span>
                             </a>
                         </li>
-                        <li>                        
-                            <a class="button button--has-icon theme-secondary" href="#1">
+
+                        <li>
+                            <a class="button theme-secondary" href="#1">
                                 <span class="icon icon-heart"></span>
                                 <span class="button__text">Label</span>
                             </a>
                         </li>
+
                         <li>
-                            <a class="button button--has-icon theme-light" href="#1">
+                            <a class="button theme-light" href="#1">
                                 <span class="icon icon-heart" aria-hidden="true"></span>
                                 <span class="button__text">Label</span>
                                 <span class="icon icon-arrow-right" aria-hidden="true"></span>
                             </a>
                         </li>
+
                         <li>
                             <a class="link link--has-icon" href="#1">
-                                <span class="button__text">Label</span>
+                                <span class="text">Label</span>
                                 <span class="icon icon-arrow-right" aria-hidden="true"></span>
                             </a>
                         </li>
+          
                     </ul>
 
                 </figure>
 
-				<figure class="container medium margin-y-5 module">
+				<figure class="container  margin-y-5 module">
 
                     <nav class="display-flex gap-1 justify-content-center">
 
@@ -90,19 +103,79 @@
 
                 </figure>
 
-                <figure class="container narrow margin-bottom-4">
+                <figure class="container margin-bottom-4 border">
                 
-                    <div class="button-group justify-content-center">
-                        <a class="button button--outline" href="#1">
-                            Sign In
+                    <div class="font-size-sm display-flex gap-2">
+                    
+                        <a class="button" href="#1">
+                            <span class="text">Sign In</span>   
                         </a>
                         <a class="button button--icon-only" href="#1" aria-label="Language">
                             <span class="icon icon-language" aria-hidden="true"></span>
                         </a>
-                        <a class="button button--icon-only" href="#1" aria-label="Search">
+                        <a class="button" href="#1" aria-label="Search">
                             <span class="icon icon-search" aria-hidden="true"></span>
                         </a>
+
+                        <div class="form-entry">
+
+                            <label class="form-entry__field">
+
+                                <span class="form-entry__field__select">
+                                    <select
+                                        id="select-example"
+                                        name="selectExample"
+                                        aria-describedby="help-select-example">
+                                            <option value="">Select</option>
+                                            <option value="Option One">Option One</option>
+                                            <option value="Option Two">Option Two</option>
+                                            <option value="Option Three">Option Three</option>
+                                            <option value="Option Four">Option Four</option>
+                                            <option value="Option Five">Option Five</option>
+                                    </select>
+                                </span>
+
+                            </label>
+                        </div>
                     </div>
+
+
+						<ul class="nav nav--horizontal margin-y-6 font-size-md">
+
+                        <li>
+                        <a class="button theme-dark" href="#1">
+                            <span class="text">Sign In</span>   
+                        </a>
+                        </li>
+							<li>
+								<a class="button button--icon-only theme-dark border-radius-circle" href="#1" aria-label="Facebook">
+									<span class="icon icon-facebook" aria-hidden="true"></span>
+								</a>
+							</li>
+							<li>
+								<a class="button button--icon-only theme-dark border-radius-circle" href="#1" aria-label="Facebook">
+									<span class="icon icon-twitter-x" aria-hidden="true"></span>
+								</a>
+							</li>
+							<li>
+								<a class="button button--icon-only theme-dark border-radius-circle" href="#1" aria-label="Facebook">
+									<span class="icon icon-instagram" aria-hidden="true"></span>
+								</a>
+							</li>
+                            <li>
+                            <div class="form-entry" aria-label="Search">
+                        <div class="form-entry__field">
+                            <span class="form-entry__field__input">
+                                <span class="icon icon-search"></span>
+                                <input type="text" name="global-search">
+                                <button class="button theme-primary">
+                                    Search
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                            </li>
+						</ul>
 
                 </figure>
 

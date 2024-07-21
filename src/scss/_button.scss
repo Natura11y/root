@@ -19,9 +19,11 @@ In this file:
 //////////////////////////////////////////////
 
 :root {
-    --button-padding-x: 1.5em;
+    --button-padding-x: 1.25em;
 
-    --button-padding-y: 0.75em;
+    --button-padding-y: 0.5em;
+
+    --button-target-size: 2.5em;
 
     --button-font-family: var(--body-font-family);
 
@@ -35,15 +37,11 @@ In this file:
     
     --button-outline-border-width: calc( var(--border-width) * 2);
 
-    --button-icon-only-size: 2.5em;
-
     --button-icon-over-text-width: 4em; 
     
     --button-icon-over-text-border-radius: var(--button-border-radius);
     
     --button-icon-over-text-font-size: 0.675em;
-    
-    --button-group-gap: 0.5em;
 }
 
 //////////////////////////////////////////////
@@ -64,7 +62,6 @@ In this file:
         &:not([class*="border-"]) {
             border: none;
         }
-
     }
 
 } // end @layer
@@ -76,13 +73,15 @@ In this file:
 @layer component {
 
     .button {
-        --button-opacity-hover: 0.75;   
+        --_button-opacity-hover: 0.75;   
         --subtle-fill-opacity: 0.05;
 
         position: relative;
 
-        display: inline-block;
-        
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+
         vertical-align: middle;
 
         line-height: normal;
@@ -116,16 +115,21 @@ In this file:
         &:hover, 
         &:focus, 
         &:active {
-            opacity: var(--button-opacity-hover);
+            opacity: var(--_button-opacity-hover);
         }
 
         &:not([class*="button--icon-only"]):not([class*="button--icon-over-text"]) {
             padding: var(--button-padding-y) var(--button-padding-x);
+
             font-weight: var(--button-font-weight);
         }
 
+        &:not([class*="button--icon-over-text"]) {        
+            min-height: var(--button-target-size);
+        }
+
         &[aria-disabled="true"] {
-            opacity: var(--button-opacity-hover);
+            opacity: var(--_button-opacity-hover);
             cursor: not-allowed;
         }
         
@@ -138,24 +142,26 @@ In this file:
         box-shadow: inset 0 0 0 var(--button-outline-border-width, 2px) currentColor;
     }
 
-    // Has Icon Modifiers
+    // :has() Selectors
 
-    [class*="button--has-icon"] {
-        display: inline-flex;
-        justify-content: center;
+    .button:has([class*="icon-"]) {
         align-items: center;
 
         gap: 0.5em;
+    }
 
+    .button:has([class*="text"]) {
         &:hover,
         &:focus {
-            [class*="__text"] {
+            [class*="text"] {
                 text-decoration: underline;
             }
         }
     }
 
-    .button--has-icon--disperse {
+    // Disperse Modifier
+   
+    .button--disperse {
         justify-content: space-between;
         width: 100%;
     }
@@ -168,9 +174,6 @@ In this file:
         align-items: center;
         justify-content: center;
 
-        width: var(--button-icon-only-size);
-        height: var(--button-icon-only-size);
-
         aspect-ratio: 1;
 
         [class*="icon-"] {
@@ -181,7 +184,7 @@ In this file:
     // Icon Only Tooltip (via JS)
 
     .button__tooltip {
-        --button-tooltip-background: hsla(0, 0%, 0%, 0.9);
+        --_button-tooltip-background: hsla(0, 0%, 0%, 0.9);
 
         position: absolute;
         top: -150000px;
@@ -197,7 +200,7 @@ In this file:
 
         border-radius: inherit;
 
-        background-color: var(--button-tooltip-background);
+        background-color: var(--_button-tooltip-background);
 
         color: white;
 
@@ -263,17 +266,16 @@ In this file:
 
             margin-inline: auto;
 
-            aspect-ratio: 1;
+            aspect-ratio: 1 / 1;
 
-            width: var(--button-icon-only-size);
-            height: var(--button-icon-only-size);
+            min-height: var(--button-target-size);
 
             border-radius: var(--button-icon-over-text-border-radius);
 
             @extend %subtle-fill-psuedo;
         }
 
-        [class*="__text"] {
+        [class*="text"] {
             min-width: 100%;
 
             font-size: var(--button-icon-over-text-font-size);
@@ -295,31 +297,6 @@ In this file:
             [class*="__text"] {
                 text-decoration: underline;
             }
-        }
-
-        
-    }
-
-    // Button Group
-
-    .button-group {
-        --gap-size: var(--button-group-gap);
-        
-        display: flex;
-
-        gap: var(--gap-size);
-
-        min-height: var(--button-icon-only-size);
-
-        > [class*="button"]:not(.button--icon-only) {
-            --button-padding-y: 0;
-
-            display: flex;
-            align-self: stretch;
-            align-items: center;
-            flex-shrink: 0;
-            
-            font-size: 80%;
         }
     }
 

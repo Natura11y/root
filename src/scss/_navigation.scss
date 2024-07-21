@@ -88,11 +88,6 @@ In this file:
 
         gap: var(--nav-gap);
 
-        > li > .button {
-            min-height: 100%;
-
-        }
-
         > li > .nav__dropdown {
             inset-inline-start: 0;
             
@@ -413,7 +408,7 @@ In this file:
         > [class*="__actions"] {
             grid-area: button;
 
-            @extend .button-group;
+           // @extend .button-group;
         }
         
     }

@@ -27,6 +27,8 @@ In this file:
 
     --form-field-padding-y: var(--button-padding-y);
 
+    --form-field-target-size: var(--button-target-size);
+
     --form-field-border-radius: 0.25em;
     
     --form-field-border-color: currentColor;
@@ -295,6 +297,8 @@ In this file:
             outline: none;
 
             padding: var(--form-field-padding-y) var(--form-field-padding-x);
+
+            min-height: var(--form-field-target-size);
         }
 
         &::after {

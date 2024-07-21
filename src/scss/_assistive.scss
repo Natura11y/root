@@ -28,17 +28,6 @@ In this file:
 
 %hover-focus {
 
-    &:is(:hover, :focus):not(
-        p > a,
-        [aria-disabled="true"],
-        [class*="icon"],
-        [class*="backdrop"],
-        [class*="no-hover-focus"],
-        [class*="nav--has-icons"] > li > *
-    ) {
-        text-decoration: underline;
-    }
-
     &:not([class*="button--icon-over-text"]):focus-visible {
         outline: var(--focus-outline-size) var(--focus-outline-style) var(--focus-outline-color);
         outline-offset: var(--focus-outline-distance);
@@ -70,7 +59,6 @@ In this file:
         &[class*="backdrop"] {
             --focus-outline-distance: calc(var(--focus-outline-size) * -3);
         }
-
     }
 
 } // end @layer
