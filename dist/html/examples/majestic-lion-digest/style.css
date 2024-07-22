@@ -63,8 +63,6 @@
 @media screen and (min-width: 1000px) {
 
     .grid-layout {
-
-
         display: grid;
 
         grid-template-columns: 
@@ -305,11 +303,6 @@
 
 .button::before {
     transition: opacity 0.5s;
-}
-
-.button:hover::after,
-.button:focus::after {
-    display: none;
 }
 
 .button:hover,

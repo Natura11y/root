@@ -179,9 +179,9 @@ In this file:
         aspect-ratio: 1;
 
         [class*="icon-"] {
+            --icon-size: 50cqi;
+            
             display: flex;
-            // background-color: aqua;
-            --icon-size: 60cqi;
         }
     }
 

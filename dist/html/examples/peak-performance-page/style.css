@@ -29,19 +29,17 @@
 */
 
 .grid--features {
-    --backdrop-fixed-height: 0;
 
     display: grid;
         
-    grid-gap: var(--spacer-3);
+    grid-gap: var(--spacer-2);
 
     > .backdrop {
-
-        --backdrop-fixed-height: unset;
+        --backdrop-fixed-height: 0;
         
         aspect-ratio: 16 / 9;
 
-        display: flex;
+        align-self: stretch;
 
         max-width: 100%;
     }

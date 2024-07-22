@@ -21,6 +21,7 @@ const devPages = {
     'Backdrop': 'backdrop',
     'Card': 'card',
     'Color': 'color',
+    'Container': 'container',
     'Form': 'form',
     'Grid': 'grid',
     'Lightbox': 'lightbox',
