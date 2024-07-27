@@ -1,12 +1,11 @@
-import { getFocusableElements } from './utilities/focus';
-
+import { getFocusableElements, focusTrap } from './utilities/focus';
 import { delegateEvent } from './utilities/eventDelegation';
 
 export default class Collapse {
 
   // Private methods
   #handleCollapseClose = (button, target, focusButton = false) => {
-    button.setAttribute('aria-expanded', false);
+    button.setAttribute('aria-expanded', 'false');
     target.classList.remove('shown');
     target.setAttribute('aria-hidden', 'true');
 
@@ -16,22 +15,23 @@ export default class Collapse {
   };
 
   #handleCollapseOpen = (button, target, focusFirst = false) => {
-    button.setAttribute('aria-expanded', true);
+    button.setAttribute('aria-expanded', 'true');
     target.classList.add('shown');
     target.setAttribute('aria-hidden', 'false');
 
     if (focusFirst) {
       focusFirst.focus();
     }
+
+    // Trap focus within the collapsible target
+    focusTrap(target);
   };
 
   #handleKeyDown = (collapseButton, collapseTarget, firstFocusableElement) => {
     return (event) => {
       switch (event.code) {
         case 'Tab':
-          if (
-            document.activeElement === firstFocusableElement && event.shiftKey
-          ) {
+          if (document.activeElement === firstFocusableElement && event.shiftKey) {
             event.preventDefault();
             collapseButton.focus();
           }
@@ -40,7 +40,7 @@ export default class Collapse {
           this.#handleCollapseClose(collapseButton, collapseTarget, true);
           break;
         default:
-        // do nothing
+          // do nothing
       }
     };
   };
@@ -51,8 +51,9 @@ export default class Collapse {
     const collapseButton = event.target.closest('[data-toggle="collapse"]');
     if (!collapseButton) return;
 
-    const collapseTargetID = collapseButton.getAttribute('aria-controls').replace(/#/, '');
+    const collapseTargetID = collapseButton.getAttribute('aria-controls')?.replace(/#/, '');
     const collapseTarget = document.getElementById(collapseTargetID);
+    if (!collapseTarget) return;
 
     const focusableElements = getFocusableElements(collapseTarget);
     const firstFocusableElement = focusableElements[0];
@@ -64,9 +65,7 @@ export default class Collapse {
       this.#handleCollapseOpen(
         collapseButton,
         collapseTarget,
-        collapseTarget.hasAttribute('data-focus-first')
-          ? firstFocusableElement
-          : null
+        collapseTarget.hasAttribute('data-focus-first') ? firstFocusableElement : null
       );
     }
 
@@ -76,7 +75,7 @@ export default class Collapse {
     );
 
     if (collapseButton.hasAttribute('data-target-close')) {
-      const closeTargetID = collapseButton.getAttribute('data-target-close').replace(/#/, '');
+      const closeTargetID = collapseButton.getAttribute('data-target-close')?.replace(/#/, '');
       const closeTarget = document.getElementById(closeTargetID);
       const closeTargetButton = document.querySelector(`[aria-controls="#${closeTargetID}"]`);
 
@@ -90,10 +89,10 @@ export default class Collapse {
 
   // Public methods
   init = () => {
-  
     document.querySelectorAll('[data-toggle="collapse"]').forEach((collapseButton) => {
-      const collapseTargetID = collapseButton.getAttribute('aria-controls').replace(/#/, '');
+      const collapseTargetID = collapseButton.getAttribute('aria-controls')?.replace(/#/, '');
       const collapseTarget = document.getElementById(collapseTargetID);
+      if (!collapseTarget) return;
 
       collapseButton.setAttribute('aria-expanded', 'false');
       collapseTarget.setAttribute('aria-hidden', 'true');
