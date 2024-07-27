@@ -1,16 +1,21 @@
 import { getFocusableElements } from './utilities/focus';
+
 import { delegateEvent } from './utilities/eventDelegation';
 
 export default class Collapse {
 
   // Private methods
-  #handleCollapseClose = (button, target) => {
+  #handleCollapseClose = (button, target, focusButton = false) => {
     button.setAttribute('aria-expanded', false);
     target.classList.remove('shown');
     target.setAttribute('aria-hidden', 'true');
+
+    if (focusButton) {
+      button.focus();
+    }
   };
 
-  #handleCollapseOpen = (button, target, focusFirst) => {
+  #handleCollapseOpen = (button, target, focusFirst = false) => {
     button.setAttribute('aria-expanded', true);
     target.classList.add('shown');
     target.setAttribute('aria-hidden', 'false');
@@ -25,15 +30,14 @@ export default class Collapse {
       switch (event.code) {
         case 'Tab':
           if (
-            document.activeElement === firstFocusableElement &&
-            event.shiftKey
+            document.activeElement === firstFocusableElement && event.shiftKey
           ) {
             event.preventDefault();
             collapseButton.focus();
           }
           break;
         case 'Escape':
-          this.#handleCollapseClose(collapseButton, collapseTarget);
+          this.#handleCollapseClose(collapseButton, collapseTarget, true);
           break;
         default:
         // do nothing
@@ -43,6 +47,7 @@ export default class Collapse {
 
   #toggleCollapse = (event) => {
     event.preventDefault();
+
     const collapseButton = event.target.closest('[data-toggle="collapse"]');
     if (!collapseButton) return;
 
@@ -85,7 +90,7 @@ export default class Collapse {
 
   // Public methods
   init = () => {
-    // Initialize existing collapse buttons
+  
     document.querySelectorAll('[data-toggle="collapse"]').forEach((collapseButton) => {
       const collapseTargetID = collapseButton.getAttribute('aria-controls').replace(/#/, '');
       const collapseTarget = document.getElementById(collapseTargetID);
