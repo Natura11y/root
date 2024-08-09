@@ -1,3 +1,5 @@
+import { delegateEvent } from './utilities/eventDelegation';
+
 //////////////////////////////////////////////
 // A. Form Input 
 //////////////////////////////////////////////
@@ -5,7 +7,6 @@
 export default class FormInput {
 
   // Private properties
-  
   #formEntryList = document.querySelectorAll('.form-entry');
   #invalidClasses = ['is-invalid'];
   #formSubmitAttempted = false;
@@ -17,13 +18,13 @@ export default class FormInput {
   }
 
   #setInvalid(field) {
-    let entryRoot = field.closest('.form-entry');
+    const entryRoot = field.closest('.form-entry');
     entryRoot.classList.add(...this.#invalidClasses);
     field.setAttribute('aria-invalid', 'true');
   }
 
   #setValid(field) {
-    let entryRoot = field.closest('.form-entry');
+    const entryRoot = field.closest('.form-entry');
     entryRoot.classList.remove(...this.#invalidClasses);
     field.removeAttribute('aria-invalid');
   }
@@ -63,36 +64,41 @@ export default class FormInput {
   }
 
   #handleFormInputs(formEntry) {
-    const inputSelectors = ['email', 'input', 'select', 'tel', 'textarea'];
-    const formEntryInputList = formEntry.querySelectorAll(inputSelectors);
+    const inputSelectors = ['input', 'select', 'textarea'];
+    const formEntryInputList = formEntry.querySelectorAll(inputSelectors.join(','));
 
-    let isRequired = formEntry.hasAttribute('data-required');
+    const isRequired = formEntry.hasAttribute('data-required');
 
     formEntryInputList.forEach((formEntryInput) =>
       this.#processFormEntryInput(formEntryInput, isRequired)
     );
   }
 
+  #handleClickOnInputText(event) {
+    const clickTarget = event.target.tagName;
+    const clickInput = event.target
+      .closest('.form-entry__field__input')
+      .querySelector('input');
+
+    if (clickTarget === 'SPAN') {
+      clickInput.focus();
+    }
+
+    if (clickTarget === 'BUTTON') {
+      return;
+    }
+  }
+
   #processFormEntryInput(formEntryInput, isRequired) {
+  
     const isInputText = formEntryInput
       .closest('.form-entry')
       .querySelector('.form-entry__field__input');
-    const inputTag = formEntryInput.tagName;
 
-    let activeTarget = '.form-entry';
+    const activeTarget = '.form-entry';
 
-    if (inputTag === 'INPUT') {
-      const inputType = formEntryInput.getAttribute('type');
-
-      if (inputType === 'radio' || inputType === 'checkbox') {
-        if (formEntryInput.disabled) {
-          formEntryInput.closest('label').classList.add('disabled');
-        }
-      }
-    }
-
-    formEntryInput.addEventListener('focusin', this.#handleFocusIn(activeTarget));
-    formEntryInput.addEventListener('focusout', this.#handleFocusOut(activeTarget));
+    delegateEvent(document, 'focusin', '.form-entry input, .form-entry select, .form-entry textarea', this.#handleFocusIn(activeTarget));
+    delegateEvent(document, 'focusout', '.form-entry input, .form-entry select, .form-entry textarea', this.#handleFocusOut(activeTarget));
 
     if (isRequired) {
       formEntryInput.setAttribute('required', 'true');
@@ -104,22 +110,7 @@ export default class FormInput {
     );
 
     if (isInputText) {
-      isInputText.addEventListener('click', this.handleClickOnInputText);
-    }
-  }
-
-  handleClickOnInputText(event) {
-    let clickTarget = event.target.tagName;
-    let clickInput = event.target
-      .closest('.form-entry__field__input')
-      .querySelector('input');
-
-    if (clickTarget === 'SPAN') {
-      clickInput.focus();
-    }
-
-    if (clickTarget === 'BUTTON') {
-      return;
+      isInputText.addEventListener('click', this.#handleClickOnInputText);
     }
   }
 
@@ -133,7 +124,7 @@ export default class FormInput {
 }
 
 //////////////////////////////////////////////
-// B. FormSubmission 
+// B. Form Submission 
 //////////////////////////////////////////////
 
 export class FormSubmission {
@@ -150,13 +141,13 @@ export class FormSubmission {
   }
 
   #setInvalid(field) {
-    let entryRoot = field.closest('.form-entry');
+    const entryRoot = field.closest('.form-entry');
     entryRoot.classList.add(...this.#invalidClasses);
     field.setAttribute('aria-invalid', 'true');
   }
 
   #setValid(field) {
-    let entryRoot = field.closest('.form-entry');
+    const entryRoot = field.closest('.form-entry');
     entryRoot.classList.remove(...this.#invalidClasses);
     field.removeAttribute('aria-invalid');
   }
@@ -176,7 +167,7 @@ export class FormSubmission {
       desc = 'This field is Required';
     }
     return `
-      <small class="form-entry__feedback">
+      <small class="form-entry__feedback" role="alert">
         <span class="icon icon-warn" aria-hidden="true"></span>
         <span class="message">
           <strong>${desc}</strong> ${inst !== undefined ? inst : ''}
@@ -187,8 +178,8 @@ export class FormSubmission {
 
   #processFormErrors(formErrorsList, errorsArray) {
     formErrorsList.forEach((formError) => {
-      let formErrorEntry = formError.closest('.form-entry');
-      let formErrorEntryLabel = formErrorEntry.querySelector('.form-entry__field__label');
+      const formErrorEntry = formError.closest('.form-entry');
+      const formErrorEntryLabel = formErrorEntry.querySelector('.form-entry__field__label');
 
       formErrorEntry.classList.add('is-invalid');
       formError.setAttribute('aria-describedby', 'error-message');
@@ -202,8 +193,8 @@ export class FormSubmission {
         entryHelpText = formEntryHelp.innerHTML.toString();
       }
 
-      let errorMessage = formErrorEntry.getAttribute('data-error-message');
-      let errorFeedback = [errorMessage, entryHelpText];
+      const errorMessage = formErrorEntry.getAttribute('data-error-message');
+      const errorFeedback = [errorMessage, entryHelpText];
 
       errorsArray.push(errorFeedback);
 
@@ -217,13 +208,13 @@ export class FormSubmission {
   }
 
   #scrollToFirstError(form) {
-    let firstError = form.querySelector('[class*="alert"], [class*="invalid"]');
+    const firstError = form.querySelector('[class*="alert"], [class*="invalid"]');
 
     if (firstError) {
       if (firstError.hasAttribute('data-alert')) {
         firstError.style.display = 'block';
       }
-      let myScroll = firstError.offsetTop - 16;
+      const myScroll = firstError.offsetTop - 16;
 
       window.scrollTo({
         top: myScroll,
@@ -238,10 +229,10 @@ export class FormSubmission {
 
       this.#formSubmitAttempted = true;
 
-      let errorsArray = [];
+      const errorsArray = [];
 
       // Collect form input fields
-      let inputFields = form.querySelectorAll('input, select, textarea');
+      const inputFields = form.querySelectorAll('input, select, textarea');
       
       // Bind #checkIfEmpty method to each field's input event
       inputFields.forEach((field) => {
@@ -253,7 +244,7 @@ export class FormSubmission {
         this.#checkIfEmpty(field);
       });
 
-      let formErrorsList = form.querySelectorAll(':invalid');
+      const formErrorsList = form.querySelectorAll(':invalid');
 
       this.#processFormErrors(formErrorsList, errorsArray);
 

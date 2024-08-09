@@ -130,7 +130,11 @@
 
                         </div>
 
-                        <nav class="primary-nav__menu" id="main-menu-2" aria-label="Main Menu">
+                        <nav
+                            class="primary-nav__menu"
+                            id="main-menu"
+                            aria-label="Main Menu"
+                        >
 
                             <ul>
                                 <li>
@@ -165,14 +169,15 @@
 
                         </nav>
 
-                        <div class="primary-nav__toggle font-size-md">
+                        <div class="primary-nav__toggle">
                         
                             <button
                                 class="mobile-menu-toggle button button--icon-only"
                                 aria-label="Menu"
                                 data-toggle="collapse"
-                                aria-controls="#main-menu-2"
+                                aria-controls="#main-menu"
                                 data-target-close="#search"
+                                aria-expanded="false"
                                 >
                                     <span class="icon icon-menu"></span>
                             </button>
@@ -183,14 +188,15 @@
                                 aria-label="Menu"
                                 data-toggle="collapse"
                                 aria-controls="#search"
-                                data-target-close="#main-menu-2"
+                                data-target-close="#main-menu"
+                                aria-expanded="false"
                             >
                                 <span class="icon icon-search"></span>
                             </button>
 
                         </div>
 
-                        <form class="primary-nav__search font-size-md" role="search" id="search" data-focus-first>
+                        <form class="primary-nav__search" role="search" id="search" data-focus-first>
 
                             <div class="form-entry" aria-label="Search">
                                 <div class="form-entry__field">
@@ -205,7 +211,7 @@
 
                         </form>
 
-                        <div class="primary-nav__actions font-size-md">
+                        <div class="primary-nav__actions">
 
                             <button
                                 class="button button--icon-only"
@@ -240,7 +246,7 @@
 
                         </div>
 
-                        <nav class="primary-nav__menu" id="main-menu-3" aria-label="Main Menu">
+                        <nav class="primary-nav__menu" id="main-menu-2" aria-label="Main Menu">
 
                             <ul>
                                 <li>
@@ -399,19 +405,21 @@
 
                         </nav>
 
-                        <div class="primary-nav__toggle font-size-md">
+                        <div class="primary-nav__toggle">
                         
                             <button
                                 class="mobile-menu-toggle button button--icon-only"
                                 aria-label="Menu"
                                 data-toggle="collapse"
-                                aria-controls="#main-menu-3">
+                                aria-controls="#main-menu-2"
+                                aria-expanded="false"
+                                >
                                     <span class="icon icon-menu"></span>
                             </button>
 
                         </div>
 
-                        <form class="primary-nav__search font-size-md" role="search">
+                        <form class="primary-nav__search" role="search">
 
                             <div class="form-entry" aria-label="Search">
                                 <div class="form-entry__field">
@@ -426,7 +434,7 @@
 
                         </form>
                             
-                        <div class="primary-nav__actions font-size-md">
+                        <div class="primary-nav__actions">
 
                             <button
                                 class="button button--icon-only"

@@ -56,16 +56,19 @@ In this file:
         position: relative;
     }
 
-    [aria-current],
-    [aria-selected="true"] {
+    > li > :is(a, button):not([class*="button"]) {
+        &:hover,
+        &:focus {
+            // text-decoration: underline;
+        }
+    }
+
+    :is([aria-current], [aria-selected="true"]) {
         font-weight: var(--font-weight-bold);
     }
 
-    &:not([class*="nav--has-icons"]) {
-        [aria-selected="true"],
-        [aria-current] {
-            text-decoration-line: underline;
-        }
+    &:not([class*="nav--has-icons"]) :is([aria-selected="true"], [aria-current]) {
+        text-decoration-line: underline;
     }
 }
 
@@ -349,22 +352,41 @@ In this file:
         
         display: grid;
 
-        align-items: center;
+        // align-items: center;
+        align-items: stretch;
 
         z-index: 10000;
 
+        > * {
+            // outline: 2px solid red;
+        }
+
         ul {
             @extend %list-style-nav;
+            width: 100%;
         }
 
         li:has([class*="nav__dropdown"]) {
             position: relative;
         }
 
+        > [class*="__logo"],
+        > [class*="__menu"],
+        > [class*="__toggle"],
+        > [class*="__search"],
+        > [class*="__actions"] {
+            display: flex;
+            align-items: center;
+        }
+
+        > [class*="__toggle"],
+        > [class*="__actions"],
+        > [class*="__search"] {
+            font-size: var(--font-size-md);
+        }
+
         > [class*="__logo"] {
             grid-area: logo;
-
-            display: flex;
         }
 
         > [class*="__menu"] {
@@ -377,38 +399,31 @@ In this file:
             border-block-start-color: inherit;
         }
 
-        > [class*="__toggle"],
-        > [class*="__actions"],
-        > [class*="__search"] {
-            font-size: var(--font-size-md);
-        }
-
         > [class*="__toggle"] {
             grid-area: toggle;
             
-            display: flex;
-            gap: var(--primary-nav-padding-x);
-
             justify-content: center;
+
+            gap: var(--primary-nav-padding-x);
         }
 
         > [class*="__search"] {
             grid-area: search;
+
+            display: flex;
+            align-items: center;
 
             .form-entry:not([class*="active"]) .form-entry__field__input::after {
                 display: none;
             }
 
             .form-entry__field {
-                height: var(--button-icon-only-size) !important;
                 border-radius: var(--button-border-radius);
             }
         }
 
         > [class*="__actions"] {
             grid-area: button;
-
-           // @extend .button-group;
         }
         
     }
@@ -448,15 +463,17 @@ In this file:
             justify-content: end;
         }
 
-        > [class*="__logo"] a {
-            margin-inline : var(--nav-gap);
-        }
+        > [class*="__logo"] {
+            a {
+                margin-inline-start : var(--primary-nav-padding-x);
+            }
+        } 
 
         > [class*="__logo"] a,
         > [class*="__actions"],
         > [class*="__toggle"] {
-            margin-block: var(--nav-gap);
-            margin-inline-end: var(--nav-gap);
+            margin-block: var(--primary-nav-padding-y);
+            margin-inline-end: var(--primary-nav-padding-x);
         }
 
         > [class*="__search"] {
@@ -512,8 +529,7 @@ In this file:
         :is(
             [class*="__logo"] a, 
             [class*="__actions"],
-            [class*="__toggle"],
-            [class*="__search"]
+            [class*="__toggle"]
         ) {
             margin-inline: var(--nav-gap);
             margin-block: var(--nav-gap);
@@ -521,7 +537,7 @@ In this file:
     }
 
     .primary-nav__menu {
-
+    
         > ul > li:not(:last-child) {
             border-block-end-width: var(--border-width);
             border-block-end-style: var(--border-style);
@@ -551,8 +567,12 @@ In this file:
     }
 
     .primary-nav__search {
+        .form-entry {
+            width: 100%;
+        }
+
         .form-entry__field {
-            border-width: var(--border-width);
+            border: var(--border-width);
             border-style: var(--border-style);
         }
     }
@@ -575,7 +595,11 @@ In this file:
 
                 > [class*="__menu"],
                 > [class*="__search"] {
-                    display: block !important;
+                    display: flex !important;
+                }
+
+                > [class*="__search"] {
+                    padding: unset;
                 }
 
                 > [class*="__menu"] > ul > li {
@@ -678,7 +702,7 @@ In this file:
                         }
 
                         > li > button {
-                            // width: 100%;
+                            width: 100%;
                         }
 
                         > li:not(:last-child){

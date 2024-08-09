@@ -12,8 +12,7 @@ In this file:
 
 export const delegateEvent = (parent, eventType, selector, handler) => {
   parent.addEventListener(eventType, (event) => {
-  console.log('event.target:', event.target);
-    if (event.target.matches(selector)) {
+    if (event.target.matches(selector) || event.target.closest(selector)) {
       handler(event);
     }
   });
