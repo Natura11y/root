@@ -352,13 +352,15 @@ In this file:
         
         display: grid;
 
-        // align-items: center;
         align-items: stretch;
 
         z-index: 10000;
 
+        // background-color: yellow;
+
         > * {
-            // outline: 2px solid red;
+            outline: 2px solid red;
+            outline-offset: -2px;
         }
 
         ul {
@@ -420,12 +422,19 @@ In this file:
             .form-entry__field {
                 border-radius: var(--button-border-radius);
             }
+
         }
 
         > [class*="__actions"] {
             grid-area: button;
         }
         
+        // > :is(
+        //     [class*="__search"],
+        //     [class*="__action"]
+        // ):last-child {
+        //     margin-inline-end: var(--primary-nav-padding-x);
+        // }
     }
 
     [class*="primary-nav--inline--"] {
@@ -458,23 +467,24 @@ In this file:
             var(--_template-area-row-3-m)
         ;
 
+        column-gap: var(--primary-nav-padding-x);
+
         > [class*="__menu"] {
             align-self: stretch; 
             justify-content: end;
         }
 
-        > [class*="__logo"] {
-            a {
-                margin-inline-start : var(--primary-nav-padding-x);
-            }
-        } 
+        // > [class*="__logo"] a {
+        //  margin-inline-start : var(--primary-nav-padding-x);
+        // } 
 
-        > [class*="__logo"] a,
-        > [class*="__actions"],
-        > [class*="__toggle"] {
-            margin-block: var(--primary-nav-padding-y);
-            margin-inline-end: var(--primary-nav-padding-x);
-        }
+        // :is(
+        //     [class*="__logo"] a, 
+        //     [class*="__toggle"]
+        // ) {
+        //     margin-block: var(--primary-nav-padding-y);
+        //     margin-inline-end: var(--primary-nav-padding-x);
+        // }
 
         > [class*="__search"] {
             @extend .collapse;
@@ -495,10 +505,17 @@ In this file:
         --_template-area-row-1-d: "logo search button";
         --_template-area-row-2-d: "menu menu menu";
 
+        column-gap: var(--primary-nav-padding-x);
+
         &:has([class*="__search"]):not(:has([class*="__actions"])) {
             --_template-area-row-2-m: "toggle search search";
             --_template-area-row-1-d: "logo logo search";
         }
+
+        // > [class*="__logo"] a,
+        // > [class*="__toggle"] {
+        //     margin-inline-start : var(--primary-nav-padding-x);
+        // } 
         
         &:has([class*="__actions"]):not(:has([class*="__search"])) {
             --_template-area-row-2-m: "toggle . button";
@@ -524,15 +541,6 @@ In this file:
             border-block-end-width: var(--border-width);
             border-block-end-style: var(--border-style);
             border-block-end-color: inherit;         
-        }
-
-        :is(
-            [class*="__logo"] a, 
-            [class*="__actions"],
-            [class*="__toggle"]
-        ) {
-            margin-inline: var(--nav-gap);
-            margin-block: var(--nav-gap);
         }
     }
 
@@ -585,7 +593,6 @@ In this file:
             .primary-nav--below#{$mod} {
 
                 [class*="__logo"] {
-                    display: flex;
                     justify-content: flex-start;
                 }
 
@@ -593,8 +600,10 @@ In this file:
                     display: none;
                 }
 
-                > [class*="__menu"],
-                > [class*="__search"] {
+                > :is(
+                    [class*="__menu"],
+                    [class*="__search"]
+                ) {
                     display: flex !important;
                 }
 
@@ -616,7 +625,6 @@ In this file:
                     [class*="__menu"],
                     [class*="__search"]
                 ) {
-                    margin-inline-end: var(--nav-gap);
                     border-block-start-style: none !important;
                 }
 
