@@ -31,9 +31,9 @@ In this file:
         display: flex;
         
         height: 100%;
-        
-        &:not([class*="card--horizontal"]) {      
-            flex-direction: column;
+           
+        &:not([class*="card--horizontal"]) { 
+            flex-direction: column;  
         }
     }
 
@@ -61,6 +61,12 @@ In this file:
 
         .card__media {
             grid-area: media;
+
+            > img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
         }
 
         .card__head {
@@ -82,8 +88,6 @@ In this file:
                 "media head"
                 "media body"
                 "media foot";
-
-            align-items: stretch;
         }
 
         /* Has header, media, and body, but no footer */
