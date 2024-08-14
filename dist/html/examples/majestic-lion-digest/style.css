@@ -94,6 +94,10 @@
         display: grid;
         grid-template-columns: var(--sidebar-width) 1fr;
     }
+
+    .banner .backdrop__cover > * .container {
+        grid-column: 2 / 3;
+    }
 }
 
 /*

@@ -288,8 +288,9 @@ In this file:
     }
 
     [data-toggle="dropdown"][class*="-icon"] ~ ul {
+        --_dropdown-pointer-size: 0.75rem;
+
         position: relative;
-        --dropdown-pointer-size: 0.75rem;
 
         margin-top: 50px;
         overflow: visible;
@@ -298,14 +299,14 @@ In this file:
             position: absolute;
             content: "";
             top: 0;
-            inset-inline-start: calc(var(--nav-gap) + var(--dropdown-pointer-size) + 4px);
+            inset-inline-start: calc(var(--nav-gap) + var(--_dropdown-pointer-size) + 4px);
             
             transform: translateX(-50%) rotate(45deg);
 
-            width:  var(--dropdown-pointer-size);
-            height:  var(--dropdown-pointer-size);
+            width:  var(--_dropdown-pointer-size);
+            height:  var(--_dropdown-pointer-size);
             
-            margin-top: calc( var(--dropdown-pointer-size) * -0.5 - var(--border-width) );
+            margin-top: calc( var(--_dropdown-pointer-size) * -0.5 - var(--border-width) );
 
             background-color: inherit;
 
@@ -318,7 +319,7 @@ In this file:
     }
 
     .nav__dropdown {
-        --dropdown-z-index: 1200;
+        --_dropdown-z-index: 1200;
 
         position: static;
 
@@ -326,7 +327,7 @@ In this file:
 
         width: 100%;
 
-        z-index: var(--dropdown-z-index);
+        z-index: var(--_dropdown-z-index);
 
         font-size: var(--font-size-md);
 
@@ -356,13 +357,6 @@ In this file:
 
         z-index: 10000;
 
-        // background-color: yellow;
-
-        > * {
-            outline: 2px solid red;
-            outline-offset: -2px;
-        }
-
         ul {
             @extend %list-style-nav;
             width: 100%;
@@ -372,26 +366,26 @@ In this file:
             position: relative;
         }
 
-        > [class*="__logo"],
-        > [class*="__menu"],
-        > [class*="__toggle"],
-        > [class*="__search"],
-        > [class*="__actions"] {
+        [class*="__logo"],
+        [class*="__menu"],
+        [class*="__toggle"],
+        [class*="__search"],
+        [class*="__actions"] {
             display: flex;
             align-items: center;
         }
 
-        > [class*="__toggle"],
-        > [class*="__actions"],
-        > [class*="__search"] {
+        [class*="__toggle"],
+        [class*="__actions"],
+        [class*="__search"] {
             font-size: var(--font-size-md);
         }
 
-        > [class*="__logo"] {
+        [class*="__logo"] {
             grid-area: logo;
         }
 
-        > [class*="__menu"] {
+        [class*="__menu"] {
             grid-area: menu;
 
             @extend .collapse;
@@ -401,7 +395,7 @@ In this file:
             border-block-start-color: inherit;
         }
 
-        > [class*="__toggle"] {
+        [class*="__toggle"] {
             grid-area: toggle;
             
             justify-content: center;
@@ -409,7 +403,7 @@ In this file:
             gap: var(--primary-nav-padding-x);
         }
 
-        > [class*="__search"] {
+        [class*="__search"] {
             grid-area: search;
 
             display: flex;
@@ -422,19 +416,11 @@ In this file:
             .form-entry__field {
                 border-radius: var(--button-border-radius);
             }
-
         }
 
         > [class*="__actions"] {
             grid-area: button;
         }
-        
-        // > :is(
-        //     [class*="__search"],
-        //     [class*="__action"]
-        // ):last-child {
-        //     margin-inline-end: var(--primary-nav-padding-x);
-        // }
     }
 
     [class*="primary-nav--inline--"] {
@@ -467,26 +453,31 @@ In this file:
             var(--_template-area-row-3-m)
         ;
 
-        column-gap: var(--primary-nav-padding-x);
-
-        > [class*="__menu"] {
+        [class*="__menu"] {
             align-self: stretch; 
             justify-content: end;
         }
 
-        // > [class*="__logo"] a {
-        //  margin-inline-start : var(--primary-nav-padding-x);
-        // } 
+        [class*="__logo"] a {
+            margin-inline-start : var(--primary-nav-padding-x);
+        } 
+       
+        :is(
+            [class*="__actions"], 
+            [class*="__toggle"]
+        ) {
+            margin-inline-end: var(--primary-nav-padding-x);
+        } 
 
-        // :is(
-        //     [class*="__logo"] a, 
-        //     [class*="__toggle"]
-        // ) {
-        //     margin-block: var(--primary-nav-padding-y);
-        //     margin-inline-end: var(--primary-nav-padding-x);
-        // }
+        :is(
+            [class*="__logo"] a,
+            [class*="__action"],
+            [class*="__toggle"]
+        ) {
+            margin-block: var(--primary-nav-padding-y);
+        }
 
-        > [class*="__search"] {
+        [class*="__search"] {
             @extend .collapse;
 
             padding: var(--nav-gap);
@@ -512,10 +503,21 @@ In this file:
             --_template-area-row-1-d: "logo logo search";
         }
 
-        // > [class*="__logo"] a,
-        // > [class*="__toggle"] {
-        //     margin-inline-start : var(--primary-nav-padding-x);
-        // } 
+        [class*="__logo"] a,
+        [class*="__toggle"] {
+            margin-inline-start : var(--primary-nav-padding-x);
+        } 
+
+        > :is([class*="__search"], [class*="__actions"]):last-child {
+            margin-inline-end : var(--primary-nav-padding-x);
+        }
+
+        [class*="__logo"] a,
+        [class*="__toggle"],
+        [class*="__search"],
+        [class*="__actions"] {
+            margin-block : var(--primary-nav-padding-y);
+        } 
         
         &:has([class*="__actions"]):not(:has([class*="__search"])) {
             --_template-area-row-2-m: "toggle . button";
@@ -536,7 +538,7 @@ In this file:
             var(--_template-area-row-3-m)
         ;
 
-        > [class*="__logo"] {
+        [class*="__logo"] {
             justify-content: center;
             border-block-end-width: var(--border-width);
             border-block-end-style: var(--border-style);
@@ -600,18 +602,18 @@ In this file:
                     display: none;
                 }
 
-                > :is(
+                :is(
                     [class*="__menu"],
                     [class*="__search"]
                 ) {
                     display: flex !important;
                 }
 
-                > [class*="__search"] {
+                [class*="__search"] {
                     padding: unset;
                 }
 
-                > [class*="__menu"] > ul > li {
+                [class*="__menu"] > ul > li {
                     border-block-end: unset;
                 }
 
@@ -621,14 +623,15 @@ In this file:
                 grid-template-columns: 1fr auto auto;
                 grid-template-areas: var(--_template-area-row-1-d);
 
-                > :is(
+                :is(
                     [class*="__menu"],
                     [class*="__search"]
                 ) {
                     border-block-start-style: none !important;
+                    margin-inline-end: var(--primary-nav-padding-x);
                 }
-
-                > [class*="__menu"] {
+                
+                [class*="__menu"] {
                     justify-content: flex-end;
                     align-items: center;
 
