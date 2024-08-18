@@ -30,9 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const alertDismissable = new AlertDismissable();
   alertDismissable.init();
 
-  // const button = new Button();
-  // button.init();
-
   const collapse = new Collapse();
   collapse.init();
 
