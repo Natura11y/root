@@ -56,10 +56,16 @@ In this file:
         position: relative;
     }
 
-    > li > :is(a, button):not([class*="button"]) {
+    > li > :is(
+        a, 
+        button
+    ):not(
+        [class*="button"], 
+        :has([class*="icon"])
+    ) {
         &:hover,
         &:focus {
-            // text-decoration: underline;
+            text-decoration: underline;
         }
     }
 
@@ -223,11 +229,15 @@ In this file:
 
     [class*="nav--has-icons"] {
 
+        &:not([class*="nav--divider"]) {
+            > li > :is(a, button) {
+                width: fit-content;
+            }
+        }
+
         > li > :is(a, button) {
             display: flex;
             align-items: center;
-
-            width: fit-content;
 
             gap:0.375em;
 

@@ -55,6 +55,13 @@ In this file:
         &:not([class*="text-color-"]) {
             color: var(--link-color);
         }
+
+        &:not(:has([class*="icon"])) {
+            &:hover,
+            &:focus {
+                text-decoration: underline;
+            }
+        }
     }
 
     // Has Icon Modifiers
