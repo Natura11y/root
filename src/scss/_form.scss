@@ -70,6 +70,7 @@ In this file:
         
         font-family: inherit;
         font-size: inherit;
+
         line-height: normal;
     }
 
@@ -368,18 +369,17 @@ In this file:
     .form-entry__field--float {
         position: relative;
 
-        line-height: 1.125;
-
         .form-entry__field__label {
             position: absolute;
-            inset-block-start: 0;
-            inset-inline-start: 0;
-            inset-inline-end: 0;
-            inset-block-end: 0;
+            inset: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            min-height: var(--form-field-target-size);
 
             z-index: 1000;
-
-            padding-block: var(--form-field-padding-y);
 
             pointer-events: none;
 
@@ -389,6 +389,8 @@ In this file:
                 display: none;
 
                 --icon-size: 0.625em;
+
+                margin-inline-start: 0.5em;
 
                 vertical-align: baseline;
 
@@ -407,15 +409,6 @@ In this file:
 
             [class*="form-entry__field__"] {
 
-                :is(
-                    select, 
-                    input,
-                    textarea
-                ) {
-                    padding-block-start: calc( var(--form-field-padding-y) * 1.5);
-                    padding-block-end: calc( var(--form-field-padding-y) * 0.5);
-                }
-
                 select {
                     opacity: initial;
                 }
@@ -426,16 +419,18 @@ In this file:
             }
 
             .form-entry__field__label {
-
-                inset-block-end: calc(var(--form-field-padding-y) * 0.5);
                 inset-inline-end: unset;
+                inset-block-start: 0;
                 inset-block-end: unset;
+                transform: translateY(-50%);
 
-                padding: unset;
-
-                margin-block: 0.375em;
+                margin-inline-start: -0.5em;
                 
-                margin-inline: var(--form-field-padding-x);
+                min-height: 1em;
+
+                padding: 0 0.5em;
+                
+                margin-inline: calc(var(--form-field-padding-x) - 0.5em) ;
 
                 font-size: 0.75em;
             }
@@ -736,10 +731,7 @@ In this file:
 
     .file-upload__input {
         position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        inset: 0;
 
         width: 100%;
 
