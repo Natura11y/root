@@ -765,14 +765,15 @@ In this file:
         text-align: start;
 
         z-index: 1000;
+        
+        display: block;
 
-        display: none;
-
-        &.shown {
-            display: block;
+        &:not(.shown) {
+            display: none;
         }
 
-        &::before, &::after {
+        &::before, 
+        &::after {
             content: "";
             position: absolute;
             inset: 0;

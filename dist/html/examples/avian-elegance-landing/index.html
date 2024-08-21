@@ -36,9 +36,9 @@
         
         </div>
 
-        <header id="global-header">
+        <header class="theme-dark" id="global-header">
 
-            <div class="primary-nav--below--lg box-shadow-1 font-size-md">
+            <div class="primary-nav--below--lg font-size-md">
 
                 <div class="primary-nav__logo">
 
@@ -67,9 +67,9 @@
                                 Aliquet
                             </button>
 
-                            <div class="mega-menu--lg font-size-sm" id="dropdown-1">
+                            <div class="mega-menu--lg box-shadow-1 font-size-sm" id="dropdown-1">
 
-                                <div class="container padding-y-4 grid grid-sidebar--right gap-5">
+                                <div class="container wide--xl padding-y-4 grid grid-sidebar--right gap-5">
 
                                     <div class="major order-1">
 
@@ -235,19 +235,32 @@
 
         <main id="skip-header-target">
 
-            <section class="backdrop backdrop--stack--lg theme-dark" id="introduction">
+            <section class="backdrop backdrop--fixed theme-dark" id="introduction">
 
-                <div class="backdrop__image position-relative">
-                
-                    <img class="opacity-50--lg" src="./images/daniil-komov-oC4QFTsi6Rg-unsplash.jpg" alt="Placeholder" />
+
+                <div class="backdrop__image gradient-veneer-bottom">
 
                     <div class="backdrop__image__credit margin-1">
                         <p>Photo by <a href="https://unsplash.com/@dkomov7" target="_blank">Daniil Komov</a> on Unsplash</p>
                     </div>
+
+                    <div class="backdrop__video__play-pause margin-2">
+                        <button class="button button--icon-only" id="toggle-video">
+                            <span class="icon icon-pause" aria-hidden="true"></span>
+                        </button>
+                    </div>
+
+                    <video id="background-video" class="opacity-30" autoplay muted loop aria-hidden="true">
+                        <source src="video.mp4" type="video/mp4">
+                        <img src="./images/daniil-komov-oC4QFTsi6Rg-unsplash.jpg" alt="Background image">
+                    </video>
+
+
                 
                 </div>
 
                 <div class="backdrop__cover">
+
 
                     <div class="container medium text-align-center padding-y-4">
 
@@ -757,6 +770,42 @@
             </div>
 
         </footer>
+
+        <script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const video = document.getElementById('background-video');
+    const toggleButton = document.getElementById('toggle-video');
+    const icon = toggleButton.querySelector('.icon');
+
+    toggleButton.addEventListener('click', function () {
+        if (video.paused) {
+            video.play();
+            icon.classList.remove('icon-play');
+            icon.classList.add('icon-pause');
+            toggleButton.setAttribute('aria-label', 'Pause video');
+            toggleButton.setAttribute('aria-pressed', 'false');
+        } else {
+            video.pause();
+            icon.classList.remove('icon-pause');
+            icon.classList.add('icon-play');
+            toggleButton.setAttribute('aria-label', 'Play video');
+            toggleButton.setAttribute('aria-pressed', 'true');
+        }
+    });
+
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    
+    if (mediaQuery.matches) {
+        video.pause();
+        icon.classList.remove('icon-pause');
+        icon.classList.add('icon-play');
+    }
+});
+
+
+</script>
 
         <!-- Natura11y Javascript -->
         <script src="../../../../dist/natura11y.js"></script>

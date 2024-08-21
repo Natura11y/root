@@ -50,6 +50,13 @@ In this file:
             min-width: 100%;
             min-height: 100%;
         }
+        
+        video {
+            object-fit: cover;
+
+            outline: 2px solid red;
+            min-width: 100%;
+        }
     }
 
     .backdrop__image__credit {
@@ -64,6 +71,15 @@ In this file:
         width: auto;
         
         z-index: 500;
+    }
+
+    .backdrop__video__play-pause {
+        position: absolute;
+        inset-block-start: 0;
+        inset-inline-end: 0;
+        
+        z-index: 600;
+
     }
 
     .backdrop__cover {
