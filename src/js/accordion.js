@@ -136,6 +136,7 @@ export default class Accordion {
         const accordionButton = event.target.closest(
           '[data-accordion="button"]'
         );
+        
         if (!accordionButton) return;
 
         const index = accordionButtonList.indexOf(accordionButton);

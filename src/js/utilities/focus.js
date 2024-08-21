@@ -42,6 +42,7 @@ export const getFocusableElements = (element = document) => {
 //////////////////////////////////////////////
 
 export const focusTrap = (element, firstFocusTarget = element) => {
+
     let focusableElements = getFocusableElements(element);
     
     let firstFocusableElement = focusableElements[0];
