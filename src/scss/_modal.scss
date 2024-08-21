@@ -39,7 +39,9 @@ In this file:
   }
 
   .modal {
-    display: grid;
+    _--display: grid;
+    
+    display: var(_--display);
     place-content: center;
 
     z-index: var(--modal-z-index);
@@ -56,6 +58,8 @@ In this file:
         background-color: var(--modal-overlay-color);
         
         opacity: var(--modal-overlay-opacity);
+
+        pointer-events: none;
     }
 
     &:focus {
@@ -76,8 +80,9 @@ In this file:
     display: flex;
     flex-direction: column;
     
-    max-height: calc(100vh - (var(--modal-padding) * 2));
     width: 100%;
+
+    max-height: calc(100vh - (var(--modal-padding) * 2));
 
     z-index: auto;
     
@@ -125,13 +130,14 @@ In this file:
   // Modal Scroll All Modifier
 
   .modal--scroll-all {
+    _--display: block;
+    
     overflow-y: scroll;
-
-    display: block;
     
     .modal__content {
       margin-block: auto;
     }
+
   }
 
 } // end @layer
