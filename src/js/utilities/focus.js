@@ -82,13 +82,3 @@ export const focusTrap = (element, firstFocusTarget = element) => {
     
     });
 }
-
-
-
-
-
-
-
-
-
-
