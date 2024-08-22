@@ -114,11 +114,12 @@ In this file:
         --gradient-direction: to bottom;
         
         position: relative;
+        overflow: hidden;
 
         &::after {        
             position: absolute;
             content: "";
-            inset: 0;
+            inset: -1px;
 
             background-image: linear-gradient( var(--gradient-direction), hsla(0, 0%, 100%, 0) var(--gradient-veneer-start), var(--gradient-color));
             background-clip: border-box;

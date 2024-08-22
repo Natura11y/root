@@ -20,6 +20,7 @@
 
         <!-- Custom Stylesheet -->
         <link rel="stylesheet" href="./style.css">
+
     </head>
 
     <body class="box-shadow-3">
@@ -149,14 +150,13 @@
 
                                             </div>
                                             
-                    
                                         </div>
 
                                     </div>
 
                                     <a class="minor order-2 backdrop backdrop--fixed theme-dark border-radius-2" href="#1" style="--backdrop-fixed-height: 0">
 
-                                        <div class="backdrop__image">
+                                        <div class="backdrop__media">
                                             <img class="opacity-60" src="./images/dulcey-lima-K_RlYhnKoh8-unsplash.jpg" alt="Placeholder" />
                                         </div>
 
@@ -235,37 +235,45 @@
 
         <main id="skip-header-target">
 
-            <section class="backdrop backdrop--fixed theme-dark" id="introduction">
+            <section class="backdrop backdrop--stack--lg theme-dark" id="introduction">
 
+                <div class="backdrop__media gradient-veneer-bottom">
 
-                <div class="backdrop__image gradient-veneer-bottom">
-
-                    <div class="backdrop__image__credit margin-1">
-                        <p>Photo by <a href="https://unsplash.com/@dkomov7" target="_blank">Daniil Komov</a> on Unsplash</p>
-                    </div>
-
-                    <div class="backdrop__video__play-pause margin-2">
-                        <button class="button button--icon-only" id="toggle-video">
+                    <div class="backdrop__media__control margin-2">
+                        <button class="button button--icon-only font-size-md border-radius-circle" id="toggle-video">
                             <span class="icon icon-pause" aria-hidden="true"></span>
+                        </button>
+
+                        <button class="button button--icon-only font-size-md border-radius-circle" id="mute-video">
+                            <span class="icon icon-volume" aria-hidden="true"></span>
                         </button>
                     </div>
 
-                    <video id="background-video" class="opacity-30" autoplay muted loop aria-hidden="true">
+                    <div class="backdrop__media__credit margin-1">
+                        <p>Photo by <a href="https://unsplash.com/@dkomov7" target="_blank">Daniil Komov</a> on Unsplash</p>
+                    </div>
+
+                    <video
+                        id="background-video"
+                        class="opacity-30--lg"
+                        autoplay
+                        muted
+                        loop
+                        poster="./images/daniil-komov-oC4QFTsi6Rg-unsplash.jpg"
+                        aria-hidden="true"
+                        >
+                    >
                         <source src="video.mp4" type="video/mp4">
-                        <img src="./images/daniil-komov-oC4QFTsi6Rg-unsplash.jpg" alt="Background image">
                     </video>
 
-
-                
                 </div>
 
                 <div class="backdrop__cover">
 
-
                     <div class="container medium text-align-center padding-y-4">
 
                         <h1 class="banner-headline text-shadow--lg margin-bottom-4 text-shadow">
-                            Faucibus scelerisque eleifend donec pretium vulputate sapien.
+                            Faucibus scelerisque eleifend donec pretium vulputate
                         </h1>
 
                         <a class="button button--has-icon theme-primary box-shadow-1--lg" href="#1">
@@ -293,11 +301,11 @@
 
                             <div class="backdrop backdrop--fixed theme-dark aspect-ratio-1x1 border-radius-2">
 
-                                <div class="backdrop__image">
+                                <div class="backdrop__media">
 
                                     <img src="./images/ray-hennessy-8YcUN7F_-6c-unsplash-01.jpg" alt="Placeholder" />
 
-                                    <div class="backdrop__image__credit margin-1">
+                                    <div class="backdrop__media__credit margin-1">
                                         <p>
                                             Photo by <a href="https://unsplash.com/@rayhennessy" target="_blank">Ray Hennessy</a> on Unsplash
                                         </p>
@@ -309,7 +317,7 @@
                     
                             <div class="backdrop backdrop--fixed theme-dark aspect-ratio-1x1 border-radius-2">
 
-                                <div class="backdrop__image">
+                                <div class="backdrop__media">
                                     <img class="opacity-30" src="./images/ray-hennessy-8YcUN7F_-6c-unsplash-02.jpg" alt="Placeholder" />
                                 </div>
 
@@ -377,7 +385,7 @@
 
                             <a class="backdrop backdrop--fixed grid__rowspan-2 border-radius-2" href="#1">
 
-                                <div class="backdrop__image">
+                                <div class="backdrop__media">
                                     <img src="./images/hans-veth-vyQgv-eURTU-unsplash.jpg" alt="Placeholder" />
                                 </div>
 
@@ -399,7 +407,7 @@
 
                            <a class="backdrop border-radius-2" href="https://unsplash.com/@tracminhvu" target="_blank">
 
-                                <div class="backdrop__image">
+                                <div class="backdrop__media">
                                     <img src="./images/trac-vu-KvmW-LLy2m0-unsplash.jpg" alt="Placeholder" />
                                 </div>
 
@@ -421,7 +429,7 @@
                                
                            <a class="backdrop border-radius-2" href="https://unsplash.com/@sree97" target="_blank">
 
-                                <div class="backdrop__image">
+                                <div class="backdrop__media">
                                     <img class="opacity-80" src="./images/sreenivas-a1f-hNNoMGg-unsplash.jpg" alt="Placeholder" />
                                 </div>
 
@@ -575,10 +583,10 @@
 
             <section class="backdrop backdrop--fixed theme-dark" id="sign-up">
 
-                <div class="backdrop__image gradient-veneer-bottom">
+                <div class="backdrop__media gradient-veneer-bottom">
                     <img class="opacity-30" src="./images/david-clode-XoqdPNv-x7Q-unsplash.jpg" alt="Placeholder" />
 
-                    <div class="backdrop__image__credit margin-1">
+                    <div class="backdrop__media__credit margin-1">
                         <p>
                             Photo by <a href="https://unsplash.com/@davidclode" target="_blank">David Clode</a> on Unsplash
                         </p>
@@ -773,39 +781,38 @@
 
         <script>
 
-document.addEventListener('DOMContentLoaded', function () {
+            document.addEventListener('DOMContentLoaded', () => {
 
-    const video = document.getElementById('background-video');
-    const toggleButton = document.getElementById('toggle-video');
-    const icon = toggleButton.querySelector('.icon');
+                const video = document.getElementById('background-video');
+                const toggleButton = document.getElementById('toggle-video');
+                const icon = toggleButton.querySelector('.icon');
 
-    toggleButton.addEventListener('click', function () {
-        if (video.paused) {
-            video.play();
-            icon.classList.remove('icon-play');
-            icon.classList.add('icon-pause');
-            toggleButton.setAttribute('aria-label', 'Pause video');
-            toggleButton.setAttribute('aria-pressed', 'false');
-        } else {
-            video.pause();
-            icon.classList.remove('icon-pause');
-            icon.classList.add('icon-play');
-            toggleButton.setAttribute('aria-label', 'Play video');
-            toggleButton.setAttribute('aria-pressed', 'true');
-        }
-    });
+                toggleButton.addEventListener('click', () => {
+                    if (video.paused) {
+                        video.play();
+                        icon.classList.remove('icon-play');
+                        icon.classList.add('icon-pause');
+                        toggleButton.setAttribute('aria-label', 'Pause video');
+                        toggleButton.setAttribute('aria-pressed', 'false');
+                    } else {
+                        video.pause();
+                        icon.classList.remove('icon-pause');
+                        icon.classList.add('icon-play');
+                        toggleButton.setAttribute('aria-label', 'Play video');
+                        toggleButton.setAttribute('aria-pressed', 'true');
+                    }
+                });
 
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    
-    if (mediaQuery.matches) {
-        video.pause();
-        icon.classList.remove('icon-pause');
-        icon.classList.add('icon-play');
-    }
-});
+                const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+                
+                if (mediaQuery.matches) {
+                    video.pause();
+                    icon.classList.remove('icon-pause');
+                    icon.classList.add('icon-play');
+                }
+            });
 
-
-</script>
+        </script>
 
         <!-- Natura11y Javascript -->
         <script src="../../../../dist/natura11y.js"></script>

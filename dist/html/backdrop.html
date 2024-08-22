@@ -25,15 +25,63 @@
                     </h1>
                 </header>
 
+                <section class="backdrop backdrop--stack--lg theme-dark" id="introduction">
+
+                    <div class="backdrop__media gradient-veneer-bottom">
+
+                        <div class="backdrop__media__control margin-y-2 container">
+                            <button class="button button--icon-only font-size-md border-radius-circle" id="toggle-video">
+                                <span class="icon icon-pause" aria-hidden="true"></span>
+                            </button>
+                        </div>
+
+                        <div class="backdrop__media__credit margin-1">
+                            <p>Photo by <a href="https://unsplash.com/@dkomov7" target="_blank">Daniil Komov</a> on Unsplash</p>
+                        </div>
+
+                        <video
+                            id="background-video"
+                            class="opacity-30--lg"
+                            autoplay
+                            muted
+                            loop
+                            poster="./images/daniil-komov-oC4QFTsi6Rg-unsplash.jpg"
+                            aria-hidden="true"
+                            >
+                        >
+                            <source src="video.mp4" type="video/mp4">
+                        </video>
+
+                    </div>
+
+                    <div class="backdrop__cover">
+
+                        <div class="container medium text-align-center padding-y-4">
+
+                            <h1 class="banner-headline text-shadow--lg margin-bottom-4 text-shadow">
+                                Faucibus scelerisque eleifend donec pretium vulputate
+                            </h1>
+
+                            <a class="button button--has-icon theme-primary box-shadow-1--lg" href="#1">
+                                <span class="button__text">Augue Eget Arcu</span>
+                                <span class="icon icon-arrow-right"></span>
+                            </a>
+                            
+                        </div>
+                        
+                    </div>
+
+                </section>
+
                 <figure class="container medium grid gap-4">
 
                     <div class="backdrop backdrop--stack--lg">
 
-                        <div class="backdrop__image">
+                        <div class="backdrop__media">
 
                             <img class="opacity-50" src="https://via.placeholder.com/1500x750" alt="Placeholder" />
 
-                            <div class="backdrop__image__credit">
+                            <div class="backdrop__media__credit">
                                 <p>Photo by <a href="#1">Jane Doe</a> on Unsplash</p>
                             </div>
 
@@ -56,11 +104,11 @@
 
                     <div class="backdrop theme-dark border-radius-2">
 
-                        <div class="backdrop__image">
+                        <div class="backdrop__media">
 
                             <img class="opacity-50" src="https://via.placeholder.com/1500x750" alt="Placeholder" />
                             
-                            <div class="backdrop__image__credit">
+                            <div class="backdrop__media__credit">
                                 <p>Photo by <a href="#1">Jane Doe</a> on Unsplash</p>
                             </div>
 
@@ -83,7 +131,7 @@
 
                     <a class="backdrop backdrop--fixed gradient-veneer-bottom theme-dark" href="#1">
 
-                        <div class="backdrop__image">
+                        <div class="backdrop__media">
                             <img class="opacity-50" src="https://via.placeholder.com/1500x750" alt="Placeholder" />
                         </div>
 
@@ -107,6 +155,41 @@
             </section>
 
         </main>
+
+        <script>
+
+            document.addEventListener('DOMContentLoaded', () => {
+
+                const video = document.getElementById('background-video');
+                const toggleButton = document.getElementById('toggle-video');
+                const icon = toggleButton.querySelector('.icon');
+
+                toggleButton.addEventListener('click', () => {
+                    if (video.paused) {
+                        video.play();
+                        icon.classList.remove('icon-play');
+                        icon.classList.add('icon-pause');
+                        toggleButton.setAttribute('aria-label', 'Pause video');
+                        toggleButton.setAttribute('aria-pressed', 'false');
+                    } else {
+                        video.pause();
+                        icon.classList.remove('icon-pause');
+                        icon.classList.add('icon-play');
+                        toggleButton.setAttribute('aria-label', 'Play video');
+                        toggleButton.setAttribute('aria-pressed', 'true');
+                    }
+                });
+
+                const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+                
+                if (mediaQuery.matches) {
+                    video.pause();
+                    icon.classList.remove('icon-pause');
+                    icon.classList.add('icon-play');
+                }
+            });
+
+        </script>
 
     </body>
 
