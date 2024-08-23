@@ -9,7 +9,7 @@ export default class Carousel {
   #currentSlide = 0;
   #isDragging = false;
   #isMobile = false;
-  #dragThreshold = 0.05; // Sensitivity: 0.15 means 15% of the slide's width
+  #dragThreshold = 0.15; // Sensitivity: 0.15 means 15% of the slide's width
 
   // Private methods
   #updateSlides(carouselElement, slides, indicators) {
@@ -38,6 +38,29 @@ export default class Carousel {
     liveRegion.classList.add('liveregion', 'screen-reader-only');
     carouselElement.appendChild(liveRegion);
   }
+
+  #generateIndicators(carouselElement, slideCount) {
+    const indicatorContainer = carouselElement.querySelector('.carousel__indicators');
+    if (!indicatorContainer) return;
+
+    indicatorContainer.innerHTML = ''; // Clear existing indicators
+
+    // Generate new indicators using Array.from and map
+    const indicators = Array.from({ length: slideCount }).map((_, i) => {
+        const listItem = document.createElement('li');
+        const button = document.createElement('button');
+        button.className = 'carousel__indicator';
+        button.setAttribute('data-slide', i);
+        if (i === 0) {
+            button.classList.add('active'); // Make the first indicator active initially
+        }
+
+        listItem.appendChild(button);
+        return listItem;
+    });
+
+    indicators.forEach(indicator => indicatorContainer.appendChild(indicator));
+}
 
   #handleDragStart(event) {
     this.#isDragging = true;
@@ -134,6 +157,8 @@ export default class Carousel {
   // Public method to initialize all carousels on the page
   init() {
     this.#carouselList.forEach((carouselElement) => {
+      const slides = carouselElement.querySelectorAll('.carousel__slide');
+      this.#generateIndicators(carouselElement, slides.length); // Generate indicators dynamically
       this.#initLiveRegion(carouselElement);
       this.#initEventListeners(carouselElement);
     });
