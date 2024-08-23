@@ -8,81 +8,9 @@
 
 		<!-- Natura11y Icons -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/natura11y-icons@v1/dist/natura11y-icons.min.css">
-		
-        <style>
 
-			.carousel {
-				position: relative;
-				width: 100%;
-                display: grid;
-                outline: 2px solid red;
-                outline-offset: -2px;
-
-                ul {
-                    list-style: none;
-                    padding: 0;
-                    margin: 0;
-                }
-            }
-
-			.carousel__slides {
-				display: flex; transition: transform 0.5s ease;
-			}
-
-			.carousel__slide {
-				min-width: 100%;
-				pointer-events: none;
-                outline: 6px solid blue;
-                outline-offset: -4px;
-
-                :is(img, video) {
-                    width: 100%;
-                    height: auto;
-                }
-			}
-
-			.carousel__slide[aria-hidden="false"] {
-				opacity: 1;
-				pointer-events: auto;
-			}
-
-			.carousel__prev,
-			.carousel__next,
-            carousel__indicators {
-				position: absolute;
-                transform: translateY(-50%);
-			}
-
-			.carousel__prev {
-				inset: 50% auto auto var(--container-padding-x);
-			}
-
-			.carousel__next {
-				inset: 50% var(--container-padding-x) auto auto;
-			}
-
-            /* Indicators styling */
-            .carousel__indicators {
-                display: flex;
-                justify-content: center;
-                gap: 16px;
-            }
-
-            .carousel__indicator {
-                width: 24px;
-                height: 24px;
-                background-color: #ccc;
-                border-radius: 100%;
-                margin: 0 5px;
-                cursor: pointer;
-            }
-
-            .carousel__indicator.active {
-                background-color: #333;
-            }
-
-		</style>
 	</head>
+    
 	<body>
 
 		<section
