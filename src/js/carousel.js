@@ -34,6 +34,19 @@ export default class Carousel {
     this.#goToSlide(this.#currentSlide + 1);
   };
 
+  #handleKeyDown = (event) => {
+  switch (event.key) {
+    case 'ArrowLeft':
+      this.#goToSlide(this.#currentSlide - 1);
+      break;
+    case 'ArrowRight':
+      this.#goToSlide(this.#currentSlide + 1);
+      break;
+    default:
+      break;
+  }
+};
+
   #handleIndicatorClick = (event) => {
     this.#goToSlide(parseInt(event.target.getAttribute('data-slide')));
   };
@@ -47,6 +60,8 @@ export default class Carousel {
     this.#indicators.forEach((indicator) => {
       indicator.addEventListener('click', this.#handleIndicatorClick);
     });
+
+    document.addEventListener('keydown', this.#handleKeyDown);
 
     // Initialize the first slide as active
     this.#updateSlides();
