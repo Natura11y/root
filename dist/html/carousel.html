@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/natura11y-icons@v1/dist/natura11y-icons.min.css">
 
 	</head>
-    
+
 	<body>
 
 		<section
@@ -57,43 +57,6 @@
             </ul>
 
 		</section>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const slides = document.querySelectorAll('.carousel__slide');
-        const prevButton = document.querySelector('.carousel__prev');
-        const nextButton = document.querySelector('.carousel__next');
-        const indicators = document.querySelectorAll('.carousel__indicator');
-        let currentSlide = 0;
-
-        const updateSlides = () => {
-            slides.forEach((slide, index) => {
-                slide.setAttribute('aria-hidden', index !== currentSlide);
-            });
-            indicators.forEach((indicator, index) => {
-                indicator.classList.toggle('active', index === currentSlide);
-            });
-            document.querySelector('.carousel__slides').style.transform = `translateX(-${currentSlide * 100}%)`;
-        };
-
-        const goToSlide = (index) => {
-            currentSlide = (index + slides.length) % slides.length;
-            updateSlides();
-        };
-
-        prevButton.addEventListener('click', () => goToSlide(currentSlide - 1));
-        nextButton.addEventListener('click', () => goToSlide(currentSlide + 1));
-
-        indicators.forEach((indicator) => {
-            indicator.addEventListener('click', (event) => {
-                goToSlide(parseInt(event.target.getAttribute('data-slide')));
-            });
-        });
-
-        // Initial setup
-        updateSlides();
-    });
-</script>
 
 	</body>
 </html>
