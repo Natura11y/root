@@ -9,7 +9,7 @@ export default class Carousel {
   #currentSlide = 0;
   #isDragging = false;
   #isMobile = false;
-  #dragThreshold = 0.15; // Sensitivity: 0.15 means 15% of the slide's width
+  #dragThreshold = 0.05; // Sensitivity: 0.15 means 15% of the slide's width
 
   // Private methods
   #updateSlides(carouselElement, slides, indicators) {
@@ -88,16 +88,12 @@ export default class Carousel {
 
     carouselElement.querySelector('.carousel__prev').addEventListener('click', (event) => {
       event.stopPropagation(); // Prevent event bubbling
-      if (this.#currentSlide > 0) {
-        this.#goToSlide(carouselElement, slides, indicators, this.#currentSlide - 1);
-      }
+      this.#goToSlide(carouselElement, slides, indicators, this.#currentSlide - 1); // Allow looping
     });
 
     carouselElement.querySelector('.carousel__next').addEventListener('click', (event) => {
       event.stopPropagation(); // Prevent event bubbling
-      if (this.#currentSlide < slides.length - 1) {
-        this.#goToSlide(carouselElement, slides, indicators, this.#currentSlide + 1);
-      }
+      this.#goToSlide(carouselElement, slides, indicators, this.#currentSlide + 1); // Allow looping
     });
 
     delegateEvent(carouselElement, 'click', '.carousel__indicator', (event) => {
@@ -108,14 +104,10 @@ export default class Carousel {
     carouselElement.addEventListener('keydown', (event) => {
       switch (event.key) {
         case 'ArrowLeft':
-          if (this.#currentSlide > 0) {
-            this.#goToSlide(carouselElement, slides, indicators, this.#currentSlide - 1);
-          }
+          this.#goToSlide(carouselElement, slides, indicators, this.#currentSlide - 1); // Allow looping
           break;
         case 'ArrowRight':
-          if (this.#currentSlide < slides.length - 1) {
-            this.#goToSlide(carouselElement, slides, indicators, this.#currentSlide + 1);
-          }
+          this.#goToSlide(carouselElement, slides, indicators, this.#currentSlide + 1); // Allow looping
           break;
         default:
           break;
