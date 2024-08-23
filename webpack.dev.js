@@ -20,6 +20,7 @@ const devPages = {
     'Border': 'border',
     'Backdrop': 'backdrop',
     'Card': 'card',
+    'Carousel': 'carousel',
     'Color': 'color',
     'Collapse': 'collapse',
     'Container': 'container',
@@ -38,7 +39,7 @@ const devPages = {
 }
 
 const devDir = './dist/html';
-const devPage = `${devPages.Backdrop}.html`;
+const devPage = `${devPages.Carousel}.html`;
 
 module.exports = merge(common, {
     mode: 'development',

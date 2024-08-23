@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>Carousel • Natura11y</title>
+
+		<!-- Natura11y Icons -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/natura11y-icons@v1/dist/natura11y-icons.min.css">
+		
+        <style>
+
+			.carousel {
+				position: relative;
+				width: 100%;
+                display: grid;
+                outline: 2px solid red;
+                outline-offset: -2px;
+
+                ul {
+                    list-style: none;
+                    padding: 0;
+                    margin: 0;
+                }
+            }
+
+			.carousel__slides {
+				display: flex; transition: transform 0.5s ease;
+			}
+
+			.carousel__slide {
+				min-width: 100%;
+				pointer-events: none;
+                outline: 6px solid blue;
+                outline-offset: -4px;
+
+                :is(img, video) {
+                    width: 100%;
+                    height: auto;
+                }
+			}
+
+			.carousel__slide[aria-hidden="false"] {
+				opacity: 1;
+				pointer-events: auto;
+			}
+
+			.carousel__prev,
+			.carousel__next,
+            carousel__indicators {
+				position: absolute;
+                transform: translateY(-50%);
+			}
+
+			.carousel__prev {
+				inset: 50% auto auto var(--container-padding-x);
+			}
+
+			.carousel__next {
+				inset: 50% var(--container-padding-x) auto auto;
+			}
+
+            /* Indicators styling */
+            .carousel__indicators {
+                display: flex;
+                justify-content: center;
+                gap: 16px;
+            }
+
+            .carousel__indicator {
+                width: 24px;
+                height: 24px;
+                background-color: #ccc;
+                border-radius: 100%;
+                margin: 0 5px;
+                cursor: pointer;
+            }
+
+            .carousel__indicator.active {
+                background-color: #333;
+            }
+
+		</style>
+	</head>
+	<body>
+
+		<section
+            class="carousel"
+            aria-roledescription="carousel"
+            aria-live="polite"
+            aria-labelledby="carousel-heading"
+        >
+
+            <h3 id="carousel-heading" class="screen-reader-only">Recent news</h3>
+
+			<ul class="carousel__slides">
+				<li class="carousel__slide" aria-hidden="false">
+					<img src="https://via.placeholder.com/1500x750?text=One" alt="Description of image 1" />
+				</li>
+				<li class="carousel__slide" aria-hidden="true">
+					<img src="https://via.placeholder.com/1500x750?text=Two" alt="Description of image 2" />
+				</li>
+				<li class="carousel__slide" aria-hidden="true">
+					<img src="https://via.placeholder.com/1500x750?text=Three" alt="Description of image 3" />
+				</li>
+				<li class="carousel__slide" aria-hidden="true">
+					<img src="https://via.placeholder.com/1500x750?text=Four" alt="Description of image 4" />
+				</li>
+			</ul>
+
+            <div class="carousel__prev">
+                <button class="button button--icon-only">
+                    <span class="icon icon-arrow-left" aria-hidden="true"></span>
+                </button>
+            </div>
+            
+            <div class="carousel__next">
+                <button class="button button--icon-only">
+                    <span class="icon icon-arrow-right" aria-hidden="true"></span>
+                </button>
+            </div>
+
+            <ul class="carousel__indicators">
+                <li class="carousel__indicator active" data-slide="0"></li>
+                <li class="carousel__indicator" data-slide="1"></li>
+                <li class="carousel__indicator" data-slide="2"></li>
+                <li class="carousel__indicator" data-slide="3"></li>
+            </ul>
+
+		</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const slides = document.querySelectorAll('.carousel__slide');
+        const prevButton = document.querySelector('.carousel__prev');
+        const nextButton = document.querySelector('.carousel__next');
+        const indicators = document.querySelectorAll('.carousel__indicator');
+        let currentSlide = 0;
+
+        const updateSlides = () => {
+            slides.forEach((slide, index) => {
+                slide.setAttribute('aria-hidden', index !== currentSlide);
+            });
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentSlide);
+            });
+            document.querySelector('.carousel__slides').style.transform = `translateX(-${currentSlide * 100}%)`;
+        };
+
+        const goToSlide = (index) => {
+            currentSlide = (index + slides.length) % slides.length;
+            updateSlides();
+        };
+
+        prevButton.addEventListener('click', () => goToSlide(currentSlide - 1));
+        nextButton.addEventListener('click', () => goToSlide(currentSlide + 1));
+
+        indicators.forEach((indicator) => {
+            indicator.addEventListener('click', (event) => {
+                goToSlide(parseInt(event.target.getAttribute('data-slide')));
+            });
+        });
+
+        // Initial setup
+        updateSlides();
+    });
+</script>
+
+	</body>
+</html>
