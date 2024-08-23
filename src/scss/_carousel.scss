@@ -26,12 +26,13 @@ In this file:
     .carousel {
         position: relative;
         overflow: hidden;
+            border: 2px solid red !important;
 
-        display: grid;
+        display: flex;
+        flex-direction: column;
         
         ul {
             list-style: none;
-            padding: unset;
             margin: unset;
         }
     }
@@ -41,6 +42,7 @@ In this file:
         transition: transform 0.5s ease-in-out;
         user-select: none; /* Prevent text selection */
         -webkit-user-drag: none; /* Prevent image drag on Safari */
+
     }
 
     .carousel__slide {
@@ -49,14 +51,15 @@ In this file:
         :is(img, video) {
             width: 100%;
             height: auto;
-            outline: 4px solid red;
-            outline-offset: -4px;
+            // outline: 4px solid red;
+            // outline-offset: -4px;
         }
 
         &[aria-hidden="false"] {
             opacity: 1;
             pointer-events: auto;
         }
+        border: 2px solid orange !important;
     }
 
     // Carousel Controls
@@ -90,6 +93,9 @@ In this file:
         inset: auto auto var(--spacer-2) auto;
 
         width: 100%;
+
+        // padding: var(--container-padding-x) var(--spacer-5);
+        // background-color: pink;
     }
 
     .carousel__indicator {
