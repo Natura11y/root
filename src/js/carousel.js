@@ -19,6 +19,8 @@ export default class Carousel {
       indicator.classList.toggle('active', index === this.#currentSlide);
     });
     this.#carouselElement.querySelector('.carousel__slides').style.transform = `translateX(-${this.#currentSlide * 100}%)`;
+    
+    this.#updateLiveRegion(); // Update the live region with the current slide info
   }
 
   #goToSlide(index) {
@@ -35,21 +37,34 @@ export default class Carousel {
   };
 
   #handleKeyDown = (event) => {
-  switch (event.key) {
-    case 'ArrowLeft':
-      this.#goToSlide(this.#currentSlide - 1);
-      break;
-    case 'ArrowRight':
-      this.#goToSlide(this.#currentSlide + 1);
-      break;
-    default:
-      break;
-  }
-};
+    switch (event.key) {
+      case 'ArrowLeft':
+        this.#goToSlide(this.#currentSlide - 1);
+        break;
+      case 'ArrowRight':
+        this.#goToSlide(this.#currentSlide + 1);
+        break;
+      default:
+        break;
+    }
+  };
 
   #handleIndicatorClick = (event) => {
     this.#goToSlide(parseInt(event.target.getAttribute('data-slide')));
   };
+
+  #initLiveRegion() {
+    const liveregion = document.createElement('div');
+    liveregion.setAttribute('aria-live', 'polite');
+    liveregion.setAttribute('aria-atomic', 'true');
+    liveregion.classList.add('liveregion', 'screen-reader-only'); // Use your existing class
+    this.#carouselElement.appendChild(liveregion);
+  }
+
+  #updateLiveRegion() {
+    const liveregion = this.#carouselElement.querySelector('.liveregion');
+    liveregion.textContent = `Item ${this.#currentSlide + 1} of ${this.#slides.length}`;
+  }
 
   #initEventListeners() {
     if (!this.#carouselElement) return;
@@ -77,6 +92,7 @@ export default class Carousel {
     this.#nextButton = this.#carouselElement.querySelector('.carousel__next');
     this.#indicators = this.#carouselElement.querySelectorAll('.carousel__indicator');
 
+    this.#initLiveRegion(); // Initialize the live region
     this.#initEventListeners();
   }
 }

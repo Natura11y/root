@@ -29,18 +29,15 @@ In this file:
 
         display: grid;
         
-        width: 100%;
-
         ul {
             list-style: none;
-            padding: 0;
-            margin: 0;
+            padding: unset;
+            margin: unset;
         }
     }
 
     .carousel__slides {
         display: flex;
-        flex-direction: row;
         transition: transform 0.5s ease-in-out;
     }
 
@@ -58,11 +55,9 @@ In this file:
             opacity: 1;
             pointer-events: auto;
         }
-
-        outline: 6px solid blue;
-        outline-offset: -4px;
     }
 
+    // Carousel Controls
 
     .carousel__prev,
     .carousel__next,
@@ -79,7 +74,8 @@ In this file:
         inset: 50% var(--container-padding-x) auto auto;
     }
 
-    /* Indicators styling */
+    // Carousel Indicators
+
     .carousel__indicators {
         display: flex;
         justify-content: center;
