@@ -25,13 +25,11 @@ In this file:
 
     .carousel {
         position: relative;
+        overflow: hidden;
 
         display: grid;
         
         width: 100%;
-        
-        outline: 2px solid red;
-        outline-offset: -2px;
 
         ul {
             list-style: none;
@@ -43,7 +41,7 @@ In this file:
     .carousel__slides {
         display: flex;
         flex-direction: row;
-        transition: transform 0.5s ease-in-out; /* Smooth transition */
+        transition: transform 0.5s ease-in-out;
     }
 
     .carousel__slide {
