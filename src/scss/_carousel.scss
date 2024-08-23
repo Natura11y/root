@@ -25,8 +25,10 @@ In this file:
 
     .carousel {
         position: relative;
-        overflow: hidden;
-            border: 2px solid red !important;
+        overflow-x: scroll;
+  scroll-snap-type: x mandatory; /* Enable snapping along the horizontal axis */
+  scroll-behavior: smooth; /* Optional: Adds smooth scrolling */
+        border: 2px solid red !important;
 
         display: flex;
         flex-direction: column;
@@ -35,13 +37,21 @@ In this file:
             list-style: none;
             margin: unset;
         }
+        /* Hide scrollbar */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
     }
+
+
+.carousel::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
 
     .carousel__slides {
         display: flex;
-        transition: transform 0.5s ease-in-out;
-        user-select: none; /* Prevent text selection */
-        -webkit-user-drag: none; /* Prevent image drag on Safari */
+        // transition: transform 0.5s ease-in-out;
+        // user-select: none; /* Prevent text selection */
+        // -webkit-user-drag: none; /* Prevent image drag on Safari */
 
     }
 
@@ -55,10 +65,14 @@ In this file:
             // outline-offset: -4px;
         }
 
-        &[aria-hidden="false"] {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        flex: 0 0 100%; /* Each slide takes up 100% of the container width */
+  scroll-snap-align: center; /* Snap each slide to the center */
+  width: 100%;
+
+        // &[aria-hidden="false"] {
+        //     opacity: 1;
+        //     pointer-events: auto;
+        // }
         border: 2px solid orange !important;
     }
 

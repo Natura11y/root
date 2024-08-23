@@ -35,11 +35,12 @@ const devPages = {
     'Spacer': 'spacer',
     'Tab': 'tab',
     'Table': 'table',
+    'Track': 'track',
     'Typography': 'typography'
 }
 
 const devDir = './dist/html';
-const devPage = `${devPages.Carousel}.html`;
+const devPage = `${devPages.Track}.html`;
 
 module.exports = merge(common, {
     mode: 'development',
