@@ -154,11 +154,11 @@ export default class Carousel {
     this.#updateSlides(carouselElement, slides, indicators); // Initialize the first slide
   }
 
-  // Public method to initialize all carousels on the page
+  // Public methods
   init() {
     this.#carouselList.forEach((carouselElement) => {
       const slides = carouselElement.querySelectorAll('.carousel__slide');
-      this.#generateIndicators(carouselElement, slides.length); // Generate indicators dynamically
+      this.#generateIndicators(carouselElement, slides.length);
       this.#initLiveRegion(carouselElement);
       this.#initEventListeners(carouselElement);
     });
