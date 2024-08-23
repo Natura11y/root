@@ -60,12 +60,13 @@ export default class Carousel {
     });
 
     indicators.forEach(indicator => indicatorContainer.appendChild(indicator));
-}
+  }
 
   #handleDragStart(event) {
     this.#isDragging = true;
     this.#startX = event.type.includes('mouse') ? event.clientX : event.touches[0].clientX;
     this.#isMobile = event.type.includes('touch'); // Detect if the interaction is on a mobile device
+
     if (this.#isMobile) {
       event.preventDefault(); // Prevent default touch behavior that might interfere
     }
@@ -82,6 +83,7 @@ export default class Carousel {
 
   #handleDragEnd(carouselElement, slides, indicators) {
     this.#isDragging = false;
+    
     const deltaX = this.#currentX - this.#startX;
     const slideWidth = carouselElement.offsetWidth;
 
@@ -101,6 +103,13 @@ export default class Carousel {
         cancelable: true
       });
       event.target.dispatchEvent(clickEvent);
+    }
+  }
+
+  #handleMouseLeave(event, carouselElement, slides, indicators) {
+    if (this.#isDragging) {
+      console.log('Mouse left the carousel while dragging'); // Use console.log for debugging
+      this.#handleDragEnd(carouselElement, slides, indicators);
     }
   }
 
@@ -146,6 +155,8 @@ export default class Carousel {
     carouselElement.addEventListener('mousedown', (event) => this.#handleDragStart(event));
     carouselElement.addEventListener('mousemove', (event) => this.#handleDragMove(event, carouselElement));
     carouselElement.addEventListener('mouseup', () => this.#handleDragEnd(carouselElement, slides, indicators));
+
+    carouselElement.addEventListener('mouseleave', (event) => this.#handleMouseLeave(event, carouselElement, slides, indicators));
 
     carouselElement.addEventListener('touchstart', (event) => this.#handleDragStart(event));
     carouselElement.addEventListener('touchmove', (event) => this.#handleDragMove(event, carouselElement));
