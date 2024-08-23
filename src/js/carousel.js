@@ -10,6 +10,7 @@ export default class Carousel {
   #isDragging = false;
   #isMobile = false;
   #dragThreshold = 0.15; // Sensitivity: 0.15 means 15% of the slide's width
+  #activeCarousel = null; // Tracks which carousel is currently being dragged
 
   // Private methods
   #updateSlides(carouselElement, slides, indicators) {
@@ -62,10 +63,13 @@ export default class Carousel {
     indicators.forEach(indicator => indicatorContainer.appendChild(indicator));
   }
 
-  #handleDragStart(event) {
+  #handleDragStart(event, carouselElement) {
     this.#isDragging = true;
     this.#startX = event.type.includes('mouse') ? event.clientX : event.touches[0].clientX;
     this.#isMobile = event.type.includes('touch'); // Detect if the interaction is on a mobile device
+
+    // Store the reference to the current carousel
+    this.#activeCarousel = carouselElement;
 
     if (this.#isMobile) {
       event.preventDefault(); // Prevent default touch behavior that might interfere
@@ -73,7 +77,7 @@ export default class Carousel {
   }
 
   #handleDragMove(event, carouselElement) {
-    if (!this.#isDragging) return;
+    if (!this.#isDragging || this.#activeCarousel !== carouselElement) return;
     this.#currentX = event.type.includes('mouse') ? event.clientX : event.touches[0].clientX;
     const deltaX = this.#currentX - this.#startX;
 
@@ -82,8 +86,9 @@ export default class Carousel {
   }
 
   #handleDragEnd(carouselElement, slides, indicators) {
+    if (this.#activeCarousel !== carouselElement) return; // Ensure the drag end is for the correct carousel
+
     this.#isDragging = false;
-    
     const deltaX = this.#currentX - this.#startX;
     const slideWidth = carouselElement.offsetWidth;
 
@@ -104,11 +109,13 @@ export default class Carousel {
       });
       event.target.dispatchEvent(clickEvent);
     }
+
+    // Reset the active carousel
+    this.#activeCarousel = null;
   }
 
   #handleMouseLeave(event, carouselElement, slides, indicators) {
-    if (this.#isDragging) {
-      console.log('Mouse left the carousel while dragging'); // Use console.log for debugging
+    if (this.#isDragging && this.#activeCarousel === carouselElement) {
       this.#handleDragEnd(carouselElement, slides, indicators);
     }
   }
@@ -119,12 +126,12 @@ export default class Carousel {
     this.#currentSlide = 0;
 
     carouselElement.querySelector('.carousel__prev').addEventListener('click', (event) => {
-      event.stopPropagation(); // Prevent event bubbling
+      event.stopPropagation();
       this.#goToSlide(carouselElement, slides, indicators, this.#currentSlide - 1); // Allow looping
     });
 
     carouselElement.querySelector('.carousel__next').addEventListener('click', (event) => {
-      event.stopPropagation(); // Prevent event bubbling
+      event.stopPropagation();
       this.#goToSlide(carouselElement, slides, indicators, this.#currentSlide + 1); // Allow looping
     });
 
@@ -152,13 +159,13 @@ export default class Carousel {
     });
 
     // Drag events
-    carouselElement.addEventListener('mousedown', (event) => this.#handleDragStart(event));
+    carouselElement.addEventListener('mousedown', (event) => this.#handleDragStart(event, carouselElement));
     carouselElement.addEventListener('mousemove', (event) => this.#handleDragMove(event, carouselElement));
     carouselElement.addEventListener('mouseup', () => this.#handleDragEnd(carouselElement, slides, indicators));
 
     carouselElement.addEventListener('mouseleave', (event) => this.#handleMouseLeave(event, carouselElement, slides, indicators));
 
-    carouselElement.addEventListener('touchstart', (event) => this.#handleDragStart(event));
+    carouselElement.addEventListener('touchstart', (event) => this.#handleDragStart(event, carouselElement));
     carouselElement.addEventListener('touchmove', (event) => this.#handleDragMove(event, carouselElement));
     carouselElement.addEventListener('touchend', (event) => this.#handleDragEnd(carouselElement, slides, indicators));
 
