@@ -2,91 +2,148 @@ import { delegateEvent } from './utilities/eventDelegation';
 
 export default class Carousel {
 
-	// Private properties
+  // Private properties
+  #carouselList = document.querySelectorAll('.carousel');
+  #startX = 0;
+  #currentX = 0;
+  #currentSlide = 0;
+  #isDragging = false;
+  #isMobile = false;
+  #dragThreshold = 0.15; // Sensitivity: 0.15 means 15% of the slide's width
 
-	#carouselList = document.querySelectorAll('.carousel');
+  // Private methods
+  #updateSlides(carouselElement, slides, indicators) {
+    slides.forEach((slide, index) => {
+      const isActive = index === this.#currentSlide;
+      slide.setAttribute('aria-hidden', !isActive);
+    });
 
-	// Private methods
-	
-    // Update the slides' visibility and active state of indicators
-	#updateSlides(carouselElement, currentSlide, slides, indicators) {
-		slides.forEach((slide, index) => {
-			const isActive = index === currentSlide;
-			slide.setAttribute('aria-hidden', !isActive);
-		});
+    indicators.forEach((indicator, index) => {
+      indicator.classList.toggle('active', index === this.#currentSlide);
+    });
 
-		indicators.forEach((indicator, index) => {
-			indicator.classList.toggle('active', index === currentSlide);
-		});
+    const transformValue = `translateX(-${this.#currentSlide * 100}%)`;
+    carouselElement.querySelector('.carousel__slides').style.transform = transformValue;
+  }
 
-		const transformValue = `translateX(-${currentSlide * 100}%)`;
-		carouselElement.querySelector('.carousel__slides').style.transform = transformValue;
+  #goToSlide(carouselElement, slides, indicators, newIndex) {
+    this.#currentSlide = (newIndex + slides.length) % slides.length;
+    this.#updateSlides(carouselElement, slides, indicators);
+  }
 
-		this.#updateLiveRegion(carouselElement, currentSlide, slides.length);
-	}
+  #initLiveRegion(carouselElement) {
+    const liveRegion = document.createElement('div');
+    liveRegion.setAttribute('aria-live', 'polite');
+    liveRegion.setAttribute('aria-atomic', 'true');
+    liveRegion.classList.add('liveregion', 'screen-reader-only');
+    carouselElement.appendChild(liveRegion);
+  }
 
-	// Move to a specific slide
-	#goToSlide(carouselElement, slides, indicators, currentSlide, newIndex) {
-		currentSlide = (newIndex + slides.length) % slides.length;
-		this.#updateSlides(carouselElement, currentSlide, slides, indicators);
-		return currentSlide;
-	}
+  #handleDragStart(event) {
+    this.#isDragging = true;
+    this.#startX = event.type.includes('mouse') ? event.clientX : event.touches[0].clientX;
+    this.#isMobile = event.type.includes('touch'); // Detect if the interaction is on a mobile device
+    if (this.#isMobile) {
+      event.preventDefault(); // Prevent default touch behavior that might interfere
+    }
+  }
 
-	// Initialize the live region for screen readers
-	#initLiveRegion(carouselElement) {
-		const liveRegion = document.createElement('div');
-		liveRegion.setAttribute('aria-live', 'polite');
-		liveRegion.setAttribute('aria-atomic', 'true');
-		liveRegion.classList.add('liveregion', 'screen-reader-only');
-		carouselElement.appendChild(liveRegion);
-	}
+  #handleDragMove(event, carouselElement) {
+    if (!this.#isDragging) return;
+    this.#currentX = event.type.includes('mouse') ? event.clientX : event.touches[0].clientX;
+    const deltaX = this.#currentX - this.#startX;
 
-	// Update the live region content
-	#updateLiveRegion(carouselElement, currentSlide, totalSlides) {
-		const liveRegion = carouselElement.querySelector('.liveregion');
-		liveRegion.textContent = `Item ${currentSlide + 1} of ${totalSlides}`;
-	}
+    // Move the slides with the drag
+    carouselElement.querySelector('.carousel__slides').style.transform = `translateX(calc(-${this.#currentSlide * 100}% + ${deltaX}px))`;
+  }
 
-	// Initialize event listeners for the carousel
-	#initEventListeners(carouselElement) {
-		const slides = carouselElement.querySelectorAll('.carousel__slide');
-		const indicators = carouselElement.querySelectorAll('.carousel__indicator');
-		let currentSlide = 0;
+  #handleDragEnd(carouselElement, slides, indicators) {
+    this.#isDragging = false;
+    const deltaX = this.#currentX - this.#startX;
+    const slideWidth = carouselElement.offsetWidth;
 
-		delegateEvent(carouselElement, 'click', '.carousel__prev', () => {
-			currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, currentSlide - 1);
-		});
+    if (deltaX < -slideWidth * this.#dragThreshold && this.#currentSlide < slides.length - 1) { // Swipe left
+      this.#goToSlide(carouselElement, slides, indicators, this.#currentSlide + 1);
+    } else if (deltaX > slideWidth * this.#dragThreshold && this.#currentSlide > 0) { // Swipe right
+      this.#goToSlide(carouselElement, slides, indicators, this.#currentSlide - 1);
+    } else {
+      this.#updateSlides(carouselElement, slides, indicators); // Snap back to the current slide
+    }
 
-		delegateEvent(carouselElement, 'click', '.carousel__next', () => {
-			currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, currentSlide + 1);
-		});
+    if (this.#isMobile) {
+      // Trigger a click event manually for mobile after touch end
+      const clickEvent = new MouseEvent('click', {
+        view: window,
+        bubbles: true,
+        cancelable: true
+      });
+      event.target.dispatchEvent(clickEvent);
+    }
+  }
 
-		delegateEvent(carouselElement, 'click', '.carousel__indicator', (event) => {
-			const newIndex = parseInt(event.target.getAttribute('data-slide'));
-			currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, newIndex);
-		});
+  #initEventListeners(carouselElement) {
+    const slides = carouselElement.querySelectorAll('.carousel__slide');
+    const indicators = carouselElement.querySelectorAll('.carousel__indicator');
+    this.#currentSlide = 0;
 
-        carouselElement.addEventListener('keydown', (event) => {
-            switch (event.key) {
-                case 'ArrowLeft':
-                    currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, currentSlide - 1);
-                    break;
-                case 'ArrowRight':
-                    currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, currentSlide + 1);
-                    break;
-                default:
-                    break;
-            }
-        });
+    carouselElement.querySelector('.carousel__prev').addEventListener('click', (event) => {
+      event.stopPropagation(); // Prevent event bubbling
+      if (this.#currentSlide > 0) {
+        this.#goToSlide(carouselElement, slides, indicators, this.#currentSlide - 1);
+      }
+    });
 
-		this.#updateSlides(carouselElement, currentSlide, slides, indicators); // Initialize the first slide
-	}
+    carouselElement.querySelector('.carousel__next').addEventListener('click', (event) => {
+      event.stopPropagation(); // Prevent event bubbling
+      if (this.#currentSlide < slides.length - 1) {
+        this.#goToSlide(carouselElement, slides, indicators, this.#currentSlide + 1);
+      }
+    });
 
-	// Public method to initialize all carousels on the page
-	init() {
-		this.#carouselList.forEach((carouselElement) => {
-			this.#initLiveRegion(carouselElement);
-			this.#initEventListeners(carouselElement);
-		});
-	}
+    delegateEvent(carouselElement, 'click', '.carousel__indicator', (event) => {
+      const newIndex = parseInt(event.target.getAttribute('data-slide'));
+      this.#goToSlide(carouselElement, slides, indicators, newIndex);
+    });
+
+    carouselElement.addEventListener('keydown', (event) => {
+      switch (event.key) {
+        case 'ArrowLeft':
+          if (this.#currentSlide > 0) {
+            this.#goToSlide(carouselElement, slides, indicators, this.#currentSlide - 1);
+          }
+          break;
+        case 'ArrowRight':
+          if (this.#currentSlide < slides.length - 1) {
+            this.#goToSlide(carouselElement, slides, indicators, this.#currentSlide + 1);
+          }
+          break;
+        default:
+          break;
+      }
+    });
+
+    // Prevent default dragging behavior on images
+    slides.forEach(slide => {
+      slide.addEventListener('dragstart', (event) => event.preventDefault());
+    });
+
+    // Drag events
+    carouselElement.addEventListener('mousedown', (event) => this.#handleDragStart(event));
+    carouselElement.addEventListener('mousemove', (event) => this.#handleDragMove(event, carouselElement));
+    carouselElement.addEventListener('mouseup', () => this.#handleDragEnd(carouselElement, slides, indicators));
+
+    carouselElement.addEventListener('touchstart', (event) => this.#handleDragStart(event));
+    carouselElement.addEventListener('touchmove', (event) => this.#handleDragMove(event, carouselElement));
+    carouselElement.addEventListener('touchend', (event) => this.#handleDragEnd(carouselElement, slides, indicators));
+
+    this.#updateSlides(carouselElement, slides, indicators); // Initialize the first slide
+  }
+
+  // Public method to initialize all carousels on the page
+  init() {
+    this.#carouselList.forEach((carouselElement) => {
+      this.#initLiveRegion(carouselElement);
+      this.#initEventListeners(carouselElement);
+    });
+  }
 }

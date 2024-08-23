@@ -39,12 +39,14 @@ In this file:
     .carousel__slides {
         display: flex;
         transition: transform 0.5s ease-in-out;
+        user-select: none; /* Prevent text selection */
+        -webkit-user-drag: none; /* Prevent image drag on Safari */
     }
 
     .carousel__slide {
         min-width: 100%;
 
-        pointer-events: none;
+        // pointer-events: none;
 
         :is(img, video) {
             width: 100%;
