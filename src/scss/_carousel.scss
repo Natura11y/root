@@ -49,6 +49,8 @@ In this file:
         :is(img, video) {
             width: 100%;
             height: auto;
+            outline: 4px solid red;
+            outline-offset: -4px;
         }
 
         &[aria-hidden="false"] {
@@ -68,11 +70,13 @@ In this file:
     .carousel__prev {
         transform: translateY(-50%);
         inset: 50% auto auto var(--container-padding-x);
+        z-index: 5;
     }
 
     .carousel__next {
         transform: translateY(-50%);
         inset: 50% var(--container-padding-x) auto auto;
+        z-index: 5;
     }
 
     // Carousel Indicators
