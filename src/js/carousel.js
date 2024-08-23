@@ -3,96 +3,83 @@ import { delegateEvent } from './utilities/eventDelegation';
 export default class Carousel {
 
   // Private properties
-  #carouselElement;
-  #slides;
-  #prevButton;
-  #nextButton;
-  #indicators;
-  #currentSlide = 0;
+  #carouselList = document.querySelectorAll('.carousel');
 
   // Private methods
-  #updateSlides() {
-    this.#slides.forEach((slide, index) => {
-      slide.setAttribute('aria-hidden', index !== this.#currentSlide);
+  #updateSlides(carouselElement, currentSlide, slides, indicators) {
+    slides.forEach((slide, index) => {
+      slide.setAttribute('aria-hidden', index !== currentSlide);
     });
-    this.#indicators.forEach((indicator, index) => {
-      indicator.classList.toggle('active', index === this.#currentSlide);
+    indicators.forEach((indicator, index) => {
+      indicator.classList.toggle('active', index === currentSlide);
     });
-    this.#carouselElement.querySelector('.carousel__slides').style.transform = `translateX(-${this.#currentSlide * 100}%)`;
-    
-    this.#updateLiveRegion(); // Update the live region with the current slide info
+    carouselElement.querySelector('.carousel__slides').style.transform = `translateX(-${currentSlide * 100}%)`;
+
+    // Update the live region with the current slide info
+    this.#updateLiveRegion(carouselElement, currentSlide, slides.length);
   }
 
-  #goToSlide(index) {
-    this.#currentSlide = (index + this.#slides.length) % this.#slides.length;
-    this.#updateSlides();
+  #goToSlide(carouselElement, slides, indicators, currentSlide, newIndex) {
+    currentSlide = (newIndex + slides.length) % slides.length;
+    this.#updateSlides(carouselElement, currentSlide, slides, indicators);
+    return currentSlide;
   }
 
-  #handlePrevClick = () => {
-    this.#goToSlide(this.#currentSlide - 1);
-  };
-
-  #handleNextClick = () => {
-    this.#goToSlide(this.#currentSlide + 1);
-  };
-
-  #handleKeyDown = (event) => {
-    switch (event.key) {
-      case 'ArrowLeft':
-        this.#goToSlide(this.#currentSlide - 1);
-        break;
-      case 'ArrowRight':
-        this.#goToSlide(this.#currentSlide + 1);
-        break;
-      default:
-        break;
-    }
-  };
-
-  #handleIndicatorClick = (event) => {
-    this.#goToSlide(parseInt(event.target.getAttribute('data-slide')));
-  };
-
-  #initLiveRegion() {
+  #initLiveRegion(carouselElement) {
     const liveregion = document.createElement('div');
     liveregion.setAttribute('aria-live', 'polite');
     liveregion.setAttribute('aria-atomic', 'true');
     liveregion.classList.add('liveregion', 'screen-reader-only'); // Use your existing class
-    this.#carouselElement.appendChild(liveregion);
+    carouselElement.appendChild(liveregion);
   }
 
-  #updateLiveRegion() {
-    const liveregion = this.#carouselElement.querySelector('.liveregion');
-    liveregion.textContent = `Item ${this.#currentSlide + 1} of ${this.#slides.length}`;
+  #updateLiveRegion(carouselElement, currentSlide, totalSlides) {
+    const liveregion = carouselElement.querySelector('.liveregion');
+    liveregion.textContent = `Item ${currentSlide + 1} of ${totalSlides}`;
   }
 
-  #initEventListeners() {
-    if (!this.#carouselElement) return;
+  #initEventListeners(carouselElement) {
+    const slides = carouselElement.querySelectorAll('.carousel__slide');
+    const indicators = carouselElement.querySelectorAll('.carousel__indicator');
+    let currentSlide = 0;
 
-    this.#prevButton.addEventListener('click', this.#handlePrevClick);
-    this.#nextButton.addEventListener('click', this.#handleNextClick);
-
-    this.#indicators.forEach((indicator) => {
-      indicator.addEventListener('click', this.#handleIndicatorClick);
+    // Delegate event for previous and next buttons
+    delegateEvent(carouselElement, 'click', '.carousel__prev', () => {
+      currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, currentSlide - 1);
     });
 
-    document.addEventListener('keydown', this.#handleKeyDown);
+    delegateEvent(carouselElement, 'click', '.carousel__next', () => {
+      currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, currentSlide + 1);
+    });
+
+    // Delegate event for indicator click
+    delegateEvent(carouselElement, 'click', '.carousel__indicator', (event) => {
+      currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, parseInt(event.target.getAttribute('data-slide')));
+    });
+
+    // Directly add the keydown event listener since it's on the carousel level
+    carouselElement.addEventListener('keydown', (event) => {
+      switch (event.key) {
+        case 'ArrowLeft':
+          currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, currentSlide - 1);
+          break;
+        case 'ArrowRight':
+          currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, currentSlide + 1);
+          break;
+        default:
+          break;
+      }
+    });
 
     // Initialize the first slide as active
-    this.#updateSlides();
+    this.#updateSlides(carouselElement, currentSlide, slides, indicators);
   }
 
   // Public methods
   init() {
-    this.#carouselElement = document.querySelector('.carousel');
-    if (!this.#carouselElement) return;
-
-    this.#slides = this.#carouselElement.querySelectorAll('.carousel__slide');
-    this.#prevButton = this.#carouselElement.querySelector('.carousel__prev');
-    this.#nextButton = this.#carouselElement.querySelector('.carousel__next');
-    this.#indicators = this.#carouselElement.querySelectorAll('.carousel__indicator');
-
-    this.#initLiveRegion(); // Initialize the live region
-    this.#initEventListeners();
+    this.#carouselList.forEach((carouselElement) => {
+      this.#initLiveRegion(carouselElement);
+      this.#initEventListeners(carouselElement);
+    });
   }
 }

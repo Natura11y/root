@@ -13,12 +13,13 @@
 
 	<body class="container margin-y-3">
 
+    <div class="grid gap-3">
+    
 		<section
             class="carousel"
             aria-roledescription="carousel"
             aria-live="polite"
-            aria-labelledby="carousel-heading"
-        >
+            aria-labelledby="carousel-heading">
 
             <h3 id="carousel-heading" class="screen-reader-only">Recent news</h3>
 
@@ -64,8 +65,62 @@
                 </li>
             </ul>
 
+		</section>
+
+		<section
+            class="carousel"
+            aria-roledescription="carousel"
+            aria-live="polite"
+            aria-labelledby="carousel-heading">
+
+            <h3 id="carousel-heading" class="screen-reader-only">Recent news</h3>
+
+			<ul class="carousel__slides">
+				<li class="carousel__slide" aria-hidden="false">
+					<img src="https://via.placeholder.com/1500x750?text=One" alt="Description of image 1" />
+				</li>
+				<li class="carousel__slide" aria-hidden="true">
+					<img src="https://via.placeholder.com/1500x750?text=Two" alt="Description of image 2" />
+				</li>
+				<li class="carousel__slide" aria-hidden="true">
+					<img src="https://via.placeholder.com/1500x750?text=Three" alt="Description of image 3" />
+				</li>
+				<li class="carousel__slide" aria-hidden="true">
+					<img src="https://via.placeholder.com/1500x750?text=Four" alt="Description of image 4" />
+				</li>
+			</ul>
+
+            <div class="carousel__prev" aria-label="Previous Slide">
+                <button class="button button--icon-only">
+                    <span class="icon icon-arrow-left" aria-hidden="true"></span>
+                </button>
+            </div>
+            
+            <div class="carousel__next" aria-label="Previous Slide">
+                <button class="button button--icon-only">
+                    <span class="icon icon-arrow-right" aria-hidden="true"></span>
+                </button>
+            </div>
+
+            <ul class="carousel__indicators">
+                <li>
+                    <button class="carousel__indicator active" data-slide="0"></button>
+                </li>
+                <li>
+                    <button class="carousel__indicator" data-slide="1"></button>
+                </li>
+                <li>
+                    <button class="carousel__indicator" data-slide="2"></button>
+                </li>
+                <li>
+                    <button class="carousel__indicator" data-slide="3"></button>
+                </li>
+            </ul>
 
 		</section>
+
+    </div>
+
 
 	</body>
 </html>
