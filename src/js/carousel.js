@@ -2,84 +2,91 @@ import { delegateEvent } from './utilities/eventDelegation';
 
 export default class Carousel {
 
-  // Private properties
-  #carouselList = document.querySelectorAll('.carousel');
+	// Private properties
 
-  // Private methods
-  #updateSlides(carouselElement, currentSlide, slides, indicators) {
-    slides.forEach((slide, index) => {
-      slide.setAttribute('aria-hidden', index !== currentSlide);
-    });
-    indicators.forEach((indicator, index) => {
-      indicator.classList.toggle('active', index === currentSlide);
-    });
-    carouselElement.querySelector('.carousel__slides').style.transform = `translateX(-${currentSlide * 100}%)`;
+	#carouselList = document.querySelectorAll('.carousel');
 
-    // Update the live region with the current slide info
-    this.#updateLiveRegion(carouselElement, currentSlide, slides.length);
-  }
+	// Private methods
+	
+    // Update the slides' visibility and active state of indicators
+	#updateSlides(carouselElement, currentSlide, slides, indicators) {
+		slides.forEach((slide, index) => {
+			const isActive = index === currentSlide;
+			slide.setAttribute('aria-hidden', !isActive);
+		});
 
-  #goToSlide(carouselElement, slides, indicators, currentSlide, newIndex) {
-    currentSlide = (newIndex + slides.length) % slides.length;
-    this.#updateSlides(carouselElement, currentSlide, slides, indicators);
-    return currentSlide;
-  }
+		indicators.forEach((indicator, index) => {
+			indicator.classList.toggle('active', index === currentSlide);
+		});
 
-  #initLiveRegion(carouselElement) {
-    const liveregion = document.createElement('div');
-    liveregion.setAttribute('aria-live', 'polite');
-    liveregion.setAttribute('aria-atomic', 'true');
-    liveregion.classList.add('liveregion', 'screen-reader-only'); // Use your existing class
-    carouselElement.appendChild(liveregion);
-  }
+		const transformValue = `translateX(-${currentSlide * 100}%)`;
+		carouselElement.querySelector('.carousel__slides').style.transform = transformValue;
 
-  #updateLiveRegion(carouselElement, currentSlide, totalSlides) {
-    const liveregion = carouselElement.querySelector('.liveregion');
-    liveregion.textContent = `Item ${currentSlide + 1} of ${totalSlides}`;
-  }
+		this.#updateLiveRegion(carouselElement, currentSlide, slides.length);
+	}
 
-  #initEventListeners(carouselElement) {
-    const slides = carouselElement.querySelectorAll('.carousel__slide');
-    const indicators = carouselElement.querySelectorAll('.carousel__indicator');
-    let currentSlide = 0;
+	// Move to a specific slide
+	#goToSlide(carouselElement, slides, indicators, currentSlide, newIndex) {
+		currentSlide = (newIndex + slides.length) % slides.length;
+		this.#updateSlides(carouselElement, currentSlide, slides, indicators);
+		return currentSlide;
+	}
 
-    // Delegate event for previous and next buttons
-    delegateEvent(carouselElement, 'click', '.carousel__prev', () => {
-      currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, currentSlide - 1);
-    });
+	// Initialize the live region for screen readers
+	#initLiveRegion(carouselElement) {
+		const liveRegion = document.createElement('div');
+		liveRegion.setAttribute('aria-live', 'polite');
+		liveRegion.setAttribute('aria-atomic', 'true');
+		liveRegion.classList.add('liveregion', 'screen-reader-only');
+		carouselElement.appendChild(liveRegion);
+	}
 
-    delegateEvent(carouselElement, 'click', '.carousel__next', () => {
-      currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, currentSlide + 1);
-    });
+	// Update the live region content
+	#updateLiveRegion(carouselElement, currentSlide, totalSlides) {
+		const liveRegion = carouselElement.querySelector('.liveregion');
+		liveRegion.textContent = `Item ${currentSlide + 1} of ${totalSlides}`;
+	}
 
-    // Delegate event for indicator click
-    delegateEvent(carouselElement, 'click', '.carousel__indicator', (event) => {
-      currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, parseInt(event.target.getAttribute('data-slide')));
-    });
+	// Initialize event listeners for the carousel
+	#initEventListeners(carouselElement) {
+		const slides = carouselElement.querySelectorAll('.carousel__slide');
+		const indicators = carouselElement.querySelectorAll('.carousel__indicator');
+		let currentSlide = 0;
 
-    // Directly add the keydown event listener since it's on the carousel level
-    carouselElement.addEventListener('keydown', (event) => {
-      switch (event.key) {
-        case 'ArrowLeft':
-          currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, currentSlide - 1);
-          break;
-        case 'ArrowRight':
-          currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, currentSlide + 1);
-          break;
-        default:
-          break;
-      }
-    });
+		delegateEvent(carouselElement, 'click', '.carousel__prev', () => {
+			currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, currentSlide - 1);
+		});
 
-    // Initialize the first slide as active
-    this.#updateSlides(carouselElement, currentSlide, slides, indicators);
-  }
+		delegateEvent(carouselElement, 'click', '.carousel__next', () => {
+			currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, currentSlide + 1);
+		});
 
-  // Public methods
-  init() {
-    this.#carouselList.forEach((carouselElement) => {
-      this.#initLiveRegion(carouselElement);
-      this.#initEventListeners(carouselElement);
-    });
-  }
+		delegateEvent(carouselElement, 'click', '.carousel__indicator', (event) => {
+			const newIndex = parseInt(event.target.getAttribute('data-slide'));
+			currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, newIndex);
+		});
+
+        carouselElement.addEventListener('keydown', (event) => {
+            switch (event.key) {
+                case 'ArrowLeft':
+                    currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, currentSlide - 1);
+                    break;
+                case 'ArrowRight':
+                    currentSlide = this.#goToSlide(carouselElement, slides, indicators, currentSlide, currentSlide + 1);
+                    break;
+                default:
+                    break;
+            }
+        });
+
+		this.#updateSlides(carouselElement, currentSlide, slides, indicators); // Initialize the first slide
+	}
+
+	// Public method to initialize all carousels on the page
+	init() {
+		this.#carouselList.forEach((carouselElement) => {
+			this.#initLiveRegion(carouselElement);
+			this.#initEventListeners(carouselElement);
+		});
+	}
 }
