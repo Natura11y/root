@@ -35,40 +35,52 @@ $track-panels: 6;
 
     // Track Block
 
-    .track {
+    .track,
+    .track__container {
         position: relative;
-        overflow: hidden;
+    }
 
-        width: 100%;
-
+    .track {
         ul {
             list-style: none;
             margin: unset;
         }
 
-        // outline: 4px solid blue;
-
         background-color: tan;
+
+        overflow: hidden;
+
+        width: 100%;
     }
 
     .track__container {
-        --_gap: var(--gap-size, unset);
+        position: relative;
 
-        display: flex;
+        outline: 3px solid red;
+    }
 
-        gap: var(--_gap);
+        .track__panels {
+            --_gap: var(--gap-size, unset);
+
+            display: flex;
+
+            gap: var(--_gap);
+            
+            overflow-x: auto;
+
+            scroll-snap-type: inline mandatory;
+            scroll-behavior: smooth;
+
+            scrollbar-width: none; /* Hide scrollbar on Firefox */
+            -ms-overflow-style: none;  /* IE and Edge */
+                
+            &:is(::-webkit-scrollbar) {
+                display: none; /* Hide scrollbar on WebKit browsers */
+            }
+    
+        }
         
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
-
-        scrollbar-width: none; /* Hide scrollbar on Firefox */
-        -ms-overflow-style: none;  /* IE and Edge */
-    }
-
-    .track__container::-webkit-scrollbar {
-        display: none; /* Hide scrollbar on WebKit browsers */
-    }
+    
 
     .track__panel {
         display: flex;
@@ -110,7 +122,6 @@ $track-panels: 6;
     }
 
     .track__pagination {
-        // position: absolute;
         display: flex;
         justify-content: center;
         

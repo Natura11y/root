@@ -15,7 +15,7 @@ export default class Track {
     }
 
     #updatePagination(trackElement, paginationItems) {
-        const trackContainer = trackElement.querySelector('.track__container');
+        const trackContainer = trackElement.querySelector('.track__panels');
         const scrollLeft = trackContainer.scrollLeft;
         const itemWidth = trackContainer.offsetWidth / this.#getVisiblePanels(trackElement);
 
@@ -40,7 +40,7 @@ export default class Track {
     }
 
     #initEventListeners(trackElement) {
-        const trackContainer = trackElement.querySelector('.track__container');
+        const trackContainer = trackElement.querySelector('.track__panels');
         const scrollAmount = trackContainer.offsetWidth;
 
         trackElement.querySelector('.track__prev').addEventListener('click', (event) => {
