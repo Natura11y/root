@@ -1,0 +1,119 @@
+/*
+
+In this file:
+
+// A. Variables
+// B. Component
+
+*/
+
+//////////////////////////////////////////////
+// A. Variables
+//////////////////////////////////////////////
+
+:root {
+
+}
+
+//////////////////////////////////////////////
+// B. Component
+//////////////////////////////////////////////
+
+@layer component {
+
+    // Track Block
+
+    .track {
+        position: relative;
+        overflow: hidden;
+
+        width: 100%;
+
+        ul {
+            list-style: none;
+            margin: unset;
+            padding: unset;
+        }
+    }
+
+    .track__container {
+        --gap: 8px;
+
+        display: flex;
+
+        gap: var(--gap);
+        
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+
+        scrollbar-width: none; /* Hide scrollbar on Firefox */
+        -ms-overflow-style: none;  /* IE and Edge */
+    }
+
+    .track__container::-webkit-scrollbar {
+        display: none; /* Hide scrollbar on WebKit browsers */
+    }
+
+    .track__item {
+        display: flex;
+        flex: 0 0 calc(100% / var(--visible-panels) - var(--gap)); /* Adjusts width based on the number of visible panels */
+        align-items: center;
+        
+        justify-content: start;
+        scroll-snap-align: start; /* Snap to the start of each item */
+        
+        background-color: #ddd;
+        font-size: 24px;
+        box-sizing: border-box;
+
+        :is(img, video) {
+            width: 100%;
+            height: auto;
+        }
+
+        border: 2px solid red;
+    }
+
+    .track__prev,
+    .track__next {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+        font-size: var(--font-size-sm);
+    }
+
+    .track__prev {
+        left: 0;
+    }
+
+    .track__next {
+        right: 0;
+    }
+
+    .track__pagination {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 5px;
+    }
+
+    .track__pagination__item {
+        width: 10px;
+        height: 10px;
+        display: block;
+        aspect-ratio: 1;
+        background-color: white;
+        border-radius: 100%;
+        cursor: pointer;
+    }
+
+    .track__pagination__item.active {
+        background-color: black;
+    }
+
+} // end @layer

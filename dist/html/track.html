@@ -9,103 +9,6 @@
     <!-- Natura11y Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/natura11y-icons@v1/dist/natura11y-icons.min.css">
 
-    <style>
-        /* Styles for the Track Component */
-
-        .track {
-            position: relative;
-            overflow: hidden;
-
-            width: 100%;
-
-            ul {
-                list-style: none;
-                margin: unset;
-                padding: unset;
-            }
-        }
-
-        .track__container {
-            --gap: 8px;
-
-            display: flex;
-
-            gap: var(--gap);
-            
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-
-            scrollbar-width: none; /* Hide scrollbar on Firefox */
-            -ms-overflow-style: none;  /* IE and Edge */
-        }
-
-        .track__container::-webkit-scrollbar {
-            display: none; /* Hide scrollbar on WebKit browsers */
-        }
-
-        .track__item {
-            display: flex;
-            flex: 0 0 calc(100% / var(--visible-panels) - var(--gap)); /* Adjusts width based on the number of visible panels */
-            align-items: center;
-            
-            justify-content: start;
-            scroll-snap-align: start; /* Snap to the start of each item */
-            
-            background-color: #ddd;
-            font-size: 24px;
-            box-sizing: border-box;
-
-            :is(img, video) {
-                width: 100%;
-                height: auto;
-            }
-
-            border: 2px solid red;
-        }
-
-        .track__prev,
-        .track__next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1;
-            font-size: var(--font-size-sm);
-        }
-
-        .track__prev {
-            left: 0;
-        }
-
-        .track__next {
-            right: 0;
-        }
-
-        .track__indicators {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 5px;
-        }
-
-        .track__indicator {
-            width: 10px;
-            height: 10px;
-            display: block;
-            aspect-ratio: 1;
-            background-color: white;
-            border-radius: 100%;
-            cursor: pointer;
-        }
-
-        .track__indicator.active {
-            background-color: black;
-        }
-
-    </style>
 </head>
 <body>
     <main>
@@ -149,7 +52,7 @@
                 </button>
             </div>
             
-            <ul class="track__indicators"></ul>
+            <ul class="track__pagination"></ul>
 
         </section>
 
@@ -157,7 +60,7 @@
         <div
             class="track"
             data-visible-panels="3"
-            data-show-partial="true"
+            data-show-partial="false"
             aria-labelledby="carousel-heading-2"
         >
 
@@ -193,131 +96,11 @@
                 </button>
             </div>
             
-            <ul class="track__indicators"></ul>
+            <ul class="track__pagination"></ul>
         
         </div>
     
     </main>
-
-    <script>
-        class Track {
-            // Private properties
-            #trackList = document.querySelectorAll('.track');
-
-            // Private methods
-            #updateIndicators(trackElement, indicators) {
-                const trackContainer = trackElement.querySelector('.track__container');
-                const scrollLeft = trackContainer.scrollLeft;
-                const itemWidth = trackContainer.offsetWidth / this.#getVisiblePanels(trackElement);
-                const activeIndex = Math.round(scrollLeft / itemWidth);
-
-                indicators.forEach((indicator, index) => {
-                    indicator.classList.toggle('active', index === activeIndex);
-                });
-
-                // Update live region for accessibility
-                this.#updateLiveRegion(trackElement, activeIndex, indicators.length);
-            }
-
-            #updateLiveRegion(trackElement, currentIndex, totalItems) {
-                const liveRegion = trackElement.querySelector('.liveregion');
-                if (liveRegion) {
-                    liveRegion.textContent = `Item ${currentIndex + 1} of ${totalItems}`;
-                }
-            }
-
-            #initEventListeners(trackElement) {
-                const indicators = trackElement.querySelectorAll('.track__indicator');
-                const trackContainer = trackElement.querySelector('.track__container');
-                const visiblePanels = this.#getVisiblePanels(trackElement);
-
-                trackElement.querySelector('.track__prev').addEventListener('click', () => {
-                    trackContainer.scrollBy({ left: -trackContainer.offsetWidth / visiblePanels, behavior: 'smooth' });
-                });
-
-                trackElement.querySelector('.track__next').addEventListener('click', () => {
-                    trackContainer.scrollBy({ left: trackContainer.offsetWidth / visiblePanels, behavior: 'smooth' });
-                });
-
-                indicators.forEach((indicator, index) => {
-                    indicator.addEventListener('click', () => {
-                        trackContainer.scrollTo({ left: index * (trackContainer.offsetWidth / visiblePanels), behavior: 'smooth' });
-                    });
-                });
-
-                trackContainer.addEventListener('scroll', () => {
-                    this.#updateIndicators(trackElement, indicators);
-                });
-            }
-
-            #getVisiblePanels(trackElement) {
-                return parseInt(trackElement.getAttribute('data-visible-panels')) || 1;
-            }
-
-            #applyStyles(trackElement) {
-                const visiblePanels = this.#getVisiblePanels(trackElement);
-                trackElement.style.setProperty('--visible-panels', visiblePanels);
-
-                const showPartial = trackElement.getAttribute('data-show-partial') === 'true';
-                if (showPartial) {
-                    const partialWidth = 100 / (visiblePanels + 0.25);
-                    trackElement.querySelectorAll('.track__item').forEach(item => {
-                        item.style.flex = `0 0 calc(${partialWidth}% - 1px)`;
-                    });
-                } else {
-                    trackElement.querySelectorAll('.track__item').forEach(item => {
-                        item.style.flex = `0 0 calc(100% / ${visiblePanels})`;
-                    });
-                }
-            }
-
-            // Public methods
-            init() {
-                this.#trackList.forEach((trackElement) => {
-                    this.#applyStyles(trackElement);
-                    const items = trackElement.querySelectorAll('.track__item');
-                    this.#generateIndicators(trackElement, items.length);
-                    this.#initLiveRegion(trackElement);
-                    this.#initEventListeners(trackElement);
-                });
-            }
-
-            #generateIndicators(trackElement, itemCount) {
-                const indicatorContainer = trackElement.querySelector('.track__indicators');
-                if (!indicatorContainer) return;
-
-                indicatorContainer.innerHTML = ''; // Clear existing indicators
-
-                const indicators = Array.from({ length: itemCount }).map((_, i) => {
-                    const listItem = document.createElement('li');
-                    const button = document.createElement('button');
-                    button.className = 'track__indicator';
-                    button.setAttribute('data-item', i);
-                    if (i === 0) {
-                        button.classList.add('active');
-                    }
-
-                    listItem.appendChild(button);
-                    return listItem;
-                });
-
-                indicators.forEach(indicator => indicatorContainer.appendChild(indicator));
-            }
-
-            #initLiveRegion(trackElement) {
-                const liveRegion = document.createElement('div');
-                liveRegion.setAttribute('aria-live', 'polite');
-                liveRegion.setAttribute('aria-atomic', 'true');
-                liveRegion.classList.add('liveregion', 'screen-reader-only');
-                trackElement.appendChild(liveRegion);
-            }
-        }
-
-        // Initialize Track component
-        const track = new Track();
-        track.init();
-
-    </script>
 
 </body>
 

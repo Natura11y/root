@@ -18,6 +18,7 @@ import Modal from './js/modal';
 import Navigation from './js/navigation';
 import Table from './js/table';
 import Tab from './js/tab';
+import Track from './js/track';
 
 //////////////////////////////////////////////
 // C. Class Instantiation
@@ -61,5 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const tab = new Tab();
   tab.init();
 
+  const track = new Track();
+  track.init();
 
 });
