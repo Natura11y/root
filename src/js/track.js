@@ -1,21 +1,26 @@
+import { delegateEvent } from './utilities/eventDelegation';
+
 export default class Track {
+
+    // Private properties
+
     #trackList = document.querySelectorAll('.track');
+
+    // Private methods
+
+    #updateLiveRegion(trackElement, currentIndex, totalPages) {
+        const liveRegion = trackElement.querySelector('.liveregion');
+
+        liveRegion ? liveRegion.textContent = `Page ${currentIndex + 1} of ${totalPages}` : null;
+    }
 
     #updatePagination(trackElement, paginationItems) {
         const trackContainer = trackElement.querySelector('.track__container');
         const scrollLeft = trackContainer.scrollLeft;
         const itemWidth = trackContainer.offsetWidth / this.#getVisiblePanels(trackElement);
 
-        // Calculate the number of pages
-        const totalPages = paginationItems.length;
-
-        // Calculate the current active index
         let activeIndex = Math.round(scrollLeft / itemWidth);
-
-        // Handle the edge case where we're at the very end
-        if (activeIndex >= totalPages) {
-            activeIndex = totalPages - 1;
-        }
+        activeIndex = Math.min(activeIndex, paginationItems.length - 1);
 
         paginationItems.forEach((item, index) => {
             item.classList.toggle('active', index === activeIndex);
@@ -24,49 +29,58 @@ export default class Track {
         this.#updateLiveRegion(trackElement, activeIndex, paginationItems.length);
     }
 
-    #updateLiveRegion(trackElement, currentIndex, totalPages) {
-        const liveRegion = trackElement.querySelector('.liveregion');
-        if (liveRegion) {
-            liveRegion.textContent = `Page ${currentIndex + 1} of ${totalPages}`;
-        }
+    #scrollByAmount(trackContainer, amount) {
+        trackContainer.scrollBy({ left: amount, behavior: 'smooth' });
+    }
+
+    #resetPagination(trackElement) {
+        const items = trackElement.querySelectorAll('.track__panel');
+        this.#generatePagination(trackElement, items.length);
+        this.#updatePagination(trackElement, trackElement.querySelectorAll('.track__pagination__item'));
     }
 
     #initEventListeners(trackElement) {
-        const paginationItems = trackElement.querySelectorAll('.track__pagination__item');
         const trackContainer = trackElement.querySelector('.track__container');
-        const visiblePanels = this.#getVisiblePanels(trackElement);
         const scrollAmount = trackContainer.offsetWidth;
 
-        trackElement.querySelector('.track__prev').addEventListener('click', () => {
-            trackContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        trackElement.querySelector('.track__prev').addEventListener('click', (event) => {
+            event.stopPropagation();
+            this.#scrollByAmount(trackContainer, -scrollAmount);
         });
 
-        trackElement.querySelector('.track__next').addEventListener('click', () => {
-            trackContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        trackElement.querySelector('.track__next').addEventListener('click', (event) => {
+            event.stopPropagation();
+            this.#scrollByAmount(trackContainer, scrollAmount);
         });
 
-        paginationItems.forEach((item, index) => {
-            item.addEventListener('click', () => {
-                trackContainer.scrollTo({ left: index * scrollAmount, behavior: 'smooth' });
-            });
+        delegateEvent(trackElement, 'click', '.track__pagination__item', (event) => {
+            const newIndex = parseInt(event.target.getAttribute('data-item'));
+            trackContainer.scrollTo({ left: newIndex * scrollAmount, behavior: 'smooth' });
         });
 
         trackContainer.addEventListener('scroll', () => {
+            const paginationItems = trackElement.querySelectorAll('.track__pagination__item');
             this.#updatePagination(trackElement, paginationItems);
+        });
+
+        trackElement.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowLeft') {
+                this.#scrollByAmount(trackContainer, -scrollAmount);
+            } else if (event.key === 'ArrowRight') {
+                this.#scrollByAmount(trackContainer, scrollAmount);
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            this.#resetPagination(trackElement);
         });
     }
 
     #getVisiblePanels(trackElement) {
-        return parseInt(trackElement.getAttribute('data-visible-panels')) || 1;
-    }
-
-    #applyStyles(trackElement) {
-        const visiblePanels = this.#getVisiblePanels(trackElement);
-        trackElement.style.setProperty('--visible-panels', visiblePanels);
-
-        trackElement.querySelectorAll('.track__item').forEach(item => {
-            item.style.flex = `0 0 calc(100% / ${visiblePanels})`;
-        });
+        const styles = window.getComputedStyle(trackElement);
+        const visiblePanels = parseInt(styles.getPropertyValue('--visible-panels'));
+        return visiblePanels || 1;
     }
 
     #generatePagination(trackElement, itemCount) {
@@ -76,19 +90,20 @@ export default class Track {
         const visiblePanels = this.#getVisiblePanels(trackElement);
         const totalPages = Math.ceil(itemCount / visiblePanels);
 
-        paginationContainer.innerHTML = ''; // Clear existing pagination
+        // Only update if the number of pages changes
+        if (paginationContainer.childElementCount !== totalPages) {
+            paginationContainer.innerHTML = '';
 
-        const paginationItems = Array.from({ length: totalPages }).map((_, i) => {
-            const button = document.createElement('button');
-            button.className = 'track__pagination__item';
-            button.setAttribute('data-item', i);
-            if (i === 0) {
-                button.classList.add('active');
-            }
-
-            paginationContainer.appendChild(button);
-            return button;
-        });
+            Array.from({ length: totalPages }).forEach((_, i) => {
+                const button = document.createElement('button');
+                button.className = 'track__pagination__item';
+                button.setAttribute('data-item', i);
+                if (i === 0) {
+                    button.classList.add('active');
+                }
+                paginationContainer.appendChild(button);
+            });
+        }
     }
 
     #initLiveRegion(trackElement) {
@@ -99,10 +114,11 @@ export default class Track {
         trackElement.appendChild(liveRegion);
     }
 
+    // Public methods
+
     init() {
         this.#trackList.forEach((trackElement) => {
-            this.#applyStyles(trackElement);
-            const items = trackElement.querySelectorAll('.track__item');
+            const items = trackElement.querySelectorAll('.track__panel');
             this.#generatePagination(trackElement, items.length);
             this.#initLiveRegion(trackElement);
             this.#initEventListeners(trackElement);

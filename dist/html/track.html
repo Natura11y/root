@@ -1,107 +1,132 @@
 <!DOCTYPE html>
+
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Track • Natura11y</title>
-    
-    <!-- Natura11y Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/natura11y-icons@v1/dist/natura11y-icons.min.css">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-</head>
-<body>
-    <main>
-        <h1>Track Component Demo</h1>
-
-        <!-- Single-panel Carousel -->
-        <section
-            class="track margin-bottom-4"
-            aria-labelledby="carousel-heading"
-        >
-
-            <h3 id="carousel-heading" class="screen-reader-only">Recent news</h3>
-
-            <ul class="track__container">
-                <li class="track__item">
-                    <img src="https://via.placeholder.com/1500x750?text=One" alt="Description of image 1" />
-                </li>
-                <li class="track__item">
-                    <img src="https://via.placeholder.com/1500x750?text=Two" alt="Description of image 2" />
-                </li>
-                <li class="track__item">
-                    <img src="https://via.placeholder.com/1500x750?text=Three" alt="Description of image 3" />
-                </li>
-                <li class="track__item">
-                    <img src="https://via.placeholder.com/1500x750?text=Four" alt="Description of image 4" />
-                </li>
-                <li class="track__item">
-                    <img src="https://via.placeholder.com/1500x750?text=Five" alt="Description of image 5" />
-                </li>
-            </ul>
-
-            <div class="track__prev" aria-label="Previous Slide">
-                <button class="button button--icon-only">
-                    <span class="icon icon-arrow-left" aria-hidden="true"></span>
-                </button>
-            </div>
-            
-            <div class="track__next" aria-label="Previous Slide">
-                <button class="button button--icon-only">
-                    <span class="icon icon-arrow-right" aria-hidden="true"></span>
-                </button>
-            </div>
-            
-            <ul class="track__pagination"></ul>
-
-        </section>
-
-        <!-- Multi-thumbnail Track with partial visibility -->
-        <div
-            class="track"
-            data-visible-panels="3"
-            data-show-partial="false"
-            aria-labelledby="carousel-heading-2"
-        >
-
-            <h3 id="carousel-heading-2" class="screen-reader-only">Recent news</h3>
-            
-            <ul class="track__container">
-                <li class="track__item">
-                    <img src="https://via.placeholder.com/1500x750?text=One" alt="Description of image 1" />
-                </li>
-                <li class="track__item">
-                    <img src="https://via.placeholder.com/1500x750?text=Two" alt="Description of image 2" />
-                </li>
-                <li class="track__item">
-                    <img src="https://via.placeholder.com/1500x750?text=Three" alt="Description of image 3" />
-                </li>
-                <li class="track__item">
-                    <img src="https://via.placeholder.com/1500x750?text=Four" alt="Description of image 4" />
-                </li>
-                <li class="track__item">
-                    <img src="https://via.placeholder.com/1500x750?text=Five" alt="Description of image 5" />
-                </li>
-            </ul>
-
-            <div class="track__prev" aria-label="Previous Slide">
-                <button class="button button--icon-only">
-                    <span class="icon icon-arrow-left" aria-hidden="true"></span>
-                </button>
-            </div>
-            
-            <div class="track__next" aria-label="Previous Slide">
-                <button class="button button--icon-only">
-                    <span class="icon icon-arrow-right" aria-hidden="true"></span>
-                </button>
-            </div>
-            
-            <ul class="track__pagination"></ul>
+        <title>Track • Natura11y</title>
         
-        </div>
-    
-    </main>
+        <!-- Natura11y Icons -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/natura11y-icons@v1/dist/natura11y-icons.min.css">
 
-</body>
+    </head>
+
+    <body>
+
+        <main class="overflow-hidden">
+
+            <section>
+
+                <header class="margin-y-4 text-align-center">
+                    <h1 class="banner-headline">
+                        Track
+                    </h1>
+                </header>
+
+                <figure class="container wide margin-y-4">
+
+                    <!-- Single-panel -->
+                    <section
+                        class="track track--column-4--lg margin-bottom-4"
+                        aria-labelledby="carousel-heading">
+
+                        <h3 id="carousel-heading" class="screen-reader-only">Recent news</h3>
+
+                        <ul class="track__container">
+                            <li class="track__panel">
+                                <img src="https://via.placeholder.com/1500x750?text=One" alt="Description of image 1" />
+                            </li>
+                            <li class="track__panel">
+                                <img src="https://via.placeholder.com/1500x750?text=Two" alt="Description of image 2" />
+                            </li>
+                            <li class="track__panel">
+                                <img src="https://via.placeholder.com/1500x750?text=Three" alt="Description of image 3" />
+                            </li>
+                            <li class="track__panel">
+                                <img src="https://via.placeholder.com/1500x750?text=Four" alt="Description of image 4" />
+                            </li>
+                            <li class="track__panel">
+                                <img src="https://via.placeholder.com/1500x750?text=Five" alt="Description of image 5" />
+                            </li>
+                            <li class="track__panel">
+                                <img src="https://via.placeholder.com/1500x750?text=Six" alt="Description of image 5" />
+                            </li>
+                        </ul>
+
+                        <div class="track__prev" aria-label="Previous Slide">
+                            <button class="button button--icon-only">
+                                <span class="icon icon-arrow-left" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        
+                        <div class="track__next" aria-label="Previous Slide">
+                            <button class="button button--icon-only">
+                                <span class="icon icon-arrow-right" aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        
+                        <ul class="track__pagination"></ul>
+
+                    </section>
+
+                </figure>
+
+            <figure class="container wide margin-y-4">
+
+                <!-- Multi-panel -->
+                <section
+                    class="track"
+                    data-visible-panels="3"
+                    data-show-partial="false"
+                    aria-labelledby="carousel-heading-2">
+
+                    <h3 id="carousel-heading-2" class="screen-reader-only">Recent news</h3>
+                    
+                    <ul class="track__container gap-4">
+                        <li class="track__panel">
+                            <img src="https://via.placeholder.com/1500x750?text=One" alt="Description of image 1" />
+                        </li>
+                        <li class="track__panel">
+                            <img src="https://via.placeholder.com/1500x750?text=Two" alt="Description of image 2" />
+                        </li>
+                        <li class="track__panel">
+                            <img src="https://via.placeholder.com/1500x750?text=Three" alt="Description of image 3" />
+                        </li>
+                        <li class="track__panel">
+                            <img src="https://via.placeholder.com/1500x750?text=Four" alt="Description of image 4" />
+                        </li>
+                        <li class="track__panel">
+                            <img src="https://via.placeholder.com/1500x750?text=Five" alt="Description of image 5" />
+                        </li>
+                        <li class="track__panel">
+                            <img src="https://via.placeholder.com/1500x750?text=Six" alt="Description of image 5" />
+                        </li>
+                    </ul>
+
+                    <div class="track__prev" aria-label="Previous Slide">
+                        <button class="button button--icon-only">
+                            <span class="icon icon-arrow-left" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    
+                    <div class="track__next" aria-label="Previous Slide">
+                        <button class="button button--icon-only">
+                            <span class="icon icon-arrow-right" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    
+                    <ul class="track__pagination"></ul>
+                
+                </section>
+                
+            </figure>
+            
+            </section>
+        
+        </main>
+
+    </body>
 
 </html>

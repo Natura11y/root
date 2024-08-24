@@ -2,21 +2,33 @@
 
 In this file:
 
-// A. Variables
-// B. Component
+// A. Modules
+// B. Variables
+// C. Component
 
 */
 
 //////////////////////////////////////////////
-// A. Variables
+// A. Modules
+//////////////////////////////////////////////
+
+@use 'sass:map';
+@use 'sass:math';
+@use './breakpoint';
+@use './spacing';
+
+//////////////////////////////////////////////
+// B. Variables
 //////////////////////////////////////////////
 
 :root {
-
+    --visible-panels: 1;
 }
 
+$track-panels: 6;
+
 //////////////////////////////////////////////
-// B. Component
+// C. Component
 //////////////////////////////////////////////
 
 @layer component {
@@ -32,16 +44,19 @@ In this file:
         ul {
             list-style: none;
             margin: unset;
-            padding: unset;
         }
+
+        // outline: 4px solid blue;
+
+        background-color: tan;
     }
 
     .track__container {
-        --gap: 8px;
+        --_gap: var(--gap-size, unset);
 
         display: flex;
 
-        gap: var(--gap);
+        gap: var(--_gap);
         
         overflow-x: auto;
         scroll-snap-type: x mandatory;
@@ -55,9 +70,9 @@ In this file:
         display: none; /* Hide scrollbar on WebKit browsers */
     }
 
-    .track__item {
+    .track__panel {
         display: flex;
-        flex: 0 0 calc(100% / var(--visible-panels) - var(--gap)); /* Adjusts width based on the number of visible panels */
+        flex: 0 0 calc(100% / var(--visible-panels)); /* Adjusts width based on the number of visible panels */
         align-items: center;
         
         justify-content: start;
@@ -72,7 +87,8 @@ In this file:
             height: auto;
         }
 
-        border: 2px solid red;
+        outline: 2px solid purple;
+        outline-offset: -1px;
     }
 
     .track__prev,
@@ -94,26 +110,52 @@ In this file:
     }
 
     .track__pagination {
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
+        // position: absolute;
         display: flex;
-        gap: 5px;
+        justify-content: center;
+        
+        gap: var(--spacer-1);
+
+        inset: auto auto var(--spacer-1) auto;
+
+        width: 100%;
+
+        padding: var(--spacer-1);
     }
 
     .track__pagination__item {
-        width: 10px;
-        height: 10px;
-        display: block;
+        display: flex;
+
+        width: calc(var(--button-target-size) * 0.25);
+
         aspect-ratio: 1;
-        background-color: white;
+
+        background-color: var(--light);
+        
         border-radius: 100%;
+
         cursor: pointer;
     }
 
     .track__pagination__item.active {
         background-color: black;
+    }
+
+    .hide-controls .track__pagination {
+        display: none;
+    }
+
+    // Generate responsive utility classes for different numbers of visible panels
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+            @for $i from 1 through $track-panels {
+                .track--column-#{$i}#{$mod} {
+                    --visible-panels: #{$i};
+                }
+            }
+        }
     }
 
 } // end @layer
