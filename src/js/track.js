@@ -17,7 +17,7 @@ export default class Track {
     #updatePagination(trackElement, paginationItems) {
         const trackContainer = trackElement.querySelector('.track__panels');
         const scrollLeft = trackContainer.scrollLeft;
-        const itemWidth = trackContainer.offsetWidth / this.#getVisiblePanels(trackElement);
+        const itemWidth = trackContainer.offsetWidth;
 
         let activeIndex = Math.round(scrollLeft / itemWidth);
         activeIndex = Math.min(activeIndex, paginationItems.length - 1);
