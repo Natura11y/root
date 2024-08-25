@@ -69,7 +69,7 @@ $track-panels: 6;
             overflow-x: auto;
 
             scroll-snap-type: inline mandatory;
-            scroll-behavior: smooth;
+            scroll-behavior: auto;
 
             scrollbar-width: none; /* Hide scrollbar on Firefox */
             -ms-overflow-style: none;  /* IE and Edge */

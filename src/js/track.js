@@ -3,15 +3,25 @@ import { delegateEvent } from './utilities/eventDelegation';
 export default class Track {
 
     // Private properties
+
     #trackList = document.querySelectorAll('.track');
     #scrollTimeout = null;
 
     // Private methods
+    
     #updateLiveRegion(trackElement, currentIndex, totalPages) {
         const liveRegion = trackElement.querySelector('.liveregion');
         if (liveRegion) {
             liveRegion.textContent = `Page ${currentIndex + 1} of ${totalPages}`;
         }
+    }
+
+    #calculateTotalPages(trackElement) {
+        const trackContainer = trackElement.querySelector('.track__panels');
+        const containerWidth = trackContainer.offsetWidth;
+
+        // Calculate the total number of pages
+        return Math.ceil(trackContainer.scrollWidth / containerWidth);
     }
 
     #updatePagination(trackElement, paginationItems) {
@@ -38,8 +48,7 @@ export default class Track {
     }
 
     #resetPagination(trackElement) {
-        const items = trackElement.querySelectorAll('.track__panel');
-        this.#generatePagination(trackElement, items.length);
+        this.#generatePagination(trackElement);
         this.#updatePagination(trackElement, trackElement.querySelectorAll('.track__pagination__item'));
     }
 
@@ -89,18 +98,11 @@ export default class Track {
         });
     }
 
-    #getVisiblePanels(trackElement) {
-        const styles = window.getComputedStyle(trackElement);
-        const visiblePanels = parseInt(styles.getPropertyValue('--visible-panels'));
-        return visiblePanels || 1;
-    }
+    #generatePagination(trackElement) {
+        const totalPages = this.#calculateTotalPages(trackElement);
 
-    #generatePagination(trackElement, itemCount) {
         const paginationContainer = trackElement.querySelector('.track__pagination');
         if (!paginationContainer) return;
-
-        const visiblePanels = this.#getVisiblePanels(trackElement);
-        const totalPages = Math.ceil(itemCount / visiblePanels);
 
         // Only update if the number of pages changes
         if (paginationContainer.childElementCount !== totalPages) {
@@ -132,8 +134,7 @@ export default class Track {
     // Public methods
     init() {
         this.#trackList.forEach((trackElement) => {
-            const items = trackElement.querySelectorAll('.track__panel');
-            this.#generatePagination(trackElement, items.length);
+            this.#generatePagination(trackElement);
             this.#initLiveRegion(trackElement);
             this.#initEventListeners(trackElement);
         });
