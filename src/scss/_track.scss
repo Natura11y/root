@@ -41,9 +41,6 @@ $track-panels: 6;
     }
 
     .track {
-
-        background-color: tan;
-
         overflow: hidden;
 
         width: 100%;
@@ -55,16 +52,12 @@ $track-panels: 6;
 
     .track__container {
         position: relative;
-
-        // outline: 3px solid blue;
     }
 
     .track__panels {
-        --_gap: var(--gap-size, unset);
+        --_gap: var(--gap-size, 0);
 
         display: flex;
-
-        // gap: var(--_gap);
 
         margin-inline: calc(var(--_gap) / -2);
         
@@ -73,11 +66,12 @@ $track-panels: 6;
         scroll-snap-type: inline mandatory;
         scroll-behavior: auto;
 
-        scrollbar-width: none; /* Hide scrollbar on Firefox */
-        -ms-overflow-style: none;  /* IE and Edge */
+        /* Hide scrollbars */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
             
         &:is(::-webkit-scrollbar) {
-            display: none; /* Hide scrollbar on WebKit browsers */
+            display: none;
         }
     }
 
@@ -85,53 +79,46 @@ $track-panels: 6;
         display: flex;
         flex: 0 0 calc(100% / var(--visible-panels));
         align-items: center;
-        
         justify-content: start;
 
         scroll-snap-align: start;
 
         padding-inline: calc(var(--_gap) * 0.5);
-        
-        box-sizing: border-box;
 
-        :is(img, video) {
+        > *:is(img, video) {
             width: 100%;
             height: auto;
         }
-
-        // outline: 2px solid purple;
-        // outline-offset: -1px;
     }
 
     .track__prev,
     .track__next {
         position: absolute;
-        top: 50%;
+        inset-block-start: 50%;
         transform: translateY(-50%);
-        background: rgba(0, 0, 0, 0.5);
+        
         z-index: 1;
-        font-size: var(--font-size-sm);
+
+        font-size: var(--font-size-md);
     }
 
     .track__prev {
-        left: 0;
+        inset-inline-start: 0;
     }
 
     .track__next {
-        right: 0;
+        inset-inline-end: 0;
     }
 
     .track__pagination {
         display: flex;
         justify-content: center;
+
+        width: 100%;
         
         gap: var(--spacer-1);
 
-        inset: auto auto var(--spacer-1) auto;
-
-        width: 100%;
-
-        padding: var(--spacer-1);
+        padding: var(--spacer-2) var(--spacer-1);
     }
 
     .track__pagination__item {
@@ -146,10 +133,13 @@ $track-panels: 6;
         border-radius: 100%;
 
         cursor: pointer;
-    }
 
-    .track__pagination__item.active {
-        background-color: black;
+        &:is(
+            .active,
+            [aria-current='true']) 
+        {
+            background-color: currentColor;
+        }
     }
 
     .hide-controls :is( 
