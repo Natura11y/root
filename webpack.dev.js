@@ -20,7 +20,6 @@ const devPages = {
     'Border': 'border',
     'Backdrop': 'backdrop',
     'Card': 'card',
-    'Carousel': 'carousel',
     'Color': 'color',
     'Collapse': 'collapse',
     'Container': 'container',

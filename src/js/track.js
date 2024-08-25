@@ -37,9 +37,11 @@ export default class Track {
                 
                 button.className = 'track__pagination__item';
                 button.setAttribute('data-item', i);
+                button.setAttribute('aria-label', `Page ${i + 1}`);
 
                 if (i === 0) {
                     button.classList.add('active');
+                    button.setAttribute('aria-current', 'true');
                 }
                 
                 paginationContainer.appendChild(button);
@@ -62,6 +64,7 @@ export default class Track {
         activeIndex = Math.max(activeIndex, 0);
 
         paginationItems.forEach((item, index) => {
+            item.setAttribute('aria-current', index === activeIndex);
             item.classList.toggle('active', index === activeIndex);
         });
 
@@ -71,10 +74,10 @@ export default class Track {
     #resetPagination(trackElement) {
         const totalPages = this.#generatePagination(trackElement);
         const paginationItems = trackElement.querySelectorAll('.track__pagination__item');
-        this.#updatePagination(trackElement, paginationItems); // Update active item after regeneration
-        this.#scrollAmount = trackElement.querySelector('.track__panels').offsetWidth;  // Recalculate scroll amount
 
-        // Add or remove controls based on the number of pages
+        this.#updatePagination(trackElement, paginationItems);
+        this.#scrollAmount = trackElement.querySelector('.track__panels').offsetWidth;
+
         if (totalPages === 1) {
             trackElement.classList.add('hide-controls');
         } else {

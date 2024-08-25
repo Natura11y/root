@@ -11,7 +11,6 @@ import './scss/index.scss';
 import Accordion from './js/accordion';
 import AlertDismissable from './js/alert';
 import Collapse from './js/collapse';
-import Carousel from './js/carousel';
 import FormInput, { FormSubmission, FormFileUpload } from './js/form';
 import Lightbox from './js/lightbox';
 import Modal from './js/modal';
@@ -31,9 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const alertDismissable = new AlertDismissable();
   alertDismissable.init();
-  
-  const carousel = new Carousel();
-  carousel.init();
 
   const collapse = new Collapse();
   collapse.init();
