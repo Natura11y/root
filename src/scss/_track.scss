@@ -56,7 +56,7 @@ $track-panels: 6;
     .track__container {
         position: relative;
 
-        outline: 3px solid blue;
+        // outline: 3px solid blue;
     }
 
     .track__panels {
@@ -99,8 +99,8 @@ $track-panels: 6;
             height: auto;
         }
 
-        outline: 2px solid purple;
-        outline-offset: -1px;
+        // outline: 2px solid purple;
+        // outline-offset: -1px;
     }
 
     .track__prev,

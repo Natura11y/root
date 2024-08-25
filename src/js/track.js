@@ -131,7 +131,7 @@ export default class Track {
         const liveRegion = document.createElement('div');
         liveRegion.setAttribute('aria-live', 'polite');
         liveRegion.setAttribute('aria-atomic', 'true');
-        liveRegion.classList.add('liveregion', 'screen-reader-onlyX');
+        liveRegion.classList.add('liveregion', 'screen-reader-only');
         trackElement.appendChild(liveRegion);
     }
 
