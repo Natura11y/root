@@ -41,16 +41,16 @@ $track-panels: 6;
     }
 
     .track {
-        ul {
-            list-style: none;
-            margin: unset;
-        }
 
         background-color: tan;
 
         overflow: hidden;
 
         width: 100%;
+
+        ul {
+            list-style: none;
+        }
     }
 
     .track__container {
@@ -64,7 +64,9 @@ $track-panels: 6;
 
         display: flex;
 
-        gap: var(--_gap);
+        // gap: var(--_gap);
+
+        margin-inline: calc(var(--_gap) / -2);
         
         overflow-x: auto;
 
@@ -87,9 +89,9 @@ $track-panels: 6;
         justify-content: start;
 
         scroll-snap-align: start;
+
+        padding-inline: calc(var(--_gap) * 0.5);
         
-        background-color: #ddd;
-        font-size: 24px;
         box-sizing: border-box;
 
         :is(img, video) {
