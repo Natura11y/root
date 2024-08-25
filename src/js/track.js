@@ -3,15 +3,15 @@ import { delegateEvent } from './utilities/eventDelegation';
 export default class Track {
 
     // Private properties
-
     #trackList = document.querySelectorAll('.track');
+    #scrollTimeout = null;
 
     // Private methods
-
     #updateLiveRegion(trackElement, currentIndex, totalPages) {
         const liveRegion = trackElement.querySelector('.liveregion');
-
-        liveRegion ? liveRegion.textContent = `Page ${currentIndex + 1} of ${totalPages}` : null;
+        if (liveRegion) {
+            liveRegion.textContent = `Page ${currentIndex + 1} of ${totalPages}`;
+        }
     }
 
     #updatePagination(trackElement, paginationItems) {
@@ -63,8 +63,11 @@ export default class Track {
         });
 
         trackContainer.addEventListener('scroll', () => {
-            const paginationItems = trackElement.querySelectorAll('.track__pagination__item');
-            this.#updatePagination(trackElement, paginationItems);
+            clearTimeout(this.#scrollTimeout);
+            this.#scrollTimeout = setTimeout(() => {
+                const paginationItems = trackElement.querySelectorAll('.track__pagination__item');
+                this.#updatePagination(trackElement, paginationItems);
+            }, 150);  // Debounce delay to ensure scroll has stopped
         });
 
         trackElement.addEventListener('keydown', (event) => {
@@ -75,7 +78,6 @@ export default class Track {
                 case 'ArrowRight':
                     this.#scrollByAmount(trackContainer, scrollAmount);
                     break;
-                // You can add more cases here if needed
                 default:
                     break;
             }
@@ -120,12 +122,11 @@ export default class Track {
         const liveRegion = document.createElement('div');
         liveRegion.setAttribute('aria-live', 'polite');
         liveRegion.setAttribute('aria-atomic', 'true');
-        liveRegion.classList.add('liveregion', 'screen-reader-only');
+        liveRegion.classList.add('liveregion', 'screen-reader-onlyx');
         trackElement.appendChild(liveRegion);
     }
 
     // Public methods
-
     init() {
         this.#trackList.forEach((trackElement) => {
             const items = trackElement.querySelectorAll('.track__panel');
