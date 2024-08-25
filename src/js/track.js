@@ -83,35 +83,43 @@ export default class Track {
     }
 
     #initEventListeners(trackElement) {
-        this.#scrollAmount = trackElement.querySelector('.track__panels').offsetWidth;  // Initial calculation
+        const trackPanels = trackElement.querySelector('.track__panels');
+        const prevButton = trackElement.querySelector('.track__prev');
+        const nextButton = trackElement.querySelector('.track__next');
 
-        trackElement.querySelector('.track__prev').addEventListener('click', (event) => {
-            event.stopPropagation();
-            this.#scrollByAmount(trackElement.querySelector('.track__panels'), -this.#scrollAmount);
-        });
+        this.#scrollAmount = trackPanels.offsetWidth;
 
-        trackElement.querySelector('.track__next').addEventListener('click', (event) => {
-            event.stopPropagation();
-            this.#scrollByAmount(trackElement.querySelector('.track__panels'), this.#scrollAmount);
-        });
+        if(prevButton) {
+            prevButton.addEventListener('click', (event) => {
+                event.stopPropagation();
+                this.#scrollByAmount(trackPanels, -this.#scrollAmount);
+            });
+        }
+
+        if(nextButton) {
+            nextButton.addEventListener('click', (event) => {
+                event.stopPropagation();
+                this.#scrollByAmount(trackPanels, this.#scrollAmount);
+            });
+        }
 
         delegateEvent(trackElement, 'click', '.track__pagination__item', (event) => {
             const newIndex = parseInt(event.target.getAttribute('data-item'));
-            trackElement.querySelector('.track__panels').scrollTo({ left: newIndex * this.#scrollAmount, behavior: 'smooth' });
+            trackPanels.scrollTo({ left: newIndex * this.#scrollAmount, behavior: 'smooth' });
         });
 
-        trackElement.querySelector('.track__panels').addEventListener('scroll', () => {
+        trackPanels.addEventListener('scroll', () => {
             clearTimeout(this.#scrollTimeout);
             this.#scrollTimeout = setTimeout(() => {
                 const paginationItems = trackElement.querySelectorAll('.track__pagination__item');
                 this.#updatePagination(trackElement, paginationItems);
-            }, 150);  // Debounce delay to ensure scroll has stopped
+            }, 75);  // Debounce delay to ensure scroll has stopped
         });
 
         trackElement.addEventListener('keydown', (event) => {
             switch (event.key) {
                 case 'ArrowLeft':
-                    this.#scrollByAmount(trackElement.querySelector('.track__panels'), -this.#scrollAmount);
+                    this.#scrollByAmount(trackPanels, -this.#scrollAmount);
                     break;
                 case 'ArrowRight':
                     this.#scrollByAmount(trackElement.querySelector('.track__panels'), this.#scrollAmount);
@@ -123,7 +131,7 @@ export default class Track {
 
         // Handle window resize
         window.addEventListener('resize', () => {
-            this.#resetPagination(trackElement); // Reset and update after resize
+            this.#resetPagination(trackElement);
         });
     }
 

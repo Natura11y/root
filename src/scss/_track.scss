@@ -52,6 +52,23 @@ $track-panels: 6;
 
     .track__container {
         position: relative;
+
+        .track__prev,
+        .track__next {
+            position: absolute;
+            inset-block-start: 50%;
+            transform: translateY(-50%);
+            
+            z-index: auto;
+        }
+
+        .track__prev {
+            inset-inline-start: 0;
+        }
+
+        .track__next {
+            inset-inline-end: 0;
+        }
     }
 
     .track__panels {
@@ -91,44 +108,30 @@ $track-panels: 6;
         }
     }
 
-    .track__prev,
-    .track__next {
-        position: absolute;
-        inset-block-start: 50%;
-        transform: translateY(-50%);
-        
-        z-index: 1;
+    .track__controls {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
 
-        font-size: var(--font-size-md);
-    }
-
-    .track__prev {
-        inset-inline-start: 0;
-    }
-
-    .track__next {
-        inset-inline-end: 0;
+        width: 100%;
     }
 
     .track__pagination {
         display: flex;
         justify-content: center;
-
-        width: 100%;
         
         gap: var(--spacer-1);
-
-        padding: var(--spacer-2) var(--spacer-1);
     }
 
     .track__pagination__item {
+        --_size: calc(var(--button-target-size) * 0.5);
+
         display: flex;
 
-        width: calc(var(--button-target-size) * 0.25);
+        width: var(--_size);
+        height: var(--_size);
 
-        aspect-ratio: 1;
-
-        background-color: var(--light);
+        background-color: currentColor;
         
         border-radius: 100%;
 
@@ -138,11 +141,15 @@ $track-panels: 6;
             .active,
             [aria-current='true']) 
         {
-            background-color: currentColor;
+            background-color: transparent;
+
+            outline: 4px solid currentColor;
+            outline-offset: -4px;
         }
     }
 
-    .hide-controls :is( 
+    .hide-controls :is(
+        .track__controls,
         .track__prev,
         .track__next,
         .track__pagination

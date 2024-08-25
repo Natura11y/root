@@ -25,8 +25,8 @@ In this file:
 
     .carousel {
         position: relative;
+
         overflow: hidden;
-            border: 2px solid red !important;
 
         display: flex;
         flex-direction: column;
@@ -51,15 +51,14 @@ In this file:
         :is(img, video) {
             width: 100%;
             height: auto;
-            // outline: 4px solid red;
-            // outline-offset: -4px;
         }
+
+        cursor: grab;
 
         &[aria-hidden="false"] {
             opacity: 1;
             pointer-events: auto;
         }
-        border: 2px solid orange !important;
     }
 
     // Carousel Controls
@@ -93,15 +92,12 @@ In this file:
         inset: auto auto var(--spacer-2) auto;
 
         width: 100%;
-
-        // padding: var(--container-padding-x) var(--spacer-5);
-        // background-color: pink;
     }
 
     .carousel__indicator {
         display: flex;
 
-        width: calc(var(--button-target-size) * 0.375);
+        width: calc(var(--button-target-size) * 0.25);
 
         aspect-ratio: 1;
 
