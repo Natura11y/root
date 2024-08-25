@@ -68,10 +68,16 @@ export default class Track {
         });
 
         trackElement.addEventListener('keydown', (event) => {
-            if (event.key === 'ArrowLeft') {
-                this.#scrollByAmount(trackContainer, -scrollAmount);
-            } else if (event.key === 'ArrowRight') {
-                this.#scrollByAmount(trackContainer, scrollAmount);
+            switch (event.key) {
+                case 'ArrowLeft':
+                    this.#scrollByAmount(trackContainer, -scrollAmount);
+                    break;
+                case 'ArrowRight':
+                    this.#scrollByAmount(trackContainer, scrollAmount);
+                    break;
+                // You can add more cases here if needed
+                default:
+                    break;
             }
         });
 
