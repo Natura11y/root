@@ -56,39 +56,37 @@ $track-panels: 6;
     .track__container {
         position: relative;
 
-        outline: 3px solid red;
+        outline: 3px solid blue;
     }
 
-        .track__panels {
-            --_gap: var(--gap-size, unset);
+    .track__panels {
+        --_gap: var(--gap-size, unset);
 
-            display: flex;
+        display: flex;
 
-            gap: var(--_gap);
-            
-            overflow-x: auto;
-
-            scroll-snap-type: inline mandatory;
-            scroll-behavior: auto;
-
-            scrollbar-width: none; /* Hide scrollbar on Firefox */
-            -ms-overflow-style: none;  /* IE and Edge */
-                
-            &:is(::-webkit-scrollbar) {
-                display: none; /* Hide scrollbar on WebKit browsers */
-            }
-    
-        }
+        gap: var(--_gap);
         
-    
+        overflow-x: auto;
+
+        scroll-snap-type: inline mandatory;
+        scroll-behavior: auto;
+
+        scrollbar-width: none; /* Hide scrollbar on Firefox */
+        -ms-overflow-style: none;  /* IE and Edge */
+            
+        &:is(::-webkit-scrollbar) {
+            display: none; /* Hide scrollbar on WebKit browsers */
+        }
+    }
 
     .track__panel {
         display: flex;
-        flex: 0 0 calc(100% / var(--visible-panels)); /* Adjusts width based on the number of visible panels */
+        flex: 0 0 calc(100% / var(--visible-panels));
         align-items: center;
         
         justify-content: start;
-        scroll-snap-align: start; /* Snap to the start of each item */
+
+        scroll-snap-align: start;
         
         background-color: #ddd;
         font-size: 24px;
@@ -152,7 +150,11 @@ $track-panels: 6;
         background-color: black;
     }
 
-    .hide-controls .track__pagination {
+    .hide-controls :is( 
+        .track__prev,
+        .track__next,
+        .track__pagination
+    ) {
         display: none;
     }
 

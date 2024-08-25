@@ -10,11 +10,8 @@ export default class Track {
 
     // Private methods
     
-    #updateLiveRegion(trackElement, currentIndex, totalPages) {
-        const liveRegion = trackElement.querySelector('.liveregion');
-        if (liveRegion) {
-            liveRegion.textContent = `Page ${currentIndex + 1} of ${totalPages}`;
-        }
+    #scrollByAmount(trackContainer, amount) {
+        trackContainer.scrollBy({ left: amount, behavior: 'smooth' });
     }
 
     #calculateTotalPages(trackElement) {
@@ -23,6 +20,33 @@ export default class Track {
 
         // Calculate the total number of pages
         return Math.ceil(trackContainer.scrollWidth / containerWidth);
+    }
+
+    #generatePagination(trackElement) {
+        const totalPages = this.#calculateTotalPages(trackElement);
+
+        const paginationContainer = trackElement.querySelector('.track__pagination');
+        if (!paginationContainer) return;
+
+        // Only update if the number of pages changes
+        if (paginationContainer.childElementCount !== totalPages) {
+            paginationContainer.innerHTML = '';
+
+            Array.from({ length: totalPages }).forEach((_, i) => {
+                const button = document.createElement('button');
+                
+                button.className = 'track__pagination__item';
+                button.setAttribute('data-item', i);
+
+                if (i === 0) {
+                    button.classList.add('active');
+                }
+                
+                paginationContainer.appendChild(button);
+            });
+        }
+
+        return totalPages;
     }
 
     #updatePagination(trackElement, paginationItems) {
@@ -44,15 +68,18 @@ export default class Track {
         this.#updateLiveRegion(trackElement, activeIndex, paginationItems.length);
     }
 
-    #scrollByAmount(trackContainer, amount) {
-        trackContainer.scrollBy({ left: amount, behavior: 'smooth' });
-    }
-
     #resetPagination(trackElement) {
-        this.#generatePagination(trackElement);
+        const totalPages = this.#generatePagination(trackElement);
         const paginationItems = trackElement.querySelectorAll('.track__pagination__item');
         this.#updatePagination(trackElement, paginationItems); // Update active item after regeneration
         this.#scrollAmount = trackElement.querySelector('.track__panels').offsetWidth;  // Recalculate scroll amount
+
+        // Add or remove controls based on the number of pages
+        if (totalPages === 1) {
+            trackElement.classList.add('hide-controls');
+        } else {
+            trackElement.classList.remove('hide-controls');
+        }
     }
 
     #initEventListeners(trackElement) {
@@ -100,31 +127,6 @@ export default class Track {
         });
     }
 
-    #generatePagination(trackElement) {
-        const totalPages = this.#calculateTotalPages(trackElement);
-
-        const paginationContainer = trackElement.querySelector('.track__pagination');
-        if (!paginationContainer) return;
-
-        // Only update if the number of pages changes
-        if (paginationContainer.childElementCount !== totalPages) {
-            paginationContainer.innerHTML = '';
-
-            Array.from({ length: totalPages }).forEach((_, i) => {
-                const button = document.createElement('button');
-                
-                button.className = 'track__pagination__item';
-                button.setAttribute('data-item', i);
-
-                if (i === 0) {
-                    button.classList.add('active');
-                }
-                
-                paginationContainer.appendChild(button);
-            });
-        }
-    }
-
     #initLiveRegion(trackElement) {
         const liveRegion = document.createElement('div');
         liveRegion.setAttribute('aria-live', 'polite');
@@ -133,10 +135,18 @@ export default class Track {
         trackElement.appendChild(liveRegion);
     }
 
+    #updateLiveRegion(trackElement, currentIndex, totalPages) {
+        const liveRegion = trackElement.querySelector('.liveregion');
+        if (liveRegion) {
+            liveRegion.textContent = `Page ${currentIndex + 1} of ${totalPages}`;
+        }
+    }
+
     // Public methods
+
     init() {
         this.#trackList.forEach((trackElement) => {
-            this.#generatePagination(trackElement);
+            this.#resetPagination(trackElement);
             this.#initLiveRegion(trackElement);
             this.#initEventListeners(trackElement);
         });
