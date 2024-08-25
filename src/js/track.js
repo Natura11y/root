@@ -108,11 +108,14 @@ export default class Track {
 
             Array.from({ length: totalPages }).forEach((_, i) => {
                 const button = document.createElement('button');
+                
                 button.className = 'track__pagination__item';
                 button.setAttribute('data-item', i);
+
                 if (i === 0) {
                     button.classList.add('active');
                 }
+                
                 paginationContainer.appendChild(button);
             });
         }
@@ -122,7 +125,7 @@ export default class Track {
         const liveRegion = document.createElement('div');
         liveRegion.setAttribute('aria-live', 'polite');
         liveRegion.setAttribute('aria-atomic', 'true');
-        liveRegion.classList.add('liveregion', 'screen-reader-onlyx');
+        liveRegion.classList.add('liveregion', 'screen-reader-only');
         trackElement.appendChild(liveRegion);
     }
 
