@@ -17,10 +17,14 @@ export default class Track {
     #updatePagination(trackElement, paginationItems) {
         const trackContainer = trackElement.querySelector('.track__panels');
         const scrollLeft = trackContainer.scrollLeft;
-        const itemWidth = trackContainer.offsetWidth;
+        const containerWidth = trackContainer.offsetWidth;
 
-        let activeIndex = Math.round(scrollLeft / itemWidth);
+        // Calculate the active index directly based on scroll position
+        let activeIndex = Math.round(scrollLeft / containerWidth);
+
+        // Ensure activeIndex doesn't go out of bounds
         activeIndex = Math.min(activeIndex, paginationItems.length - 1);
+        activeIndex = Math.max(activeIndex, 0);
 
         paginationItems.forEach((item, index) => {
             item.classList.toggle('active', index === activeIndex);
