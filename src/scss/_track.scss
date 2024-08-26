@@ -78,7 +78,7 @@ $track-panels: 6;
 
         margin-inline: calc(var(--_gap) / -2);
         
-        overflow-x: auto;
+        overflow-x: scroll;
 
         scroll-snap-type: inline mandatory;
         scroll-behavior: auto;
@@ -120,11 +120,13 @@ $track-panels: 6;
         display: flex;
         justify-content: center;
         
-        gap: var(--spacer-1);
+        gap: 0.75em;
     }
 
     .track__pagination__item {
         --_size: calc(var(--button-target-size) * 0.5);
+
+        container-type: inline-size;
 
         display: flex;
 
@@ -143,8 +145,26 @@ $track-panels: 6;
         {
             background-color: transparent;
 
-            outline: 4px solid currentColor;
-            outline-offset: -4px;
+            outline: 3px solid currentColor;
+            outline-offset: -3px;
+
+            &::after {
+                content: '';
+                align-self: center;
+                margin-inline: auto;
+
+                width: 35cqi;
+                height: 35cqi;
+
+                background-color: currentColor;
+                
+                border-radius: 100%;
+            }
+        }
+        
+        &:focus-visible {
+            outline: 3px solid var(--link-color) !important;
+            outline-offset: 2px !important;
         }
     }
 

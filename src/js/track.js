@@ -69,6 +69,14 @@ export default class Track {
         });
 
         this.#updateLiveRegion(trackElement, activeIndex, paginationItems.length);
+
+        // Focus the panel after scroll ends
+        // const activePanel = trackContainer.children[activeIndex];
+
+        // if (activePanel) {
+        //     activePanel.setAttribute('tabindex', '-1');  // Make it focusable
+        //     activePanel.focus();
+        // }
     }
 
     #resetPagination(trackElement) {
