@@ -33,6 +33,7 @@ export default class Track {
             paginationContainer.innerHTML = '';
 
             Array.from({ length: totalPages }).forEach((_, i) => {
+                const listItem = document.createElement('li');
                 const button = document.createElement('button');
                 
                 button.className = 'track__pagination__item';
@@ -43,8 +44,9 @@ export default class Track {
                     button.classList.add('active');
                     button.setAttribute('aria-current', 'true');
                 }
-                
-                paginationContainer.appendChild(button);
+
+                listItem.appendChild(button); // Wrap button in li
+                paginationContainer.appendChild(listItem); // Add li to ul
             });
         }
 
