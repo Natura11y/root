@@ -3,7 +3,6 @@ import { delegateEvent } from './utilities/eventDelegation';
 export default class Track {
 
     // Private properties
-
     #trackList = document.querySelectorAll('.track');
 
     // Private methods
@@ -12,6 +11,11 @@ export default class Track {
         const containerWidth = trackContainer.offsetWidth;
         const panelPeeking = parseFloat(getComputedStyle(trackContainer).getPropertyValue('--panel-peaking')) || 0;
         return containerWidth - panelPeeking;
+    }
+
+    #calculateTotalPages(trackContainer) {
+        const effectiveWidth = this.#calculateEffectiveWidth(trackContainer);
+        return Math.ceil(trackContainer.scrollWidth / effectiveWidth);
     }
 
     #scrollToPosition(trackContainer, position) {
@@ -28,8 +32,7 @@ export default class Track {
 
     #generatePagination(trackElement) {
         const trackContainer = trackElement.querySelector('.track__panels');
-        const effectiveWidth = this.#calculateEffectiveWidth(trackContainer);
-        const totalPages = Math.ceil(trackContainer.scrollWidth / effectiveWidth);
+        const totalPages = this.#calculateTotalPages(trackContainer);
 
         const paginationContainer = trackElement.querySelector('.track__pagination');
         paginationContainer.innerHTML = '';
@@ -54,23 +57,53 @@ export default class Track {
         return totalPages;
     }
 
-    #updatePagination(trackElement) {
-        const trackContainer = trackElement.querySelector('.track__panels');
-        const scrollLeft = trackContainer.scrollLeft;
-        const effectiveWidth = this.#calculateEffectiveWidth(trackContainer);
-
-        const activeIndex = Math.round(scrollLeft / effectiveWidth);
+    #updatePagination(trackElement, activeIndex) {
         const paginationItems = trackElement.querySelectorAll('.track__pagination__item');
-
         paginationItems.forEach((item, index) => {
             const isActive = index === activeIndex;
             item.setAttribute('aria-current', isActive);
             item.classList.toggle('active', isActive);
         });
 
-        console.table(scrollLeft, effectiveWidth, activeIndex, paginationItems.length);
-
         this.#updateLiveRegion(trackElement, activeIndex, paginationItems.length);
+    }
+
+    #initIntersectionObserver(trackElement) {
+        const trackContainer = trackElement.querySelector('.track__panels');
+        const panels = trackContainer.querySelectorAll('.track__panel');
+        const totalPages = this.#calculateTotalPages(trackContainer);
+
+        const observerOptions = {
+            root: trackContainer,
+            threshold: 0.5 // Adjust this threshold as needed
+        };
+
+        const observerCallback = (entries) => {
+            let visiblePanels = [];
+
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    visiblePanels.push(entry.target);
+                }
+            });
+
+            if (visiblePanels.length) {
+                const firstVisiblePanel = visiblePanels[0];
+                const snappedIndex = Array.from(panels).indexOf(firstVisiblePanel);
+                const visiblePanelsCount = Math.floor(trackContainer.offsetWidth / panels[0].offsetWidth);
+                const activeIndex = Math.floor(snappedIndex / visiblePanelsCount);
+
+                // Update pagination based on the active page index
+                this.#updatePagination(trackElement, activeIndex);
+            }
+        };
+
+        const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+        // Observe each panel
+        panels.forEach(panel => {
+            observer.observe(panel);
+        });
     }
 
     #initEventListeners(trackElement) {
@@ -96,13 +129,9 @@ export default class Track {
             this.#scrollToPosition(trackPanels, newPosition);
         });
 
-        trackPanels.addEventListener('scroll', () => {
-            this.#updatePagination(trackElement);
-        });
-
         window.addEventListener('resize', () => {
             this.#generatePagination(trackElement);
-            this.#updatePagination(trackElement);
+            this.#initIntersectionObserver(trackElement); // Re-init observer on resize
         });
     }
 
@@ -127,6 +156,7 @@ export default class Track {
             this.#generatePagination(trackElement);
             this.#initLiveRegion(trackElement);
             this.#initEventListeners(trackElement);
+            this.#initIntersectionObserver(trackElement);
         });
     }
 }
