@@ -23,6 +23,7 @@ In this file:
 
 :root {
     --visible-panels: 1;
+    --panel-peaking: 0px;
 }
 
 $track-panels: 6;
@@ -59,7 +60,7 @@ $track-panels: 6;
             inset-block-start: 50%;
             transform: translateY(-50%);
             
-            z-index: auto;
+            z-index: 10;
         }
 
         .track__prev {
@@ -68,6 +69,29 @@ $track-panels: 6;
 
         .track__next {
             inset-inline-end: 0;
+        }
+    }
+    
+    .track--peaking {
+        .track__container {
+            --panel-peaking: var(--button-target-size);
+
+            position: relative;
+            
+            &::before {
+                content: '';
+                position: absolute;
+                inset-block: 0;
+                inset-inline-end: 0;
+                width: var(--panel-peaking);
+                background: var(--canvas);
+                opacity: 0.5;
+                pointer-events: none;
+            }
+        }
+
+        .track__panels {
+            padding-inline-end: var(--panel-peaking);
         }
     }
 
@@ -90,11 +114,18 @@ $track-panels: 6;
         &:is(::-webkit-scrollbar) {
             display: none;
         }
-    }
+
+
+            outline: 3px solid blue;
+            outline-offset: -3px;
+        }
 
     .track__panel {
         display: flex;
         flex: 0 0 calc(100% / var(--visible-panels));
+
+
+
         align-items: center;
         justify-content: start;
 
