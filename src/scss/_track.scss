@@ -23,7 +23,8 @@ In this file:
 
 :root {
     --visible-panels: 1;
-    --panel-peaking: 0px;
+
+    --panel-peaking: var(--button-target-size);
 }
 
 $track-panels: 6;
@@ -74,7 +75,6 @@ $track-panels: 6;
     
     .track--peaking {
         .track__container {
-            --panel-peaking: var(--button-target-size);
 
             position: relative;
             
@@ -102,10 +102,10 @@ $track-panels: 6;
 
         margin-inline: calc(var(--_gap) / -2);
         
-        overflow-x: scroll;
+        overflow-x: auto;
 
         scroll-snap-type: inline mandatory;
-        scroll-behavior: auto;
+        scroll-behavior: smooth;
 
         /* Hide scrollbars */
         scrollbar-width: none;
@@ -115,16 +115,11 @@ $track-panels: 6;
             display: none;
         }
 
-
-            outline: 3px solid blue;
-            outline-offset: -3px;
-        }
+    }
 
     .track__panel {
         display: flex;
         flex: 0 0 calc(100% / var(--visible-panels));
-
-
 
         align-items: center;
         justify-content: start;
@@ -137,6 +132,9 @@ $track-panels: 6;
             width: 100%;
             height: auto;
         }
+
+        outline: 1px solid blue;
+        // outline-offset: -3px;
     }
 
     .track__controls {
