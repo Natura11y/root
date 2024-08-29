@@ -8,6 +8,10 @@ export default class Track {
 
     // Private methods
 
+    #getVisiblePanels(trackElement) {
+        return parseInt(getComputedStyle(trackElement).getPropertyValue('--visible-panels'), 10) || 1;
+    }
+
     #calculateEffectiveWidth(trackContainer) {
         const panelPeeking = parseFloat(getComputedStyle(trackContainer).getPropertyValue('--panel-peaking')) || 0;
         return trackContainer.offsetWidth - panelPeeking;
@@ -23,8 +27,11 @@ export default class Track {
     }
 
     #calculateTotalPages(trackContainer) {
+        console.log('visiblePanels', this.#getVisiblePanels(trackContainer));
+        
         const effectiveWidth = this.#calculateEffectiveWidth(trackContainer);
         return Math.ceil(trackContainer.scrollWidth / effectiveWidth);
+
     }
 
     #generatePagination(trackElement) {
