@@ -12,13 +12,10 @@ export default class Track {
         return parseInt(getComputedStyle(trackElement).getPropertyValue('--visible-panels'), 10) || 1;
     }
 
-    #getTotalPages(trackPanels, visiblePanels) {
-        return Math.ceil(trackPanels.children.length / visiblePanels);
-    }
-
-    #calculateEffectiveWidth(trackContainer) {
-        const panelPeeking = parseFloat(getComputedStyle(trackContainer).getPropertyValue('--panel-peaking')) || 0;
-        return trackContainer.offsetWidth - panelPeeking;
+    #getTotalPages(trackContainer) {
+        const visiblePanels = this.#getVisiblePanels(trackContainer);
+        const totalPanels = trackContainer.children.length;
+        return Math.ceil(totalPanels / visiblePanels);
     }
 
     #scrollByAmount(trackContainer, amount) {
@@ -30,18 +27,8 @@ export default class Track {
         this.#updatePagination(trackContainer.closest('.track'));
     }
 
-    #calculateTotalPages(trackContainer) {
-        // I'm not sure if something like this would be more accurate than dividing the scrollWidth by the effective width
-        console.log('visiblePanels', this.#getVisiblePanels(trackContainer));
-        console.log('totalPages', this.#getTotalPages(trackContainer, this.#getVisiblePanels(trackContainer)));
-        
-        const effectiveWidth = this.#calculateEffectiveWidth(trackContainer);
-        return Math.ceil(trackContainer.scrollWidth / effectiveWidth);
-
-    }
-
     #generatePagination(trackElement) {
-        const totalPages = this.#calculateTotalPages(trackElement.querySelector('.track__panels'));
+        const totalPages = this.#getTotalPages(trackElement.querySelector('.track__panels'));
         const paginationContainer = trackElement.querySelector('.track__pagination');
 
         if (!paginationContainer) return;
@@ -60,9 +47,13 @@ export default class Track {
     #updatePagination(trackElement) {
         const trackContainer = trackElement.querySelector('.track__panels');
         const paginationItems = trackElement.querySelectorAll('.track__pagination__item');
-        const effectiveWidth = this.#calculateEffectiveWidth(trackContainer);
-        const activeIndex = Math.min(Math.max(Math.round(trackContainer.scrollLeft / effectiveWidth), 0), paginationItems.length - 1);
-
+        const visiblePanels = this.#getVisiblePanels(trackContainer);
+        const scrollPosition = trackContainer.scrollLeft;
+        
+        // Calculate the active index based on the current scroll position
+        const panelWidth = trackContainer.scrollWidth / trackContainer.children.length;
+        const activeIndex = Math.round(scrollPosition / (panelWidth * visiblePanels));
+        
         paginationItems.forEach((item, index) => {
             const isActive = index === activeIndex;
             item.classList.toggle('active', isActive);
@@ -74,8 +65,6 @@ export default class Track {
 
     #resetPagination(trackElement) {
         const totalPages = this.#generatePagination(trackElement);
-        const trackContainer = trackElement.querySelector('.track__panels');
-        // const paginationItems = trackElement.querySelectorAll('.track__pagination__item');
 
         this.#updatePagination(trackElement);
 
@@ -90,7 +79,7 @@ export default class Track {
         const trackContainer = trackElement.querySelector('.track__panels');
         const prevButton = trackElement.querySelector('.track__prev');
         const nextButton = trackElement.querySelector('.track__next');
-        const scrollAmount = this.#calculateEffectiveWidth(trackContainer);
+        const scrollAmount = trackContainer.offsetWidth;
 
         prevButton?.addEventListener('click', () => this.#scrollByAmount(trackContainer, -scrollAmount));
         nextButton?.addEventListener('click', () => this.#scrollByAmount(trackContainer, scrollAmount));
