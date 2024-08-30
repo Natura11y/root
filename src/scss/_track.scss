@@ -53,6 +53,7 @@ $track-panels: 6;
     }
 
     .track__container {
+        --_peaking: var(--panel-peaking);
         position: relative;
 
         .track__prev,

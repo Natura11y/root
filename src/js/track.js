@@ -12,6 +12,10 @@ export default class Track {
         return parseInt(getComputedStyle(trackElement).getPropertyValue('--visible-panels'), 10) || 1;
     }
 
+    #getPeekingAmount(trackElement) {
+        return parseFloat(getComputedStyle(trackElement).getPropertyValue('--_peaking')) || 0;
+    }
+
     #getTotalPages(trackContainer) {
         const visiblePanels = this.#getVisiblePanels(trackContainer);
         const totalPanels = trackContainer.children.length;
@@ -65,25 +69,27 @@ export default class Track {
 
     #resetPagination(trackElement) {
         const trackContainer = trackElement.querySelector('.track__panels');
-        const currentIndex = Math.round(trackContainer.scrollLeft / trackContainer.offsetWidth);
+        const peekingAmount = this.#getPeekingAmount(trackContainer);
+        const scrollAmount = trackContainer.offsetWidth - peekingAmount;
+        const currentIndex = Math.round(trackContainer.scrollLeft / scrollAmount);
+
+        console.log('peakingAmount', peekingAmount);
 
         // Regenerate pagination based on the new visible panels count
         const totalPages = this.#generatePagination(trackElement);
 
         // Update pagination display based on the current scroll position
-        this.#scrollToPosition(trackContainer, currentIndex * trackContainer.offsetWidth);
+        this.#scrollToPosition(trackContainer, currentIndex * scrollAmount);
 
         // Toggle control visibility based on the number of pages
-        if (totalPages === 1) {
-            trackElement.classList.add('hide-controls');
-        } else {
-            trackElement.classList.remove('hide-controls');
-        }
+        trackElement.classList.toggle('hide-controls', totalPages === 1);
     }
 
     #initEventListeners(trackElement) {
         const trackContainer = trackElement.querySelector('.track__panels');
-        let scrollAmount = trackContainer.offsetWidth;
+        
+        let peekingAmount = this.#getPeekingAmount(trackContainer.closest('.track'));
+        let scrollAmount = trackContainer.offsetWidth - peekingAmount;
 
         // Scroll by the calculated amount on button click
         trackElement.querySelector('.track__prev')?.addEventListener('click', () => this.#scrollByAmount(trackContainer, -scrollAmount));
@@ -112,7 +118,8 @@ export default class Track {
 
         // Recalculate pagination on window resize
         window.addEventListener('resize', () => {
-            scrollAmount = trackContainer.offsetWidth;
+            peekingAmount = this.#getPeekingAmount(trackContainer.closest('.track'));
+            scrollAmount = trackContainer.offsetWidth - peekingAmount;
             this.#resetPagination(trackElement);
         });
     }
