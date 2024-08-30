@@ -64,11 +64,14 @@ export default class Track {
     }
 
     #resetPagination(trackElement) {
+        const trackContainer = trackElement.querySelector('.track__panels');
+        const currentIndex = Math.round(trackContainer.scrollLeft / trackContainer.offsetWidth);
+
         // Regenerate pagination based on the new visible panels count
         const totalPages = this.#generatePagination(trackElement);
 
         // Update pagination display based on the current scroll position
-        this.#updatePagination(trackElement);
+        this.#scrollToPosition(trackContainer, currentIndex * trackContainer.offsetWidth);
 
         // Toggle control visibility based on the number of pages
         if (totalPages === 1) {
@@ -80,13 +83,11 @@ export default class Track {
 
     #initEventListeners(trackElement) {
         const trackContainer = trackElement.querySelector('.track__panels');
-        const prevButton = trackElement.querySelector('.track__prev');
-        const nextButton = trackElement.querySelector('.track__next');
         let scrollAmount = trackContainer.offsetWidth;
 
         // Scroll by the calculated amount on button click
-        prevButton?.addEventListener('click', () => this.#scrollByAmount(trackContainer, -scrollAmount));
-        nextButton?.addEventListener('click', () => this.#scrollByAmount(trackContainer, scrollAmount));
+        trackElement.querySelector('.track__prev')?.addEventListener('click', () => this.#scrollByAmount(trackContainer, -scrollAmount));
+        trackElement.querySelector('.track__next')?.addEventListener('click', () => this.#scrollByAmount(trackContainer, scrollAmount));
 
         // Delegate pagination item clicks
         delegateEvent(trackElement, 'click', '.track__pagination__item', (event) => {
