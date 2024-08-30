@@ -47,13 +47,13 @@ export default class Track {
     #updatePagination(trackElement) {
         const trackContainer = trackElement.querySelector('.track__panels');
         const paginationItems = trackElement.querySelectorAll('.track__pagination__item');
-        const visiblePanels = this.#getVisiblePanels(trackContainer);
         const scrollPosition = trackContainer.scrollLeft;
-        
-        // Calculate the active index based on the current scroll position
+
+        // Calculate the width of a single panel
         const panelWidth = trackContainer.scrollWidth / trackContainer.children.length;
+        const visiblePanels = this.#getVisiblePanels(trackContainer);
         const activeIndex = Math.round(scrollPosition / (panelWidth * visiblePanels));
-        
+
         paginationItems.forEach((item, index) => {
             const isActive = index === activeIndex;
             item.classList.toggle('active', isActive);
@@ -64,10 +64,13 @@ export default class Track {
     }
 
     #resetPagination(trackElement) {
+        // Regenerate pagination based on the new visible panels count
         const totalPages = this.#generatePagination(trackElement);
 
+        // Update pagination display based on the current scroll position
         this.#updatePagination(trackElement);
 
+        // Toggle control visibility based on the number of pages
         if (totalPages === 1) {
             trackElement.classList.add('hide-controls');
         } else {
@@ -79,21 +82,25 @@ export default class Track {
         const trackContainer = trackElement.querySelector('.track__panels');
         const prevButton = trackElement.querySelector('.track__prev');
         const nextButton = trackElement.querySelector('.track__next');
-        const scrollAmount = trackContainer.offsetWidth;
+        let scrollAmount = trackContainer.offsetWidth;
 
+        // Scroll by the calculated amount on button click
         prevButton?.addEventListener('click', () => this.#scrollByAmount(trackContainer, -scrollAmount));
         nextButton?.addEventListener('click', () => this.#scrollByAmount(trackContainer, scrollAmount));
 
+        // Delegate pagination item clicks
         delegateEvent(trackElement, 'click', '.track__pagination__item', (event) => {
             const newIndex = parseInt(event.target.getAttribute('data-item'));
             this.#scrollToPosition(trackContainer, newIndex * scrollAmount);
         });
 
+        // Update pagination on scroll, throttled to prevent excessive updates
         trackContainer.addEventListener('scroll', () => {
             clearTimeout(this.#scrollTimeout);
             this.#scrollTimeout = setTimeout(() => this.#updatePagination(trackElement), 75);
         });
 
+        // Handle keyboard navigation
         trackElement.addEventListener('keydown', (event) => {
             if (event.key === 'ArrowLeft') {
                 this.#scrollByAmount(trackContainer, -scrollAmount);
@@ -102,7 +109,11 @@ export default class Track {
             }
         });
 
-        window.addEventListener('resize', () => this.#resetPagination(trackElement));
+        // Recalculate pagination on window resize
+        window.addEventListener('resize', () => {
+            scrollAmount = trackContainer.offsetWidth;
+            this.#resetPagination(trackElement);
+        });
     }
 
     #initLiveRegion(trackElement) {
