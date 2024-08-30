@@ -12,7 +12,6 @@ export default class Track {
         return parseInt(getComputedStyle(trackElement).getPropertyValue('--visible-panels'), 10) || 1;
     }
 
-
     #getTotalPages(trackPanels, visiblePanels) {
         return Math.ceil(trackPanels.children.length / visiblePanels);
     }
@@ -32,6 +31,7 @@ export default class Track {
     }
 
     #calculateTotalPages(trackContainer) {
+        // I'm not sure if something like this would be more accurate than dividing the scrollWidth by the effective width
         console.log('visiblePanels', this.#getVisiblePanels(trackContainer));
         console.log('totalPages', this.#getTotalPages(trackContainer, this.#getVisiblePanels(trackContainer)));
         
