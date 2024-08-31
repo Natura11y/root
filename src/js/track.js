@@ -87,7 +87,7 @@ export default class Track {
 
     #initEventListeners(trackElement) {
         const trackContainer = trackElement.querySelector('.track__panels');
-        
+
         let peekingAmount = this.#getPeekingAmount(trackContainer.closest('.track'));
         let scrollAmount = trackContainer.offsetWidth - peekingAmount;
 
@@ -103,10 +103,10 @@ export default class Track {
 
         // Update pagination on scroll, throttled to prevent excessive updates
         trackContainer.addEventListener('scroll', () => {
-            clearTimeout(this.#scrollTimeout);
+            clearTimeout(this.#scrollTimeout); 
             this.#scrollTimeout = setTimeout(() => this.#updatePagination(trackElement), 75);
         });
-
+        
         // Handle keyboard navigation
         trackElement.addEventListener('keydown', (event) => {
             if (event.key === 'ArrowLeft') {
