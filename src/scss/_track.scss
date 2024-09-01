@@ -1,13 +1,3 @@
-/*
-
-In this file:
-
-// A. Modules
-// B. Variables
-// C. Component
-
-*/
-
 //////////////////////////////////////////////
 // A. Modules
 //////////////////////////////////////////////
@@ -45,8 +35,6 @@ $track-panels: 6;
     .track {
         overflow: hidden;
 
-        width: 100%;
-
         ul {
             list-style: none;
         }
@@ -54,6 +42,8 @@ $track-panels: 6;
 
     .track__container {
         position: relative;
+
+        background-color: tan;
 
         .track__prev,
         .track__next {
@@ -99,16 +89,20 @@ $track-panels: 6;
     .track__panels {
         --_gap: var(--gap-size, 0);
 
-        display: flex;
+        display: grid;
+        grid-auto-flow: column; // Ensure all items are placed in a single row
+        // grid-auto-columns: calc(100% / var(--visible-panels)); // Each panel takes an equal share
+        grid-auto-columns: calc((100% / var(--visible-panels)) - (var(--_gap) * ((var(--visible-panels) - 1) / var(--visible-panels))));
+    gap: var(--_gap);
 
-        margin-inline: calc(var(--_gap) / -2);
+        // gap: var(--_gap);
+
+        // margin-inline: calc(var(--_gap) / -2);
 
         position: relative;
-        
         overflow-x: auto;
 
         scroll-snap-type: inline mandatory;
-        
         scroll-behavior: auto;
 
         /* Hide scrollbars */
@@ -122,28 +116,22 @@ $track-panels: 6;
         li {
             position: relative;
         }
-
     }
 
     .track__panel {
         position: relative;
 
-        display: flex;
-        flex: 0 0 calc(100% / var(--visible-panels));
-
-        align-items: center;
-        justify-content: start;
-
+        display: block; // Grid handles the layout; no need for flexbox
         scroll-snap-align: start;
 
-        padding-inline: calc(var(--_gap) * 0.5);
+        // padding-inline: calc(var(--_gap) * 0.5);
 
         > *:is(img, video) {
             width: 100%;
             height: auto;
         }
-        outline: 1px solid blue;
 
+        outline: 1px solid blue;
     }
 
     .track__panel__duplicate {
@@ -161,7 +149,7 @@ $track-panels: 6;
         opacity: 0.5;
 
         > * {
-        display: block
+            display: block;
         }
     }
 
