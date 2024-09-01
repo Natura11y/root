@@ -15,6 +15,10 @@ export default class Track {
         return Math.ceil(totalPanels / visiblePanels);
     }
 
+    #toggleControlsVisibility(trackElement, totalPages) {
+        trackElement.classList.toggle('hide-controls', totalPages <= 1);
+    }
+
     #generatePagination(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
         const totalPages = this.#getTotalPages(trackPanels);
@@ -34,10 +38,6 @@ export default class Track {
         `).join('');
 
         this.#toggleControlsVisibility(trackElement, totalPages);
-    }
-
-    #toggleControlsVisibility(trackElement, totalPages) {
-        trackElement.classList.toggle('hide-controls', totalPages <= 1);
     }
 
     #updatePagination(trackElement, activeIndex) {
@@ -77,8 +77,7 @@ export default class Track {
         const trackPanels = trackElement.querySelector('.track__panels');
         const firstPanelClone = trackPanels.children[0].firstElementChild.cloneNode(true);
         const lastPanel = trackPanels.children[trackPanels.children.length - 1];
-        
-        // Clone the content of the first panel and append it to the last panel
+        const firstPanelCloneContainer = document.createElement('div');
         
         // Remove any unnecessary attributes
         firstPanelClone.removeAttribute('id'); 
@@ -86,15 +85,12 @@ export default class Track {
 
         // Mark it as a duplicate
 
-        const firstPanelCloneContainer = document.createElement('div');
         firstPanelCloneContainer.classList.add('track__panel__duplicate');
         firstPanelCloneContainer.setAttribute('tabindex', '-1');
         firstPanelCloneContainer.setAttribute('aria-hidden', 'true');
 
-        // Append the cloned content inside the container
+        // Append the cloned content
         firstPanelCloneContainer.appendChild(firstPanelClone);
-
-        // Append the cloned content inside the last panel
         lastPanel.appendChild(firstPanelCloneContainer);
     }
 
@@ -102,8 +98,8 @@ export default class Track {
         const trackPanels = trackElement.querySelector('.track__panels');
         const paginationContainer = trackElement.querySelector('.track__pagination');
 
-        paginationContainer.innerHTML = '';
         trackPanels.scrollLeft = 0;
+        paginationContainer.innerHTML = '';
 
         this.#generatePagination(trackElement);
         this.#initLiveRegion(trackElement);
@@ -111,6 +107,7 @@ export default class Track {
 
     #initLiveRegion(trackElement) {
         let liveRegion = trackElement.querySelector('.liveregion');
+
         if (!liveRegion) {
             liveRegion = document.createElement('div');
             liveRegion.className = 'liveregion screen-reader-only';
@@ -178,7 +175,6 @@ export default class Track {
 
     init() {
         this.#trackList.forEach(trackElement => {
-            // Duplicate the first panel content only once on initialization if looping is enabled
             if (trackElement.classList.contains('track--peaking')) {
                 this.#duplicateFirstPanelContent(trackElement);
             }
