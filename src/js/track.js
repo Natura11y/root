@@ -11,7 +11,7 @@ export default class Track {
 
     #getTotalPages(trackPanels) {
         const visiblePanels = this.#getVisiblePanels(trackPanels);
-        const totalPanels = trackPanels.children.length - 1; // Adjust for the duplicated panel
+        const totalPanels = trackPanels.children.length; // Adjust for the duplicated panel
         return Math.ceil(totalPanels / visiblePanels);
     }
 
@@ -147,8 +147,8 @@ export default class Track {
         trackElement.querySelector('.track__prev')?.addEventListener('click', () => {
             const currentIndex = this.#getCurrentPageIndex(trackPanels);
             if (currentIndex === 0) {
-                const lastRealPanelIndex = trackPanels.children.length - this.#getVisiblePanels(trackPanels) - 1;
-                this.#scrollToPage(trackElement, lastRealPanelIndex, true); // Instantly go to the last page
+                const lastPanelIndex = trackPanels.children.length - this.#getVisiblePanels(trackPanels);
+                this.#scrollToPage(trackElement, lastPanelIndex, true); // Instantly go to the last page
             } else {
                 this.#scrollToPage(trackElement, currentIndex - 1);
             }
@@ -178,11 +178,6 @@ export default class Track {
 
     init() {
         this.#trackList.forEach(trackElement => {
-            // Add class for looping if needed
-            if (trackElement.hasAttribute('data-loop')) {
-                trackElement.classList.add('loop-enabled');
-            }
-
             this.#resetTrack(trackElement);
             this.#initEventListeners(trackElement);
         });
