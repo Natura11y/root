@@ -2,8 +2,10 @@ import { delegateEvent } from './utilities/eventDelegation';
 
 export default class Track {
 
+    // Private properties
     #trackList = document.querySelectorAll('.track');
-    #scrollTimeout = null;
+
+    // Private methods
 
     #getVisiblePanels(trackElement) {
         return parseInt(getComputedStyle(trackElement).getPropertyValue('--visible-panels'), 10) || 1;
@@ -58,28 +60,62 @@ export default class Track {
         panels.forEach(panel => observer.observe(panel));
     }
 
+    #scrollByAmount(trackContainer, direction) {
+        const containerWidth = trackContainer.offsetWidth;
+        trackContainer.scrollBy({ left: direction * containerWidth, behavior: 'smooth' });
+    }
+
     #initEventListeners(trackElement) {
         const trackContainer = trackElement.querySelector('.track__panels');
-        const paginationItems = trackElement.querySelectorAll('.track__pagination__item');
-        const visiblePanels = this.#getVisiblePanels(trackContainer);
+        
+        // Use event delegation for pagination clicks
+        delegateEvent(trackElement, 'click', '.track__pagination__item', (event) => {
+            const newIndex = parseInt(event.target.getAttribute('data-item'));
+            const visiblePanels = this.#getVisiblePanels(trackContainer);
+            const targetPanelIndex = newIndex * visiblePanels;
 
-        paginationItems.forEach((item, index) => {
-            item.addEventListener('click', () => {
-                const targetPanel = trackContainer.children[index * visiblePanels];
+            // Ensure the target panel index is within bounds
+            if (targetPanelIndex >= 0 && targetPanelIndex < trackContainer.children.length) {
+                const targetPanel = trackContainer.children[targetPanelIndex];
                 targetPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-            });
+            } else {
+                console.error(`Invalid target panel index: ${targetPanelIndex}`);
+            }
         });
 
+        // Handle Previous and Next Buttons
+        trackElement.querySelector('.track__prev')?.addEventListener('click', () => {
+            this.#scrollByAmount(trackContainer, -1);
+        });
+        trackElement.querySelector('.track__next')?.addEventListener('click', () => {
+            this.#scrollByAmount(trackContainer, 1);
+        });
+
+        // Recalculate everything on window resize
         window.addEventListener('resize', () => {
-            this.#observePanels(trackElement);
+            this.#reset(trackElement);
         });
     }
 
+    #reset(trackElement) {
+        const paginationContainer = trackElement.querySelector('.track__pagination');
+        const trackContainer = trackElement.querySelector('.track__panels');
+
+        // Clear existing observers and pagination
+        paginationContainer.innerHTML = '';
+        trackContainer.scrollLeft = 0;
+
+        // Re-generate and re-apply everything
+        this.#generatePagination(trackElement);
+        this.#observePanels(trackElement);
+    }
+
+    // Public methods
+
     init() {
         this.#trackList.forEach(trackElement => {
-            this.#generatePagination(trackElement);
-            this.#observePanels(trackElement);
-            this.#initEventListeners(trackElement);
+            this.#reset(trackElement);  // Initialize everything
+            this.#initEventListeners(trackElement);  // Setup event listeners
         });
     }
 }
