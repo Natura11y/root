@@ -19,7 +19,9 @@ export default class Track {
     #getTotalPages(trackContainer) {
         const visiblePanels = this.#getVisiblePanels(trackContainer);
         const totalPanels = trackContainer.children.length;
-        return Math.ceil(totalPanels / visiblePanels);
+        const totalPages = Math.ceil(totalPanels / visiblePanels);
+        console.log('total Pages', totalPages)
+        return totalPages;
     }
 
     #scrollByAmount(trackContainer, amount) {
