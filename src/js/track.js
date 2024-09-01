@@ -1,6 +1,7 @@
 export default class Track {
 
     #trackList = document.querySelectorAll('.track');
+    #scrollTimeout = null; // To debounce the scroll event
 
     // Private methods
 
@@ -81,7 +82,7 @@ export default class Track {
         let liveRegion = trackElement.querySelector('.liveregion');
         if (!liveRegion) {
             liveRegion = document.createElement('div');
-            liveRegion.className = 'liveregion screen-reader-onlyw';
+            liveRegion.className = 'liveregion screen-reader-only';
             liveRegion.setAttribute('aria-live', 'polite');
             liveRegion.setAttribute('aria-atomic', 'true');
             trackElement.appendChild(liveRegion);
@@ -90,9 +91,15 @@ export default class Track {
 
     #handleScrollEvent(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
-        const currentIndex = this.#getCurrentPageIndex(trackPanels);
-        this.#updatePagination(trackElement, currentIndex);
-        this.#updateLiveRegion(trackElement, currentIndex, this.#getTotalPages(trackPanels));
+
+        clearTimeout(this.#scrollTimeout);
+
+        // Debounce the scroll event: only update after scrolling stops
+        this.#scrollTimeout = setTimeout(() => {
+            const currentIndex = this.#getCurrentPageIndex(trackPanels);
+            this.#updatePagination(trackElement, currentIndex);
+            this.#updateLiveRegion(trackElement, currentIndex, this.#getTotalPages(trackPanels));
+        }, 100); // Adjust the delay if necessary (100ms is a common debounce time)
     }
 
     #initEventListeners(trackElement) {
@@ -120,7 +127,7 @@ export default class Track {
             }
         });
 
-        // Update active pagination on scroll
+        // Debounced scroll event listener
         trackPanels.addEventListener('scroll', () => {
             this.#handleScrollEvent(trackElement);
         });
