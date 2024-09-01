@@ -32,6 +32,16 @@ export default class Track {
                 ></button>
             </li>
         `).join('');
+
+        this.#toggleControlsVisibility(trackElement, totalPages);
+    }
+
+    #toggleControlsVisibility(trackElement, totalPages) {
+        if (totalPages <= 1) {
+            trackElement.classList.add('hide-controls');
+        } else {
+            trackElement.classList.remove('hide-controls');
+        }
     }
 
     #updatePagination(trackElement, activeIndex) {
@@ -105,7 +115,7 @@ export default class Track {
     #initEventListeners(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
 
-        trackElement.querySelector('.track__pagination').addEventListener('click', (event) => {
+        trackElement.querySelector('.track__pagination')?.addEventListener('click', (event) => {
             if (event.target.closest('.track__pagination__item')) {
                 const newIndex = parseInt(event.target.getAttribute('data-item'));
                 this.#scrollToPage(trackElement, newIndex);
