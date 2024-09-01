@@ -11,7 +11,7 @@ export default class Track {
 
     #getTotalPages(trackPanels) {
         const visiblePanels = this.#getVisiblePanels(trackPanels);
-        const totalPanels = trackPanels.children.length; // Adjust for the duplicated panel
+        const totalPanels = trackPanels.children.length;
         return Math.ceil(totalPanels / visiblePanels);
     }
 
@@ -37,11 +37,7 @@ export default class Track {
     }
 
     #toggleControlsVisibility(trackElement, totalPages) {
-        if (totalPages <= 1) {
-            trackElement.classList.add('hide-controls');
-        } else {
-            trackElement.classList.remove('hide-controls');
-        }
+        trackElement.classList.toggle('hide-controls', totalPages <= 1);
     }
 
     #updatePagination(trackElement, activeIndex) {
@@ -138,18 +134,19 @@ export default class Track {
         const trackPanels = trackElement.querySelector('.track__panels');
 
         trackElement.querySelector('.track__pagination')?.addEventListener('click', (event) => {
-            if (event.target.closest('.track__pagination__item')) {
-                const newIndex = parseInt(event.target.getAttribute('data-item'));
+            const target = event.target.closest('.track__pagination__item');
+            if (target) {
+                const newIndex = parseInt(target.getAttribute('data-item'));
                 this.#scrollToPage(trackElement, newIndex);
             }
         });
 
         trackElement.querySelector('.track__prev')?.addEventListener('click', () => {
             const currentIndex = this.#getCurrentPageIndex(trackPanels);
-            if (currentIndex === 0) {
+            if (trackElement.hasAttribute('data-loop') && currentIndex === 0) {
                 const lastPanelIndex = trackPanels.children.length - this.#getVisiblePanels(trackPanels);
                 this.#scrollToPage(trackElement, lastPanelIndex, true); // Instantly go to the last page
-            } else {
+            } else if (currentIndex > 0) {
                 this.#scrollToPage(trackElement, currentIndex - 1);
             }
         });
@@ -157,9 +154,9 @@ export default class Track {
         trackElement.querySelector('.track__next')?.addEventListener('click', () => {
             const currentIndex = this.#getCurrentPageIndex(trackPanels);
             const totalPages = this.#getTotalPages(trackPanels);
-            if (currentIndex >= totalPages - 1) {
+            if (trackElement.hasAttribute('data-loop') && currentIndex >= totalPages - 1) {
                 this.#scrollToPage(trackElement, 0, true); // Instantly go to the first page
-            } else {
+            } else if (currentIndex < totalPages - 1) {
                 this.#scrollToPage(trackElement, currentIndex + 1);
             }
         });
