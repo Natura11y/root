@@ -81,7 +81,7 @@ export default class Track {
         let liveRegion = trackElement.querySelector('.liveregion');
         if (!liveRegion) {
             liveRegion = document.createElement('div');
-            liveRegion.className = 'liveregion screen-reader-only';
+            liveRegion.className = 'liveregion screen-reader-onlyw';
             liveRegion.setAttribute('aria-live', 'polite');
             liveRegion.setAttribute('aria-atomic', 'true');
             trackElement.appendChild(liveRegion);
