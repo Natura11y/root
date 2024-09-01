@@ -152,12 +152,17 @@ $track-panels: 6;
 
         display: flex;
         width: var(--panel-peaking);
+        border: 2px solid red !important;
         
         height: 100%;
         
         pointer-events: none;
 
         opacity: 0.5;
+
+        > * {
+        display: block
+        }
     }
 
     .track__controls {

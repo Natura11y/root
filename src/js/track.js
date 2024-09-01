@@ -82,6 +82,7 @@ export default class Track {
         
         // Remove any unnecessary attributes
         firstPanelClone.removeAttribute('id'); 
+        firstPanelClone.removeAttribute('href');
 
         // Mark it as a duplicate
 
@@ -178,8 +179,7 @@ export default class Track {
     init() {
         this.#trackList.forEach(trackElement => {
             // Duplicate the first panel content only once on initialization if looping is enabled
-            if (trackElement.hasAttribute('data-loop')) {
-                trackElement.classList.add('loop-enabled');
+            if (trackElement.classList.contains('track--peaking')) {
                 this.#duplicateFirstPanelContent(trackElement);
             }
 
