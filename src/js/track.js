@@ -59,13 +59,13 @@ export default class Track {
         }
     }
 
-    #scrollToPage(trackElement, pageIndex) {
+    #scrollToPage(trackElement, pageIndex, instant = false) {
         const trackPanels = trackElement.querySelector('.track__panels');
         const visiblePanels = this.#getVisiblePanels(trackPanels);
         const panelWidth = trackPanels.children[0].offsetWidth;
         const targetScrollLeft = pageIndex * panelWidth * visiblePanels;
 
-        trackPanels.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
+        trackPanels.scrollTo({ left: targetScrollLeft, behavior: instant ? 'auto' : 'smooth' });
         this.#updatePagination(trackElement, pageIndex);
         this.#updateLiveRegion(trackElement, pageIndex, this.#getTotalPages(trackPanels));
     }
@@ -92,18 +92,6 @@ export default class Track {
         duplicateContainer.appendChild(firstPanelChild);
 
         lastPanel.appendChild(duplicateContainer);
-    }
-
-    #resetScrollPosition(trackElement, targetPageIndex) {
-        const trackPanels = trackElement.querySelector('.track__panels');
-        const panelWidth = trackPanels.children[0].offsetWidth;
-        const visiblePanels = this.#getVisiblePanels(trackPanels);
-
-        const targetScrollLeft = targetPageIndex * panelWidth * visiblePanels;
-        trackPanels.scrollLeft = targetScrollLeft; // Instantly reset scroll position
-
-        this.#updatePagination(trackElement, targetPageIndex);
-        this.#updateLiveRegion(trackElement, targetPageIndex, this.#getTotalPages(trackPanels));
     }
 
     #resetTrack(trackElement) {
@@ -135,22 +123,14 @@ export default class Track {
 
     #handleScrollEvent(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
-        const visiblePanels = this.#getVisiblePanels(trackPanels);
 
         clearTimeout(this.#scrollTimeout);
 
         // Debounce the scroll event: only update after scrolling stops
         this.#scrollTimeout = setTimeout(() => {
             const currentIndex = this.#getCurrentPageIndex(trackPanels);
-            const lastRealPanelIndex = trackPanels.children.length - visiblePanels - 1;
-
-            // If scrolling past the last real panel, reset scroll to the start.
-            if (currentIndex >= lastRealPanelIndex) {
-                this.#resetScrollPosition(trackElement, 0);
-            } else {
-                this.#updatePagination(trackElement, currentIndex);
-                this.#updateLiveRegion(trackElement, currentIndex, this.#getTotalPages(trackPanels));
-            }
+            this.#updatePagination(trackElement, currentIndex);
+            this.#updateLiveRegion(trackElement, currentIndex, this.#getTotalPages(trackPanels));
         }, 250); // Adjust the delay if necessary (250ms is a common debounce time)
     }
 
@@ -168,7 +148,7 @@ export default class Track {
             const currentIndex = this.#getCurrentPageIndex(trackPanels);
             if (currentIndex === 0) {
                 const lastRealPanelIndex = trackPanels.children.length - this.#getVisiblePanels(trackPanels) - 1;
-                this.#resetScrollPosition(trackElement, lastRealPanelIndex);
+                this.#scrollToPage(trackElement, lastRealPanelIndex, true); // Instantly go to the last page
             } else {
                 this.#scrollToPage(trackElement, currentIndex - 1);
             }
@@ -178,7 +158,7 @@ export default class Track {
             const currentIndex = this.#getCurrentPageIndex(trackPanels);
             const totalPages = this.#getTotalPages(trackPanels);
             if (currentIndex >= totalPages - 1) {
-                this.#resetScrollPosition(trackElement, 0);
+                this.#scrollToPage(trackElement, 0, true); // Instantly go to the first page
             } else {
                 this.#scrollToPage(trackElement, currentIndex + 1);
             }
