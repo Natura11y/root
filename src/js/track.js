@@ -17,7 +17,7 @@ export default class Track {
 
     #generatePagination(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
-        const totalPages = this.#getTotalPages(trackPanels);
+        const totalPages = this.#getTotalPages(trackPanels) - 1; // Exclude the duplicated panel
         const paginationContainer = trackElement.querySelector('.track__pagination');
 
         if (!paginationContainer) return;
@@ -67,7 +67,7 @@ export default class Track {
 
         trackPanels.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
         this.#updatePagination(trackElement, pageIndex);
-        this.#updateLiveRegion(trackElement, pageIndex, this.#getTotalPages(trackPanels));
+        this.#updateLiveRegion(trackElement, pageIndex, this.#getTotalPages(trackPanels) - 1);
     }
 
     #getCurrentPageIndex(trackPanels) {
@@ -77,12 +77,28 @@ export default class Track {
         return Math.round(scrollLeft / (panelWidth * visiblePanels));
     }
 
+    #duplicateFirstPanel(trackElement) {
+        const trackPanels = trackElement.querySelector('.track__panels');
+        const firstPanel = trackPanels.children[0].cloneNode(true);
+
+        firstPanel.setAttribute('aria-hidden', 'true');
+        firstPanel.setAttribute('tabindex', '-1');
+        firstPanel.classList.add('duplicate');
+
+        trackPanels.appendChild(firstPanel); // Add the duplicate of the first panel to the end
+    }
+
     #resetTrack(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
         const paginationContainer = trackElement.querySelector('.track__pagination');
 
         paginationContainer.innerHTML = '';
         trackPanels.scrollLeft = 0;
+
+        // Before resetting, duplicate the first panel if looping is enabled
+        if (trackElement.classList.contains('loop-enabled')) {
+            this.#duplicateFirstPanel(trackElement);
+        }
 
         this.#generatePagination(trackElement);
         this.#initLiveRegion(trackElement);
@@ -101,15 +117,23 @@ export default class Track {
 
     #handleScrollEvent(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
+        const visiblePanels = this.#getVisiblePanels(trackPanels);
 
         clearTimeout(this.#scrollTimeout);
 
         // Debounce the scroll event: only update after scrolling stops
         this.#scrollTimeout = setTimeout(() => {
             const currentIndex = this.#getCurrentPageIndex(trackPanels);
-            this.#updatePagination(trackElement, currentIndex);
-            this.#updateLiveRegion(trackElement, currentIndex, this.#getTotalPages(trackPanels));
-        }, 250); // Adjust the delay if necessary (100ms is a common debounce time)
+            const lastRealPanelIndex = trackPanels.children.length - visiblePanels - 1;
+
+            // If scrolling past the last real panel, jump to the first real panel
+            if (currentIndex >= lastRealPanelIndex) {
+                trackPanels.scrollTo({ left: 0, behavior: 'auto' });
+            }
+
+            this.#updatePagination(trackElement, currentIndex >= lastRealPanelIndex ? 0 : currentIndex);
+            this.#updateLiveRegion(trackElement, currentIndex >= lastRealPanelIndex ? 0 : currentIndex, this.#getTotalPages(trackPanels) - 1);
+        }, 250); // Adjust the delay if necessary (250ms is a common debounce time)
     }
 
     #initEventListeners(trackElement) {
@@ -124,15 +148,20 @@ export default class Track {
 
         trackElement.querySelector('.track__prev')?.addEventListener('click', () => {
             const currentIndex = this.#getCurrentPageIndex(trackPanels);
-            if (currentIndex > 0) {
+            if (currentIndex === 0) {
+                const lastRealPanelIndex = trackPanels.children.length - this.#getVisiblePanels(trackPanels) - 1;
+                this.#scrollToPage(trackElement, lastRealPanelIndex);
+            } else {
                 this.#scrollToPage(trackElement, currentIndex - 1);
             }
         });
 
         trackElement.querySelector('.track__next')?.addEventListener('click', () => {
             const currentIndex = this.#getCurrentPageIndex(trackPanels);
-            const totalPages = this.#getTotalPages(trackPanels);
-            if (currentIndex < totalPages - 1) {
+            const totalPages = this.#getTotalPages(trackPanels) - 1;
+            if (currentIndex === totalPages - 1) {
+                this.#scrollToPage(trackElement, 0);
+            } else {
                 this.#scrollToPage(trackElement, currentIndex + 1);
             }
         });
@@ -151,6 +180,11 @@ export default class Track {
 
     init() {
         this.#trackList.forEach(trackElement => {
+            // Add class for looping if needed
+            if (trackElement.hasAttribute('data-loop')) {
+                trackElement.classList.add('loop-enabled');
+            }
+
             this.#resetTrack(trackElement);
             this.#initEventListeners(trackElement);
         });
