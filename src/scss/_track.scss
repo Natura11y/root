@@ -64,7 +64,7 @@ $track-panels: 6;
     }
     
     .track--peaking {
-    
+
         .track__container {
             --_peaking: var(--panel-peaking);
 
@@ -88,14 +88,12 @@ $track-panels: 6;
     }
 
     .track__panels {
-        --_gap: var(--gap-size, 0);
-
         display: grid;
 
-        grid-auto-columns: calc((100% / var(--visible-panels)) - (var(--_gap) * ((var(--visible-panels) - 1) / var(--visible-panels))));     
+        grid-auto-columns: calc((100% / var(--visible-panels)) - (var(--gap-size) * ((var(--visible-panels) - 1) / var(--visible-panels))));     
         grid-auto-flow: column;
 
-        gap: var(--_gap);
+        gap: var(--gap-size, 0);
 
         position: relative;
         overflow-x: auto;
@@ -106,13 +104,13 @@ $track-panels: 6;
         /* Hide scrollbars */
         scrollbar-width: none;
         -ms-overflow-style: none;
-            
-        &:is(::-webkit-scrollbar) {
-            display: none;
-        }
 
         li {
             position: relative;
+        }
+            
+        &:is(::-webkit-scrollbar) {
+            display: none;
         }
     }
 
@@ -120,6 +118,7 @@ $track-panels: 6;
         position: relative;
 
         display: flex;
+        flex-direction: column;
 
         scroll-snap-align: start;
 
@@ -136,7 +135,6 @@ $track-panels: 6;
 
         display: flex;
         width: var(--panel-peaking);
-        border: 2px solid red !important;
         
         height: 100%;
 
@@ -149,6 +147,8 @@ $track-panels: 6;
         > * {
             display: block;
         }
+
+        // border: 2px solid red !important;
     }
 
     .track__controls {
