@@ -99,7 +99,7 @@ export default class Track {
             const currentIndex = this.#getCurrentPageIndex(trackPanels);
             this.#updatePagination(trackElement, currentIndex);
             this.#updateLiveRegion(trackElement, currentIndex, this.#getTotalPages(trackPanels));
-        }, 100); // Adjust the delay if necessary (100ms is a common debounce time)
+        }, 250); // Adjust the delay if necessary (100ms is a common debounce time)
     }
 
     #initEventListeners(trackElement) {
