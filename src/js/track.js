@@ -41,6 +41,13 @@ export default class Track {
         });
     }
 
+    #updateLiveRegion(trackElement, activeIndex, totalPages) {
+        const liveRegion = trackElement.querySelector('.liveregion');
+        if (liveRegion) {
+            liveRegion.textContent = `Page ${activeIndex + 1} of ${totalPages}`;
+        }
+    }
+
     #scrollToPage(trackElement, pageIndex) {
         const trackPanels = trackElement.querySelector('.track__panels');
         const visiblePanels = this.#getVisiblePanels(trackPanels);
@@ -49,6 +56,7 @@ export default class Track {
 
         trackPanels.scrollTo({ left: targetScrollLeft, behavior: 'smooth' });
         this.#updatePagination(trackElement, pageIndex);
+        this.#updateLiveRegion(trackElement, pageIndex, this.#getTotalPages(trackPanels));
     }
 
     #getCurrentPageIndex(trackPanels) {
@@ -66,6 +74,25 @@ export default class Track {
         trackPanels.scrollLeft = 0;
 
         this.#generatePagination(trackElement);
+        this.#initLiveRegion(trackElement);
+    }
+
+    #initLiveRegion(trackElement) {
+        let liveRegion = trackElement.querySelector('.liveregion');
+        if (!liveRegion) {
+            liveRegion = document.createElement('div');
+            liveRegion.className = 'liveregion screen-reader-only';
+            liveRegion.setAttribute('aria-live', 'polite');
+            liveRegion.setAttribute('aria-atomic', 'true');
+            trackElement.appendChild(liveRegion);
+        }
+    }
+
+    #handleScrollEvent(trackElement) {
+        const trackPanels = trackElement.querySelector('.track__panels');
+        const currentIndex = this.#getCurrentPageIndex(trackPanels);
+        this.#updatePagination(trackElement, currentIndex);
+        this.#updateLiveRegion(trackElement, currentIndex, this.#getTotalPages(trackPanels));
     }
 
     #initEventListeners(trackElement) {
@@ -91,6 +118,11 @@ export default class Track {
             if (currentIndex < totalPages - 1) {
                 this.#scrollToPage(trackElement, currentIndex + 1);
             }
+        });
+
+        // Update active pagination on scroll
+        trackPanels.addEventListener('scroll', () => {
+            this.#handleScrollEvent(trackElement);
         });
 
         window.addEventListener('resize', () => {
