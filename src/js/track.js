@@ -175,6 +175,7 @@ export default class Track {
 
     init() {
         this.#trackList.forEach(trackElement => {
+        
             if (trackElement.classList.contains('track--peaking')) {
                 this.#duplicateFirstPanelContent(trackElement);
             }
