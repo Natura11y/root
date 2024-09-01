@@ -90,14 +90,11 @@ $track-panels: 6;
         --_gap: var(--gap-size, 0);
 
         display: grid;
-        grid-auto-flow: column; // Ensure all items are placed in a single row
-        // grid-auto-columns: calc(100% / var(--visible-panels)); // Each panel takes an equal share
-        grid-auto-columns: calc((100% / var(--visible-panels)) - (var(--_gap) * ((var(--visible-panels) - 1) / var(--visible-panels))));
-    gap: var(--_gap);
 
-        // gap: var(--_gap);
+        grid-auto-columns: calc((100% / var(--visible-panels)) - (var(--_gap) * ((var(--visible-panels) - 1) / var(--visible-panels))));     
+        grid-auto-flow: column;
 
-        // margin-inline: calc(var(--_gap) / -2);
+        gap: var(--_gap);
 
         position: relative;
         overflow-x: auto;
@@ -121,21 +118,19 @@ $track-panels: 6;
     .track__panel {
         position: relative;
 
-        display: block; // Grid handles the layout; no need for flexbox
-        scroll-snap-align: start;
+        display: flex;
 
-        // padding-inline: calc(var(--_gap) * 0.5);
+        scroll-snap-align: start;
 
         > *:is(img, video) {
             width: 100%;
             height: auto;
         }
-
-        outline: 1px solid blue;
     }
 
     .track__panel__duplicate {
         position: absolute;
+
         inset: 0 0 0 100%;
 
         display: flex;
@@ -143,6 +138,8 @@ $track-panels: 6;
         border: 2px solid red !important;
         
         height: 100%;
+
+        margin-inline-start: var(--_gap);
         
         pointer-events: none;
 
