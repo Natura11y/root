@@ -79,6 +79,7 @@ $track-panels: 6;
                 opacity: 0.5;
                 pointer-events: none;
             }
+            
         }
 
         .track__panels {
@@ -86,11 +87,10 @@ $track-panels: 6;
         }
 
         .track__panel:first-child {
-            scroll-margin: 0;
             outline-color: blue;
         }
 
-        .track__panel:not(:first-child) {
+        .track__panel {
             scroll-margin: var(--panel-peaking);
             outline-color: red;
         }
@@ -98,12 +98,14 @@ $track-panels: 6;
     }
 
     .track__panels {
+        --_gap: var(--gap-size, var(--border-width));
+        
         display: grid;
 
-        grid-auto-columns: calc((100% / var(--visible-panels)) - (var(--gap-size) * ((var(--visible-panels) - 1) / var(--visible-panels))));     
+        grid-auto-columns: calc((100% / var(--visible-panels)) - (var(--_gap) * ((var(--visible-panels) - 1) / var(--visible-panels))));     
         grid-auto-flow: column;
 
-        gap: var(--gap-size, 0);
+        gap: var(--_gap);
 
         position: relative;
         overflow-x: auto;
@@ -134,8 +136,6 @@ $track-panels: 6;
         outline-offset: -4px;
 
         scroll-snap-align: start;
-
-        scroll-margin: 50px;
 
         > *:is(img, video) {
             width: 100%;
