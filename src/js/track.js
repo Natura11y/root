@@ -145,7 +145,7 @@ export default class Track {
             const currentIndex = this.#getCurrentPageIndex(trackPanels);
             if (trackElement.hasAttribute('data-loop') && currentIndex === 0) {
                 const lastPanelIndex = trackPanels.children.length - this.#getVisiblePanels(trackPanels);
-                this.#scrollToPage(trackElement, lastPanelIndex, true); // Instantly go to the last page
+                this.#scrollToPage(trackElement, lastPanelIndex, false); // Instantly go to the last page
             } else if (currentIndex > 0) {
                 this.#scrollToPage(trackElement, currentIndex - 1);
             }
@@ -155,7 +155,7 @@ export default class Track {
             const currentIndex = this.#getCurrentPageIndex(trackPanels);
             const totalPages = this.#getTotalPages(trackPanels);
             if (trackElement.hasAttribute('data-loop') && currentIndex >= totalPages - 1) {
-                this.#scrollToPage(trackElement, 0, true); // Instantly go to the first page
+                this.#scrollToPage(trackElement, 0, false); // Instantly go to the first page
             } else if (currentIndex < totalPages - 1) {
                 this.#scrollToPage(trackElement, currentIndex + 1);
             }
