@@ -75,19 +75,26 @@ export default class Track {
 
     #duplicateFirstPanelContent(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
-        const firstPanelChild = trackPanels.children[0].firstElementChild.cloneNode(true);
+        const firstPanelClone = trackPanels.children[0].firstElementChild.cloneNode(true);
         const lastPanel = trackPanels.children[trackPanels.children.length - 1];
         
-        // Create a container for the duplicate and append the cloned content
-        const duplicateContainer = document.createElement('div');
-        duplicateContainer.classList.add('track__panel__duplicate');
-        duplicateContainer.setAttribute('tabindex', '-1');
-        duplicateContainer.setAttribute('aria-hidden', 'true');
+        // Clone the content of the first panel and append it to the last panel
+        
+        // Remove any unnecessary attributes
+        firstPanelClone.removeAttribute('id'); 
 
-        firstPanelChild.removeAttribute('id'); // Remove id to avoid duplicates
-        duplicateContainer.appendChild(firstPanelChild);
+        // Mark it as a duplicate
 
-        lastPanel.appendChild(duplicateContainer);
+        const firstPanelCloneContainer = document.createElement('div');
+        firstPanelCloneContainer.classList.add('track__panel__duplicate');
+        firstPanelCloneContainer.setAttribute('tabindex', '-1');
+        firstPanelCloneContainer.setAttribute('aria-hidden', 'true');
+
+        // Append the cloned content inside the container
+        firstPanelCloneContainer.appendChild(firstPanelClone);
+
+        // Append the cloned content inside the last panel
+        lastPanel.appendChild(firstPanelCloneContainer);
     }
 
     #resetTrack(trackElement) {
@@ -96,11 +103,6 @@ export default class Track {
 
         paginationContainer.innerHTML = '';
         trackPanels.scrollLeft = 0;
-
-        // Before resetting, duplicate the first panel content if looping is enabled
-        if (trackElement.classList.contains('loop-enabled')) {
-            this.#duplicateFirstPanelContent(trackElement);
-        }
 
         this.#generatePagination(trackElement);
         this.#initLiveRegion(trackElement);
@@ -175,6 +177,12 @@ export default class Track {
 
     init() {
         this.#trackList.forEach(trackElement => {
+            // Duplicate the first panel content only once on initialization if looping is enabled
+            if (trackElement.hasAttribute('data-loop')) {
+                trackElement.classList.add('loop-enabled');
+                this.#duplicateFirstPanelContent(trackElement);
+            }
+
             this.#resetTrack(trackElement);
             this.#initEventListeners(trackElement);
         });
