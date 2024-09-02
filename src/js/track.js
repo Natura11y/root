@@ -3,6 +3,8 @@ export default class Track {
     // Private properties
 
     #trackList = document.querySelectorAll('.track');
+    #scrollTimeout = null;  // Timeout to delay pagination update
+    #isScrollingProgrammatically = false;  // Flag to track programmatic scrolling
 
     // Private methods
 
@@ -66,33 +68,42 @@ export default class Track {
     #scrollToPage(trackElement, pageIndex) {
         const trackPanels = trackElement.querySelector('.track__panels');
         const targetPanel = trackElement.pages[pageIndex][0]; // First panel of the target page
-        
+
+        // Indicate that scrolling is being triggered programmatically
+        this.#isScrollingProgrammatically = true;
+
         // Immediately update the track element's current page index
         trackElement.currentPageIndex = pageIndex;
-        this.#updatePagination(trackElement, pageIndex);
 
         // Perform smooth scrolling
         trackPanels.scrollTo({
             left: targetPanel.offsetLeft,
             behavior: 'smooth'
         });
+
+        // Debounce pagination update until scroll stops
+        clearTimeout(this.#scrollTimeout);
+        this.#scrollTimeout = setTimeout(() => {
+            this.#updatePagination(trackElement, pageIndex);
+            this.#isScrollingProgrammatically = false;  // Reset the flag after scroll completes
+        }, 600);  // Adjust delay time as needed
     }
 
     #observePanels(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting && !this.#isScrollingProgrammatically) {
                     const panelId = entry.target.id;
-                    
+
                     // Find the page that contains this panel
                     const pageIndex = trackElement.pages.findIndex(page =>
                         page.some(panel => panel.id === panelId)  // Check all panels in the page
                     );
 
                     if (pageIndex !== -1) {
-                        this.#updatePagination(trackElement, pageIndex);
                         trackElement.currentPageIndex = pageIndex; // Update internal index for this track
+                        this.#updatePagination(trackElement, pageIndex);
                     }
                 }
             });
@@ -113,7 +124,7 @@ export default class Track {
 
         trackPanels.scrollLeft = 0;
         paginationContainer.innerHTML = '';
-        
+
         trackElement.currentPageIndex = 0;  // Reset the page index for this track
 
         this.#generatePages(trackElement);
