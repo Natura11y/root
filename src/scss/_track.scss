@@ -161,8 +161,6 @@ $track-panels: 6;
         display: flex;
         justify-content: space-between;
         align-items: center;
-
-        width: 100%;
     }
 
     .track__pagination {
@@ -172,7 +170,7 @@ $track-panels: 6;
         gap: 0.75em;
 
         [data-page-index] {
-            --_size: calc(var(--button-target-size) * 0.5);
+            --_size: calc(var(--button-target-size) * 0.675);
 
             container-type: inline-size;
 
@@ -190,15 +188,16 @@ $track-panels: 6;
                 .active,
                 [aria-current='true']) 
             {
+            --border-color: currentColor;
                 background-color: transparent;
 
-                outline: 3px solid currentColor;
-                outline-offset: -3px;
+                border-width: 3px;
+                border-style: var(--border-style);
             }
             
             &:focus-visible {
                 outline: 3px solid var(--link-color) !important;
-                outline-offset: 2px !important;
+                outline-offset: 3px !important;
             }
         }
     }
