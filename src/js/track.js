@@ -1,13 +1,13 @@
+import { delegateEvent } from './utilities/eventDelegation';
+
 export default class Track {
 
     // Private properties
-
     #trackList = document.querySelectorAll('.track');
     #scrollTimeout = null;  // Timeout to delay pagination update
     #isScrollingProgrammatically = false;  // Flag to track programmatic scrolling
 
     // Private methods
-
     #getVisiblePanels(trackElement) {
         const visiblePanels = parseInt(getComputedStyle(trackElement).getPropertyValue('--visible-panels'), 10) || 1;
         return visiblePanels;
@@ -16,11 +16,7 @@ export default class Track {
     #toggleControlsVisibility(trackElement, totalPages) {
         const controls = trackElement.querySelectorAll('[data-track-prev], [data-track-next], [data-track-pagination]');
         controls.forEach(control => {
-            if (totalPages <= 1) {
-                control.style.display = 'none';
-            } else {
-                control.style.display = ''; // Reset to default if more than 1 page
-            }
+            control.style.display = totalPages <= 1 ? 'none' : ''; // Show or hide controls
         });
     }
 
@@ -63,9 +59,6 @@ export default class Track {
 
         // Ensure only panels on the first page are tabbable
         this.#updateTabIndexes(trackElement, 0);
-
-        // Reattach event listeners for pagination buttons after regeneration
-        this.#initPaginationListeners(trackElement);
     }
 
     #updatePagination(trackElement, activeIndex) {
@@ -87,11 +80,7 @@ export default class Track {
             page.forEach(panel => {
                 const interactiveElement = panel.firstElementChild;
                 if (interactiveElement) {
-                    if (pageIndex === activeIndex) {
-                        interactiveElement.removeAttribute('tabindex'); // Make panels on the current page tabbable
-                    } else {
-                        interactiveElement.setAttribute('tabindex', '-1'); // Make panels on other pages not tabbable
-                    }
+                    interactiveElement.setAttribute('tabindex', pageIndex === activeIndex ? '0' : '-1');
                 }
             });
         });
@@ -167,54 +156,37 @@ export default class Track {
     }
 
     #initEventListeners(trackElement) {
-        this.#initPaginationListeners(trackElement);
+        // Use delegateEvent to handle pagination clicks
+        delegateEvent(trackElement, 'click', '[data-page-index]', (event) => {
+            const target = event.target.closest('[data-page-index]');
+            if (target) {
+                const pageIndex = parseInt(target.getAttribute('data-page-index'));
+                this.#scrollToPage(trackElement, pageIndex);
+            }
+        });
 
         // Previous button click event
-        const prevButton = trackElement.querySelector('[data-track-prev]');
-        if (prevButton) {
-            prevButton.addEventListener('click', () => {
-                if (trackElement.currentPageIndex > 0) {
-                    this.#scrollToPage(trackElement, trackElement.currentPageIndex - 1);
-                } else {
-                    this.#scrollToPage(trackElement, trackElement.pages.length - 1); // Wrap around to last page
-                }
-            });
-        }
+        delegateEvent(trackElement, 'click', '[data-track-prev]', () => {
+            if (trackElement.currentPageIndex > 0) {
+                this.#scrollToPage(trackElement, trackElement.currentPageIndex - 1);
+            } else {
+                this.#scrollToPage(trackElement, trackElement.pages.length - 1); // Wrap around to last page
+            }
+        });
 
         // Next button click event
-        const nextButton = trackElement.querySelector('[data-track-next]');
-        if (nextButton) {
-            nextButton.addEventListener('click', () => {
-                if (trackElement.currentPageIndex < trackElement.pages.length - 1) {
-                    this.#scrollToPage(trackElement, trackElement.currentPageIndex + 1);
-                } else {
-                    this.#scrollToPage(trackElement, 0); // Wrap around to first page
-                }
-            });
-        }
+        delegateEvent(trackElement, 'click', '[data-track-next]', () => {
+            if (trackElement.currentPageIndex < trackElement.pages.length - 1) {
+                this.#scrollToPage(trackElement, trackElement.currentPageIndex + 1);
+            } else {
+                this.#scrollToPage(trackElement, 0); // Wrap around to first page
+            }
+        });
 
         // Handle window resize events
         window.addEventListener('resize', () => {
             this.#resetTrack(trackElement);
         });
-    }
-
-    #initPaginationListeners(trackElement) {
-        // Remove existing pagination listeners to avoid duplication
-        const paginationContainer = trackElement.querySelector('[data-track-pagination]');
-        if (paginationContainer) {
-            paginationContainer.querySelectorAll('button').forEach(button => {
-                const newButton = button.cloneNode(true);
-                button.replaceWith(newButton);
-                newButton.addEventListener('click', (event) => {
-                    const target = event.target.closest('[data-page-index]');
-                    if (target) {
-                        const pageIndex = parseInt(target.getAttribute('data-page-index'));
-                        this.#scrollToPage(trackElement, pageIndex);
-                    }
-                });
-            });
-        }
     }
 
     #initLiveRegion(trackElement) {
