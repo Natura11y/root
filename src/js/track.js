@@ -1,15 +1,12 @@
 export default class Track {
 
     #trackList = document.querySelectorAll('.track');
-    #scrollTimeout = null; // To debounce the scroll event
 
     // Private methods
 
     #getVisiblePanels(trackElement) {
         const visiblePanels = parseInt(getComputedStyle(trackElement).getPropertyValue('--visible-panels'), 10) || 1;
-
         console.log(`VISIBLE PANELS ${visiblePanels}`);
-
         return visiblePanels;
     }
 
@@ -17,16 +14,13 @@ export default class Track {
         const visiblePanels = this.#getVisiblePanels(trackPanels);
         const totalPanels = trackPanels.children.length;
         const pages = Math.ceil(totalPanels / visiblePanels);
-
         console.log('PAGES:', pages);
-        
         return pages;
     }
 
     #toggleControlsVisibility(trackElement, totalPages) {
         trackElement.classList.toggle('hide-controls', totalPages <= 1);
     }
-
 
     #generatePagination(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
@@ -38,10 +32,8 @@ export default class Track {
         let currentPage = [];
         
         Array.from(trackPanels.children).forEach((panel, index) => {
-            // Assign a unique ID to each panel, incorporating the track ID
             const panelId = `${trackId}-panel-${index}`;
             panel.setAttribute('id', panelId);
-
             currentPage.push(panel);
             if (currentPage.length === visiblePanels || index === trackPanels.children.length - 1) {
                 pages.push(currentPage);
@@ -50,10 +42,6 @@ export default class Track {
         });
 
         trackElement.pages = pages;
-
-        // Debugging output to verify pages structure
-        console.log('Track Element ID:', trackId);
-        console.log('Generated Pages:', pages);
 
         // Generate pagination buttons that link to panel IDs
         paginationContainer.innerHTML = pages.map((page, i) => `
@@ -100,7 +88,6 @@ export default class Track {
             threshold: 0.5 // Adjust threshold as needed
         });
 
-        // Observe each panel
         Array.from(trackPanels.children).forEach(panel => observer.observe(panel));
     }
 
@@ -111,17 +98,6 @@ export default class Track {
         }
     }
 
-    #getCurrentPageIndex(trackPanels) {
-        const scrollLeft = trackPanels.scrollLeft;
-        const visiblePanels = this.#getVisiblePanels(trackPanels);
-        const panelWidth = trackPanels.children[0].offsetWidth;
-        const pageIndex = Math.round(scrollLeft / (panelWidth * visiblePanels));
-
-        console.log('PAGE-INDEX:', pageIndex);
-
-        return pageIndex;
-    }
-    
     #resetTrack(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
         const paginationContainer = trackElement.querySelector('.track__pagination');
@@ -131,19 +107,6 @@ export default class Track {
 
         this.#generatePagination(trackElement);
         this.#initLiveRegion(trackElement);
-    }
-
-    #handleScrollEvent(trackElement) {
-        const trackPanels = trackElement.querySelector('.track__panels');
-
-        clearTimeout(this.#scrollTimeout);
-
-        // Debounce the scroll event: only update after scrolling stops
-        this.#scrollTimeout = setTimeout(() => {
-            const currentIndex = this.#getCurrentPageIndex(trackPanels);
-            this.#updatePagination(trackElement, currentIndex);
-            this.#updateLiveRegion(trackElement, currentIndex, this.#getTotalPages(trackPanels));
-        }, 250); // Adjust the delay if necessary (250ms is a common debounce time)
     }
 
     #initEventListeners(trackElement) {
@@ -159,37 +122,32 @@ export default class Track {
         });
 
         // Previous button click event
-        trackElement.querySelector('.track__prev')?.addEventListener('click', () => {
-            const currentIndex = this.#getCurrentPageIndex(trackPanels);
-            if (currentIndex > 0) {
-                const targetPageIndex = currentIndex - 1;
-                const targetAnchor = `#${trackElement.pages[targetPageIndex][0].id}`;
-                window.location.href = targetAnchor; // Navigate via anchor link
-            } else {
-                const lastPageIndex = trackElement.pages.length - 1;
-                const targetAnchor = `#${trackElement.pages[lastPageIndex][0].id}`;
-                window.location.href = targetAnchor;
-            }
-        });
+        // trackElement.querySelector('.track__prev')?.addEventListener('click', () => {
+        //     const currentIndex = this.#getCurrentPageIndex(trackPanels);
+        //     if (currentIndex > 0) {
+        //         const targetPageIndex = currentIndex - 1;
+        //         const targetAnchor = `#${trackElement.pages[targetPageIndex][0].id}`;
+        //         window.location.href = targetAnchor;
+        //     } else {
+        //         const lastPageIndex = trackElement.pages.length - 1;
+        //         const targetAnchor = `#${trackElement.pages[lastPageIndex][0].id}`;
+        //         window.location.href = targetAnchor;
+        //     }
+        // });
 
-        // Next button click event
-        trackElement.querySelector('.track__next')?.addEventListener('click', () => {
-            const currentIndex = this.#getCurrentPageIndex(trackPanels);
-            const totalPages = trackElement.pages.length;
-            if (currentIndex < totalPages - 1) {
-                const targetPageIndex = currentIndex + 1;
-                const targetAnchor = `#${trackElement.pages[targetPageIndex][0].id}`;
-                window.location.href = targetAnchor;
-            } else {
-                const targetAnchor = `#${trackElement.pages[0][0].id}`;
-                window.location.href = targetAnchor;
-            }
-        });
-
-        // Handle scroll events (primarily for updating pagination state)
-        trackPanels.addEventListener('scroll', () => {
-            this.#handleScrollEvent(trackElement);
-        });
+        // // Next button click event
+        // trackElement.querySelector('.track__next')?.addEventListener('click', () => {
+        //     const currentIndex = this.#getCurrentPageIndex(trackPanels);
+        //     const totalPages = trackElement.pages.length;
+        //     if (currentIndex < totalPages - 1) {
+        //         const targetPageIndex = currentIndex + 1;
+        //         const targetAnchor = `#${trackElement.pages[targetPageIndex][0].id}`;
+        //         window.location.href = targetAnchor;
+        //     } else {
+        //         const targetAnchor = `#${trackElement.pages[0][0].id}`;
+        //         window.location.href = targetAnchor;
+        //     }
+        // });
 
         // Handle window resize events
         window.addEventListener('resize', () => {
