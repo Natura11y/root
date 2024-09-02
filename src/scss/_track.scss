@@ -15,6 +15,7 @@
     --visible-panels: 1;
 
     --panel-peeking: var(--button-target-size);
+    
 }
 
 $track-panels: 6;
@@ -53,14 +54,22 @@ $track-panels: 6;
             transform: translateY(-50%);
             
             z-index: 20;
+
+            width: var(--panel-peeking);
+            display: flex;
+            // background-color: yellow;
+            justify-content: center;
+            padding: var(--spacer-2);
         }
 
         .track__prev {
             inset-inline-start: 0;
+            justify-content: end;
         }
 
         .track__next {
             inset-inline-end: 0;
+            justify-content: start;
         }
     }
     
@@ -89,11 +98,6 @@ $track-panels: 6;
 
             &::after {
                 inset-inline-end: 0;
-            }
-
-            .track__prev,
-            .track__next {
-                --button-target-size: var(--_peeking);
             }
         }
 
@@ -145,9 +149,6 @@ $track-panels: 6;
         display: flex;
         flex-direction: column;
 
-        // outline: 4px solid green;
-        // outline-offset: -4px;
-
         scroll-snap-align: start;
 
         > *:is(img, video) {
@@ -162,8 +163,6 @@ $track-panels: 6;
         align-items: center;
 
         width: 100%;
-
-        // background-color: yellow;
     }
 
     .track__pagination {
@@ -171,50 +170,36 @@ $track-panels: 6;
         justify-content: center;
         
         gap: 0.75em;
-    }
 
-    [data-page-index] {
-        --_size: calc(var(--button-target-size) * 0.5);
+        [data-page-index] {
+            --_size: calc(var(--button-target-size) * 0.5);
 
-        container-type: inline-size;
+            container-type: inline-size;
 
-        display: flex;
+            display: flex;
 
-        width: var(--_size);
-        height: var(--_size);
+            aspect-ratio: 1 / 1;
+            width: var(--_size);
 
-        background-color: currentColor;
-        
-        border-radius: 100%;
+            background-color: currentColor;
+            border-radius: var(--button-border-radius);
 
-        cursor: pointer;
+            cursor: pointer;
 
-        &:is(
-            .active,
-            [aria-current='true']) 
-        {
-            background-color: transparent;
+            &:is(
+                .active,
+                [aria-current='true']) 
+            {
+                background-color: transparent;
 
-            outline: 3px solid currentColor;
-            outline-offset: -3px;
-
-            &::after {
-                content: '';
-                align-self: center;
-                margin-inline: auto;
-
-                width: 35cqi;
-                height: 35cqi;
-
-                background-color: currentColor;
-                
-                border-radius: 100%;
+                outline: 3px solid currentColor;
+                outline-offset: -3px;
             }
-        }
-        
-        &:focus-visible {
-            outline: 3px solid var(--link-color) !important;
-            outline-offset: 2px !important;
+            
+            &:focus-visible {
+                outline: 3px solid var(--link-color) !important;
+                outline-offset: 2px !important;
+            }
         }
     }
 

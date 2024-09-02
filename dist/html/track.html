@@ -11,6 +11,16 @@
         <!-- Natura11y Icons -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/natura11y-icons@v1/dist/natura11y-icons.min.css">
 
+        <style>
+
+        :root {
+            --wide-width: 80vw !important;
+            
+        }   
+
+        </style>
+
+
     </head>
 
     <body>
@@ -27,7 +37,7 @@
                 
                 <!-- Single-panel -->
 
-                <figure class="container wide margin-y-4">
+                <figure class="wide margin-x-auto margin-y-4">
 
                     <section
                         class="track"
@@ -203,25 +213,26 @@
 
                     <section
                         class="track track--peeking track--column-2--lg"
-                        aria-labelledby="carousel-heading-2">
+                        aria-labelledby="carousel-heading-2"
+                        style="--panel-peeking: calc((100vw - var(--wide-width)) * 0.5);">
 
                         <h3 id="carousel-heading-2" class="screen-reader-only">Recent news</h3>
 
                         <div class="track__container">
 
                             <div class="track__prev">
-                                <button class="button button--icon-only" aria-label="Previous Slide" data-track-prev>
+                                <button class="button button--icon-only theme-canvas" aria-label="Previous Slide" data-track-prev>
                                     <span class="icon icon-arrow-left" aria-hidden="true"></span>
                                 </button>
                             </div>
 
                             <div class="track__next">
-                                <button class="button button--icon-only" aria-label="Previous Slide" data-track-next>
+                                <button class="button button--icon-only theme-canvas" aria-label="Previous Slide" data-track-next>
                                     <span class="icon icon-arrow-right" aria-hidden="true"></span>
                                 </button>
                             </div>
                             
-                            <ul class="track__panels gap-1">
+                            <ul class="track__panels gap-2">
                                 <li class="track__panel">
                                     <a class="backdrop" href="#1">
 
@@ -424,7 +435,7 @@
             
                 <!-- Custom Buttons -->
 
-                <figure class="container wide margin-y-4">
+                <figure class="margin-y-4">
 
                     <section
                         class="track track--peeking track--column-3--lg"

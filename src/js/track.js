@@ -129,7 +129,7 @@ export default class Track {
             });
         }, {
             root: trackPanels,
-            threshold: 0.5
+            threshold: 1
         });
 
         // Observe the first panel of each page
@@ -152,7 +152,7 @@ export default class Track {
             });
         }, {
             root: trackPanels,
-            threshold: 0.5
+            threshold: 1
         });
 
         // Observe all panels
