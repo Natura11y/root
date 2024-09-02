@@ -14,7 +14,7 @@ export default class Track {
         const totalPanels = trackPanels.children.length;
         const pages = Math.ceil(totalPanels / visiblePanels);
         console.log('PAGES:', pages);
-        return Math.ceil(totalPanels / visiblePanels);
+        return pages;
     }
 
     #toggleControlsVisibility(trackElement, totalPages) {
@@ -86,18 +86,6 @@ export default class Track {
         this.#initLiveRegion(trackElement);
     }
 
-    #initLiveRegion(trackElement) {
-        let liveRegion = trackElement.querySelector('.liveregion');
-
-        if (!liveRegion) {
-            liveRegion = document.createElement('div');
-            liveRegion.className = 'liveregion screen-reader-only';
-            liveRegion.setAttribute('aria-live', 'polite');
-            liveRegion.setAttribute('aria-atomic', 'true');
-            trackElement.appendChild(liveRegion);
-        }
-    }
-
     #handleScrollEvent(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
 
@@ -124,7 +112,7 @@ export default class Track {
 
         trackElement.querySelector('.track__prev')?.addEventListener('click', () => {
             const currentIndex = this.#getCurrentPageIndex(trackPanels);
-            if (trackElement.hasAttribute('data-loop') && currentIndex === 0) {
+            if (currentIndex === 0) {
                 const lastPanelIndex = trackPanels.children.length - this.#getVisiblePanels(trackPanels);
                 this.#scrollToPage(trackElement, lastPanelIndex, false); // Instantly go to the last page
             } else if (currentIndex > 0) {
@@ -135,7 +123,7 @@ export default class Track {
         trackElement.querySelector('.track__next')?.addEventListener('click', () => {
             const currentIndex = this.#getCurrentPageIndex(trackPanels);
             const totalPages = this.#getTotalPages(trackPanels);
-            if (trackElement.hasAttribute('data-loop') && currentIndex >= totalPages - 1) {
+            if (currentIndex >= totalPages - 1) {
                 this.#scrollToPage(trackElement, 0, false); // Instantly go to the first page
             } else if (currentIndex < totalPages - 1) {
                 this.#scrollToPage(trackElement, currentIndex + 1);
@@ -150,6 +138,18 @@ export default class Track {
         window.addEventListener('resize', () => {
             this.#resetTrack(trackElement);
         });
+    }
+
+    #initLiveRegion(trackElement) {
+        let liveRegion = trackElement.querySelector('.liveregion');
+
+        if (!liveRegion) {
+            liveRegion = document.createElement('div');
+            liveRegion.className = 'liveregion screen-reader-only';
+            liveRegion.setAttribute('aria-live', 'polite');
+            liveRegion.setAttribute('aria-atomic', 'true');
+            trackElement.appendChild(liveRegion);
+        }
     }
 
     // Public methods
