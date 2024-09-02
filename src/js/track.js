@@ -70,9 +70,6 @@ export default class Track {
 
         // Update the live region whenever pagination changes
         this.#updateLiveRegion(trackElement, activeIndex, trackElement.pages.length);
-
-        // Update tabindex for all panels based on the current page
-        this.#updateTabIndexes(trackElement, activeIndex);
     }
 
     #updateTabIndexes(trackElement, activeIndex) {
@@ -110,33 +107,61 @@ export default class Track {
         }, 600);  // Adjust delay time as needed
     }
 
-    #observePanels(trackElement) {
+    #observePages(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
-        const observer = new IntersectionObserver((entries) => {
+        const pageObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting && !this.#isScrollingProgrammatically) {
-                    const panelId = entry.target.id;
-
-                    // Find the page that contains this panel
+                const panelId = entry.target.id;
+                if (entry.isIntersecting) {
                     const pageIndex = trackElement.pages.findIndex(page =>
-                        page.some(panel => panel.id === panelId)  // Check all panels in the page
+                        page.some(panel => panel.id === panelId)
                     );
 
                     if (pageIndex !== -1) {
-                        trackElement.currentPageIndex = pageIndex; // Update internal index for this track
-                        this.#updatePagination(trackElement, pageIndex);
+                        // Debounce the update to add a delay
+                        clearTimeout(this.#scrollTimeout);
+                        this.#scrollTimeout = setTimeout(() => {
+                            trackElement.currentPageIndex = pageIndex;
+                            this.#updatePagination(trackElement, pageIndex);
+                        }, 300);  // Adjust the delay time as needed
                     }
                 }
             });
         }, {
             root: trackPanels,
-            threshold: 0.5 // Adjust threshold as needed
+            threshold: 0.5
         });
 
         // Observe the first panel of each page
         trackElement.pages.forEach(page => {
-            observer.observe(page[0]); // Observe only the first panel in each page
+            pageObserver.observe(page[0]);
         });
+
+        // Store the observer in the track element for later disconnection
+        trackElement.pageObserver = pageObserver;
+    }
+
+    #observeTabbing(trackElement) {
+        const trackPanels = trackElement.querySelector('.track__panels');
+        const tabbingObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const interactiveElement = entry.target.firstElementChild;
+                if (interactiveElement) {
+                    interactiveElement.setAttribute('tabindex', entry.isIntersecting ? '0' : '-1');
+                }
+            });
+        }, {
+            root: trackPanels,
+            threshold: 0.5
+        });
+
+        // Observe all panels
+        trackElement.pages.flat().forEach(panel => {
+            tabbingObserver.observe(panel);
+        });
+
+        // Store the observer in the track element for later disconnection
+        trackElement.tabbingObserver = tabbingObserver;
     }
 
     #resetTrack(trackElement) {
@@ -148,11 +173,20 @@ export default class Track {
             paginationContainer.innerHTML = '';
         }
 
+        // Disconnect observers before resetting
+        if (trackElement.pageObserver) {
+            trackElement.pageObserver.disconnect();
+        }
+        if (trackElement.tabbingObserver) {
+            trackElement.tabbingObserver.disconnect();
+        }
+
         trackElement.currentPageIndex = 0;  // Reset the page index for this track
 
         this.#generatePages(trackElement);
         this.#initLiveRegion(trackElement);
-        this.#observePanels(trackElement); // Initialize the observer
+        this.#observePages(trackElement); // Initialize the page observer
+        this.#observeTabbing(trackElement); // Initialize the tabbing observer
     }
 
     #initEventListeners(trackElement) {
