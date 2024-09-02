@@ -188,7 +188,8 @@ $track-panels: 6;
                 .active,
                 [aria-current='true']) 
             {
-            --border-color: currentColor;
+                --border-color: currentColor;
+
                 background-color: transparent;
 
                 border-width: 3px;
@@ -196,7 +197,7 @@ $track-panels: 6;
             }
             
             &:focus-visible {
-                outline: 3px solid var(--link-color) !important;
+                outline: 3px solid currentColor !important;
                 outline-offset: 3px !important;
             }
         }
