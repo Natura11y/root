@@ -12,6 +12,8 @@ export default class Track {
     #getTotalPages(trackPanels) {
         const visiblePanels = this.#getVisiblePanels(trackPanels);
         const totalPanels = trackPanels.children.length;
+        const pages = Math.ceil(totalPanels / visiblePanels);
+        console.log('PAGES:', pages);
         return Math.ceil(totalPanels / visiblePanels);
     }
 
@@ -72,28 +74,7 @@ export default class Track {
         const panelWidth = trackPanels.children[0].offsetWidth;
         return Math.round(scrollLeft / (panelWidth * visiblePanels));
     }
-
-    #duplicateFirstPanelContent(trackElement) {
-        const trackPanels = trackElement.querySelector('.track__panels');
-        const firstPanelClone = trackPanels.children[0].firstElementChild.cloneNode(true);
-        const lastPanel = trackPanels.children[trackPanels.children.length - 1];
-        const firstPanelCloneContainer = document.createElement('div');
-        
-        // Remove any unnecessary attributes
-        firstPanelClone.removeAttribute('id'); 
-        firstPanelClone.removeAttribute('href');
-
-        // Mark it as a duplicate
-
-        firstPanelCloneContainer.classList.add('track__panel__duplicate');
-        firstPanelCloneContainer.setAttribute('tabindex', '-1');
-        firstPanelCloneContainer.setAttribute('aria-hidden', 'true');
-
-        // Append the cloned content
-        firstPanelCloneContainer.appendChild(firstPanelClone);
-        lastPanel.appendChild(firstPanelCloneContainer);
-    }
-
+    
     #resetTrack(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
         const paginationContainer = trackElement.querySelector('.track__pagination');
@@ -175,11 +156,6 @@ export default class Track {
 
     init() {
         this.#trackList.forEach(trackElement => {
-        
-            if (trackElement.classList.contains('track--peaking')) {
-                this.#duplicateFirstPanelContent(trackElement);
-            }
-
             this.#resetTrack(trackElement);
             this.#initEventListeners(trackElement);
         });

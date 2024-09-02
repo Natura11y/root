@@ -14,7 +14,7 @@
 :root {
     --visible-panels: 1;
 
-    --panel-peaking: var(--button-target-size);
+    --panel-peeking: var(--button-target-size);
 }
 
 $track-panels: 6;
@@ -63,8 +63,8 @@ $track-panels: 6;
         }
     }
     
-    .track--peaking {
-            --_peaking: var(--panel-peaking);
+    .track--peeking {
+            --_peeking: var(--panel-peeking);
 
         .track__container {
             position: relative;
@@ -74,7 +74,7 @@ $track-panels: 6;
                 position: absolute;
                 inset-block: 0;
                 inset-inline-end: 0;
-                width: var(--panel-peaking);
+                width: var(--panel-peeking);
                 background: var(--canvas);
                 opacity: 0.5;
                 pointer-events: none;
@@ -83,7 +83,7 @@ $track-panels: 6;
         }
 
         .track__panels {
-            padding-inline: var(--panel-peaking);
+            padding-inline: var(--panel-peeking);
         }
 
         .track__panel:first-child {
@@ -91,14 +91,14 @@ $track-panels: 6;
         }
 
         .track__panel {
-            scroll-margin: var(--panel-peaking);
+            scroll-margin: var(--panel-peeking);
             outline-color: red;
         }
 
     }
 
     .track__panels {
-        --_gap: var(--gap-size, var(--border-width));
+        --_gap: var(--gap-size, 0.01px);
         
         display: grid;
 
@@ -141,31 +141,6 @@ $track-panels: 6;
             width: 100%;
             height: auto;
         }
-    }
-
-    .track__panel__duplicate {
-        position: absolute;
-
-        inset: 0 0 0 100%;
-
-        display: flex;
-        width: var(--panel-peaking);
-        
-        height: 100%;
-
-        margin-inline-start: var(--_gap);
-        
-        pointer-events: none;
-
-        opacity: 0.5;
-
-        > * {
-            display: block;
-        }
-
-        display: none;
-
-        // border: 2px solid red !important;
     }
 
     .track__controls {
