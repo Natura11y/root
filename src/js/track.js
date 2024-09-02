@@ -43,15 +43,16 @@ export default class Track {
 
         trackElement.pages = pages;
 
-        // Generate pagination buttons that link to panel IDs
+        // Generate pagination buttons that trigger smooth scrolling via JavaScript
         paginationContainer.innerHTML = pages.map((page, i) => `
             <li>
-                <a
-                    href="#${page[0].id}"
+                <button
+                    type="button"
                     class="track__pagination__item ${i === 0 ? 'active' : ''}"
+                    data-page-index="${i}"
                     aria-label="Page ${i + 1}"
                     ${i === 0 ? 'aria-current="true"' : ''}
-                ></a>
+                ></button>
             </li>
         `).join('');
 
@@ -98,6 +99,16 @@ export default class Track {
         }
     }
 
+    #getCurrentPageIndex(trackElement) {
+        const trackPanels = trackElement.querySelector('.track__panels');
+        const scrollLeft = trackPanels.scrollLeft;
+        const visiblePanels = this.#getVisiblePanels(trackPanels);
+        const panelWidth = trackPanels.children[0].offsetWidth;
+        const pageIndex = Math.round(scrollLeft / (panelWidth * visiblePanels));
+
+        return pageIndex;
+    }
+    
     #resetTrack(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
         const paginationContainer = trackElement.querySelector('.track__pagination');
@@ -117,44 +128,64 @@ export default class Track {
             const target = event.target.closest('.track__pagination__item');
             if (target) {
                 const pageIndex = parseInt(target.getAttribute('data-page-index'));
+                const targetPanel = trackElement.pages[pageIndex][0]; // First panel of the target page
+                
+                // Perform smooth scrolling
+                trackPanels.scrollTo({
+                    left: targetPanel.offsetLeft,
+                    behavior: 'smooth'
+                });
+
                 this.#updatePagination(trackElement, pageIndex); // Update pagination state
             }
         });
 
         // Previous button click event
-        // trackElement.querySelector('.track__prev')?.addEventListener('click', () => {
-        //     const currentIndex = this.#getCurrentPageIndex(trackPanels);
-        //     if (currentIndex > 0) {
-        //         const targetPageIndex = currentIndex - 1;
-        //         const targetAnchor = `#${trackElement.pages[targetPageIndex][0].id}`;
-        //         window.location.href = targetAnchor;
-        //     } else {
-        //         const lastPageIndex = trackElement.pages.length - 1;
-        //         const targetAnchor = `#${trackElement.pages[lastPageIndex][0].id}`;
-        //         window.location.href = targetAnchor;
-        //     }
-        // });
+        trackElement.querySelector('.track__prev')?.addEventListener('click', () => {
+            const currentIndex = this.#getCurrentPageIndex(trackElement);
+            if (currentIndex > 0) {
+                const targetPageIndex = currentIndex - 1;
+                const targetPanel = trackElement.pages[targetPageIndex][0];
+                trackPanels.scrollTo({
+                    left: targetPanel.offsetLeft,
+                    behavior: 'smooth'
+                });
+            } else {
+                const lastPageIndex = trackElement.pages.length - 1;
+                const targetPanel = trackElement.pages[lastPageIndex][0];
+                trackPanels.scrollTo({
+                    left: targetPanel.offsetLeft,
+                    behavior: 'smooth'
+                });
+            }
+        });
 
-        // // Next button click event
-        // trackElement.querySelector('.track__next')?.addEventListener('click', () => {
-        //     const currentIndex = this.#getCurrentPageIndex(trackPanels);
-        //     const totalPages = trackElement.pages.length;
-        //     if (currentIndex < totalPages - 1) {
-        //         const targetPageIndex = currentIndex + 1;
-        //         const targetAnchor = `#${trackElement.pages[targetPageIndex][0].id}`;
-        //         window.location.href = targetAnchor;
-        //     } else {
-        //         const targetAnchor = `#${trackElement.pages[0][0].id}`;
-        //         window.location.href = targetAnchor;
-        //     }
-        // });
+        // Next button click event
+        trackElement.querySelector('.track__next')?.addEventListener('click', () => {
+            const currentIndex = this.#getCurrentPageIndex(trackElement);
+            const totalPages = trackElement.pages.length;
+            if (currentIndex < totalPages - 1) {
+                const targetPageIndex = currentIndex + 1;
+                const targetPanel = trackElement.pages[targetPageIndex][0];
+                trackPanels.scrollTo({
+                    left: targetPanel.offsetLeft,
+                    behavior: 'smooth'
+                });
+            } else {
+                const targetPanel = trackElement.pages[0][0];
+                trackPanels.scrollTo({
+                    left: targetPanel.offsetLeft,
+                    behavior: 'smooth'
+                });
+            }
+        });
 
         // Handle window resize events
         window.addEventListener('resize', () => {
             this.#resetTrack(trackElement);
         });
     }
-
+    
     #initLiveRegion(trackElement) {
         let liveRegion = trackElement.querySelector('.liveregion');
 
