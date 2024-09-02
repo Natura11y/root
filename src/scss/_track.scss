@@ -90,6 +90,11 @@ $track-panels: 6;
             &::after {
                 inset-inline-end: 0;
             }
+
+            .track__prev,
+            .track__next {
+                --button-target-size: var(--_peeking);
+            }
             
         }
 
