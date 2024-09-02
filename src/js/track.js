@@ -5,6 +5,7 @@ export default class Track {
     #trackList = document.querySelectorAll('.track');
     #scrollTimeout = null;  // Timeout to delay pagination update
     #isScrollingProgrammatically = false;  // Flag to track programmatic scrolling
+    #visiblePanels = new Set(); // Track visible panels
 
     // Private methods
 
@@ -61,8 +62,11 @@ export default class Track {
 
         this.#toggleControlsVisibility(trackElement, pages.length);
 
-        // Ensure only panels on the first page are tabbable
-        this.#updateTabIndexes(trackElement, 0);
+        // Initialize observer after generating pages
+        this.#observePanels(trackElement);
+
+        // Ensure only panels on the first page are tabbable initially
+        this.#updateTabIndexes(trackElement);
     }
 
     #updatePagination(trackElement, activeIndex) {
@@ -75,22 +79,25 @@ export default class Track {
         // Update the live region whenever pagination changes
         this.#updateLiveRegion(trackElement, activeIndex, trackElement.pages.length);
 
-        // Update tabindex for all panels based on the current page
-        this.#updateTabIndexes(trackElement, activeIndex);
+        // Update tabindex for all panels based on the current visibility
+        this.#updateTabIndexes(trackElement);
     }
 
-    #updateTabIndexes(trackElement, activeIndex) {
-        trackElement.pages.forEach((page, pageIndex) => {
-            page.forEach(panel => {
-                const interactiveElement = panel.firstElementChild;
-                if (interactiveElement) {
-                    if (pageIndex === activeIndex) {
-                        interactiveElement.removeAttribute('tabindex'); // Make panels on the current page tabbable
-                    } else {
-                        interactiveElement.setAttribute('tabindex', '-1'); // Make panels on other pages not tabbable
-                    }
-                }
-            });
+    #updateTabIndexes(trackElement) {
+        // Reset all panels to not be tabbable
+        trackElement.pages.flat().forEach(panel => {
+            const interactiveElement = panel.firstElementChild;
+            if (interactiveElement) {
+                interactiveElement.setAttribute('tabindex', '-1');
+            }
+        });
+
+        // Make only visible panels tabbable
+        this.#visiblePanels.forEach(panel => {
+            const interactiveElement = panel.firstElementChild;
+            if (interactiveElement) {
+                interactiveElement.removeAttribute('tabindex');
+            }
         });
     }
 
@@ -122,28 +129,25 @@ export default class Track {
         const trackPanels = trackElement.querySelector('.track__panels');
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting && !this.#isScrollingProgrammatically) {
-                    const panelId = entry.target.id;
-
-                    // Find the page that contains this panel
-                    const pageIndex = trackElement.pages.findIndex(page =>
-                        page.some(panel => panel.id === panelId)  // Check all panels in the page
-                    );
-
-                    if (pageIndex !== -1) {
-                        trackElement.currentPageIndex = pageIndex; // Update internal index for this track
-                        this.#updatePagination(trackElement, pageIndex);
-                    }
+                const panel = entry.target;
+                if (entry.isIntersecting) {
+                    this.#visiblePanels.add(panel);
+                } else {
+                    this.#visiblePanels.delete(panel);
                 }
             });
+
+            if (!this.#isScrollingProgrammatically) {
+                this.#updateTabIndexes(trackElement);
+            }
         }, {
             root: trackPanels,
             threshold: 0.5 // Adjust threshold as needed
         });
 
-        // Observe the first panel of each page
-        trackElement.pages.forEach(page => {
-            observer.observe(page[0]); // Observe only the first panel in each page
+        // Observe all panels
+        trackElement.pages.flat().forEach(panel => {
+            observer.observe(panel);
         });
     }
 
@@ -160,7 +164,6 @@ export default class Track {
 
         this.#generatePages(trackElement);
         this.#initLiveRegion(trackElement);
-        this.#observePanels(trackElement); // Initialize the observer
     }
 
     #initEventListeners(trackElement) {
@@ -183,7 +186,6 @@ export default class Track {
         const prevButton = trackElement.querySelector('[data-track-prev]');
         if (prevButton) {
             prevButton.addEventListener('click', () => {
-                console.log(`Current Page Index == ${trackElement.currentPageIndex}`);
                 if (trackElement.currentPageIndex > 0) {
                     this.#scrollToPage(trackElement, trackElement.currentPageIndex - 1);
                 } else {
@@ -196,7 +198,6 @@ export default class Track {
         const nextButton = trackElement.querySelector('[data-track-next]');
         if (nextButton) {
             nextButton.addEventListener('click', () => {
-                console.log(`Current Page Index == ${trackElement.currentPageIndex}`);
                 if (trackElement.currentPageIndex < trackElement.pages.length - 1) {
                     this.#scrollToPage(trackElement, trackElement.currentPageIndex + 1);
                 } else {
