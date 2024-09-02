@@ -3,7 +3,6 @@ export default class Track {
     // Private properties
 
     #trackList = document.querySelectorAll('.track');
-    #currentPageIndex = 0;  // Keep track of the current page index internally
 
     // Private methods
 
@@ -36,6 +35,7 @@ export default class Track {
         });
 
         trackElement.pages = pages;
+        trackElement.currentPageIndex = 0; // Initialize currentPageIndex for each track
 
         paginationContainer.innerHTML = pages.map((page, i) => `
             <li>
@@ -67,8 +67,8 @@ export default class Track {
         const trackPanels = trackElement.querySelector('.track__panels');
         const targetPanel = trackElement.pages[pageIndex][0]; // First panel of the target page
         
-        // Immediately update the current page index
-        this.#currentPageIndex = pageIndex;
+        // Immediately update the track element's current page index
+        trackElement.currentPageIndex = pageIndex;
         this.#updatePagination(trackElement, pageIndex);
 
         // Perform smooth scrolling
@@ -92,7 +92,7 @@ export default class Track {
 
                     if (pageIndex !== -1) {
                         this.#updatePagination(trackElement, pageIndex);
-                        this.#currentPageIndex = pageIndex; // Update internal index
+                        trackElement.currentPageIndex = pageIndex; // Update internal index for this track
                     }
                 }
             });
@@ -114,7 +114,7 @@ export default class Track {
         trackPanels.scrollLeft = 0;
         paginationContainer.innerHTML = '';
         
-        this.#currentPageIndex = 0;  // Reset the page index
+        trackElement.currentPageIndex = 0;  // Reset the page index for this track
 
         this.#generatePages(trackElement);
         this.#initLiveRegion(trackElement);
@@ -134,8 +134,9 @@ export default class Track {
 
         // Previous button click event
         trackElement.querySelector('.track__prev')?.addEventListener('click', () => {
-            if (this.#currentPageIndex > 0) {
-                this.#scrollToPage(trackElement, this.#currentPageIndex - 1);
+            console.log(`Current Page Index == ${trackElement.currentPageIndex}`);
+            if (trackElement.currentPageIndex > 0) {
+                this.#scrollToPage(trackElement, trackElement.currentPageIndex - 1);
             } else {
                 this.#scrollToPage(trackElement, trackElement.pages.length - 1); // Wrap around to last page
             }
@@ -143,8 +144,9 @@ export default class Track {
 
         // Next button click event
         trackElement.querySelector('.track__next')?.addEventListener('click', () => {
-            if (this.#currentPageIndex < trackElement.pages.length - 1) {
-                this.#scrollToPage(trackElement, this.#currentPageIndex + 1);
+            console.log(`Current Page Index == ${trackElement.currentPageIndex}`);
+            if (trackElement.currentPageIndex < trackElement.pages.length - 1) {
+                this.#scrollToPage(trackElement, trackElement.currentPageIndex + 1);
             } else {
                 this.#scrollToPage(trackElement, 0); // Wrap around to first page
             }
