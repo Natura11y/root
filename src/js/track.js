@@ -14,7 +14,14 @@ export default class Track {
     }
 
     #toggleControlsVisibility(trackElement, totalPages) {
-        trackElement.classList.toggle('hide-controls', totalPages <= 1);
+        const controls = trackElement.querySelectorAll('[data-track-prev], [data-track-next], [data-track-pagination]');
+        controls.forEach(control => {
+            if (totalPages <= 1) {
+                control.style.display = 'none';
+            } else {
+                control.style.display = ''; // Reset to default if more than 1 page
+            }
+        });
     }
 
     #generatePages(trackElement) {
@@ -39,16 +46,18 @@ export default class Track {
         trackElement.pages = pages;
         trackElement.currentPageIndex = 0; // Initialize currentPageIndex for each track
 
-        paginationContainer.innerHTML = pages.map((page, i) => `
-            <li>
-                <button
-                    type="button"
-                    data-page-index="${i}"
-                    aria-label="Page ${i + 1}"
-                    ${i === 0 ? 'aria-current="true"' : ''}
-                ></button>
-            </li>
-        `).join('');
+        if (paginationContainer) {
+            paginationContainer.innerHTML = pages.map((page, i) => `
+                <li>
+                    <button
+                        type="button"
+                        data-page-index="${i}"
+                        aria-label="Page ${i + 1}"
+                        ${i === 0 ? 'aria-current="true"' : ''}
+                    ></button>
+                </li>
+            `).join('');
+        }
 
         this.#toggleControlsVisibility(trackElement, pages.length);
 
@@ -143,7 +152,9 @@ export default class Track {
         const paginationContainer = trackElement.querySelector('[data-track-pagination]');
 
         trackPanels.scrollLeft = 0;
-        paginationContainer.innerHTML = '';
+        if (paginationContainer) {
+            paginationContainer.innerHTML = '';
+        }
 
         trackElement.currentPageIndex = 0;  // Reset the page index for this track
 
@@ -155,35 +166,44 @@ export default class Track {
     #initEventListeners(trackElement) {
 
         // Pagination click event
-        trackElement.querySelectorAll('[data-track-pagination] [data-page-index]')?.forEach(item => {
-            item.addEventListener('click', (event) => {
-                const target = event.target.closest('[data-page-index]');
-                if (target) {
-                    const pageIndex = parseInt(target.getAttribute('data-page-index'));
-                    this.#scrollToPage(trackElement, pageIndex);
-                }
+        const paginationItems = trackElement.querySelectorAll('[data-track-pagination] [data-page-index]');
+        if (paginationItems) {
+            paginationItems.forEach(item => {
+                item.addEventListener('click', (event) => {
+                    const target = event.target.closest('[data-page-index]');
+                    if (target) {
+                        const pageIndex = parseInt(target.getAttribute('data-page-index'));
+                        this.#scrollToPage(trackElement, pageIndex);
+                    }
+                });
             });
-        });
+        }
 
         // Previous button click event
-        trackElement.querySelector('[data-track-prev]')?.addEventListener('click', () => {
-            console.log(`Current Page Index == ${trackElement.currentPageIndex}`);
-            if (trackElement.currentPageIndex > 0) {
-                this.#scrollToPage(trackElement, trackElement.currentPageIndex - 1);
-            } else {
-                this.#scrollToPage(trackElement, trackElement.pages.length - 1); // Wrap around to last page
-            }
-        });
+        const prevButton = trackElement.querySelector('[data-track-prev]');
+        if (prevButton) {
+            prevButton.addEventListener('click', () => {
+                console.log(`Current Page Index == ${trackElement.currentPageIndex}`);
+                if (trackElement.currentPageIndex > 0) {
+                    this.#scrollToPage(trackElement, trackElement.currentPageIndex - 1);
+                } else {
+                    this.#scrollToPage(trackElement, trackElement.pages.length - 1); // Wrap around to last page
+                }
+            });
+        }
 
         // Next button click event
-        trackElement.querySelector('[data-track-next]')?.addEventListener('click', () => {
-            console.log(`Current Page Index == ${trackElement.currentPageIndex}`);
-            if (trackElement.currentPageIndex < trackElement.pages.length - 1) {
-                this.#scrollToPage(trackElement, trackElement.currentPageIndex + 1);
-            } else {
-                this.#scrollToPage(trackElement, 0); // Wrap around to first page
-            }
-        });
+        const nextButton = trackElement.querySelector('[data-track-next]');
+        if (nextButton) {
+            nextButton.addEventListener('click', () => {
+                console.log(`Current Page Index == ${trackElement.currentPageIndex}`);
+                if (trackElement.currentPageIndex < trackElement.pages.length - 1) {
+                    this.#scrollToPage(trackElement, trackElement.currentPageIndex + 1);
+                } else {
+                    this.#scrollToPage(trackElement, 0); // Wrap around to first page
+                }
+            });
+        }
 
         // Handle window resize events
         window.addEventListener('resize', () => {
