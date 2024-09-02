@@ -52,6 +52,9 @@ export default class Track {
         `).join('');
 
         this.#toggleControlsVisibility(trackElement, pages.length);
+
+        // Ensure only panels on the first page are tabbable
+        this.#updateTabIndexes(trackElement, 0);
     }
 
     #updatePagination(trackElement, activeIndex) {
@@ -63,6 +66,24 @@ export default class Track {
 
         // Update the live region whenever pagination changes
         this.#updateLiveRegion(trackElement, activeIndex, trackElement.pages.length);
+
+        // Update tabindex for all panels based on the current page
+        this.#updateTabIndexes(trackElement, activeIndex);
+    }
+
+    #updateTabIndexes(trackElement, activeIndex) {
+        trackElement.pages.forEach((page, pageIndex) => {
+            page.forEach(panel => {
+                const interactiveElement = panel.firstElementChild;
+                if (interactiveElement) {
+                    if (pageIndex === activeIndex) {
+                        interactiveElement.removeAttribute('tabindex'); // Make panels on the current page tabbable
+                    } else {
+                        interactiveElement.setAttribute('tabindex', '-1'); // Make panels on other pages not tabbable
+                    }
+                }
+            });
+        });
     }
 
     #scrollToPage(trackElement, pageIndex) {
