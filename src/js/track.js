@@ -19,7 +19,7 @@ export default class Track {
 
     #generatePages(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
-        const paginationContainer = trackElement.querySelector('.track__pagination');
+        const paginationContainer = trackElement.querySelector('[data-track-pagination]');
         const visiblePanels = this.#getVisiblePanels(trackPanels);
         const trackId = trackElement.getAttribute('data-track-id');
         
@@ -43,7 +43,6 @@ export default class Track {
             <li>
                 <button
                     type="button"
-                    class="track__pagination__item ${i === 0 ? 'active' : ''}"
                     data-page-index="${i}"
                     aria-label="Page ${i + 1}"
                     ${i === 0 ? 'aria-current="true"' : ''}
@@ -58,7 +57,7 @@ export default class Track {
     }
 
     #updatePagination(trackElement, activeIndex) {
-        const paginationItems = trackElement.querySelectorAll('.track__pagination__item');
+        const paginationItems = trackElement.querySelectorAll('[data-track-pagination] [data-page-index]');
         paginationItems.forEach((item, index) => {
             item.classList.toggle('active', index === activeIndex);
             item.setAttribute('aria-current', index === activeIndex ? 'true' : 'false');
@@ -141,7 +140,7 @@ export default class Track {
 
     #resetTrack(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
-        const paginationContainer = trackElement.querySelector('.track__pagination');
+        const paginationContainer = trackElement.querySelector('[data-track-pagination]');
 
         trackPanels.scrollLeft = 0;
         paginationContainer.innerHTML = '';
@@ -155,6 +154,16 @@ export default class Track {
 
     #initEventListeners(trackElement) {
 
+        // Pagination click event
+        trackElement.querySelectorAll('[data-track-pagination] [data-page-index]')?.forEach(item => {
+            item.addEventListener('click', (event) => {
+                const target = event.target.closest('[data-page-index]');
+                if (target) {
+                    const pageIndex = parseInt(target.getAttribute('data-page-index'));
+                    this.#scrollToPage(trackElement, pageIndex);
+                }
+            });
+        });
 
         // Previous button click event
         trackElement.querySelector('[data-track-prev]')?.addEventListener('click', () => {
@@ -173,15 +182,6 @@ export default class Track {
                 this.#scrollToPage(trackElement, trackElement.currentPageIndex + 1);
             } else {
                 this.#scrollToPage(trackElement, 0); // Wrap around to first page
-            }
-        });
-        
-        // Pagination click event
-        trackElement.querySelector('.track__pagination')?.addEventListener('click', (event) => {
-            const target = event.target.closest('.track__pagination__item');
-            if (target) {
-                const pageIndex = parseInt(target.getAttribute('data-page-index'));
-                this.#scrollToPage(trackElement, pageIndex);
             }
         });
 
