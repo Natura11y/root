@@ -155,17 +155,9 @@ export default class Track {
 
     #initEventListeners(trackElement) {
 
-        // Pagination click event
-        trackElement.querySelector('.track__pagination')?.addEventListener('click', (event) => {
-            const target = event.target.closest('.track__pagination__item');
-            if (target) {
-                const pageIndex = parseInt(target.getAttribute('data-page-index'));
-                this.#scrollToPage(trackElement, pageIndex);
-            }
-        });
 
         // Previous button click event
-        trackElement.querySelector('.track__prev')?.addEventListener('click', () => {
+        trackElement.querySelector('[data-track-prev]')?.addEventListener('click', () => {
             console.log(`Current Page Index == ${trackElement.currentPageIndex}`);
             if (trackElement.currentPageIndex > 0) {
                 this.#scrollToPage(trackElement, trackElement.currentPageIndex - 1);
@@ -175,12 +167,21 @@ export default class Track {
         });
 
         // Next button click event
-        trackElement.querySelector('.track__next')?.addEventListener('click', () => {
+        trackElement.querySelector('[data-track-next]')?.addEventListener('click', () => {
             console.log(`Current Page Index == ${trackElement.currentPageIndex}`);
             if (trackElement.currentPageIndex < trackElement.pages.length - 1) {
                 this.#scrollToPage(trackElement, trackElement.currentPageIndex + 1);
             } else {
                 this.#scrollToPage(trackElement, 0); // Wrap around to first page
+            }
+        });
+        
+        // Pagination click event
+        trackElement.querySelector('.track__pagination')?.addEventListener('click', (event) => {
+            const target = event.target.closest('.track__pagination__item');
+            if (target) {
+                const pageIndex = parseInt(target.getAttribute('data-page-index'));
+                this.#scrollToPage(trackElement, pageIndex);
             }
         });
 

@@ -95,20 +95,14 @@ $track-panels: 6;
             .track__next {
                 --button-target-size: var(--_peeking);
             }
-            
         }
 
         .track__panels {
             padding-inline: var(--panel-peeking);
         }
 
-        .track__panel:first-child {
-            outline-color: blue;
-        }
-
         .track__panel {
             scroll-margin: var(--panel-peeking);
-            outline-color: red;
         }
 
     }
@@ -151,8 +145,8 @@ $track-panels: 6;
         display: flex;
         flex-direction: column;
 
-        outline: 4px solid green;
-        outline-offset: -4px;
+        // outline: 4px solid green;
+        // outline-offset: -4px;
 
         scroll-snap-align: start;
 
@@ -168,6 +162,8 @@ $track-panels: 6;
         align-items: center;
 
         width: 100%;
+
+        // background-color: yellow;
     }
 
     .track__pagination {
