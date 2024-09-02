@@ -1,4 +1,7 @@
 export default class Track {
+
+    // Private properties
+
     #trackList = document.querySelectorAll('.track');
     #currentPageIndex = 0;  // Keep track of the current page index internally
 
@@ -13,7 +16,7 @@ export default class Track {
         trackElement.classList.toggle('hide-controls', totalPages <= 1);
     }
 
-    #generatePagination(trackElement) {
+    #generatePages(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
         const paginationContainer = trackElement.querySelector('.track__pagination');
         const visiblePanels = this.#getVisiblePanels(trackPanels);
@@ -55,23 +58,25 @@ export default class Track {
             item.classList.toggle('active', index === activeIndex);
             item.setAttribute('aria-current', index === activeIndex ? 'true' : 'false');
         });
+
+        // Update the live region whenever pagination changes
+        this.#updateLiveRegion(trackElement, activeIndex, trackElement.pages.length);
     }
 
     #scrollToPage(trackElement, pageIndex) {
-    const trackPanels = trackElement.querySelector('.track__panels');
-    const targetPanel = trackElement.pages[pageIndex][0]; // First panel of the target page
-    
-    // Immediately update the current page index
-    this.#currentPageIndex = pageIndex;
-    this.#updatePagination(trackElement, pageIndex);
+        const trackPanels = trackElement.querySelector('.track__panels');
+        const targetPanel = trackElement.pages[pageIndex][0]; // First panel of the target page
+        
+        // Immediately update the current page index
+        this.#currentPageIndex = pageIndex;
+        this.#updatePagination(trackElement, pageIndex);
 
-    // Perform smooth scrolling
-    trackPanels.scrollTo({
-        left: targetPanel.offsetLeft,
-        behavior: 'smooth'
-    });
-}
-
+        // Perform smooth scrolling
+        trackPanels.scrollTo({
+            left: targetPanel.offsetLeft,
+            behavior: 'smooth'
+        });
+    }
 
     #observePanels(trackElement) {
         const trackPanels = trackElement.querySelector('.track__panels');
@@ -110,56 +115,62 @@ export default class Track {
         this.#currentPageIndex = 0;  // Reset the page index
         paginationContainer.innerHTML = '';
 
-        this.#generatePagination(trackElement);
+        this.#generatePages(trackElement);
         this.#initLiveRegion(trackElement);
         this.#observePanels(trackElement); // Initialize the observer
     }
 
-   #initEventListeners(trackElement) {
+    #initEventListeners(trackElement) {
 
-    // Pagination click event
-    trackElement.querySelector('.track__pagination')?.addEventListener('click', (event) => {
-        const target = event.target.closest('.track__pagination__item');
-        if (target) {
-            const pageIndex = parseInt(target.getAttribute('data-page-index'));
-            this.#scrollToPage(trackElement, pageIndex);
-        }
-    });
+        // Pagination click event
+        trackElement.querySelector('.track__pagination')?.addEventListener('click', (event) => {
+            const target = event.target.closest('.track__pagination__item');
+            if (target) {
+                const pageIndex = parseInt(target.getAttribute('data-page-index'));
+                this.#scrollToPage(trackElement, pageIndex);
+            }
+        });
 
-    // Previous button click event
-    trackElement.querySelector('.track__prev')?.addEventListener('click', () => {
-        if (this.#currentPageIndex > 0) {
-            this.#scrollToPage(trackElement, this.#currentPageIndex - 1);
-        } else {
-            this.#scrollToPage(trackElement, trackElement.pages.length - 1); // Wrap around to last page
-        }
-    });
+        // Previous button click event
+        trackElement.querySelector('.track__prev')?.addEventListener('click', () => {
+            if (this.#currentPageIndex > 0) {
+                this.#scrollToPage(trackElement, this.#currentPageIndex - 1);
+            } else {
+                this.#scrollToPage(trackElement, trackElement.pages.length - 1); // Wrap around to last page
+            }
+        });
 
-    // Next button click event
-    trackElement.querySelector('.track__next')?.addEventListener('click', () => {
-        if (this.#currentPageIndex < trackElement.pages.length - 1) {
-            this.#scrollToPage(trackElement, this.#currentPageIndex + 1);
-        } else {
-            this.#scrollToPage(trackElement, 0); // Wrap around to first page
-        }
-    });
+        // Next button click event
+        trackElement.querySelector('.track__next')?.addEventListener('click', () => {
+            if (this.#currentPageIndex < trackElement.pages.length - 1) {
+                this.#scrollToPage(trackElement, this.#currentPageIndex + 1);
+            } else {
+                this.#scrollToPage(trackElement, 0); // Wrap around to first page
+            }
+        });
 
-    // Handle window resize events
-    window.addEventListener('resize', () => {
-        this.#resetTrack(trackElement);
-    });
-}
-
+        // Handle window resize events
+        window.addEventListener('resize', () => {
+            this.#resetTrack(trackElement);
+        });
+    }
 
     #initLiveRegion(trackElement) {
         let liveRegion = trackElement.querySelector('.liveregion');
 
         if (!liveRegion) {
             liveRegion = document.createElement('div');
-            liveRegion.className = 'liveregion screen-reader-onlyx';
+            liveRegion.className = 'liveregion screen-reader-only';
             liveRegion.setAttribute('aria-live', 'polite');
             liveRegion.setAttribute('aria-atomic', 'true');
             trackElement.appendChild(liveRegion);
+        }
+    }
+
+    #updateLiveRegion(trackElement, activeIndex, totalPages) {
+        const liveRegion = trackElement.querySelector('.liveregion');
+        if (liveRegion) {
+            liveRegion.textContent = `Page ${activeIndex + 1} of ${totalPages}`;
         }
     }
 
