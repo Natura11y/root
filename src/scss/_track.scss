@@ -125,7 +125,7 @@ $track-panels: 6;
         overflow-x: auto;
 
         scroll-snap-type: inline mandatory;
-        scroll-behavior: auto;
+        scroll-behavior: smooth;
 
         /* Hide scrollbars */
         scrollbar-width: none;
