@@ -65,20 +65,30 @@ $track-panels: 6;
     }
     
     .track--peeking {
-            --_peeking: var(--panel-peeking);
+        --_peeking: var(--panel-peeking);
 
         .track__container {
             position: relative;
             
-            &::before {
+            &::before,
+            &::after {
                 content: '';
                 position: absolute;
                 inset-block: 0;
-                inset-inline-end: 0;
                 width: var(--panel-peeking);
-                background: var(--canvas);
-                opacity: 0.5;
+                background: var(--background-color);
+                opacity: 0.75;
                 pointer-events: none;
+
+                z-index: 10;
+            }
+
+            &::before {
+                inset-inline-start: 0;
+            }
+
+            &::after {
+                inset-inline-end: 0;
             }
             
         }
@@ -98,17 +108,20 @@ $track-panels: 6;
 
     }
 
-    .track__panels {
-        --_gap: var(--gap-size, 0.01px);
-        
+    .track__panels {  
+        position: relative;
+
         display: grid;
 
-        grid-auto-columns: calc((100% / var(--visible-panels)) - (var(--_gap) * ((var(--visible-panels) - 1) / var(--visible-panels))));     
         grid-auto-flow: column;
+        grid-auto-columns: calc(100% / var(--visible-panels));
 
-        gap: var(--_gap);
+        &[class*='gap-'] {   
+            grid-auto-columns: calc((100% / var(--visible-panels)) - (var(--gap-size) * ((var(--visible-panels) - 1) / var(--visible-panels))));
+        }
 
-        position: relative;
+        gap: var(--gap-size);
+
         overflow-x: auto;
 
         scroll-snap-type: inline mandatory;

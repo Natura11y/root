@@ -6,14 +6,20 @@ export default class Track {
     // Private methods
 
     #getVisiblePanels(trackElement) {
-        return parseInt(getComputedStyle(trackElement).getPropertyValue('--visible-panels'), 10) || 1;
+        const visiblePanels = parseInt(getComputedStyle(trackElement).getPropertyValue('--visible-panels'), 10) || 1;
+
+        console.log(`VISIBLE PANELS ${visiblePanels}`);
+
+        return visiblePanels;
     }
 
     #getTotalPages(trackPanels) {
         const visiblePanels = this.#getVisiblePanels(trackPanels);
         const totalPanels = trackPanels.children.length;
         const pages = Math.ceil(totalPanels / visiblePanels);
+
         console.log('PAGES:', pages);
+        
         return pages;
     }
 
@@ -64,6 +70,7 @@ export default class Track {
         const targetScrollLeft = pageIndex * panelWidth * visiblePanels;
 
         trackPanels.scrollTo({ left: targetScrollLeft, behavior: instant ? 'auto' : 'smooth' });
+        
         this.#updatePagination(trackElement, pageIndex);
         this.#updateLiveRegion(trackElement, pageIndex, this.#getTotalPages(trackPanels));
     }
@@ -72,7 +79,11 @@ export default class Track {
         const scrollLeft = trackPanels.scrollLeft;
         const visiblePanels = this.#getVisiblePanels(trackPanels);
         const panelWidth = trackPanels.children[0].offsetWidth;
-        return Math.round(scrollLeft / (panelWidth * visiblePanels));
+        const pageIndex = Math.round(scrollLeft / (panelWidth * visiblePanels));
+
+        console.log('PAGE-INDEX:', pageIndex);
+
+        return pageIndex;
     }
     
     #resetTrack(trackElement) {
@@ -145,7 +156,7 @@ export default class Track {
 
         if (!liveRegion) {
             liveRegion = document.createElement('div');
-            liveRegion.className = 'liveregion screen-reader-only';
+            liveRegion.className = 'liveregion screen-reader-onlyx';
             liveRegion.setAttribute('aria-live', 'polite');
             liveRegion.setAttribute('aria-atomic', 'true');
             trackElement.appendChild(liveRegion);
