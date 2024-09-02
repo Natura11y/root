@@ -185,7 +185,7 @@ export default class Track {
             this.#resetTrack(trackElement);
         });
     }
-    
+
     #initLiveRegion(trackElement) {
         let liveRegion = trackElement.querySelector('.liveregion');
 
