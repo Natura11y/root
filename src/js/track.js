@@ -112,8 +112,9 @@ export default class Track {
         const paginationContainer = trackElement.querySelector('.track__pagination');
 
         trackPanels.scrollLeft = 0;
-        this.#currentPageIndex = 0;  // Reset the page index
         paginationContainer.innerHTML = '';
+        
+        this.#currentPageIndex = 0;  // Reset the page index
 
         this.#generatePages(trackElement);
         this.#initLiveRegion(trackElement);
