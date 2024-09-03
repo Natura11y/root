@@ -129,7 +129,7 @@ export default class Track {
             });
         }, {
             root: trackPanels,
-            threshold: 1
+            threshold: 0.75
         });
 
         // Observe the first panel of each page
@@ -252,5 +252,4 @@ export default class Track {
             this.#initEventListeners(trackElement);
         });
     }
-
 }

@@ -62,10 +62,9 @@ $track-panels: 6;
 
             z-index: 20;
 
-            button {
-                --button-target-size: 30px;
-
-            }   
+            // button {
+            //     --button-target-size: 30px;
+            // }   
         }
 
         .track__prev {
@@ -172,12 +171,17 @@ $track-panels: 6;
         
         gap: 0.75em;
 
+         /* Initialize the counter for pagination */
+        counter-reset: page-counter;
+
         [data-page-index] {
             --_size: calc(var(--button-target-size) * 0.675);
 
             container-type: inline-size;
 
             display: flex;
+            justify-content: center;
+            align-items: center;
 
             aspect-ratio: 1 / 1;
             width: var(--_size);
@@ -186,6 +190,18 @@ $track-panels: 6;
             border-radius: var(--button-border-radius);
 
             cursor: pointer;
+
+            /* Increment the counter */
+            counter-increment: page-counter;
+
+            /* Display the counter value */
+            &::before {
+                display: flex;
+
+                content: counter(page-counter);
+                
+                font-weight: var(--font-weight-bold);
+            }
 
             &:is(
                 .active,
