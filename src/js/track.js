@@ -150,7 +150,7 @@ export default class Track {
             });
         }, {
             root: trackPanels,
-            threshold: 1
+            threshold: 0.75
         });
 
         trackElement.pages.flat().forEach(panel => {
