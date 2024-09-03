@@ -3,7 +3,7 @@ import { delegateEvent } from './utilities/eventDelegation';
 export default class Track {
 
     // Private properties
-    
+
     #trackList = document.querySelectorAll('.track');
     #scrollTimeout = null;
 
@@ -100,6 +100,7 @@ export default class Track {
 
     #observePages(trackElement) {
         const trackPanels = this.#getElement(trackElement, '.track__panels');
+
         const pageObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 const panelId = entry.target.id;
@@ -139,6 +140,7 @@ export default class Track {
 
     #setupTabbingObserver(trackElement) {
         const trackPanels = this.#getElement(trackElement, '.track__panels');
+        
         const tabbingObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 const interactiveElement = entry.target.firstElementChild;
