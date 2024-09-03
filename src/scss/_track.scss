@@ -53,13 +53,19 @@ $track-panels: 6;
 
             transform: translateY(-50%);
             
+            display: flex;
+            justify-content: center;
+            
+            width: var(--panel-peeking);
+            
+            padding: var(--spacer-2);
+
             z-index: 20;
 
-            width: var(--panel-peeking);
-            display: flex;
-            // background-color: yellow;
-            justify-content: center;
-            padding: var(--spacer-2);
+            button {
+                --button-target-size: 30px;
+
+            }   
         }
 
         .track__prev {
@@ -116,12 +122,9 @@ $track-panels: 6;
 
         display: grid;
 
-        grid-auto-flow: column;
-        grid-auto-columns: calc(100% / var(--visible-panels));
+        grid-auto-columns: calc((100% / var(--visible-panels)) - (var(--gap-size, 0px) * ((var(--visible-panels) - 1) / var(--visible-panels))));
 
-        &[class*='gap-'] {   
-            grid-auto-columns: calc((100% / var(--visible-panels)) - (var(--gap-size) * ((var(--visible-panels) - 1) / var(--visible-panels))));
-        }
+        grid-auto-flow: column;
 
         gap: var(--gap-size);
 
@@ -138,7 +141,7 @@ $track-panels: 6;
             position: relative;
         }
             
-        &:is(::-webkit-scrollbar) {
+        &::-webkit-scrollbar{
             display: none;
         }
     }

@@ -104,7 +104,7 @@ export default class Track {
         this.#scrollTimeout = setTimeout(() => {
             this.#updatePagination(trackElement, pageIndex);
             this.#isScrollingProgrammatically = false;  // Reset the flag after scroll completes
-        }, 600);  // Adjust delay time as needed
+        }, 300);  // Adjust delay time as needed
     }
 
     #observePages(trackElement) {
@@ -190,6 +190,7 @@ export default class Track {
     }
 
     #initEventListeners(trackElement) {
+
         // Use delegateEvent to handle pagination clicks
         delegateEvent(trackElement, 'click', '[data-page-index]', (event) => {
             const target = event.target.closest('[data-page-index]');
