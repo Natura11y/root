@@ -3,10 +3,24 @@ import { delegateEvent } from './utilities/eventDelegation';
 export default class Track {
 
     // Private properties
+    
     #trackList = document.querySelectorAll('.track');
-    #scrollTimeout = null;  // Timeout to delay pagination update
+    #scrollTimeout = null;
+    #elementCache = new WeakMap(); // Cache to store element references
 
     // Private methods
+    
+    #getElement(trackElement, selector) {
+        if (!this.#elementCache.has(trackElement)) {
+            this.#elementCache.set(trackElement, {});
+        }
+        const cache = this.#elementCache.get(trackElement);
+        if (!cache[selector]) {
+            cache[selector] = trackElement.querySelector(selector);
+        }
+        return cache[selector];
+    }
+
     #getVisiblePanels(trackElement) {
         const visiblePanels = parseInt(getComputedStyle(trackElement).getPropertyValue('--visible-panels'), 10) || 1;
         return visiblePanels;
@@ -15,15 +29,14 @@ export default class Track {
     #toggleControlsVisibility(trackElement, totalPages) {
         if (totalPages <= 1) {
             trackElement.classList.add('hide-controls');
-        }
-        else {
+        } else {
             trackElement.classList.remove('hide-controls');
         }
     }
 
     #generatePages(trackElement) {
-        const trackPanels = trackElement.querySelector('.track__panels');
-        const paginationContainer = trackElement.querySelector('[data-track-pagination]');
+        const trackPanels = this.#getElement(trackElement, '.track__panels');
+        const paginationContainer = this.#getElement(trackElement, '[data-track-pagination]');
         const visiblePanels = this.#getVisiblePanels(trackPanels);
         const trackId = trackElement.getAttribute('data-track-id');
         
@@ -63,7 +76,7 @@ export default class Track {
     }
 
     #updatePagination(trackElement, activeIndex) {
-        const paginationItems = trackElement.querySelectorAll('[data-track-pagination] [data-page-index]');
+        const paginationItems = this.#getElement(trackElement, '[data-track-pagination]').querySelectorAll('[data-page-index]');
         paginationItems.forEach((item, index) => {
             item.classList.toggle('active', index === activeIndex);
             item.setAttribute('aria-current', index === activeIndex ? 'true' : 'false');
@@ -85,7 +98,7 @@ export default class Track {
     }
 
     #scrollToPage(trackElement, pageIndex) {
-        const trackPanels = trackElement.querySelector('.track__panels');
+        const trackPanels = this.#getElement(trackElement, '.track__panels');
         const targetPanel = trackElement.pages[pageIndex][0]; // First panel of the target page
 
         // Immediately update the track element's current page index
@@ -105,7 +118,7 @@ export default class Track {
     }
 
     #observePages(trackElement) {
-        const trackPanels = trackElement.querySelector('.track__panels');
+        const trackPanels = this.#getElement(trackElement, '.track__panels');
         const pageObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 const panelId = entry.target.id;
@@ -146,7 +159,7 @@ export default class Track {
     }
 
     #observeTabbing(trackElement) {
-        const trackPanels = trackElement.querySelector('.track__panels');
+        const trackPanels = this.#getElement(trackElement, '.track__panels');
         const tabbingObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 const interactiveElement = entry.target.firstElementChild;
@@ -169,8 +182,8 @@ export default class Track {
     }
 
     #resetTrack(trackElement) {
-        const trackPanels = trackElement.querySelector('.track__panels');
-        const paginationContainer = trackElement.querySelector('[data-track-pagination]');
+        const trackPanels = this.#getElement(trackElement, '.track__panels');
+        const paginationContainer = this.#getElement(trackElement, '[data-track-pagination]');
 
         trackPanels.scrollLeft = 0;
         if (paginationContainer) {
@@ -194,7 +207,6 @@ export default class Track {
     }
 
     #initEventListeners(trackElement) {
-
         // Use delegateEvent to handle pagination clicks
         delegateEvent(trackElement, 'click', '[data-page-index]', (event) => {
             const target = event.target.closest('[data-page-index]');
@@ -229,7 +241,7 @@ export default class Track {
     }
 
     #initLiveRegion(trackElement) {
-        let liveRegion = trackElement.querySelector('.liveregion');
+        let liveRegion = this.#getElement(trackElement, '.liveregion');
 
         if (!liveRegion) {
             liveRegion = document.createElement('div');
@@ -241,7 +253,7 @@ export default class Track {
     }
 
     #updateLiveRegion(trackElement, activeIndex, totalPages) {
-        const liveRegion = trackElement.querySelector('.liveregion');
+        const liveRegion = this.#getElement(trackElement, '.liveregion');
         if (liveRegion) {
             liveRegion.textContent = `Page ${activeIndex + 1} of ${totalPages}`;
         }
