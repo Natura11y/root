@@ -15,7 +15,6 @@
     --visible-panels: 1;
 
     --panel-peeking: var(--button-target-size);
-    
 }
 
 $track-panels: 6;
@@ -39,9 +38,9 @@ $track-panels: 6;
         ul {
             list-style: none;
         }
-
-        // background-color: tan;
     }
+
+    // Track Container
 
     .track__container {
         position: relative;
@@ -56,17 +55,12 @@ $track-panels: 6;
             display: flex;
             justify-content: center;
 
-            container-type: inline-size;
-            
-            width: var(--panel-peeking);
-            
-            padding: var(--spacer-2);
+            width: max(var(--button-target-size), var(--panel-peeking));
 
+            margin-inline: var(--spacer-2);
+
+            container-type: inline-size;
             z-index: 20;
-            button {
-                width: min(100cqi, var(--button-target-size));
-                height: min(100cqi, var(--button-target-size));
-            }   
         }
 
         .track__prev {
@@ -79,44 +73,8 @@ $track-panels: 6;
             justify-content: start;
         }
     }
-    
-    .track--peeking {
-        --_peeking: var(--panel-peeking);
 
-        .track__container {
-            position: relative;
-            
-            &::before,
-            &::after {
-                content: '';
-                position: absolute;
-                inset-block: 0;
-                width: var(--panel-peeking);
-                background: var(--background-color);
-                opacity: 0.75;
-                pointer-events: none;
-
-                z-index: 10;
-            }
-
-            &::before {
-                inset-inline-start: 0;
-            }
-
-            &::after {
-                inset-inline-end: 0;
-            }
-        }
-
-        .track__panels {
-            padding-inline: var(--panel-peeking);
-        }
-
-        .track__panel {
-            scroll-margin: var(--panel-peeking);
-        }
-
-    }
+    // Track Panels
 
     .track__panels {  
         position: relative;
@@ -160,6 +118,8 @@ $track-panels: 6;
             height: auto;
         }
     }
+
+    // Track Controls
 
     .track__controls {
         display: flex;
@@ -224,6 +184,47 @@ $track-panels: 6;
         }
     }
 
+    // Track Peeking Modifier
+    
+    .track--peeking {
+        --_peeking: var(--panel-peeking);
+
+        .track__container {
+            position: relative;
+            
+            &::before,
+            &::after {
+                content: '';
+                position: absolute;
+                inset-block: 0;
+                width: var(--panel-peeking);
+                background: var(--background-color);
+                opacity: 0.75;
+                pointer-events: none;
+
+                z-index: 10;
+            }
+
+            &::before {
+                inset-inline-start: 0;
+            }
+
+            &::after {
+                inset-inline-end: 0;
+            }
+        }
+
+        .track__panels {
+            padding-inline: var(--panel-peeking);
+        }
+
+        .track__panel {
+            scroll-margin: var(--panel-peeking);
+        }
+    }
+
+    // Hide Controls (via JavaScript)
+    
     .hide-controls :is(
         .track__controls,
         .track__prev,
