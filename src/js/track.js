@@ -5,7 +5,6 @@ export default class Track {
     // Private properties
     #trackList = document.querySelectorAll('.track');
     #scrollTimeout = null;  // Timeout to delay pagination update
-    #isScrollingProgrammatically = false;  // Flag to track programmatic scrolling
 
     // Private methods
     #getVisiblePanels(trackElement) {
@@ -89,9 +88,6 @@ export default class Track {
         const trackPanels = trackElement.querySelector('.track__panels');
         const targetPanel = trackElement.pages[pageIndex][0]; // First panel of the target page
 
-        // Indicate that scrolling is being triggered programmatically
-        this.#isScrollingProgrammatically = true;
-
         // Immediately update the track element's current page index
         trackElement.currentPageIndex = pageIndex;
 
@@ -105,7 +101,6 @@ export default class Track {
         clearTimeout(this.#scrollTimeout);
         this.#scrollTimeout = setTimeout(() => {
             this.#updatePagination(trackElement, pageIndex);
-            this.#isScrollingProgrammatically = false;  // Reset the flag after scroll completes
         }, 300);  // Adjust delay time as needed
     }
 
@@ -119,13 +114,20 @@ export default class Track {
                         page.some(panel => panel.id === panelId)
                     );
 
+                    const updateOnScrollEnd = () => {
+                        trackElement.currentPageIndex = pageIndex;
+                        this.#updatePagination(trackElement, pageIndex);
+                    };
+
                     if (pageIndex !== -1) {
-                        // Debounce the update to add a delay
-                        clearTimeout(this.#scrollTimeout);
-                        this.#scrollTimeout = setTimeout(() => {
-                            trackElement.currentPageIndex = pageIndex;
-                            this.#updatePagination(trackElement, pageIndex);
-                        }, 300);  // Adjust the delay time as needed
+                        if ('onscrollend' in window) {
+                            trackPanels.onscrollend = updateOnScrollEnd;
+                        } else {
+                            trackPanels.onscroll = () => {
+                                clearTimeout(scrollTimeout);
+                                scrollTimeout = setTimeout(updateOnScrollEnd, 250);
+                            };
+                        }
                     }
                 }
             });
