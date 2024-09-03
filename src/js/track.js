@@ -6,43 +6,30 @@ export default class Track {
     
     #trackList = document.querySelectorAll('.track');
     #scrollTimeout = null;
-    #elementCache = new WeakMap(); // Cache to store element references
 
     // Private methods
-    
+
     #getElement(trackElement, selector) {
-        if (!this.#elementCache.has(trackElement)) {
-            this.#elementCache.set(trackElement, {});
-        }
-        const cache = this.#elementCache.get(trackElement);
-        if (!cache[selector]) {
-            cache[selector] = trackElement.querySelector(selector);
-        }
-        return cache[selector];
+        return trackElement.querySelector(selector);
     }
 
     #getVisiblePanels(trackElement) {
-        const visiblePanels = parseInt(getComputedStyle(trackElement).getPropertyValue('--visible-panels'), 10) || 1;
-        return visiblePanels;
+        return parseInt(getComputedStyle(trackElement).getPropertyValue('--visible-panels'), 10) || 1;
     }
 
     #toggleControlsVisibility(trackElement, totalPages) {
-        if (totalPages <= 1) {
-            trackElement.classList.add('hide-controls');
-        } else {
-            trackElement.classList.remove('hide-controls');
-        }
+        trackElement.classList.toggle('hide-controls', totalPages <= 1);
     }
 
-    #generatePages(trackElement) {
+    #setupPagination(trackElement) {
         const trackPanels = this.#getElement(trackElement, '.track__panels');
         const paginationContainer = this.#getElement(trackElement, '[data-track-pagination]');
         const visiblePanels = this.#getVisiblePanels(trackPanels);
         const trackId = trackElement.getAttribute('data-track-id');
         
-        let pages = [];
+        const pages = [];
         let currentPage = [];
-        
+
         Array.from(trackPanels.children).forEach((panel, index) => {
             const panelId = `${trackId}-panel-${index}`;
             panel.setAttribute('id', panelId);
@@ -54,7 +41,7 @@ export default class Track {
         });
 
         trackElement.pages = pages;
-        trackElement.currentPageIndex = 0; // Initialize currentPageIndex for each track
+        trackElement.currentPageIndex = 0;
 
         if (paginationContainer) {
             paginationContainer.innerHTML = pages.map((page, i) => `
@@ -70,8 +57,6 @@ export default class Track {
         }
 
         this.#toggleControlsVisibility(trackElement, pages.length);
-
-        // Ensure only panels on the first page are tabbable
         this.#updateTabIndexes(trackElement, 0);
     }
 
@@ -82,7 +67,6 @@ export default class Track {
             item.setAttribute('aria-current', index === activeIndex ? 'true' : 'false');
         });
 
-        // Update the live region whenever pagination changes
         this.#updateLiveRegion(trackElement, activeIndex, trackElement.pages.length);
     }
 
@@ -97,24 +81,21 @@ export default class Track {
         });
     }
 
-    #scrollToPage(trackElement, pageIndex) {
+    #navigateToPage(trackElement, pageIndex) {
         const trackPanels = this.#getElement(trackElement, '.track__panels');
-        const targetPanel = trackElement.pages[pageIndex][0]; // First panel of the target page
+        const targetPanel = trackElement.pages[pageIndex][0];
 
-        // Immediately update the track element's current page index
         trackElement.currentPageIndex = pageIndex;
 
-        // Perform smooth scrolling
         trackPanels.scrollTo({
             left: targetPanel.offsetLeft,
             behavior: 'smooth'
         });
 
-        // Debounce pagination update until scroll stops
         clearTimeout(this.#scrollTimeout);
         this.#scrollTimeout = setTimeout(() => {
             this.#updatePagination(trackElement, pageIndex);
-        }, 300);  // Adjust delay time as needed
+        }, 300);
     }
 
     #observePages(trackElement) {
@@ -137,8 +118,8 @@ export default class Track {
                             trackPanels.onscrollend = updateOnScrollEnd;
                         } else {
                             trackPanels.onscroll = () => {
-                                clearTimeout(scrollTimeout);
-                                scrollTimeout = setTimeout(updateOnScrollEnd, 250);
+                                clearTimeout(this.#scrollTimeout);
+                                this.#scrollTimeout = setTimeout(updateOnScrollEnd, 250);
                             };
                         }
                     }
@@ -149,16 +130,14 @@ export default class Track {
             threshold: 0.75
         });
 
-        // Observe the first panel of each page
         trackElement.pages.forEach(page => {
             pageObserver.observe(page[0]);
         });
 
-        // Store the observer in the track element for later disconnection
         trackElement.pageObserver = pageObserver;
     }
 
-    #observeTabbing(trackElement) {
+    #setupTabbingObserver(trackElement) {
         const trackPanels = this.#getElement(trackElement, '.track__panels');
         const tabbingObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -172,16 +151,14 @@ export default class Track {
             threshold: 1
         });
 
-        // Observe all panels
         trackElement.pages.flat().forEach(panel => {
             tabbingObserver.observe(panel);
         });
 
-        // Store the observer in the track element for later disconnection
         trackElement.tabbingObserver = tabbingObserver;
     }
 
-    #resetTrack(trackElement) {
+    #resetTrackState(trackElement) {
         const trackPanels = this.#getElement(trackElement, '.track__panels');
         const paginationContainer = this.#getElement(trackElement, '[data-track-pagination]');
 
@@ -190,7 +167,6 @@ export default class Track {
             paginationContainer.innerHTML = '';
         }
 
-        // Disconnect observers before resetting
         if (trackElement.pageObserver) {
             trackElement.pageObserver.disconnect();
         }
@@ -198,45 +174,39 @@ export default class Track {
             trackElement.tabbingObserver.disconnect();
         }
 
-        trackElement.currentPageIndex = 0;  // Reset the page index for this track
+        trackElement.currentPageIndex = 0;
 
-        this.#generatePages(trackElement);
+        this.#setupPagination(trackElement);
         this.#initLiveRegion(trackElement);
-        this.#observePages(trackElement); // Initialize the page observer
-        this.#observeTabbing(trackElement); // Initialize the tabbing observer
+        this.#observePages(trackElement);
+        this.#setupTabbingObserver(trackElement);
     }
 
     #initEventListeners(trackElement) {
-        // Use delegateEvent to handle pagination clicks
         delegateEvent(trackElement, 'click', '[data-page-index]', (event) => {
             const target = event.target.closest('[data-page-index]');
             if (target) {
                 const pageIndex = parseInt(target.getAttribute('data-page-index'));
-                this.#scrollToPage(trackElement, pageIndex);
+                this.#navigateToPage(trackElement, pageIndex);
             }
         });
 
-        // Previous button click event
         delegateEvent(trackElement, 'click', '[data-track-prev]', () => {
-            if (trackElement.currentPageIndex > 0) {
-                this.#scrollToPage(trackElement, trackElement.currentPageIndex - 1);
-            } else {
-                this.#scrollToPage(trackElement, trackElement.pages.length - 1); // Wrap around to last page
-            }
+            const newIndex = trackElement.currentPageIndex > 0
+                ? trackElement.currentPageIndex - 1
+                : trackElement.pages.length - 1;
+            this.#navigateToPage(trackElement, newIndex);
         });
 
-        // Next button click event
         delegateEvent(trackElement, 'click', '[data-track-next]', () => {
-            if (trackElement.currentPageIndex < trackElement.pages.length - 1) {
-                this.#scrollToPage(trackElement, trackElement.currentPageIndex + 1);
-            } else {
-                this.#scrollToPage(trackElement, 0); // Wrap around to first page
-            }
+            const newIndex = trackElement.currentPageIndex < trackElement.pages.length - 1
+                ? trackElement.currentPageIndex + 1
+                : 0;
+            this.#navigateToPage(trackElement, newIndex);
         });
 
-        // Handle window resize events
         window.addEventListener('resize', () => {
-            this.#resetTrack(trackElement);
+            this.#resetTrackState(trackElement);
         });
     }
 
@@ -264,7 +234,7 @@ export default class Track {
     init() {
         this.#trackList.forEach((trackElement, trackIndex) => {
             trackElement.setAttribute('data-track-id', `track-${trackIndex}`);
-            this.#resetTrack(trackElement);
+            this.#resetTrackState(trackElement);
             this.#initEventListeners(trackElement);
         });
     }

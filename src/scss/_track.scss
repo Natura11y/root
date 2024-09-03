@@ -55,16 +55,18 @@ $track-panels: 6;
             
             display: flex;
             justify-content: center;
+
+            container-type: inline-size;
             
             width: var(--panel-peeking);
             
             padding: var(--spacer-2);
 
             z-index: 20;
-
-            // button {
-            //     --button-target-size: 30px;
-            // }   
+            button {
+                width: min(100cqi, var(--button-target-size));
+                height: min(100cqi, var(--button-target-size));
+            }   
         }
 
         .track__prev {
