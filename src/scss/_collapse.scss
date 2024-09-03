@@ -14,7 +14,7 @@ In this file:
 @layer component {
 
     .button[aria-expanded="true"] {
-        --subtle-fill-opacity: 0.15;
+        --subtle-fill-opacity: 15%;
     }
 
 } // end @layer

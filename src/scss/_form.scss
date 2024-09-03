@@ -759,10 +759,10 @@ In this file:
 
         font-size: var(--font-size-sm);
 
-        @extend %subtle-fill-psuedo;
+        @extend %subtle-fill;
 
         .active & {
-            --subtle-fill-opacity: 0.125;
+            --subtle-fill-opacity: 10%;
         }
     }
 

@@ -67,7 +67,7 @@
 
     :root {
         --primary: #1753cc;
-        --subtle-fill-opacity: 0.0375;
+        --subtle-fill-opacity: 3.75%;
     }
 
     .opacity-color-scheme {

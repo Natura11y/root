@@ -318,6 +318,6 @@
 
 .button:hover,
 .button:focus {
-    --subtle-fill-opacity: 0.1;
+    --subtle-fill-opacity: 10%;
     transform: scale(1.12);
 }

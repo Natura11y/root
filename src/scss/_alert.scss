@@ -40,8 +40,8 @@ In this file:
             [class*="--inverse"],
             [class*="background-"]
         ) {
-            @extend %subtle-fill-psuedo;
-            --subtle-fill-opacity: 0.1;
+            @extend %subtle-fill;
+            --subtle-fill-opacity: 10%;
         }    
 
         &[class*="border"] {

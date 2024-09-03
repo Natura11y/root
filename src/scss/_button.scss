@@ -11,7 +11,7 @@ In this file:
 ////////////////////////////////////////
 // A. Modules
 ////////////////////////////////////////
-
+@use "sass:math";
 @use './accent';
 
 //////////////////////////////////////////////
@@ -73,8 +73,7 @@ In this file:
 @layer component {
 
     .button {
-        --_button-opacity-hover: 0.75;   
-        --subtle-fill-opacity: 0.05;
+        --_button-opacity-hover: 0.75;
 
         position: relative;
 
@@ -109,7 +108,7 @@ In this file:
             [class*="background-color"],
             [data-toggle="dropdown"]
         ) {
-            @extend %subtle-fill-psuedo;
+            @extend %subtle-fill;
         }
 
         &:hover, 
@@ -215,7 +214,7 @@ In this file:
 
             border-radius: var(--button-icon-over-text-border-radius);
 
-            @extend %subtle-fill-psuedo;
+            @extend %subtle-fill;
         }
 
         [class*="text"] {
