@@ -14,10 +14,12 @@ export default class Track {
     }
 
     #toggleControlsVisibility(trackElement, totalPages) {
-        const controls = trackElement.querySelectorAll('[data-track-prev], [data-track-next], [data-track-pagination]');
-        controls.forEach(control => {
-            control.style.display = totalPages <= 1 ? 'none' : ''; // Show or hide controls
-        });
+        if (totalPages <= 1) {
+            trackElement.classList.add('hide-controls');
+        }
+        else {
+            trackElement.classList.remove('hide-controls');
+        }
     }
 
     #generatePages(trackElement) {
