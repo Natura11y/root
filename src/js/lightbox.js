@@ -1,5 +1,6 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 import { focusTrap, getFocusableElements } from './utilities/focus';
+import { delegateEvent } from './utilities/eventDelegation';
 
 export default class Lightbox {
 
@@ -425,8 +426,13 @@ export default class Lightbox {
   }
 
   #initEventListeners() {
-    this.#lightboxTargetList.forEach((lbButton, index) => {
-      lbButton.addEventListener('click', this.#handleLightboxOpen(index));
+    // this.#lightboxTargetList.forEach((lbButton, index) => {
+    //   lbButton.addEventListener('click', this.#handleLightboxOpen(index));
+    // });
+    delegateEvent(document, 'click', '[data-lightbox]', (e) => {
+      const lightboxButton = e.target.closest('[data-lightbox]');
+      const index = Array.from(this.#lightboxTargetList).indexOf(lightboxButton);
+      if (index !== -1) this.#handleLightboxOpen(index)(e);
     });
   }
 
