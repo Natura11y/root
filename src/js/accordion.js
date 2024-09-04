@@ -69,17 +69,19 @@ export default class Accordion {
         }
     }
 
-    // Public method for initialization
+    // Public methods
+
     init() {
+
         this.#accordionList.forEach((accordion) => {
             const accordionButtonList = accordion.querySelectorAll(':scope > [data-accordion="button"]');
             const accordionPanelList = accordion.querySelectorAll(':scope > [data-accordion="panel"]');
 
             accordionButtonList.forEach((accordionButton, index) => {
+
                 const currentAccordionPanel = accordionButton.nextElementSibling;
                 const isExpanded = accordionButton.getAttribute('aria-expanded') === 'true';
 
-                // Set initial state for accordion panels
                 accordionButton.setAttribute('tabindex', 0);
                 currentAccordionPanel.classList.toggle('show', isExpanded);
                 this.#setFocusableElements(currentAccordionPanel, isExpanded);
@@ -106,5 +108,7 @@ export default class Accordion {
                 });
             });
         });
+    
     }
+
 }
