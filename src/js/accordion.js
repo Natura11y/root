@@ -1,102 +1,107 @@
 import { getFocusableElements } from './utilities/focus';
+import { delegateEvent } from './utilities/eventDelegation';
 
 export default class Accordion {
 
     #accordionList = document.querySelectorAll('.accordion');
 
-    setFocusableElements(element = document, focusable = false) {
+    // Private method to set focusable elements within a panel
+    #setFocusableElements(element = document, focusable = false) {
         const focusableElementList = getFocusableElements(element);
-        for (const focusableElement of focusableElementList) {
-            if (focusable === true) {
-                focusableElement.setAttribute('tabindex', 0);
-            } else if (focusable === false) {
-                focusableElement.setAttribute('tabindex', -1);
-            }
-        }
+        focusableElementList.forEach((focusableElement) => {
+            focusableElement.setAttribute('tabindex', focusable ? 0 : -1);
+        });
     }
 
-    initAccordion(event, accordionButton, currentAccordionPanel, accordionPanelList) {
-    
+    // Private method to handle accordion initialization (open/close)
+    #initAccordion(event, accordionButton, currentAccordionPanel, accordionPanelList) {
         event.preventDefault();
         event.stopPropagation();
-        
-        for (const otherAccordionPanel of accordionPanelList) {
-            otherAccordionPanel.classList.remove('show');
-            if (otherAccordionPanel !== currentAccordionPanel) {
-                otherAccordionPanel.classList.remove('shown');
-                otherAccordionPanel.previousElementSibling.setAttribute('aria-expanded', false);
-                otherAccordionPanel.setAttribute('aria-hidden', true);
-                this.setFocusableElements(otherAccordionPanel, false);
+
+        // Close all other accordion panels
+        accordionPanelList.forEach((otherPanel) => {
+            otherPanel.classList.remove('show');
+            if (otherPanel !== currentAccordionPanel) {
+                otherPanel.classList.remove('shown');
+                otherPanel.previousElementSibling.setAttribute('aria-expanded', false);
+                otherPanel.setAttribute('aria-hidden', true);
+                this.#setFocusableElements(otherPanel, false);
             }
-        }
+        });
 
+        // Toggle current accordion panel
         currentAccordionPanel.classList.toggle('shown');
-        let isExpanded = accordionButton.getAttribute('aria-expanded');
-        
-        if (isExpanded === 'true') {
-            accordionButton.setAttribute('aria-expanded', false);
-            currentAccordionPanel.setAttribute('aria-hidden', true);
-            this.setFocusableElements(currentAccordionPanel, false);
-        } else if (isExpanded === 'false') {
-            accordionButton.setAttribute('aria-expanded', true);
-            currentAccordionPanel.setAttribute('aria-hidden', false);
-            this.setFocusableElements(currentAccordionPanel, true);
-        }
+        const isExpanded = accordionButton.getAttribute('aria-expanded') === 'true';
 
-        let accTrigger = new Event('accTrigger', { bubbles: true });
+        accordionButton.setAttribute('aria-expanded', !isExpanded);
+        currentAccordionPanel.setAttribute('aria-hidden', isExpanded);
+        this.#setFocusableElements(currentAccordionPanel, !isExpanded);
+
+        // Dispatch a custom event when accordion is toggled
+        const accTrigger = new Event('accTrigger', { bubbles: true });
         document.dispatchEvent(accTrigger);
     }
 
+    // Private method to handle key navigation
+    #handleKeyNavigation(event, accordionButtonList, index) {
+        const focusNext = (dir) => {
+            event.preventDefault();
+            let targetFocus = index + dir;
+
+            if (dir === -1 && targetFocus < 0) {
+                accordionButtonList[accordionButtonList.length - 1].focus();
+            } else if (dir === 1 && targetFocus >= accordionButtonList.length) {
+                accordionButtonList[0].focus();
+            } else {
+                accordionButtonList[targetFocus].focus();
+            }
+        };
+
+        switch (event.code) {
+            case 'ArrowUp':
+                focusNext(-1);
+                break;
+            case 'ArrowDown':
+                focusNext(1);
+                break;
+            default:
+                break;
+        }
+    }
+
+    // Public method for initialization
     init() {
         this.#accordionList.forEach((accordion) => {
             const accordionButtonList = accordion.querySelectorAll(':scope > [data-accordion="button"]');
             const accordionPanelList = accordion.querySelectorAll(':scope > [data-accordion="panel"]');
-            
+
             accordionButtonList.forEach((accordionButton, index) => {
                 const currentAccordionPanel = accordionButton.nextElementSibling;
-                let isExpanded = accordionButton.getAttribute('aria-expanded');
+                const isExpanded = accordionButton.getAttribute('aria-expanded') === 'true';
 
+                // Set initial state for accordion panels
                 accordionButton.setAttribute('tabindex', 0);
-                if (isExpanded === 'true') {
-                    currentAccordionPanel.classList.add('show');
-                    this.setFocusableElements(currentAccordionPanel, true);
-                } else {
-                    accordionButton.setAttribute('aria-expanded', false);
-                    currentAccordionPanel.setAttribute('aria-hidden', true);
-                    this.setFocusableElements(currentAccordionPanel, false);
-                }
+                currentAccordionPanel.classList.toggle('show', isExpanded);
+                this.#setFocusableElements(currentAccordionPanel, isExpanded);
 
-                accordionButton.addEventListener('click', (event) => {
-                    this.initAccordion(event, accordionButton, currentAccordionPanel, accordionPanelList);
-                });
-
-                accordionButton.addEventListener('keydown', (event) => {
-                    const directionalFocus = (dir) => {
-                        event.preventDefault();
-                        let targetFocus = index + dir;
-                        if (dir === -1 && targetFocus < 0) {
-                            accordionButtonList[accordionButtonList.length -1].focus();
-                        } else if (dir === 1 && targetFocus >= accordionButtonList.length) {
-                            accordionButtonList[0].focus();
-                        } else {
-                            accordionButtonList[targetFocus].focus();
-                        }
-                    }
-                    switch (event.code) {
-                        case 'ArrowUp':
-                            directionalFocus(-1);
-                            break;
-                        case'ArrowDown':
-                            directionalFocus(1);
-                            break;
-                        default:
-                        // do nothing
+                // Delegate click event for accordion toggle to the accordion container
+                delegateEvent(accordion, 'click', '[data-accordion="button"]', (event) => {
+                    if (event.target === accordionButton) {
+                        this.#initAccordion(event, accordionButton, currentAccordionPanel, accordionPanelList);
                     }
                 });
 
-                accordionButton.addEventListener('keyup', (event) => {
-                    if (event.code === 'Enter' && event.target.tagName !== 'BUTTON') {
-                        this.initAccordion(event, accordionButton, currentAccordionPanel, accordionPanelList);
+                // Delegate keydown event for navigation between buttons within the accordion container
+                delegateEvent(accordion, 'keydown', '[data-accordion="button"]', (event) => {
+                    if (event.target === accordionButton) {
+                        this.#handleKeyNavigation(event, accordionButtonList, index);
+                    }
+                });
+
+                // Delegate keyup event for handling Enter key to toggle accordion within the accordion container
+                delegateEvent(accordion, 'keyup', '[data-accordion="button"]', (event) => {
+                    if (event.code === 'Enter') {
+                        this.#initAccordion(event, accordionButton, currentAccordionPanel, accordionPanelList);
                     }
                 });
             });
