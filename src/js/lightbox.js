@@ -58,6 +58,7 @@ export default class Lightbox {
   // Private methods
 
   #handleLightboxOpen = (index) => (e) => {
+  
     // Check if lightbox exists
     const lightbox = document.querySelector('.lightbox');
     if (lightbox) return;
