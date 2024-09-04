@@ -7,6 +7,7 @@ import { delegateEvent } from './utilities/eventDelegation';
 export default class FormInput {
 
   // Private properties
+  
   #formEntryList = document.querySelectorAll('.form-entry');
   #invalidClasses = ['is-invalid'];
   #formSubmitAttempted = false;
