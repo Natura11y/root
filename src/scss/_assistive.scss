@@ -133,7 +133,8 @@ In this file:
             border-radius: var(--button-border-radius);
             overflow: hidden;
 
-            &:is(::before, ::after) {
+            &::before,
+            &::after {
                 content: "";
                 inset: 0;
             }
@@ -147,9 +148,10 @@ In this file:
 
             &::after {
                 position: fixed;
+
                 z-index: -2;
 
-                background-color: rgba(0, 0, 0, 0.5);
+                background-color: rgba(0, 0, 0, 0.5) !important;
                 
                 pointer-events: none;
             }
