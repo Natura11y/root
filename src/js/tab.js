@@ -1,50 +1,43 @@
 import { delegateEvent } from './utilities/eventDelegation';
+import { handleArrowKeyNavigation } from './utilities/keyboardNavigation';
 
 export default class Tab {
 
   // Private properties
+
   #tabsList = document.querySelectorAll('.tabs');
 
   // Private methods
 
-  #directionalFocus(event, index, tabsButtonList, dir) {
-    event.preventDefault();
-
-    let targetFocus = index + dir;
-
-    if (dir === -1 && targetFocus < 0) {
-      tabsButtonList[tabsButtonList.length - 1].focus();
-    } else if (dir === 1 && targetFocus >= tabsButtonList.length) {
-      tabsButtonList[0].focus();
-    } else {
-      tabsButtonList[targetFocus].focus();
-    }
-  }
-
   #deactivateTabs(tabsButtonList, tabsPanelList) {
+    // Deactivate all tabs
     tabsButtonList.forEach((tab) => {
       tab.setAttribute('aria-selected', 'false');
       tab.setAttribute('tabindex', '-1');
     });
 
+    // Hide all tab panels
     tabsPanelList.forEach((panel) => {
-      panel.classList.remove('shown');
-      panel.setAttribute('hidden', '');
+      panel.classList.remove('shown'); // Use 'shown' to hide the panel
+      panel.setAttribute('aria-hidden', 'true'); // Ensure it's hidden from screen readers
     });
   }
 
   #activateTab(tab, tabsButtonList, tabsPanelList) {
+    // Activate the selected tab
     this.#deactivateTabs(tabsButtonList, tabsPanelList);
 
     tab.setAttribute('aria-selected', 'true');
-    tab.setAttribute('tabindex', '0');
-    // tab.focus();
+    tab.removeAttribute('tabindex');
+    tab.focus(); // Focus remains on the activated tab
 
-    let controls = tab.getAttribute('aria-controls');
-    let currentTabPanel = document.getElementById(controls);
+    // Get the associated tab panel
+    const controls = tab.getAttribute('aria-controls');
+    const currentTabPanel = document.getElementById(controls);
 
-    currentTabPanel.classList.add('shown');
-    currentTabPanel.removeAttribute('hidden');
+    // Show the corresponding tab panel
+    currentTabPanel.classList.add('shown'); // Use 'shown' to make the panel visible
+    currentTabPanel.setAttribute('aria-hidden', 'false'); // Make it visible to screen readers
   }
 
   // Public methods
@@ -54,43 +47,37 @@ export default class Tab {
       const tabsButtonList = tab.querySelectorAll('[role="tab"]');
       const tabsPanelList = tab.querySelectorAll('[role="tabpanel"]');
 
-      // Delegate click event for activating tabs
+      // Delegate click and keydown events for activating tabs
       delegateEvent(tab, 'click', '[role="tab"]', (event) => {
         const clickedTab = event.target.closest('[role="tab"]');
-        const index = Array.from(tabsButtonList).indexOf(clickedTab);
-        if (index !== -1) {
-          this.#activateTab(clickedTab, tabsButtonList, tabsPanelList);
-        }
+        this.#activateTab(clickedTab, tabsButtonList, tabsPanelList);
       });
 
-      // Delegate keydown event for navigation between tabs
       delegateEvent(tab, 'keydown', '[role="tab"]', (event) => {
         const focusedTab = event.target.closest('[role="tab"]');
         const index = Array.from(tabsButtonList).indexOf(focusedTab);
 
-        if (index !== -1) {
-          switch (event.code) {
-            case 'Home':
-              event.preventDefault();
-              tabsButtonList[0].focus();
-              break;
-            case 'End':
-              event.preventDefault();
-              tabsButtonList[tabsButtonList.length - 1].focus();
-              break;
-            case 'ArrowLeft':
-              this.#directionalFocus(event, index, tabsButtonList, -1);
-              break;
-            case 'ArrowRight':
-              this.#directionalFocus(event, index, tabsButtonList, 1);
-              break;
-            default:
-            // do nothing
-          }
+        switch (event.code) {
+          case 'Enter':
+          case 'Space':
+            event.preventDefault();
+            this.#activateTab(focusedTab, tabsButtonList, tabsPanelList);
+            break;
+          case 'ArrowLeft':
+          case 'ArrowRight':
+          case 'Home':
+          case 'End':
+            handleArrowKeyNavigation(event, index, tabsButtonList, (targetIndex) => {
+              tabsButtonList[targetIndex].focus();
+              // Do not activate the tab until Enter or Space is pressed
+            });
+            break;
+          default:
+            break;
         }
       });
 
-      // Initialize the first tab as active
+      // Initialize the first tab as active, but focus remains on the tab
       this.#activateTab(tabsButtonList[0], tabsButtonList, tabsPanelList);
     });
   }
