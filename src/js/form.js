@@ -7,7 +7,6 @@ import { delegateEvent } from './utilities/eventDelegation';
 export default class FormInput {
 
   // Private properties
-  
   #formEntryList = document.querySelectorAll('.form-entry');
   #invalidClasses = ['is-invalid'];
   #formSubmitAttempted = false;
@@ -64,17 +63,6 @@ export default class FormInput {
     }
   }
 
-  #handleFormInputs(formEntry) {
-    const inputSelectors = ['input', 'select', 'textarea'];
-    const formEntryInputList = formEntry.querySelectorAll(inputSelectors.join(','));
-
-    const isRequired = formEntry.hasAttribute('data-required');
-
-    formEntryInputList.forEach((formEntryInput) =>
-      this.#processFormEntryInput(formEntryInput, isRequired)
-    );
-  }
-
   #handleClickOnInputText(event) {
     const clickTarget = event.target.tagName;
     const clickInput = event.target
@@ -89,15 +77,26 @@ export default class FormInput {
       return;
     }
   }
+  
+  #handleFormInputs(formEntry) {
+    const inputSelectors = ['input', 'select', 'textarea'];
+    const formEntryInputList = formEntry.querySelectorAll(inputSelectors.join(','));
+
+    const isRequired = formEntry.hasAttribute('data-required');
+
+    formEntryInputList.forEach((formEntryInput) =>
+      this.#processFormEntryInput(formEntryInput, isRequired)
+    );
+  }
 
   #processFormEntryInput(formEntryInput, isRequired) {
-  
     const isInputText = formEntryInput
       .closest('.form-entry')
       .querySelector('.form-entry__field__input');
 
     const activeTarget = '.form-entry';
 
+    // Apply event delegation for focus in and out
     delegateEvent(document, 'focusin', '.form-entry input, .form-entry select, .form-entry textarea', this.#handleFocusIn(activeTarget));
     delegateEvent(document, 'focusout', '.form-entry input, .form-entry select, .form-entry textarea', this.#handleFocusOut(activeTarget));
 
@@ -106,6 +105,7 @@ export default class FormInput {
       formEntryInput.setAttribute('aria-required', 'true');
     }
 
+    // Directly handle change events
     formEntryInput.addEventListener('change', () =>
       this.#handleInputChange(formEntryInput, isRequired)
     );
