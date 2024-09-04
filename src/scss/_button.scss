@@ -11,6 +11,7 @@ In this file:
 ////////////////////////////////////////
 // A. Modules
 ////////////////////////////////////////
+
 @use "sass:math";
 @use './accent';
 
@@ -131,7 +132,6 @@ In this file:
             opacity: var(--_button-opacity-hover);
             cursor: not-allowed;
         }
-        
     }
 
     // Outline Modifier
