@@ -1,4 +1,14 @@
-// utilities/keyboardNavigation.js
+/*
+
+In this file:
+
+// A. Keyboard Navigation
+
+*/
+
+//////////////////////////////////////////////
+// A. Keyboard Navigation
+//////////////////////////////////////////////
 
 export const handleArrowKeyNavigation = (
   event, 
