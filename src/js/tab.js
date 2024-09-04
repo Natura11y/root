@@ -1,7 +1,8 @@
+import { delegateEvent } from './utilities/eventDelegation';
+
 export default class Tab {
 
   // Private properties
-  
   #tabsList = document.querySelectorAll('.tabs');
 
   // Private methods
@@ -37,7 +38,7 @@ export default class Tab {
 
     tab.setAttribute('aria-selected', 'true');
     tab.setAttribute('tabindex', '0');
-    tab.focus();
+    // tab.focus();
 
     let controls = tab.getAttribute('aria-controls');
     let currentTabPanel = document.getElementById(controls);
@@ -53,14 +54,21 @@ export default class Tab {
       const tabsButtonList = tab.querySelectorAll('[role="tab"]');
       const tabsPanelList = tab.querySelectorAll('[role="tabpanel"]');
 
-      tabsButtonList.forEach((tabsButton, index) => {
-        tabsButton.setAttribute('tabindex', index === 0 ? '0' : '-1');
+      // Delegate click event for activating tabs
+      delegateEvent(tab, 'click', '[role="tab"]', (event) => {
+        const clickedTab = event.target.closest('[role="tab"]');
+        const index = Array.from(tabsButtonList).indexOf(clickedTab);
+        if (index !== -1) {
+          this.#activateTab(clickedTab, tabsButtonList, tabsPanelList);
+        }
+      });
 
-        tabsButton.addEventListener('click', (event) => {
-          this.#activateTab(event.target, tabsButtonList, tabsPanelList);
-        });
+      // Delegate keydown event for navigation between tabs
+      delegateEvent(tab, 'keydown', '[role="tab"]', (event) => {
+        const focusedTab = event.target.closest('[role="tab"]');
+        const index = Array.from(tabsButtonList).indexOf(focusedTab);
 
-        tabsButton.addEventListener('keydown', (event) => {
+        if (index !== -1) {
           switch (event.code) {
             case 'Home':
               event.preventDefault();
@@ -79,7 +87,7 @@ export default class Tab {
             default:
             // do nothing
           }
-        });
+        }
       });
 
       // Initialize the first tab as active
