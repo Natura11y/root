@@ -3,7 +3,6 @@ import { delegateEvent } from './utilities/eventDelegation';
 export default class Track {
 
     // Private properties
-
     #trackList = document.querySelectorAll('.track');
     #scrollTimeout = null;
 
@@ -135,6 +134,7 @@ export default class Track {
             pageObserver.observe(page[0]);
         });
 
+        // *** Save the observer instance for cleanup later ***
         trackElement.pageObserver = pageObserver;
     }
 
@@ -157,6 +157,7 @@ export default class Track {
             tabbingObserver.observe(panel);
         });
 
+        // *** Save the observer instance for cleanup later ***
         trackElement.tabbingObserver = tabbingObserver;
     }
 
@@ -164,11 +165,15 @@ export default class Track {
         const trackPanels = this.#getElement(trackElement, '.track__panels');
         const paginationContainer = this.#getElement(trackElement, '[data-track-pagination]');
 
+        // Reset scroll position
         trackPanels.scrollLeft = 0;
+
+        // Clear pagination content
         if (paginationContainer) {
             paginationContainer.innerHTML = '';
         }
 
+        // *** Clean up existing observers ***
         if (trackElement.pageObserver) {
             trackElement.pageObserver.disconnect();
         }
@@ -178,10 +183,23 @@ export default class Track {
 
         trackElement.currentPageIndex = 0;
 
+        // Reinitialize everything after resetting
         this.#setupPagination(trackElement);
         this.#initLiveRegion(trackElement);
         this.#observePages(trackElement);
         this.#setupTabbingObserver(trackElement);
+    }
+
+    // *** New destroy method for complete cleanup ***
+    destroy(trackElement) {
+        if (trackElement.pageObserver) {
+            trackElement.pageObserver.disconnect();
+        }
+        if (trackElement.tabbingObserver) {
+            trackElement.tabbingObserver.disconnect();
+        }
+        // Clear any timeouts
+        clearTimeout(this.#scrollTimeout);
     }
 
     #initEventListeners(trackElement) {
@@ -207,6 +225,7 @@ export default class Track {
             this.#navigateToPage(trackElement, newIndex);
         });
 
+        // Reset track state on window resize
         window.addEventListener('resize', () => {
             this.#resetTrackState(trackElement);
         });
