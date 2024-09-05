@@ -90,34 +90,10 @@ In this file:
 
     [class*="gradient-veneer"] {
         --_gradient-direction: to bottom;
-        --_gradient-stop-1: hsla(0, 0%, 100%, 0) var(--gradient-veneer-start);
-        --_gradient-stop-2: var(--gradient-color) 100%;
-        
-        position: relative;
-        overflow: hidden;
-
-        &::after {        
-            position: absolute;
-            content: "";
-            inset: -1px;
-
-            background-image:
-                linear-gradient( 
-                    var(--_gradient-direction),
-                    var(--_gradient-stop-1),
-                    var(--_gradient-stop-2)
-                );
-
-            background-clip: border-box;
-
-            opacity: var(--gradient-veneer-opacity);
-
-            pointer-events: none;
-            
-            display: none;
-        }
+        --_gradient-stop-1: hsla(0, 0%, 100%, 1) var(--gradient-veneer-start);
+        --_gradient-stop-2: hsla(0, 0%, 100%, 0) 100%;
     }
-
+    
     [class*="gradient-veneer-top"] {
         --_gradient-direction: to top;
     }
@@ -142,11 +118,8 @@ In this file:
             .gradient-veneer-right#{$mod},
             .gradient-veneer-bottom#{$mod},
             .gradient-veneer-left#{$mod} {
-                &::after{
-                    display: block;
-                }
+                mask-image: linear-gradient(var(--_gradient-direction), var(--_gradient-stop-1), var(--_gradient-stop-2));
             }
-            
         }
     }
 

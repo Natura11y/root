@@ -188,10 +188,6 @@ $theme-colors: (
             color: var(--background-color);
         }
 
-        [class*="gradient-veneer"] {
-            --gradient-color: var(--background-color);
-        }
-
         :is(.active, .has-value) .form-entry__field--float .form-entry__field__label {
             background-color: var(--background-color);
         }

@@ -25,9 +25,8 @@ const devPages = {
     'Container': 'container',
     'Form': 'form',
     'Grid': 'grid',
-    'Subgrid': 'subgrid',
     'Lightbox': 'lightbox',
-    'Modal': 'modal',
+    'Modal': 'modal',                   
     'Megamenu': 'megamenu',
     'Navigation': 'navigation',
     'New': 'new-features',
@@ -39,7 +38,7 @@ const devPages = {
 }
 
 const devDir = './dist/html';
-const devPage = `${devPages.Form}.html`;
+const devPage = `${devPages.Track}.html`;
 
 module.exports = merge(common, {
     mode: 'development',
