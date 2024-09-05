@@ -240,7 +240,8 @@ In this file:
 
             display: none;
             
-            mask-image: linear-gradient(to left, rgba(0, 0, 0, 1.0), transparent);
+            mask-image: linear-gradient(to left, hsl(0, 0%, 0%), transparent);
+            
             pointer-events: none;
             
             z-index: 600;
