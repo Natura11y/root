@@ -26,11 +26,11 @@ In this file:
 
     --subtle-fill-opacity: 5%;
 
-    // Gradient Veneer
+    // Gradient Mask
     
-    --gradient-veneer-start: clamp(25%, 50%, 75%);
+    --gradient-mask-start: clamp(25%, 50%, 75%);
 
-    --gradient-veneer-opacity: 1;
+    --gradient-mask-opacity: 1;
 }
 
 ////////////////////////////////////////
@@ -86,27 +86,28 @@ In this file:
         @extend %caret;
     }
 
-    // Gradient Veneer Utilities
+    // Gradient Mask Utilities
 
-    [class*="gradient-veneer"] {
+    [class*="gradient-mask"] {
         --_gradient-direction: to bottom;
-        --_gradient-stop-1: hsla(0, 0%, 100%, 1) var(--gradient-veneer-start);
+        --_gradient-stop-1: hsla(0, 0%, 100%, 1) var(--gradient-mask-start);
         --_gradient-stop-2: hsla(0, 0%, 100%, 0) 100%;
+        pointer-events: none;
     }
     
-    [class*="gradient-veneer-top"] {
+    [class*="gradient-mask-top"] {
         --_gradient-direction: to top;
     }
 
-    [class*="gradient-veneer-right"] {
+    [class*="gradient-mask-right"] {
         --_gradient-direction: to right;
     }
 
-    [class*="gradient-veneer-bottom"] {
+    [class*="gradient-mask-bottom"] {
         --_gradient-direction: to bottom;
     }
 
-    [class*="gradient-veneer-left"] {
+    [class*="gradient-mask-left"] {
         --_gradient-direction: to left;
     }
 
@@ -114,10 +115,10 @@ In this file:
         @include breakpoint.breakpoint-up($breakpoint) {
             $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
-            .gradient-veneer-top#{$mod},
-            .gradient-veneer-right#{$mod},
-            .gradient-veneer-bottom#{$mod},
-            .gradient-veneer-left#{$mod} {
+            .gradient-mask-top#{$mod},
+            .gradient-mask-right#{$mod},
+            .gradient-mask-bottom#{$mod},
+            .gradient-mask-left#{$mod} {
                 mask-image: linear-gradient(var(--_gradient-direction), var(--_gradient-stop-1), var(--_gradient-stop-2));
             }
         }

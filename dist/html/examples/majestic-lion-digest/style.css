@@ -23,8 +23,8 @@
     --button-font-family: 'Bebas Neue', cursive;
 }
 
-[class*="gradient-veneer"] { 
-    --gradient-veneer-opacity: 0.75;
+[class*="gradient-mask"] { 
+    --gradient-mask-opacity: 0.75;
 }
 
 /*

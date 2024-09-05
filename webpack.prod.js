@@ -12,8 +12,7 @@ module.exports = merge(common, {
     output: {
         filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
-        iife: true,
-        clean: true
+        iife: true
     },
     module: {
         rules: [
