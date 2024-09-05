@@ -79,10 +79,20 @@ export default class Lightbox {
 
     if (e.target !== e.currentTarget && e.type === 'click') return;
 
+    // Cleanup listeners before removing the lightbox
+    const lightboxPrevious = this.lightbox.querySelector('[data-lightbox-previous]');
+    const lightboxNext = this.lightbox.querySelector('[data-lightbox-next]');
+    const lightboxClose = this.lightbox.querySelector('[data-lightbox-close]');
+
+    lightboxPrevious.removeEventListener('click', this.#handleLightboxUpdateClick);
+    lightboxNext.removeEventListener('click', this.#handleLightboxUpdateClick);
+    lightboxClose.removeEventListener('click', this.#handleLightboxClose);
+
     handleOverlayClose(this.lightbox);
 
     this.lightbox.parentElement.removeChild(this.lightbox);
 
+    // Remove keyup event listener
     window.removeEventListener('keyup', this.#handleLightboxUpdateKey);
   };
 

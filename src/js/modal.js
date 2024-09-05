@@ -39,8 +39,10 @@ export default class Modal {
 
 	#handleModalClose(modalTarget) {
 		modalTarget.classList.remove('shown');
+		
 		handleOverlayClose(modalTarget);
 		this.#removeOutsideClickHandler(modalTarget);
+
 		window.removeEventListener('keydown', this.#escapeKeyHandler);
 	}
 

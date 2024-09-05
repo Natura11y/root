@@ -77,11 +77,18 @@ export default class FormInput {
     this.#formEntryList.forEach((formEntry) => {
       const isRequired = formEntry.hasAttribute('data-required');
       const formEntryInputList = formEntry.querySelectorAll('input, select, textarea');
+      
+      // Process each form entry input
       formEntryInputList.forEach((formEntryInput) => this.#processFormEntryInput(formEntryInput, isRequired));
 
-      // Event delegation for focus events
-      delegateEvent(document, 'focusin', '.form-entry input, .form-entry select, .form-entry textarea', (event) => this.#toggleActiveClass(event, true));
-      delegateEvent(document, 'focusout', '.form-entry input, .form-entry select, .form-entry textarea', (event) => this.#toggleActiveClass(event, false));
+      // Scoped Event Delegation for focusin and focusout (within each formEntry)
+      delegateEvent(formEntry, 'focusin', 'input, select, textarea', (event) => {
+        this.#toggleActiveClass(event, true);
+      });
+
+      delegateEvent(formEntry, 'focusout', 'input, select, textarea', (event) => {
+        this.#toggleActiveClass(event, false);
+      });
     });
   }
 
