@@ -53,6 +53,7 @@ export default class FormInput {
 
   #handleInputChange(formEntryInput, isRequired) {
     if (this.#formSubmitAttempted && isRequired) {
+      console.log("Cool", formEntryInput, isRequired)
       this.#checkIfEmpty(formEntryInput);
     }
 
@@ -96,10 +97,6 @@ export default class FormInput {
 
     const activeTarget = '.form-entry';
 
-    // Apply event delegation for focus in and out
-    delegateEvent(document, 'focusin', '.form-entry input, .form-entry select, .form-entry textarea', this.#handleFocusIn(activeTarget));
-    delegateEvent(document, 'focusout', '.form-entry input, .form-entry select, .form-entry textarea', this.#handleFocusOut(activeTarget));
-
     if (isRequired) {
       formEntryInput.setAttribute('required', 'true');
       formEntryInput.setAttribute('aria-required', 'true');
@@ -113,6 +110,11 @@ export default class FormInput {
     if (isInputText) {
       isInputText.addEventListener('click', this.#handleClickOnInputText);
     }
+
+    // Apply event delegation for focus in and out
+    delegateEvent(document, 'focusin', '.form-entry input, .form-entry select, .form-entry textarea', this.#handleFocusIn(activeTarget));
+    delegateEvent(document, 'focusout', '.form-entry input, .form-entry select, .form-entry textarea', this.#handleFocusOut(activeTarget));
+
   }
 
   // Public methods
@@ -240,9 +242,12 @@ export class FormSubmission {
         field.addEventListener('input', () => this.#checkIfEmpty(field));
       });
 
-      // Perform validation checks
+      // Perform validation checks only on required fields
       inputFields.forEach((field) => {
-        this.#checkIfEmpty(field);
+        // Check if the field is required
+        if (field.hasAttribute('required')) {
+          this.#checkIfEmpty(field);
+        }
       });
 
       const formErrorsList = form.querySelectorAll(':invalid');
