@@ -2,11 +2,14 @@ import { delegateEvent } from './utilities/eventDelegation';
 import { getFocusableElements } from './utilities/focus';  // Import the utility function
 
 export default class Track {
+
     // Private properties
+
     #trackList = document.querySelectorAll('.track');
     #scrollTimeout = null;
 
     // Private methods
+
     #getElement(trackElement, selector) {
         return trackElement.querySelector(selector);
     }
@@ -70,14 +73,18 @@ export default class Track {
         this.#updateLiveRegion(trackElement, activeIndex, trackElement.pages.length);
     }
 
-    // Use getFocusableElements to update all focusable elements' tabindex
+    // Use getFocusableElements to update all focusable elements' tabindex and aria-hidden
     #updateTabIndexes(trackElement, activeIndex) {
         trackElement.pages.forEach((page, pageIndex) => {
             page.forEach(panel => {
                 const focusableElements = getFocusableElements(panel);  // Get all focusable elements in the panel
 
+                // Set tabindex and aria-hidden based on visibility
+                const isVisible = pageIndex === activeIndex;
+                panel.setAttribute('aria-hidden', isVisible ? 'false' : 'true');  // Update aria-hidden
+
                 focusableElements.forEach(el => {
-                    el.setAttribute('tabindex', pageIndex === activeIndex ? '0' : '-1');  // Enable or disable based on visibility
+                    el.setAttribute('tabindex', isVisible ? '0' : '-1');  // Enable or disable based on visibility
                 });
             });
         });
@@ -101,23 +108,19 @@ export default class Track {
         }, 300);
     }
 
-    // Helper method for navigating to the next panel
     #navigateToNext(trackElement) {
         const newIndex = trackElement.currentPageIndex < trackElement.pages.length - 1
-            ? trackElement.currentPageIndex + 1
-            : 0;  // Optional wraparound behavior
+            ? trackElement.currentPageIndex + 1 : 0;
         this.#navigateToPage(trackElement, newIndex);
     }
 
-    // Helper method for navigating to the previous panel
     #navigateToPrev(trackElement) {
         const newIndex = trackElement.currentPageIndex > 0
             ? trackElement.currentPageIndex - 1
-            : trackElement.pages.length - 1;  // Optional wraparound behavior
+            : trackElement.pages.length - 1;
         this.#navigateToPage(trackElement, newIndex);
     }
 
-    // Reusable method to compute the peeking padding (assuming left and right are the same)
     #getPeekingPadding(trackPanels) {
         const computedStyle = getComputedStyle(trackPanels);
         const panelPeeking = parseFloat(computedStyle.paddingLeft) || 0;  // Assume same for both sides
@@ -174,8 +177,12 @@ export default class Track {
             entries.forEach(entry => {
                 const focusableElements = getFocusableElements(entry.target);  // Get all focusable elements in the panel
 
+                // Set tabindex and aria-hidden based on visibility
+                const isVisible = entry.isIntersecting;
+                entry.target.setAttribute('aria-hidden', isVisible ? 'false' : 'true');  // Update aria-hidden
+
                 focusableElements.forEach(el => {
-                    el.setAttribute('tabindex', entry.isIntersecting ? '0' : '-1');  // Update based on intersection state
+                    el.setAttribute('tabindex', isVisible ? '0' : '-1');  // Enable or disable based on visibility
                 });
             });
         }, {
@@ -279,6 +286,7 @@ export default class Track {
     }
 
     // Public methods
+
     init() {
         this.#trackList.forEach((trackElement, trackIndex) => {
             trackElement.setAttribute('data-track-id', `track-${trackIndex}`);
