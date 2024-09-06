@@ -1,11 +1,14 @@
 import { delegateEvent } from './utilities/eventDelegation';
 
 export default class Track {
+
     // Private properties
+
     #trackList = document.querySelectorAll('.track');
     #scrollTimeout = null;
 
     // Private methods
+
     #getElement(trackElement, selector) {
         return trackElement.querySelector(selector);
     }
@@ -97,16 +100,15 @@ export default class Track {
         }, 300);
     }
 
-    // Reusable method to compute peeking padding
+    // Reusable method to compute the peeking padding (assuming left and right are the same)
     #getPeekingPadding(trackPanels) {
         const computedStyle = getComputedStyle(trackPanels);
-        const panelPeekingLeft = parseFloat(computedStyle.paddingLeft) || 0;
-        const panelPeekingRight = parseFloat(computedStyle.paddingRight) || 0;
-        return { panelPeekingLeft, panelPeekingRight };
+        const panelPeeking = parseFloat(computedStyle.paddingLeft) || 0;  // Assume same for both sides
+        return panelPeeking;
     }
 
     // Page Observer with adjusted rootMargin and threshold
-    #observePages(trackElement, panelPeekingLeft, panelPeekingRight) {
+    #observePages(trackElement, panelPeeking) {
         const trackPanels = this.#getElement(trackElement, '.track__panels');
 
         const pageObserver = new IntersectionObserver((entries) => {
@@ -137,7 +139,7 @@ export default class Track {
         }, {
             root: trackPanels,
             threshold: 0.5, // Adjust threshold to balance multiple panels being visible
-            rootMargin: `0px -${panelPeekingRight * 0.5}px 0px -${panelPeekingLeft * 0.5}px`, // Less aggressive negative root margin
+            rootMargin: `0px -${panelPeeking * 0.5}px`, // Simplified negative root margin for both sides
         });
 
         trackElement.pages.forEach(page => {
@@ -148,7 +150,7 @@ export default class Track {
     }
 
     // Tabbing Observer ensures only fully visible panels are tabbable
-    #setupTabbingObserver(trackElement, panelPeekingLeft, panelPeekingRight) {
+    #setupTabbingObserver(trackElement, panelPeeking) {
         const trackPanels = this.#getElement(trackElement, '.track__panels');
 
         const tabbingObserver = new IntersectionObserver((entries) => {
@@ -161,7 +163,7 @@ export default class Track {
         }, {
             root: trackPanels,
             threshold: 0.5, // Only fully visible panels should be tabbable
-            rootMargin: `0px -${panelPeekingRight}px 0px -${panelPeekingLeft}px`, // Full negative root margin for tabbing observer
+            rootMargin: `0px -${panelPeeking}px`, // Simplified negative root margin for both sides
         });
 
         trackElement.pages.flat().forEach(panel => {
@@ -190,13 +192,13 @@ export default class Track {
         trackElement.currentPageIndex = 0;
 
         // Compute peeking padding once for both observers
-        const { panelPeekingLeft, panelPeekingRight } = this.#getPeekingPadding(trackPanels);
+        const panelPeeking = this.#getPeekingPadding(trackPanels);
 
         // Reinitialize after reset
         this.#setupPagination(trackElement);
         this.#initLiveRegion(trackElement);
-        this.#observePages(trackElement, panelPeekingLeft, panelPeekingRight); // Peeking observation
-        this.#setupTabbingObserver(trackElement, panelPeekingLeft, panelPeekingRight); // Tabbing management
+        this.#observePages(trackElement, panelPeeking); // Peeking observation
+        this.#setupTabbingObserver(trackElement, panelPeeking); // Tabbing management
     }
 
     #initEventListeners(trackElement) {
@@ -247,6 +249,7 @@ export default class Track {
     }
 
     // Public methods
+    
     init() {
         this.#trackList.forEach((trackElement, trackIndex) => {
             trackElement.setAttribute('data-track-id', `track-${trackIndex}`);
