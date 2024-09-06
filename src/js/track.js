@@ -3,6 +3,7 @@ import { delegateEvent } from './utilities/eventDelegation';
 export default class Track {
 
     // Private properties
+
     #trackList = document.querySelectorAll('.track');
     #scrollTimeout = null;
 
@@ -101,8 +102,10 @@ export default class Track {
         const trackPanels = this.#getElement(trackElement, '.track__panels');
 
         const pageObserver = new IntersectionObserver((entries) => {
+
             entries.forEach(entry => {
                 const panelId = entry.target.id;
+                
                 if (entry.isIntersecting) {
                     const pageIndex = trackElement.pages.findIndex(page =>
                         page.some(panel => panel.id === panelId)
@@ -190,17 +193,6 @@ export default class Track {
         this.#setupTabbingObserver(trackElement);
     }
 
-    // *** New destroy method for complete cleanup ***
-    destroy(trackElement) {
-        if (trackElement.pageObserver) {
-            trackElement.pageObserver.disconnect();
-        }
-        if (trackElement.tabbingObserver) {
-            trackElement.tabbingObserver.disconnect();
-        }
-        // Clear any timeouts
-        clearTimeout(this.#scrollTimeout);
-    }
 
     #initEventListeners(trackElement) {
         delegateEvent(trackElement, 'click', '[data-page-index]', (event) => {
@@ -258,5 +250,16 @@ export default class Track {
             this.#resetTrackState(trackElement);
             this.#initEventListeners(trackElement);
         });
+    }
+    
+    destroy(trackElement) {
+        if (trackElement.pageObserver) {
+            trackElement.pageObserver.disconnect();
+        }
+        if (trackElement.tabbingObserver) {
+            trackElement.tabbingObserver.disconnect();
+        }
+        // Clear any timeouts
+        clearTimeout(this.#scrollTimeout);
     }
 }

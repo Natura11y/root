@@ -63,9 +63,6 @@ $track-panels: 6;
 
             width: max(var(--button-target-size), var(--panel-peeking));
 
-            // margin-inline: var(--spacer-2);
-
-
             z-index: 20;
         }
 
@@ -250,7 +247,8 @@ $track-panels: 6;
         }
 
         > .track__pagination {
-        --_justify-pages: center;
+            --_justify-pages: center;
+            
             margin-inline: var(--panel-peeking);
         }
     }
