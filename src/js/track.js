@@ -83,6 +83,7 @@ export default class Track {
         });
     }
 
+    // Primary method for navigating to a specific page index
     #navigateToPage(trackElement, pageIndex) {
         const trackPanels = this.#getElement(trackElement, '.track__panels');
         const targetPanel = trackElement.pages[pageIndex][0];
@@ -98,6 +99,22 @@ export default class Track {
         this.#scrollTimeout = setTimeout(() => {
             this.#updatePagination(trackElement, pageIndex);
         }, 300);
+    }
+
+    // Helper method for navigating to the next panel
+    #navigateToNext(trackElement) {
+        const newIndex = trackElement.currentPageIndex < trackElement.pages.length - 1
+            ? trackElement.currentPageIndex + 1
+            : 0;  // Optional wraparound behavior
+        this.#navigateToPage(trackElement, newIndex);
+    }
+
+    // Helper method for navigating to the previous panel
+    #navigateToPrev(trackElement) {
+        const newIndex = trackElement.currentPageIndex > 0
+            ? trackElement.currentPageIndex - 1
+            : trackElement.pages.length - 1;  // Optional wraparound behavior
+        this.#navigateToPage(trackElement, newIndex);
     }
 
     // Reusable method to compute the peeking padding (assuming left and right are the same)
@@ -174,6 +191,17 @@ export default class Track {
         trackElement.tabbingObserver = tabbingObserver; // Save for cleanup
     }
 
+    // Initialize keyboard navigation to allow both ArrowLeft and ArrowRight regardless of focus
+    #initKeyboardNavigation(trackElement) {
+        trackElement.addEventListener('keydown', (event) => {
+            if (event.code === 'ArrowRight') {
+                this.#navigateToNext(trackElement);
+            } else if (event.code === 'ArrowLeft') {
+                this.#navigateToPrev(trackElement);
+            }
+        });
+    }
+
     #resetTrackState(trackElement) {
         const trackPanels = this.#getElement(trackElement, '.track__panels');
         const paginationContainer = this.#getElement(trackElement, '[data-track-pagination]');
@@ -200,6 +228,7 @@ export default class Track {
         this.#initLiveRegion(trackElement);
         this.#observePages(trackElement, panelPeeking); // Peeking observation
         this.#setupTabbingObserver(trackElement, panelPeeking); // Tabbing management
+        this.#initKeyboardNavigation(trackElement);  // Add keyboard navigation
     }
 
     #initEventListeners(trackElement) {
