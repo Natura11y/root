@@ -223,8 +223,8 @@ $track-panels: 6;
                 inset-block: 0;
                 width: var(--panel-peeking);
                 background: var(--background-color);
-                opacity: 0.75;
-                pointer-events: none;
+
+                opacity: 0.5;
 
                 z-index: 10;
             }
