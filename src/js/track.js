@@ -1,14 +1,11 @@
 import { delegateEvent } from './utilities/eventDelegation';
 
 export default class Track {
-
     // Private properties
-
     #trackList = document.querySelectorAll('.track');
     #scrollTimeout = null;
 
     // Private methods
-
     #getElement(trackElement, selector) {
         return trackElement.querySelector(selector);
     }
@@ -26,7 +23,7 @@ export default class Track {
         const paginationContainer = this.#getElement(trackElement, '[data-track-pagination]');
         const visiblePanels = this.#getVisiblePanels(trackPanels);
         const trackId = trackElement.getAttribute('data-track-id');
-        
+
         const pages = [];
         let currentPage = [];
 
@@ -61,7 +58,9 @@ export default class Track {
     }
 
     #updatePagination(trackElement, activeIndex) {
-        const paginationItems = this.#getElement(trackElement, '[data-track-pagination]').querySelectorAll('[data-page-index]');
+        const paginationItems = this.#getElement(trackElement, '[data-track-pagination]')
+            .querySelectorAll('[data-page-index]');
+        
         paginationItems.forEach((item, index) => {
             item.classList.toggle('active', index === activeIndex);
             item.setAttribute('aria-current', index === activeIndex ? 'true' : 'false');
@@ -89,7 +88,7 @@ export default class Track {
 
         trackPanels.scrollTo({
             left: targetPanel.offsetLeft,
-            behavior: 'smooth'
+            behavior: 'smooth',
         });
 
         clearTimeout(this.#scrollTimeout);
@@ -98,19 +97,22 @@ export default class Track {
         }, 300);
     }
 
-    #observePages(trackElement) {
-        const trackPanels = this.#getElement(trackElement, '.track__panels');
-
-        // Get the actual computed padding values (for the peeking effect)
+    // Reusable method to compute peeking padding
+    #getPeekingPadding(trackPanels) {
         const computedStyle = getComputedStyle(trackPanels);
         const panelPeekingLeft = parseFloat(computedStyle.paddingLeft) || 0;
         const panelPeekingRight = parseFloat(computedStyle.paddingRight) || 0;
+        return { panelPeekingLeft, panelPeekingRight };
+    }
+
+    // Page Observer with adjusted rootMargin and threshold
+    #observePages(trackElement, panelPeekingLeft, panelPeekingRight) {
+        const trackPanels = this.#getElement(trackElement, '.track__panels');
 
         const pageObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                const panelId = entry.target.id;
-
                 if (entry.isIntersecting) {
+                    const panelId = entry.target.id;
                     const pageIndex = trackElement.pages.findIndex(page =>
                         page.some(panel => panel.id === panelId)
                     );
@@ -134,22 +136,21 @@ export default class Track {
             });
         }, {
             root: trackPanels,
-            threshold: 0.75,
-            // Use computed padding values for left and right peeking
-            rootMargin: `0px ${panelPeekingRight}px 0px ${panelPeekingLeft}px`
+            threshold: 0.5, // Adjust threshold to balance multiple panels being visible
+            rootMargin: `0px -${panelPeekingRight * 0.5}px 0px -${panelPeekingLeft * 0.5}px`, // Less aggressive negative root margin
         });
 
         trackElement.pages.forEach(page => {
             pageObserver.observe(page[0]);
         });
 
-        // Save the observer instance for cleanup later
-        trackElement.pageObserver = pageObserver;
+        trackElement.pageObserver = pageObserver; // Save for cleanup
     }
 
-    #setupTabbingObserver(trackElement) {
+    // Tabbing Observer ensures only fully visible panels are tabbable
+    #setupTabbingObserver(trackElement, panelPeekingLeft, panelPeekingRight) {
         const trackPanels = this.#getElement(trackElement, '.track__panels');
-        
+
         const tabbingObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 const interactiveElement = entry.target.firstElementChild;
@@ -159,15 +160,15 @@ export default class Track {
             });
         }, {
             root: trackPanels,
-            threshold: 0.75
+            threshold: 0.5, // Only fully visible panels should be tabbable
+            rootMargin: `0px -${panelPeekingRight}px 0px -${panelPeekingLeft}px`, // Full negative root margin for tabbing observer
         });
 
         trackElement.pages.flat().forEach(panel => {
             tabbingObserver.observe(panel);
         });
 
-        // *** Save the observer instance for cleanup later ***
-        trackElement.tabbingObserver = tabbingObserver;
+        trackElement.tabbingObserver = tabbingObserver; // Save for cleanup
     }
 
     #resetTrackState(trackElement) {
@@ -182,23 +183,21 @@ export default class Track {
             paginationContainer.innerHTML = '';
         }
 
-        // *** Clean up existing observers ***
-        if (trackElement.pageObserver) {
-            trackElement.pageObserver.disconnect();
-        }
-        if (trackElement.tabbingObserver) {
-            trackElement.tabbingObserver.disconnect();
-        }
+        // Cleanup observers
+        if (trackElement.pageObserver) trackElement.pageObserver.disconnect();
+        if (trackElement.tabbingObserver) trackElement.tabbingObserver.disconnect();
 
         trackElement.currentPageIndex = 0;
 
-        // Reinitialize everything after resetting
+        // Compute peeking padding once for both observers
+        const { panelPeekingLeft, panelPeekingRight } = this.#getPeekingPadding(trackPanels);
+
+        // Reinitialize after reset
         this.#setupPagination(trackElement);
         this.#initLiveRegion(trackElement);
-        this.#observePages(trackElement);
-        this.#setupTabbingObserver(trackElement);
+        this.#observePages(trackElement, panelPeekingLeft, panelPeekingRight); // Peeking observation
+        this.#setupTabbingObserver(trackElement, panelPeekingLeft, panelPeekingRight); // Tabbing management
     }
-
 
     #initEventListeners(trackElement) {
         delegateEvent(trackElement, 'click', '[data-page-index]', (event) => {
@@ -223,7 +222,6 @@ export default class Track {
             this.#navigateToPage(trackElement, newIndex);
         });
 
-        // Reset track state on window resize
         window.addEventListener('resize', () => {
             this.#resetTrackState(trackElement);
         });
@@ -249,7 +247,6 @@ export default class Track {
     }
 
     // Public methods
-
     init() {
         this.#trackList.forEach((trackElement, trackIndex) => {
             trackElement.setAttribute('data-track-id', `track-${trackIndex}`);
@@ -259,13 +256,8 @@ export default class Track {
     }
 
     destroy(trackElement) {
-        if (trackElement.pageObserver) {
-            trackElement.pageObserver.disconnect();
-        }
-        if (trackElement.tabbingObserver) {
-            trackElement.tabbingObserver.disconnect();
-        }
-        // Clear any timeouts
+        if (trackElement.pageObserver) trackElement.pageObserver.disconnect();
+        if (trackElement.tabbingObserver) trackElement.tabbingObserver.disconnect();
         clearTimeout(this.#scrollTimeout);
     }
 }
