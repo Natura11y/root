@@ -101,11 +101,15 @@ export default class Track {
     #observePages(trackElement) {
         const trackPanels = this.#getElement(trackElement, '.track__panels');
 
-        const pageObserver = new IntersectionObserver((entries) => {
+        // Get the actual computed padding values (for the peeking effect)
+        const computedStyle = getComputedStyle(trackPanels);
+        const panelPeekingLeft = parseFloat(computedStyle.paddingLeft) || 0;
+        const panelPeekingRight = parseFloat(computedStyle.paddingRight) || 0;
 
+        const pageObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 const panelId = entry.target.id;
-                
+
                 if (entry.isIntersecting) {
                     const pageIndex = trackElement.pages.findIndex(page =>
                         page.some(panel => panel.id === panelId)
@@ -130,14 +134,16 @@ export default class Track {
             });
         }, {
             root: trackPanels,
-            threshold: 0.75
+            threshold: 0.75,
+            // Use computed padding values for left and right peeking
+            rootMargin: `0px ${panelPeekingRight}px 0px ${panelPeekingLeft}px`
         });
 
         trackElement.pages.forEach(page => {
             pageObserver.observe(page[0]);
         });
 
-        // *** Save the observer instance for cleanup later ***
+        // Save the observer instance for cleanup later
         trackElement.pageObserver = pageObserver;
     }
 
@@ -251,7 +257,7 @@ export default class Track {
             this.#initEventListeners(trackElement);
         });
     }
-    
+
     destroy(trackElement) {
         if (trackElement.pageObserver) {
             trackElement.pageObserver.disconnect();
