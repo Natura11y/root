@@ -17,7 +17,7 @@
     --panel-peeking: calc(var(--container-padding-x) * 4);
 }
 
-$track-panels: 6;
+$track-panels: 8;
 
 //////////////////////////////////////////////
 // C. Component
@@ -37,7 +37,6 @@ $track-panels: 6;
 
         gap: var(--gap-size, var(--spacer-2));
 
-        
         ul {
             list-style: none;
         }
@@ -56,24 +55,17 @@ $track-panels: 6;
             position: absolute;
             inset-block-start: 50%;
 
-            transform: translateY(-50%);
-            
-            display: flex;
-            justify-content: center;
-
-            width: max(var(--button-target-size), var(--panel-peeking));
-
             z-index: 20;
         }
 
         .track__prev {
             inset-inline-start: calc(var(--button-target-size) * 0.5);
-            justify-content: end;
+            transform:  translateY(-50%) translateX(calc(var(--_peeking) - var(--button-target-size)));
         }
 
         .track__next {
             inset-inline-end:  calc(var(--button-target-size) * 0.5);
-            justify-content: start;
+            transform:  translateY(-50%) translateX(calc(-1 * var(--_peeking) + var(--button-target-size)));
         }
     }
 
@@ -132,6 +124,7 @@ $track-panels: 6;
         align-items: center;
         
         gap: 0.75em;
+
         grid-template-columns: var(--track-control-columns);
         grid-template-areas: var(--track-control-layout);
 
@@ -148,17 +141,23 @@ $track-panels: 6;
         }
     }
 
+    .track__prev,
+    .track__next {
+        font-size: var(--font-size-md);
+    }
+
     .track__pagination {
         --_justify-pages: start;
+
         display: flex;
         justify-content: var(--_justify-pages);
         
         gap: 0.75em;
 
-        counter-reset: page-counter;
+        font-size: var(--font-size-sm);
 
         [data-page-index] {
-            --_size: calc(var(--button-target-size) * 0.675);
+            --_size: calc(var(--button-target-size) * 0.75);
 
             container-type: inline-size;
 
@@ -168,6 +167,8 @@ $track-panels: 6;
 
             width: var(--_size);
 
+            font-weight: bold;
+
             aspect-ratio: 1 / 1;
 
             background-color: currentColor;
@@ -175,11 +176,7 @@ $track-panels: 6;
 
             cursor: pointer;
 
-            // counter-increment: page-counter;
-
             &::before {
-                // content: counter(page-counter);
-                
                 font-weight: var(--font-weight-bold);
 
                 display: none;
@@ -210,7 +207,7 @@ $track-panels: 6;
 
     // Track Peeking Modifier
     
-    .track--peeking {
+    .track--peeking:not(.hide-controls) {
         --_peeking: var(--panel-peeking);
 
         .track__container {
@@ -224,17 +221,19 @@ $track-panels: 6;
                 width: var(--panel-peeking);
                 background: var(--background-color);
 
-                opacity: 0.5;
+                opacity: 1;
 
                 z-index: 10;
             }
 
             &::before {
                 inset-inline-start: 0;
+                mask-image: linear-gradient(to left, hsla(0, 0%, 0%, 0.5), hsla(0, 0%, 0%, 1));
             }
 
             &::after {
                 inset-inline-end: 0;
+                mask-image: linear-gradient(to right, hsla(0, 0%, 0%, 0.5), hsla(0, 0%, 0%, 1));
             }
         }
 
@@ -250,6 +249,8 @@ $track-panels: 6;
             --_justify-pages: center;
             
             margin-inline: var(--panel-peeking);
+
+
         }
     }
 
@@ -262,7 +263,6 @@ $track-panels: 6;
         .track__pagination
     ) {
         --_peeking: 0;
-        
         display: none;
     }
 

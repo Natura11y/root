@@ -1,13 +1,15 @@
 import { delegateEvent } from './utilities/eventDelegation';
-import { getFocusableElements } from './utilities/focus';  // Import the utility function
+import { getFocusableElements } from './utilities/focus';
 
 export default class Track {
 
     // Private properties
+
     #trackList = document.querySelectorAll('.track');
     #scrollTimeout = null;
 
     // Private methods
+    
     #getElement(trackElement, selector) {
         return trackElement.querySelector(selector);
     }
