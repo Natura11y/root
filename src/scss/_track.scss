@@ -175,10 +175,10 @@ $track-panels: 6;
 
             cursor: pointer;
 
-            counter-increment: page-counter;
+            // counter-increment: page-counter;
 
             &::before {
-                content: counter(page-counter);
+                // content: counter(page-counter);
                 
                 font-weight: var(--font-weight-bold);
 

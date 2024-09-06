@@ -50,9 +50,13 @@ export default class Track {
                     <button
                         type="button"
                         data-page-index="${i}"
-                        aria-label="Page ${i + 1}"
+                        aria-label="Go To Page ${i + 1}"
                         ${i === 0 ? 'aria-current="true"' : ''}
-                    ></button>
+                    >
+                        <span class="pagination__number">
+                            ${i + 1}
+                        </span>
+                    </button>
                 </li>
             `).join('');
         }
@@ -200,10 +204,11 @@ export default class Track {
 
     // Initialize keyboard navigation to allow both ArrowLeft and ArrowRight regardless of focus
     #initKeyboardNavigation(trackElement) {
-        trackElement.addEventListener('keydown', (event) => {
-            if (event.code === 'ArrowRight') {
+        // Delegate the keydown event to the next/previous buttons
+        delegateEvent(trackElement, 'keydown', '[data-track-prev], [data-track-next]', (event) => {
+            if (event.code === 'ArrowRight' && event.target.matches('[data-track-next]')) {
                 this.#navigateToNext(trackElement);
-            } else if (event.code === 'ArrowLeft') {
+            } else if (event.code === 'ArrowLeft' && event.target.matches('[data-track-prev]')) {
                 this.#navigateToPrev(trackElement);
             }
         });
@@ -296,8 +301,10 @@ export default class Track {
     }
 
     destroy(trackElement) {
-        if (trackElement.pageObserver) trackElement.pageObserver.disconnect();
-        if (trackElement.tabbingObserver) trackElement.tabbingObserver.disconnect();
+        ['pageObserver', 'tabbingObserver'].forEach(observer => {
+            if (trackElement[observer]) trackElement[observer].disconnect();
+        });
+
         clearTimeout(this.#scrollTimeout);
     }
 }
