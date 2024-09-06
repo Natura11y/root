@@ -4,12 +4,10 @@ import { getFocusableElements } from './utilities/focus';  // Import the utility
 export default class Track {
 
     // Private properties
-
     #trackList = document.querySelectorAll('.track');
     #scrollTimeout = null;
 
     // Private methods
-
     #getElement(trackElement, selector) {
         return trackElement.querySelector(selector);
     }
@@ -202,7 +200,7 @@ export default class Track {
         trackElement.tabbingObserver = tabbingObserver; // Save for cleanup
     }
 
-    // Initialize keyboard navigation to allow both ArrowLeft and ArrowRight regardless of focus
+    // Delegate keyboard navigation to allow both ArrowLeft and ArrowRight only when focused on next/prev buttons
     #initKeyboardNavigation(trackElement) {
         // Delegate the keydown event to the next/previous buttons
         delegateEvent(trackElement, 'keydown', '[data-track-prev], [data-track-next]', (event) => {
@@ -291,7 +289,6 @@ export default class Track {
     }
 
     // Public methods
-
     init() {
         this.#trackList.forEach((trackElement, trackIndex) => {
             trackElement.setAttribute('data-track-id', `track-${trackIndex}`);
