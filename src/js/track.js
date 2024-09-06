@@ -101,13 +101,13 @@ export default class Track {
     }
 
     // Reusable method to compute the peeking padding (assuming left and right are the same)
-    #getPeekingPadding(trackPanels) {
+    #getPeekingAmount(trackPanels) {
         const computedStyle = getComputedStyle(trackPanels);
         const panelPeeking = parseFloat(computedStyle.paddingLeft) || 0;  // Assume same for both sides
         return panelPeeking;
     }
 
-    // Page Observer with adjusted rootMargin and threshold
+    // Page Observer ensures the correct page is active when scrolling ends
     #observePages(trackElement, panelPeeking) {
         const trackPanels = this.#getElement(trackElement, '.track__panels');
 
@@ -138,7 +138,7 @@ export default class Track {
             });
         }, {
             root: trackPanels,
-            threshold: 0.5, // Adjust threshold to balance multiple panels being visible
+            threshold: 0.5,
             rootMargin: `0px -${panelPeeking * 0.5}px`, // Simplified negative root margin for both sides
         });
 
@@ -146,7 +146,7 @@ export default class Track {
             pageObserver.observe(page[0]);
         });
 
-        trackElement.pageObserver = pageObserver; // Save for cleanup
+        trackElement.pageObserver = pageObserver;
     }
 
     // Tabbing Observer ensures only fully visible panels are tabbable
@@ -162,15 +162,15 @@ export default class Track {
             });
         }, {
             root: trackPanels,
-            threshold: 0.5, // Only fully visible panels should be tabbable
-            rootMargin: `0px -${panelPeeking}px`, // Simplified negative root margin for both sides
+            threshold: 0.5,
+            rootMargin: `0px -${panelPeeking}px`
         });
 
         trackElement.pages.flat().forEach(panel => {
             tabbingObserver.observe(panel);
         });
 
-        trackElement.tabbingObserver = tabbingObserver; // Save for cleanup
+        trackElement.tabbingObserver = tabbingObserver;
     }
 
     #resetTrackState(trackElement) {
@@ -192,7 +192,7 @@ export default class Track {
         trackElement.currentPageIndex = 0;
 
         // Compute peeking padding once for both observers
-        const panelPeeking = this.#getPeekingPadding(trackPanels);
+        const panelPeeking = this.#getPeekingAmount(trackPanels);
 
         // Reinitialize after reset
         this.#setupPagination(trackElement);

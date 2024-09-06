@@ -261,6 +261,8 @@ $track-panels: 6;
         .track__next,
         .track__pagination
     ) {
+        --_peeking: 0;
+        
         display: none;
     }
 
