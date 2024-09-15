@@ -44,14 +44,20 @@ $track-panels: 8;
 
     // Track Container
 
+    :is(.track__prev, .track__next):not([class*='theme-']) {
+        --_background-color: var(--text-color);
+        --_text-color: var(--background-color);
+        
+        background-color: var(--_background-color) !important;
+        color: var(--_text-color) !important;
+    }
+
     .track__container {
         position: relative;
         overflow: hidden;
 
         .track__prev,
         .track__next {
-            container-type: inline-size;
-
             position: absolute;
             inset-block-start: 50%;
 
@@ -60,12 +66,12 @@ $track-panels: 8;
 
         .track__prev {
             inset-inline-start: calc(var(--button-target-size) * 0.5);
-            transform:  translateY(-50%) translateX(calc(var(--_peeking) - var(--button-target-size)));
+            transform: translateY(-50%) translateX(calc(var(--_peeking, var(--button-target-size)) - var(--button-target-size)));
         }
 
         .track__next {
             inset-inline-end:  calc(var(--button-target-size) * 0.5);
-            transform:  translateY(-50%) translateX(calc(-1 * var(--_peeking) + var(--button-target-size)));
+            transform: translateY(-50%) translateX(calc(-1 * var(--_peeking, var(--button-target-size)) + var(--button-target-size)));
         }
     }
 
@@ -82,18 +88,19 @@ $track-panels: 8;
 
         gap: var(--gap-size);
 
-        overflow-x: auto;
+        overflow-x: scroll;
 
         scroll-snap-type: inline mandatory;
-        scroll-behavior: smooth;
 
-        /* Hide scrollbars */
-        scrollbar-width: none;
-        -ms-overflow-style: none;
+        scroll-behavior: smooth;
 
         li {
             position: relative;
         }
+
+        /* Hide scrollbars */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
             
         &::-webkit-scrollbar{
             display: none;
@@ -108,6 +115,10 @@ $track-panels: 8;
 
         scroll-snap-align: start;
 
+        > * {
+            max-width: 100%;
+        }
+
         > *:is(img, video) {
             width: 100%;
             height: auto;
@@ -117,16 +128,16 @@ $track-panels: 8;
     // Track Controls
 
     .track__controls {
-        --track-control-layout: "pagination prev next";
-        --track-control-columns: 1fr auto auto;
+        --_track-control-layout: "pagination prev next";
+        --_track-control-columns: 1fr auto auto;
         
         display: grid;
         align-items: center;
         
         gap: 0.75em;
 
-        grid-template-columns: var(--track-control-columns);
-        grid-template-areas: var(--track-control-layout);
+        grid-template-columns: var(--_track-control-columns);
+        grid-template-areas: var(--_track-control-layout);
 
         .track__pagination {
             grid-area: pagination;
@@ -211,14 +222,15 @@ $track-panels: 8;
         --_peeking: var(--panel-peeking);
 
         .track__container {
-            position: relative;
-            
+
             &::before,
             &::after {
                 content: '';
                 position: absolute;
                 inset-block: 0;
+
                 width: var(--panel-peeking);
+                
                 background: var(--background-color);
 
                 opacity: 1;
@@ -249,8 +261,6 @@ $track-panels: 8;
             --_justify-pages: center;
             
             margin-inline: var(--panel-peeking);
-
-
         }
     }
 

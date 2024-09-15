@@ -92,9 +92,7 @@ In this file:
 
         align-content: center;
 
-        > * {
-            width: 100%;
-        }
+        align-items: stretch;
     }
 
     // Backdrop Stack Modifiers

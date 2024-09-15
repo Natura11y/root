@@ -56,7 +56,7 @@ In this file:
         overflow: hidden;
             
         @extend %subtle-fill;
-        --subtle-fill-opacity: 5%;
+        --subtle-fill-opacity: 5%; 
 
         border-radius: var(--button-border-radius);
 
@@ -78,7 +78,7 @@ In this file:
         cursor: pointer;
 
         &[aria-expanded="true"] {
-            --subtle-fill-opacity: 15%;
+            --subtle-fill-opacity: 7.5%;
 
             border-bottom-left-radius: 0;
             border-bottom-right-radius: 0;
