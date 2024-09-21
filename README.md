@@ -29,6 +29,23 @@ Related:
 - [Repo: Natura11y Icons](https://github.com/cavidano/natura11y-icons)
 - [Repo: Natura11y React Components](https://github.com/cavidano/natura11y-react)
 - [Docs: Natura11y Docs](https://gonatura11y.com)
+
+---
+
+## Branch Naming Conventions
+
+To keep our development organized and maintain a clear workflow, we use specific prefixes for our branches. This helps identify the purpose of each branch at a glance. Below is a summary of our branch naming conventions:
+
+- **`release/`**: Prepares a new release version (e.g., `release/4.0.0-alpha`).
+- **`feature/`**: Develops new features or enhancements (e.g., `feature/add-track-component`).
+- **`fix/`**: Fixes bugs or minor issues (e.g., `fix/button-styling`).
+- **`test/` or `experiment/`**: Tests or experiments with new ideas (e.g., `test/alpha-search-tweaks`).
+- **`chore/`**: Routine tasks, maintenance, or minor updates (e.g., `chore/update-dependencies`).
+
+### How to Contribute
+
+When creating a new branch, please follow the naming conventions above. This helps keep our workflow clear and organized. Feel free to refer to this guide as your "cheat sheet" while working on the project!
+
 ---
 
 ## Thanks
