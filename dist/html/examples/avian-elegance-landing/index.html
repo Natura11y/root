@@ -44,7 +44,7 @@
 
                     <a href="#1" title="Home" data-logo="brand">
                         <!-- Placeholder logo, replace the following <svg> tag with your own -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="126" height="34" viewBox="0 0 126 34" role="img">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="126" height="34" viewBox="0 0 126 34" role="img" aria-label="Placeholder Logo">
                             <g>
                                 <polygon points="8 25 8 1 0 1 0 33 3 33 8 33 16 33 16 25 8 25"/>
                                 <path d="M35,0A17,17,0,1,0,52,17,17,17,0,0,0,35,0Zm0,26a9,9,0,1,1,9-9A9,9,0,0,1,35,26Z"/>
@@ -63,6 +63,7 @@
                             <button
                                 data-toggle="dropdown"
                                 aria-controls="menu-1"
+                                aria-expanded="false"
                             >
                                 Aliquet
                             </button>
@@ -114,7 +115,8 @@
                         class="mobile-menu-toggle button button--icon-only"
                         aria-label="Menu"
                         data-toggle="collapse"
-                        data-target-toggle="#main-menu">
+                        aria-controls="main-menu"
+                        aria-expanded="false">
                             <span class="icon icon-menu"></span>
                     </button>
 
@@ -146,7 +148,7 @@
 
                 <div class="backdrop__media position-relative">
                 
-                    <img class="opacity-50--lg" src="./images/daniil-komov-oC4QFTsi6Rg-unsplash.jpg" alt="Placeholder" />
+                    <img class="opacity-50--lg gradient-mask-bottom" src="./images/daniil-komov-oC4QFTsi6Rg-unsplash.jpg" alt="Placeholder" />
 
                     <div class="backdrop__media__credit margin-1">
                         <p>Photo by <a href="https://unsplash.com/@dkomov7" target="_blank">Daniil Komov</a> on Unsplash</p>
@@ -378,7 +380,7 @@
                             </div>
 
                             <div class="card__foot font-size-sm text-color-link">
-                                <a class="button button--has-icon--disperse theme-dark" href="#1">
+                                <a class="button button--disperse theme-dark" href="#1">
                                     <span class="button__text">Facilisis Leo</span>
                                     <span class="icon icon-arrow-right"></span>
                                 </a>
@@ -403,7 +405,7 @@
                             </div>
 
                             <div class="card__foot font-size-sm text-color-link">
-                                <a class="button button--has-icon--disperse theme-dark" href="#1">
+                                <a class="button button--disperse theme-dark" href="#1">
                                     <span class="button__text">Adipiscing</span>
                                     <span class="icon icon-arrow-right"></span>
                                 </a>
@@ -428,7 +430,7 @@
                             </div>
 
                             <div class="card__foot font-size-sm text-color-link">
-                                <a class="button button--has-icon--disperse theme-dark" href="#1">
+                                <a class="button button--disperse theme-dark" href="#1">
                                     <span class="button__text">Augue Lacus</span>
                                     <span class="icon icon-arrow-right"></span>
                                 </a>
@@ -453,7 +455,7 @@
                             </div>
 
                             <div class="card__foot font-size-sm text-color-link">
-                                <button class="button button--has-icon--disperse theme-dark">
+                                <button class="button button--disperse theme-dark">
                                     <span class="button__text">Dictumst</span>
                                     <span class="icon icon-arrow-right"></span>
                                 </button>
@@ -463,104 +465,6 @@
 
                     </div>
                     
-                </div>
-
-            </section>
-
-            <section class="backdrop backdrop--fixed theme-dark" id="sign-up">
-
-                <div class="backdrop__media gradient-mask-bottom">
-                    <img class="opacity-30" src="./images/david-clode-XoqdPNv-x7Q-unsplash.jpg" alt="Placeholder" />
-
-                    <div class="backdrop__media__credit margin-1">
-                        <p>
-                            Photo by <a href="https://unsplash.com/@davidclode" target="_blank">David Clode</a> on Unsplash
-                        </p>
-                    </div>
-
-                </div>
-
-                <div class="backdrop__cover">
-
-                    <div class="container medium padding-y-5 align-self-end">
-
-                        <h1 class="text-align-center text-shadow margin-bottom-4">
-                            A scelerisque purus semper.
-                        </h1>
-
-                        <form class="container narrow">
-                                                
-                            <div class="grid grid__columns-2 gap-2">
-
-                                <div 
-                                    class="form-entry"
-                                    data-required="true"
-                                    data-error-message="First Name is required!">
-
-                                    <label class="form-entry__field form-entry__field--float">
-
-                                        <span class="form-entry__field__label">
-                                            First Name
-                                        </span>
-                                        
-                                        <span class="form-entry__field__input">
-                                            <input type="text" id="account-first-name" name="accountFirstName" />
-                                        </span>
-
-                                    </label>
-
-                                </div>
-
-                                <div 
-                                    class="form-entry"
-                                    data-required="true"
-                                    data-error-message="Password is required!">
-
-                                    <label class="form-entry__field form-entry__field--float">
-
-                                        <span class="form-entry__field__label">
-                                            Last Name
-                                        </span>
-                                        
-                                        <span class="form-entry__field__input">
-                                            <input type="text" id="account-last-name" name="accountLastName" />
-                                        </span>
-
-                                    </label>
-
-                                </div>
-
-                                <div 
-                                    class="form-entry grid__colspan-2"
-                                    data-required="true"
-                                    data-error-message="Password is required!">
-
-                                    <label class="form-entry__field form-entry__field--float">
-
-                                        <span class="form-entry__field__label">
-                                            Email
-                                        </span>
-                                        
-                                        <span class="form-entry__field__input">
-                                            <input type="email" id="account-email" name="accountEmail" />
-                                        </span>
-
-                                    </label>
-
-                                </div>
-
-                                <hr class="grid__colspan-2" />
-
-                                <button class="button theme-primary width-100" type="submit">
-                                    Sign Up
-                                </button>
-
-                            </div>
-
-                        </form>
-                        
-                    </div>
-
                 </div>
 
             </section>

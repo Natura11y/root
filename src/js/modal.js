@@ -84,7 +84,7 @@ export default class Modal {
 
 	init() {
 		delegateEvent(document, 'click', '[data-modal="open"]', (event) => {
-			const modalTargetID = event.target.getAttribute('aria-controls')?.replace(/#/, '');
+			const modalTargetID = event.target.getAttribute('aria-controls')?.replace(/^#/, '');
 			const modalTarget = document.getElementById(modalTargetID);
 			this.openModal(modalTarget);
 		});
