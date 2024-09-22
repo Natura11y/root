@@ -312,8 +312,6 @@ In this file:
             pointer-events: none;
             
             box-shadow: inset 0 0 0 var(--border-width) var(--form-field-border-color);
-            
-            transition: box-shadow 200ms;
         }
     }
 
@@ -360,7 +358,7 @@ In this file:
     .active {
         .form-entry__field__select::after,
         .form-entry__field__input::after {
-            box-shadow: inset 0 0 0 calc( var(--border-width) * 3) currentColor;
+            box-shadow: inset 0 0 0 calc(var(--focus-outline-width) * 2) var(--focus-outline-color, var(--link-color, currentColor));
         }
     }
 
@@ -606,11 +604,11 @@ In this file:
     // Shared Focus and Checked States
     
     .form-entry__option__check {
-        --focus-border-radius: calc( var(--form-field-border-radius) * 0.5);
+        --_focus-border-radius: calc( var(--form-field-border-radius) * 0.5);
     }
     
     .form-entry__option__radio {
-        --focus-border-radius: 100%;
+        --_focus-border-radius: 100%;
     }
 
     [class*="form-entry__option__"] > label > input {
@@ -627,8 +625,12 @@ In this file:
         &:focus-visible ~ .option__label {
         
             &::before {
-                outline: var(--focus-outline-size) solid var(--link-color);
-                border-radius: var(--focus-border-radius);
+                outline:
+                    var(--focus-outline-width)
+                    var(--focus-outline-style)
+                    var(--focus-outline-color, var(--link-color, currentColor));
+
+                border-radius: var(--_focus-border-radius);
             }
         
         }

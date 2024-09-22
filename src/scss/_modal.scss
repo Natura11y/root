@@ -39,9 +39,9 @@ In this file:
   }
 
   .modal {
-    _--display: grid;
+    --_display: grid;
     
-    display: var(_--display);
+    display: var(--_display);
     place-content: center;
 
     z-index: var(--modal-z-index);
@@ -89,6 +89,7 @@ In this file:
     background-color: inherit;
     
     margin-inline: auto;
+
   }
 
   .modal__content__head,
@@ -130,7 +131,7 @@ In this file:
   // Modal Scroll All Modifier
 
   .modal--scroll-all {
-    _--display: block;
+    --_display: block;
     
     overflow-y: scroll;
     

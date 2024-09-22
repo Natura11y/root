@@ -47,21 +47,25 @@ export default class Modal {
 	}
 
 	// Public methods
+
 	openModal(modalTarget) {
+
 		if (!modalTarget) {
 			console.warn('Modal target not found.');
 			return;
 		}
 
-		handleOverlayOpen(modalTarget);
 		modalTarget.classList.add('shown');
 		modalTarget.focus();
 
 		const modalContent = modalTarget.querySelector('.modal__content');
+
 		if (!modalContent) {
 			console.warn('Modal content not found.');
 			return;
 		}
+
+		handleOverlayOpen(modalContent);
 
 		if (modalTarget.classList.contains('modal--scroll-all')) {
 			modalTarget.scrollTop = 0;

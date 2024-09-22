@@ -69,6 +69,10 @@ In this file:
     --canvas-link: #0066cc;
     --canvas-confirm: #008237;
     --canvas-warn: #e4193c;
+
+    // `--link-color` global fallback
+    
+    --link-color: #0066cc;
 }
 
 $theme-colors: (
@@ -144,7 +148,7 @@ $theme-colors: (
             .td-content > a,
             p > a:not([class*="text-color"]),
             .skip-link > a,
-            .text-color-link 
+            .text-color-link
         ) {
             color: var(--link-color);
         }
