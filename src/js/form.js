@@ -1,10 +1,10 @@
 import { delegateEvent } from './utilities/eventDelegation';
 
 //////////////////////////////////////////////
-// A. Utilities (Shared Methods)
+// A. Shared Methods
 //////////////////////////////////////////////
 
-const isEmpty = (value) => !value?.trim(); // Check for empty strings or null/undefined
+const isEmpty = (value) => !value?.trim();
 
 const setFieldValidity = (field, isValid, invalidClasses = ['is-invalid']) => {
   const entryRoot = field.closest('.form-entry');
@@ -17,6 +17,7 @@ const setFieldValidity = (field, isValid, invalidClasses = ['is-invalid']) => {
 //////////////////////////////////////////////
 
 export default class FormInput {
+
   #formEntryList = document.querySelectorAll('.form-entry');
   #invalidClasses = ['is-invalid'];
   #formSubmitAttempted = false;
@@ -83,17 +84,17 @@ export default class FormInput {
 
       // Scoped Event Delegation for focusin and focusout (within each formEntry)
       delegateEvent(formEntry, 'focusin', 'input, select, textarea', (event) => {
-        this.#toggleActiveClass(event, true);
+        this.#toggleFocusClass(event, true);
       });
 
       delegateEvent(formEntry, 'focusout', 'input, select, textarea', (event) => {
-        this.#toggleActiveClass(event, false);
+        this.#toggleFocusClass(event, false);
       });
     });
   }
 
-  #toggleActiveClass(event, active = true) {
-    event.target.closest('.form-entry').classList.toggle('active', active);
+  #toggleFocusClass(event, isFocused = true) {
+    event.target.closest('.form-entry').classList.toggle('is-focused', isFocused);
   }
 }
 
@@ -201,16 +202,16 @@ export class FormFileUpload {
 
   dragOver(event) {
     event.preventDefault();
-    event.target.closest('.form-entry').classList.add('active');
+    event.target.closest('.form-entry').classList.add('is-focused');
   }
 
   dragOff(event) {
-    event.target.closest('.form-entry').classList.remove('active');
+    event.target.closest('.form-entry').classList.remove('is-focused');
   }
 
   dropped(event) {
     event.preventDefault();
-    event.target.closest('.form-entry').classList.remove('active');
+    event.target.closest('.form-entry').classList.remove('is-focused');
   }
 
   #handleFileUpload(fileUpload) {

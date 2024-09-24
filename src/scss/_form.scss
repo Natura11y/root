@@ -353,15 +353,6 @@ In this file:
         }
     }
 
-    // Active Fields
-
-    .active {
-        .form-entry__field__select::after,
-        .form-entry__field__input::after {
-            box-shadow: inset 0 0 0 calc(var(--focus-outline-width) * 2) var(--focus-outline-color, var(--link-color, currentColor));
-        }
-    }
-
     // Floating Label Modifier
 
     .form-entry__field--float {
@@ -402,7 +393,7 @@ In this file:
             opacity: 0;
         }
 
-        .active &, 
+        .is-focused &, 
         .has-value & {
 
             [class*="form-entry__field__"] {
@@ -428,7 +419,7 @@ In this file:
 
                 padding: 0 0.5em;
                 
-                margin-inline: calc(var(--form-field-padding-x) - 0.5em) ;
+                margin-inline: calc(var(--form-field-padding-x) - 0.5em);
 
                 font-size: 0.75em;
             }
@@ -763,7 +754,7 @@ In this file:
 
         @extend %subtle-fill;
 
-        .active & {
+        .is-focused & {
             --subtle-fill-opacity: 10%;
         }
     }

@@ -208,11 +208,6 @@ $track-panels: 8;
                     display: flex;
                 }
             }
-            
-            &:focus-visible {
-                outline: calc(var(--border-width) * 2) solid currentColor !important;
-                outline-offset: calc(var(--border-width) * 3) !important;
-            }
         }
     }
 

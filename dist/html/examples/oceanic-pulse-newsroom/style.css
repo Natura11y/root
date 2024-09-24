@@ -132,7 +132,7 @@
 
 .global-header {
     --global-header-padding-x: var(--spacer-2);
-    --global-header-padding-y: 0.5em;
+    --global-header-padding-y: var(--spacer-2);
 
     backdrop-filter: blur(4px);
 

@@ -17,7 +17,7 @@ In this file:
 
     --focus-outline-style: solid;
 
-    --focus-outline-offset: calc(var(--focus-outline-width) * 2);
+    --focus-outline-offset: calc(var(--focus-outline-width) * -1);
 
     /*
     
@@ -31,45 +31,81 @@ In this file:
 }
 
 //////////////////////////////////////////////
-// B. Focus Visible
+// B. Placeholder
 //////////////////////////////////////////////
 
 %focus-visible {
-
-    &:not([class*="button--icon-over-text"]):focus-visible {
-        outline: 
-            var(--focus-outline-width)
-            var(--focus-outline-style) 
-            var(--focus-outline-color, var(--link-color, currentColor));
-            
-        outline-offset: var(--focus-outline-offset);
-    }
-
-    &[class*="backdrop"]:focus-visible {
-          position: relative;
-          z-index: 1;
-
-        > * {
-            z-index: -1;
-        }
-    }
+    outline: 
+        var(--focus-outline-width)
+        var(--focus-outline-style) 
+        var(--focus-outline-color, var(--link-color, currentColor));
+        
+    outline-offset: var(--focus-outline-offset);
 }
+
+//////////////////////////////////////////////
+// C. Focus Styles
+//////////////////////////////////////////////
 
 @layer base {
 
-    :is(a, button) {
-        --focus-outline-offset: calc(var(--focus-outline-width) * -1);
+    // Links, Buttons, and Generic Focusable Elements
 
-        @extend %focus-visible;
+    :is(a, button) {
+
+        &:focus-visible {
+            @extend %focus-visible;
+        }
+
+        &[class*="backdrop"]:focus-visible {
+            position: relative;
+            z-index: 1;
+
+            > * {
+                z-index: -1;
+            }
+        }
         
         &.button {
             --focus-outline-offset: calc(var(--focus-outline-width) * -2);
         }
         
-        &.button--outline,
-        &.lightbox-thumbnail,
-        &[class*="backdrop"] {
+        &[data-page-index] {
+            --focus-outline-offset: calc(var(--focus-outline-width) * 2);
+        }
+        
+        &:is(
+            .button--outline,
+            .lightbox-thumbnail,
+            [class*="backdrop"]
+        ) {
             --focus-outline-offset: calc(var(--focus-outline-width) * -3);
+        }
+
+    }
+
+    // Focusable Panels (e.g. Modal, Collapse)
+
+    [tabindex="-1"]:focus-visible {
+        @extend %focus-visible;
+        --focus-outline-offset: calc(var(--focus-outline-width) * -2);
+    }
+
+    // Form Elements
+
+    .is-focused {
+        .form-entry__field__select,
+        .form-entry__field__input {
+            @extend %focus-visible;
+            --focus-outline-offset: calc(var(--focus-outline-width) * 2);
+        }
+    }
+
+    .button--icon-over-text:focus-visible {
+        outline: unset !important;
+
+        > [class*="icon"] {
+            @extend %focus-visible;
         }
     }
 
