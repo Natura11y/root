@@ -79,9 +79,7 @@ In this file:
 
         &[aria-expanded="true"] {
             --subtle-fill-opacity: 7.5%;
-
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
+            
             color: var(--accordion-active-color);
 
             &::after {
@@ -103,12 +101,7 @@ In this file:
     .accordion__panel {
         overflow: hidden;
         
-        background-color: var(--canvas);
-
-        box-shadow: 0 0.25rem 4px hsla(0, 0%, 50%, 0.2);
-        
-        border-bottom-left-radius: var(--button-border-radius);
-        border-bottom-right-radius: var(--button-border-radius);
+        border-radius: var(--button-border-radius);
 
         display: grid;
         grid-template-rows: 0fr;

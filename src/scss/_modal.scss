@@ -42,7 +42,7 @@ In this file:
     --_display: grid;
     
     display: var(--_display);
-    place-content: center;
+    align-content: center;
 
     z-index: var(--modal-z-index);
     

@@ -50,6 +50,7 @@ In this file:
 
     .card__foot {
         padding: calc(var(--card-padding-y) * 0.75) var(--card-padding-x);
+        margin-top: auto;
     }
 
     // Card Horizontal Modifier
