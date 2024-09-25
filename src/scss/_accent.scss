@@ -37,10 +37,6 @@ In this file:
 // C. Placeholders
 ////////////////////////////////////////
 
-%subtle-fill {
-    background-color: color-mix(in srgb, currentColor var(--subtle-fill-opacity), transparent);
-}
-
 %caret {
     --caret-size: 0.25em;
     --caret-margin: 0.375em;
@@ -68,22 +64,26 @@ In this file:
     }
 }
 
+%subtle-fill {
+    background-color: color-mix(in srgb, currentColor var(--subtle-fill-opacity), transparent);
+}
+
 ////////////////////////////////////////
 // D. Utilities
 ////////////////////////////////////////
 
 @layer utility {
 
-    // Subtle Fill Utility
-
-    .subtle-fill {
-        @extend %subtle-fill;
-    }
-
     // Caret Utility
 
     .caret {
         @extend %caret;
+    }
+    
+    // Subtle Fill Utility
+
+    .subtle-fill {
+        @extend %subtle-fill;
     }
 
     // Gradient Mask Utilities
