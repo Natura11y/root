@@ -15,8 +15,8 @@ In this file:
 //////////////////////////////////////////////
 
 @use 'sass:map';
-@use './accent';
 @use './icon';
+@use './navigation';
 
 //////////////////////////////////////////////
 // B. Variables
@@ -751,11 +751,11 @@ In this file:
         pointer-events: none;
 
         font-size: var(--font-size-sm);
-
-        @extend %subtle-fill;
+        
+        background-color: var(--subtle-fill-1);
 
         .is-focused & {
-            --subtle-fill-opacity: 10%;
+            background-color: var(--subtle-fill-2);
         }
     }
 

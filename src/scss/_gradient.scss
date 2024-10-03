@@ -1,11 +1,11 @@
+
 /*
 
 In this file:
 
 // A. Modules
 // B. Variables
-// C. Placeholders
-// D. Utilities
+// C. Utilities
 
 */
 
@@ -22,78 +22,30 @@ In this file:
 
 :root {
 
-    // Subtle Fill
-
-    --subtle-fill-opacity: 5%;
-
-    // Gradient Mask
+    // Gradient Mask Direction
     
-    --gradient-mask-start: clamp(25%, 50%, 75%);
+    --gradient-direction-start: clamp(25%, 50%, 75%);
+    --gradient-vignette-start: 75%;
+
+    // Gradient Mask Opacity
 
     --gradient-mask-opacity: 1;
 }
 
 ////////////////////////////////////////
-// C. Placeholders
-////////////////////////////////////////
-
-%caret {
-    --caret-size: 0.25em;
-    --caret-margin: 0.375em;
-
-    display: inline-flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    
-    &::before {
-        border-top: var(--caret-size) solid;
-        border-right: var(--caret-size) solid transparent;
-        border-bottom: 0;
-        border-left: var(--caret-size) solid transparent;
-
-        position: relative;
-        content: "";
-        
-        display: inline-flex;
-        
-        margin-inline-start: var(--caret-margin);
-        
-        color: inherit;
-        
-        pointer-events: none;
-    }
-}
-
-%subtle-fill {
-    background-color: color-mix(in srgb, currentColor var(--subtle-fill-opacity), transparent);
-}
-
-////////////////////////////////////////
-// D. Utilities
+// C. Utilities
 ////////////////////////////////////////
 
 @layer utility {
 
-    // Caret Utility
-
-    .caret {
-        @extend %caret;
-    }
-    
-    // Subtle Fill Utility
-
-    .subtle-fill {
-        @extend %subtle-fill;
-    }
-
-    // Gradient Mask Utilities
-
     [class*="gradient-mask"] {
-        --_gradient-direction: to bottom;
-        --_gradient-stop-1: hsla(0, 0%, 100%, 1) var(--gradient-mask-start);
-        --_gradient-stop-2: hsla(0, 0%, 100%, 0) 100%;
+        --_gradient-stop-1: hsla(0, 0%, 100%, var(--gradient-mask-opacity)) var(--gradient-direction-start);
+        --_gradient-stop-2: transparent;
+
         pointer-events: none;
     }
+
+    // Gradient Mask Direction
     
     [class*="gradient-mask-top"] {
         --_gradient-direction: to top;
@@ -111,6 +63,17 @@ In this file:
         --_gradient-direction: to left;
     }
 
+    // Gradient Mask Vignette
+
+    [class*="gradient-mask-vignette"] {
+        --gradient-direction-start: var(--gradient-vignette-start);    
+
+mask-position: right;
+        mask-composite: intersect;
+        -webkit-mask-composite: intersect;
+
+}
+
     @each $breakpoint in map.keys(breakpoint.$breakpoints) {
         @include breakpoint.breakpoint-up($breakpoint) {
             $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
@@ -121,6 +84,15 @@ In this file:
             .gradient-mask-left#{$mod} {
                 mask-image: linear-gradient(var(--_gradient-direction), var(--_gradient-stop-1), var(--_gradient-stop-2));
             }
+
+            .gradient-mask-vignette#{$mod} {
+                mask-image:
+                    linear-gradient(to top, var(--_gradient-stop-1), var(--_gradient-stop-2)),
+                    linear-gradient(to right, var(--_gradient-stop-1), var(--_gradient-stop-2)),
+                    linear-gradient(to bottom, var(--_gradient-stop-1), var(--_gradient-stop-2)),
+                    linear-gradient(to left, var(--_gradient-stop-1), var(--_gradient-stop-2)),
+                    radial-gradient(ellipse at center, var(--_gradient-stop-1), var(--_gradient-stop-2));
+            }   
         }
     }
 

@@ -13,6 +13,8 @@ In this file:
 ////////////////////////////////////////
 
 :root {
+    // Focus Outline
+    
     --focus-outline-width: calc(var(--border-width) * 2);
 
     --focus-outline-style: solid;
@@ -57,7 +59,10 @@ In this file:
             @extend %focus-visible;
         }
 
-        &[class*="backdrop"]:focus-visible {
+        &:is(
+            [class*="backdrop"], 
+            [class*="card"]
+        ):focus-visible {
             position: relative;
             z-index: 1;
 

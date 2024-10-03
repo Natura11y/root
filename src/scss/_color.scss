@@ -70,9 +70,10 @@ In this file:
     --canvas-confirm: #008237;
     --canvas-warn: #e4193c;
 
-    // `--link-color` global fallback
-    
-    --link-color: #0066cc;
+    // Subtle Fill Colors
+
+    --subtle-fill-1: color-mix(in srgb, currentColor 5%, transparent);
+    --subtle-fill-2: color-mix(in srgb, currentColor 10%, transparent);
 }
 
 $theme-colors: (
@@ -241,6 +242,23 @@ $theme-colors: (
             --link-color: var(--dark-link);
             --confirm-color: var(--dark-confirm);
             --warn-color: var(--dark-warn);
+        }
+    }
+
+    // Subtle Fill Utilities
+
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+            .subtle-fill-1#{$mod}{
+                background-color: var(--subtle-fill-1);
+            }
+
+            .subtle-fill-2#{$mod}{
+                background-color: var(--subtle-fill-2);
+            }
+
         }
     }
 

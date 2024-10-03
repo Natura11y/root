@@ -319,6 +319,6 @@
 
 .button:hover,
 .button:focus {
-    --subtle-fill-opacity: 10%;
+    /* --subtle-fill-opacity: 10%; */
     transform: scale(1.12);
 }

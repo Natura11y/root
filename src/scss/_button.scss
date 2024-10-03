@@ -13,7 +13,6 @@ In this file:
 ////////////////////////////////////////
 
 @use "sass:math";
-@use './accent';
 
 //////////////////////////////////////////////
 // A. Variables
@@ -109,7 +108,7 @@ In this file:
             [class*="background-color"],
             [data-toggle="dropdown"]
         ) {
-            @extend %subtle-fill;
+            background-color: var(--subtle-fill-1);
         }
 
         &:hover, 
@@ -214,7 +213,7 @@ In this file:
             border-radius: var(--button-icon-over-text-border-radius);
 
             &:not([class*="theme-"]) {
-                @extend %subtle-fill;
+                background-color: var(--subtle-fill-1);
             }
         }
 
