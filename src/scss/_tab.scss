@@ -30,7 +30,7 @@ In this file:
 
     --tab-nav-background-color: var(--subtle-fill-1);
 
-    // Active Tab
+    // Default Active Tab
     
     --tab-nav-active-text-color: currentColor;
     --tab-nav-active-background-color: transparent;
@@ -55,6 +55,8 @@ In this file:
 
     .tabs-nav {
         list-style: none;
+        
+        color: var(--tab-nav-text-color);
 
         > li {
             position: relative;
@@ -69,22 +71,18 @@ In this file:
 
             min-height: var(--button-target-size);
 
-            color: var(--tab-nav-text-color);
         }
 
         :is(
             [aria-current="page"],
             [aria-selected="true"]
         ) {
-            --_background-color: var(--tab-nav-active-background-color) !important;
             font-weight: var(--font-weight-bold);
-
-            color: var(--tab-nav-active-text-color);
 
             --focus-outline-color: var(--tab-nav-active-text-color);
 
             &::before {
-                opacity: 1;
+                opacity: 1 !important;
             }
         }
     }
@@ -177,7 +175,7 @@ In this file:
                 
                             width: unset;
 
-                            height: var(--tab-active-bar-size);
+                            height: var(--tab-nav-active-bar-size);
                         }
                     }
 
@@ -204,7 +202,7 @@ In this file:
             [aria-selected="true"]
         ) {
             &::before {
-                margin: var(--tab-active-bar-size);
+                margin: var(--tab-nav-active-bar-size);
             }
         }
     }
