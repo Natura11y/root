@@ -55,8 +55,6 @@ In this file:
 
     .tabs-nav {
         list-style: none;
-        
-        color: var(--tab-nav-text-color);
 
         > li {
             position: relative;
@@ -91,6 +89,8 @@ In this file:
         }
 
         > li > :is(a, button) {
+
+            color: var(--tab-nav-text-color);
             
             background-color: var(--tab-nav-background-color);
 
@@ -111,6 +111,7 @@ In this file:
             }
 
             &.is-active {
+                color: var(--tab-nav-active-text-color);
                 background-color: var(--tab-nav-active-background-color);
             }
 
@@ -126,6 +127,8 @@ In this file:
     }
 
     .tabs-nav--pill {
+        color: var(--tab-nav-text-color);
+        
         background-color: var(--tab-nav-background-color);
 
          .is-active{

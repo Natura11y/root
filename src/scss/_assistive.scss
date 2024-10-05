@@ -83,7 +83,7 @@ In this file:
             .button--outline,
             .lightbox-thumbnail,
             [class*="backdrop"],
-            .tabs-nav--pill > li > *
+            .tabs-nav--pill > li > :is(a, button)
         ) {
             --focus-outline-offset: calc(var(--focus-outline-width) * -3);
         }
