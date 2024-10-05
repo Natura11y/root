@@ -22,19 +22,27 @@ In this file:
 :root {
     // Tabs Nav
 
-    --tab-button-padding-x: var(--spacer-3);
+    --tab-button-padding-x: var(--button-padding-x);
 
     --tab-button-padding-y: var(--button-padding-y);
 
-    --tab-button-color: var(--link-color, currentColor);
+    --tab-nav-text-color: var(--link-color, currentColor);
+
+    --tab-nav-background-color: var(--subtle-fill-1);
 
     // Active Tab
     
-    --tab-active-button-color: currentColor;
+    --tab-nav-active-text-color: currentColor;
+    --tab-nav-active-background-color: transparent;
 
-    --tab-active-bar-size: calc(var(--border-width) * 3);
+    --tab-nav-active-bar-size: calc(var(--border-width) * 3);
     
-    --tab-active-bar-color: currentColor;
+    --tab-nav-active-bar-color: currentColor;
+
+    // Pill Active Tab
+
+    --tab-nav-pill-active-text-color: currentColor;
+    --tab-nav-pill-active-background-color: var(--subtle-fill-2);
 }
 
 ////////////////////////////////////////
@@ -48,46 +56,50 @@ In this file:
     .tabs-nav {
         list-style: none;
 
-        // Separator
-
         > li {
             position: relative;
-            --separator-size: calc(var(--border-width) * 2);
-
-            &::before {
-                position: absolute;
-                content: "";
-                inset-block-start: 0;
-                inset-inline-end: 0;
-                inset-inline-start: 0;
-
-                height: var(--separator-size);
-
-                transform: translateY(calc(var(--separator-size) * -0.5));
-                
-                background-color: var(--border-color);
-            }
-
-            &:first-child::before {
-                display: none;
-            }
         }
-
-        > li > a,
-        > li > button {
+        
+        > li > :is(a, button) {
             position: relative;
-            
-            display: block;
 
             width: 100%;
             
             padding: var(--tab-button-padding-y) var(--tab-button-padding-x);
+
+            min-height: var(--button-target-size);
+
+            color: var(--tab-nav-text-color);
+        }
+
+        :is(
+            [aria-current="page"],
+            [aria-selected="true"]
+        ) {
+            --_background-color: var(--tab-nav-active-background-color) !important;
+            font-weight: var(--font-weight-bold);
+
+            color: var(--tab-nav-active-text-color);
+
+            --focus-outline-color: var(--tab-nav-active-text-color);
+
+            &::before {
+                opacity: 1;
+            }
+        }
+    }
+
+    .tabs-nav:not([class*="--pill"]) {
+
+        li {
+            border-bottom: var(--border-width) var(--border-style) var(--border-color);
+        }
+
+        > li > :is(a, button) {
             
+            background-color: var(--tab-nav-background-color);
+
             text-align: left;
-
-            line-height: normal;
-
-            color: var(--tab-button-color);
         
             &::before {
                 position: absolute;
@@ -96,29 +108,46 @@ In this file:
                 inset-block-end: 0;
                 inset-inline-start: 0;
 
-                width: var(--tab-active-bar-size);
+                width: var(--tab-nav-active-bar-size);
 
-                background-color: var(--tab-active-bar-color);
+                background-color: var(--tab-nav-active-bar-color);
                 
                 opacity: 0;
             }
-        }
 
-        :is(
-            [aria-current="page"],
-            [aria-selected="true"]
-        ) {
-            font-weight: var(--font-weight-bold);
-
-            color: var(--tab-active-button-color);
-
-            &::before {
-                opacity: 1;
+            &:is(
+                [aria-current="page"],
+                [aria-selected="true"]
+            ) {
+                background-color: var(--tab-nav-active-background-color);
             }
+
         }
     }
 
     // Tabs Nav Modifiers
+
+    .tabs-nav--pill,
+    .tabs-nav--pill > li > :is(a, button) {
+        border-radius: calc( var(--button-target-size) * 0.5);
+        overflow: hidden;
+    }
+
+    .tabs-nav--pill {
+        background-color: var(--tab-nav-background-color);
+
+         :is(
+            [aria-current="page"],
+            [aria-selected="true"]
+        ) {
+            color: var(--tab-nav-pill-active-text-color);
+            background-color: var(--tab-nav-pill-active-background-color);
+
+            &::before {
+                opacity: 1 !important;
+            }
+        }
+    }
 
     .tabs-nav {
         @each $breakpoint in map.keys(breakpoint.$breakpoints) {
@@ -133,18 +162,14 @@ In this file:
                     > li {
                         flex: 1;
 
-                        &:first-child::before {
-                            display: block;
-                        }
-                        
-                        &::before {
-                            transform: unset;
-                        }
+                        border-bottom: none;
                     }
 
                     > li > a,
                     > li > button {
                         text-align: center;
+
+                        // not pill
                         
                         &::before {
                             inset-block-end: unset;

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" dir="ltr">
+<html class="theme-primary" lang="en" dir="ltr">
 
     <head>
         <meta charset="utf-8">
@@ -11,6 +11,12 @@
         <!-- Natura11y Icons -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/natura11y-icons@v1/dist/natura11y-icons.min.css">
 
+        <style>
+            .tabs-nav--pill{
+        /* --tab-active-text-color: var(--background-color);
+        --tab-active-background-color: pink; */
+            }
+        </style>
     </head>
 
     <body>
@@ -90,6 +96,80 @@
                             <div class="container padding-y-4">
                                 <p>
                                     The ticked tabby pattern is due to even fields of <a href="#1">agouti</a> hairs, each with distinct bands of color, which break up the tabby patterning into a salt-and-pepper appearance that makes them look sand-like—thus there are few to no stripes or bands. Residual ghost striping and/or barring can often be seen on the lower legs, face, and belly and sometimes at the tail tip, as well as the standard 'M' and a long dark line running along the spine, primarily in ticked tabbies who also carry a mackerel or classic tabby allele. These types of cats come in many forms and colors.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </figure>
+
+                <figure class="container narrow margin-top-5">
+
+                    <div class="tabs" role="tablist">
+
+                        <ul class="tabs-nav tabs-nav--pill tabs-nav--horizontal--md">
+                            <li>
+                                <button
+                                    id="tab-button-pill-01"
+                                    aria-controls="tab-panel-pill-01"
+                                    aria-selected="true"
+                                    role="tab">
+                                        Lynx Point
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    id="tab-button-pill-02"
+                                    aria-controls="tab-panel-pill-02"
+                                    aria-selected="false"
+                                    role="tab">
+                                        Spotted
+                                </button>
+                            </li>
+                            <li>
+                                <button
+                                    id="tab-button-pill-03"
+                                    aria-controls="tab-panel-pill-03"
+                                    aria-selected="false"
+                                    role="tab">
+                                        Marbled
+                                </button>
+                            </li>
+                        </ul>
+
+                        <div
+                            class="tabs__panel shown"
+                            id="tab-panel-pill-01"
+                            aria-labelledby="tab-button-pill-01"
+                            role="tabpanel">
+                            <div class="container padding-y-4">
+                                <p>
+                                    Lynx point tabbies, also known as colorpoint tabbies, exhibit a combination of tabby patterning and Siamese-style coloration. The points (ears, face, paws, and tail) are darker, while the body is lighter with faint tabby striping.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="tabs__panel"
+                            id="tab-panel-pill-02"
+                            aria-labelledby="tab-button-pill-02"
+                            role="tabpanel">
+                            <div class="container padding-y-4">
+                                <p>
+                                    Spotted tabbies have spots rather than stripes or swirls, with the spots ranging in size and shape, from small, round spots to larger rosettes, giving them a wild and exotic look.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div
+                            class="tabs__panel"
+                            id="tab-panel-pill-03"
+                            aria-labelledby="tab-button-pill-03"
+                            role="tabpanel">
+                            <div class="container padding-y-4">
+                                <p>
+                                    Marbled tabbies have large, thick, swirling patterns on their body, which often resemble marble stone. The marbling is usually accompanied by the classic tabby 'M' on the forehead.
                                 </p>
                             </div>
                         </div>
