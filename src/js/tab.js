@@ -13,6 +13,7 @@ export default class Tab {
     tabsButtonList.forEach((tab) => {
       tab.setAttribute('aria-selected', 'false');
       tab.setAttribute('tabindex', '-1');
+      tab.classList.remove('is-active');
     });
     
     tabsPanelList.forEach((panel) => {
@@ -25,7 +26,8 @@ export default class Tab {
     this.#deactivateTabs(tabsButtonList, tabsPanelList);
 
     tab.setAttribute('aria-selected', 'true');
-    tab.removeAttribute('tabindex');
+    tab.setAttribute('tabindex', '0');
+    tab.classList.add('is-active');
 
     const controls = tab.getAttribute('aria-controls');
     const currentTabPanel = document.getElementById(controls);
@@ -48,6 +50,10 @@ export default class Tab {
       });
 
       delegateEvent(tab, 'keydown', '[role="tab"]', (event) => {
+        if (!['Enter', 'Space', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.code)) {
+          return;
+        }
+
         const focusedTab = event.target.closest('[role="tab"]');
         const index = Array.from(tabsButtonList).indexOf(focusedTab);
 

@@ -73,10 +73,7 @@ In this file:
 
         }
 
-        :is(
-            [aria-current="page"],
-            [aria-selected="true"]
-        ) {
+        .is-active {
             font-weight: var(--font-weight-bold);
 
             --focus-outline-color: var(--tab-nav-active-text-color);
@@ -113,10 +110,7 @@ In this file:
                 opacity: 0;
             }
 
-            &:is(
-                [aria-current="page"],
-                [aria-selected="true"]
-            ) {
+            &.is-active {
                 background-color: var(--tab-nav-active-background-color);
             }
 
@@ -134,10 +128,7 @@ In this file:
     .tabs-nav--pill {
         background-color: var(--tab-nav-background-color);
 
-         :is(
-            [aria-current="page"],
-            [aria-selected="true"]
-        ) {
+         .is-active{
             color: var(--tab-nav-pill-active-text-color);
             background-color: var(--tab-nav-pill-active-background-color);
 
@@ -197,10 +188,7 @@ In this file:
     // E. Tabs With 'theme-*' Utility
 
     .tabs[class*="theme-"] {
-        :is(
-            [aria-current="page"],
-            [aria-selected="true"]
-        ) {
+        .is-active {
             &::before {
                 margin: var(--tab-nav-active-bar-size);
             }
