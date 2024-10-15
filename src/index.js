@@ -10,6 +10,7 @@ import './scss/index.scss';
 
 import Accordion from './js/accordion';
 import AlertDismissable from './js/alert';
+import Backdrop from './js/backdrop';
 import Collapse from './js/collapse';
 import FormInput, { FormSubmission, FormFileUpload } from './js/form';
 import Lightbox from './js/lightbox';
@@ -30,6 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const alertDismissable = new AlertDismissable();
   alertDismissable.init();
+
+  const backdrop = new Backdrop();
+  backdrop.init();
 
   const collapse = new Collapse();
   collapse.init();

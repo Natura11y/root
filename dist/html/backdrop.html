@@ -26,8 +26,18 @@
                 </header>
 
                 <section class="backdrop backdrop--stack--lg theme-dark" id="introduction">
+                    
+                    <!-- Backdrop Media can contain an image or a video -->
 
                     <div class="backdrop__media">
+
+                        <!--
+                        If the backdrop media is a video,
+                        and if the `backdrop__media__control` element is present,
+
+                        the video will be paused automatically if `prefers-reduced-motion: reduce` is set.
+                        
+                        -->
 
                         <div class="backdrop__media__control margin-y-2 container">
                             <button class="button button--icon-only font-size-md border-radius-circle" id="toggle-video">
@@ -40,8 +50,7 @@
                         </div>
 
                         <video
-                            id="background-video"
-                            class="opacity-30--lg gradient-mask-bottom"
+                            class="background-video opacity-30--lg gradient-mask-bottom"
                             autoplay
                             muted
                             loop
@@ -155,41 +164,6 @@
             </section>
 
         </main>
-
-        <script>
-
-            document.addEventListener('DOMContentLoaded', () => {
-
-                const video = document.getElementById('background-video');
-                const toggleButton = document.getElementById('toggle-video');
-                const icon = toggleButton.querySelector('.icon');
-
-                toggleButton.addEventListener('click', () => {
-                    if (video.paused) {
-                        video.play();
-                        icon.classList.remove('icon-play');
-                        icon.classList.add('icon-pause');
-                        toggleButton.setAttribute('aria-label', 'Pause video');
-                        toggleButton.setAttribute('aria-pressed', 'false');
-                    } else {
-                        video.pause();
-                        icon.classList.remove('icon-pause');
-                        icon.classList.add('icon-play');
-                        toggleButton.setAttribute('aria-label', 'Play video');
-                        toggleButton.setAttribute('aria-pressed', 'true');
-                    }
-                });
-
-                const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-                
-                if (mediaQuery.matches) {
-                    video.pause();
-                    icon.classList.remove('icon-pause');
-                    icon.classList.add('icon-play');
-                }
-            });
-
-        </script>
 
     </body>
 
