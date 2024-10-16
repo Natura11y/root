@@ -56,17 +56,16 @@ export default class Backdrop {
     const controlButton = backdrop.querySelector('.backdrop__media__control .button');
 
     if (videoElement && controlButton) {
-      // Inject reduced motion preference logic if applicable
       this.#applyReducedMotionPreference(videoElement, controlButton);
 
-      // Bind play/pause control to the control button
       controlButton.addEventListener('click', () => {
         this.#togglePlayPause(videoElement, controlButton);
       });
     }
   }
 
-  // Public method to initialize all backdrops
+  // Public methods
+  
   init = () => {
     this.#backdropVideoList.forEach((backdrop) => this.#initializeBackdrop(backdrop));
   };
