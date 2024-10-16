@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="en" dir="ltr">
+<html class="theme-dark" lang="en" dir="ltr">
 
     <head>
         <meta charset="utf-8">
@@ -25,22 +25,13 @@
                     </h1>
                 </header>
 
-                <section class="backdrop backdrop--stack--lg theme-dark" id="introduction">
-                    
-                    <!-- Backdrop Media can contain an image or a video -->
+                <section class="backdrop backdrop--stack--lg" id="introduction">
+
 
                     <div class="backdrop__media">
 
-                        <!--
-                        If the backdrop media is a video,
-                        and if the `backdrop__media__control` element is present,
-
-                        the video will be paused automatically if `prefers-reduced-motion: reduce` is set.
-                        
-                        -->
-
                         <div class="backdrop__media__control margin-y-2 container">
-                            <button class="button button--icon-only font-size-md border-radius-circle" id="toggle-video">
+                            <button class="button button--icon-only font-size-md border-radius-circle">
                                 <span class="icon icon-pause" aria-hidden="true"></span>
                             </button>
                         </div>
@@ -54,11 +45,11 @@
                             autoplay
                             muted
                             loop
-                            poster="./images/daniil-komov-oC4QFTsi6Rg-unsplash.jpg"
+                            poster="./_assets/BackdropVideo2.jpg"
                             aria-hidden="true"
                             >
                         >
-                            <source src="video.mp4" type="video/mp4">
+                            <source src="./_assets/BackdropVideo2.mp4" type="video/mp4">
                         </video>
 
                     </div>
