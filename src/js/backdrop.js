@@ -1,18 +1,14 @@
-import { delegateEvent } from './utilities/eventDelegation';
-
 export default class Backdrop {
 
   // Private properties
   #backdropVideoList = document.querySelectorAll('.backdrop:has(video)');
-
-  // Media query for reduced motion preference
   #reducedMotionMediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 
   // Private methods
 
-  // Toggle play/pause state for a specific video
   #togglePlayPause(videoElement, controlButton) {
     const icon = controlButton.querySelector('.icon');
+    
     if (videoElement.paused) {
       videoElement.play();
       this.#updateControlState(icon, controlButton, 'pause');
@@ -22,15 +18,26 @@ export default class Backdrop {
     }
   }
 
-  // Apply reduced motion preference (pause video if preferred)
   #applyReducedMotionPreference(videoElement, controlButton) {
-    const icon = controlButton.querySelector('.icon');
-    if (this.#reducedMotionMediaQuery.matches) {
-      videoElement.pause();
-      this.#updateControlState(icon, controlButton, 'play');
-    } else {
-      videoElement.play();
-      this.#updateControlState(icon, controlButton, 'pause');
+    if (controlButton.hasAttribute('data-check-reduced-motion')) {
+      const icon = controlButton.querySelector('.icon');
+      if (this.#reducedMotionMediaQuery.matches) {
+        videoElement.pause();
+        this.#updateControlState(icon, controlButton, 'play');
+      } else {
+        videoElement.play();
+        this.#updateControlState(icon, controlButton, 'pause');
+      }
+
+      this.#reducedMotionMediaQuery.addEventListener('change', () => {
+        if (this.#reducedMotionMediaQuery.matches) {
+          videoElement.pause();
+          this.#updateControlState(icon, controlButton, 'play');
+        } else {
+          videoElement.play();
+          this.#updateControlState(icon, controlButton, 'pause');
+        }
+      });
     }
   }
 
@@ -49,22 +56,11 @@ export default class Backdrop {
     const controlButton = backdrop.querySelector('.backdrop__media__control .button');
 
     if (videoElement && controlButton) {
-      // Set necessary attributes on the video
-      videoElement.setAttribute('preload', 'metadata');
-      videoElement.setAttribute('playsinline', '');
-      videoElement.setAttribute('muted', '');
-      videoElement.setAttribute('loop', '');
-
-      // Apply media preference on load
+      // Inject reduced motion preference logic if applicable
       this.#applyReducedMotionPreference(videoElement, controlButton);
 
-      // Listen for reduced motion preference changes
-      this.#reducedMotionMediaQuery.addEventListener('change', () => {
-        this.#applyReducedMotionPreference(videoElement, controlButton);
-      });
-
-      // Delegate play/pause control to the backdrop instance itself
-      delegateEvent(backdrop, 'click', '.backdrop__media__control .button', (event) => {
+      // Bind play/pause control to the control button
+      controlButton.addEventListener('click', () => {
         this.#togglePlayPause(videoElement, controlButton);
       });
     }
