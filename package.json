@@ -1,6 +1,6 @@
 {
 	"name": "natura11y",
-	"version": "4.0.0-alpha.1",
+	"version": "4.0.0-beta",
 	"description": "Natura11y is an open-source design ecosystem for creating beautiful web interfaces with a focus on accessible interaction design and front-end development.",
 	"private": false,
 	"scripts": {
