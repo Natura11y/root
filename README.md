@@ -12,7 +12,9 @@ Make your own icon font or expand on Naturally's open source [icon library](http
 
 2. Run saved icons through svgo: `svgo -f ./original-svg -o ./optimized-svg`
 
-3. Run fantasticon `fantasticon ./optimized-svg -o ./dist`
+3. Install fantasticon globally: `npm install -g fantasticon`
+
+4. Run fantasticon `fantasticon ./optimized-svg -o ./dist`
 
 ---
 
