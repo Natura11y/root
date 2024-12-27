@@ -1,8 +1,8 @@
 @font-face {
     font-family: "natura11y-icons";
-    src: url("./natura11y-icons.ttf?a3a6b972fa545ffaa8a04be50cda4956") format("truetype"),
-url("./natura11y-icons.woff2?a3a6b972fa545ffaa8a04be50cda4956") format("woff2"),
-url("./natura11y-icons.woff?a3a6b972fa545ffaa8a04be50cda4956") format("woff");
+    src: url("./natura11y-icons.ttf?b45c7d458201d376b99e13f77318c5bc") format("truetype"),
+url("./natura11y-icons.woff2?b45c7d458201d376b99e13f77318c5bc") format("woff2"),
+url("./natura11y-icons.woff?b45c7d458201d376b99e13f77318c5bc") format("woff");
 }
 
 .icon:before {
@@ -321,4 +321,19 @@ url("./natura11y-icons.woff?a3a6b972fa545ffaa8a04be50cda4956") format("woff");
 }
 .icon.icon-volume:before {
     content: "\f166";
+}
+.icon.icon-play-circle:before {
+    content: "\f167";
+}
+.icon.icon-pause-circle:before {
+    content: "\f168";
+}
+.icon.icon-lock:before {
+    content: "\f169";
+}
+.icon.icon-figma:before {
+    content: "\f16a";
+}
+.icon.icon-call:before {
+    content: "\f16b";
 }

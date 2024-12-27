@@ -100,5 +100,10 @@
    "play": 61795,
    "twitter-x": 61796,
    "volume-mute": 61797,
-   "volume": 61798
+   "volume": 61798,
+   "play-circle": 61799,
+   "pause-circle": 61800,
+   "lock": 61801,
+   "figma": 61802,
+   "call": 61803
 }

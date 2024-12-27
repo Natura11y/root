@@ -2,5 +2,10 @@
   "dependencies": {
     "fantasticon": "^3.0.0",
     "svgo": "^3.0.2"
+  },
+  "scripts": {
+    "optimize-icons": "svgo -f ./original-svg -o ./optimized-svg",
+    "build-icons": "fantasticon ./optimized-svg -o ./dist",
+    "build:icons": "npm run optimize-icons && npm run build-icons"
   }
 }

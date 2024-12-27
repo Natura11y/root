@@ -10,11 +10,13 @@ Make your own icon font or expand on Naturally's open source [icon library](http
 
 1. Save your SVGs to `./original-svg` dir
 
-2. Run saved icons through svgo: `svgo -f ./original-svg -o ./optimized-svg`
+2. Install svgo globally: `npm install -g svgo`
 
 3. Install fantasticon globally: `npm install -g fantasticon`
 
-4. Run fantasticon `fantasticon ./optimized-svg -o ./dist`
+4. Run saved icons through svgo: `svgo -f ./original-svg -o ./optimized-svg`
+
+5. Run fantasticon `fantasticon ./optimized-svg -o ./dist`
 
 ---
 
