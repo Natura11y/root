@@ -10,6 +10,7 @@ export default class Navigation {
   // Private methods
 
   #openDropdown(dropdownButton, dropdownMenu) {
+  
     this.#isAnyDropdownOpen = true;
 
     dropdownButton.setAttribute('aria-expanded', 'true');
@@ -21,6 +22,7 @@ export default class Navigation {
   }
 
   #closeDropdown(dropdownButton, dropdownMenu) {
+    
     this.#isAnyDropdownOpen = this.#checkAnyDropdownOpen();
     dropdownMenu.classList.remove('shown');
     dropdownButton.setAttribute('aria-expanded', 'false');
@@ -70,8 +72,11 @@ export default class Navigation {
   };
 
   #handleButtonMenuFocusout = (dropdownButton, dropdownMenu) => (event) => {
+    
+    const computedStyle = window.getComputedStyle(dropdownMenu);
+    if (computedStyle.position !== 'absolute') return;
+    
     const relatedTarget = event.relatedTarget;
-
     if (
       relatedTarget &&
       !dropdownMenu.contains(relatedTarget) &&
@@ -89,6 +94,8 @@ export default class Navigation {
       const dropdownButton = event.target;
       const dropdownMenuId = dropdownButton.getAttribute('aria-controls');
       const dropdownMenu = document.getElementById(dropdownMenuId);
+
+      console.log(dropdownButton)
 
       if (!dropdownMenu) {
         console.warn(`No dropdown menu found for ${dropdownMenuId}`);
