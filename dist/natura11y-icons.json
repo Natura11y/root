@@ -105,5 +105,6 @@
    "pause-circle": 61800,
    "lock": 61801,
    "figma": 61802,
-   "call": 61803
+   "call": 61803,
+   "bluesky": 61804
 }
