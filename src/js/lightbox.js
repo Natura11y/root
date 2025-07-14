@@ -6,6 +6,8 @@ export default class Lightbox {
 
   // Private properties
   #lightboxTargetList = document.querySelectorAll('[data-lightbox]');
+  #activeFocusHandlers = new Map();
+  #activeMediaHandlers = new Map();
 
   #lightboxHTML = `
     <figure class="lightbox__container" aria-live="polite" aria-atomic="true">
@@ -41,7 +43,7 @@ export default class Lightbox {
     ></iframe>
   `;
 
-  #lighboxLoaderHTML = `
+  #lightboxLoaderHTML = `
     <div class="lightbox__media__loader">
       <span class="icon icon-loading icon--rotate" aria-hidden="true"></span>
     </div>
@@ -57,7 +59,7 @@ export default class Lightbox {
 
   // Private methods
 
-  #handleLightboxOpen = (index) => (e) => {
+  #handleLightboxOpen = (index, triggerElement) => (e) => {
     // Check if lightbox exists
     const lightbox = document.querySelector('.lightbox');
     if (lightbox) return;
@@ -71,7 +73,7 @@ export default class Lightbox {
     this.currentLB = index;
 
     this.#updateLightbox(index);
-    handleOverlayOpen(this.lightbox);
+    handleOverlayOpen(this.lightbox, triggerElement);
   };
 
   #handleLightboxClose = (e) => {
@@ -87,6 +89,23 @@ export default class Lightbox {
     lightboxPrevious.removeEventListener('click', this.#handleLightboxUpdateClick);
     lightboxNext.removeEventListener('click', this.#handleLightboxUpdateClick);
     lightboxClose.removeEventListener('click', this.#handleLightboxClose);
+
+    // Clean up focus handlers
+    this.#activeFocusHandlers.forEach((handler, element) => {
+      element.removeEventListener('focus', handler);
+    });
+    this.#activeFocusHandlers.clear();
+
+    // Clean up media handlers
+    this.#activeMediaHandlers.forEach((handler, element) => {
+      if (element.nodeName === 'VIDEO') {
+        element.removeEventListener('loadedmetadata', handler);
+        element.removeEventListener('loadeddata', handler);
+      } else {
+        element.removeEventListener('load', handler);
+      }
+    });
+    this.#activeMediaHandlers.clear();
 
     handleOverlayClose(this.lightbox);
 
@@ -141,6 +160,12 @@ export default class Lightbox {
   };
 
   #handleVideoFocus = (lightboxElement) => {
+    // Remove existing focus handler if any
+    const existingHandler = this.#activeFocusHandlers.get(lightboxElement);
+    if (existingHandler) {
+      lightboxElement.removeEventListener('focus', existingHandler);
+    }
+
     const handleFocusEvent = (event) => {
       event.preventDefault();
       lightboxElement.children[0].focus();
@@ -149,6 +174,7 @@ export default class Lightbox {
 
     lightboxElement.setAttribute('tabindex', 0);
     lightboxElement.addEventListener('focus', handleFocusEvent);
+    this.#activeFocusHandlers.set(lightboxElement, handleFocusEvent);
   };
 
   #updateDirection(dir) {
@@ -169,11 +195,9 @@ export default class Lightbox {
 
     // Clear the previous lightbox content before inserting a new one
     lightboxElement.innerHTML = '';
-    
-    let lightboxElementTarget;
 
     // Extract lightbox object data into variables
-    const { lbType, lbSrc, lbAlt, lbCaption } = this.#lightboxes[index];
+    const { lbType, lbSrc, lbCaption } = this.#lightboxes[index];
 
     // Update caption display based on attribute presence
     const shouldDisplayCaption = lbCaption !== null;
@@ -181,11 +205,11 @@ export default class Lightbox {
 
     switch (lbType) {
       case 'image':
-        lightboxElementTarget = this.#updateLightboxImage(lightboxElement, lbSrc);
+        this.#updateLightboxImage(lightboxElement, lbSrc);
         break;
 
       case 'video':
-        lightboxElementTarget = this.#updateLightboxVideo(lightboxElement, lbSrc);
+        this.#updateLightboxVideo(lightboxElement, lbSrc);
         break;
 
       default:
@@ -240,12 +264,21 @@ export default class Lightbox {
       lightboxElementTarget = lightboxElement.querySelector('source');
       const video = lightboxElement.querySelector('video');
 
-      video.addEventListener('loadedmetadata', () => {
+      // Remove existing video handler if any
+      const existingVideoHandler = this.#activeMediaHandlers.get(video);
+      if (existingVideoHandler) {
+        video.removeEventListener('loadedmetadata', existingVideoHandler);
+      }
+
+      const videoLoadHandler = () => {
         let intrinsicWidth = video.videoWidth;
         let intrinsicHeight = video.videoHeight;
         lightboxElement.style.maxWidth = `${intrinsicWidth}px`;
         lightboxElement.style.aspectRatio = `${intrinsicWidth} / ${intrinsicHeight}`;
-      });
+      };
+
+      video.addEventListener('loadedmetadata', videoLoadHandler);
+      this.#activeMediaHandlers.set(video, videoLoadHandler);
 
       this.#handleMediaLoading(lightboxElementTarget, loader);
       lightboxElementTarget.src = lbSrc;
@@ -257,23 +290,32 @@ export default class Lightbox {
   #createLoader = () => {
     const loader = document.createElement('div');
     loader.className = 'lightbox__media__loader';
-    loader.innerHTML = this.#lighboxLoaderHTML;
+    loader.innerHTML = this.#lightboxLoaderHTML;
     return loader;
   }
 
   #handleMediaLoading = (media, loader) => {
     const mediaLoadEvent = media.nodeName === 'SOURCE' ? 'loadeddata' : 'load';
+    const mediaElement = media.closest(media.nodeName === 'SOURCE' ? 'video' : 'img');
 
-    media.closest(media.nodeName === 'SOURCE' ? 'video' : 'img')
-      .addEventListener(mediaLoadEvent, () => {
-        if (loader && loader.parentNode) {
-          loader.parentNode.removeChild(loader);
-        }
+    // Remove existing media load handler if any
+    const existingLoadHandler = this.#activeMediaHandlers.get(mediaElement);
+    if (existingLoadHandler) {
+      mediaElement.removeEventListener(mediaLoadEvent, existingLoadHandler);
+    }
 
-        if (this.#lightboxes[this.currentLB].lbCaption !== null) {
-          this.#handleCaptionDisplay(true);
-        }
-      });
+    const loadHandler = () => {
+      if (loader && loader.parentNode) {
+        loader.parentNode.removeChild(loader);
+      }
+
+      if (this.#lightboxes[this.currentLB].lbCaption !== null) {
+        this.#handleCaptionDisplay(true);
+      }
+    };
+
+    mediaElement.addEventListener(mediaLoadEvent, loadHandler);
+    this.#activeMediaHandlers.set(mediaElement, loadHandler);
 
     media.onerror = () => {
       const loaderIcon = loader.querySelector('.lightbox__media__loader');
@@ -351,7 +393,9 @@ export default class Lightbox {
     delegateEvent(document, 'click', '[data-lightbox]', (e) => {
       const lightboxButton = e.target.closest('[data-lightbox]');
       const index = Array.from(this.#lightboxTargetList).indexOf(lightboxButton);
-      if (index !== -1) this.#handleLightboxOpen(index)(e);
+      if (index !== -1) {
+        this.#handleLightboxOpen(index, lightboxButton)(e);
+      }
     });
   }
 

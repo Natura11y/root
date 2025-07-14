@@ -6,6 +6,7 @@ export default class Modal {
 	// Private properties
 
 	#outsideClickHandlers = new Map();
+	#modalCloseHandlers = new Map();
 	#escapeKeyHandler = this.#handleEscapeKey.bind(this);
 
 	// Private methods
@@ -30,6 +31,30 @@ export default class Modal {
 		}
 	}
 
+	#addModalCloseHandlers(modal) {
+		const modalCloseList = modal.querySelectorAll('[data-modal-close]');
+		const handlers = [];
+
+		modalCloseList.forEach((modalClose) => {
+			const handler = () => this.#handleModalClose(modal);
+			modalClose.addEventListener('click', handler);
+			modalClose.setAttribute('aria-label', 'Close Modal Window');
+			handlers.push({ element: modalClose, handler });
+		});
+
+		this.#modalCloseHandlers.set(modal, handlers);
+	}
+
+	#removeModalCloseHandlers(modal) {
+		const handlers = this.#modalCloseHandlers.get(modal);
+		if (handlers) {
+			handlers.forEach(({ element, handler }) => {
+				element.removeEventListener('click', handler);
+			});
+			this.#modalCloseHandlers.delete(modal);
+		}
+	}
+
 	#handleEscapeKey(event) {
 		if (event.code === 'Escape') {
 			const openModals = document.querySelectorAll('.modal.shown');
@@ -42,6 +67,7 @@ export default class Modal {
 		
 		handleOverlayClose(modalTarget);
 		this.#removeOutsideClickHandler(modalTarget);
+		this.#removeModalCloseHandlers(modalTarget);
 
 		window.removeEventListener('keydown', this.#escapeKeyHandler);
 	}
@@ -71,12 +97,9 @@ export default class Modal {
 			modalTarget.scrollTop = 0;
 		}
 
-		const modalCloseList = modalTarget.querySelectorAll('[data-modal-close]');
-
-		modalCloseList.forEach((modalClose) => {
-			modalClose.addEventListener('click', () => this.#handleModalClose(modalTarget));
-			modalClose.setAttribute('aria-label', 'Close Modal Window');
-		});
+		// Remove existing handlers and add new ones
+		this.#removeModalCloseHandlers(modalTarget);
+		this.#addModalCloseHandlers(modalTarget);
 
 		if (modalTarget.dataset.modalCloseOutside === 'true') {
 			const handleCloseOutside = () => this.#handleModalClose(modalTarget);

@@ -4,6 +4,7 @@ export default class Table {
   
   #tableStackList = document.querySelectorAll('[class*="table--stack"]');
   #tableScrollList = document.querySelectorAll('.table-scroll');
+  #resizeTimeout = null;
 
   // Private methods
 
@@ -62,6 +63,13 @@ export default class Table {
     });
   }
 
+  #handleTableScrollDebounced() {
+    clearTimeout(this.#resizeTimeout);
+    this.#resizeTimeout = setTimeout(() => {
+      this.#handleTableScroll();
+    }, 150);
+  }
+
   // Public methods
 
   init() {
@@ -70,6 +78,10 @@ export default class Table {
     });
 
     this.#handleTableScroll();
-    window.addEventListener('resize', this.#handleTableScroll.bind(this));
+    window.addEventListener('resize', this.#handleTableScrollDebounced.bind(this));
+  }
+
+  destroy() {
+    clearTimeout(this.#resizeTimeout);
   }
 }

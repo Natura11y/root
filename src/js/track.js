@@ -7,11 +7,23 @@ export default class Track {
 
     #trackList = document.querySelectorAll('.track');
     #scrollTimeout = null;
+    #elementCache = new WeakMap();
 
     // Private methods
     
-    #getElement(trackElement, selector) {
-        return trackElement.querySelector(selector);
+    #getCachedElements(trackElement) {
+        if (!this.#elementCache.has(trackElement)) {
+            this.#elementCache.set(trackElement, {
+                panels: trackElement.querySelector('.track__panels'),
+                pagination: trackElement.querySelector('[data-track-pagination]'),
+                liveRegion: trackElement.querySelector('.liveregion')
+            });
+        }
+        return this.#elementCache.get(trackElement);
+    }
+
+    #invalidateCache(trackElement) {
+        this.#elementCache.delete(trackElement);
     }
 
     #getVisiblePanels(trackElement) {
@@ -23,8 +35,9 @@ export default class Track {
     }
 
     #setupPagination(trackElement) {
-        const trackPanels = this.#getElement(trackElement, '.track__panels');
-        const paginationContainer = this.#getElement(trackElement, '[data-track-pagination]');
+        const cached = this.#getCachedElements(trackElement);
+        const trackPanels = cached.panels;
+        const paginationContainer = cached.pagination;
         const visiblePanels = this.#getVisiblePanels(trackPanels);
         const trackId = trackElement.getAttribute('data-track-id');
 
@@ -36,7 +49,7 @@ export default class Track {
             panel.setAttribute('id', panelId);
             currentPage.push(panel);
             if (currentPage.length === visiblePanels || index === trackPanels.children.length - 1) {
-                pages.push(currentPage);
+                pages.push([...currentPage]);
                 currentPage = [];
             }
         });
@@ -66,13 +79,15 @@ export default class Track {
     }
 
     #updatePagination(trackElement, activeIndex) {
-        const paginationItems = this.#getElement(trackElement, '[data-track-pagination]')
-            .querySelectorAll('[data-page-index]');
+        const cached = this.#getCachedElements(trackElement);
+        const paginationItems = cached.pagination?.querySelectorAll('[data-page-index]');
         
-        paginationItems.forEach((item, index) => {
-            item.classList.toggle('active', index === activeIndex);
-            item.setAttribute('aria-current', index === activeIndex ? 'true' : 'false');
-        });
+        if (paginationItems) {
+            paginationItems.forEach((item, index) => {
+                item.classList.toggle('active', index === activeIndex);
+                item.setAttribute('aria-current', index === activeIndex ? 'true' : 'false');
+            });
+        }
 
         this.#updateLiveRegion(trackElement, activeIndex, trackElement.pages.length);
     }
@@ -96,7 +111,8 @@ export default class Track {
 
     // Primary method for navigating to a specific page index
     #navigateToPage(trackElement, pageIndex) {
-        const trackPanels = this.#getElement(trackElement, '.track__panels');
+        const cached = this.#getCachedElements(trackElement);
+        const trackPanels = cached.panels;
         const targetPanel = trackElement.pages[pageIndex][0];
 
         trackElement.currentPageIndex = pageIndex;
@@ -133,7 +149,8 @@ export default class Track {
 
     // Page Observer with adjusted rootMargin and threshold
     #observePages(trackElement, panelPeeking) {
-        const trackPanels = this.#getElement(trackElement, '.track__panels');
+        const cached = this.#getCachedElements(trackElement);
+        const trackPanels = cached.panels;
 
         const pageObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -175,7 +192,8 @@ export default class Track {
 
     // Tabbing Observer ensures only fully visible panels are tabbable
     #setupTabbingObserver(trackElement, panelPeeking) {
-        const trackPanels = this.#getElement(trackElement, '.track__panels');
+        const cached = this.#getCachedElements(trackElement);
+        const trackPanels = cached.panels;
 
         const tabbingObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -215,8 +233,12 @@ export default class Track {
     }
 
     #resetTrackState(trackElement) {
-        const trackPanels = this.#getElement(trackElement, '.track__panels');
-        const paginationContainer = this.#getElement(trackElement, '[data-track-pagination]');
+        // Invalidate cache since we're resetting
+        this.#invalidateCache(trackElement);
+        
+        const cached = this.#getCachedElements(trackElement);
+        const trackPanels = cached.panels;
+        const paginationContainer = cached.pagination;
 
         // Reset scroll position
         trackPanels.scrollLeft = 0;
@@ -272,7 +294,8 @@ export default class Track {
     }
 
     #initLiveRegion(trackElement) {
-        let liveRegion = this.#getElement(trackElement, '.liveregion');
+        const cached = this.#getCachedElements(trackElement);
+        let liveRegion = cached.liveRegion;
 
         if (!liveRegion) {
             liveRegion = document.createElement('div');
@@ -280,11 +303,15 @@ export default class Track {
             liveRegion.setAttribute('aria-live', 'polite');
             liveRegion.setAttribute('aria-atomic', 'true');
             trackElement.appendChild(liveRegion);
+            
+            // Update cache with new live region
+            this.#invalidateCache(trackElement);
         }
     }
 
     #updateLiveRegion(trackElement, activeIndex, totalPages) {
-        const liveRegion = this.#getElement(trackElement, '.liveregion');
+        const cached = this.#getCachedElements(trackElement);
+        const liveRegion = cached.liveRegion;
         if (liveRegion) {
             liveRegion.textContent = `Page ${activeIndex + 1} of ${totalPages}`;
         }

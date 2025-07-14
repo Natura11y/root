@@ -4,6 +4,9 @@ import { delegateEvent } from './utilities/eventDelegation';
 
 export default class Collapse {
 
+  // Private properties
+  #activeKeydownHandlers = new Map();
+
   // Private methods
   
   #handleCollapseClose = (button, target, focusButton = false) => {
@@ -74,13 +77,21 @@ export default class Collapse {
     }
 
     // Ensure that the keydown handler is properly added and managed.
+    // Remove any existing handler first to prevent accumulation
+    const existingHandler = this.#activeKeydownHandlers.get(collapseTarget);
+    if (existingHandler) {
+      collapseTarget.removeEventListener('keydown', existingHandler);
+    }
+
     const keydownHandler = this.#handleKeyDown(collapseButton, collapseTarget, firstFocusableElement);
     collapseTarget.addEventListener('keydown', keydownHandler);
+    this.#activeKeydownHandlers.set(collapseTarget, keydownHandler);
 
     // Clean up event listeners when the collapse is closed.
     collapseTarget.addEventListener('transitionend', () => {
       if (!collapseTarget.classList.contains('shown')) {
         collapseTarget.removeEventListener('keydown', keydownHandler);
+        this.#activeKeydownHandlers.delete(collapseTarget);
       }
     });
 

@@ -1,8 +1,9 @@
 export default class Backdrop {
 
   // Private properties
-  #backdropVideoList = document.querySelectorAll('.backdrop:has(video)');
+  #backdropVideoList = null;
   #reducedMotionMediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  #mediaQueryHandlers = new Map();
 
   // Private methods
 
@@ -29,7 +30,14 @@ export default class Backdrop {
         this.#updateControlState(icon, controlButton, 'pause');
       }
 
-      this.#reducedMotionMediaQuery.addEventListener('change', () => {
+      // Remove existing handler if any to prevent duplicates
+      const existingHandler = this.#mediaQueryHandlers.get(controlButton);
+      if (existingHandler) {
+        this.#reducedMotionMediaQuery.removeEventListener('change', existingHandler);
+      }
+
+      // Create and store new handler
+      const changeHandler = () => {
         if (this.#reducedMotionMediaQuery.matches) {
           videoElement.pause();
           this.#updateControlState(icon, controlButton, 'play');
@@ -37,7 +45,10 @@ export default class Backdrop {
           videoElement.play();
           this.#updateControlState(icon, controlButton, 'pause');
         }
-      });
+      };
+
+      this.#reducedMotionMediaQuery.addEventListener('change', changeHandler);
+      this.#mediaQueryHandlers.set(controlButton, changeHandler);
     }
   }
 
@@ -67,6 +78,8 @@ export default class Backdrop {
   // Public methods
   
   init = () => {
+    // Move DOM query to init method for better performance
+    this.#backdropVideoList = document.querySelectorAll('.backdrop:has(video)');
     this.#backdropVideoList.forEach((backdrop) => this.#initializeBackdrop(backdrop));
   };
 }
