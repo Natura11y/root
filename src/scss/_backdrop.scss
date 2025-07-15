@@ -65,8 +65,6 @@ In this file:
         display: flex;
         align-items: center;
         justify-content: center;
-        
-        // outline: 2px solid red;
     }
 
     .backdrop__media__control {
@@ -88,11 +86,14 @@ In this file:
     .backdrop__cover {
         inset: 0;
 
-        display: grid;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
 
-        align-content: center;
-
-        align-items: stretch;
+        > * {
+           width: 100%;
+        }
+        
     }
 
     // Backdrop Stack Modifiers
