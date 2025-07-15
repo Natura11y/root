@@ -26,6 +26,7 @@ In this file:
     
     --gradient-direction-start: clamp(25%, 50%, 75%);
     --gradient-vignette-start: 75%;
+    --gradient-vignette-center: 50%;
 
     // Gradient Mask Opacity
 
@@ -75,7 +76,7 @@ In this file:
             linear-gradient(to right, var(--_gradient-stop-1), var(--_gradient-stop-2)),
             linear-gradient(to bottom, var(--_gradient-stop-1), var(--_gradient-stop-2)),
             linear-gradient(to left, var(--_gradient-stop-1), var(--_gradient-stop-2)),
-            radial-gradient(ellipse at center, var(--_gradient-stop-1), var(--_gradient-stop-2));
+            radial-gradient(ellipse at center, hsla(0, 0%, 100%, var(--gradient-mask-opacity)) 0%, hsla(0, 0%, 100%, var(--gradient-mask-opacity)) var(--gradient-vignette-center), hsla(0, 0%, 100%, var(--gradient-mask-opacity)) var(--gradient-vignette-start), transparent);
         
         mask-position: right;
         mask-composite: intersect;

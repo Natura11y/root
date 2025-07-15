@@ -48,7 +48,7 @@
     
     /* Backdrop Heights */
     
-    --backdrop-hero-height: 940px;
+    --backdrop-hero-height: 1000px;
     --backdrop-section-height: 500px;
     
     /* Shadows */
@@ -77,19 +77,18 @@
 
 */
 
-#hero.backdrop {
-    --backdrop-fixed-height: var(--backdrop-hero-height);
-    --gradient-mask-opacity: 0.7;
-    
-    /* min-height: var(--backdrop-hero-height); */
+.aspect-ratio-1x2 {
+    aspect-ratio: 1/2;
 }
 
-/* #hero .backdrop__cover {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-} */
+.backdrop:is(#hero, #about)  {
+    --backdrop-fixed-height: var(--backdrop-hero-height);
+    /* --gradient-mask-opacity: 0.7; */
+    
+    .backdrop:has([class*="-vignette"]) {
+    /* outline: 4px solid red; */
+    }
+}
 
 #hero .banner-headline {
     font-family: var(--header-font-family);
@@ -109,29 +108,9 @@
 
 /*
 
-// Header Styling
-
-*/
-
-#global-header {
-    backdrop-filter: blur(10px);
-    background-color: hsla(35, 25%, 98%, 0.95);
-    border-bottom: 1px solid var(--canvas-border);
-}
-
-#global-header .primary-nav__logo svg {
-    filter: drop-shadow(0 2px 4px hsla(25, 50%, 30%, 0.2));
-}
-
-/*
-
 // Section Styling
 
 */
-
-#about .position-absolute {
-    backdrop-filter: blur(4px);
-}
 
 #blends .card,
 #testimonials .card {
@@ -145,12 +124,16 @@
     box-shadow: 0 8px 30px hsla(25, 50%, 30%, 0.2);
 }
 
-#process .backdrop {
-    transition: transform 0.3s ease;
-}
+#process {
+  .backdrop__media {
+    img {
+      transition: transform 0.3s ease;
 
-#process .backdrop:hover {
-    transform: scale(1.02);
+      .backdrop:hover & {
+        transform: scale(1.2);
+      }
+    }
+  }
 }
 
 /*
@@ -308,50 +291,4 @@
 
 */
 
-@media screen and (max-width: 768px) {
-    #hero .banner-headline {
-        font-size: 2.5rem;
-    }
-    
-    .grid--column-2--md,
-    .grid--column-2--lg,
-    .grid--column-3--lg {
-        grid-template-columns: 1fr;
-        gap: var(--spacer-2);
-    }
-    
-    .display-flex.gap-3 {
-        flex-direction: column;
-        gap: var(--spacer-2);
-    }
-    
-    .button {
-        width: 100%;
-        justify-content: center;
-    }
-}
-
-/*
-
-// Print Styles
-
-*/
-
-@media print {
-    #global-header,
-    #global-footer,
-    .button,
-    .backdrop__media {
-        display: none !important;
-    }
-    
-    .backdrop__cover {
-        background: white !important;
-        color: black !important;
-    }
-    
-    .card {
-        border: 1px solid #ccc !important;
-        box-shadow: none !important;
-    }
-}
+@media screen and (max-width: 768px) {}
