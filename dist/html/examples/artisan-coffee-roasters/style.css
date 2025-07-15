@@ -156,11 +156,6 @@
 
 */
 
-.card {
-    border: 1px solid var(--canvas-border);
-    overflow: hidden;
-}
-
 .card img {
     transition: transform 0.3s ease;
 }
@@ -197,18 +192,12 @@
 @keyframes fadeInUp {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(1em);
     }
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
-
-/*
-
-// Mobile Optimizations
-
-*/
 
 @media screen and (max-width: 768px) {}
