@@ -12,15 +12,15 @@
     --primary-s: 60%;
     --primary-l: 35%;
     
-    --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
+    --primary: hsl(25, 60%, 35%);
     --primary-text: white;
     
     --secondary-h: 30;
     --secondary-s: 75%;
     --secondary-l: 50%;
     
-    --secondary: hsl(var(--secondary-h), var(--secondary-s), var(--secondary-l));
-    --secondary-text: white;
+    --secondary: hsl(30, 75%, 75%);
+    --secondary-text: var(--dark);
     
     --dark: hsl(20, 25%, 10%);
     --light: hsl(35, 50%, 95%);
@@ -33,6 +33,9 @@
     --body-font-family: 'Lato', sans-serif;
     --header-font-family: 'Young Serif', serif;
     --button-font-family: var(--header-font-family);
+
+
+    --banner-headline-font-weight: var(--font-weight-bold);
     
     --body-line-height: 1.6;
     --header-line-height: 1.2;
@@ -83,16 +86,13 @@
 
 .backdrop:is(#hero, #about)  {
     --backdrop-fixed-height: var(--backdrop-hero-height);
-    /* --gradient-mask-opacity: 0.7; */
     
-    .backdrop:has([class*="-vignette"]) {
-    /* outline: 4px solid red; */
-    }
+    /* .backdrop:has([class*="-vignette"]) {
+        outline: 4px solid red;
+    } */
 }
 
-#hero .banner-headline {
-    font-family: var(--header-font-family);
-    font-weight: 700;
+.puffy-text-xxx {
     text-shadow: var(--text-shadow-warm);
     
     background: linear-gradient(
@@ -104,6 +104,20 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     color: var(--light);
+}
+
+.puffy-text-primary {
+    text-shadow: var(--text-shadow-warm);
+    
+    background: linear-gradient(
+        135deg,
+        hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) + 20%)) 0%,
+        hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) + 35%)) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--primary);
 }
 
 /*
