@@ -113,7 +113,7 @@
             <section class="backdrop backdrop--fixed theme-dark" id="hero">
 
                 <div class="backdrop__media gradient-mask-bottom">
-                    <img class="opacity-30" src="./images/ahmed-UvT2VaV1y30-unsplash.jpg" alt="Placeholder" />
+                    <img class="opacity-30" src="./images/ahmed-UvT2VaV1y30-unsplash.jpg" alt="Coffee beans being processed at roasting facility" />
                 </div>
 
                 <div class="backdrop__cover">
@@ -160,7 +160,7 @@
                                 <div class="backdrop backdrop--fixed aspect-ratio-1x2 grid__rowspan-2">
 
                                     <div class="backdrop__media">
-                                        <img class="gradient-mask-vignette" src="./images/ahmed-GYLU740C3IM-unsplash.jpg" alt="Placeholder">
+                                        <img class="gradient-mask-vignette" src="./images/ahmed-GYLU740C3IM-unsplash.jpg" alt="Coffee roasting equipment in artisan facility">
                                     </div>
 
                                 </div>
@@ -168,7 +168,7 @@
                                 <div class="backdrop">
 
                                     <div class="backdrop__media">
-                                        <img class="gradient-mask-vignette" src="./images/brooke-cagle-2AbAZiIhkY8-unsplash (1).jpg" alt="Placeholder">
+                                        <img class="gradient-mask-vignette" src="./images/brooke-cagle-2AbAZiIhkY8-unsplash (1).jpg" alt="Barista preparing coffee with professional equipment">
                                     </div>
                                     
                                 </div>
@@ -176,7 +176,7 @@
                                 <div class="backdrop">
 
                                     <div class="backdrop__media">
-                                        <img  class="gradient-mask-vignette"  src="./images/brooke-cagle-Che5p3omBXQ-unsplash.jpg" alt="Placeholder">
+                                        <img  class="gradient-mask-vignette"  src="./images/brooke-cagle-Che5p3omBXQ-unsplash.jpg" alt="Fresh coffee beans in roasting process">
                                     </div>
 
                                 </div>
@@ -261,7 +261,7 @@
                                 <h3 class="h4">
                                     Midnight Roast
                                 </h3>
-                                <p class="font-size-sm text-color-secondary margin-bottom-2">
+                                <p class="font-size-sm text-color-primary margin-bottom-2">
                                     <strong>Dark Roast</strong>
                                 </p>
                                 <p>
@@ -285,14 +285,14 @@
                                 <h3 class="h4">
                                     Afternoon Delight
                                 </h3>
-                                <p class="font-size-sm text-color-secondary margin-bottom-2">
+                                <p class="font-size-sm text-color-primary margin-bottom-2">
                                     <strong>Medium Roast</strong>
                                 </p>
                                 <p>
                                     Perfectly balanced with caramel sweetness and nutty undertones. Ideal for any time of day.
                                 </p>
                             </div>
-                            
+
                             <div class="card__foot">
                                 <a class="button button--disperse theme-primary" href="#order">
                                     <span class="button__text">Order Now</span>
@@ -580,37 +580,6 @@
 
                                 </li>
 
-                                <li class="track__panel">
-
-                                    <div class="card theme-light border border-radius-2 text-align-center">
-
-                                        <div class="card__head flex-row padding-y-2 justify-content-center">
-                                            <span class="icon icon-star-fill" aria-hidden="true"></span>
-                                            <span class="icon icon-star-fill" aria-hidden="true"></span>
-                                            <span class="icon icon-star-fill" aria-hidden="true"></span>
-                                            <span class="icon icon-star-fill" aria-hidden="true"></span>
-                                            <span class="icon icon-star-fill" aria-hidden="true"></span>
-                                        </div>
-                                        
-                                        <div class="card__body">
-                                            <p class="font-size-lg margin-bottom-1">
-                                                "Their seasonal blends are always a delightful surprise. The Ethiopia single origin is my absolute favorite."
-                                            </p>
-                                        </div>
-
-                                        <div class="card__foot flex-row padding-bottom-2 justify-content-center">
-                                           <p>
-                                                <strong>Lisa Thompson</strong>
-                                                <span class=" display-block font-size-sm text-color-primary">
-                                                    Coffee Connoisseur
-                                                </span>
-                                            </p>
-                                        </div>
-
-                                    </div>
-
-                                </li>
-
                             </ul>
 
                             <button
@@ -710,7 +679,7 @@
                                             Name
                                         </span>
                                         <span class="form-entry__field__input">
-                                            <input type="text" id="contact-name" name="contactName" />
+                                            <input type="text" id="contact-name" name="contactName" aria-describedby="contact-name-error" />
                                         </span>
                                     </label>
 
@@ -726,7 +695,7 @@
                                             Email
                                         </span>
                                         <span class="form-entry__field__input">
-                                            <input type="email" id="contact-email" name="contactEmail" />
+                                            <input type="email" id="contact-email" name="contactEmail" aria-describedby="contact-email-error" />
                                         </span>
                                     </label>
 
@@ -742,7 +711,7 @@
                                             Message
                                         </span>
                                         <span class="form-entry__field__input">
-                                            <textarea id="contact-message" name="contactMessage" rows="4"></textarea>
+                                            <textarea id="contact-message" name="contactMessage" rows="4" aria-describedby="contact-message-error"></textarea>
                                         </span>
                                     </label>
 
@@ -821,14 +790,12 @@
             <div class="border-top padding-y-2 font-size-sm">
 
                 <div class="container">
-                
-                    <div class="display-flex justify-content-center gap-4">
-                        <span>&#169; 2024 Artisan Coffee Roasters. All rights reserved.</span>
-                        <a class="link" href="#" data-scroll="top">
-                            <span class="icon icon-arrow-up" aria-hidden="true"></span>
-                            <span class="link__text">Back to Top</span>
-                        </a>
-                    </div>
+                    <p>&#169; 2024 Artisan Coffee Roasters. All rights reserved.</p>
+                    
+                    <a class="button" href="#" data-scroll="top">
+                        <span class="icon icon-arrow-up" aria-hidden="true"></span>
+                        <span class="link__text">Back to Top</span>
+                    </a>
                 </div>
             
             </div>
