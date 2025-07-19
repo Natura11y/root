@@ -85,7 +85,7 @@ In this file:
 
     --blockquote-border-width: var(--border-width);
     --blockquote-border-color: currentColor;
-    --blockquot-font-size: 1.25em; 
+    --blockquote-font-size: 1.25em; 
 }
 
 //////////////////////////////////////////////
@@ -338,7 +338,7 @@ $headers: (
         --border-width: var(--blockquote-border-width);
         --border-color: var(--blockquote-border-color);
     
-        font-size: var(--blockquot-font-size);
+        font-size: var(--blockquote-font-size);
 
         padding-inline-start: 1.25em;
 
@@ -440,7 +440,7 @@ $headers: (
         --border-width: var(--blockquote-border-width);
         --border-color: var(--blockquote-border-color);
     
-        font-size: var(--blockquot-font-size);
+        font-size: var(--blockquote-font-size);
 
         padding-inline-start: 1.25em;
 

@@ -168,7 +168,7 @@ $spacers: (
                 }
 
                 .padding-right-0#{$mod} {
-                    padding-block: 0;
+                    padding-inline-end: 0;
                 }
                 
                 .margin-0#{$mod} {
@@ -184,27 +184,19 @@ $spacers: (
                 }
 
                 .margin-top-0#{$mod} {
-                    margin-top: 0;
+                    margin-block-start: 0;
                 }
 
                 .margin-right-0#{$mod} {
-                    margin-right: 0;
+                    margin-inline-end: 0;
                 }
 
                 .margin-bottom-0#{$mod} {
-                    margin-bottom: 0;
+                    margin-block-end: 0;
                 }
 
                 .margin-left-0#{$mod} {
-                    margin-left: 0;
-                }
-
-                .margin-y-0#{$mod} {
-                    margin-block: 0;
-                }
-
-                .margin-x-0#{$mod} {
-                    margin-inline: 0;
+                    margin-inline-start: 0;
                 }
 
                 .margin-x-auto#{$mod} {
