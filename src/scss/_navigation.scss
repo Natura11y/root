@@ -410,6 +410,7 @@ In this file:
 
         li:has([class*="nav__dropdown"]) {
             position: relative;
+            background: yellow;
         }
 
         [class*="__logo"],
@@ -691,7 +692,7 @@ In this file:
                         padding: unset;
                     }
 
-                    [data-trigger="hover"] {
+                    [data-hover="true"] {
                         position: relative;
 
                         &[aria-expanded="true"]::after {
