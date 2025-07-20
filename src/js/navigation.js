@@ -138,7 +138,9 @@ export default class Navigation {
 
     // Helper to manage hover event listeners
     const addHoverListeners = () => {
-      document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"]').forEach((dropdownButton) => {
+      // Target both data-hover="true" and nav-link-dropdown buttons
+      const hoverButtons = document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"], .nav-link-dropdown [data-toggle="dropdown"]');
+      hoverButtons.forEach((dropdownButton) => {
         // Prevent duplicate listeners
         if (dropdownButton._hasHoverListeners) return;
         dropdownButton._hasHoverListeners = true;
@@ -166,6 +168,17 @@ export default class Navigation {
         
         hoverTarget.addEventListener('mouseenter', hoverTarget._hoverInHandler = () => {
           if (!openedByKeyboardOrClick) {
+            // Close any other open dropdowns immediately to prevent multiple menus showing
+            document.querySelectorAll('[data-toggle="dropdown"][aria-expanded="true"]').forEach((otherButton) => {
+              if (otherButton !== dropdownButton) {
+                const otherMenuId = otherButton.getAttribute('aria-controls');
+                const otherMenu = document.getElementById(otherMenuId);
+                if (otherMenu) {
+                  this.#closeDropdown(otherButton, otherMenu);
+                }
+              }
+            });
+            
             this.#openDropdown(dropdownButton, dropdownMenu);
           }
         });
@@ -202,7 +215,9 @@ export default class Navigation {
     };
 
     const removeHoverListeners = () => {
-      document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"]').forEach((dropdownButton) => {
+      // Target both data-hover="true" and nav-link-dropdown buttons
+      const hoverButtons = document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"], .nav-link-dropdown [data-toggle="dropdown"]');
+      hoverButtons.forEach((dropdownButton) => {
         if (!dropdownButton._hasHoverListeners) return;
         const dropdownMenuId = dropdownButton.getAttribute('aria-controls');
         const dropdownMenu = document.getElementById(dropdownMenuId);
