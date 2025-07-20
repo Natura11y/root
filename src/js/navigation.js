@@ -47,13 +47,20 @@ export default class Navigation {
     document.querySelectorAll('[data-toggle="dropdown"]').forEach((dropdownButton) => {
       const dropdownMenu = document.getElementById(dropdownButton.getAttribute('aria-controls'));
 
-      if (
-        dropdownMenu &&
-        dropdownMenu.classList.contains('shown') &&
-        !dropdownMenu.contains(event.target) &&
-        !dropdownButton.contains(event.target)
-      ) {
-        this.#closeDropdown(dropdownButton, dropdownMenu);
+      if (dropdownMenu && dropdownMenu.classList.contains('shown')) {
+        // Check if click is inside dropdown menu
+        if (dropdownMenu.contains(event.target)) {
+          return;
+        }
+        
+        // For nav-link-dropdown, check the entire wrapper
+        const linkDropdownItem = dropdownButton.closest('.nav-link-dropdown');
+        const clickTarget = linkDropdownItem || dropdownButton;
+        
+        // If click is outside the entire component, close dropdown
+        if (!clickTarget.contains(event.target)) {
+          this.#closeDropdown(dropdownButton, dropdownMenu);
+        }
       }
     });
   };
