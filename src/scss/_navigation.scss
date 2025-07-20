@@ -756,17 +756,16 @@ In this file:
                         padding: unset;
                     }
 
-                    
-                    [class*="nav-link-dropdown"]:has([aria-expanded="true"]) {
-                        &::after {
-                            @include hover-safe-zone;
-                        }
-                    }
-
                     [data-hover="true"] {
                         position: relative;
 
                         &[aria-expanded="true"]::after {
+                            @include hover-safe-zone;
+                        }
+                    }
+
+                    [class*="nav-link-dropdown"]:has([aria-expanded="true"]) {
+                        &::after {
                             @include hover-safe-zone;
                         }
                     }
@@ -840,7 +839,12 @@ In this file:
                             padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
                         }
 
-                        [data-toggle="dropdown"] {
+                        [class*="nav-link-dropdown"] {
+                            padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
+                         
+                        }
+
+                        :is([data-toggle="dropdown"], [class*="nav-link-dropdown"]) {
                             justify-content: center;
                         }
 
