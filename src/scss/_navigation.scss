@@ -293,9 +293,9 @@ In this file:
         }
     }
 
-    // Nav Split Item Modifier (Link + Dropdown)
+    // Nav Link Dropdown Component (Link + Dropdown)
 
-    .nav__item--split {
+    .nav-link-dropdown {
         display: flex;
         align-items: center;
         position: relative;
@@ -305,9 +305,10 @@ In this file:
         gap: 0.5em;
         
         > a {
-            flex: 1;
+            // flex: 1;
             display: flex;
             align-items: center;
+            justify-content: center;
             outline: 2px solid red;
             &::after {
                 content: "";
@@ -319,12 +320,12 @@ In this file:
                 
                 display: none;
 
-                background-color: purple;
+                background-color: hsla(300, 100%, 25%, 0.5);
             }
         }
         
         > [data-toggle="dropdown"] {
-            flex-shrink: 0;
+            // flex-shrink: 0;
             display: flex;
             align-items: center;
             height: 20px;
@@ -718,6 +719,15 @@ In this file:
                     border-block-end: unset;
                 }
 
+                [class*="nav-link-dropdown"] {
+                    [data-toggle="dropdown"] {
+                        pointer-events: none;
+                    }
+                    
+                    a::after {
+                        display: block;
+                    }
+                }
             }
 
             .primary-nav--inline#{$mod} {
@@ -742,11 +752,12 @@ In this file:
                         height: 100%;
                     }
 
-                    > ul > li > :is(a, button, [class*="split"]) {
+                    > ul > li > :is(a, button, [class*="nav-link-dropdown"]) {
                         padding: unset;
                     }
 
-                    [class*="split"]:has([aria-expanded="true"]) {
+                    
+                    [class*="nav-link-dropdown"]:has([aria-expanded="true"]) {
                         &::after {
                             @include hover-safe-zone;
                         }
@@ -780,7 +791,7 @@ In this file:
                             margin-inline-end: calc(var(--nav-gap) * -1);
                         }
 
-                        > li > :is(a, button, [class*="split"]) {
+                        > li > :is(a, button, [class*="nav-link-dropdown"]) {
                             margin-block: auto;
                         }
                     }

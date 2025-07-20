@@ -89,8 +89,8 @@ export default class Navigation {
   };
 
   #cleanupEventListeners(dropdownButton, dropdownMenu) {
-    const splitItem = dropdownButton.closest('.nav__item--split');
-    const hoverTarget = splitItem || dropdownButton;
+    const linkDropdownItem = dropdownButton.closest('.nav-link-dropdown');
+    const hoverTarget = linkDropdownItem || dropdownButton;
     
     if (hoverTarget._hoverInHandler) {
       hoverTarget.removeEventListener('mouseenter', hoverTarget._hoverInHandler);
@@ -160,9 +160,9 @@ export default class Navigation {
           openedByKeyboardOrClick = true;
         });
 
-        // Hover in - check if this is a split item
-        const splitItem = dropdownButton.closest('.nav__item--split');
-        const hoverTarget = splitItem || dropdownButton;
+        // Hover in - check if this is a nav-link-dropdown item
+        const linkDropdownItem = dropdownButton.closest('.nav-link-dropdown');
+        const hoverTarget = linkDropdownItem || dropdownButton;
         
         hoverTarget.addEventListener('mouseenter', hoverTarget._hoverInHandler = () => {
           if (!openedByKeyboardOrClick) {
@@ -177,8 +177,8 @@ export default class Navigation {
         // Hover out
         const hoverOutHandler = () => {
           setTimeout(() => {
-            const hoverCheck = splitItem ? 
-              !splitItem.matches(':hover') && !dropdownMenu.matches(':hover') :
+            const hoverCheck = linkDropdownItem ? 
+              !linkDropdownItem.matches(':hover') && !dropdownMenu.matches(':hover') :
               !dropdownButton.matches(':hover') && !dropdownMenu.matches(':hover');
               
             if (hoverCheck && !openedByKeyboardOrClick) {
