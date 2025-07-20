@@ -89,17 +89,20 @@ export default class Navigation {
   };
 
   #cleanupEventListeners(dropdownButton, dropdownMenu) {
-    if (dropdownButton._hoverInHandler) {
-      dropdownButton.removeEventListener('mouseenter', dropdownButton._hoverInHandler);
-      delete dropdownButton._hoverInHandler;
+    const splitItem = dropdownButton.closest('.nav__item--split');
+    const hoverTarget = splitItem || dropdownButton;
+    
+    if (hoverTarget._hoverInHandler) {
+      hoverTarget.removeEventListener('mouseenter', hoverTarget._hoverInHandler);
+      delete hoverTarget._hoverInHandler;
     }
     if (dropdownMenu._hoverInHandler) {
       dropdownMenu.removeEventListener('mouseenter', dropdownMenu._hoverInHandler);
       delete dropdownMenu._hoverInHandler;
     }
-    if (dropdownButton._hoverOutHandler) {
-      dropdownButton.removeEventListener('mouseleave', dropdownButton._hoverOutHandler);
-      delete dropdownButton._hoverOutHandler;
+    if (hoverTarget._hoverOutHandler) {
+      hoverTarget.removeEventListener('mouseleave', hoverTarget._hoverOutHandler);
+      delete hoverTarget._hoverOutHandler;
     }
     if (dropdownMenu._hoverOutHandler) {
       dropdownMenu.removeEventListener('mouseleave', dropdownMenu._hoverOutHandler);
@@ -157,8 +160,11 @@ export default class Navigation {
           openedByKeyboardOrClick = true;
         });
 
-        // Hover in
-        dropdownButton.addEventListener('mouseenter', dropdownButton._hoverInHandler = () => {
+        // Hover in - check if this is a split item
+        const splitItem = dropdownButton.closest('.nav__item--split');
+        const hoverTarget = splitItem || dropdownButton;
+        
+        hoverTarget.addEventListener('mouseenter', hoverTarget._hoverInHandler = () => {
           if (!openedByKeyboardOrClick) {
             this.#openDropdown(dropdownButton, dropdownMenu);
           }
@@ -171,17 +177,17 @@ export default class Navigation {
         // Hover out
         const hoverOutHandler = () => {
           setTimeout(() => {
-            if (
-              !dropdownMenu.matches(':hover') &&
-              !dropdownButton.matches(':hover') &&
-              !openedByKeyboardOrClick
-            ) {
+            const hoverCheck = splitItem ? 
+              !splitItem.matches(':hover') && !dropdownMenu.matches(':hover') :
+              !dropdownButton.matches(':hover') && !dropdownMenu.matches(':hover');
+              
+            if (hoverCheck && !openedByKeyboardOrClick) {
               this.#closeDropdown(dropdownButton, dropdownMenu);
               openedByKeyboardOrClick = false;
             }
           }, this.#hoverTimeout);
         };
-        dropdownButton.addEventListener('mouseleave', dropdownButton._hoverOutHandler = hoverOutHandler);
+        hoverTarget.addEventListener('mouseleave', hoverTarget._hoverOutHandler = hoverOutHandler);
         dropdownMenu.addEventListener('mouseleave', dropdownMenu._hoverOutHandler = hoverOutHandler);
 
         // Also reset the flag when closed by other means
