@@ -49,8 +49,6 @@ In this file:
         
         display: inline-flex;
         
-        // margin-inline-start: var(--_caret-margin);
-        
         color: inherit;
         
         pointer-events: none;
@@ -64,7 +62,7 @@ In this file:
     position: absolute;
     inset: 0;
     width: 100%;
-    height: 250%;
+    height: 250%; // Arbitrary Height
 }
 
 ////////////////////////////////////////
@@ -354,7 +352,7 @@ In this file:
         &::after {
             position: absolute;
             content: "";
-            top: 0;
+            inset-inline-start: 0;
             inset-inline-start: calc(var(--nav-gap) + var(--_dropdown-pointer-size) + 4px);
             
             transform: translateX(-50%) rotate(45deg);
@@ -390,20 +388,12 @@ In this file:
 
         padding-block: var(--nav-divider-padding-y);
         
-        // outline: 2px solid red;
-
-        &:hover,
-        &:focus a {
-            text-decoration: underline;
-        }
-        
+        // Link gets underline when dropdown is expanded or on direct hover/focus
         > a {
             display: flex;
             align-items: center;
 
             text-align: start;
-            
-            // outline: 2px solid red;
             
             &::after {
                 content: "";
@@ -414,8 +404,6 @@ In this file:
                 z-index: 1;
                 
                 display: none;
-
-                // outline: 2px solid red;
             }
             
             &:hover,
@@ -424,6 +412,12 @@ In this file:
             }
         }
         
+        // When dropdown is expanded, underline the link
+        &:has([data-toggle="dropdown"][aria-expanded="true"]) > a:hover {
+            text-decoration: underline;
+        }
+        
+       
         > [data-toggle="dropdown"] {
             flex: 0 0;
 
@@ -434,8 +428,6 @@ In this file:
             min-width: var(--_dropdown-button-size);
             
             aspect-ratio: 1;
-
-            // outline: 2px solid red;
 
             background-color: var(--subtle-fill-1);
 
@@ -491,7 +483,6 @@ In this file:
 
         li:has([class*="nav__dropdown"]) {
             position: relative;
-            background: yellow;
         }
 
         [class*="__logo"],
@@ -750,7 +741,7 @@ In this file:
                     
                     [data-toggle="dropdown"] {
                         pointer-events: none;
-            margin-inline-start: unset;
+                        margin-inline-start: unset;
                     }
 
                     > [data-toggle="dropdown"] {
