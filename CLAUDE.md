@@ -2,9 +2,20 @@
 
 ## Project Overview
 Updating Natura11y React Starter Components Library from outdated versions to current standards.
-- **Philosophy**: Complement the Natura11y framework with React integration where it makes sense
-- **Shared CSS**: All styles come from the vanilla Natura11y framework
-- **Focus**: React components that integrate seamlessly with Natura11y's accessibility-first approach
+
+### Core Philosophy: Zero Duplication
+- **Shared CSS**: All styles come from the vanilla Natura11y framework (no duplicated stylesheets)
+- **Shared JavaScript Utilities**: Leverage Natura11y's vanilla JS utilities for focus management, overlay handling, and other common functionality
+- **React Integration**: Add React-specific patterns only where they provide clear value over vanilla implementations
+- **Accessibility First**: Maintain consistent a11y behavior between vanilla and React versions
+
+### Why Share Utilities?
+This is **absolutely common practice** and recommended because:
+- **Consistency**: Same behavior across vanilla JS and React implementations
+- **Maintenance**: Single source of truth for complex logic (focus traps, overlay management)
+- **Bundle Size**: Avoid duplicating utility code
+- **Testing**: Test utilities once, use everywhere
+- **Updates**: Bug fixes and improvements benefit both implementations
 
 ## Current State Analysis
 
@@ -42,38 +53,87 @@ src/
 
 ## Upgrade Plan
 
-### Phase 1: Core Dependencies Update
+### Phase 1: Build System Migration & Dependencies Update
 **Status**: Pending
 
-#### Tasks:
+#### 🚨 Critical Issue: Create React App is Officially Deprecated
+As of February 14, 2025, Create React App is no longer maintained. We need to migrate to a modern build system.
+
+#### Build System Options:
+- **Vite** (Recommended for component libraries): Lightning-fast builds, minimal config, perfect for SPAs
+- **Next.js**: Full-stack framework with SSR/SSG (overkill for component showcase)
+- **Parcel**: Zero-config alternative
+
+#### Migration Strategy - Vite (Recommended):
+- [ ] **Initialize Vite**: `npm create vite@latest . -- --template react`
+- [ ] **Migrate configuration**: Move from react-scripts to Vite config
+- [ ] **Update scripts**: Replace CRA scripts with Vite equivalents
+- [ ] **Handle public assets**: Migrate public folder structure
+- [ ] **Update import paths**: Handle any Vite-specific import requirements
+- [ ] **Configure Sass**: Ensure SCSS processing works with Vite
+
+#### Dependencies Update:
 - [ ] Update Natura11y: `2.2.3` → `4.2.0`
-- [ ] Update React Scripts: `5.0.1` → latest
+- [ ] Remove react-scripts: `5.0.1` → Vite
 - [ ] Update testing libraries (@testing-library/*)
-- [ ] Update build tools (Sass, etc.)
 - [ ] Update React Router DOM if needed
 - [ ] Check for peer dependency conflicts
 
-#### Commands to run:
+#### Migration Commands:
 ```bash
-npm update
+# Backup current setup
+cp package.json package.json.backup
+cp -r src src.backup
+
+# Initialize Vite (will need manual merge)
+npm create vite@latest temp-vite -- --template react
+# Compare and merge configurations
+
+# Install dependencies
+npm install
 npm audit fix
 ```
 
-### Phase 2: Breaking Changes Analysis
+#### Why Vite for This Project:
+- **Component Library Focus**: Perfect for showcasing React components
+- **Developer Experience**: `npm install && npm run dev` - that's it!
+- **Modern Tooling**: ESBuild, native ES modules, instant startup
+- **Minimal Config**: Less complexity than webpack, simpler than CRA
+- **Sass Support**: Built-in SCSS processing for Natura11y styles
+- **Copy-Friendly**: Developers can easily extract components to Next.js/Vite/etc.
+- **Fast Development**: Instant HMR for rapid component iteration
+
+#### Project Goals:
+1. ✅ **Update to latest React** + modern patterns
+2. ✅ **Update to Natura11y v4** + shared utilities
+3. ✅ **Modern dev environment** - replace deprecated CRA
+4. ✅ **Easy for developers** - clone, install, run, extract components
+
+### Phase 2: Utility Integration & Breaking Changes Analysis
 **Status**: Pending
 
-#### Tasks:
+#### Shared Utility Strategy:
+- [ ] **Audit current utilities**: Review existing `src/utilities/` (focus.js, overlay.js, filter.js)
+- [ ] **Map to Natura11y v4 utilities**: Identify which utilities are available in vanilla framework
+- [ ] **Create import strategy**: Import Natura11y utilities directly vs. wrapper functions
+- [ ] **Maintain existing API**: Ensure React components can still use familiar interfaces
+- [ ] **Focus management alignment**: Ensure `focusTrap()` and `getFocusableElements()` match vanilla implementation
+- [ ] **Overlay management alignment**: Ensure `handleOverlayOpen/Close()` behavior is consistent
+
+#### Breaking Changes Analysis:
 - [ ] Review Natura11y v4 CSS changes
-- [ ] Identify JavaScript API changes
+- [ ] Identify JavaScript API changes in utilities
 - [ ] Check CDN links and resource paths
 - [ ] Review accessibility improvements in v4
 - [ ] Document component-specific changes needed
+- [ ] **Compare utility signatures**: Ensure parameter compatibility between versions
 
 #### Research Areas:
 - CSS class naming conventions
-- JavaScript module imports/exports
+- JavaScript module imports/exports from Natura11y core
 - Icon system changes
 - Theme/customization changes
+- **Utility function signatures and behavior changes**
 
 ### Phase 3: Component Migration
 **Status**: Pending
@@ -133,10 +193,23 @@ npm run build
 - JavaScript: `https://cdn.jsdelivr.net/gh/cavidano/natura11y@4.0/dist/js/natura11y.min.js`
 
 ### Development Approach
-1. **Incremental Updates**: Update dependencies one at a time
-2. **Component Isolation**: Test each component individually
-3. **Backward Compatibility**: Maintain existing API where possible
-4. **Accessibility First**: Ensure all a11y features are preserved/enhanced
+1. **Zero Duplication Principle**: Always prefer importing from Natura11y core over reimplementation
+2. **Incremental Updates**: Update dependencies one at a time
+3. **Component Isolation**: Test each component individually  
+4. **Utility Sharing**: Import focus, overlay, and other utilities from Natura11y's JavaScript core
+5. **Backward Compatibility**: Maintain existing API where possible
+6. **Accessibility First**: Ensure all a11y features are preserved/enhanced
+
+### Utility Integration Examples
+```javascript
+// Preferred: Import from Natura11y core
+import { focusTrap, getFocusableElements } from 'natura11y/src/utilities/focus'
+import { handleOverlayOpen, handleOverlayClose } from 'natura11y/src/utilities/overlay'
+
+// Current: Local implementations (to be replaced)
+import { focusTrap } from '../utilities/focus'
+import { handleOverlayOpen } from '../utilities/overlay'
+```
 
 ### Risk Mitigation
 - Create feature branch for all changes
