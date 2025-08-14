@@ -13,13 +13,15 @@ const Dropdown = ({
         { to: '#3', label: 'Three' }
     ],
     isMegaMenu = false,
-    megaMenuBreakpoint = 'lg'
+    megaMenuBreakpoint = 'lg',
+    hover = false
 }) => {
 
     const dropdownButton = useRef();
     const dropdownMenu = useRef();
 
     const [dropdownShow, setDropdownShow] = useState(false);
+    const dropdownMenuId = `dropdown-${Math.random().toString(36).substr(2, 9)}`;
 
     const location = useLocation();
 
@@ -99,8 +101,10 @@ const Dropdown = ({
             <button
                 ref={dropdownButton}
                 data-toggle="dropdown"
+                data-hover={hover ? 'true' : undefined}
                 aria-expanded={dropdownShow ? true : false}
-                aria-haspopup={isMegaMenu ? 'menu' : 'menu'}
+                aria-controls={dropdownMenuId}
+                aria-haspopup="menu"
                 onClick={handleClick}
             >
                 {title}
@@ -108,8 +112,9 @@ const Dropdown = ({
 
             <ul
                 ref={dropdownMenu}
+                id={dropdownMenuId}
                 className={dropdownClasses}
-                role={isMegaMenu ? 'menu' : 'menu'}
+                role="menu"
                 aria-hidden={!dropdownShow}
             >
                 {items.map((item, index) => (

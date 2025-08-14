@@ -117,6 +117,7 @@ const PrimaryNavigation = ( props ) => {
 							<MegaMenu 
 								title="Products"
 								breakpoint={breakpoint}
+								hover={true}
 								megaMenuContent={
 									<div className="container">
 										<div className="grid grid--column-3--lg gap-4">
@@ -154,13 +155,23 @@ const PrimaryNavigation = ( props ) => {
 						<Dropdown 
 							title="Company"
 							items={regularDropdownItems}
+							hover={true}
 						/>
 					</li>
 					<li>
-						<Link to='/docs'>Documentation</Link>
+						<Dropdown 
+							title="Components"
+							items={[
+								{ to: '/accordion', label: 'Accordion' },
+								{ to: '/button', label: 'Buttons' },
+								{ to: '/modal', label: 'Modal' },
+								{ to: '/navigation', label: 'Navigation' }
+							]}
+							hover={true}
+						/>
 					</li>
 					<li>
-						<Link to='/examples'>Examples</Link>
+						<Link to='/'>All Examples</Link>
 					</li>
 					<li>
 						<Link to='/blog'>Blog</Link>

@@ -9,13 +9,15 @@ const MegaMenu = ({
     title = 'Mega Menu',
     breakpoint = 'lg',
     children,
-    megaMenuContent = null
+    megaMenuContent = null,
+    hover = false
 }) => {
 
     const megaMenuButton = useRef();
     const megaMenuContainer = useRef();
 
     const [megaMenuShow, setMegaMenuShow] = useState(false);
+    const megaMenuId = `mega-menu-${Math.random().toString(36).substr(2, 9)}`;
 
     const location = useLocation();
 
@@ -131,8 +133,10 @@ const MegaMenu = ({
         <Fragment>
             <button
                 ref={megaMenuButton}
-                data-toggle="mega-menu"
+                data-toggle="dropdown"
+                data-hover={hover ? 'true' : undefined}
                 aria-expanded={megaMenuShow ? true : false}
+                aria-controls={megaMenuId}
                 aria-haspopup="menu"
                 onClick={handleClick}
             >
@@ -141,6 +145,7 @@ const MegaMenu = ({
 
             <div
                 ref={megaMenuContainer}
+                id={megaMenuId}
                 className={`mega-menu mega-menu--${breakpoint} box-shadow-1--lg ${megaMenuShow ? 'shown' : ''}`}
                 role="menu"
                 aria-hidden={!megaMenuShow}
