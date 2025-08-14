@@ -4,7 +4,7 @@ import { LightboxProvider } from './context/LightboxContext';
 
 import classNames from 'classnames';
 
-import 'natura11y/src/scss/natura11y.scss';
+import 'natura11y/src/scss/index.scss';
 
 import Header from './components/_ui/Header';
 import Home from './components/_ui/Home';

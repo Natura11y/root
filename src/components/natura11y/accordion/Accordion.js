@@ -4,7 +4,7 @@ import AccordionItem from './AccordionItem';
 
 import { getFilteredElements } from '../../../utilities/filter';
 
-const Accordion = () => {
+const Accordion = ({ openDefault = null }) => {
 
   	const data = [
 		{
@@ -65,7 +65,7 @@ const Accordion = () => {
 		},
 	];
 
-  	const [openAccordion, setOpenAccordion] = useState(null);
+  	const [openAccordion, setOpenAccordion] = useState(openDefault);
 
 	const accordion = useRef(null);
 	const accordionButtons = useRef();
@@ -93,8 +93,6 @@ const Accordion = () => {
 				if (accordionButtons.current) {
 					
 					let targetFocus = parseInt(pressed) + dir;
-
-					console.log(`My target is ${targetFocus}`);
 
 					if (dir === -1 && targetFocus < 0) {
 						accordionButtons.current[accordionButtons.current.length -1].focus();
@@ -149,7 +147,9 @@ const Accordion = () => {
 			className='accordion'
 			ref={accordion}
 		>
+
 			{accordionItems}
+		
 		</div>
 	);
 

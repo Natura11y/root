@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 
 import classNames from 'classnames';
 
@@ -9,20 +9,24 @@ import Icon from '../icon/Icon';
 const ButtonIconOverText = forwardRef((props, ref) => {
 
 	const {
-		iconHandle = 'home', // Arbitrary default value
+		iconHandle = 'home',
 		iconUtilities = null,
 		textUtilities = null,
 		label = 'Home',
 		tag = 'button',
+		buttonType = 'button',
 		linkUrl = '#1',
 		ariaLabel = null,
 		clickHandler = null,
 		ariaExpanded = null,
+		utilities = null,
 	} = props;
 
-	const componentClasses = classNames('button', 'button--icon-over-text');
+	const componentClasses = classNames('button', 'button--icon-over-text', {
+		[`${utilities}`]: utilities !== null,
+	});
 
-	const textClasses = classNames('button__text', {
+	const textClasses = classNames('text', {
 		[`${textUtilities}`]: textUtilities !== null,
 	});
 
@@ -37,6 +41,7 @@ const ButtonIconOverText = forwardRef((props, ref) => {
 		button: (
 			<button
 				ref={ref}
+				type={buttonType}
 				className={componentClasses}
 				onClick={clickHandler}
 				aria-label={ariaLabel}
@@ -47,6 +52,7 @@ const ButtonIconOverText = forwardRef((props, ref) => {
 		),
 		link: (
 			<Link
+				ref={ref}
 				className={componentClasses}
 				to={linkUrl}
 				aria-label={ariaLabel}
@@ -56,6 +62,7 @@ const ButtonIconOverText = forwardRef((props, ref) => {
 		),
 		a: (
 			<a
+				ref={ref}
 				className={componentClasses}
 				href={linkUrl}
 				aria-label={ariaLabel}

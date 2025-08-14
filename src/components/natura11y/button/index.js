@@ -10,6 +10,7 @@ const Button = (props) => {
 
 	const {
 		tag = 'button',
+		buttonType = 'button',
 		title = 'Button',
 		linkUrl = '#1',
 		outline = false,
@@ -21,7 +22,7 @@ const Button = (props) => {
 	const componentClasses = classNames('button', {
 		'button--outline': outline,
 		'button--has-icon': iconHandle !== null,
-		[`${utilities}`]: utilities !== null, // For example, 'theme-primary'
+		[`${utilities}`]: utilities !== null,
 	});
 
 	const buttonContents = iconHandle !== null ? (
@@ -35,7 +36,11 @@ const Button = (props) => {
 
 	const Component = {
 		button: (
-			<button className={componentClasses} onClick={clickHandler}>
+			<button 
+				type={buttonType}
+				className={componentClasses} 
+				onClick={clickHandler}
+			>
 				{buttonContents}
 			</button>
 		),
@@ -51,7 +56,7 @@ const Button = (props) => {
 		),
 	};
 
-	return Component[tag] || Component.link;
+	return Component[tag] || Component.button;
 };
 
 export default Button;

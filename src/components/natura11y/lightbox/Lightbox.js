@@ -92,7 +92,7 @@ const Lightbox = () => {
               ref={lbNext}  
               buttonType='button'
               iconHandle='arrow-right'
-              clickHandler={() => handleNextPrevious(-1)}
+              clickHandler={() => handleNextPrevious(1)}
             />
 
           </>

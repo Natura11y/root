@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 
-
 import {getFocusableElements} from '../../../utilities/focus';
 
 const AccordionItem = ( props ) => {
@@ -24,11 +23,8 @@ const AccordionItem = ( props ) => {
 
         if (isActive) {
             focusableElements.forEach(el => el.setAttribute('tabindex', 0));
-            accordionPanel.current.style.maxHeight = accordionPanel.current.scrollHeight + 'px';
-        
         } else {
             focusableElements.forEach(el => el.setAttribute('tabindex', -1));
-            accordionPanel.current.style.maxHeight = 0;
         }
 
     }, [isActive]);
@@ -40,7 +36,7 @@ const AccordionItem = ( props ) => {
                 ref={accordionButton}
                 id={`${id}`}
                 data-accordion='button'
-                aria-controls='acc-panel-example-01'
+                aria-controls={`acc-panel-${id}`}
                 aria-expanded={isActive ? true : false}
                 onClick={handleClick}
                 onKeyDown={handleKeyDown}
@@ -56,7 +52,7 @@ const AccordionItem = ( props ) => {
                 id={`acc-panel-${id}`}
                 data-accordion='panel'
                 aria-labelledby={`${id}`}
-                aria-hidden={isActive ? true : false}
+                aria-hidden={isActive ? false : true}
                 role='region'
             >
                 <div className='accordion__panel__content'>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import classNames from 'classnames';
 
@@ -8,7 +8,11 @@ import ButtonIconOnly from '../button/ButtonIconOnly';
 import Button from '../button';
 
 import Dropdown from './Dropdown';
+import MegaMenu from './MegaMenu';
 import Brand from './Brand';
+
+import { getFocusableElements } from '../../../utilities/focus';
+import { handleArrowKeyNavigation } from '../../../utilities/keyboardNavigation';
 
 const PrimaryNavigation = ( props ) => {
 
@@ -16,11 +20,15 @@ const PrimaryNavigation = ( props ) => {
 		navType = 'inline', // 'inline' or 'below'
 		breakpoint = 'lg',
 		includeSearch = true,
+		includeMegaMenu = false,
 		utilities = null,
 	} = props;
 
 	const [menuShow, setMenuShow] = useState(false);
 	const [searchShow, setSearchShow] = useState(false);
+
+	const navigationRef = useRef();
+	const searchInputRef = useRef();
 
 	const handleMenuClick = () => {
 		setSearchShow(false);
@@ -30,7 +38,39 @@ const PrimaryNavigation = ( props ) => {
 	const handleSearchClick = () => {
 		setMenuShow(false);
 		setSearchShow(!searchShow);
+		
+		// Focus search input when opened
+		if (!searchShow) {
+			setTimeout(() => {
+				searchInputRef.current?.focus();
+			}, 100);
+		}
 	};
+
+	const handleNavigationKeyDown = (e) => {
+		// Handle main navigation keyboard navigation
+		const focusableElements = getFocusableElements(navigationRef.current);
+		const currentIndex = focusableElements.findIndex(el => el === document.activeElement);
+
+		if (e.code === 'ArrowLeft' || e.code === 'ArrowRight') {
+			handleArrowKeyNavigation(
+				e, 
+				currentIndex, 
+				focusableElements, 
+				(targetIndex) => focusableElements[targetIndex]?.focus()
+			);
+		}
+	};
+
+	useEffect(() => {
+		if (menuShow) {
+			// Focus first navigation item when menu opens on mobile
+			const firstNavItem = getFocusableElements(navigationRef.current)[0];
+			setTimeout(() => {
+				firstNavItem?.focus();
+			}, 100);
+		}
+	}, [menuShow]);
 
 	const componentClasses = classNames(
 		`primary-nav--${navType}--${breakpoint}`,
@@ -38,6 +78,22 @@ const PrimaryNavigation = ( props ) => {
 			[`${utilities}`] : utilities !== null
 		}
 	);
+
+	const megaMenuItems = [
+		{ to: '/products', label: 'Products' },
+		{ to: '/services', label: 'Services' },
+		{ to: '/solutions', label: 'Solutions' },
+		{ to: '/support', label: 'Support' },
+		{ to: '/resources', label: 'Resources' },
+		{ to: '/company', label: 'Company' }
+	];
+
+	const regularDropdownItems = [
+		{ to: '/about', label: 'About Us' },
+		{ to: '/team', label: 'Our Team' },
+		{ to: '/careers', label: 'Careers' },
+		{ to: '/contact', label: 'Contact' }
+	];
 
 	return (
 		<div className={`${componentClasses}`}>
@@ -49,22 +105,65 @@ const PrimaryNavigation = ( props ) => {
 			</div>
 
 			<nav
+				ref={navigationRef}
 				className={`primary-nav__menu ${menuShow ? 'shown' : ''}`}
 				id='main-menu'
 				aria-label='Main Menu'
+				onKeyDown={handleNavigationKeyDown}
 			>
 				<ul>
+					{includeMegaMenu && (
+						<li>
+							<MegaMenu 
+								title="Products"
+								breakpoint={breakpoint}
+								megaMenuContent={
+									<div className="container">
+										<div className="grid grid--column-3--lg gap-4">
+											<div>
+												<p className="h6 margin-bottom-2">Products</p>
+												<ul className="nav">
+													<li><Link to="/product-1">Product One</Link></li>
+													<li><Link to="/product-2">Product Two</Link></li>
+													<li><Link to="/product-3">Product Three</Link></li>
+												</ul>
+											</div>
+											<div>
+												<p className="h6 margin-bottom-2">Services</p>
+												<ul className="nav">
+													<li><Link to="/service-1">Service One</Link></li>
+													<li><Link to="/service-2">Service Two</Link></li>
+													<li><Link to="/service-3">Service Three</Link></li>
+												</ul>
+											</div>
+											<div>
+												<p className="h6 margin-bottom-2">Support</p>
+												<ul className="nav">
+													<li><Link to="/support-1">Documentation</Link></li>
+													<li><Link to="/support-2">Help Center</Link></li>
+													<li><Link to="/support-3">Contact Support</Link></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								}
+							/>
+						</li>
+					)}
 					<li>
-						<Dropdown />
+						<Dropdown 
+							title="Company"
+							items={regularDropdownItems}
+						/>
 					</li>
 					<li>
-						<Link to='#1'>Link</Link>
+						<Link to='/docs'>Documentation</Link>
 					</li>
 					<li>
-						<Link to='#1'>Link</Link>
+						<Link to='/examples'>Examples</Link>
 					</li>
 					<li>
-						<Link to='#1'>Link</Link>
+						<Link to='/blog'>Blog</Link>
 					</li>
 				</ul>
 			</nav>
@@ -101,7 +200,12 @@ const PrimaryNavigation = ( props ) => {
 					<div className='form-entry' aria-label='Search'>
 						<div className='form-entry__field'>
 							<span className='form-entry__field__input'>
-								<input type='text' name='global-search' />
+								<input 
+									ref={searchInputRef}
+									type='text' 
+									name='global-search' 
+									placeholder='Search...'
+								/>
 								<Button title="Search" />
 							</span>
 						</div>
@@ -111,7 +215,7 @@ const PrimaryNavigation = ( props ) => {
 			)}
 
 			<div className='primary-nav__actions'>
-				<ButtonIconOnly iconHandle='mode-light-dark' />
+				<ButtonIconOnly iconHandle='mode-light-dark' ariaLabel='Toggle dark mode' />
 			</div>
 		</div>
 	);

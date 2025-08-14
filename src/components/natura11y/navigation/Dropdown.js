@@ -2,21 +2,31 @@ import React, { useRef, useState, useEffect, Fragment } from 'react';
 
 import { Link, useLocation } from 'react-router-dom';
 
-const Dropdown = () => {
+import { getFocusableElements } from '../../../utilities/focus';
+import { handleArrowKeyNavigation } from '../../../utilities/keyboardNavigation';
 
-  const dropdownButton = useRef();
-  const dropdownMenu = useRef();
+const Dropdown = ({ 
+    title = 'Dropdown',
+    items = [
+        { to: '#1', label: 'One' },
+        { to: '#2', label: 'Two' },
+        { to: '#3', label: 'Three' }
+    ],
+    isMegaMenu = false,
+    megaMenuBreakpoint = 'lg'
+}) => {
 
-  const [dropdownShow, setDropdownShow] = useState(false);
+    const dropdownButton = useRef();
+    const dropdownMenu = useRef();
 
-  const location = useLocation();
+    const [dropdownShow, setDropdownShow] = useState(false);
+
+    const location = useLocation();
 
     useEffect(() => {
-
         let dropdownButtonParent = dropdownButton.current.closest('li');
 
         const dropdownClickListener = (e) => {
-        
             let dropdownButtonClick = dropdownButtonParent.contains(e.target);
 
             if (!dropdownButtonClick) {
@@ -29,7 +39,6 @@ const Dropdown = () => {
         return () => {
             window.removeEventListener('click', dropdownClickListener);
         }
-
     }, []);
 
     useEffect(() => {
@@ -40,30 +49,75 @@ const Dropdown = () => {
         setDropdownShow(!dropdownShow);
     }
 
+    const handleKeyDown = (e) => {
+        if (!dropdownShow) return;
+
+        const focusableElements = getFocusableElements(dropdownMenu.current);
+        const currentIndex = focusableElements.findIndex(el => el === document.activeElement);
+
+        switch (e.code) {
+            case 'Escape':
+                setDropdownShow(false);
+                dropdownButton.current.focus();
+                break;
+            
+            case 'ArrowDown':
+            case 'ArrowUp':
+            case 'Home':
+            case 'End':
+                handleArrowKeyNavigation(
+                    e, 
+                    currentIndex, 
+                    focusableElements, 
+                    (targetIndex) => focusableElements[targetIndex]?.focus()
+                );
+                break;
+            
+            default:
+                // do nothing
+        }
+    };
+
+    useEffect(() => {
+        if (dropdownShow) {
+            document.addEventListener('keydown', handleKeyDown);
+        } else {
+            document.removeEventListener('keydown', handleKeyDown);
+        }
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [dropdownShow]);
+
+    const dropdownClasses = isMegaMenu 
+        ? `mega-menu mega-menu--${megaMenuBreakpoint} box-shadow-1--lg ${dropdownShow ? 'shown' : ''}`
+        : `nav__dropdown box-shadow-1--lg ${dropdownShow ? 'shown' : ''}`;
+
     return (
         <Fragment>
             <button
                 ref={dropdownButton}
                 data-toggle="dropdown"
                 aria-expanded={dropdownShow ? true : false}
-                onClick={handleClick}>
-                    Dropdown
+                aria-haspopup={isMegaMenu ? 'menu' : 'menu'}
+                onClick={handleClick}
+            >
+                {title}
             </button>
 
             <ul
                 ref={dropdownMenu}
-                className={`nav__dropdown box-shadow-1--lg ${dropdownShow ? 'shown' : ''}`}>
-                <li>
-                    <Link to="#1">One</Link>
-                </li>
-                <li>
-                    <Link to="#1">Two</Link>
-                </li>
-                <li>
-                    <Link to="#1">Link</Link>
-                </li>
+                className={dropdownClasses}
+                role={isMegaMenu ? 'menu' : 'menu'}
+                aria-hidden={!dropdownShow}
+            >
+                {items.map((item, index) => (
+                    <li key={index} role="menuitem">
+                        <Link to={item.to}>{item.label}</Link>
+                    </li>
+                ))}
             </ul>
-
         </Fragment>
     );
 }

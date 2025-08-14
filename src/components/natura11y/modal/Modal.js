@@ -1,138 +1,130 @@
-import React, { useRef, forwardRef, useImperativeHandle, useEffect } from 'react';
+import React, { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 
-import { getFocusableElements } from '../../../utilities/focus';
+import classNames from 'classnames';
 
 import ButtonIconOnly from '../button/ButtonIconOnly';
 
+import { getFocusableElements } from '../../../utilities/focus';
+
+import { handleOverlayOpen, handleOverlayClose } from '../../../utilities/overlay';
+
 const Modal = forwardRef((props, ref) => {
+    const {
+        isOpen = false,
+        scrollAll = false,
+        closeOutside = false,
+        title = 'Modal Title',
+        handleModalClose = null,
+        children = <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>,
+        footerContent = null, 
+        modalUtilities = null,
+        modalContentUtilities = null
+    } = props;
 
-	const {
-		scrollAll = false,
-		closeOutside = false,
-		title = 'Modal Title',
-		isOpen = isOpen,
-		handleModalClose = handleModalClose,
-		children = <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    const modalContainer = useRef(null);
+    const modalContent = useRef(null);
 
-	} = props;
+    useImperativeHandle(ref, () => modalContainer.current);
 
-	const modalContainer = useRef(null);
-	const modalContent = useRef(null);
+    const modalClasses = classNames(
+        'modal', 
+        { 
+            'modal--scroll-all': scrollAll,
+            'shown': isOpen,
+            [`${modalUtilities}`]: modalUtilities !== null
+        }
+    );
 
-	useImperativeHandle(ref, () => modalContainer.current);
+    const modalContentClasses = classNames(
+        'modal__content', {
+            [`${modalContentUtilities}`]: modalContentUtilities !== null
+        }
+    );
 
-  	let classScrolAll = scrollAll === true ? ' modal--scroll-all' : '';
+    const handleKeyDown = (event) => {
+        const focusableElements = getFocusableElements(modalContent.current);
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
 
-	const handleKeyDown = (event) => {
+        if (event.code === 'Tab') {
+            if (event.shiftKey && document.activeElement === firstElement) {
+                event.preventDefault();
+                lastElement.focus();
+            } else if (!event.shiftKey && document.activeElement === lastElement) {
+                event.preventDefault();
+                firstElement.focus();
+            }
+        } else if (event.code === 'Escape') {
+            handleModalClose();
+        }
+    };
 
-		const focusableElements = getFocusableElements(modalContent.current);
-		const firstElementOfModal = focusableElements[0];
-		const lastElementOfModal = focusableElements[focusableElements.length - 1];
+    useEffect(() => {
+        if (isOpen) {
+            document.addEventListener('keydown', handleKeyDown);
+            if (modalContainer.current) {
+                handleOverlayOpen(modalContainer.current);
+            }
+        } else {
+            document.removeEventListener('keydown', handleKeyDown);
+            if (modalContainer.current) {
+                handleOverlayClose(modalContainer.current);
+            }
+        }
 
-		switch (event.code) {
-		
-			case 'Tab':
-				if (document.activeElement === lastElementOfModal) {
-					if (!event.shiftKey) {
-						event.preventDefault();
-						firstElementOfModal.focus();
-					}
-				}
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+            if (modalContainer.current) {
+                handleOverlayClose(modalContainer.current);
+            }
+        };
+    }, [isOpen]);
 
-				if (document.activeElement === firstElementOfModal) {
-					if (event.shiftKey) {
-						event.preventDefault();
-						lastElementOfModal.focus();
-					}
-				}
+    const handleCloseOutside = (event) => {
+        if (closeOutside && modalContent.current && !modalContent.current.contains(event.target)) {
+            handleModalClose();
+        }
+    };
 
-				if (document.activeElement === modalContent) {
-					if (event.shiftKey) {
-						event.preventDefault();
-						firstElementOfModal.focus();
-					}
-				}
-
-				break;
-
-			case 'Escape':
-				handleModalClose();
-				break;
-			
-			default:
-			// do nothing
-		}
-
-	};
-
-  useEffect(() => {
-		if (isOpen) {
-			document.addEventListener('keydown', handleKeyDown);
-		} else {
-			document.removeEventListener('keydown', handleKeyDown);
-		}
-		return () => {
-			document.removeEventListener('keydown', handleKeyDown);
-		};
-	}, [isOpen]);
-
-	const handleCloseOutside = (event) => {
-
-		const modalContentClick = modalContent.current.contains(event.target);
-
-		if (closeOutside && !modalContentClick) {
-			handleModalClose();
-		}
-	};
-
-	return (
-		<div
-			className={`modal ${classScrolAll} padding-4`}
-			ref={modalContainer}
-			id='modal-example-01'
-			role='dialog'
-			aria-hidden={isOpen ? false : true}
-			tabIndex={isOpen ? 0 : -1}
-			onClick={handleCloseOutside}
-		>
-			<div
-				className='modal__content narrow border-radius box-shadow-3'
-				aria-labelledby='modal-example-01-title'
-				ref={modalContent}
-			>
-				<header className='modal__content__head border-bottom'>
-
-					<h2 id='modal-example-01-title'>
-						{title}
-					</h2>
-
-					<ButtonIconOnly
-						buttonType='button'
-						iconHandle='close'
-						clickHandler={handleModalClose}
-					/>
-				
-				</header>
-
-				<main className='modal__content__body' id='modal-example-01-content'>
-					{children}
-				</main>
-
-				<footer className='modal__content__foot border-top text-color-link'>
-					<ul className='nav nav--horizontal justify-content-between'>
-						<li>
-							<a href='#1'>Secondary Action</a>
-						</li>
-						<li>
-							<a className='button rounded-pill' href='#1'>
-								Primary Action
-							</a>
-						</li>
-					</ul>
-				</footer>
-			</div>
-		</div>
-	);
+    return (
+        <div
+            ref={modalContainer}
+            className={modalClasses}
+            aria-hidden={!isOpen}
+            aria-modal='true'
+            tabIndex={isOpen ? 0 : -1}
+            aria-describedby='modal-example-01-title'
+            role='dialog'
+            onClick={handleCloseOutside}
+        >
+            <div
+                ref={modalContent}
+                className={`${modalContentClasses} border-radius-2 box-shadow-3`}
+            >
+                <header className='modal__content__head border-bottom'>
+                    <h2 id='h3 modal-example-01-title'>
+                        {title}
+                    </h2>
+                    <ButtonIconOnly
+                        buttonType='button'
+                        iconHandle='close'
+                        utilities='font-size-md'
+                        clickHandler={handleModalClose}
+                    />
+                </header>
+                
+                <main className='modal__content__body flex-grow-1'>
+                    {children}
+                </main>
+                
+                {footerContent && (
+                    <footer className='modal__content__foot border-top'>
+                        {footerContent}
+                    </footer>
+                )}
+            </div>
+        </div>
+    );
 });
 
 export default Modal;
