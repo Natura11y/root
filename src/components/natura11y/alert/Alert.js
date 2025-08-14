@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, forwardRef } from 'react';
 
 import classNames from 'classnames';
 
@@ -6,7 +6,7 @@ import ButtonIconOnly from '../button/ButtonIconOnly';
 
 import Icon from '../icon/Icon';
 
-const Alert = ( props ) => {
+const Alert = forwardRef(( props, ref ) => {
 
   	const {
 		success = true,
@@ -40,6 +40,7 @@ const Alert = ( props ) => {
 
 	return (
 		<div
+			ref={ref}
 			className={`${componentClasses}`}
 			aria-labelledby='alert-label'
 			aria-describedby='alert-description'
@@ -66,6 +67,8 @@ const Alert = ( props ) => {
 			</div>
 		</div>
 	);
-};
+});
+
+Alert.displayName = 'Alert';
 
 export default Alert;

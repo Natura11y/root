@@ -64,7 +64,9 @@ const FormValidation = () => {
     setEnteredEmail(event.target.value); 
     setEnteredEmailTouched(true);
 
-    if (event.target.value !== '') {
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (event.target.value !== '' && emailRegex.test(event.target.value)) {
 			setEnteredEmailIsValid(true);
 		} else {
 			setEnteredEmailIsValid(false);
@@ -75,7 +77,9 @@ const FormValidation = () => {
     setEnteredPhone(event.target.value); 
     setEnteredPhoneTouched(true);
 
-    if (event.target.value !== '') {
+    // Basic phone validation (allows various formats)
+    const phoneRegex = /^[\+]?[1-9][\d]{0,15}$|^[\+]?[(]?[\d\s\-\(\)]{10,}$/;
+    if (event.target.value !== '' && phoneRegex.test(event.target.value.replace(/\s/g, ''))) {
 			setEnteredPhoneIsValid(true);
 		} else {
 			setEnteredPhoneIsValid(false);
@@ -122,7 +126,8 @@ const FormValidation = () => {
 
 		setEnteredNameIsValid(true);
 
-		if (enteredEmail.trim() === '') {
+		const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (enteredEmail.trim() === '' || !emailRegex.test(enteredEmail)) {
 			setEnteredEmailIsValid(false);
 			setFormErrors((current) => [...current, 'Email']);
 			return;
@@ -130,7 +135,8 @@ const FormValidation = () => {
 
 		setEnteredEmailIsValid(true);
 
-		if (enteredPhone.trim() === '') {
+		const phoneRegex = /^[\+]?[1-9][\d]{0,15}$|^[\+]?[(]?[\d\s\-\(\)]{10,}$/;
+		if (enteredPhone.trim() === '' || !phoneRegex.test(enteredPhone.replace(/\s/g, ''))) {
 			setEnteredPhoneIsValid(false);
 			setFormErrors((current) => [...current, 'Phone']);
 			return;

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef } from 'react';
 
 import classNames from 'classnames';
 
-const FormEntry = (props) => {
+const FormEntry = forwardRef((props, ref) => {
 
 	const {
 		labelText = 'Label',
@@ -27,7 +27,7 @@ const FormEntry = (props) => {
 		{
 			'is-invalid': showError,
 			'has-value': hasValue,
-			'active': isFocused && entryType !== 'groupRadio' && entryType !== 'groupCheck',
+			'is-focused': isFocused && entryType !== 'groupRadio' && entryType !== 'groupCheck',
 			[`${utilities}`]: utilities !== null
 		}
 	);
@@ -268,7 +268,7 @@ const FormEntry = (props) => {
 	};
 
 	return (
-		<div className={`${componentClasses}`} data-required={required}>
+		<div ref={ref} className={`${componentClasses}`} data-required={required}>
 			<FieldTag className={`form-entry__field ${floatClass}`}>
 				<LabelTag className={`form-entry__field__label ${screenReaderOnly}`}>
 					{labelText}
@@ -296,6 +296,8 @@ const FormEntry = (props) => {
 			)}
 		</div>
 	);
-};
+});
+
+FormEntry.displayName = 'FormEntry';
 
 export default FormEntry;

@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import RequiredIndicator from './RequiredIndicator';
 import FormEntry from './FormEntry';
 
-const Form = () => {
+const Form = forwardRef((props, ref) => {
   return (
 
-    <form >
+    <form ref={ref}>
 
         <RequiredIndicator />
 
@@ -32,6 +32,8 @@ const Form = () => {
     </form>
 
   );
-}
+});
+
+Form.displayName = 'Form';
 
 export default Form;
