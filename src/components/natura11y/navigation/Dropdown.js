@@ -1,66 +1,179 @@
-import React, { useRef, useState, useEffect, Fragment } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
-import { Link, useLocation } from 'react-router-dom';
-
+import { handleOverlayOpen, handleOverlayClose } from 'natura11y/src/js/utilities/overlay';
 import { getFocusableElements } from 'natura11y/src/js/utilities/focus';
 import { handleArrowKeyNavigation } from 'natura11y/src/js/utilities/keyboardNavigation';
+import { getCurrentBreakpoint } from 'natura11y/src/js/utilities/getCurrentBreakpoint';
+
+import DropdownMenu from './DropdownMenu';
 
 const Dropdown = ({ 
     title = 'Dropdown',
-    items = [
-        { to: '#1', label: 'One' },
-        { to: '#2', label: 'Two' },
-        { to: '#3', label: 'Three' }
-    ],
-    isMegaMenu = false,
-    megaMenuBreakpoint = 'lg',
+    children,
+    items,
     hover = false
 }) => {
 
     const dropdownButton = useRef();
-    const dropdownMenu = useRef();
-
-    const [dropdownShow, setDropdownShow] = useState(false);
-    const dropdownMenuId = `dropdown-${Math.random().toString(36).substr(2, 9)}`;
-
+    const dropdownContent = useRef();
+    const hoverTimeoutRef = useRef(null);
+    
+    const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
+    const dropdownId = `dropdown-${Math.random().toString(36).substring(2, 11)}`;
+    const hoverLeaveTimeout = 400; // 1 second delay for mega-menu leave
 
+    // Close dropdown on route change
     useEffect(() => {
-        let dropdownButtonParent = dropdownButton.current.closest('li');
-
-        const dropdownClickListener = (e) => {
-            let dropdownButtonClick = dropdownButtonParent.contains(e.target);
-
-            if (!dropdownButtonClick) {
-                setDropdownShow(false);
-            }
-        } 
-
-        window.addEventListener('click', dropdownClickListener);
-
-        return () => {
-            window.removeEventListener('click', dropdownClickListener);
-        }
-    }, []);
-
-    useEffect(() => {
-        setDropdownShow(false);
+        setIsOpen(false);
     }, [location]);
 
+    // Update ARIA and CSS classes when state changes
+    useEffect(() => {
+        const button = dropdownButton.current;
+        const menu = dropdownContent.current;
+        
+        if (!button || !menu) return;
+
+        if (isOpen) {
+            button.setAttribute('aria-expanded', 'true');
+            menu.classList.add('shown');
+            menu.setAttribute('aria-hidden', 'false');
+            
+            // Handle mega-menu overlay
+            if (menu.classList.contains('mega-menu')) {
+                handleOverlayOpen();
+            }
+        } else {
+            button.setAttribute('aria-expanded', 'false');
+            menu.classList.remove('shown');
+            menu.setAttribute('aria-hidden', 'true');
+            
+            // Handle mega-menu overlay
+            if (menu.classList.contains('mega-menu')) {
+                handleOverlayClose();
+            }
+        }
+    }, [isOpen]);
+
+    // Close other dropdowns when this one opens (React way)
+    useEffect(() => {
+        if (isOpen) {
+            // Close other dropdowns
+            document.querySelectorAll('[data-toggle="dropdown"]').forEach((otherButton) => {
+                if (otherButton !== dropdownButton.current) {
+                    const otherMenuId = otherButton.getAttribute('aria-controls');
+                    const otherMenu = document.getElementById(otherMenuId);
+                    if (otherMenu?.classList.contains('shown')) {
+                        otherMenu.classList.remove('shown');
+                        otherButton.setAttribute('aria-expanded', 'false');
+                        otherMenu.setAttribute('aria-hidden', 'true');
+                    }
+                }
+            });
+        }
+    }, [isOpen]);
+
+    // Handle outside clicks (React way)
+    useEffect(() => {
+        const handleOutsideClick = (event) => {
+            const button = dropdownButton.current;
+            const menu = dropdownContent.current;
+            
+            if (!button || !menu || !isOpen) return;
+            
+            const isClickInside = button.contains(event.target) || menu.contains(event.target);
+            
+            if (!isClickInside) {
+                setIsOpen(false);
+            }
+        };
+
+        const handleEscapeKey = (event) => {
+            if (event.key === 'Escape' && isOpen) {
+                setIsOpen(false);
+                dropdownButton.current?.focus();
+            }
+        };
+
+        document.addEventListener('mousedown', handleOutsideClick);
+        document.addEventListener('keydown', handleEscapeKey);
+
+        return () => {
+            document.removeEventListener('mousedown', handleOutsideClick);
+            document.removeEventListener('keydown', handleEscapeKey);
+        };
+    }, [isOpen]);
+
     const handleClick = () => {
-        setDropdownShow(!dropdownShow);
-    }
+        setIsOpen(!isOpen);
+    };
 
-    const handleKeyDown = (e) => {
-        if (!dropdownShow) return;
+    const handleMouseEnter = () => {
+        if (!hover) return;
 
-        const focusableElements = getFocusableElements(dropdownMenu.current);
+        // Only on desktop breakpoints
+        const { isDesktop } = getCurrentBreakpoint();
+        if (!isDesktop) return;
+
+        // Clear any existing leave timeout
+        if (hoverTimeoutRef.current) {
+            clearTimeout(hoverTimeoutRef.current);
+        }
+
+        // Open immediately - no delay on enter
+        setIsOpen(true);
+    };
+
+    const handleMouseLeave = (event) => {
+        if (!hover) return;
+
+        // Clear any existing timeout
+        if (hoverTimeoutRef.current) {
+            clearTimeout(hoverTimeoutRef.current);
+        }
+
+        // Check if moving to dropdown menu
+        const menu = dropdownContent.current;
+        const button = dropdownButton.current;
+        const relatedTarget = event.relatedTarget;
+        
+        const isMovingToDropdown = menu && (
+            menu.contains(relatedTarget) || 
+            menu === relatedTarget ||
+            button === relatedTarget ||
+            button.contains(relatedTarget)
+        );
+
+        if (!isMovingToDropdown) {
+            // Check if this is a mega-menu (needs delay) or regular dropdown (immediate)
+            const isMegaMenu = menu?.classList.contains('mega-menu');
+            
+            if (isMegaMenu) {
+                // Mega-menu: add delay for breathing room
+                hoverTimeoutRef.current = setTimeout(() => {
+                    setIsOpen(false);
+                }, hoverLeaveTimeout);
+            } else {
+                // Regular dropdown: close immediately
+                setIsOpen(false);
+            }
+        }
+    };
+
+    const handleKeyDown = (event) => {
+        if (!isOpen) return;
+
+        const menu = dropdownContent.current;
+        const focusableElements = getFocusableElements(menu);
         const currentIndex = focusableElements.findIndex(el => el === document.activeElement);
 
-        switch (e.code) {
+        switch (event.code) {
             case 'Escape':
-                setDropdownShow(false);
-                dropdownButton.current.focus();
+                event.preventDefault();
+                setIsOpen(false);
+                dropdownButton.current?.focus();
                 break;
             
             case 'ArrowDown':
@@ -68,7 +181,7 @@ const Dropdown = ({
             case 'Home':
             case 'End':
                 handleArrowKeyNavigation(
-                    e, 
+                    event, 
                     currentIndex, 
                     focusableElements, 
                     (targetIndex) => focusableElements[targetIndex]?.focus()
@@ -76,55 +189,53 @@ const Dropdown = ({
                 break;
             
             default:
-                // do nothing
+                break;
         }
     };
 
+    // Cleanup timeout on unmount
     useEffect(() => {
-        if (dropdownShow) {
-            document.addEventListener('keydown', handleKeyDown);
-        } else {
-            document.removeEventListener('keydown', handleKeyDown);
-        }
-
         return () => {
-            document.removeEventListener('keydown', handleKeyDown);
+            if (hoverTimeoutRef.current) {
+                clearTimeout(hoverTimeoutRef.current);
+            }
         };
-    }, [dropdownShow]);
-
-    const dropdownClasses = isMegaMenu 
-        ? `mega-menu mega-menu--${megaMenuBreakpoint} box-shadow-1--lg ${dropdownShow ? 'shown' : ''}`
-        : `nav__dropdown box-shadow-1--lg ${dropdownShow ? 'shown' : ''}`;
+    }, []);
 
     return (
-        <Fragment>
+        <>
             <button
                 ref={dropdownButton}
                 data-toggle="dropdown"
-                data-hover={hover ? 'true' : undefined}
-                aria-expanded={dropdownShow ? true : false}
-                aria-controls={dropdownMenuId}
+                data-hover={hover ? "true" : undefined}
+                aria-expanded="false"
+                aria-controls={dropdownId}
                 aria-haspopup="menu"
                 onClick={handleClick}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                onKeyDown={handleKeyDown}
             >
                 {title}
             </button>
 
-            <ul
-                ref={dropdownMenu}
-                id={dropdownMenuId}
-                className={dropdownClasses}
-                role="menu"
-                aria-hidden={!dropdownShow}
-            >
-                {items.map((item, index) => (
-                    <li key={index} role="menuitem">
-                        <Link to={item.to}>{item.label}</Link>
-                    </li>
-                ))}
-            </ul>
-        </Fragment>
+            {/* Support both patterns: items prop or children */}
+            {items ? (
+                <DropdownMenu 
+                    ref={dropdownContent}
+                    id={dropdownId}
+                    items={items}
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                />
+            ) : children && React.cloneElement(children, {
+                ref: dropdownContent,
+                id: dropdownId,
+                onMouseEnter: handleMouseEnter,
+                onMouseLeave: handleMouseLeave
+            })}
+        </>
     );
-}
+};
 
 export default Dropdown;

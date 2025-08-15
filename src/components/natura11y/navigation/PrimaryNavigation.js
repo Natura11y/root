@@ -4,10 +4,11 @@ import classNames from 'classnames';
 
 import { Link } from 'react-router-dom';
 
-import ButtonIconOnly from '../button/ButtonIconOnly';
 import Button from '../button';
+import ButtonIconOnly from '../button/ButtonIconOnly';
 
 import Dropdown from './Dropdown';
+import DropdownMenu from './DropdownMenu';
 import MegaMenu from './MegaMenu';
 import Brand from './Brand';
 
@@ -114,11 +115,8 @@ const PrimaryNavigation = ( props ) => {
 				<ul>
 					{includeMegaMenu && (
 						<li>
-							<MegaMenu 
-								title="Products"
-								breakpoint={breakpoint}
-								hover={true}
-								megaMenuContent={
+							<Dropdown title="Products" hover={true}>
+								<MegaMenu breakpoint={breakpoint}>
 									<div className="container">
 										<div className="grid grid--column-3--lg gap-4">
 											<div>
@@ -147,16 +145,14 @@ const PrimaryNavigation = ( props ) => {
 											</div>
 										</div>
 									</div>
-								}
-							/>
+								</MegaMenu>
+							</Dropdown>
 						</li>
 					)}
 					<li>
-						<Dropdown 
-							title="Company"
-							items={regularDropdownItems}
-							hover={true}
-						/>
+						<Dropdown title="Company" hover={true}>
+							<DropdownMenu items={regularDropdownItems} />
+						</Dropdown>
 					</li>
 					<li>
 						<Dropdown 
@@ -167,7 +163,7 @@ const PrimaryNavigation = ( props ) => {
 								{ to: '/modal', label: 'Modal' },
 								{ to: '/navigation', label: 'Navigation' }
 							]}
-							hover={true}
+							hover={false}
 						/>
 					</li>
 					<li>
@@ -228,6 +224,7 @@ const PrimaryNavigation = ( props ) => {
 			<div className='primary-nav__actions'>
 				<ButtonIconOnly iconHandle='mode-light-dark' ariaLabel='Toggle dark mode' />
 			</div>
+
 		</div>
 	);
 };

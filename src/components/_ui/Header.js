@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
+
 import PrimaryNavigation from '../natura11y/navigation/PrimaryNavigation';
 
 const Header = () => {
@@ -8,7 +9,7 @@ const Header = () => {
 		<>
 			<PrimaryNavigation 
 				navType="inline"
-				breakpoint="lg"
+				breakpoint="xl"
 				includeSearch={true}
 				includeMegaMenu={true}
 				utilities="theme-primary border-bottom"

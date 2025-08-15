@@ -1,12 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect } from 'react';
 
 import { LightboxProvider } from './context/LightboxContext';
 
 import classNames from 'classnames';
 
 import 'natura11y/src/scss/index.scss';
-import Navigation from 'natura11y/src/js/navigation';
 
 import Header from './components/_ui/Header';
 import Home from './components/_ui/Home';
@@ -14,15 +12,6 @@ import Example from './components/_ui/Example';
 
 const App = () => {
 
-	useEffect(() => {
-		// Initialize Natura11y Navigation
-		const navigation = new Navigation();
-		navigation.init();
-
-		return () => {
-			// Cleanup if needed
-		};
-	}, []);
 
 	const examples = [
 		{
