@@ -4,12 +4,10 @@ import classNames from 'classnames';
 
 import { Link } from 'react-router-dom';
 
-import Button from '../button';
 import ButtonIconOnly from '../button/ButtonIconOnly';
+import Button from '../button';
 
-import Dropdown from './Dropdown';
-import DropdownMenu from './DropdownMenu';
-import MegaMenu from './MegaMenu';
+import NavigationItem from './NavigationItem';
 import Brand from './Brand';
 
 import { getFocusableElements } from 'natura11y/src/js/utilities/focus';
@@ -21,7 +19,6 @@ const PrimaryNavigation = ( props ) => {
 		navType = 'inline', // 'inline' or 'below'
 		breakpoint = 'lg',
 		includeSearch = true,
-		includeMegaMenu = false,
 		utilities = null,
 	} = props;
 
@@ -80,21 +77,51 @@ const PrimaryNavigation = ( props ) => {
 		}
 	);
 
-	const megaMenuItems = [
-		{ to: '/products', label: 'Products' },
-		{ to: '/services', label: 'Services' },
-		{ to: '/solutions', label: 'Solutions' },
-		{ to: '/support', label: 'Support' },
-		{ to: '/resources', label: 'Resources' },
-		{ to: '/company', label: 'Company' }
-	];
-
-	const regularDropdownItems = [
+	const companyItems = [
 		{ to: '/about', label: 'About Us' },
 		{ to: '/team', label: 'Our Team' },
 		{ to: '/careers', label: 'Careers' },
 		{ to: '/contact', label: 'Contact' }
 	];
+
+	const componentItems = [
+		{ to: '/accordion', label: 'Accordion' },
+		{ to: '/button', label: 'Buttons' },
+		{ to: '/modal', label: 'Modal' },
+		{ to: '/navigation', label: 'Navigation' }
+	];
+
+	// Mega menu content
+	const megaMenuContent = (
+		<div className="container">
+			<div className="grid grid--column-3--lg gap-4">
+				<div>
+					<p className="h6 margin-bottom-2">Products</p>
+					<ul className="nav">
+						<li><Link to="/product-1">Product One</Link></li>
+						<li><Link to="/product-2">Product Two</Link></li>
+						<li><Link to="/product-3">Product Three</Link></li>
+					</ul>
+				</div>
+				<div>
+					<p className="h6 margin-bottom-2">Services</p>
+					<ul className="nav">
+						<li><Link to="/service-1">Service One</Link></li>
+						<li><Link to="/service-2">Service Two</Link></li>
+						<li><Link to="/service-3">Service Three</Link></li>
+					</ul>
+				</div>
+				<div>
+					<p className="h6 margin-bottom-2">Support</p>
+					<ul className="nav">
+						<li><Link to="/support-1">Documentation</Link></li>
+						<li><Link to="/support-2">Help Center</Link></li>
+						<li><Link to="/support-3">Contact Support</Link></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	);
 
 	return (
 		<div className={`${componentClasses}`}>
@@ -113,65 +140,41 @@ const PrimaryNavigation = ( props ) => {
 				onKeyDown={handleNavigationKeyDown}
 			>
 				<ul>
-					{includeMegaMenu && (
-						<li>
-							<Dropdown title="Products" hover={true}>
-								<MegaMenu breakpoint={breakpoint}>
-									<div className="container">
-										<div className="grid grid--column-3--lg gap-4">
-											<div>
-												<p className="h6 margin-bottom-2">Products</p>
-												<ul className="nav">
-													<li><Link to="/product-1">Product One</Link></li>
-													<li><Link to="/product-2">Product Two</Link></li>
-													<li><Link to="/product-3">Product Three</Link></li>
-												</ul>
-											</div>
-											<div>
-												<p className="h6 margin-bottom-2">Services</p>
-												<ul className="nav">
-													<li><Link to="/service-1">Service One</Link></li>
-													<li><Link to="/service-2">Service Two</Link></li>
-													<li><Link to="/service-3">Service Three</Link></li>
-												</ul>
-											</div>
-											<div>
-												<p className="h6 margin-bottom-2">Support</p>
-												<ul className="nav">
-													<li><Link to="/support-1">Documentation</Link></li>
-													<li><Link to="/support-2">Help Center</Link></li>
-													<li><Link to="/support-3">Contact Support</Link></li>
-												</ul>
-											</div>
-										</div>
-									</div>
-								</MegaMenu>
-							</Dropdown>
-						</li>
-					)}
-					<li>
-						<Dropdown title="Company" hover={true}>
-							<DropdownMenu items={regularDropdownItems} />
-						</Dropdown>
-					</li>
-					<li>
-						<Dropdown 
-							title="Components"
-							items={[
-								{ to: '/accordion', label: 'Accordion' },
-								{ to: '/button', label: 'Buttons' },
-								{ to: '/modal', label: 'Modal' },
-								{ to: '/navigation', label: 'Navigation' }
-							]}
-							hover={false}
-						/>
-					</li>
-					<li>
-						<Link to='/'>All Examples</Link>
-					</li>
-					<li>
-						<Link to='/blog'>Blog</Link>
-					</li>
+					{/* Mega Menu - Button dropdown with rich content */}
+					<NavigationItem
+						title="Products"
+						items={megaMenuContent}
+						isMegaMenu={true}
+						hover={true}
+						breakpoint={breakpoint}
+					/>
+					
+					{/* Link + Dropdown - Company page with submenu */}
+					<NavigationItem
+						title="Company"
+						to="/company"
+						items={companyItems}
+						hover={true}
+					/>
+					
+					{/* Button Dropdown - Components menu */}
+					<NavigationItem
+						title="Components"
+						items={componentItems}
+						hover={false}
+					/>
+					
+					{/* Simple Link - All Examples */}
+					<NavigationItem
+						title="All Examples"
+						to="/"
+					/>
+					
+					{/* Simple Link - Blog */}
+					<NavigationItem
+						title="Blog"
+						to="/blog"
+					/>
 				</ul>
 			</nav>
 
@@ -224,7 +227,6 @@ const PrimaryNavigation = ( props ) => {
 			<div className='primary-nav__actions'>
 				<ButtonIconOnly iconHandle='mode-light-dark' ariaLabel='Toggle dark mode' />
 			</div>
-
 		</div>
 	);
 };

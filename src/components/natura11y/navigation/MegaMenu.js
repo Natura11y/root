@@ -9,7 +9,7 @@ const MegaMenu = forwardRef(({
     return (
         <div
             ref={ref}
-            className={`mega-menu mega-menu--${breakpoint} box-shadow-3--xl`}
+            className={`mega-menu mega-menu--${breakpoint}`}
             role="menu"
             aria-hidden="true"
             {...props}
