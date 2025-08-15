@@ -123,9 +123,6 @@ const Example = ({ examples }) => {
 				return (
 					<div className='medium margin-x-auto'>
 						<LightboxExample />
-
-						
-						
 					</div>
 				);
 

@@ -1,11 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef, forwardRef } from 'react';
 
-import { getFilteredElements } from '../../../utilities/filter';
 
 import TabsNav from './TabsNav';
 import TabPanel from './TabPanel';
 
-const Tabs = () => {
+const Tabs = forwardRef((props, ref) => {
+
+    const { 
+        pill = false,
+        breakpoint = 'md' 
+    } = props;
 
   	const data = [
 		{
@@ -37,7 +41,7 @@ const Tabs = () => {
     const [activeTab, setActiveTab] = useState(data[0].title);
 
 	const tabs = useRef(null);
-	const tabButtons = useRef(null);
+	const tabButtons = useRef([]);
 
 	const handleClick = (e) => {
 
@@ -114,15 +118,12 @@ const Tabs = () => {
         </TabPanel>
 	));
 
-	useEffect(() => {
-		tabButtons.current = getFilteredElements(tabs.current, 'tab__button');
-	});
 
 	return (
 		<div
+			ref={ref || tabs}
 			className='tabs box-shadow-1'
 			role='tablist'
-			ref={tabs}
 		>
 
 			<TabsNav
@@ -130,11 +131,16 @@ const Tabs = () => {
 				activeTab={activeTab}
 				handleClick={handleClick}
 				handleKeyDown={handleKeyDown}
+				pill={pill}
+				breakpoint={breakpoint}
+				tabButtonRefs={tabButtons}
 			/>
 
 			{tabPanels}
 		</div>
 	);
-};
+});
+
+Tabs.displayName = 'Tabs';
 
 export default Tabs;

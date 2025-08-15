@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 
 import AccordionItem from './AccordionItem';
 
-import { getFilteredElements } from '../../../utilities/filter';
 
 const Accordion = ({ openDefault = null }) => {
 
@@ -68,7 +67,7 @@ const Accordion = ({ openDefault = null }) => {
   	const [openAccordion, setOpenAccordion] = useState(openDefault);
 
 	const accordion = useRef(null);
-	const accordionButtons = useRef();
+	const accordionButtons = useRef([]);
 
 	const handleClick = (e) => {
 
@@ -131,6 +130,7 @@ const Accordion = ({ openDefault = null }) => {
 			handleKeyDown={handleKeyDown}
 			id={`example-${index}`}
 			dataIndex={index}
+			buttonRef={el => accordionButtons.current[index] = el}
 		>
 
 			{item.content}
@@ -138,9 +138,6 @@ const Accordion = ({ openDefault = null }) => {
 		</AccordionItem>
 	));
 	
-	useEffect(() => {
-		accordionButtons.current = getFilteredElements(accordion.current, 'accordion__button');
-	}, []);
 
 	return (
 		<div

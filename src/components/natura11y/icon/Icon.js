@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 import classNames from 'classnames';
 
-const Icon = (props) => {
+const Icon = forwardRef((props, ref) => {
 
     const {
         iconHandle = 'home', 
@@ -19,10 +19,13 @@ const Icon = (props) => {
 
 	return (
         <span
+            ref={ref}
             className={componentClasses} 
             aria-hidden='true'>
         </span>
     );
-};
+});
+
+Icon.displayName = 'Icon';
 
 export default Icon;

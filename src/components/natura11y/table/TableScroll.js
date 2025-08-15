@@ -1,8 +1,8 @@
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { forwardRef, useRef, useState, useEffect, useCallback } from 'react';
 
 import Table from './Table';
 
-const TableScroll = (props) => {
+const TableScroll = forwardRef((props, ref) => {
 
     const { tableCaption = 'Table Caption' } = props;
 
@@ -38,9 +38,9 @@ const TableScroll = (props) => {
 
     return (
         <div
+            ref={scrollElement}
             className='table-scroll'
             data-scroll={scrollable ? true : false}
-            ref={scrollElement}
         >
             <small className='table-scroll__help'>Scroll to see whole table</small>
             <div
@@ -53,6 +53,8 @@ const TableScroll = (props) => {
             </div>
         </div>
     );
-};
+});
+
+TableScroll.displayName = 'TableScroll';
 
 export default TableScroll;

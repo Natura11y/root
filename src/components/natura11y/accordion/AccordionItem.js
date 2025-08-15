@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-import {getFocusableElements} from '../../../utilities/focus';
+import {getFocusableElements} from 'natura11y/src/js/utilities/focus';
 
 const AccordionItem = ( props ) => {
 
@@ -11,7 +11,8 @@ const AccordionItem = ( props ) => {
         handleClick = handleClick,
         handleKeyDown = handleKeyDown,
         id,
-        dataIndex
+        dataIndex,
+        buttonRef
     } = props;
 
     const accordionButton = useRef();
@@ -33,7 +34,10 @@ const AccordionItem = ( props ) => {
         <>
             <button
                 className='accordion__button h5'
-                ref={accordionButton}
+                ref={el => {
+                    accordionButton.current = el;
+                    if (buttonRef) buttonRef(el);
+                }}
                 id={`${id}`}
                 data-accordion='button'
                 aria-controls={`acc-panel-${id}`}

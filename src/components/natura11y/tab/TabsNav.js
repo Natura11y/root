@@ -1,18 +1,24 @@
-const TabsNav = ( props ) => {
+import React, { forwardRef } from 'react';
+import classNames from 'classnames';
+
+const TabsNav = forwardRef(( props, ref ) => {
 
     const { 
         data,
         breakpoint = 'md',
+        pill = false,
         activeTab,
         handleClick = handleClick,
-        handleKeyDown = handleKeyDown
+        handleKeyDown = handleKeyDown,
+        tabButtonRefs
     } = props;
 
 	const tabButtons = data.map((button, index) => (
 
 		<li key={index}>        
             <button
-                className='tab__button' 
+                ref={el => tabButtonRefs.current[index] = el}
+                className={activeTab === button.title ? 'is-active' : ''}
                 id={`tab-button-example-${index}`}
                 aria-controls={`tab-panel-example-${index}`}
                 aria-selected={activeTab === button.title ? true : false}
@@ -28,11 +34,21 @@ const TabsNav = ( props ) => {
         
 	));
 
+    const navClasses = classNames(
+        'tabs-nav',
+        `tabs-nav--horizontal--${breakpoint}`,
+        {
+            'tabs-nav--pill': pill
+        }
+    );
+
 	return (
-		<ul className='tabs-nav tabs-nav--horizontal'>
+		<ul ref={ref} className={navClasses}>
 			{tabButtons}
 		</ul>
 	);
-};
+});
+
+TabsNav.displayName = 'TabsNav';
 
 export default TabsNav;

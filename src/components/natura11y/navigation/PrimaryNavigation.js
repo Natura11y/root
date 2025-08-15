@@ -11,8 +11,8 @@ import Dropdown from './Dropdown';
 import MegaMenu from './MegaMenu';
 import Brand from './Brand';
 
-import { getFocusableElements } from '../../../utilities/focus';
-import { handleArrowKeyNavigation } from '../../../utilities/keyboardNavigation';
+import { getFocusableElements } from 'natura11y/src/js/utilities/focus';
+import { handleArrowKeyNavigation } from 'natura11y/src/js/utilities/keyboardNavigation';
 
 const PrimaryNavigation = ( props ) => {
 

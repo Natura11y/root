@@ -1,6 +1,6 @@
 import React, { createContext, useState, useRef, useEffect } from 'react';
 
-import { handleOverlayOpen, handleOverlayClose } from '../utilities/overlay';
+import { handleOverlayOpen, handleOverlayClose } from 'natura11y/src/js/utilities/overlay';
 
 import Lightbox from '../components/natura11y/lightbox/Lightbox';
 

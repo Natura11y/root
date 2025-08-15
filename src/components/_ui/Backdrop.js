@@ -42,7 +42,7 @@ const Backdrop = ( props ) => {
 			style={backdropStyle}
 		>
 
-			<div className='backdrop__image'>
+			<div className='backdrop__media'>
 				<img
 					className={`opacity-${imageOpacity}${imageOpacityModifier}`}
 					src={imageURL}

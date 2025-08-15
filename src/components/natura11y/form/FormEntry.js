@@ -101,7 +101,6 @@ const FormEntry = forwardRef((props, ref) => {
 						required={required}
 					/>
 				);
-				break;
 
 			case 'textarea':
 			
@@ -116,7 +115,6 @@ const FormEntry = forwardRef((props, ref) => {
 						onBlur={handleBlur}
 					></textarea>
 				);
-				break;
 
 			case 'select':
 
@@ -136,7 +134,6 @@ const FormEntry = forwardRef((props, ref) => {
 						<option value='Option Five'>Option Five</option>
 					</select>
 				);
-				break;
 
 
 			case 'groupRadio':
@@ -259,8 +256,6 @@ const FormEntry = forwardRef((props, ref) => {
 
 					</span>
 				);
-
-				break;
 
 			default:
 			// do nothing

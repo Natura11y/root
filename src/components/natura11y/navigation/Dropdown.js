@@ -2,8 +2,8 @@ import React, { useRef, useState, useEffect, Fragment } from 'react';
 
 import { Link, useLocation } from 'react-router-dom';
 
-import { getFocusableElements } from '../../../utilities/focus';
-import { handleArrowKeyNavigation } from '../../../utilities/keyboardNavigation';
+import { getFocusableElements } from 'natura11y/src/js/utilities/focus';
+import { handleArrowKeyNavigation } from 'natura11y/src/js/utilities/keyboardNavigation';
 
 const Dropdown = ({ 
     title = 'Dropdown',

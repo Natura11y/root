@@ -30,7 +30,7 @@ const Backdrop = ( props ) => {
 			className={componentClasses}
 			style={styleFixed}>
 
-			<div className='backdrop__image'>
+			<div className='backdrop__media'>
 				<img
 					className={`opacity-${imageOpacity}`}
 					src={imageURL}

@@ -4,9 +4,9 @@ import classNames from 'classnames';
 
 import ButtonIconOnly from '../button/ButtonIconOnly';
 
-import { getFocusableElements } from '../../../utilities/focus';
+import { getFocusableElements } from 'natura11y/src/js/utilities/focus';
 
-import { handleOverlayOpen, handleOverlayClose } from '../../../utilities/overlay';
+import { handleOverlayOpen, handleOverlayClose } from 'natura11y/src/js/utilities/overlay';
 
 const Modal = forwardRef((props, ref) => {
     const {
