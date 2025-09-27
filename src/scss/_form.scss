@@ -23,7 +23,7 @@ In this file:
 //////////////////////////////////////////////
 
 :root {
-    --form-field-padding-x: var(--spacer-3);
+    --form-field-padding-x: 1em;
 
     --form-field-padding-y: var(--button-padding-y);
 
@@ -260,7 +260,7 @@ In this file:
     }
 
     .form-entry__field:not([class*="--float"]) .form-entry__field__label {
-        margin-block-end: calc(var(--form-field-padding-y) * 0.75);
+        margin-block-end: var(--form-field-padding-y);
 
         &::before {
             @extend %required-icon;
@@ -432,7 +432,7 @@ In this file:
     .form-entry__help {    
         padding-inline: var(--form-field-padding-x);
 
-        margin-block-start: 0.5em;
+        margin-block-start: calc(var(--form-field-padding-y) * 0.75);
 
         display: block;
         
@@ -464,8 +464,11 @@ In this file:
     .form-entry__option {
         position: relative;
 
+        --border-color: var(--form-field-border-radius) ;
+
         border-width: var(--border-width);
         border-style: var(--border-style);
+
         border-radius: var(--form-field-border-radius);
 
         > div {
@@ -477,7 +480,7 @@ In this file:
         > div:not(:last-child) {
             border-block-end-width: var(--border-width);
             border-block-end-style: var(--border-style);
-            border-block-end-color: inherit;
+            // border-block-end-color: inherit;
         }
 
         > div > label:focus-within {
@@ -518,7 +521,7 @@ In this file:
             display: flex;
             align-items: baseline;
             
-            padding-inline-start: 1.25em;
+            padding-inline-start: calc(var(--icon-size) + calc(var(--form-field-padding-x) * 0.5));
 
             width: auto;
 
@@ -528,6 +531,7 @@ In this file:
         }
 
         > label > input {
+            position: absolute;
             background-color: transparent;
 
             opacity: 0;
@@ -545,6 +549,7 @@ In this file:
 
             opacity: 0.5;
         }
+
     }
 
     // Option Check
