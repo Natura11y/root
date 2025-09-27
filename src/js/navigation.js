@@ -1,7 +1,8 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 import { delegateEvent } from './utilities/eventDelegation';
 import { getCurrentBreakpoint } from './utilities/getCurrentBreakpoint';
-import { enableArrowNavigation, disableArrowNavigation } from './utilities/arrowNavigation';
+import { getFocusableElements } from './utilities/focus';
+import { handleArrowKeyNavigation } from './utilities/keyboardNavigation';
 
 export default class Navigation {
   
@@ -9,6 +10,8 @@ export default class Navigation {
 
   #isAnyDropdownOpen = false;
   #hoverTimeout = 400;
+
+  #primaryNavMenuList = document.querySelectorAll('.primary-nav__menu');
 
   // Private methods
 
@@ -23,11 +26,6 @@ export default class Navigation {
       handleOverlayOpen();
     }
 
-    // Enable arrow navigation within dropdown
-    enableArrowNavigation(dropdownMenu, {
-      selector: 'a, button',
-      keys: ['ArrowUp', 'ArrowDown', 'Home', 'End']
-    });
   }
 
   #closeDropdown(dropdownButton, dropdownMenu) {
@@ -40,8 +38,6 @@ export default class Navigation {
       handleOverlayClose();
     }
 
-    // Disable arrow navigation when dropdown closes
-    disableArrowNavigation(dropdownMenu);
   }
 
   #checkAnyDropdownOpen() {
@@ -274,12 +270,20 @@ export default class Navigation {
     window.addEventListener('click', this.#handleWindowClick);
     document.addEventListener('keydown', this.#handleEscapeKeyPress);
 
-    // Enable arrow key navigation for each primary navigation instance
-    document.querySelectorAll('.primary-nav__menu').forEach(nav => {
-      enableArrowNavigation(nav, {
-        selector: 'ul > li > :is(button, a)',
-        exclude: ['.nav__dropdown', '[class*="mega-menu"]']
+    // Arrow key navigation
+    this.#primaryNavMenuList.forEach(nav => {
+      delegateEvent(nav, 'keydown', ':is(button, a)', (event) => {
+        if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.code)) return;
+
+        const items = getFocusableElements(nav, { exclude: ['.nav__dropdown', '[class*="mega-menu"]'] });
+        const index = items.indexOf(event.target);
+
+        if (index === -1) return;
+
+        handleArrowKeyNavigation(event, index, items, (targetIndex) => items[targetIndex].focus());
       });
     });
+
   }
+  
 }

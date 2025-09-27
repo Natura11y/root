@@ -16,7 +16,9 @@ const activeFocusTraps = new Map();
 // A. Focusable Elements
 //////////////////////////////////////////////
 
-export const getFocusableElements = (element = document) => {
+export const getFocusableElements = (element = document, options = {}) => {
+
+    const { exclude = [] } = options;
 
     const els = [
         'a[href]',
@@ -36,7 +38,8 @@ export const getFocusableElements = (element = document) => {
     ];
 
     return [...element.querySelectorAll(els)].filter((el) => {
-        return !el.hasAttribute('disabled');
+        return !el.hasAttribute('disabled') &&
+               !exclude.some(exclusion => el.closest(exclusion));
     });
 }
 

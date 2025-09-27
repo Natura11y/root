@@ -50,9 +50,7 @@ export default class Tab {
       });
 
       delegateEvent(tab, 'keydown', '[role="tab"]', (event) => {
-        if (!['Enter', 'Space', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.code)) {
-          return;
-        }
+        if (!['Enter', 'Space', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.code)) return;
 
         const focusedTab = event.target.closest('[role="tab"]');
         const index = Array.from(tabsButtonList).indexOf(focusedTab);
