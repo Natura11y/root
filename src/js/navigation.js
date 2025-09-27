@@ -1,18 +1,19 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 import { delegateEvent } from './utilities/eventDelegation';
 import { getCurrentBreakpoint } from './utilities/getCurrentBreakpoint';
+import { enableArrowNavigation, disableArrowNavigation } from './utilities/arrowNavigation';
 
 export default class Navigation {
   
   // Private properties
-  
+
   #isAnyDropdownOpen = false;
   #hoverTimeout = 400;
 
   // Private methods
 
   #openDropdown(dropdownButton, dropdownMenu) {
-  
+
     this.#isAnyDropdownOpen = true;
 
     dropdownButton.setAttribute('aria-expanded', 'true');
@@ -21,10 +22,16 @@ export default class Navigation {
     if (dropdownMenu.classList.contains('mega-menu')) {
       handleOverlayOpen();
     }
+
+    // Enable arrow navigation within dropdown
+    enableArrowNavigation(dropdownMenu, {
+      selector: 'a, button',
+      keys: ['ArrowUp', 'ArrowDown', 'Home', 'End']
+    });
   }
 
   #closeDropdown(dropdownButton, dropdownMenu) {
-    
+
     this.#isAnyDropdownOpen = this.#checkAnyDropdownOpen();
     dropdownMenu.classList.remove('shown');
     dropdownButton.setAttribute('aria-expanded', 'false');
@@ -32,6 +39,9 @@ export default class Navigation {
     if (dropdownMenu.classList.contains('mega-menu')) {
       handleOverlayClose();
     }
+
+    // Disable arrow navigation when dropdown closes
+    disableArrowNavigation(dropdownMenu);
   }
 
   #checkAnyDropdownOpen() {
@@ -263,5 +273,13 @@ export default class Navigation {
 
     window.addEventListener('click', this.#handleWindowClick);
     document.addEventListener('keydown', this.#handleEscapeKeyPress);
+
+    // Enable arrow key navigation for each primary navigation instance
+    document.querySelectorAll('.primary-nav__menu').forEach(nav => {
+      enableArrowNavigation(nav, {
+        selector: 'ul > li > :is(button, a)',
+        exclude: ['.nav__dropdown', '[class*="mega-menu"]']
+      });
+    });
   }
 }
