@@ -270,10 +270,11 @@ export default class Navigation {
     window.addEventListener('click', this.#handleWindowClick);
     document.addEventListener('keydown', this.#handleEscapeKeyPress);
 
-    // Arrow key navigation
+    // Keyboard navigation
     this.#primaryNavMenuList.forEach(nav => {
       delegateEvent(nav, 'keydown', ':is(button, a)', (event) => {
-        if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(event.code)) return;
+      
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.code)) return;
 
         const items = getFocusableElements(nav, { exclude: ['.nav__dropdown', '[class*="mega-menu"]'] });
         const index = items.indexOf(event.target);

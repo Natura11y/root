@@ -49,6 +49,7 @@ export default class Tab {
         this.#activateTab(clickedTab, tabsButtonList, tabsPanelList);
       });
 
+      // Keyboard navigation  
       delegateEvent(tab, 'keydown', '[role="tab"]', (event) => {
         if (!['Enter', 'Space', 'ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.code)) return;
 
