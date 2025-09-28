@@ -481,10 +481,12 @@ In this file:
             border-radius: inherit;
         }
 
+        // Option Group Items
+
         > div {
             position: relative;
 
-            padding: var(--form-entry-padding-y) var(--form-entry-padding-x);
+            padding: calc(var(--form-entry-padding-y) * 1.25) var(--form-entry-padding-x);
 
             &:not(:last-child) {
                 border-block-end-width: var(--border-width);
@@ -494,6 +496,7 @@ In this file:
 
         > div > label {
             position: relative;
+
 
             &::before {
                 position: absolute;
@@ -620,7 +623,6 @@ In this file:
                     var(--focus-outline-width)
                     var(--focus-outline-style)
                     var(--focus-outline-color, var(--link-color, currentColor));
-
                 border-radius: var(--_focus-border-radius);
             }
         
@@ -633,10 +635,25 @@ In this file:
         }
     }
 
+    // Switch-specific focus styling
+    .form-entry__option__switch > label > input {
+        &:focus-visible ~ .switch__slider {
+        --focus-outline-offset: calc(var(--focus-outline-width) * 2);
+            outline:
+                var(--focus-outline-width)
+                var(--focus-outline-style)
+                var(--focus-outline-color, var(--link-color, currentColor));
+
+            outline-offset: var(--focus-outline-offset);
+
+            border-radius: calc(var(--toggle-switch-width) * 0.5);
+        }
+    }
+
     // Input Toggle Switch
 
     .form-entry__option__switch {
-        --toggle-switch-width: 1.5em;
+        --toggle-switch-width: var(--icon-size);
         --toggle-switch-transition: 0.2s;
         --toggle-switch-active-color: var(--confirm-color);
 
@@ -647,8 +664,8 @@ In this file:
 
             transform: translateY(-50%);
             
-            width: var(--toggle-switch-width); 
-            height: calc(var(--toggle-switch-width) * 0.5);
+            width: var(--toggle-switch-width);
+            aspect-ratio: 2 / 1;
             
             &::before,
             &::after {
