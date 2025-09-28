@@ -33,7 +33,7 @@ In this file:
 
     --form-field-border-color: currentColor;
     
-    --form-field-border-radius: var(--border-radius-2);
+    --form-field-border-radius: var(--border-radius-1);
 
     --form-entry-option-outer-border-color: var(--form-field-border-color);
 
@@ -801,6 +801,11 @@ In this file:
     }
     
     .is-invalid {
+    
+        [class*="form-entry__"] {
+            --form-field-border-color: var(--warn-color);
+            --form-field-border-width: calc(var(--border-width) * 2);
+        }
 
         .form-entry__help {
             display: none;
