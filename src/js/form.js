@@ -193,7 +193,7 @@ export default class FormInput extends FormBase {
 //////////////////////////////////////////////
 
 export class FormSubmission extends FormBase {
-  #formList = document.querySelectorAll('form[novalidate]');
+  #formList = document.querySelectorAll('form[data-validate]');
   #submitHandlers = new Map();
 
   #processFormErrors(formErrorsList, errorsArray) {
