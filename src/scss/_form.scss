@@ -23,19 +23,19 @@ In this file:
 //////////////////////////////////////////////
 
 :root {
-    --form-field-padding-x: 1em;
+    --form-entry-padding-x: 1em;
 
-    --form-field-padding-y: var(--button-padding-y);
+    --form-entry-padding-y: var(--button-padding-y);
 
-    --form-field-target-size: var(--button-target-size);
+    --form-entry-target-size: var(--button-target-size);
 
-    --form-field-border-width: var(--border-width);
+    --form-entry-border-width: var(--border-width);
 
-    --form-field-border-color: currentColor;
+    --form-entry-border-color: currentColor;
     
-    --form-field-border-radius: var(--border-radius-1);
+    --form-entry-border-radius: var(--border-radius-1);
 
-    --form-entry-option-outer-border-color: var(--form-field-border-color);
+    --form-entry-option-group-border-color: var(--form-entry-border-color);
 
     // Icons
 
@@ -260,11 +260,11 @@ In this file:
     .form-entry__field__label {
         font-weight: var(--font-weight-bold);
 
-        padding-inline: var(--form-field-padding-x);
+        padding-inline: var(--form-entry-padding-x);
     }
 
     .form-entry__field:not([class*="--float"]) .form-entry__field__label {
-        margin-block-end: var(--form-field-padding-y);
+        margin-block-end: var(--form-entry-padding-y);
 
         &::before {
             @extend %required-icon;
@@ -292,9 +292,9 @@ In this file:
     .form-entry__field__input {
         position: relative;
 
-        --border-color: var(--form-field-border-color);
-        border-radius: var(--form-field-border-radius);
-        border: var(--form-field-border-width) var(--border-style) var(--border-color);
+        --border-color: var(--form-entry-border-color);
+        border-radius: var(--form-entry-border-radius);
+        border: var(--form-entry-border-width) var(--border-style) var(--border-color);
 
         overflow: hidden;
 
@@ -305,9 +305,9 @@ In this file:
         ) {
             outline: none;
 
-            padding: var(--form-field-padding-y) var(--form-field-padding-x);
+            padding: var(--form-entry-padding-y) var(--form-entry-padding-x);
 
-            min-height: var(--form-field-target-size);
+            min-height: var(--form-entry-target-size);
         }
     }
 
@@ -325,7 +325,7 @@ In this file:
         button {
             --button-padding-y: 0;
             --button-border-radius: 0;
-            --button-target-size: calc(var(--form-field-target-size) - 0.75rem);
+            --button-target-size: calc(var(--form-entry-target-size) - 0.75rem);
             
             flex-shrink: 0;
 
@@ -341,7 +341,7 @@ In this file:
         }
 
         > .icon {
-            margin-inline: calc(var(--form-field-padding-x) * 0.5);
+            margin-inline: calc(var(--form-entry-padding-x) * 0.5);
         }
 
         > .icon + input {
@@ -362,7 +362,7 @@ In this file:
 
             align-items: center;
 
-            min-height: var(--form-field-target-size);
+            min-height: var(--form-entry-target-size);
 
             z-index: 1000;
 
@@ -417,7 +417,7 @@ In this file:
 
                 padding: 0 0.5em;
                 
-                margin-inline: calc(var(--form-field-padding-x) - 0.125em);
+                margin-inline: calc(var(--form-entry-padding-x) - 0.125em);
 
                 font-size: 0.75em;
 
@@ -430,9 +430,9 @@ In this file:
     // Form Entry Help
 
     .form-entry__help {    
-        padding-inline: var(--form-field-padding-x);
+        padding-inline: var(--form-entry-padding-x);
 
-        margin-block-start: calc(var(--form-field-padding-y) * 0.75);
+        margin-block-start: calc(var(--form-entry-padding-y) * 0.75);
 
         display: block;
         
@@ -454,7 +454,7 @@ In this file:
             
             transform: translateY(-50%);
             
-            margin-inline: var(--form-field-padding-x);
+            margin-inline: var(--form-entry-padding-x);
         }
 
     }
@@ -464,28 +464,32 @@ In this file:
     .form-entry__option {
         position: relative;
 
-        border-radius: var(--form-field-border-radius);
+        border-radius: var(--form-entry-border-radius);
 
-        &::before {
-            --border-color: var(--form-entry-option-outer-border-color);
-            
+        // Option Group border, prevents cascading border color to child elements
+
+        &::before {           
+            position: absolute; 
             content: "";
-            position: absolute;
             inset: 0;
 
-            border: var(--border-width) var(--border-style) var(--border-color);
+            border:
+                var(--form-entry-border-width) 
+                var(--border-style) 
+                var(--form-entry-option-group-border-color);
+
             border-radius: inherit;
         }
 
         > div {
             position: relative;
 
-            padding: var(--form-field-padding-y) var(--form-field-padding-x);
-        }
+            padding: var(--form-entry-padding-y) var(--form-entry-padding-x);
 
-        > div:not(:last-child) {
-            border-block-end-width: var(--border-width);
-            border-block-end-style: var(--border-style);
+            &:not(:last-child) {
+                border-block-end-width: var(--border-width);
+                border-block-end-style: var(--border-style);
+            }
         }
 
         > div > label {
@@ -495,11 +499,10 @@ In this file:
                 position: absolute;
                 content: "";
                 
-                inset: calc(var(--form-field-padding-y) * -1) calc(var(--form-field-padding-x) * -1);
+                inset: calc(var(--form-entry-padding-y) * -1) calc(var(--form-entry-padding-x) * -1);
 
                 pointer-events: inherit;
             }
-
         }
     }
 
@@ -513,7 +516,7 @@ In this file:
             display: flex;
             align-items: baseline;
             
-            padding-inline-start: calc(var(--icon-size) + calc(var(--form-field-padding-x) * 0.5));
+            padding-inline-start: calc(var(--icon-size) + calc(var(--form-entry-padding-x) * 0.5));
 
             width: auto;
 
@@ -592,7 +595,7 @@ In this file:
     // Shared Focus and Checked States
     
     .form-entry__option__check {
-        --_focus-border-radius: calc( var(--form-field-border-radius) * 0.5);
+        --_focus-border-radius: calc( var(--form-entry-border-radius) * 0.5);
     }
     
     .form-entry__option__radio {
@@ -740,7 +743,7 @@ In this file:
 
         overflow: hidden;
         
-        border-radius: var(--form-field-border-radius);
+        border-radius: var(--form-entry-border-radius);
         
         pointer-events: none;
 
@@ -771,7 +774,7 @@ In this file:
         display: flex;
         justify-content: space-between;
 
-        margin-block-start: var(--form-field-padding-y);
+        margin-block-start: var(--form-entry-padding-y);
         
         font-size: var(--font-size-sm);
     }
@@ -788,10 +791,10 @@ In this file:
        
         margin-block-start: 0.5rem;
 
-        padding-inline: calc(var(--form-field-padding-x) * 0.5);
+        padding-inline: calc(var(--form-entry-padding-x) * 0.5);
 
         :is(.icon, .message > strong) {
-            margin-inline-end: calc(var(--form-field-padding-x) * 0.375);
+            margin-inline-end: calc(var(--form-entry-padding-x) * 0.375);
         }
     }
 
@@ -803,8 +806,8 @@ In this file:
     .is-invalid {
     
         [class*="form-entry__"] {
-            --form-field-border-color: var(--warn-color);
-            --form-field-border-width: calc(var(--border-width) * 2);
+            --form-entry-border-color: var(--warn-color);
+            --form-entry-border-width: calc(var(--border-width) * 2);
         }
 
         .form-entry__help {

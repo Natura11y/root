@@ -4,7 +4,17 @@ import { delegateEvent } from './utilities/eventDelegation';
 // A. Shared Methods & Base Class
 //////////////////////////////////////////////
 
-const isEmpty = (value) => !value?.trim();
+const isEmpty = (value, element) => {
+  // For groups
+  if (element?.type === 'checkbox' || element?.type === 'radio') {
+    
+    const groupName = element.name;
+    const groupInputs = document.querySelectorAll(`input[name="${groupName}"]`);
+    return !Array.from(groupInputs).some(input => input.checked);
+  }
+  // For single fields
+  return !value?.trim();
+};
 
 const setFieldValidity = (field, isValid, invalidClasses = ['is-invalid']) => {
   const entryRoot = field.closest('.form-entry');
@@ -30,7 +40,7 @@ class FormBase {
   }
 
   #checkIfEmpty(field) {
-    const isFieldEmpty = isEmpty(field.value);
+    const isFieldEmpty = isEmpty(field.value, field);
     setFieldValidity(field, !isFieldEmpty, this.#invalidClasses);
     return isFieldEmpty;
   }
@@ -88,7 +98,10 @@ export default class FormInput extends FormBase {
   }
 
   // Attach input event listener to dynamically validate while typing
-  #addDynamicValidation(formEntryInput) {
+  #addDynamicValidation(formEntryInput, isRequired) {
+    // Only add validation for required fields
+    if (!isRequired) return;
+    
     // Remove existing handler if any
     const existingHandler = this.#inputHandlers.get(formEntryInput);
     if (existingHandler) {
@@ -112,7 +125,7 @@ export default class FormInput extends FormBase {
     }
 
     // Add dynamic validation on input event (removes error class when user types)
-    this.#addDynamicValidation(formEntryInput);
+    this.#addDynamicValidation(formEntryInput, isRequired);
 
     // Handle input change on 'change' event
     const existingChangeHandler = this.#changeHandlers.get(formEntryInput);
