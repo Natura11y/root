@@ -527,14 +527,6 @@ In this file:
 
             display: flex;
             align-items: center;
-
-            .form-entry:not([class*="active"]) .form-entry__field__input::after {
-                display: none;
-            }
-
-            .form-entry__field {
-                border-radius: var(--button-border-radius);
-            }
         }
 
         > [class*="__actions"] {
@@ -701,8 +693,8 @@ In this file:
         }
 
         .form-entry__field {
-            border: var(--border-width);
-            border-style: var(--border-style);
+            --form-field-border-color: var(--border-color);
+            --form-field-border-radius: var(--button-border-radius);
         }
     }
 
