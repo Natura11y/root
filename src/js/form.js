@@ -225,13 +225,17 @@ export class FormSubmission extends FormBase {
   #scrollToFirstError(form) {
     const firstError = form.querySelector('.is-invalid, [data-alert]');
     if (firstError) {
-      window.scrollTo({ top: firstError.offsetTop - 16, behavior: 'smooth' });
+      const errorInput = firstError.querySelector('input, select, textarea');
+      if (errorInput) {
+        errorInput.focus();
+        errorInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
     }
   }
 
   #handleFormSubmission(form) {
-    // Remove existing handler if any
     const existingHandler = this.#submitHandlers.get(form);
+
     if (existingHandler) {
       form.removeEventListener('submit', existingHandler);
     }
@@ -242,6 +246,7 @@ export class FormSubmission extends FormBase {
       const errorsArray = [];
 
       const inputFields = form.querySelectorAll('input, select, textarea');
+      
       inputFields.forEach((field) => {
         if (field.hasAttribute('required')) {
           this._checkIfEmpty(field);
