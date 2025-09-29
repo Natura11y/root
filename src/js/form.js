@@ -224,17 +224,19 @@ export class FormSubmission extends FormBase {
   }
 
   #announceErrors(form, errorCount) {
-    const liveRegion = document.createElement('div');
-    liveRegion.className = 'form-live-region sr-only';
-    liveRegion.setAttribute('aria-live', 'polite');
-    liveRegion.setAttribute('aria-atomic', 'true');
+    const alertHTML = `
+      <div class="alert alert--warn font-size-md margin-bottom-4" aria-labelledby="alert-label" aria-describedby="alert-description" role="alert">
+        <div class="alert__title h5">
+          <span class="icon icon-warn" aria-hidden="true"></span>
+          <span class="alert__title__text" id="alert-label">Form Validation Error</span>
+        </div>
+        <div class="alert__description" id="alert-description">
+          <p>${errorCount === 1 ? 'There is 1 error' : `There are ${errorCount} errors`} in the form. Please review and correct the highlighted fields below.</p>
+        </div>
+      </div>
+    `;
 
-    const message = errorCount === 1
-      ? 'There is 1 error in the form. Please review and correct.'
-      : `There are ${errorCount} errors in the form. Please review and correct.`;
-
-    liveRegion.textContent = message;
-    form.appendChild(liveRegion);
+    form.insertAdjacentHTML('afterbegin', alertHTML);
   }
 
   #scrollToFirstError(form) {
@@ -258,10 +260,10 @@ export class FormSubmission extends FormBase {
     const handler = (event) => {
       event.preventDefault();
 
-      // Clean up any existing live region
-      const existingLiveRegion = form.querySelector('.form-live-region');
-      if (existingLiveRegion) {
-        existingLiveRegion.remove();
+      // Clean up any existing alert
+      const existingAlert = form.querySelector('.alert');
+      if (existingAlert) {
+        existingAlert.remove();
       }
 
       this.formSubmitAttempted = true;
@@ -304,7 +306,9 @@ export class FormSubmission extends FormBase {
 //////////////////////////////////////////////
 
 export class FormFileUpload extends FormBase {
+
   #fileUploadList = document.querySelectorAll('.file-upload');
+
   #fileUploadHandlers = new Map();
 
   #handleFileChange(fileUpload) {
@@ -354,6 +358,7 @@ export class FormFileUpload extends FormBase {
   }
 
   #handleFileUpload(fileUpload) {
+  
     const fileUploadInput = fileUpload.querySelector('input[type="file"]');
     
     // Remove existing handlers if any
