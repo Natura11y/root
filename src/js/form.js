@@ -7,9 +7,10 @@ import { delegateEvent } from './utilities/eventDelegation';
 const isEmpty = (value, element) => {
   // For groups
   if (element?.type === 'checkbox' || element?.type === 'radio') {
-    
+
     const groupName = element.name;
-    const groupInputs = document.querySelectorAll(`input[name="${groupName}"]`);
+    const form = element.closest('form');
+    const groupInputs = form ? form.querySelectorAll(`input[name="${groupName}"]`) : document.querySelectorAll(`input[name="${groupName}"]`);
     return !Array.from(groupInputs).some(input => input.checked);
   }
   // For single fields
@@ -213,13 +214,27 @@ export class FormSubmission extends FormBase {
 
   #createErrorMessage(desc, inst) {
     return `
-      <small class="form-entry__feedback" role="alert">
+      <small class="form-entry__feedback">
         <span class="icon icon-warn" aria-hidden="true"></span>
         <span class="message">
           <strong>${desc}</strong> ${inst || ''}
         </span>
       </small>
     `;
+  }
+
+  #announceErrors(form, errorCount) {
+    const liveRegion = document.createElement('div');
+    liveRegion.className = 'form-live-region sr-only';
+    liveRegion.setAttribute('aria-live', 'polite');
+    liveRegion.setAttribute('aria-atomic', 'true');
+
+    const message = errorCount === 1
+      ? 'There is 1 error in the form. Please review and correct.'
+      : `There are ${errorCount} errors in the form. Please review and correct.`;
+
+    liveRegion.textContent = message;
+    form.appendChild(liveRegion);
   }
 
   #scrollToFirstError(form) {
@@ -242,11 +257,18 @@ export class FormSubmission extends FormBase {
 
     const handler = (event) => {
       event.preventDefault();
+
+      // Clean up any existing live region
+      const existingLiveRegion = form.querySelector('.form-live-region');
+      if (existingLiveRegion) {
+        existingLiveRegion.remove();
+      }
+
       this.formSubmitAttempted = true;
       const errorsArray = [];
 
       const inputFields = form.querySelectorAll('input, select, textarea');
-      
+
       inputFields.forEach((field) => {
         if (field.hasAttribute('required')) {
           this._checkIfEmpty(field);
@@ -258,6 +280,7 @@ export class FormSubmission extends FormBase {
 
       if (errorsArray.length > 0) {
         event.preventDefault();
+        this.#announceErrors(form, errorsArray.length);
         this.#scrollToFirstError(form);
       }
     };
