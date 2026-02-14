@@ -34,6 +34,4 @@ const Form = forwardRef((props, ref) => {
   );
 });
 
-Form.displayName = 'Form';
-
 export default Form;

@@ -293,6 +293,4 @@ const FormEntry = forwardRef((props, ref) => {
 	);
 });
 
-FormEntry.displayName = 'FormEntry';
-
 export default FormEntry;

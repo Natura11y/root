@@ -1,4 +1,5 @@
 import { forwardRef } from 'react';
+
 import classNames from 'classnames';
 
 const TabsNav = forwardRef(( props, ref ) => {
@@ -48,7 +49,5 @@ const TabsNav = forwardRef(( props, ref ) => {
 		</ul>
 	);
 });
-
-TabsNav.displayName = 'TabsNav';
 
 export default TabsNav;

@@ -13,6 +13,4 @@ const RequiredIndicator = forwardRef(({text = 'Required fields indicated with'},
 	);
 });
 
-RequiredIndicator.displayName = 'RequiredIndicator';
-
 export default RequiredIndicator;

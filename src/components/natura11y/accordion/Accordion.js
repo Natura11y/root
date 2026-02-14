@@ -2,7 +2,6 @@ import { useState, useRef } from 'react';
 
 import AccordionItem from './AccordionItem';
 
-
 const Accordion = ({ openDefault = null }) => {
 
   	const data = [

@@ -19,6 +19,4 @@ const MegaMenu = forwardRef(({
     );
 });
 
-MegaMenu.displayName = 'MegaMenu';
-
 export default MegaMenu;

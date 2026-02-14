@@ -55,6 +55,4 @@ const TableScroll = forwardRef((props, ref) => {
     );
 });
 
-TableScroll.displayName = 'TableScroll';
-
 export default TableScroll;

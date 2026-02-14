@@ -21,6 +21,4 @@ const TabPanel = forwardRef(( props, ref ) => {
 	);
 });
 
-TabPanel.displayName = 'TabPanel';
-
 export default TabPanel;

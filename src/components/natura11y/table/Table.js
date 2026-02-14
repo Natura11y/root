@@ -1,8 +1,8 @@
 import { forwardRef } from 'react';
 
-import {tableData} from './tableData';
-
 import classNames from 'classnames';
+
+import { tableData } from './tableData';
 
 const Table = forwardRef(( props, ref ) => {
 
@@ -69,7 +69,5 @@ const Table = forwardRef(( props, ref ) => {
     </table>
   );
 });
-
-Table.displayName = 'Table';
 
 export default Table;

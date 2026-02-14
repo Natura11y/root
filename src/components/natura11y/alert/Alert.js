@@ -3,7 +3,6 @@ import { useRef, forwardRef } from 'react';
 import classNames from 'classnames';
 
 import ButtonIconOnly from '../button/ButtonIconOnly';
-
 import Icon from '../icon/Icon';
 
 const Alert = forwardRef(( props, ref ) => {
@@ -68,7 +67,5 @@ const Alert = forwardRef(( props, ref ) => {
 		</div>
 	);
 });
-
-Alert.displayName = 'Alert';
 
 export default Alert;

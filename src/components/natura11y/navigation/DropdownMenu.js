@@ -1,4 +1,5 @@
 import { forwardRef } from 'react';
+
 import { Link } from 'react-router-dom';
 
 const DropdownMenu = forwardRef(({ 
@@ -26,7 +27,5 @@ const DropdownMenu = forwardRef(({
         </ul>
     );
 });
-
-DropdownMenu.displayName = 'DropdownMenu';
 
 export default DropdownMenu;

@@ -1,6 +1,5 @@
 import { useState, useRef, forwardRef } from 'react';
 
-
 import TabsNav from './TabsNav';
 import TabPanel from './TabPanel';
 
@@ -140,7 +139,5 @@ const Tabs = forwardRef((props, ref) => {
 		</div>
 	);
 });
-
-Tabs.displayName = 'Tabs';
 
 export default Tabs;
