@@ -70,7 +70,7 @@ const exampleConfig = {
 	},
 	track: {
 		component: TrackExamples,
-		wrapperClass: null,
+		wrapperClass: 'container wide--md',
 		title: 'Track',
 	},
 };
