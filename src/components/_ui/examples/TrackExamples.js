@@ -45,7 +45,7 @@ const TrackExamples = () => {
 			<Track
 				ariaLabel='Featured Content'
 				trackId='track-example-1'
-				utilities='track--column-3--lg track--peeking--lg'
+				utilities='track--column-2--lg track--peeking--lg'
 				panels={panels}
 				floatDirectionalButtons={true}
 			/>
