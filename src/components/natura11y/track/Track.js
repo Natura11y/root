@@ -104,7 +104,6 @@ const Track = (props) => {
         const intersectingPanel = intersectingEntry.target;
         const pageIndex = parseInt(intersectingPanel.getAttribute('data-page'), 10);
 
-        console.log('Intersecting Panel:', intersectingPanel, 'Page Index:', pageIndex);
         debouncedSetPageIndex(pageIndex); // Set page index only if it has changed
       }
     }, {
@@ -246,11 +245,8 @@ const Track = (props) => {
   // Keep refs in sync with state
   useEffect(() => {
     currentPageIndexRef.current = currentPageIndex;
-  }, [currentPageIndex]);
-
-  useEffect(() => {
     trackPagesRef.current = trackPages;
-  }, [trackPages]);
+  }, [currentPageIndex, trackPages]);
 
   // Initialize
   useEffect(() => {

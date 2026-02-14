@@ -4,7 +4,7 @@ const TrackPanel = ({ panel }) => {
       <div className="backdrop__media">
         <img className="opacity-50" src={panel.imageUrl} alt={panel.altText} />
       </div>
-      <div className="backdrop__cover align-content-end">
+      <div className="backdrop__cover justify-content-end">
         <div className="margin-2">
           <span className="button font-size-sm">{panel.buttonText}</span>
         </div>
