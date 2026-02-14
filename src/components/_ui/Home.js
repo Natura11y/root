@@ -1,12 +1,6 @@
-
-import { useParams, Outlet } from 'react-router-dom';
-
 import Preview from './Preview';
 
 const Home = ({ examples }) => {
-
-	const { slug } = useParams();
-
 	const exampleLinks = examples.map((component, index) => (
 		<Preview
 			key={index}
@@ -20,13 +14,9 @@ const Home = ({ examples }) => {
 	return (
 		<>
 			<h1 className='screen-reader-only'>Component Examples</h1>
-			{slug === undefined
-				? (
-					<div className="grid gap-border margin-y-6">
-						{exampleLinks}
-					</div>
-				) : <Outlet examples={examples} id={slug} />
-			}
+			<div className="grid gap-border margin-y-6">
+				{exampleLinks}
+			</div>
 		</>
 	);
 };

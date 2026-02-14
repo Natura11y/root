@@ -10,73 +10,81 @@ import Tabs from '../natura11y/tab/Tabs';
 import ButtonExamples from './examples/ButtonExamples';
 import NavigationExamples from './examples/NavigationExamples';
 import TableExamples from './examples/TableExamples';
+import IconExamples from './examples/IconExamples';
 
 import Backdrop from './Backdrop';
 
 // Configuration map for all examples
+
 const exampleConfig = {
 	accordion: {
 		component: Accordion,
 		wrapperClass: 'narrow margin-x-auto',
+		title: 'Accordion',
 	},
 	alert: {
 		component: AlertParent,
 		wrapperClass: 'narrow margin-x-auto',
+		title: 'Alert',
 	},
 	button: {
 		component: ButtonExamples,
-		wrapperClass: null, // ButtonExamples handles its own layout
+		wrapperClass: null,
+		title: 'Button',
 	},
 	form: {
 		component: FormValidation,
 		wrapperClass: 'narrow margin-x-auto',
+		title: 'Form',
+	},
+	icon: {
+		component: IconExamples,
+		wrapperClass: null,
+		title: 'Icon',
 	},
 	modal: {
 		component: ModalParent,
 		wrapperClass: 'narrow margin-x-auto',
+		title: 'Modal',
 	},
 	lightbox: {
 		component: LightboxExample,
 		wrapperClass: 'medium margin-x-auto',
+		title: 'Lightbox',
 	},
 	navigation: {
 		component: NavigationExamples,
-		wrapperClass: null, // NavigationExamples handles its own layout
+		wrapperClass: 'container',
+		title: 'Navigation',
 	},
 	tab: {
 		component: Tabs,
 		wrapperClass: 'medium margin-x-auto',
+		title: 'Tab',
 	},
 	table: {
 		component: TableExamples,
-		wrapperClass: null, // TableExamples handles its own layout
+		wrapperClass: null,
+		title: 'Table',
 	},
 };
 
-const Example = ({ examples }) => {
+const ExampleDetailPage = () => {
 	const { slug } = useParams();
+	const config = exampleConfig[slug];
 
-	const examplesList = examples
-		.filter((header) => header.slug === slug)
-		.map((header, index) => (
-			<Backdrop
-				key={index}
-				title={header.title}
-				fixedHeight='400px'
-				imageURL={`images/banner/${header.slug}.jpg`}
-			/>
-		));
+	if (!config) {
+		return (
+			<div className="container narrow margin-y-5">
+				<h1>Example not found</h1>
+				<p>The example you're looking for doesn't exist.</p>
+			</div>
+		);
+	}
+
+	const { component: Component, wrapperClass, title } = config;
 
 	const renderExample = () => {
-		const config = exampleConfig[slug];
-
-		if (!config) {
-			return null;
-		}
-
-		const { component: Component, wrapperClass } = config;
-
-		// If there's a wrapper class, wrap the component
 		if (wrapperClass) {
 			return (
 				<div className={wrapperClass}>
@@ -84,20 +92,22 @@ const Example = ({ examples }) => {
 				</div>
 			);
 		}
-
-		// Otherwise render the component directly (it handles its own layout)
 		return <Component />;
 	};
 
 	return (
-		<div>
-			{examplesList}
+		<>
+			<Backdrop
+				title={title}
+				fixedHeight='600px'
+				imageURL={`/images/banner/${slug}.jpg`}
+			/>
 
-			<div className='margin-y-5'>
+			<div className='margin-y-6'>
 				{renderExample()}
 			</div>
-		</div>
+		</>
 	);
 };
 
-export default Example;
+export default ExampleDetailPage;

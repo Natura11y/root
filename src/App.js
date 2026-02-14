@@ -8,7 +8,7 @@ import 'natura11y/src/scss/index.scss';
 
 import Header from './components/_ui/Header';
 import Home from './components/_ui/Home';
-import Example from './components/_ui/Example';
+import ExampleDetailPage from './components/_ui/ExampleDetailPage';
 import About from './components/_ui/About';
 
 const App = () => {
@@ -55,20 +55,29 @@ const App = () => {
 		},
 	];
 
-  	return ( 
+  	return (
 		<Router>
-			
+
 			<Header />
-			
+
 			<LightboxProvider>
-				<main className={classNames('container', 'medium')}>
-					<Routes>
-						<Route path='/' element={<Home examples={examples} />}>
-							<Route path=':slug' element={<Example examples={examples} />} />
-						</Route>
-						<Route path='/about' element={<About />} />
-					</Routes>
-				</main>
+				<Routes>
+					<Route path='/' element={
+						<main className={classNames('container', 'medium')}>
+							<Home examples={examples} />
+						</main>
+					} />
+					<Route path='/examples/:slug' element={
+						<main>
+							<ExampleDetailPage />
+						</main>
+					} />
+					<Route path='/about' element={
+						<main className={classNames('container', 'medium')}>
+							<About />
+						</main>
+					} />
+				</Routes>
 			</LightboxProvider>
 		</Router>
 	);
