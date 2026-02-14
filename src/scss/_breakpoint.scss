@@ -37,11 +37,17 @@ $breakpoints: map.merge((null : 0), $breakpoints);
 
 @function breakpoint-value($name, $breakpoint) {
   $value: map.get($breakpoint, $name);
-  @return if($value != 0, $value, null);
+  @if $value != 0 {
+    @return $value;
+  }
+  @return null;
 }
 
 @function breakpoint-modifier($name, $breakpoint) {
-  @return if(breakpoint-value($name, $breakpoint) == null, "", "--#{$name}");
+  @if breakpoint-value($name, $breakpoint) == null {
+    @return "";
+  }
+  @return "--#{$name}";
 }
 
 //////////////////////////////////////////////
