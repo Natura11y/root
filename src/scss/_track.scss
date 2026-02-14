@@ -14,7 +14,7 @@
 :root {
     --visible-panels: 1;
 
-    --panel-peeking: calc(var(--container-padding-x) * 4);
+    --panel-peeking: var(--container-padding-x);
 }
 
 $track-panels: 8;
@@ -53,6 +53,8 @@ $track-panels: 8;
     }
 
     .track__container {
+        --_button-offset: calc((var(--button-target-size) * 0.5) + var(--_peeking, 0px));
+
         position: relative;
         overflow: hidden;
 
@@ -62,22 +64,21 @@ $track-panels: 8;
             inset-block-start: 50%;
 
             z-index: 20;
+            transform: translateY(-50%);
         }
 
         .track__prev {
-            inset-inline-start: calc(var(--button-target-size) * 0.5);
-            transform: translateY(-50%) translateX(calc(var(--_peeking, var(--button-target-size)) - var(--button-target-size)));
+            inset-inline-start: var(--_button-offset);
         }
 
         .track__next {
-            inset-inline-end:  calc(var(--button-target-size) * 0.5);
-            transform: translateY(-50%) translateX(calc(-1 * var(--_peeking, var(--button-target-size)) + var(--button-target-size)));
+            inset-inline-end: var(--_button-offset);
         }
     }
 
     // Track Panels (Scrollable <ul>)
 
-    .track__panels {  
+    .track__panels {
         position: relative;
 
         display: grid;
@@ -92,18 +93,21 @@ $track-panels: 8;
 
         scroll-snap-type: inline mandatory;
 
-        scroll-behavior: smooth;
-
-        li {
-            position: relative;
-        }
-
         /* Hide scrollbars */
         scrollbar-width: none;
         -ms-overflow-style: none;
-            
-        &::-webkit-scrollbar{
+
+        &::-webkit-scrollbar {
             display: none;
+        }
+
+        // Only animate scrolling if user hasn't requested reduced motion
+        @media (prefers-reduced-motion: no-preference) {
+            scroll-behavior: smooth;
+        }
+
+        li {
+            position: relative;
         }
     }
 
@@ -212,9 +216,8 @@ $track-panels: 8;
     }
 
     // Track Peeking Modifier
-    
-    .track--peeking:not(.hide-controls) {
-        --_peeking: var(--panel-peeking);
+
+    [class*="track--peeking"]:not(.hide-controls) {
 
         .track__container {
 
@@ -224,8 +227,8 @@ $track-panels: 8;
                 position: absolute;
                 inset-block: 0;
 
-                width: var(--panel-peeking);
-                
+                width: var(--_peeking);
+
                 background: var(--background-color);
 
                 opacity: 1;
@@ -245,17 +248,45 @@ $track-panels: 8;
         }
 
         .track__panels {
-            padding-inline: var(--panel-peeking);
+            padding-inline: var(--_peeking);
         }
 
         .track__panel {
-            scroll-margin: var(--panel-peeking);
+            scroll-margin: var(--_peeking);
         }
 
         > .track__pagination {
             --_justify-pages: center;
-            
-            margin-inline: var(--panel-peeking);
+
+            margin-inline: var(--_peeking);
+        }
+    }
+
+    // Track Peeking Breakpoint Modifiers
+
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+            .track--peeking#{$mod} {
+                --_peeking: var(--panel-peeking);
+            }
+        }
+    }
+
+    // Track Peeking Edge Modifier
+
+    [class*="track--peeking-edge"] {
+        max-width: 100dvw;
+    }
+
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+            .track--peeking-edge#{$mod} {
+                margin-inline: calc(-1 * var(--panel-peeking));
+            }
         }
     }
 

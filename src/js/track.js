@@ -117,15 +117,27 @@ export default class Track {
 
         trackElement.currentPageIndex = pageIndex;
 
+        // Set flag to prevent observer interference during programmatic navigation
+        trackElement.isNavigating = true;
+
+        // Respect user's motion preferences
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
         trackPanels.scrollTo({
             left: targetPanel.offsetLeft,
-            behavior: 'smooth',
+            behavior: prefersReducedMotion ? 'auto' : 'smooth',
         });
 
         clearTimeout(this.#scrollTimeout);
+
+        // Update pagination immediately for instant scroll, or after animation for smooth scroll
+        const updateDelay = prefersReducedMotion ? 0 : 300;
+
         this.#scrollTimeout = setTimeout(() => {
             this.#updatePagination(trackElement, pageIndex);
-        }, 300);
+            // Clear navigation flag after update completes
+            trackElement.isNavigating = false;
+        }, updateDelay);
     }
 
     #navigateToNext(trackElement) {
@@ -161,6 +173,10 @@ export default class Track {
                     );
 
                     const updateOnScrollEnd = () => {
+                        // Skip observer updates during programmatic navigation
+                        if (trackElement.isNavigating) {
+                            return;
+                        }
                         trackElement.currentPageIndex = pageIndex;
                         this.#updatePagination(trackElement, pageIndex);
                     };
@@ -179,8 +195,8 @@ export default class Track {
             });
         }, {
             root: trackPanels,
-            threshold: 0.5, // Adjust threshold to balance multiple panels being visible
-            rootMargin: `0px -${panelPeeking * 0.5}px`, // Simplified negative root margin for both sides
+            threshold: 0.5,
+            rootMargin: `0px -${panelPeeking * 0.5}px`,
         });
 
         trackElement.pages.forEach(page => {
@@ -220,14 +236,51 @@ export default class Track {
         trackElement.tabbingObserver = tabbingObserver; // Save for cleanup
     }
 
-    // Delegate keyboard navigation to allow both ArrowLeft and ArrowRight only when focused on next/prev buttons
+    // Keyboard navigation with arrow keys - moves focus to appropriate button after navigation
     #initKeyboardNavigation(trackElement) {
-        // Delegate the keydown event to the next/previous buttons
+        // Navigation buttons: arrow keys navigate carousel and move focus
         delegateEvent(trackElement, 'keydown', '[data-track-prev], [data-track-next]', (event) => {
-            if (event.code === 'ArrowRight' && event.target.matches('[data-track-next]')) {
+            const prevButton = trackElement.querySelector('[data-track-prev]');
+            const nextButton = trackElement.querySelector('[data-track-next]');
+
+            if (event.code === 'ArrowRight') {
+                event.preventDefault();
                 this.#navigateToNext(trackElement);
-            } else if (event.code === 'ArrowLeft' && event.target.matches('[data-track-prev]')) {
+                nextButton?.focus();
+            } else if (event.code === 'ArrowLeft') {
+                event.preventDefault();
                 this.#navigateToPrev(trackElement);
+                prevButton?.focus();
+            }
+        });
+
+        // Panels: arrow keys move focus between visible panels only
+        delegateEvent(trackElement, 'keydown', '.track__panel', (event) => {
+            if (event.code !== 'ArrowRight' && event.code !== 'ArrowLeft') {
+                return;
+            }
+
+            // Always prevent default to stop arrow keys from doing unexpected things
+            event.preventDefault();
+
+            const currentPanel = event.target.closest('.track__panel');
+            const currentPage = trackElement.pages[trackElement.currentPageIndex];
+            const currentIndex = currentPage.indexOf(currentPanel);
+
+            if (currentIndex === -1) return;
+
+            let targetPanel = null;
+
+            if (event.code === 'ArrowRight' && currentIndex < currentPage.length - 1) {
+                targetPanel = currentPage[currentIndex + 1];
+            } else if (event.code === 'ArrowLeft' && currentIndex > 0) {
+                targetPanel = currentPage[currentIndex - 1];
+            }
+
+            // Only move focus if there's a valid target panel
+            if (targetPanel) {
+                const focusableElements = getFocusableElements(targetPanel);
+                focusableElements[0]?.focus();
             }
         });
     }
