@@ -22,7 +22,7 @@ const Home = ({ examples }) => {
 			<h1 className='screen-reader-only'>Component Examples</h1>
 			{slug === undefined
 				? (
-					<div className="grid gap-border">
+					<div className="grid gap-border margin-y-6">
 						{exampleLinks}
 					</div>
 				) : <Outlet examples={examples} id={slug} />

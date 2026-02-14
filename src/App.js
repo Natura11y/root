@@ -9,6 +9,7 @@ import 'natura11y/src/scss/index.scss';
 import Header from './components/_ui/Header';
 import Home from './components/_ui/Home';
 import Example from './components/_ui/Example';
+import About from './components/_ui/About';
 
 const App = () => {
 	const examples = [
@@ -65,6 +66,7 @@ const App = () => {
 						<Route path='/' element={<Home examples={examples} />}>
 							<Route path=':slug' element={<Example examples={examples} />} />
 						</Route>
+						<Route path='/about' element={<About />} />
 					</Routes>
 				</main>
 			</LightboxProvider>

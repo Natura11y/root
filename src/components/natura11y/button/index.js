@@ -16,6 +16,8 @@ const Button = (props) => {
 		iconHandle = null,
 		utilities = null,
 		clickHandler = null,
+		target = null,
+		rel = null,
 	} = props;
 
 	const componentClasses = classNames('button', {
@@ -49,7 +51,12 @@ const Button = (props) => {
 			</Link>
 		),
 		a: (
-			<a className={componentClasses} href={linkUrl}>
+			<a
+				className={componentClasses}
+				href={linkUrl}
+				target={target}
+				rel={rel}
+			>
 				{buttonContents}
 			</a>
 		),
