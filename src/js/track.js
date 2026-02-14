@@ -41,6 +41,9 @@ export default class Track {
         const visiblePanels = this.#getVisiblePanels(trackPanels);
         const trackId = trackElement.getAttribute('data-track-id');
 
+        // Prevent the panels container from being tabbable
+        trackPanels.setAttribute('tabindex', '-1');
+
         const pages = [];
         let currentPage = [];
 
@@ -182,13 +185,25 @@ export default class Track {
                     };
 
                     if (pageIndex !== -1) {
+                        // Remove existing scroll handler before adding new one
+                        if (trackPanels.scrollHandler) {
+                            const eventType = trackPanels.scrollEventType || 'scroll';
+                            trackPanels.removeEventListener(eventType, trackPanels.scrollHandler);
+                        }
+
+                        // Use addEventListener instead of direct assignment
                         if ('onscrollend' in window) {
-                            trackPanels.onscrollend = updateOnScrollEnd;
+                            trackPanels.scrollEventType = 'scrollend';
+                            trackPanels.scrollHandler = updateOnScrollEnd;
+                            trackPanels.addEventListener('scrollend', updateOnScrollEnd);
                         } else {
-                            trackPanels.onscroll = () => {
+                            const scrollHandler = () => {
                                 clearTimeout(this.#scrollTimeout);
                                 this.#scrollTimeout = setTimeout(updateOnScrollEnd, 250);
                             };
+                            trackPanels.scrollEventType = 'scroll';
+                            trackPanels.scrollHandler = scrollHandler;
+                            trackPanels.addEventListener('scroll', scrollHandler);
                         }
                     }
                 }
@@ -311,6 +326,14 @@ export default class Track {
             if (trackElement.pageObserver) trackElement.pageObserver.disconnect();
             if (trackElement.tabbingObserver) trackElement.tabbingObserver.disconnect();
 
+            // Remove scroll handler
+            if (trackPanels.scrollHandler) {
+                const eventType = trackPanels.scrollEventType || 'scroll';
+                trackPanels.removeEventListener(eventType, trackPanels.scrollHandler);
+                delete trackPanels.scrollHandler;
+                delete trackPanels.scrollEventType;
+            }
+
             trackElement.currentPageIndex = 0;
 
             const panelPeeking = this.#getPeekingPadding(trackPanels);
@@ -345,6 +368,14 @@ export default class Track {
         // Cleanup observers
         if (trackElement.pageObserver) trackElement.pageObserver.disconnect();
         if (trackElement.tabbingObserver) trackElement.tabbingObserver.disconnect();
+
+        // Remove scroll handler
+        if (trackPanels.scrollHandler) {
+            const eventType = trackPanels.scrollEventType || 'scroll';
+            trackPanels.removeEventListener(eventType, trackPanels.scrollHandler);
+            delete trackPanels.scrollHandler;
+            delete trackPanels.scrollEventType;
+        }
 
         trackElement.currentPageIndex = 0;
 
@@ -419,6 +450,16 @@ export default class Track {
         ['pageObserver', 'tabbingObserver', 'resizeObserver'].forEach(observer => {
             if (trackElement[observer]) trackElement[observer].disconnect();
         });
+
+        // Clean up scroll handlers
+        const cached = this.#getCachedElements(trackElement);
+        const trackPanels = cached.panels;
+        if (trackPanels?.scrollHandler) {
+            const eventType = trackPanels.scrollEventType || 'scroll';
+            trackPanels.removeEventListener(eventType, trackPanels.scrollHandler);
+            delete trackPanels.scrollHandler;
+            delete trackPanels.scrollEventType;
+        }
 
         clearTimeout(this.#scrollTimeout);
     }
