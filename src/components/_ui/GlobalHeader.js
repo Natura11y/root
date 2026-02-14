@@ -18,7 +18,9 @@ const GlobalHeader = () => {
 		<div className="primary-nav--inline--lg border-bottom">
 			<div className="primary-nav__logo">
 				<Link to="/" title="Home" data-logo="brand">
-					Natura11y React Components
+					<p className='font-weight-bold'>
+						Natura11y React<br />Components
+					</p> 
 				</Link>
 			</div>
 
