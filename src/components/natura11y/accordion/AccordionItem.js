@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import {getFocusableElements} from 'natura11y/src/js/utilities/focus';
 

@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef, useState, useEffect, useCallback } from 'react';
+import { forwardRef, useRef, useState, useEffect, useCallback } from 'react';
 
 import Table from './Table';
 

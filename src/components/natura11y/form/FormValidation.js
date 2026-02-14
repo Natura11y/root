@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect, useRef } from 'react';
+import { Fragment, useState, useEffect, useRef } from 'react';
 
 import RequiredIndicator from './RequiredIndicator';
 import FormEntry from './FormEntry';

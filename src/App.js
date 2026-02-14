@@ -11,8 +11,6 @@ import Home from './components/_ui/Home';
 import Example from './components/_ui/Example';
 
 const App = () => {
-
-
 	const examples = [
 		{
 			title: 'Accordion',

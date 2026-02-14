@@ -1,9 +1,33 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback, useMemo, useId } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { getFocusableElements } from 'natura11y/src/js/utilities/focus';
 import { handleArrowKeyNavigation } from 'natura11y/src/js/utilities/keyboardNavigation';
+import { handleOverlayOpen, handleOverlayClose } from 'natura11y/src/js/utilities/overlay';
+import { getCurrentBreakpoint } from 'natura11y/src/js/utilities/getCurrentBreakpoint';
 
-const NavigationItem = ({ 
+// Custom hook for hover capability detection
+const useHoverCapability = () => {
+    return useMemo(() => {
+        if (typeof window === 'undefined') return false;
+        return window.matchMedia?.('(hover: hover) and (pointer: fine)').matches ?? false;
+    }, []);
+};
+
+// Custom hook for breakpoint checking
+const useBreakpointCheck = (isMegaMenu, breakpoint) => {
+    return useCallback(() => {
+        if (!isMegaMenu || !breakpoint) return true;
+
+        const currentBp = getCurrentBreakpoint().value;
+        const breakpoints = ['sm', 'md', 'lg', 'xl', 'xxl'];
+        const currentIndex = breakpoints.indexOf(currentBp);
+        const requiredIndex = breakpoints.indexOf(breakpoint);
+
+        return currentIndex !== -1 && currentIndex >= requiredIndex;
+    }, [isMegaMenu, breakpoint]);
+};
+
+const NavigationItem = ({
     title,
     to = null, // Optional page link
     items = [], // Dropdown items
@@ -15,46 +39,67 @@ const NavigationItem = ({
     const buttonRef = useRef();
     const menuRef = useRef();
     const location = useLocation();
-    
-    const menuId = `nav-menu-${Math.random().toString(36).substr(2, 9)}`;
+    const menuId = useId();
+
+    // Custom hooks for capability checks
+    const hasHoverCapability = useHoverCapability();
+    const isAtBreakpoint = useBreakpointCheck(isMegaMenu, breakpoint);
 
     // Close menu when location changes
     useEffect(() => {
         setIsOpen(false);
     }, [location]);
 
-    // Close menu when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (!buttonRef.current?.closest('li')?.contains(e.target)) {
-                setIsOpen(false);
-            }
-        };
-
-        window.addEventListener('click', handleClickOutside);
-        return () => window.removeEventListener('click', handleClickOutside);
+    // Memoized click outside handler
+    const handleClickOutside = useCallback((e) => {
+        if (!buttonRef.current?.closest('li')?.contains(e.target)) {
+            setIsOpen(false);
+        }
     }, []);
 
-    const handleButtonClick = () => {
-        setIsOpen(!isOpen);
-    };
+    // Close menu when clicking outside
+    useEffect(() => {
+        window.addEventListener('click', handleClickOutside);
+        return () => window.removeEventListener('click', handleClickOutside);
+    }, [handleClickOutside]);
 
-    // Hover functionality
-    const handleMouseEnter = () => {
-        if (hover) {
+    // Handle overlay for mega menu (adds has-overlay class and prevents scrolling)
+    // Only applies overlay at the correct breakpoint (e.g., mega-menu--lg only overlays on lg+ viewports)
+    useEffect(() => {
+        if (!isMegaMenu || !menuRef.current || !isAtBreakpoint()) return;
+
+        if (isOpen) {
+            handleOverlayOpen(menuRef.current);
+        } else {
+            handleOverlayClose(menuRef.current);
+        }
+    }, [isOpen, isMegaMenu, isAtBreakpoint]);
+
+    // Memoize whether hover should be enabled
+    const shouldEnableHover = useMemo(() => {
+        if (!hover || !hasHoverCapability) return false;
+        return !isMegaMenu || isAtBreakpoint();
+    }, [hover, hasHoverCapability, isMegaMenu, isAtBreakpoint]);
+
+    // Memoized event handlers
+    const handleButtonClick = useCallback(() => {
+        setIsOpen(prev => !prev);
+    }, []);
+
+    const handleMouseEnter = useCallback(() => {
+        if (shouldEnableHover) {
             setIsOpen(true);
         }
-    };
+    }, [shouldEnableHover]);
 
-    const handleMouseLeave = () => {
-        if (hover) {
-            // Add delay for mega menus to prevent accidental closing
+    const handleMouseLeave = useCallback(() => {
+        if (shouldEnableHover) {
             const delay = isMegaMenu ? 500 : 0;
             setTimeout(() => {
                 setIsOpen(false);
             }, delay);
         }
-    };
+    }, [shouldEnableHover, isMegaMenu]);
 
     // Combined keyboard navigation handler
     const handleMenuKeyDown = (e) => {

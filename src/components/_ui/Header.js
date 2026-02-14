@@ -1,4 +1,3 @@
-import React from 'react';
 
 import { Link } from 'react-router-dom';
 
@@ -10,9 +9,9 @@ const Header = () => {
 			<PrimaryNavigation 
 				navType="inline"
 				breakpoint="xl"
-				includeSearch={true}
+				includeSearch={false}
 				includeMegaMenu={true}
-				utilities="theme-primary border-bottom"
+				utilities="border-bottom"
 			/>
 			<div className='container wide display-flex justify-content-center padding-y-4'>
 				<Link to='/'>

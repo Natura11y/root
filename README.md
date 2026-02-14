@@ -14,10 +14,18 @@ Natura11y is an open-source front-end toolkit for building modern websites.
 
 In the project directory, you can run:
 
-### `npm start`
+### `npm run dev`
 
-Runs the app in the development mode.
+Runs the app in development mode with Vite.
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+### `npm run build`
+
+Builds the app for production to the `dist` folder.
+
+### `npm run preview`
+
+Previews the production build locally.
 
 ---
 

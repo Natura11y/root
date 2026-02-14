@@ -1,4 +1,4 @@
-import React, { createContext, useState, useRef, useEffect } from 'react';
+import { createContext, useState, useRef, useEffect } from 'react';
 
 import { handleOverlayOpen, handleOverlayClose } from 'natura11y/src/js/utilities/overlay';
 

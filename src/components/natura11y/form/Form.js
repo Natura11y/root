@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import { forwardRef } from 'react';
 
 import RequiredIndicator from './RequiredIndicator';
 import FormEntry from './FormEntry';
