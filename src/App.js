@@ -6,6 +6,7 @@ import classNames from 'classnames';
 
 import 'natura11y/src/scss/index.scss';
 
+import ScrollToTop from './components/_ui/ScrollToTop';
 import Header from './components/_ui/Header';
 import Home from './components/_ui/Home';
 import ExampleDetailPage from './components/_ui/ExampleDetailPage';
@@ -61,6 +62,7 @@ const App = () => {
 
   	return (
 		<Router>
+			<ScrollToTop />
 
 			<Header />
 
