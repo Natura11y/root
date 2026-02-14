@@ -1,5 +1,3 @@
-![Naturally Inclusive Framework Logo](./naturally-logo.svg)
-
 # Natura11y React Components
 
 Natura11y's prebuilt React components make starting any React project a breeze. Combine the ease of styling with Natura11y and React's efficient, component-based development experience.

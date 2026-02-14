@@ -1,4 +1,3 @@
-
 const Brand = () => {
 
     const logoPlaceholder = (

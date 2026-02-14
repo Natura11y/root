@@ -73,14 +73,14 @@ const App = () => {
 							<Home examples={examples} />
 						</main>
 					} />
-					<Route path='/examples/:slug' element={
-						<main>
-							<ExampleDetailPage />
-						</main>
-					} />
 					<Route path='/about' element={
 						<main className={classNames('container', 'medium')}>
 							<About />
+						</main>
+					} />
+					<Route path='/:slug' element={
+						<main>
+							<ExampleDetailPage />
 						</main>
 					} />
 				</Routes>

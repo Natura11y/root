@@ -2,7 +2,6 @@ import { useState, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
-import Brand from '../natura11y/navigation/Brand';
 import ButtonIconOnly from '../natura11y/button/ButtonIconOnly';
 import Button from '../natura11y/button';
 
@@ -19,7 +18,7 @@ const GlobalHeader = () => {
 		<div className="primary-nav--inline--lg border-bottom">
 			<div className="primary-nav__logo">
 				<Link to="/" title="Home" data-logo="brand">
-					<Brand />
+					Natura11y React Components
 				</Link>
 			</div>
 
@@ -30,14 +29,6 @@ const GlobalHeader = () => {
 				aria-label="Main Menu"
 			>
 				<ul>
-					<li>
-						<Link
-							to="/"
-							aria-current={location.pathname === '/' ? 'page' : undefined}
-						>
-							Examples
-						</Link>
-					</li>
 					<li>
 						<Link
 							to="/about"

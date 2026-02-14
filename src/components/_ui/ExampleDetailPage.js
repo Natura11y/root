@@ -13,7 +13,7 @@ import TableExamples from './examples/TableExamples';
 import IconExamples from './examples/IconExamples';
 import TrackExamples from './examples/TrackExamples';
 
-import Backdrop from './Backdrop';
+import Preview from './Preview';
 
 // Configuration map for all examples
 
@@ -103,7 +103,7 @@ const ExampleDetailPage = () => {
 
 	return (
 		<>
-			<Backdrop
+			<Preview
 				title={title}
 				fixedHeight='600px'
 				imageURL={`/images/banner/${slug}.jpg`}

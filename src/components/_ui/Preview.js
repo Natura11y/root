@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 import classNames from 'classnames';
 
-const Backdrop = ( props ) => {
+const Preview = ( props ) => {
 
-    const { 
+    const {
 		title = 'Backdrop Title',
 		fixedHeight = null,
 		imageOpacity = '30',
@@ -14,7 +14,7 @@ const Backdrop = ( props ) => {
 		slug = '/'
 	} = props;
 
-	const componentClasses = classNames(
+	const backdropClasses = classNames(
 		'backdrop',
 		{
 			'backdrop--fixed': fixedHeight !== null
@@ -22,11 +22,11 @@ const Backdrop = ( props ) => {
 	);
 
 	let styleFixed = {'--backdrop-fixed-height': fixedHeight !== null ? `${fixedHeight}` : null };
-	
+
 	return (
 		<Link
-			to={`/examples/${slug}`}
-			className={componentClasses}
+			to={`/${slug}`}
+			className={backdropClasses}
 			style={styleFixed}>
 
 			<div className='backdrop__media'>
@@ -42,9 +42,9 @@ const Backdrop = ( props ) => {
 					<h1 className='text-shadow'>{title}</h1>
 				</div>
 			</div>
-		
+
 		</Link>
 	);
 }
 
-export default Backdrop;
+export default Preview;
