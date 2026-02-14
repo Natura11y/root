@@ -65,13 +65,14 @@ const NavigationItem = ({
 
     // Handle overlay for mega menu (adds has-overlay class and prevents scrolling)
     // Only applies overlay at the correct breakpoint (e.g., mega-menu--lg only overlays on lg+ viewports)
+    // Note: Don't pass element to handleOverlayOpen for mega menus - we only want overlay/scroll prevention, not focus trap
     useEffect(() => {
         if (!isMegaMenu || !menuRef.current || !isAtBreakpoint()) return;
 
         if (isOpen) {
-            handleOverlayOpen(menuRef.current);
+            handleOverlayOpen(); // No element = no focus trap, just overlay
         } else {
-            handleOverlayClose(menuRef.current);
+            handleOverlayClose();
         }
     }, [isOpen, isMegaMenu, isAtBreakpoint]);
 
