@@ -15,6 +15,21 @@ export default class Navigation {
 
   // Private methods
 
+  #isAtBreakpoint(dropdownMenu) {
+    const megaMenuClass = Array.from(dropdownMenu.classList).find(cls => cls.startsWith('mega-menu--'));
+
+    if (!megaMenuClass) return true;
+
+    const requiredBp = megaMenuClass.split('--')[1];
+    const currentBp = getCurrentBreakpoint().value;
+
+    const breakpoints = ['sm', 'md', 'lg', 'xl', 'xxl'];
+    const currentIndex = breakpoints.indexOf(currentBp);
+    const requiredIndex = breakpoints.indexOf(requiredBp);
+
+    return currentIndex !== -1 && currentIndex >= requiredIndex;
+  }
+
   #openDropdown(dropdownButton, dropdownMenu) {
 
     this.#isAnyDropdownOpen = true;
@@ -22,7 +37,7 @@ export default class Navigation {
     dropdownButton.setAttribute('aria-expanded', 'true');
     dropdownMenu.classList.add('shown');
 
-    if (dropdownMenu.classList.contains('mega-menu')) {
+    if (Array.from(dropdownMenu.classList).some(cls => cls.startsWith('mega-menu')) && this.#isAtBreakpoint(dropdownMenu)) {
       handleOverlayOpen();
     }
 
@@ -34,7 +49,7 @@ export default class Navigation {
     dropdownMenu.classList.remove('shown');
     dropdownButton.setAttribute('aria-expanded', 'false');
 
-    if (dropdownMenu.classList.contains('mega-menu')) {
+    if (Array.from(dropdownMenu.classList).some(cls => cls.startsWith('mega-menu')) && this.#isAtBreakpoint(dropdownMenu)) {
       handleOverlayClose();
     }
 
@@ -241,10 +256,15 @@ export default class Navigation {
 
     // Responsive hover logic
     const setupResponsiveHover = () => {
+      // Check if any mega menu is at its required breakpoint
+      const shouldEnableHover = Array.from(document.querySelectorAll('[class*="mega-menu"]')).some(menu =>
+        this.#isAtBreakpoint(menu)
+      );
+
       if (
         window.matchMedia &&
         window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
-        getCurrentBreakpoint().isDesktop
+        shouldEnableHover
       ) {
         addHoverListeners();
       } else {
