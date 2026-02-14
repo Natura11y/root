@@ -18,9 +18,9 @@ const Alert = forwardRef(( props, ref ) => {
 
 	const closeButtonRef = useRef();
 
-	const componentClasses = classNames(
+	const alertClasses = classNames(
 		'alert',
-		{ 
+		{
 			'alert--confirm' : success && !inverse,
 			'alert--confirm--inverse' : success && inverse,
 			'alert--warn' : !success && !inverse,
@@ -30,8 +30,8 @@ const Alert = forwardRef(( props, ref ) => {
 		}
 	);
 
-	const iconClass = classNames(
-		{ 
+	const alertIconClasses = classNames(
+		{
 			'confirm' : success,
 			'warn' : !success
 		}
@@ -40,7 +40,7 @@ const Alert = forwardRef(( props, ref ) => {
 	return (
 		<div
 			ref={ref}
-			className={`${componentClasses}`}
+			className={alertClasses}
 			aria-labelledby='alert-label'
 			aria-describedby='alert-description'
 			role='alert'
@@ -55,7 +55,7 @@ const Alert = forwardRef(( props, ref ) => {
 			)}
 
 			<div className='alert__title h5'>
-				<Icon iconHandle={iconClass} />
+				<Icon iconHandle={alertIconClasses} />
 				<span className='alert__title__text' id='alert-label'>
 					{title}
 				</span>

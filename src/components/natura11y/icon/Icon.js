@@ -9,7 +9,7 @@ const Icon = forwardRef((props, ref) => {
         utilities = null
     } = props;
 
-    const componentClasses = classNames(
+    const iconClasses = classNames(
         'icon',
         [`icon-${iconHandle}`],
         {
@@ -20,7 +20,7 @@ const Icon = forwardRef((props, ref) => {
 	return (
         <span
             ref={ref}
-            className={componentClasses} 
+            className={iconClasses} 
             aria-hidden='true'>
         </span>
     );

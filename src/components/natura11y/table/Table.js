@@ -42,7 +42,7 @@ const Table = forwardRef(( props, ref ) => {
     );
   });
 
-	const componentClasses = classNames(
+	const tableClasses = classNames(
 		'table',
 		{
 			[`${utilities}`] : utilities !== null
@@ -50,7 +50,7 @@ const Table = forwardRef(( props, ref ) => {
 	);
 
   return (
-    <table ref={ref} className={componentClasses}>
+    <table ref={ref} className={tableClasses}>
 
       <caption>
         {tableData.caption}

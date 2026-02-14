@@ -22,7 +22,7 @@ const ButtonIconOverText = forwardRef((props, ref) => {
 		utilities = null,
 	} = props;
 
-	const componentClasses = classNames('button', 'button--icon-over-text', {
+	const buttonClasses = classNames('button', 'button--icon-over-text', {
 		[`${utilities}`]: utilities !== null,
 	});
 
@@ -42,7 +42,7 @@ const ButtonIconOverText = forwardRef((props, ref) => {
 			<button
 				ref={ref}
 				type={buttonType}
-				className={componentClasses}
+				className={buttonClasses}
 				onClick={clickHandler}
 				aria-label={ariaLabel}
 				aria-expanded={ariaExpanded}
@@ -53,7 +53,7 @@ const ButtonIconOverText = forwardRef((props, ref) => {
 		link: (
 			<Link
 				ref={ref}
-				className={componentClasses}
+				className={buttonClasses}
 				to={linkUrl}
 				aria-label={ariaLabel}
 			>
@@ -63,7 +63,7 @@ const ButtonIconOverText = forwardRef((props, ref) => {
 		a: (
 			<a
 				ref={ref}
-				className={componentClasses}
+				className={buttonClasses}
 				href={linkUrl}
 				aria-label={ariaLabel}
 			>

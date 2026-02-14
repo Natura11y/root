@@ -22,7 +22,7 @@ const FormEntry = forwardRef((props, ref) => {
 	const [isFocused, setIsFocused] = useState(false);
 	const [hasValue, setHasValue] = useState(false);
 
-	const componentClasses = classNames(
+	const formEntryClasses = classNames(
 		'form-entry',
 		{
 			'is-invalid': showError,
@@ -263,7 +263,7 @@ const FormEntry = forwardRef((props, ref) => {
 	};
 
 	return (
-		<div ref={ref} className={`${componentClasses}`} data-required={required}>
+		<div ref={ref} className={`${formEntryClasses}`} data-required={required}>
 			<FieldTag className={`form-entry__field ${floatClass}`}>
 				<LabelTag className={`form-entry__field__label ${screenReaderOnly}`}>
 					{labelText}

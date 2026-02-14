@@ -19,7 +19,7 @@ const ButtonIconOnly = forwardRef((props, ref) => {
 		utilities = null,
 	} = props;
 
-	const componentClasses = classNames('button', 'button--icon-only', {
+	const buttonClasses = classNames('button', 'button--icon-only', {
 		[`${utilities}`]: utilities !== null,
 	});
 
@@ -28,7 +28,7 @@ const ButtonIconOnly = forwardRef((props, ref) => {
 			<button
 				ref={ref}
 				type={buttonType}
-				className={componentClasses}
+				className={buttonClasses}
 				onClick={clickHandler}
 				aria-label={ariaLabel}
 				aria-expanded={ariaExpanded}
@@ -39,7 +39,7 @@ const ButtonIconOnly = forwardRef((props, ref) => {
 		link: (
 			<Link
 				ref={ref}
-				className={componentClasses}
+				className={buttonClasses}
 				to={linkUrl}
 				aria-label={ariaLabel}
 			>
@@ -49,7 +49,7 @@ const ButtonIconOnly = forwardRef((props, ref) => {
 		a: (
 			<a
 				ref={ref}
-				className={componentClasses}
+				className={buttonClasses}
 				href={linkUrl}
 				aria-label={ariaLabel}
 			>

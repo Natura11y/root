@@ -18,7 +18,7 @@ const Track = (props) => {
     floatDirectionalButtons = true
   } = props;
 
-  const componentClasses = classNames(
+  const trackClasses = classNames(
     'track',
     utilities
   );
@@ -278,7 +278,7 @@ const Track = (props) => {
     <div className="margin-y-6">
 
       <section
-        className={componentClasses}
+        className={trackClasses}
         aria-labelledby={`${trackId}-heading`}
         ref={trackRef}>
 

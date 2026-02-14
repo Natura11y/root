@@ -16,13 +16,13 @@ const LightboxButton = (props) => {
 
   const { handleLightboxOpen } = useContext(LightboxContext);
 
-  const componentClasses = classNames({
+  const lightboxButtonClasses = classNames({
     [`${utilities}`]: utilities !== null,
   });
 
   return (
     <button
-      className={componentClasses}
+      className={lightboxButtonClasses}
       data-lightbox={lbType}
       onClick={() => handleLightboxOpen(lbType, lbSrc, lbCaption)}
     >

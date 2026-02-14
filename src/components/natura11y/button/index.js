@@ -19,7 +19,7 @@ const Button = (props) => {
 		rel = null,
 	} = props;
 
-	const componentClasses = classNames('button', {
+	const buttonClasses = classNames('button', {
 		'button--outline': outline,
 		'button--has-icon': iconHandle !== null,
 		[`${utilities}`]: utilities !== null,
@@ -38,20 +38,20 @@ const Button = (props) => {
 		button: (
 			<button 
 				type={buttonType}
-				className={componentClasses} 
+				className={buttonClasses} 
 				onClick={clickHandler}
 			>
 				{buttonContents}
 			</button>
 		),
 		link: (
-			<Link className={componentClasses} to={linkUrl}>
+			<Link className={buttonClasses} to={linkUrl}>
 				{buttonContents}
 			</Link>
 		),
 		a: (
 			<a
-				className={componentClasses}
+				className={buttonClasses}
 				href={linkUrl}
 				target={target}
 				rel={rel}

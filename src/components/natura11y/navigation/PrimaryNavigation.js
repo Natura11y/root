@@ -69,7 +69,7 @@ const PrimaryNavigation = ( props ) => {
 		}
 	}, [menuShow]);
 
-	const componentClasses = classNames(
+	const navigationClasses = classNames(
 		`primary-nav--${navType}--${breakpoint}`,
 		{
 			[`${utilities}`] : utilities !== null
@@ -123,7 +123,7 @@ const PrimaryNavigation = ( props ) => {
 	);
 
 	return (
-		<div className={`${componentClasses}`}>
+		<div className={`${navigationClasses}`}>
 		
 			<div className='primary-nav__logo'>
 				<Link to='/' title='Home' data-logo='brand'>
