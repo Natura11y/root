@@ -11,6 +11,7 @@ import ButtonExamples from './examples/ButtonExamples';
 import NavigationExamples from './examples/NavigationExamples';
 import TableExamples from './examples/TableExamples';
 import IconExamples from './examples/IconExamples';
+import TrackExamples from './examples/TrackExamples';
 
 import Backdrop from './Backdrop';
 
@@ -66,6 +67,11 @@ const exampleConfig = {
 		component: TableExamples,
 		wrapperClass: null,
 		title: 'Table',
+	},
+	track: {
+		component: TrackExamples,
+		wrapperClass: null,
+		title: 'Track',
 	},
 };
 

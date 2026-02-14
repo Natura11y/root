@@ -53,6 +53,10 @@ const App = () => {
 			title: 'Table',
 			slug: 'table'
 		},
+		{
+			title: 'Track',
+			slug: 'track'
+		},
 	];
 
   	return (
