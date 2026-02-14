@@ -285,10 +285,51 @@ export default class Track {
         });
     }
 
+    #setupResizeObserver(trackElement) {
+        const resizeObserver = new ResizeObserver(() => {
+            // Prevent infinite loops by checking if already resetting
+            if (trackElement.isResetting) return;
+
+            trackElement.isResetting = true;
+
+            // Invalidate cache and recalculate
+            this.#invalidateCache(trackElement);
+
+            const cached = this.#getCachedElements(trackElement);
+            const trackPanels = cached.panels;
+
+            // Reset scroll position
+            trackPanels.scrollLeft = 0;
+
+            // Clear and rebuild pagination
+            const paginationContainer = cached.pagination;
+            if (paginationContainer) {
+                paginationContainer.innerHTML = '';
+            }
+
+            // Cleanup and recreate observers (except resize observer itself)
+            if (trackElement.pageObserver) trackElement.pageObserver.disconnect();
+            if (trackElement.tabbingObserver) trackElement.tabbingObserver.disconnect();
+
+            trackElement.currentPageIndex = 0;
+
+            const panelPeeking = this.#getPeekingPadding(trackPanels);
+
+            this.#setupPagination(trackElement);
+            this.#observePages(trackElement, panelPeeking);
+            this.#setupTabbingObserver(trackElement, panelPeeking);
+
+            trackElement.isResetting = false;
+        });
+
+        resizeObserver.observe(trackElement);
+        trackElement.resizeObserver = resizeObserver;
+    }
+
     #resetTrackState(trackElement) {
         // Invalidate cache since we're resetting
         this.#invalidateCache(trackElement);
-        
+
         const cached = this.#getCachedElements(trackElement);
         const trackPanels = cached.panels;
         const paginationContainer = cached.pagination;
@@ -316,6 +357,11 @@ export default class Track {
         this.#observePages(trackElement, panelPeeking); // Peeking observation
         this.#setupTabbingObserver(trackElement, panelPeeking); // Tabbing management
         this.#initKeyboardNavigation(trackElement);  // Add keyboard navigation
+
+        // Set up resize observer only if it doesn't exist yet
+        if (!trackElement.resizeObserver) {
+            this.#setupResizeObserver(trackElement);
+        }
     }
 
     #initEventListeners(trackElement) {
@@ -328,21 +374,11 @@ export default class Track {
         });
 
         delegateEvent(trackElement, 'click', '[data-track-prev]', () => {
-            const newIndex = trackElement.currentPageIndex > 0
-                ? trackElement.currentPageIndex - 1
-                : trackElement.pages.length - 1;
-            this.#navigateToPage(trackElement, newIndex);
+            this.#navigateToPrev(trackElement);
         });
 
         delegateEvent(trackElement, 'click', '[data-track-next]', () => {
-            const newIndex = trackElement.currentPageIndex < trackElement.pages.length - 1
-                ? trackElement.currentPageIndex + 1
-                : 0;
-            this.#navigateToPage(trackElement, newIndex);
-        });
-
-        window.addEventListener('resize', () => {
-            this.#resetTrackState(trackElement);
+            this.#navigateToNext(trackElement);
         });
     }
 
@@ -380,7 +416,7 @@ export default class Track {
     }
 
     destroy(trackElement) {
-        ['pageObserver', 'tabbingObserver'].forEach(observer => {
+        ['pageObserver', 'tabbingObserver', 'resizeObserver'].forEach(observer => {
             if (trackElement[observer]) trackElement[observer].disconnect();
         });
 
