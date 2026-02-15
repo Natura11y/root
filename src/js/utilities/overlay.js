@@ -13,8 +13,13 @@ import { focusTrap } from './focus';
 //////////////////////////////////////////////
 
 let scrollPosition = 0;
-let rootElement = document.querySelector(':root');
+let rootElement;
 let lastFocusedElement;
+
+// SSR guard
+if (typeof document !== 'undefined') { 
+    rootElement = document.querySelector(':root');
+}
 
 export const handleOverlayOpen = (element, triggerElement = null) => {
     lastFocusedElement = triggerElement || document.activeElement;
