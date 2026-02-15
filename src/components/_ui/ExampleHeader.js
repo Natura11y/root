@@ -6,7 +6,7 @@ const ExampleHeader = ({ title, slug }) => {
 		>
 			<div className='backdrop__media'>
 				<img
-					className='opacity-30 gradient-mask-bottom'
+					className='opacity-30'
 					src={`/images/banner/${slug}.jpg`}
 					alt={`${title} example`}
 				/>
