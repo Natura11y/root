@@ -15,6 +15,7 @@ const ButtonIconOnly = forwardRef((props, ref) => {
 		clickHandler = null,
 		ariaExpanded = null,
 		utilities = null,
+		attributes = {}, // Custom data attributes
 	} = props;
 
 	const buttonClasses = classNames('button', 'button--icon-only', {
@@ -30,6 +31,7 @@ const ButtonIconOnly = forwardRef((props, ref) => {
 				onClick={clickHandler}
 				aria-label={ariaLabel}
 				aria-expanded={ariaExpanded}
+				{...attributes}
 			>
 				<Icon iconHandle={iconHandle} />
 			</button>
@@ -40,6 +42,7 @@ const ButtonIconOnly = forwardRef((props, ref) => {
 				className={buttonClasses}
 				href={linkUrl}
 				aria-label={ariaLabel}
+				{...attributes}
 			>
 				<Icon iconHandle={iconHandle} />
 			</a>

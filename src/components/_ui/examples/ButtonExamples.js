@@ -42,6 +42,42 @@ const ButtonExamples = () => {
 					iconUtilities='theme-primary border-radius-circle'
 				/>
 			</div>
+
+			{/* New: Dual Icon Support Examples */}
+			<div className='medium margin-x-auto button-group justify-content-center margin-y-3'>
+				<Button
+					title='Edit'
+					iconStartHandle='edit'
+					utilities='theme-primary'
+				/>
+				<Button
+					title='Next'
+					iconEndHandle='arrow-right'
+					utilities='theme-secondary'
+				/>
+				<Button
+					title='Transfer'
+					iconStartHandle='arrow-left'
+					iconEndHandle='arrow-right'
+					outline={true}
+				/>
+			</div>
+
+			{/* New: wrapText Control Examples */}
+			<div className='medium margin-x-auto button-group justify-content-center margin-y-3'>
+				<Button
+					title='With Wrapper'
+					iconStartHandle='check'
+					wrapText={true}
+					utilities='theme-primary'
+				/>
+				<Button
+					title='No Wrapper'
+					iconStartHandle='check'
+					wrapText={false}
+					utilities='theme-dark'
+				/>
+			</div>
 		</>
 	);
 };

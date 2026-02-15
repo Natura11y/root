@@ -8,28 +8,36 @@ const Button = (props) => {
 		tag = 'button',
 		buttonType = 'button',
 		title = 'Button',
+		wrapText = true,
 		linkUrl = '#1',
 		outline = false,
-		iconHandle = null,
+		iconHandle = null, // Deprecated: use iconStartHandle or iconEndHandle
+		iconStartHandle = null,
+		iconEndHandle = null,
 		utilities = null,
+		attributes = {}, // Custom data attributes
 		clickHandler = null,
 		target = null,
 		rel = null,
 	} = props;
 
+	// Backwards compatibility: if iconHandle is used, treat as iconStartHandle
+	const startIcon = iconStartHandle || iconHandle;
+	const endIcon = iconEndHandle;
+	const hasIcon = startIcon !== null || endIcon !== null;
+
 	const buttonClasses = classNames('button', {
 		'button--outline': outline,
-		'button--has-icon': iconHandle !== null,
+		'button--has-icon': hasIcon,
 		[`${utilities}`]: utilities !== null,
 	});
 
-	const buttonContents = iconHandle !== null ? (
+	const buttonContents = (
 		<>
-			<Icon iconHandle={iconHandle} />
-			<span className='button__text'>{title}</span>
+			{startIcon && <Icon iconHandle={startIcon} />}
+			{wrapText ? <span className='button__text'>{title}</span> : title}
+			{endIcon && <Icon iconHandle={endIcon} />}
 		</>
-	) : (
-		title
 	);
 
 	const Component = {
@@ -38,6 +46,7 @@ const Button = (props) => {
 				type={buttonType}
 				className={buttonClasses}
 				onClick={clickHandler}
+				{...attributes}
 			>
 				{buttonContents}
 			</button>
@@ -48,6 +57,7 @@ const Button = (props) => {
 				href={linkUrl}
 				target={target}
 				rel={rel}
+				{...attributes}
 			>
 				{buttonContents}
 			</a>
