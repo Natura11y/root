@@ -350,7 +350,6 @@ const Track = (props) => {
       </section>
 
     </div>
-
   );
 };
 
