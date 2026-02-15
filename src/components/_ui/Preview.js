@@ -11,7 +11,7 @@ const Preview = ( props ) => {
 		imageOpacity = '30',
 		imageURL = 'https://via.placeholder.com/1500x750',
 		imageAlt = 'Placeholder',
-		slug = '/'
+		slug = null
 	} = props;
 
 	const backdropClasses = classNames(
@@ -23,12 +23,8 @@ const Preview = ( props ) => {
 
 	let styleFixed = {'--backdrop-fixed-height': fixedHeight !== null ? `${fixedHeight}` : null };
 
-	return (
-		<Link
-			to={`/${slug}`}
-			className={backdropClasses}
-			style={styleFixed}>
-
+	const backdropContent = (
+		<>
 			<div className='backdrop__media'>
 				<img
 					className={`opacity-${imageOpacity}`}
@@ -42,8 +38,24 @@ const Preview = ( props ) => {
 					<h1 className='text-shadow'>{title}</h1>
 				</div>
 			</div>
+		</>
+	);
 
-		</Link>
+	if (slug) {
+		return (
+			<Link
+				to={`/${slug}`}
+				className={backdropClasses}
+				style={styleFixed}>
+				{backdropContent}
+			</Link>
+		);
+	}
+
+	return (
+		<div className={backdropClasses} style={styleFixed}>
+			{backdropContent}
+		</div>
 	);
 }
 

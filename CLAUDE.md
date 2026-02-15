@@ -409,6 +409,70 @@ import { getFocusableElements, getCurrentBreakpoint } from 'natura11y';
 5. **Documentation**: Component-level documentation and examples
 
 ---
+
+## SESSION UPDATE (February 14, 2026 - Evening Session)
+
+### ✅ Navigation Feature Verification & Component Architecture:
+
+#### 1. **Navigation Features Verified (Items 4 & 5)**
+- **Hover Dropdown Support**: ✅ Fully implemented in NavigationItem.js
+  - `hover` prop enables hover functionality
+  - `data-hover="true"` attribute set on buttons
+  - `useHoverCapability()` hook detects device capability
+  - Mouse enter/leave handlers with configurable delays
+  - Mega menus: 500ms delay, regular dropdowns: 0ms
+
+- **Mega Menu with Breakpoint Checking**: ✅ Fully implemented
+  - Imports `getCurrentBreakpoint` from natura11y utilities
+  - `useBreakpointCheck()` custom hook compares breakpoints
+  - Overlay management only applies at correct breakpoint
+  - Renders as `<div className="mega-menu mega-menu--{breakpoint}">`
+  - Proper keyboard navigation and focus management
+
+#### 2. **Data Attribute Architecture Principle**
+- **Key Insight**: Data attributes that control behavior in vanilla Natura11y should work identically in React
+- Examples: `data-hover="true"`, `data-modal-close-outside="true"`, `data-toggle="dropdown"`
+- React components translate props to data attributes: `hover={true}` → `data-hover="true"`
+- Single source of truth for behavior across vanilla and React implementations
+
+#### 3. **ExampleHeader Component Created**
+- **Purpose**: Simple presentation component for example detail page headers
+- **Location**: `src/components/_ui/ExampleHeader.js` (NOT in natura11y folder)
+- **Key Learning**: Component names should describe semantic purpose, not CSS classes
+  - Component named `ExampleHeader` (semantic purpose)
+  - Uses `.backdrop` CSS classes (implementation detail)
+  - Previously tried "Backdrop" name - corrected to semantic naming
+
+#### 4. **Architecture Clarity: _ui vs natura11y Folders**
+- **`/natura11y/`**: Reusable components that recreate JavaScript functionality from Natura11y
+  - Examples: Accordion, Modal, Tabs, Navigation, etc.
+  - Must have complex JavaScript behaviors (focus traps, keyboard nav, state management)
+
+- **`/_ui/`**: Presentation components specific to THIS demo application
+  - Examples: Preview, ExampleHeader, GlobalHeader, Home, About
+  - Simple, app-specific components - no unnecessary abstraction
+  - Hardcoded values are fine - it's just for presentation
+
+#### 5. **Preview Component Updated**
+- Made `slug` prop optional (`slug = null`)
+- Conditionally renders as `<Link>` (when slug provided) or `<div>` (when no slug)
+- Enables reuse for both clickable previews and static backdrops
+- Detail pages now use dedicated ExampleHeader instead
+
+### 🎯 **Key Principles Reinforced**:
+1. **Semantic Naming**: Component names describe PURPOSE, not CSS classes
+2. **Folder Purpose**: `_ui` = presentation, `natura11y` = JavaScript behaviors
+3. **Simplicity Over Abstraction**: Presentation components don't need tons of props
+4. **Data Attribute Consistency**: Same attributes work in vanilla and React
+5. **Zero Duplication**: Import utilities from natura11y, don't reimplement
+
+### 📝 **Components Status**:
+- ✅ Navigation: Hover dropdowns and mega menus verified
+- ✅ ExampleHeader: Simple, semantic presentation component
+- ✅ Preview: Conditional rendering based on slug prop
+- ✅ All natura11y components: Using shared utilities and data attributes
+
+---
 *Last Updated: February 14, 2026*
-*Status: Core modernization complete, polish phase in progress*
+*Status: Navigation features verified, presentation architecture clarified*
 *Project: Natura11y React Starter Components Library*

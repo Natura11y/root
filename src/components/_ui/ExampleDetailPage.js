@@ -10,10 +10,9 @@ import Tabs from '../natura11y/tab/Tabs';
 import ButtonExamples from './examples/ButtonExamples';
 import NavigationExamples from './examples/NavigationExamples';
 import TableExamples from './examples/TableExamples';
-import IconExamples from './examples/IconExamples';
 import TrackExamples from './examples/TrackExamples';
 
-import Preview from './Preview';
+import ExampleHeader from './ExampleHeader';
 
 // Configuration map for all examples
 
@@ -37,11 +36,6 @@ const exampleConfig = {
 		component: FormValidation,
 		wrapperClass: 'narrow margin-x-auto',
 		title: 'Form',
-	},
-	icon: {
-		component: IconExamples,
-		wrapperClass: null,
-		title: 'Icon',
 	},
 	modal: {
 		component: ModalParent,
@@ -103,11 +97,7 @@ const ExampleDetailPage = () => {
 
 	return (
 		<>
-			<Preview
-				title={title}
-				fixedHeight='600px'
-				imageURL={`/images/banner/${slug}.jpg`}
-			/>
+			<ExampleHeader title={title} slug={slug} />
 
 			<div className='margin-y-6'>
 				{renderExample()}
