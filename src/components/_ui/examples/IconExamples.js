@@ -1,4 +1,4 @@
-import Icon from '../../natura11y/icon/Icon';
+import Icon from '../../natura11y/icon';
 
 const IconExamples = () => {
 	const iconSamples = [

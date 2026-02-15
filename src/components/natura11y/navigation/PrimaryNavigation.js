@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 
 import ButtonIconOnly from '../button/ButtonIconOnly';
-import Button from '../button/Button';
+import Button from '../button';
 import NavigationItem from './NavigationItem';
 import Brand from './Brand';
 

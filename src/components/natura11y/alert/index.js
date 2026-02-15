@@ -3,7 +3,7 @@ import { useRef, forwardRef } from 'react';
 import classNames from 'classnames';
 
 import ButtonIconOnly from '../button/ButtonIconOnly';
-import Icon from '../icon/Icon';
+import Icon from '../icon';
 
 const Alert = forwardRef(( props, ref ) => {
 

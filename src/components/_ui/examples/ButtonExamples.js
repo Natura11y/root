@@ -1,4 +1,4 @@
-import Button from '../../natura11y/button/Button';
+import Button from '../../natura11y/button';
 import ButtonIconOnly from '../../natura11y/button/ButtonIconOnly';
 import ButtonIconOverText from '../../natura11y/button/ButtonIconOverText';
 

@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 
 import classNames from 'classnames';
 
-import Alert from './Alert';
+import Alert from './';
 
 const AlertParent = () => {
 

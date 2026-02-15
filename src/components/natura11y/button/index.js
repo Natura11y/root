@@ -2,7 +2,7 @@ import classNames from 'classnames';
 
 import { Link } from 'react-router-dom';
 
-import Icon from '../icon/Icon';
+import Icon from '../icon';
 
 const Button = (props) => {
 

@@ -1,11 +1,11 @@
 import { useParams } from 'react-router-dom';
 
-import Accordion from '../natura11y/accordion/Accordion';
+import Accordion from '../natura11y/accordion';
 import AlertParent from '../natura11y/alert/AlertParent';
 import FormValidation from '../natura11y/form/FormValidation';
 import ModalParent from '../natura11y/modal/ModalParent';
 import LightboxExample from '../natura11y/lightbox/LightboxExample';
-import Tabs from '../natura11y/tab/Tabs';
+import Tabs from '../natura11y/tab';
 
 import ButtonExamples from './examples/ButtonExamples';
 import NavigationExamples from './examples/NavigationExamples';

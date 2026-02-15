@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { handleOverlayOpen, handleOverlayClose } from 'natura11y/src/js/utilities/overlay';
 
-import Modal from './Modal';
+import Modal from './';
 
 const ModalParent = () => {
 

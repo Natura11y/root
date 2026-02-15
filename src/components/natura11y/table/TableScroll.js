@@ -1,6 +1,6 @@
 import { forwardRef, useRef, useState, useEffect, useCallback } from 'react';
 
-import Table from './Table';
+import Table from './';
 
 const TableScroll = forwardRef((props, ref) => {
 

@@ -1,4 +1,4 @@
-import Table from '../../natura11y/table/Table';
+import Table from '../../natura11y/table';
 import TableScroll from '../../natura11y/table/TableScroll';
 
 const TableExamples = () => {

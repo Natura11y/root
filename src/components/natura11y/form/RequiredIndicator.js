@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 
-import Icon from '../icon/Icon';
+import Icon from '../icon';
 
 const RequiredIndicator = forwardRef(({text = 'Required fields indicated with'}, ref) => {
 	return (

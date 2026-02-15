@@ -1,4 +1,4 @@
-import Track from '../../natura11y/track/Track';
+import Track from '../../natura11y/track';
 
 const TrackExamples = () => {
 	const panels = [

@@ -2,7 +2,7 @@ import { Fragment, useState, useEffect, useRef } from 'react';
 
 import RequiredIndicator from './RequiredIndicator';
 import FormEntry from './FormEntry';
-import Alert from '../alert/Alert';
+import Alert from '../alert';
 
 const FormValidation = () => {
 
