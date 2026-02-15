@@ -1,3 +1,5 @@
+import React from 'react';
+
 const TrackPagination = ({ currentPageIndex, totalPages, onNavigate }) => {
   return (
     <ul className='track__pagination'>
@@ -9,7 +11,7 @@ const TrackPagination = ({ currentPageIndex, totalPages, onNavigate }) => {
             aria-current={currentPageIndex === i ? 'true' : 'false'}
             onClick={() => onNavigate(i)}
           >
-            {i + 1}
+            <span className='pagination__number'>{i + 1}</span>
           </button>
         </li>
       ))}
