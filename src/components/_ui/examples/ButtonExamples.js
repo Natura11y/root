@@ -78,6 +78,22 @@ const ButtonExamples = () => {
 					utilities='theme-dark'
 				/>
 			</div>
+
+			{/* New: Custom Attributes Examples */}
+			<div className='medium margin-x-auto button-group justify-content-center margin-y-3'>
+				<Button
+					title='With Data Attribute'
+					iconStartHandle='tag'
+					utilities='theme-primary'
+					attributes={{ 'data-custom': 'value', 'data-id': '123' }}
+				/>
+				<ButtonIconOnly
+					iconHandle='settings'
+					ariaLabel='Settings'
+					utilities='theme-secondary'
+					attributes={{ 'data-action': 'open-settings' }}
+				/>
+			</div>
 		</>
 	);
 };

@@ -18,19 +18,26 @@ const ButtonIconOverText = forwardRef((props, ref) => {
 		clickHandler = null,
 		ariaExpanded = null,
 		utilities = null,
+		attributes = {}, // Custom data attributes
 	} = props;
 
 	const buttonClasses = classNames('button', 'button--icon-over-text', {
 		[`${utilities}`]: utilities !== null,
 	});
 
-	const textClasses = classNames('text', {
+	const iconClasses = classNames('button__icon', {
+		[`${iconUtilities}`]: iconUtilities !== null,
+	});
+
+	const textClasses = classNames('button__text', {
 		[`${textUtilities}`]: textUtilities !== null,
 	});
 
 	const buttonContent = (
 		<>
-			<Icon iconHandle={iconHandle} utilities={iconUtilities} />
+			<span className={iconClasses}>
+				<Icon iconHandle={iconHandle} />
+			</span>
 			<span className={textClasses}>{label}</span>
 		</>
 	);
@@ -44,6 +51,7 @@ const ButtonIconOverText = forwardRef((props, ref) => {
 				onClick={clickHandler}
 				aria-label={ariaLabel}
 				aria-expanded={ariaExpanded}
+				{...attributes}
 			>
 				{buttonContent}
 			</button>
@@ -54,6 +62,7 @@ const ButtonIconOverText = forwardRef((props, ref) => {
 				className={buttonClasses}
 				href={linkUrl}
 				aria-label={ariaLabel}
+				{...attributes}
 			>
 				{buttonContent}
 			</a>
