@@ -11,6 +11,7 @@ const ButtonIconOnly = forwardRef((props, ref) => {
 		buttonType = 'button',
 		iconHandle = 'home',
 		linkUrl = '#1',
+		outline = false,
 		ariaLabel = null,
 		clickHandler = null,
 		ariaExpanded = null,
@@ -19,6 +20,7 @@ const ButtonIconOnly = forwardRef((props, ref) => {
 	} = props;
 
 	const buttonClasses = classNames('button', 'button--icon-only', {
+		'button--outline': outline,
 		[`${utilities}`]: utilities !== null,
 	});
 

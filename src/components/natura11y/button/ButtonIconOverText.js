@@ -14,6 +14,7 @@ const ButtonIconOverText = forwardRef((props, ref) => {
 		tag = 'button',
 		buttonType = 'button',
 		linkUrl = '#1',
+		outline = false,
 		ariaLabel = null,
 		clickHandler = null,
 		ariaExpanded = null,
@@ -22,6 +23,7 @@ const ButtonIconOverText = forwardRef((props, ref) => {
 	} = props;
 
 	const buttonClasses = classNames('button', 'button--icon-over-text', {
+		'button--outline': outline,
 		[`${utilities}`]: utilities !== null,
 	});
 
