@@ -66,7 +66,7 @@ function App() {
 ✅ **Shared CSS** - No duplicate stylesheets, imports from natura11y npm
 ✅ **Shared Utilities** - Uses natura11y's JavaScript utilities (focus, overlay, etc.)
 ✅ **Fully Accessible** - WCAG compliant with proper ARIA attributes
-✅ **Modern React** - Built with hooks, forwardRef, and React 18 patterns
+✅ **Modern React** - Built with hooks, forwardRef, and React 19 patterns
 ✅ **Fast Development** - Powered by Vite 6 for instant HMR
 
 ---
