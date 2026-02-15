@@ -43,15 +43,17 @@ const PrimaryNavigation = ( props ) => {
 	};
 
 	const handleNavigationKeyDown = (e) => {
-		// Handle main navigation keyboard navigation
-		const focusableElements = getFocusableElements(navigationRef.current);
+		// Handle main navigation keyboard navigation (excluding dropdown and mega menu children)
+		const focusableElements = getFocusableElements(navigationRef.current, {
+			exclude: ['.nav__dropdown', '[class*="mega-menu"]']
+		});
 		const currentIndex = focusableElements.findIndex(el => el === document.activeElement);
 
 		if (e.code === 'ArrowLeft' || e.code === 'ArrowRight') {
 			handleArrowKeyNavigation(
-				e, 
-				currentIndex, 
-				focusableElements, 
+				e,
+				currentIndex,
+				focusableElements,
 				(targetIndex) => focusableElements[targetIndex]?.focus()
 			);
 		}
@@ -59,8 +61,10 @@ const PrimaryNavigation = ( props ) => {
 
 	useEffect(() => {
 		if (menuShow) {
-			// Focus first navigation item when menu opens on mobile
-			const firstNavItem = getFocusableElements(navigationRef.current)[0];
+			// Focus first navigation item when menu opens on mobile (excluding dropdown children)
+			const firstNavItem = getFocusableElements(navigationRef.current, {
+				exclude: ['.nav__dropdown', '[class*="mega-menu"]']
+			})[0];
 			setTimeout(() => {
 				firstNavItem?.focus();
 			}, 100);
