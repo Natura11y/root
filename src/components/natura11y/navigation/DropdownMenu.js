@@ -1,7 +1,5 @@
 import { forwardRef } from 'react';
 
-import { Link } from 'react-router-dom';
-
 const DropdownMenu = forwardRef(({ 
     items = [
         { to: '#1', label: 'One' },
@@ -21,7 +19,7 @@ const DropdownMenu = forwardRef(({
         >
             {items.map((item, index) => (
                 <li key={index} role="menuitem">
-                    <Link to={item.to}>{item.label}</Link>
+                    <a href={item.to}>{item.label}</a>
                 </li>
             ))}
         </ul>

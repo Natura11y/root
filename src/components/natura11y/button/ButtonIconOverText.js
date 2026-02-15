@@ -2,8 +2,6 @@ import { forwardRef } from 'react';
 
 import classNames from 'classnames';
 
-import { Link } from 'react-router-dom';
-
 import Icon from '../icon';
 
 const ButtonIconOverText = forwardRef((props, ref) => {
@@ -49,16 +47,6 @@ const ButtonIconOverText = forwardRef((props, ref) => {
 			>
 				{buttonContent}
 			</button>
-		),
-		link: (
-			<Link
-				ref={ref}
-				className={buttonClasses}
-				to={linkUrl}
-				aria-label={ariaLabel}
-			>
-				{buttonContent}
-			</Link>
 		),
 		a: (
 			<a

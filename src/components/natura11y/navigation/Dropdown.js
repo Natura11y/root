@@ -1,7 +1,5 @@
 import { useRef, useState, useEffect, Fragment } from 'react';
 
-import { Link, useLocation } from 'react-router-dom';
-
 import { getFocusableElements } from 'natura11y/src/js/utilities/focus';
 import { handleArrowKeyNavigation } from 'natura11y/src/js/utilities/keyboardNavigation';
 
@@ -22,8 +20,6 @@ const Dropdown = ({
     const [dropdownShow, setDropdownShow] = useState(false);
     const dropdownMenuId = `dropdown-${Math.random().toString(36).substr(2, 9)}`;
 
-    const location = useLocation();
-
     useEffect(() => {
         let dropdownButtonParent = dropdownButton.current?.closest('li');
 
@@ -39,10 +35,6 @@ const Dropdown = ({
             window.removeEventListener('click', dropdownClickListener);
         }
     }, []);
-
-    useEffect(() => {
-        setDropdownShow(false);
-    }, [location]);
 
     const handleClick = () => {
         setDropdownShow(!dropdownShow);
@@ -93,7 +85,7 @@ const Dropdown = ({
     if (to) {
         return (
             <div className="nav-link-dropdown">
-                <Link to={to}>{title}</Link>
+                <a href={to}>{title}</a>
                 <button
                     ref={dropdownButton}
                     data-toggle="dropdown"
@@ -116,7 +108,7 @@ const Dropdown = ({
                     >
                         {items.map((item, index) => (
                             <li key={index} role="menuitem">
-                                <Link to={item.to}>{item.label}</Link>
+                                <a href={item.to}>{item.label}</a>
                             </li>
                         ))}
                     </ul>
@@ -149,7 +141,7 @@ const Dropdown = ({
             >
                 {items.map((item, index) => (
                     <li key={index} role="menuitem">
-                        <Link to={item.to}>{item.label}</Link>
+                        <a href={item.to}>{item.label}</a>
                     </li>
                 ))}
             </ul>

@@ -2,8 +2,6 @@ import { useState, useRef, useEffect } from 'react';
 
 import classNames from 'classnames';
 
-import { Link } from 'react-router-dom';
-
 import ButtonIconOnly from '../button/ButtonIconOnly';
 import Button from '../button';
 import NavigationItem from './NavigationItem';
@@ -97,25 +95,25 @@ const PrimaryNavigation = ( props ) => {
 				<div>
 					<p className="h6 margin-bottom-2">Products</p>
 					<ul className="nav">
-						<li><Link to="/product-1">Product One</Link></li>
-						<li><Link to="/product-2">Product Two</Link></li>
-						<li><Link to="/product-3">Product Three</Link></li>
+						<li><a href="/product-1">Product One</a></li>
+						<li><a href="/product-2">Product Two</a></li>
+						<li><a href="/product-3">Product Three</a></li>
 					</ul>
 				</div>
 				<div>
 					<p className="h6 margin-bottom-2">Services</p>
 					<ul className="nav">
-						<li><Link to="/service-1">Service One</Link></li>
-						<li><Link to="/service-2">Service Two</Link></li>
-						<li><Link to="/service-3">Service Three</Link></li>
+						<li><a href="/service-1">Service One</a></li>
+						<li><a href="/service-2">Service Two</a></li>
+						<li><a href="/service-3">Service Three</a></li>
 					</ul>
 				</div>
 				<div>
 					<p className="h6 margin-bottom-2">Support</p>
 					<ul className="nav">
-						<li><Link to="/support-1">Documentation</Link></li>
-						<li><Link to="/support-2">Help Center</Link></li>
-						<li><Link to="/support-3">Contact Support</Link></li>
+						<li><a href="/support-1">Documentation</a></li>
+						<li><a href="/support-2">Help Center</a></li>
+						<li><a href="/support-3">Contact Support</a></li>
 					</ul>
 				</div>
 			</div>
@@ -126,9 +124,9 @@ const PrimaryNavigation = ( props ) => {
 		<div className={`${navigationClasses}`}>
 		
 			<div className='primary-nav__logo'>
-				<Link to='/' title='Home' data-logo='brand'>
+				<a href='/' title='Home' data-logo='brand'>
 					<Brand />
-				</Link>
+				</a>
 			</div>
 
 			<nav

@@ -1,7 +1,8 @@
 {
   "name": "react-natura11y",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
+  "main": "src/components/natura11y/index.js",
   "dependencies": {
     "classnames": "^2.5.1",
     "natura11y": "^4.2.2",

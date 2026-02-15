@@ -1,7 +1,5 @@
 import classNames from 'classnames';
 
-import { Link } from 'react-router-dom';
-
 import Icon from '../icon';
 
 const Button = (props) => {
@@ -36,18 +34,13 @@ const Button = (props) => {
 
 	const Component = {
 		button: (
-			<button 
+			<button
 				type={buttonType}
-				className={buttonClasses} 
+				className={buttonClasses}
 				onClick={clickHandler}
 			>
 				{buttonContents}
 			</button>
-		),
-		link: (
-			<Link className={buttonClasses} to={linkUrl}>
-				{buttonContents}
-			</Link>
 		),
 		a: (
 			<a

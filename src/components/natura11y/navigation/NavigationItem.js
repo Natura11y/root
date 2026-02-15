@@ -1,7 +1,5 @@
 import { useState, useRef, useEffect, useCallback, useMemo, useId } from 'react';
 
-import { Link, useLocation } from 'react-router-dom';
-
 import { getFocusableElements } from 'natura11y/src/js/utilities/focus';
 import { handleArrowKeyNavigation } from 'natura11y/src/js/utilities/keyboardNavigation';
 import { handleOverlayOpen, handleOverlayClose } from 'natura11y/src/js/utilities/overlay';
@@ -40,17 +38,11 @@ const NavigationItem = ({
     const [isOpen, setIsOpen] = useState(false);
     const buttonRef = useRef();
     const menuRef = useRef();
-    const location = useLocation();
     const menuId = useId();
 
     // Custom hooks for capability checks
     const hasHoverCapability = useHoverCapability();
     const isAtBreakpoint = useBreakpointCheck(isMegaMenu, breakpoint);
-
-    // Close menu when location changes
-    useEffect(() => {
-        setIsOpen(false);
-    }, [location]);
 
     // Memoized click outside handler
     const handleClickOutside = useCallback((e) => {
@@ -172,7 +164,7 @@ const NavigationItem = ({
     if (to && (!items || items.length === 0)) {
         return (
             <li>
-                <Link to={to}>{title}</Link>
+                <a href={to}>{title}</a>
             </li>
         );
     }
@@ -218,7 +210,7 @@ const NavigationItem = ({
                     >
                         {Array.isArray(items) ? items.map((item, index) => (
                             <li key={index} role="menuitem">
-                                <Link to={item.to}>{item.label}</Link>
+                                <a href={item.to}>{item.label}</a>
                             </li>
                         )) : items}
                     </ul>
@@ -235,7 +227,7 @@ const NavigationItem = ({
                 onMouseLeave={handleMouseLeave}
             >
                 <div className="nav-link-dropdown">
-                    <Link to={to}>{title}</Link>
+                    <a href={to}>{title}</a>
                     <button
                         ref={buttonRef}
                         data-toggle="dropdown"
@@ -271,7 +263,7 @@ const NavigationItem = ({
                     >
                         {Array.isArray(items) ? items.map((item, index) => (
                             <li key={index} role="menuitem">
-                                <Link to={item.to}>{item.label}</Link>
+                                <a href={item.to}>{item.label}</a>
                             </li>
                         )) : items}
                     </ul>
@@ -283,7 +275,7 @@ const NavigationItem = ({
     // Fallback - simple link
     return (
         <li>
-            <Link to={to || '#'}>{title}</Link>
+            <a href={to || '#'}>{title}</a>
         </li>
     );
 };

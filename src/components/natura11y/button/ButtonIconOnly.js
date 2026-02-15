@@ -2,8 +2,6 @@ import { forwardRef } from 'react';
 
 import classNames from 'classnames';
 
-import { Link } from 'react-router-dom';
-
 import Icon from '../icon';
 
 const ButtonIconOnly = forwardRef((props, ref) => {
@@ -35,16 +33,6 @@ const ButtonIconOnly = forwardRef((props, ref) => {
 			>
 				<Icon iconHandle={iconHandle} />
 			</button>
-		),
-		link: (
-			<Link
-				ref={ref}
-				className={buttonClasses}
-				to={linkUrl}
-				aria-label={ariaLabel}
-			>
-				<Icon iconHandle={iconHandle} />
-			</Link>
 		),
 		a: (
 			<a
