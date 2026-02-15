@@ -13,6 +13,7 @@ import ExampleDetailPage from './components/_ui/ExampleDetailPage';
 import About from './components/_ui/About';
 
 const App = () => {
+
 	const examples = [
 		{
 			title: 'Accordion',
@@ -65,7 +66,7 @@ const App = () => {
 			<LightboxProvider>
 				<Routes>
 					<Route path='/' element={
-						<main className={classNames('container', 'medium')}>
+						<main className={classNames('container', 'wide')}>
 							<Home examples={examples} />
 						</main>
 					} />
