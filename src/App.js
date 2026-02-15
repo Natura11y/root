@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import 'natura11y/src/scss/index.scss';
 
 import ScrollToTop from './components/_ui/ScrollToTop';
-import Header from './components/_ui/Header';
+import GlobalHeader from './components/_ui/GlobalHeader';
 import Home from './components/_ui/Home';
 import ExampleDetailPage from './components/_ui/ExampleDetailPage';
 import About from './components/_ui/About';
@@ -61,7 +61,7 @@ const App = () => {
 		<Router>
 			<ScrollToTop />
 
-			<Header />
+			<GlobalHeader />
 
 			<LightboxProvider>
 				<Routes>
