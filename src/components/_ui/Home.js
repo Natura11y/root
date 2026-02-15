@@ -13,7 +13,10 @@ const Home = ({ examples }) => {
 
 	return (
 		<>
-			<h1 className='screen-reader-only'>Component Examples</h1>
+			<h1 className='screen-reader-only'>
+				Component Examples
+			</h1>
+			
 			<div className="grid gap-border margin-y-6">
 				{exampleLinks}
 			</div>

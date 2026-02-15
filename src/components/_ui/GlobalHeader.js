@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
 import ButtonIconOnly from '../natura11y/button/ButtonIconOnly';
-import Button from '../natura11y/button';
+import Button from '../natura11y/button/Button';
 
 const GlobalHeader = () => {
 	const [menuShow, setMenuShow] = useState(false);

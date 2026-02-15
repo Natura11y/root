@@ -27,7 +27,7 @@ All components are located in `src/components/natura11y/`. Here's a quick exampl
 
 ```jsx
 import Alert from './components/natura11y/alert/Alert';
-import Button from './components/natura11y/button';
+import Button from './components/natura11y/button/Button';
 
 function App() {
   return (
