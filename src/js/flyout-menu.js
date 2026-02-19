@@ -1,5 +1,4 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
-import { getFocusableElements } from './utilities/focus';
 import { delegateEvent } from './utilities/eventDelegation';
 
 export default class FlyoutMenu {
@@ -101,8 +100,6 @@ export default class FlyoutMenu {
 			backBtn.removeAttribute('hidden');
 			this.#animateEnter(backBtn);
 		}
-
-		getFocusableElements(target)[0]?.focus({ preventScroll: true });
 	}
 
 	#navigateBack(menu) {
@@ -124,8 +121,6 @@ export default class FlyoutMenu {
 		if (prevIndex === 0) {
 			menu.querySelector('.flyout-menu__header [data-flyout-menu-back]')?.setAttribute('hidden', '');
 		}
-
-		getFocusableElements(prevPanel)[0]?.focus({ preventScroll: true });
 	}
 
 	// Public methods
