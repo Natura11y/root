@@ -15,11 +15,11 @@ export default class MobileMenu {
 	#handleEscapeKey(event) {
 		if (event.code === 'Escape') {
 			const openMenu = document.querySelector('.mobile-menu.shown');
-			if (openMenu) this.#close(openMenu);
+			if (openMenu) this.#handleMenuClose(openMenu);
 		}
 	}
 
-	#open(menu) {
+	#handleMenuOpen(menu) {
 		const content = menu.querySelector('.mobile-menu__content');
 
 		if (!content) return;
@@ -31,7 +31,7 @@ export default class MobileMenu {
 
 		this.#backdropClickHandler = (event) => {
 			if (!content.contains(event.target)) {
-				this.#close(menu);
+				this.#handleMenuClose(menu);
 			}
 		};
 
@@ -39,7 +39,7 @@ export default class MobileMenu {
 		window.addEventListener('keydown', this.#escapeKeyHandler);
 	}
 
-	#close(menu) {
+	#handleMenuClose(menu) {
 		menu.classList.remove('shown');
 
 		handleOverlayClose(menu);
@@ -134,12 +134,12 @@ export default class MobileMenu {
 			const trigger = event.target.closest('[data-mobile-menu="open"]');
 			const menuId = trigger?.getAttribute('aria-controls')?.replace(/^#/, '');
 			const menu = document.getElementById(menuId);
-			if (menu) this.#open(menu);
+			if (menu) this.#handleMenuOpen(menu);
 		});
 
 		delegateEvent(document, 'click', '[data-mobile-menu-close]', (event) => {
 			const menu = event.target.closest('.mobile-menu');
-			if (menu) this.#close(menu);
+			if (menu) this.#handleMenuClose(menu);
 		});
 
 		delegateEvent(document, 'click', '[data-mobile-menu-next]', (event) => {
