@@ -94,14 +94,86 @@ In this file:
         border-block-end-style: var(--border-style);
     }
 
+    // Mobile Menu Panel Title
+
+    .mobile-menu__panel-title {
+        flex: 1;
+
+        text-align: center;
+
+        font-weight: var(--font-weight-bold);
+
+        padding-inline: var(--spacer-2);
+    }
+
     // Mobile Menu Body
 
     .mobile-menu__body {
         overflow-y: auto;
 
         flex: 1;
-        
+
         min-height: 0;
+    }
+
+    // Mobile Menu Panels (drill-down navigation)
+
+    .mobile-menu__panels {
+        display: flex;
+
+        height: 100%;
+
+        overflow-x: auto;
+
+        scrollbar-width: none;
+
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .mobile-menu__panel {
+        min-width: 100%;
+
+        flex-shrink: 0;
+
+        overflow-y: auto;
+
+        &[data-entering="next"] {
+            animation: mobile-menu-enter-next 0.35s ease-out;
+        }
+
+        &[data-entering="back"] {
+            animation: mobile-menu-enter-back 0.35s ease-out;
+        }
+    }
+
+    @keyframes mobile-menu-enter-next {
+        from {
+            opacity: 0;
+            translate: 4rem 0;
+        }
+        to {
+            opacity: 1;
+            translate: 0 0;
+        }
+    }
+
+    @keyframes mobile-menu-enter-back {
+        from {
+            opacity: 0;
+            translate: -4rem 0;
+        }
+        to {
+            opacity: 1;
+            translate: 0 0;
+        }
+    }
+
+    .mobile-menu__body [data-mobile-menu-next] {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
 } // end @layer

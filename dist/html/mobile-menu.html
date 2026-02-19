@@ -15,6 +15,10 @@
 
     <body>
 
+        <!-- ============================================
+             Example 1: Accordion Navigation
+        ============================================ -->
+
         <div class="primary-nav--inline--lg box-shadow-1">
 
             <div class="primary-nav__logo">
@@ -72,7 +76,7 @@
 
             </nav>
 
-            <!-- Mobile toggle: opens flyout mobile menu -->
+            <!-- Mobile toggle: opens accordion mobile menu -->
             <div class="primary-nav__toggle">
 
                 <button
@@ -88,7 +92,7 @@
 
         </div>
 
-        <!-- Mobile Flyout: outer element is the backdrop, inner is the panel -->
+        <!-- Accordion Mobile Menu -->
         <div
             class="mobile-menu"
             id="mobile-menu"
@@ -252,6 +256,155 @@
                         <li><a href="#1">Link</a></li>
                         <li><a href="#1">Link</a></li>
                     </ul>
+
+                </nav>
+
+            </div>
+
+        </div>
+
+        <!-- ============================================
+             Example 2: Drill-down Panel Navigation
+        ============================================ -->
+
+        <div class="container narrow margin-y-5">
+
+            <button
+                class="button button--outline"
+                data-mobile-menu="open"
+                aria-controls="mobile-menu-nav"
+                aria-label="Open Drill-down Menu"
+            >
+                Drill-down Navigation
+                <span class="icon icon-menu"></span>
+            </button>
+
+        </div>
+
+        <!-- Drill-down Mobile Menu -->
+        <div
+            class="mobile-menu"
+            id="mobile-menu-nav"
+            aria-hidden="true"
+        >
+
+            <div
+                class="mobile-menu__content theme-canvas"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Main Menu"
+            >
+
+                <div class="mobile-menu__header">
+
+                    <button
+                        class="button button--icon-only"
+                        aria-label="Back"
+                        data-mobile-menu-back
+                        hidden
+                    >
+                        <span class="icon icon-caret-left"></span>
+                    </button>
+
+                    <span class="mobile-menu__panel-title" hidden></span>
+
+                    <button
+                        class="button button--icon-only"
+                        aria-label="Close Menu"
+                        data-mobile-menu-close
+                    >
+                        <span class="icon icon-close"></span>
+                    </button>
+
+                </div>
+
+                <nav class="mobile-menu__body" aria-label="Main Menu">
+
+                    <div class="mobile-menu__panels">
+
+                        <!-- Panel 0: Root -->
+                        <div class="mobile-menu__panel">
+                            <ul class="nav nav--divider">
+                                <li>
+                                    <button
+                                        data-mobile-menu-next
+                                        aria-controls="mm-nav-products"
+                                    >
+                                        Products
+                                        <span class="icon icon-caret-right"></span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button
+                                        data-mobile-menu-next
+                                        aria-controls="mm-nav-services"
+                                    >
+                                        Services
+                                        <span class="icon icon-caret-right"></span>
+                                    </button>
+                                </li>
+                                <li><a href="#1">About</a></li>
+                                <li><a href="#1">Blog</a></li>
+                                <li><a href="#1">Contact</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Panel 1a: Products -->
+                        <div class="mobile-menu__panel" id="mm-nav-products" inert>
+                            <ul class="nav nav--divider">
+                                <li>
+                                    <button
+                                        data-mobile-menu-next
+                                        aria-controls="mm-nav-software"
+                                    >
+                                        Software
+                                        <span class="icon icon-caret-right"></span>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button
+                                        data-mobile-menu-next
+                                        aria-controls="mm-nav-hardware"
+                                    >
+                                        Hardware
+                                        <span class="icon icon-caret-right"></span>
+                                    </button>
+                                </li>
+                                <li><a href="#1">All Products</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Panel 1b: Services -->
+                        <div class="mobile-menu__panel" id="mm-nav-services" inert>
+                            <ul class="nav nav--divider">
+                                <li><a href="#1">Consulting</a></li>
+                                <li><a href="#1">Support</a></li>
+                                <li><a href="#1">Training</a></li>
+                                <li><a href="#1">All Services</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Panel 2a: Software -->
+                        <div class="mobile-menu__panel" id="mm-nav-software" inert>
+                            <ul class="nav nav--divider">
+                                <li><a href="#1">App One</a></li>
+                                <li><a href="#1">App Two</a></li>
+                                <li><a href="#1">App Three</a></li>
+                                <li><a href="#1">All Software</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Panel 2b: Hardware -->
+                        <div class="mobile-menu__panel" id="mm-nav-hardware" inert>
+                            <ul class="nav nav--divider">
+                                <li><a href="#1">Device One</a></li>
+                                <li><a href="#1">Device Two</a></li>
+                                <li><a href="#1">Accessories</a></li>
+                                <li><a href="#1">All Hardware</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
 
                 </nav>
 
