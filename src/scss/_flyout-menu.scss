@@ -12,8 +12,8 @@ In this file:
 //////////////////////////////////////////////
 
 :root {
-    --mobile-menu-width: min(360px, 85dvw);
-    --mobile-menu-z-index: 10000;
+    --flyout-menu-width: min(360px, 85dvw);
+    --flyout-menu-z-index: 10000;
 }
 
 //////////////////////////////////////////////
@@ -22,9 +22,9 @@ In this file:
 
 @layer component {
 
-    // Mobile Menu Backdrop
+    // Flyout Menu Backdrop
 
-    .mobile-menu {
+    .flyout-menu {
         position: fixed;
         inset: 0;
 
@@ -33,7 +33,7 @@ In this file:
 
         background-color: hsla(0, 0%, 0%, 0.5);
 
-        z-index: var(--mobile-menu-z-index);
+        z-index: var(--flyout-menu-z-index);
 
         opacity: 0;
         visibility: hidden;
@@ -56,16 +56,16 @@ In this file:
                     visibility 0s;
             }
 
-            .mobile-menu__content {
+            .flyout-menu__content {
                 transform: translateX(0);
             }
         }
     }
 
-    // Mobile Menu Panel
+    // Flyout Menu Content
 
-    .mobile-menu__content {
-        width: var(--mobile-menu-width);
+    .flyout-menu__content {
+        width: var(--flyout-menu-width);
         height: 100dvh;
 
         background-color: var(--background-color);
@@ -77,16 +77,16 @@ In this file:
 
         box-shadow: -0.25rem 0 1rem hsla(var(--box-shadow-hsl) / var(--box-shadow-base-opacity));
 
-        transform: translateX(var(--mobile-menu-width));
+        transform: translateX(var(--flyout-menu-width));
 
         @media (prefers-reduced-motion: no-preference) {
             transition: transform 0.3s ease-in-out;
         }
     }
 
-    // Mobile Menu Header
+    // Flyout Menu Header
 
-    .mobile-menu__header {
+    .flyout-menu__header {
         display: flex;
         align-items: center;
 
@@ -100,24 +100,24 @@ In this file:
         border-block-end-width: var(--border-width);
         border-block-end-style: var(--border-style);
 
-        [data-mobile-menu-close] {
+        [data-flyout-menu-close] {
             margin-inline-start: auto;
         }
 
-        [data-mobile-menu-back][hidden] {
+        [data-flyout-menu-back][hidden] {
             display: none;
         }
 
-        [data-mobile-menu-back][data-entering] {
+        [data-flyout-menu-back][data-entering] {
             @media (prefers-reduced-motion: no-preference) {
-                animation: mobile-menu-back-enter 0.25s ease-out;
+                animation: flyout-menu-back-enter 0.25s ease-out;
             }
         }
     }
 
-    // Mobile Menu Panel Title (drill-down sub-panels)
+    // Flyout Menu Panel Title (drill-down sub-panels)
 
-    .mobile-menu__panel-title {
+    .flyout-menu__panel-title {
         font-weight: var(--font-weight-bold);
 
         opacity: 0.8;
@@ -129,15 +129,15 @@ In this file:
     }
 
     @media (prefers-reduced-motion: no-preference) {
-        @keyframes mobile-menu-back-enter {
+        @keyframes flyout-menu-back-enter {
             from { opacity: 0; }
             to   { opacity: 1; }
         }
     }
 
-    // Mobile Menu Body
+    // Flyout Menu Body
 
-    .mobile-menu__body {
+    .flyout-menu__body {
         overflow-y: auto;
 
         flex: 1;
@@ -145,15 +145,15 @@ In this file:
         min-height: 0;
     }
 
-    // Mobile Menu Panels (drill-down navigation)
+    // Flyout Menu Panels (drill-down navigation)
 
-    .mobile-menu__panels {
+    .flyout-menu__panels {
         position: relative;
 
         height: 100%;
     }
 
-    .mobile-menu__panel {
+    .flyout-menu__panel {
         position: absolute;
         inset: 0;
 
@@ -165,19 +165,19 @@ In this file:
 
         &[data-entering] {
             @media (prefers-reduced-motion: no-preference) {
-                animation: mobile-menu-panel-enter 0.25s ease-out;
+                animation: flyout-menu-panel-enter 0.25s ease-out;
             }
         }
     }
 
     @media (prefers-reduced-motion: no-preference) {
-        @keyframes mobile-menu-panel-enter {
+        @keyframes flyout-menu-panel-enter {
             from { opacity: 0; }
             to   { opacity: 1; }
         }
     }
 
-    .mobile-menu__body [data-mobile-menu-next] {
+    .flyout-menu__body [data-flyout-menu-next] {
         display: flex;
         justify-content: space-between;
         align-items: center;

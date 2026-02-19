@@ -14,7 +14,7 @@ import Backdrop from './js/backdrop';
 import Collapse from './js/collapse';
 import FormInput, { FormSubmission, FormFileUpload } from './js/form';
 import Lightbox from './js/lightbox';
-import MobileMenu from './js/mobile-menu';
+import FlyoutMenu from './js/flyout-menu';
 import Modal from './js/modal';
 import Navigation from './js/navigation';
 import Table from './js/table';
@@ -51,8 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const lightbox = new Lightbox();
   lightbox.init();
 
-  const mobileMenu = new MobileMenu();
-  mobileMenu.init();
+  const flyoutMenu = new FlyoutMenu();
+  flyoutMenu.init();
 
   const modal = new Modal();
   modal.init();

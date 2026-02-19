@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Mobile Menu • Natura11y</title>
+        <title>Flyout Menu • Natura11y</title>
 
         <!-- Natura11y Icons -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/natura11y-icons@v1/dist/natura11y-icons.min.css" />
@@ -76,14 +76,14 @@
 
             </nav>
 
-            <!-- Mobile toggle: opens accordion mobile menu -->
+            <!-- Mobile toggle: opens accordion flyout menu -->
             <div class="primary-nav__toggle">
 
                 <button
                     class="button button--icon-only"
                     aria-label="Open Menu"
-                    data-mobile-menu="open"
-                    aria-controls="mobile-menu"
+                    data-flyout-menu="open"
+                    aria-controls="flyout-menu"
                 >
                     <span class="icon icon-menu"></span>
                 </button>
@@ -92,33 +92,33 @@
 
         </div>
 
-        <!-- Accordion Mobile Menu -->
+        <!-- Accordion Flyout Menu -->
         <div
-            class="mobile-menu"
-            id="mobile-menu"
+            class="flyout-menu"
+            id="flyout-menu"
             aria-hidden="true"
         >
 
             <div
-                class="mobile-menu__content"
+                class="flyout-menu__content"
                 role="dialog"
                 aria-modal="true"
                 aria-label="Main Menu"
             >
 
-                <div class="mobile-menu__header">
+                <div class="flyout-menu__header">
 
                     <button
                         class="button button--icon-only"
                         aria-label="Close Menu"
-                        data-mobile-menu-close
+                        data-flyout-menu-close
                     >
                         <span class="icon icon-close"></span>
                     </button>
 
                 </div>
 
-                <nav class="mobile-menu__body" aria-label="Mobile Menu">
+                <nav class="flyout-menu__body" aria-label="Flyout Menu">
 
                     <div class="accordion">
 
@@ -271,8 +271,8 @@
 
             <button
                 class="button button--outline button--disperse"
-                data-mobile-menu="open"
-                aria-controls="mobile-menu-nav"
+                data-flyout-menu="open"
+                aria-controls="flyout-menu-nav"
                 aria-label="Open Drill-down Menu"
             >
                 Drill-down Navigation
@@ -281,26 +281,26 @@
 
         </div>
 
-        <!-- Drill-down Mobile Menu -->
+        <!-- Drill-down Flyout Menu -->
         <div
-            class="mobile-menu"
-            id="mobile-menu-nav"
+            class="flyout-menu"
+            id="flyout-menu-nav"
             aria-hidden="true"
         >
 
             <div
-                class="mobile-menu__content"
+                class="flyout-menu__content"
                 aria-modal="true"
                 aria-label="Main Menu"
                 role="dialog"
             >
 
-                <div class="mobile-menu__header">
+                <div class="flyout-menu__header">
 
                     <button
                         class="button button--icon-only"
                         aria-label="Back"
-                        data-mobile-menu-back
+                        data-flyout-menu-back
                         hidden
                     >
                         <span class="icon icon-arrow-left"></span>
@@ -309,24 +309,24 @@
                     <button
                         class="button button--icon-only"
                         aria-label="Close Menu"
-                        data-mobile-menu-close
+                        data-flyout-menu-close
                     >
                         <span class="icon icon-close"></span>
                     </button>
 
                 </div>
 
-                <nav class="mobile-menu__body" aria-label="Mobile Menu">
+                <nav class="flyout-menu__body" aria-label="Flyout Menu">
 
-                    <div class="mobile-menu__panels">
+                    <div class="flyout-menu__panels">
 
                         <!-- Panel 0: Root -->
-                        <div class="mobile-menu__panel">
+                        <div class="flyout-menu__panel">
                             <ul class="nav nav--divider">
                                 <li>
                                     <button
-                                        data-mobile-menu-next
-                                        aria-controls="mm-nav-products"
+                                        data-flyout-menu-next
+                                        aria-controls="fm-nav-products"
                                     >
                                         Products
                                         <span class="icon icon-arrow-right"></span>
@@ -334,8 +334,8 @@
                                 </li>
                                 <li>
                                     <button
-                                        data-mobile-menu-next
-                                        aria-controls="mm-nav-services"
+                                        data-flyout-menu-next
+                                        aria-controls="fm-nav-services"
                                     >
                                         Services
                                         <span class="icon icon-arrow-right"></span>
@@ -348,9 +348,9 @@
                         </div>
 
                         <!-- Panel 1a: Products -->
-                        <div class="mobile-menu__panel" id="mm-nav-products">
+                        <div class="flyout-menu__panel" id="fm-nav-products">
 
-                            <div class="mobile-menu__panel-title">
+                            <div class="flyout-menu__panel-title">
                                <p>
                                 Products
                                </p>
@@ -359,8 +359,8 @@
                             <ul class="nav nav--divider">
                                 <li>
                                     <button
-                                        data-mobile-menu-next
-                                        aria-controls="mm-nav-software"
+                                        data-flyout-menu-next
+                                        aria-controls="fm-nav-software"
                                     >
                                         Software
                                         <span class="icon icon-arrow-right"></span>
@@ -368,8 +368,8 @@
                                 </li>
                                 <li>
                                     <button
-                                        data-mobile-menu-next
-                                        aria-controls="mm-nav-hardware"
+                                        data-flyout-menu-next
+                                        aria-controls="fm-nav-hardware"
                                     >
                                         Hardware
                                         <span class="icon icon-arrow-right"></span>
@@ -380,57 +380,57 @@
                         </div>
 
                         <!-- Panel 1b: Services -->
-                        <div class="mobile-menu__panel" id="mm-nav-services">
+                        <div class="flyout-menu__panel" id="fm-nav-services">
 
-                            <div class="mobile-menu__panel-title">
+                            <div class="flyout-menu__panel-title">
                                 <p>
                                     Services
                                 </p>
                             </div>
-                            
+
                             <ul class="nav nav--divider">
                                 <li><a href="#1">Consulting</a></li>
                                 <li><a href="#1">Support</a></li>
                                 <li><a href="#1">Training</a></li>
                                 <li><a href="#1">All Services</a></li>
                             </ul>
-                        
+
                         </div>
 
                         <!-- Panel 2a: Software -->
-                        <div class="mobile-menu__panel" id="mm-nav-software">
-                            
-                            <div class="mobile-menu__panel-title">
+                        <div class="flyout-menu__panel" id="fm-nav-software">
+
+                            <div class="flyout-menu__panel-title">
                                 <p>
                                     Software
                                 </p>
                             </div>
-                            
+
                             <ul class="nav nav--divider">
                                 <li><a href="#1">App One</a></li>
                                 <li><a href="#1">App Two</a></li>
                                 <li><a href="#1">App Three</a></li>
                                 <li><a href="#1">All Software</a></li>
                             </ul>
-                        
+
                         </div>
 
                         <!-- Panel 2b: Hardware -->
-                        <div class="mobile-menu__panel" id="mm-nav-hardware">
-                            
-                            <div class="mobile-menu__panel-title">
+                        <div class="flyout-menu__panel" id="fm-nav-hardware">
+
+                            <div class="flyout-menu__panel-title">
                                 <p>
                                     Hardware
                                 </p>
                             </div>
-                            
+
                             <ul class="nav nav--divider">
                                 <li><a href="#1">Device One</a></li>
                                 <li><a href="#1">Device Two</a></li>
                                 <li><a href="#1">Accessories</a></li>
                                 <li><a href="#1">All Hardware</a></li>
                             </ul>
-                        
+
                         </div>
 
                     </div>

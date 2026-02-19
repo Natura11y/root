@@ -2,7 +2,7 @@ import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 import { getFocusableElements } from './utilities/focus';
 import { delegateEvent } from './utilities/eventDelegation';
 
-export default class MobileMenu {
+export default class FlyoutMenu {
 
 	// Private properties
 
@@ -14,13 +14,13 @@ export default class MobileMenu {
 
 	#handleEscapeKey(event) {
 		if (event.code === 'Escape') {
-			const openMenu = document.querySelector('.mobile-menu.shown');
+			const openMenu = document.querySelector('.flyout-menu.shown');
 			if (openMenu) this.#handleMenuClose(openMenu);
 		}
 	}
 
 	#handleMenuOpen(menu) {
-		const content = menu.querySelector('.mobile-menu__content');
+		const content = menu.querySelector('.flyout-menu__content');
 
 		if (!content) return;
 
@@ -55,7 +55,7 @@ export default class MobileMenu {
 	}
 
 	#resetPanels(menu) {
-		menu.querySelectorAll('.mobile-menu__panel').forEach((panel, index) => {
+		menu.querySelectorAll('.flyout-menu__panel').forEach((panel, index) => {
 			if (index === 0) {
 				panel.removeAttribute('inert');
 			} else {
@@ -63,7 +63,7 @@ export default class MobileMenu {
 			}
 		});
 
-		menu.querySelector('.mobile-menu__header [data-mobile-menu-back]')?.setAttribute('hidden', '');
+		menu.querySelector('.flyout-menu__header [data-flyout-menu-back]')?.setAttribute('hidden', '');
 
 		this.#panelStacks.delete(menu);
 	}
@@ -74,7 +74,7 @@ export default class MobileMenu {
 	}
 
 	#navigateNext(menu, targetId) {
-		const allPanels = [...menu.querySelectorAll('.mobile-menu__panel')];
+		const allPanels = [...menu.querySelectorAll('.flyout-menu__panel')];
 		const target = menu.querySelector(`#${targetId}`);
 
 		if (!target) return;
@@ -94,14 +94,16 @@ export default class MobileMenu {
 		target.removeAttribute('inert');
 		this.#animateEnter(target);
 
-		const backBtn = menu.querySelector('.mobile-menu__header [data-mobile-menu-back]');
+		const backBtn = menu.querySelector('.flyout-menu__header [data-flyout-menu-back]');
 
 		if (backBtn?.hidden) {
 			backBtn.removeAttribute('hidden');
 			this.#animateEnter(backBtn);
 		}
 
-		getFocusableElements(target)[0]?.focus({ preventScroll: true });
+		target.setAttribute('tabindex', '-1');
+		target.focus({ preventScroll: true });
+		target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true });
 	}
 
 	#navigateBack(menu) {
@@ -111,7 +113,7 @@ export default class MobileMenu {
 
 		if (!stack.length) return;
 
-		const allPanels = [...menu.querySelectorAll('.mobile-menu__panel')];
+		const allPanels = [...menu.querySelectorAll('.flyout-menu__panel')];
 		const currentPanel = allPanels.find(p => !p.hasAttribute('inert')) ?? allPanels[0];
 		const prevIndex = stack.pop();
 		const prevPanel = allPanels[prevIndex];
@@ -121,7 +123,7 @@ export default class MobileMenu {
 		this.#animateEnter(prevPanel);
 
 		if (prevIndex === 0) {
-			menu.querySelector('.mobile-menu__header [data-mobile-menu-back]')?.setAttribute('hidden', '');
+			menu.querySelector('.flyout-menu__header [data-flyout-menu-back]')?.setAttribute('hidden', '');
 		}
 
 		getFocusableElements(prevPanel)[0]?.focus({ preventScroll: true });
@@ -130,30 +132,41 @@ export default class MobileMenu {
 	// Public methods
 
 	init() {
-		document.querySelectorAll('.mobile-menu').forEach(menu => this.#resetPanels(menu));
+		document.querySelectorAll('.flyout-menu').forEach(menu => this.#resetPanels(menu));
 
-		delegateEvent(document, 'click', '[data-mobile-menu="open"]', (event) => {
-			const trigger = event.target.closest('[data-mobile-menu="open"]');
+		delegateEvent(document, 'click', '[data-flyout-menu="open"]', (event) => {
+			const trigger = event.target.closest('[data-flyout-menu="open"]');
 			const menuId = trigger?.getAttribute('aria-controls')?.replace(/^#/, '');
 			const menu = document.getElementById(menuId);
 			if (menu) this.#handleMenuOpen(menu);
 		});
 
-		delegateEvent(document, 'click', '[data-mobile-menu-close]', (event) => {
-			const menu = event.target.closest('.mobile-menu');
+		delegateEvent(document, 'click', '[data-flyout-menu-close]', (event) => {
+			const menu = event.target.closest('.flyout-menu');
 			if (menu) this.#handleMenuClose(menu);
 		});
 
-		delegateEvent(document, 'click', '[data-mobile-menu-next]', (event) => {
-			const menu = event.target.closest('.mobile-menu');
-			const btn = event.target.closest('[data-mobile-menu-next]');
+		delegateEvent(document, 'click', '[data-flyout-menu-next]', (event) => {
+			const menu = event.target.closest('.flyout-menu');
+			const btn = event.target.closest('[data-flyout-menu-next]');
 			const targetId = btn?.getAttribute('aria-controls')?.replace(/^#/, '');
 			if (menu && targetId) this.#navigateNext(menu, targetId);
 		});
 
-		delegateEvent(document, 'click', '[data-mobile-menu-back]', (event) => {
-			const menu = event.target.closest('.mobile-menu');
+		delegateEvent(document, 'click', '[data-flyout-menu-back]', (event) => {
+			const menu = event.target.closest('.flyout-menu');
 			if (menu) this.#navigateBack(menu);
+		});
+
+		document.querySelectorAll('[data-flyout-menu="open"]').forEach(trigger => {
+			const menuId = trigger.getAttribute('aria-controls')?.replace(/^#/, '');
+			const menu = document.getElementById(menuId);
+			if (!menu) return;
+			new ResizeObserver(() => {
+				if (menu.classList.contains('shown') && !trigger.offsetWidth) {
+					this.#handleMenuClose(menu);
+				}
+			}).observe(trigger);
 		});
 	}
 }
