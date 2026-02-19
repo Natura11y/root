@@ -1,5 +1,5 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
-import { focusTrap, getFocusableElements } from './utilities/focus';
+import { getFocusableElements } from './utilities/focus';
 import { delegateEvent } from './utilities/eventDelegation';
 
 export default class MobileMenu {
@@ -25,7 +25,7 @@ export default class MobileMenu {
 		if (!content) return;
 
 		menu.classList.add('shown');
-		menu.removeAttribute('aria-hidden');
+		menu.setAttribute('aria-hidden', 'false');
 
 		handleOverlayOpen(content);
 
@@ -34,8 +34,6 @@ export default class MobileMenu {
 				this.#close(menu);
 			}
 		};
-
-		focusTrap(content);
 
 		window.addEventListener('pointerdown', this.#backdropClickHandler);
 		window.addEventListener('keydown', this.#escapeKeyHandler);
