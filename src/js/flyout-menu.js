@@ -101,9 +101,7 @@ export default class FlyoutMenu {
 			this.#animateEnter(backBtn);
 		}
 
-		target.setAttribute('tabindex', '-1');
-		target.focus({ preventScroll: true });
-		target.addEventListener('blur', () => target.removeAttribute('tabindex'), { once: true });
+		getFocusableElements(target)[0]?.focus({ preventScroll: true });
 	}
 
 	#navigateBack(menu) {
