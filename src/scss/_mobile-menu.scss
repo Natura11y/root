@@ -22,39 +22,58 @@ In this file:
 
 @layer component {
 
-    // Mobile Menu Panel
+    // Mobile Menu Backdrop
 
     .mobile-menu {
         position: fixed;
-        inset-block: 0;
-        inset-inline-end: 0;
+        inset: 0;
 
+        display: flex;
+        justify-content: flex-end;
+
+        background-color: hsla(0, 0%, 0%, 0.5);
+
+        z-index: var(--mobile-menu-z-index);
+
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+
+        transition:
+            opacity 0.3s ease-in-out,
+            visibility 0s 0.3s;
+
+        &.shown {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+
+            transition:
+                opacity 0.3s ease-in-out,
+                visibility 0s;
+
+            .mobile-menu__content {
+                transform: translateX(0);
+            }
+        }
+    }
+
+    // Mobile Menu Panel
+
+    .mobile-menu__content {
         width: var(--mobile-menu-width);
+        height: 100%;
 
         display: flex;
         flex-direction: column;
 
-        overflow: hidden;
-
-        z-index: var(--mobile-menu-z-index);
+        overflow-x: hidden;
 
         transform: translateX(var(--mobile-menu-width));
-        visibility: hidden;
 
-        transition:
-            transform 0.3s ease-in-out,
-            visibility 0s 0.3s;
+        transition: transform 0.3s ease-in-out;
 
         box-shadow: -0.25rem 0 1rem hsla(0, 0%, 0%, 0.2);
-
-        &.shown {
-            transform: translateX(0);
-            visibility: visible;
-
-            transition:
-                transform 0.3s ease-in-out,
-                visibility 0s;
-        }
     }
 
     // Mobile Menu Header
@@ -78,6 +97,7 @@ In this file:
     .mobile-menu__body {
         overflow-y: auto;
         flex: 1;
+        min-height: 0;
 
         // Match plain nav links to accordion button padding
         .nav > li > a {
@@ -85,39 +105,6 @@ In this file:
             padding-block: var(--accordion-button-padding-y);
             padding-inline: var(--accordion-button-padding-x);
             font-weight: var(--body-font-weight-bold);
-        }
-    }
-
-    // Mobile Menu Overlay
-
-    .mobile-menu__overlay {
-        position: fixed;
-        inset: 0;
-
-        background-color: hsla(0, 0%, 0%, 0.5);
-
-        z-index: calc(var(--mobile-menu-z-index) - 1);
-
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-
-        transition:
-            opacity 0.3s ease-in-out,
-            visibility 0s 0.3s;
-    }
-
-    body:has(.mobile-menu.shown) {
-        overflow: hidden;
-
-        .mobile-menu__overlay {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-
-            transition:
-                opacity 0.3s ease-in-out,
-                visibility 0s;
         }
     }
 
