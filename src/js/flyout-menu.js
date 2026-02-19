@@ -21,13 +21,14 @@ export default class FlyoutMenu {
 
 	#handleMenuOpen(menu) {
 		const content = menu.querySelector('.flyout-menu__content');
+		const closeBtn = content?.querySelector('[data-flyout-menu-close]');
 
 		if (!content) return;
 
 		menu.classList.add('shown');
 		menu.setAttribute('aria-hidden', 'false');
 
-		handleOverlayOpen(content);
+		handleOverlayOpen(content, null, closeBtn);
 
 		this.#backdropClickHandler = (event) => {
 			if (!content.contains(event.target)) {

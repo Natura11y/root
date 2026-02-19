@@ -159,7 +159,17 @@ In this file:
 
         overflow-y: auto;
 
+        background-color: var(--background-color);
+
         &[inert] {
+            visibility: hidden;
+        }
+
+        &--active {
+            z-index: 1;
+        }
+
+        &--hidden {
             visibility: hidden;
         }
 

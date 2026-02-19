@@ -21,7 +21,7 @@ if (typeof document !== 'undefined') {
     rootElement = document.querySelector(':root');
 }
 
-export const handleOverlayOpen = (element, triggerElement = null) => {
+export const handleOverlayOpen = (element, triggerElement = null, firstFocusTarget = null) => {
     lastFocusedElement = triggerElement || document.activeElement;
 
     scrollPosition = window.scrollY;
@@ -31,7 +31,7 @@ export const handleOverlayOpen = (element, triggerElement = null) => {
     rootElement.classList.add('has-overlay');
 
     if(element) {
-        focusTrap(element);
+        focusTrap(element, firstFocusTarget ?? element);
     }
 }
 
