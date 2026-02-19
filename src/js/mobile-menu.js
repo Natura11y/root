@@ -130,6 +130,8 @@ export default class MobileMenu {
 	// Public methods
 
 	init() {
+		document.querySelectorAll('.mobile-menu').forEach(menu => this.#resetPanels(menu));
+
 		delegateEvent(document, 'click', '[data-mobile-menu="open"]', (event) => {
 			const trigger = event.target.closest('[data-mobile-menu="open"]');
 			const menuId = trigger?.getAttribute('aria-controls')?.replace(/^#/, '');
