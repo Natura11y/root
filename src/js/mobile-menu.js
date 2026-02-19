@@ -71,19 +71,10 @@ export default class MobileMenu {
 			}
 		});
 
-		menu.querySelector('.mobile-menu__header [data-mobile-menu-back]')?.setAttribute('hidden', '');
-
-		const titleEl = menu.querySelector('.mobile-menu__panel-title');
-
-		if (titleEl) {
-			titleEl.textContent = '';
-			titleEl.setAttribute('hidden', '');
-		}
-
 		this.#panelStacks.delete(menu);
 	}
 
-	#navigateNext(menu, targetId, label) {
+	#navigateNext(menu, targetId) {
 		const panelsEl = menu.querySelector('.mobile-menu__panels');
 		const allPanels = [...menu.querySelectorAll('.mobile-menu__panel')];
 		const target = menu.querySelector(`#${targetId}`);
@@ -97,12 +88,8 @@ export default class MobileMenu {
 		if (!this.#panelStacks.has(menu)) this.#panelStacks.set(menu, []);
 
 		const currentIndex = Math.round(panelsEl.scrollLeft / panelsEl.offsetWidth);
-		const titleEl = menu.querySelector('.mobile-menu__panel-title');
 
-		this.#panelStacks.get(menu).push({
-			index: currentIndex,
-			title: titleEl?.textContent || ''
-		});
+		this.#panelStacks.get(menu).push(currentIndex);
 
 		allPanels[currentIndex]?.setAttribute('inert', '');
 		target.removeAttribute('inert');
@@ -112,14 +99,7 @@ export default class MobileMenu {
 		target.setAttribute('data-entering', 'next');
 		target.addEventListener('animationend', () => target.removeAttribute('data-entering'), { once: true });
 
-		menu.querySelector('.mobile-menu__header [data-mobile-menu-back]')?.removeAttribute('hidden');
-
-		if (titleEl) {
-			titleEl.textContent = label;
-			titleEl.removeAttribute('hidden');
-		}
-
-		getFocusableElements(target)[0]?.focus();
+		getFocusableElements(target)[0]?.focus({ preventScroll: true });
 	}
 
 	#navigateBack(menu) {
@@ -133,7 +113,7 @@ export default class MobileMenu {
 
 		const allPanels = [...menu.querySelectorAll('.mobile-menu__panel')];
 		const currentIndex = Math.round(panelsEl.scrollLeft / panelsEl.offsetWidth);
-		const { index: prevIndex, title: prevTitle } = stack.pop();
+		const prevIndex = stack.pop();
 
 		allPanels[currentIndex]?.setAttribute('inert', '');
 
@@ -145,21 +125,7 @@ export default class MobileMenu {
 		prevPanel?.setAttribute('data-entering', 'back');
 		prevPanel?.addEventListener('animationend', () => prevPanel.removeAttribute('data-entering'), { once: true });
 
-		const backBtn = menu.querySelector('.mobile-menu__header [data-mobile-menu-back]');
-		const titleEl = menu.querySelector('.mobile-menu__panel-title');
-
-		if (prevIndex === 0) {
-			backBtn?.setAttribute('hidden', '');
-
-			if (titleEl) {
-				titleEl.textContent = '';
-				titleEl.setAttribute('hidden', '');
-			}
-		} else if (titleEl) {
-			titleEl.textContent = prevTitle;
-		}
-
-		getFocusableElements(prevPanel)[0]?.focus();
+		getFocusableElements(prevPanel)[0]?.focus({ preventScroll: true });
 	}
 
 	// Public methods
@@ -181,8 +147,7 @@ export default class MobileMenu {
 			const menu = event.target.closest('.mobile-menu');
 			const btn = event.target.closest('[data-mobile-menu-next]');
 			const targetId = btn?.getAttribute('aria-controls')?.replace(/^#/, '');
-			const label = btn?.firstChild?.textContent?.trim() || '';
-			if (menu && targetId) this.#navigateNext(menu, targetId, label);
+			if (menu && targetId) this.#navigateNext(menu, targetId);
 		});
 
 		delegateEvent(document, 'click', '[data-mobile-menu-back]', (event) => {

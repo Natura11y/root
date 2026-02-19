@@ -94,7 +94,22 @@ In this file:
         border-block-end-style: var(--border-style);
     }
 
-    // Mobile Menu Panel Title
+    // Mobile Menu Panel Header (drill-down sub-panels)
+
+    .mobile-menu__panel-header {
+        display: flex;
+        align-items: center;
+
+        flex-shrink: 0;
+
+        font-size: var(--font-size-md);
+
+        padding-inline: var(--primary-nav-padding-x);
+        padding-block: var(--primary-nav-padding-y);
+
+        border-block-end-width: var(--border-width);
+        border-block-end-style: var(--border-style);
+    }
 
     .mobile-menu__panel-title {
         flex: 1;
