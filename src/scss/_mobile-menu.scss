@@ -39,18 +39,22 @@ In this file:
         visibility: hidden;
         pointer-events: none;
 
-        transition:
-            opacity 0.3s ease-in-out,
-            visibility 0s 0.3s;
+        @media (prefers-reduced-motion: no-preference) {
+            transition:
+                opacity 0.3s ease-in-out,
+                visibility 0s 0.3s;
+        }
 
         &.shown {
             opacity: 1;
             visibility: visible;
             pointer-events: auto;
 
-            transition:
-                opacity 0.3s ease-in-out,
-                visibility 0s;
+            @media (prefers-reduced-motion: no-preference) {
+                transition:
+                    opacity 0.3s ease-in-out,
+                    visibility 0s;
+            }
 
             .mobile-menu__content {
                 transform: translateX(0);
@@ -75,7 +79,9 @@ In this file:
 
         transform: translateX(var(--mobile-menu-width));
 
-        transition: transform 0.3s ease-in-out;
+        @media (prefers-reduced-motion: no-preference) {
+            transition: transform 0.3s ease-in-out;
+        }
     }
 
     // Mobile Menu Header
@@ -103,7 +109,9 @@ In this file:
         }
 
         [data-mobile-menu-back][data-entering] {
-            animation: mobile-menu-back-enter 0.25s ease-out;
+            @media (prefers-reduced-motion: no-preference) {
+                animation: mobile-menu-back-enter 0.25s ease-out;
+            }
         }
     }
 
@@ -120,9 +128,11 @@ In this file:
         background-color: var(--subtle-fill-1);
     }
 
-    @keyframes mobile-menu-back-enter {
-        from { opacity: 0; }
-        to   { opacity: 1; }
+    @media (prefers-reduced-motion: no-preference) {
+        @keyframes mobile-menu-back-enter {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
     }
 
     // Mobile Menu Body
@@ -154,13 +164,17 @@ In this file:
         }
 
         &[data-entering] {
-            animation: mobile-menu-panel-enter 0.25s ease-out;
+            @media (prefers-reduced-motion: no-preference) {
+                animation: mobile-menu-panel-enter 0.25s ease-out;
+            }
         }
     }
 
-    @keyframes mobile-menu-panel-enter {
-        from { opacity: 0; }
-        to   { opacity: 1; }
+    @media (prefers-reduced-motion: no-preference) {
+        @keyframes mobile-menu-panel-enter {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
     }
 
     .mobile-menu__body [data-mobile-menu-next] {
