@@ -2,9 +2,9 @@ import { forwardRef } from 'react';
 
 import classNames from 'classnames';
 
-const TabsNav = forwardRef(( props, ref ) => {
+const TabsNav = forwardRef((props, ref) => {
 
-    const { 
+    const {
         data,
         breakpoint = 'md',
         pill = false,
@@ -16,7 +16,7 @@ const TabsNav = forwardRef(( props, ref ) => {
 
 	const tabButtons = data.map((button, index) => (
 
-		<li key={index}>        
+		<li key={index}>
             <button
                 ref={el => tabButtonRefs.current[index] = el}
                 className={activeTab === button.title ? 'is-active' : ''}
@@ -32,7 +32,7 @@ const TabsNav = forwardRef(( props, ref ) => {
                 {button.title}
             </button>
         </li>
-        
+
 	));
 
     const navClasses = classNames(

@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 
-const TabPanel = forwardRef(( props, ref ) => {
+const TabPanel = forwardRef((props, ref) => {
     const {
         isActive = false,
         children = <p>Tab panel content.</p>

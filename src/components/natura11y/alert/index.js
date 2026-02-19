@@ -1,11 +1,11 @@
-import { useRef, forwardRef } from 'react';
+import { forwardRef } from 'react';
 
 import classNames from 'classnames';
 
 import ButtonIconOnly from '../button/ButtonIconOnly';
 import Icon from '../icon';
 
-const Alert = forwardRef(( props, ref ) => {
+const Alert = forwardRef((props, ref) => {
 
   	const {
 		success = true,
@@ -15,8 +15,6 @@ const Alert = forwardRef(( props, ref ) => {
 		children = <p>Alert Description</p>,
 		utilities = null, // For example, 'theme-primary'
 	} = props;
-
-	const closeButtonRef = useRef();
 
 	const alertClasses = classNames(
 		'alert',
@@ -47,7 +45,6 @@ const Alert = forwardRef(( props, ref ) => {
 		>
 			{handleAlertClose !== null && (
 				<ButtonIconOnly
-					ref={closeButtonRef}
 					iconHandle='close'
 					clickHandler={handleAlertClose}
 					ariaLabel='Close'

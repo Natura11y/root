@@ -5,7 +5,7 @@ import classNames from 'classnames';
 const Icon = forwardRef((props, ref) => {
 
     const {
-        iconHandle = 'home', 
+        iconHandle = 'home',
         utilities = null
     } = props;
 
@@ -20,7 +20,7 @@ const Icon = forwardRef((props, ref) => {
 	return (
         <span
             ref={ref}
-            className={iconClasses} 
+            className={iconClasses}
             aria-hidden='true'>
         </span>
     );

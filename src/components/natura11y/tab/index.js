@@ -5,9 +5,9 @@ import TabPanel from './TabPanel';
 
 const Tabs = forwardRef((props, ref) => {
 
-    const { 
+    const {
         pill = false,
-        breakpoint = 'md' 
+        breakpoint = 'md'
     } = props;
 
   	const data = [
@@ -72,7 +72,7 @@ const Tabs = forwardRef((props, ref) => {
 				e.preventDefault();
 
 				if (tabButtons.current) {
-					
+
 					let targetFocus = parseInt(pressed) + dir;
 
 					if (dir === -1 && targetFocus < 0) {
@@ -120,13 +120,13 @@ const Tabs = forwardRef((props, ref) => {
 
 	return (
 		<div
-			ref={ref || tabs}
+			ref={ref ?? tabs}
 			className='tabs box-shadow-1'
 			role='tablist'
 		>
 
 			<TabsNav
-				data={data} 
+				data={data}
 				activeTab={activeTab}
 				handleClick={handleClick}
 				handleKeyDown={handleKeyDown}

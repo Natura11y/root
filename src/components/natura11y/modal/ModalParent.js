@@ -1,9 +1,5 @@
 import { useState, useRef } from 'react';
 
-import { Link } from 'react-router-dom';
-
-import { handleOverlayOpen, handleOverlayClose } from 'natura11y/src/js/utilities/overlay';
-
 import Modal from './';
 
 const ModalParent = () => {
@@ -11,27 +7,24 @@ const ModalParent = () => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [modalExample, setModalExample] = useState(null);
 	const lastFocused = useRef(null);
-	const modalContainer = useRef(null);
 
 	const handleModalOpen = (e) => {
 		const example = e.currentTarget.getAttribute('data-modal-open');
 		setModalExample(example);
 		setIsOpen(true);
-		handleOverlayOpen(modalContainer.current);
 		lastFocused.current = e.target;
 	};
 
 	const handleModalClose = () => {
 		setIsOpen(false);
-		handleOverlayClose(modalContainer.current);
-		lastFocused.current.focus();
+		lastFocused.current?.focus();
 	};
 
 	const modalBody = {
 		default: (
 		<p>
 			The <strong>meerkat</strong> (Suricata suricatta) or suricate is a small{' '}
-			<Link to='#1'>mongoose</Link> found in southern Africa. It is
+			<a href='#1'>mongoose</a> found in southern Africa. It is
 			characterised by a broad head, large eyes, a pointed snout, long legs, a
 			thin tapering tail, and a brindled coat pattern. The head-and-body length
 			is around 24–35 cm (9.4–13.8 in), and the weight is typically between 0.62
@@ -45,7 +38,7 @@ const ModalParent = () => {
 			<>
 			<p>
 				The <strong>meerkat</strong> (Suricata suricatta) or suricate is a small{' '}
-				<Link to='#1'>mongoose</Link> found in southern Africa. It is
+				<a href='#1'>mongoose</a> found in southern Africa. It is
 				characterised by a broad head, large eyes, a pointed snout, long legs, a
 				thin tapering tail, and a brindled coat pattern. The head-and-body
 				length is around 24–35 cm (9.4–13.8 in), and the weight is typically
@@ -120,9 +113,9 @@ const ModalParent = () => {
 				isOpen={isOpen}
 				handleModalClose={handleModalClose}
 				closeOutside={true}
-				scrollAll={modalExample === 'scrollAll' ? true : false}
+				scrollAll={modalExample === 'scrollAll'}
 				title='Suricata Suricatta'
-				ref={modalContainer}
+				modalContentUtilities='narrow'
 			>
 				{modalExample === 'scrollAll' ? modalBody.scrollAll : modalBody.default}
 			</Modal>

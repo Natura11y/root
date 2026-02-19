@@ -1,0 +1,107 @@
+/*
+
+In this file:
+
+// A. Modules
+// B. Variables
+// C. Breakpoints Functions
+
+*/
+
+
+//////////////////////////////////////////////
+// A. Modules
+//////////////////////////////////////////////
+
+@use 'sass:map';
+
+//////////////////////////////////////////////
+// B. Variables
+//////////////////////////////////////////////
+
+$breakpoints: (
+  'sm': 576px,
+  'md': 768px,
+  'lg': 992px,
+  'xl': 1200px,
+  'xxl': 1440px
+);
+
+$breakpoints: map.merge((null : 0), $breakpoints);
+
+//////////////////////////////////////////////
+// C. Breakpoints Functions
+//////////////////////////////////////////////
+
+// Name of the next breakpoint, or null for the last breakpoint.
+
+@function breakpoint-value($name, $breakpoint) {
+  $value: map.get($breakpoint, $name);
+  @if $value != 0 {
+    @return $value;
+  }
+  @return null;
+}
+
+@function breakpoint-modifier($name, $breakpoint) {
+  @if breakpoint-value($name, $breakpoint) == null {
+    @return "";
+  }
+  @return "--#{$name}";
+}
+
+//////////////////////////////////////////////
+// E. Breakpoints Mixins
+//////////////////////////////////////////////
+
+@mixin breakpoint-up($breakpoint) {
+  @if ($breakpoint != null) {
+    @media (min-width: map.get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+  @else {
+    @content;
+  }
+}
+
+@mixin breakpoint-down($breakpoint) {
+  @if ($breakpoint != null) {
+    @media (max-width: map.get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+  @else {
+    @content;
+  }
+}
+
+//////////////////////////////////////////////
+// F. Single Custom Property for Breakpoints
+//////////////////////////////////////////////
+
+@each $breakpoint, $value in $breakpoints {
+  :root {
+    --bp-#{$breakpoint}: #{$value};
+  }
+}
+
+:root {
+  --current-bp: 'sm'; // fallback for small screens
+
+  @include breakpoint-up('md') {
+    --current-bp: 'md';
+  }
+
+  @include breakpoint-up('lg') {
+    --current-bp: 'lg';
+  }
+
+  @include breakpoint-up('xl') {
+    --current-bp: 'xl';
+  }
+
+  @include breakpoint-up('xxl') {
+    --current-bp: 'xxl';
+  }
+}

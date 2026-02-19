@@ -4,7 +4,10 @@ import { LightboxProvider } from './context/LightboxContext';
 
 import classNames from 'classnames';
 
-import 'natura11y/src/scss/index.scss';
+// LOCAL: full SCSS with local component additions (development)
+import './styles/index.scss';
+// NPM: swap to this line after publishing natura11y with new components
+// import 'natura11y/src/scss/index.scss';
 
 import ScrollToTop from './components/_ui/ScrollToTop';
 import GlobalHeader from './components/_ui/GlobalHeader';
@@ -26,6 +29,10 @@ const App = () => {
 		{
 			title: 'Button',
 			slug: 'button'
+		},
+		{
+			title: 'Flyout Menu',
+			slug: 'flyout-menu'
 		},
 		{
 			title: 'Form',

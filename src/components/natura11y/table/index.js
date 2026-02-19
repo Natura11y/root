@@ -4,15 +4,15 @@ import classNames from 'classnames';
 
 import { tableData } from './tableData';
 
-const Table = forwardRef(( props, ref ) => {
+const Table = forwardRef((props, ref) => {
 
   const {
     utilities = null
   } = props;
 
   const {
-      headers, 
-      rows 
+      headers,
+      rows
   } = tableData;
 
   const tableHeaders = headers.map((header, index) => (
@@ -22,7 +22,7 @@ const Table = forwardRef(( props, ref ) => {
   ));
 
   const tableRows = rows.map((row, index) => {
-   
+
     // convert object to array
     const rowData = Object.values(row);
 

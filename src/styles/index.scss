@@ -1,0 +1,26 @@
+/*
+
+In this file:
+
+// A. Natura11y Framework SCSS
+// B. Local Component SCSS (not yet in npm package)
+
+SWITCHING MODES:
+  LOCAL (development): keep as-is, run `npm run sync-styles` to pull latest
+  NPM: swap section A to @use 'natura11y/src/scss/index' and remove section B
+
+*/
+
+//////////////////////////////////////////////
+// A. Natura11y Framework SCSS (local copy)
+// Run `npm run sync-styles` to update
+//////////////////////////////////////////////
+
+@use './natura11y/index';
+
+//////////////////////////////////////////////
+// B. Local Component SCSS
+// Delete each line when shipped in natura11y
+//////////////////////////////////////////////
+
+// (none yet — flyout-menu is in ./natura11y/index)

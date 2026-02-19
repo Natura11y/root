@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import Icon from '../icon';
 
 const ButtonIconOnly = forwardRef((props, ref) => {
-		
+
 	const {
 		tag = 'button',
 		buttonType = 'button',

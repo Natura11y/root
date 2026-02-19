@@ -15,7 +15,7 @@ const Modal = forwardRef((props, ref) => {
         title = 'Modal Title',
         handleModalClose = null,
         children = <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>,
-        footerContent = null, 
+        footerContent = null,
         modalUtilities = null,
         modalContentUtilities = null
     } = props;
@@ -26,8 +26,8 @@ const Modal = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => modalContainer.current);
 
     const modalClasses = classNames(
-        'modal', 
-        { 
+        'modal',
+        {
             'modal--scroll-all': scrollAll,
             'shown': isOpen,
             [`${modalUtilities}`]: modalUtilities !== null
@@ -111,11 +111,11 @@ const Modal = forwardRef((props, ref) => {
                         clickHandler={handleModalClose}
                     />
                 </header>
-                
+
                 <main className='modal__content__body flex-grow-1'>
                     {children}
                 </main>
-                
+
                 {footerContent && (
                     <footer className='modal__content__foot border-top'>
                         {footerContent}
