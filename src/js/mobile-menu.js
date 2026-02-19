@@ -1,4 +1,5 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
+import { focusTrap, getFocusableElements } from './utilities/focus';
 import { delegateEvent } from './utilities/eventDelegation';
 
 export default class MobileMenu {
@@ -32,6 +33,8 @@ export default class MobileMenu {
 				this.#close(menu);
 			}
 		};
+
+		focusTrap(content);
 
 		window.addEventListener('pointerdown', this.#backdropClickHandler);
 		window.addEventListener('keydown', this.#escapeKeyHandler);
