@@ -100,6 +100,8 @@ export default class FlyoutMenu {
 			backBtn.removeAttribute('hidden');
 			this.#animateEnter(backBtn);
 		}
+
+		backBtn?.focus({ preventScroll: true });
 	}
 
 	#navigateBack(menu) {
@@ -121,6 +123,8 @@ export default class FlyoutMenu {
 		if (prevIndex === 0) {
 			menu.querySelector('.flyout-menu__header [data-flyout-menu-back]')?.setAttribute('hidden', '');
 		}
+
+		menu.querySelector('[data-flyout-menu-close]')?.focus({ preventScroll: true });
 	}
 
 	// Public methods
