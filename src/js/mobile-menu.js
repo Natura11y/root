@@ -71,6 +71,8 @@ export default class MobileMenu {
 			}
 		});
 
+		menu.querySelector('.mobile-menu__header [data-mobile-menu-back]')?.setAttribute('hidden', '');
+
 		this.#panelStacks.delete(menu);
 	}
 
@@ -99,6 +101,14 @@ export default class MobileMenu {
 		target.setAttribute('data-entering', 'next');
 		target.addEventListener('animationend', () => target.removeAttribute('data-entering'), { once: true });
 
+		const backBtn = menu.querySelector('.mobile-menu__header [data-mobile-menu-back]');
+
+		if (backBtn?.hidden) {
+			backBtn.removeAttribute('hidden');
+			backBtn.setAttribute('data-entering', '');
+			backBtn.addEventListener('animationend', () => backBtn.removeAttribute('data-entering'), { once: true });
+		}
+
 		getFocusableElements(target)[0]?.focus({ preventScroll: true });
 	}
 
@@ -124,6 +134,10 @@ export default class MobileMenu {
 
 		prevPanel?.setAttribute('data-entering', 'back');
 		prevPanel?.addEventListener('animationend', () => prevPanel.removeAttribute('data-entering'), { once: true });
+
+		if (prevIndex === 0) {
+			menu.querySelector('.mobile-menu__header [data-mobile-menu-back]')?.setAttribute('hidden', '');
+		}
 
 		getFocusableElements(prevPanel)[0]?.focus({ preventScroll: true });
 	}

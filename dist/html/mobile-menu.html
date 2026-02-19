@@ -270,7 +270,7 @@
         <div class="container narrow margin-y-5">
 
             <button
-                class="button button--outline"
+                class="button button--outline button--disperse"
                 data-mobile-menu="open"
                 aria-controls="mobile-menu-nav"
                 aria-label="Open Drill-down Menu"
@@ -290,12 +290,21 @@
 
             <div
                 class="mobile-menu__content theme-canvas"
-                role="dialog"
                 aria-modal="true"
                 aria-label="Main Menu"
+                role="dialog"
             >
 
                 <div class="mobile-menu__header">
+
+                    <button
+                        class="button button--icon-only"
+                        aria-label="Back"
+                        data-mobile-menu-back
+                        hidden
+                    >
+                        <span class="icon icon-arrow-left"></span>
+                    </button>
 
                     <button
                         class="button button--icon-only"
@@ -320,7 +329,7 @@
                                         aria-controls="mm-nav-products"
                                     >
                                         Products
-                                        <span class="icon icon-caret-right"></span>
+                                        <span class="icon icon-arrow-right"></span>
                                     </button>
                                 </li>
                                 <li>
@@ -329,7 +338,7 @@
                                         aria-controls="mm-nav-services"
                                     >
                                         Services
-                                        <span class="icon icon-caret-right"></span>
+                                        <span class="icon icon-arrow-right"></span>
                                     </button>
                                 </li>
                                 <li><a href="#1">About</a></li>
@@ -340,16 +349,7 @@
 
                         <!-- Panel 1a: Products -->
                         <div class="mobile-menu__panel" id="mm-nav-products" inert>
-                            <div class="mobile-menu__panel-header">
-                                <button
-                                    class="button button--icon-only"
-                                    aria-label="Back"
-                                    data-mobile-menu-back
-                                >
-                                    <span class="icon icon-caret-left"></span>
-                                </button>
-                                <span class="mobile-menu__panel-title">Products</span>
-                            </div>
+                            <div class="mobile-menu__panel-title">Products</div>
                             <ul class="nav nav--divider">
                                 <li>
                                     <button
@@ -357,7 +357,7 @@
                                         aria-controls="mm-nav-software"
                                     >
                                         Software
-                                        <span class="icon icon-caret-right"></span>
+                                        <span class="icon icon-arrow-right"></span>
                                     </button>
                                 </li>
                                 <li>
@@ -366,7 +366,7 @@
                                         aria-controls="mm-nav-hardware"
                                     >
                                         Hardware
-                                        <span class="icon icon-caret-right"></span>
+                                        <span class="icon icon-arrow-right"></span>
                                     </button>
                                 </li>
                                 <li><a href="#1">All Products</a></li>
@@ -375,16 +375,7 @@
 
                         <!-- Panel 1b: Services -->
                         <div class="mobile-menu__panel" id="mm-nav-services" inert>
-                            <div class="mobile-menu__panel-header">
-                                <button
-                                    class="button button--icon-only"
-                                    aria-label="Back"
-                                    data-mobile-menu-back
-                                >
-                                    <span class="icon icon-caret-left"></span>
-                                </button>
-                                <span class="mobile-menu__panel-title">Services</span>
-                            </div>
+                            <p class="mobile-menu__panel-title">Services</p>
                             <ul class="nav nav--divider">
                                 <li><a href="#1">Consulting</a></li>
                                 <li><a href="#1">Support</a></li>
@@ -395,16 +386,7 @@
 
                         <!-- Panel 2a: Software -->
                         <div class="mobile-menu__panel" id="mm-nav-software" inert>
-                            <div class="mobile-menu__panel-header">
-                                <button
-                                    class="button button--icon-only"
-                                    aria-label="Back"
-                                    data-mobile-menu-back
-                                >
-                                    <span class="icon icon-caret-left"></span>
-                                </button>
-                                <span class="mobile-menu__panel-title">Software</span>
-                            </div>
+                            <p class="mobile-menu__panel-title">Software</p>
                             <ul class="nav nav--divider">
                                 <li><a href="#1">App One</a></li>
                                 <li><a href="#1">App Two</a></li>
@@ -415,16 +397,7 @@
 
                         <!-- Panel 2b: Hardware -->
                         <div class="mobile-menu__panel" id="mm-nav-hardware" inert>
-                            <div class="mobile-menu__panel-header">
-                                <button
-                                    class="button button--icon-only"
-                                    aria-label="Back"
-                                    data-mobile-menu-back
-                                >
-                                    <span class="icon icon-caret-left"></span>
-                                </button>
-                                <span class="mobile-menu__panel-title">Hardware</span>
-                            </div>
+                            <p class="mobile-menu__panel-title">Hardware</p>
                             <ul class="nav nav--divider">
                                 <li><a href="#1">Device One</a></li>
                                 <li><a href="#1">Device Two</a></li>
