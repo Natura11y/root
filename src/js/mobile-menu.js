@@ -57,12 +57,6 @@ export default class MobileMenu {
 	}
 
 	#resetPanels(menu) {
-		const panelsEl = menu.querySelector('.mobile-menu__panels');
-
-		if (!panelsEl) return;
-
-		panelsEl.scrollTo({ left: 0, behavior: 'instant' });
-
 		menu.querySelectorAll('.mobile-menu__panel').forEach((panel, index) => {
 			if (index === 0) {
 				panel.removeAttribute('inert');
@@ -76,12 +70,16 @@ export default class MobileMenu {
 		this.#panelStacks.delete(menu);
 	}
 
+	#animateEnter(el) {
+		el.setAttribute('data-entering', '');
+		el.addEventListener('animationend', () => el.removeAttribute('data-entering'), { once: true });
+	}
+
 	#navigateNext(menu, targetId) {
-		const panelsEl = menu.querySelector('.mobile-menu__panels');
 		const allPanels = [...menu.querySelectorAll('.mobile-menu__panel')];
 		const target = menu.querySelector(`#${targetId}`);
 
-		if (!panelsEl || !target) return;
+		if (!target) return;
 
 		const targetIndex = allPanels.indexOf(target);
 
@@ -89,51 +87,40 @@ export default class MobileMenu {
 
 		if (!this.#panelStacks.has(menu)) this.#panelStacks.set(menu, []);
 
-		const currentIndex = Math.round(panelsEl.scrollLeft / panelsEl.offsetWidth);
+		const currentPanel = allPanels.find(p => !p.hasAttribute('inert')) ?? allPanels[0];
+		const currentIndex = allPanels.indexOf(currentPanel);
 
 		this.#panelStacks.get(menu).push(currentIndex);
 
-		allPanels[currentIndex]?.setAttribute('inert', '');
+		currentPanel.setAttribute('inert', '');
 		target.removeAttribute('inert');
-
-		panelsEl.scrollLeft = targetIndex * panelsEl.offsetWidth;
-
-		target.setAttribute('data-entering', 'next');
-		target.addEventListener('animationend', () => target.removeAttribute('data-entering'), { once: true });
+		this.#animateEnter(target);
 
 		const backBtn = menu.querySelector('.mobile-menu__header [data-mobile-menu-back]');
 
 		if (backBtn?.hidden) {
 			backBtn.removeAttribute('hidden');
-			backBtn.setAttribute('data-entering', '');
-			backBtn.addEventListener('animationend', () => backBtn.removeAttribute('data-entering'), { once: true });
+			this.#animateEnter(backBtn);
 		}
 
 		getFocusableElements(target)[0]?.focus({ preventScroll: true });
 	}
 
 	#navigateBack(menu) {
-		const panelsEl = menu.querySelector('.mobile-menu__panels');
-
-		if (!panelsEl || !this.#panelStacks.has(menu)) return;
+		if (!this.#panelStacks.has(menu)) return;
 
 		const stack = this.#panelStacks.get(menu);
 
 		if (!stack.length) return;
 
 		const allPanels = [...menu.querySelectorAll('.mobile-menu__panel')];
-		const currentIndex = Math.round(panelsEl.scrollLeft / panelsEl.offsetWidth);
+		const currentPanel = allPanels.find(p => !p.hasAttribute('inert')) ?? allPanels[0];
 		const prevIndex = stack.pop();
-
-		allPanels[currentIndex]?.setAttribute('inert', '');
-
 		const prevPanel = allPanels[prevIndex];
-		prevPanel?.removeAttribute('inert');
 
-		panelsEl.scrollLeft = prevIndex * panelsEl.offsetWidth;
-
-		prevPanel?.setAttribute('data-entering', 'back');
-		prevPanel?.addEventListener('animationend', () => prevPanel.removeAttribute('data-entering'), { once: true });
+		currentPanel.setAttribute('inert', '');
+		prevPanel.removeAttribute('inert');
+		this.#animateEnter(prevPanel);
 
 		if (prevIndex === 0) {
 			menu.querySelector('.mobile-menu__header [data-mobile-menu-back]')?.setAttribute('hidden', '');
