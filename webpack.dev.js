@@ -28,6 +28,7 @@ const devPages = {
     'Lightbox': 'lightbox',
     'Modal': 'modal',                   
     'Megamenu': 'megamenu',
+    'Mobilemenu': 'mobile-menu',
     'Navigation': 'navigation',
     'New': 'new-features',
     'Spacer': 'spacer',
@@ -38,7 +39,7 @@ const devPages = {
 }
 
 const devDir = './dist/html';
-const devPage = `${devPages.Track}.html`;
+const devPage = `${devPages.Mobilemenu}.html`;
 
 module.exports = merge(common, {
     mode: 'development',

@@ -124,10 +124,10 @@ In this file:
 
         opacity: 0;
 
-        .shown & {
+        .accordion__panel.shown & {
             padding-top: var(--accordion-panel-padding-y);
             padding-bottom: var(--accordion-panel-padding-y);
-            
+
             opacity: 1;
         }
     }

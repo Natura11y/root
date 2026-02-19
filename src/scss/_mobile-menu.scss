@@ -1,0 +1,124 @@
+/*
+
+In this file:
+
+// A. Variables
+// B. Component
+
+*/
+
+//////////////////////////////////////////////
+// A. Variables
+//////////////////////////////////////////////
+
+:root {
+    --mobile-menu-width: min(380px, 90vw);
+    --mobile-menu-z-index: 10000;
+}
+
+//////////////////////////////////////////////
+// B. Component
+//////////////////////////////////////////////
+
+@layer component {
+
+    // Mobile Menu Panel
+
+    .mobile-menu {
+        position: fixed;
+        inset-block: 0;
+        inset-inline-end: 0;
+
+        width: var(--mobile-menu-width);
+
+        display: flex;
+        flex-direction: column;
+
+        overflow: hidden;
+
+        z-index: var(--mobile-menu-z-index);
+
+        transform: translateX(var(--mobile-menu-width));
+        visibility: hidden;
+
+        transition:
+            transform 0.3s ease-in-out,
+            visibility 0s 0.3s;
+
+        box-shadow: -0.25rem 0 1rem hsla(0, 0%, 0%, 0.2);
+
+        &.shown {
+            transform: translateX(0);
+            visibility: visible;
+
+            transition:
+                transform 0.3s ease-in-out,
+                visibility 0s;
+        }
+    }
+
+    // Mobile Menu Header
+
+    .mobile-menu__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        flex-shrink: 0;
+
+        padding-inline: var(--primary-nav-padding-x);
+        padding-block: var(--primary-nav-padding-y);
+
+        border-block-end-width: var(--border-width);
+        border-block-end-style: var(--border-style);
+    }
+
+    // Mobile Menu Body
+
+    .mobile-menu__body {
+        overflow-y: auto;
+        flex: 1;
+
+        // Match plain nav links to accordion button padding
+        .nav > li > a {
+            display: block;
+            padding-block: var(--accordion-button-padding-y);
+            padding-inline: var(--accordion-button-padding-x);
+            font-weight: var(--body-font-weight-bold);
+        }
+    }
+
+    // Mobile Menu Overlay
+
+    .mobile-menu__overlay {
+        position: fixed;
+        inset: 0;
+
+        background-color: hsla(0, 0%, 0%, 0.5);
+
+        z-index: calc(var(--mobile-menu-z-index) - 1);
+
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+
+        transition:
+            opacity 0.3s ease-in-out,
+            visibility 0s 0.3s;
+    }
+
+    body:has(.mobile-menu.shown) {
+        overflow: hidden;
+
+        .mobile-menu__overlay {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+
+            transition:
+                opacity 0.3s ease-in-out,
+                visibility 0s;
+        }
+    }
+
+} // end @layer
