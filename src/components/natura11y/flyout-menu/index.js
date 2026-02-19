@@ -45,7 +45,8 @@ const FlyoutMenu = (props) => {
         if (!containerRef.current || !contentRef.current) return;
 
         if (isOpen) {
-            handleOverlayOpen(contentRef.current);
+            const closeBtn = contentRef.current.querySelector('[data-flyout-menu-close]');
+            handleOverlayOpen(contentRef.current, null, closeBtn);
         } else {
             handleOverlayClose(containerRef.current);
         }
@@ -93,9 +94,7 @@ const FlyoutMenu = (props) => {
         setTimeout(() => {
             const panel = panelRefs.current[index];
             if (panel) {
-                panel.tabIndex = -1;
-                panel.focus({ preventScroll: true });
-                panel.addEventListener('blur', () => panel.removeAttribute('tabindex'), { once: true });
+                getFocusableElements(panel)[0]?.focus({ preventScroll: true });
             }
         }, 0);
     };
@@ -174,8 +173,7 @@ const FlyoutMenu = (props) => {
                                 <div
                                     key={index}
                                     ref={el => panelRefs.current[index] = el}
-                                    className="flyout-menu__panel"
-                                    inert={activePanelIndex !== index ? true : undefined}
+                                    className={`flyout-menu__panel${activePanelIndex === index ? ' flyout-menu__panel--active' : enteringPanel !== index ? ' flyout-menu__panel--hidden' : ''}`}
                                     data-entering={enteringPanel === index ? '' : undefined}
                                     onAnimationEnd={() => setEnteringPanel(null)}
                                 >

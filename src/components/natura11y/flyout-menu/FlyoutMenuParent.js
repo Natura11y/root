@@ -15,55 +15,110 @@ const FlyoutMenuParent = () => {
             <ul className="nav nav--divider">
                 <li>
                     <button data-flyout-menu-next="" onClick={() => navigateTo(1)}>
-                        Products
+                        Wildlife
                         <span className="icon icon-arrow-right" aria-hidden="true"></span>
                     </button>
                 </li>
                 <li>
                     <button data-flyout-menu-next="" onClick={() => navigateTo(2)}>
-                        Services
+                        Trails
                         <span className="icon icon-arrow-right" aria-hidden="true"></span>
                     </button>
                 </li>
+                <li><a href="#1">Events</a></li>
                 <li><a href="#1">About</a></li>
-                <li><a href="#1">Blog</a></li>
                 <li><a href="#1">Contact</a></li>
             </ul>
         ),
 
-        // Panel 1: Products
+        // Panel 1: Wildlife
         ({ navigateTo }) => (
-            <ul className="nav nav--divider">
-                <li>
-                    <button data-flyout-menu-next="" onClick={() => navigateTo(3)}>
-                        Software
-                        <span className="icon icon-arrow-right" aria-hidden="true"></span>
-                    </button>
-                </li>
-                <li><a href="#1">Hardware</a></li>
-                <li><a href="#1">Accessories</a></li>
-                <li><a href="#1">All Products</a></li>
-            </ul>
+            <>
+                <div className="flyout-menu__panel-title">
+                    <p>Wildlife</p>
+                </div>
+                <ul className="nav nav--divider">
+                    <li>
+                        <button data-flyout-menu-next="" onClick={() => navigateTo(3)}>
+                            Birds
+                            <span className="icon icon-arrow-right" aria-hidden="true"></span>
+                        </button>
+                    </li>
+                    <li>
+                        <button data-flyout-menu-next="" onClick={() => navigateTo(4)}>
+                            Mammals
+                            <span className="icon icon-arrow-right" aria-hidden="true"></span>
+                        </button>
+                    </li>
+                    <li>
+                        <button data-flyout-menu-next="" onClick={() => navigateTo(5)}>
+                            Reptiles
+                            <span className="icon icon-arrow-right" aria-hidden="true"></span>
+                        </button>
+                    </li>
+                    <li><a href="#1">All Wildlife</a></li>
+                </ul>
+            </>
         ),
 
-        // Panel 2: Services
+        // Panel 2: Trails
         () => (
-            <ul className="nav nav--divider">
-                <li><a href="#1">Consulting</a></li>
-                <li><a href="#1">Support</a></li>
-                <li><a href="#1">Training</a></li>
-                <li><a href="#1">All Services</a></li>
-            </ul>
+            <>
+                <div className="flyout-menu__panel-title">
+                    <p>Trails</p>
+                </div>
+                <ul className="nav nav--divider">
+                    <li><a href="#1">Easy</a></li>
+                    <li><a href="#1">Moderate</a></li>
+                    <li><a href="#1">Strenuous</a></li>
+                    <li><a href="#1">All Trails</a></li>
+                </ul>
+            </>
         ),
 
-        // Panel 3: Software (nested under Products)
+        // Panel 3: Birds (nested under Wildlife)
         () => (
-            <ul className="nav nav--divider">
-                <li><a href="#1">App One</a></li>
-                <li><a href="#1">App Two</a></li>
-                <li><a href="#1">App Three</a></li>
-                <li><a href="#1">All Software</a></li>
-            </ul>
+            <>
+                <div className="flyout-menu__panel-title">
+                    <p>Birds</p>
+                </div>
+                <ul className="nav nav--divider">
+                    <li><a href="#1">Waterfowl</a></li>
+                    <li><a href="#1">Raptors</a></li>
+                    <li><a href="#1">Shorebirds</a></li>
+                    <li><a href="#1">All Birds</a></li>
+                </ul>
+            </>
+        ),
+
+        // Panel 4: Mammals (nested under Wildlife)
+        () => (
+            <>
+                <div className="flyout-menu__panel-title">
+                    <p>Mammals</p>
+                </div>
+                <ul className="nav nav--divider">
+                    <li><a href="#1">Bears</a></li>
+                    <li><a href="#1">Deer</a></li>
+                    <li><a href="#1">Fox</a></li>
+                    <li><a href="#1">All Mammals</a></li>
+                </ul>
+            </>
+        ),
+
+        // Panel 5: Reptiles (nested under Wildlife)
+        () => (
+            <>
+                <div className="flyout-menu__panel-title">
+                    <p>Reptiles</p>
+                </div>
+                <ul className="nav nav--divider">
+                    <li><a href="#1">Turtles</a></li>
+                    <li><a href="#1">Lizards</a></li>
+                    <li><a href="#1">Snakes</a></li>
+                    <li><a href="#1">All Reptiles</a></li>
+                </ul>
+            </>
         ),
 
     ];
