@@ -6,7 +6,7 @@ In this file:
 
 */
 
-import { focusTrap } from './focus';
+import { focusTrap } from './focus-new';
 
 //////////////////////////////////////////////
 // A. Overlay Open and Close
