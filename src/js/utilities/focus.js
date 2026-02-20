@@ -39,6 +39,8 @@ export const getFocusableElements = (element = document, options = {}) => {
 
     return [...element.querySelectorAll(els)].filter((el) => {
         return !el.hasAttribute('disabled') &&
+               !el.closest('[inert]') &&
+               !el.closest('[hidden]') &&
                !exclude.some(exclusion => el.closest(exclusion));
     });
 }
@@ -49,12 +51,11 @@ export const getFocusableElements = (element = document, options = {}) => {
 
 export const focusTrap = (element, firstFocusTarget = element) => {
 
-    let focusableElements = getFocusableElements(element);
+    // Only add tabindex if element isn't already natively focusable
+    if (firstFocusTarget.tabIndex < 0) {
+        firstFocusTarget.setAttribute('tabindex', '-1');
+    }
     
-    let firstFocusableElement = focusableElements[0];
-    let lastFocusableElement = focusableElements[focusableElements.length - 1];
-
-    firstFocusTarget.setAttribute('tabindex', '-1');
     firstFocusTarget.focus();
 
     // Remove existing focus trap handler if any to prevent memory leaks
@@ -67,28 +68,34 @@ export const focusTrap = (element, firstFocusTarget = element) => {
     const keydownHandler = (event) => {
 
         switch (event.code) {
-            case 'Tab':
+            case 'Tab': {
+
+                // Query dynamically to respect inert/hidden state changes after panel navigation
+                const focusableElements = getFocusableElements(element);
+                const firstFocusableElement = focusableElements[0];
+                const lastFocusableElement = focusableElements[focusableElements.length - 1];
 
                 if (document.activeElement === lastFocusableElement) {
                     if (!event.shiftKey) {
                         event.preventDefault();
-                        firstFocusableElement.focus();
+                        firstFocusableElement?.focus();
                     }
                 }
 
                 if (document.activeElement === firstFocusableElement) {
                     if (event.shiftKey) {
                         event.preventDefault();
-                        lastFocusableElement.focus();
+                        lastFocusableElement?.focus();
                     }
                 }
 
                 break;
+            }
 
             case 'Escape':
                 handleOverlayClose(element);
                 break;
-            
+
             default:
                 // do nothing
         }
