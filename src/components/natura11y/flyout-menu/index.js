@@ -45,8 +45,8 @@ const FlyoutMenu = (props) => {
         if (!containerRef.current || !contentRef.current) return;
 
         if (isOpen) {
-            const closeBtn = contentRef.current.querySelector('[data-flyout-menu-close]');
-            handleOverlayOpen(contentRef.current, null, closeBtn);
+            handleOverlayOpen(null, null, null);
+            contentRef.current.querySelector('[data-flyout-menu-close]')?.focus();
         } else {
             handleOverlayClose(containerRef.current);
         }
@@ -56,13 +56,36 @@ const FlyoutMenu = (props) => {
         };
     }, [isOpen]);
 
-    // Escape key
+    // Focus trap + Escape
 
     useEffect(() => {
-        if (!isOpen) return;
+        if (!isOpen || !contentRef.current) return;
 
         const handleKeyDown = (e) => {
-            if (e.code === 'Escape') onClose?.();
+            if (e.code === 'Escape') {
+                onClose?.();
+                return;
+            }
+
+            if (e.key === 'Tab') {
+                const focusable = getFocusableElements(contentRef.current, { exclude: ['.flyout-menu__panel--hidden'] });
+                if (!focusable.length) return;
+
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+
+                if (e.shiftKey) {
+                    if (document.activeElement === first) {
+                        e.preventDefault();
+                        last.focus();
+                    }
+                } else {
+                    if (document.activeElement === last) {
+                        e.preventDefault();
+                        first.focus();
+                    }
+                }
+            }
         };
 
         document.addEventListener('keydown', handleKeyDown);
@@ -92,10 +115,7 @@ const FlyoutMenu = (props) => {
         setEnteringPanel(index);
 
         setTimeout(() => {
-            const panel = panelRefs.current[index];
-            if (panel) {
-                getFocusableElements(panel)[0]?.focus({ preventScroll: true });
-            }
+            contentRef.current?.querySelector('[data-flyout-menu-back]')?.focus({ preventScroll: true });
         }, 0);
     };
 
@@ -110,10 +130,7 @@ const FlyoutMenu = (props) => {
         setEnteringPanel(prevIndex);
 
         setTimeout(() => {
-            const panel = panelRefs.current[prevIndex];
-            if (panel) {
-                getFocusableElements(panel)[0]?.focus({ preventScroll: true });
-            }
+            contentRef.current?.querySelector('[data-flyout-menu-close]')?.focus({ preventScroll: true });
         }, 0);
     };
 
