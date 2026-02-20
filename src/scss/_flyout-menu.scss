@@ -22,7 +22,7 @@ In this file:
 
 @layer component {
 
-    // Flyout Menu Backdrop
+    // Flyout Menu
 
     .flyout-menu {
         position: fixed;
@@ -65,15 +65,15 @@ In this file:
     // Flyout Menu Content
 
     .flyout-menu__content {
-        width: var(--flyout-menu-width);
-        height: 100dvh;
-
-        background-color: var(--background-color);
-
         display: flex;
         flex-direction: column;
 
+        width: var(--flyout-menu-width);
+        height: 100dvh;
+
         overflow-x: hidden;
+
+        background-color: var(--background-color);
 
         box-shadow: -0.25rem 0 1rem hsla(var(--box-shadow-hsl) / var(--box-shadow-base-opacity));
 
