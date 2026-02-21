@@ -71,7 +71,7 @@ In this file:
         }
     }
 
-    // Nav Link Dropdown Component (Link + Dropdown)
+    // Nav Link Dropdown Component
 
     .nav-link-dropdown {
         --_dropdown-button-size: 1.75em;
@@ -85,9 +85,10 @@ In this file:
 
         padding-inline:  var(--nav-divider-padding-x);
 
+        z-index: auto;
+
         padding-block: var(--nav-divider-padding-y);
 
-        // Link gets underline when dropdown is expanded or on direct hover/focus
         > a {
             display: flex;
             align-items: center;
@@ -111,13 +112,12 @@ In this file:
             }
         }
 
-        // When dropdown is expanded, underline the link
-        &:has([data-toggle="dropdown"][aria-expanded="true"]) > a:hover {
+        &:has([data-toggle="dropdown"][aria-expanded="true"]) > a {
             text-decoration: underline;
         }
 
-
         > [data-toggle="dropdown"] {
+
             flex: 0 0;
 
             display: flex;
@@ -164,6 +164,7 @@ In this file:
         }
 
         padding: var(--nav-gap);
+        background-color: var(--background-color);
     }
 
     // Mega Menu
