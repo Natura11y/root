@@ -14,9 +14,10 @@ import Backdrop from './js/backdrop';
 import Collapse from './js/collapse';
 import FormInput, { FormSubmission, FormFileUpload } from './js/form';
 import Lightbox from './js/lightbox';
+import Dropdown from './js/dropdown';
 import FlyoutMenu from './js/flyout-menu';
 import Modal from './js/modal';
-import Navigation from './js/navigation';
+import PrimaryNav from './js/primary-nav';
 import Table from './js/table';
 import Tab from './js/tab';
 import Track from './js/track';
@@ -54,11 +55,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const flyoutMenu = new FlyoutMenu();
   flyoutMenu.init();
 
+  const dropdown = new Dropdown();
+  dropdown.init();
+
   const modal = new Modal();
   modal.init();
 
-  const navigation = new Navigation();
-  navigation.init();
+  const primaryNav = new PrimaryNav();
+  primaryNav.init();
 
   const table = new Table();
   table.init();

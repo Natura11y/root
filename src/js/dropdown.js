@@ -1,17 +1,13 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 import { delegateEvent } from './utilities/eventDelegation';
 import { getCurrentBreakpoint } from './utilities/getCurrentBreakpoint';
-import { getFocusableElements } from './utilities/focus';
-import { handleArrowKeyNavigation } from './utilities/keyboardNavigation';
 
-export default class Navigation {
-  
+export default class Dropdown {
+
   // Private properties
 
   #isAnyDropdownOpen = false;
   #hoverTimeout = 400;
-
-  #primaryNavMenuList = document.querySelectorAll('.primary-nav__menu');
 
   // Private methods
 
@@ -73,11 +69,11 @@ export default class Navigation {
         if (dropdownMenu.contains(event.target)) {
           return;
         }
-        
+
         // For nav-link-dropdown, check the entire wrapper
         const linkDropdownItem = dropdownButton.closest('.nav-link-dropdown');
         const clickTarget = linkDropdownItem || dropdownButton;
-        
+
         // If click is outside the entire component, close dropdown
         if (!clickTarget.contains(event.target)) {
           this.#closeDropdown(dropdownButton, dropdownMenu);
@@ -102,10 +98,10 @@ export default class Navigation {
   };
 
   #handleButtonMenuFocusout = (dropdownButton, dropdownMenu) => (event) => {
-    
+
     const computedStyle = window.getComputedStyle(dropdownMenu);
     if (computedStyle.position !== 'absolute') return;
-    
+
     const relatedTarget = event.relatedTarget;
     if (
       relatedTarget &&
@@ -119,7 +115,7 @@ export default class Navigation {
   #cleanupEventListeners(dropdownButton, dropdownMenu) {
     const linkDropdownItem = dropdownButton.closest('.nav-link-dropdown');
     const hoverTarget = linkDropdownItem || dropdownButton;
-    
+
     if (hoverTarget._hoverInHandler) {
       hoverTarget.removeEventListener('mouseenter', hoverTarget._hoverInHandler);
       delete hoverTarget._hoverInHandler;
@@ -146,7 +142,7 @@ export default class Navigation {
   // Public methods
 
   init() {
-    
+
     delegateEvent(document, 'click', '[data-toggle="dropdown"]', (event) => {
       const dropdownButton = event.target;
       const dropdownMenuId = dropdownButton.getAttribute('aria-controls');
@@ -193,7 +189,7 @@ export default class Navigation {
         // Hover in - check if this is a nav-link-dropdown item
         const linkDropdownItem = dropdownButton.closest('.nav-link-dropdown');
         const hoverTarget = linkDropdownItem || dropdownButton;
-        
+
         hoverTarget.addEventListener('mouseenter', hoverTarget._hoverInHandler = () => {
           if (!openedByKeyboardOrClick) {
             // Close any other open dropdowns immediately to prevent multiple menus showing
@@ -206,7 +202,7 @@ export default class Navigation {
                 }
               }
             });
-            
+
             this.#openDropdown(dropdownButton, dropdownMenu);
           }
         });
@@ -218,10 +214,10 @@ export default class Navigation {
         // Hover out
         const hoverOutHandler = () => {
           setTimeout(() => {
-            const hoverCheck = linkDropdownItem ? 
+            const hoverCheck = linkDropdownItem ?
               !linkDropdownItem.matches(':hover') && !dropdownMenu.matches(':hover') :
               !dropdownButton.matches(':hover') && !dropdownMenu.matches(':hover');
-              
+
             if (hoverCheck && !openedByKeyboardOrClick) {
               this.#closeDropdown(dropdownButton, dropdownMenu);
               openedByKeyboardOrClick = false;
@@ -290,21 +286,6 @@ export default class Navigation {
     window.addEventListener('click', this.#handleWindowClick);
     document.addEventListener('keydown', this.#handleEscapeKeyPress);
 
-    // Keyboard navigation
-    this.#primaryNavMenuList.forEach(nav => {
-      delegateEvent(nav, 'keydown', ':is(button, a)', (event) => {
-      
-        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.code)) return;
-
-        const items = getFocusableElements(nav, { exclude: ['.nav__dropdown', '[class*="mega-menu"]'] });
-        const index = items.indexOf(event.target);
-
-        if (index === -1) return;
-
-        handleArrowKeyNavigation(event, index, items, (targetIndex) => items[targetIndex].focus());
-      });
-    });
-
   }
-  
+
 }
