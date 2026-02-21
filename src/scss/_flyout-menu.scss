@@ -94,8 +94,8 @@ In this file:
 
         font-size: var(--font-size-md);
 
-        padding-inline: var(--primary-nav-padding-x);
-        padding-block: var(--primary-nav-padding-y);
+        padding-inline: var(--primary-header-padding-x);
+        padding-block: var(--primary-header-padding-y);
 
         border-block-end-width: var(--border-width);
         border-block-end-style: var(--border-style);
@@ -122,7 +122,7 @@ In this file:
 
         opacity: 0.8;
 
-        padding-inline: var(--primary-nav-padding-x);
+        padding-inline: var(--primary-header-padding-x);
         padding-block: 0.25em;
 
         background-color: var(--subtle-fill-1);

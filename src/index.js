@@ -17,7 +17,7 @@ import Lightbox from './js/lightbox';
 import Dropdown from './js/dropdown';
 import FlyoutMenu from './js/flyout-menu';
 import Modal from './js/modal';
-import PrimaryNav from './js/primary-nav';
+import PrimaryHeader from './js/primary-header';
 import Table from './js/table';
 import Tab from './js/tab';
 import Track from './js/track';
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modal = new Modal();
   modal.init();
 
-  const primaryNav = new PrimaryNav();
+  const primaryNav = new PrimaryHeader();
   primaryNav.init();
 
   const table = new Table();

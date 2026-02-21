@@ -172,7 +172,7 @@
     );
 }
 
-.primary-nav__actions .button {
+.primary-header__actions .button {
     clip-path: polygon(
         0 0,
         95% 5%,

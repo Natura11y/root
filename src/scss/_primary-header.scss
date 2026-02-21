@@ -27,9 +27,9 @@ In this file:
 ////////////////////////////////////////
 
 :root {
-    --primary-nav-padding-x: var(--container-padding-x);
+    --primary-header-padding-x: var(--container-padding-x);
 
-    --primary-nav-padding-y: var(--spacer-2);
+    --primary-header-padding-y: var(--spacer-2);
 }
 
 // Mixin for hover safe zone
@@ -50,7 +50,7 @@ In this file:
 
     // Primary Nav Components
 
-    [class*="primary-nav--"] {
+    [class*="primary-header--"] {
         position: relative;
 
         display: grid;
@@ -103,7 +103,7 @@ In this file:
 
             justify-content: center;
 
-            gap: var(--primary-nav-padding-x);
+            gap: var(--primary-header-padding-x);
         }
 
         [class*="__search"] {
@@ -120,7 +120,7 @@ In this file:
 
     // Primary Nav Inline Variant
 
-    [class*="primary-nav--inline--"] {
+    [class*="primary-header--inline--"] {
         --_template-area-row-1-m: "logo toggle button";
         --_template-area-row-2-m: "menu menu menu";
         --_template-area-row-3-m: "search search search";
@@ -156,14 +156,14 @@ In this file:
         }
 
         [class*="__logo"] a {
-            margin-inline-start : var(--primary-nav-padding-x);
+            margin-inline-start : var(--primary-header-padding-x);
         }
 
         :is(
             [class*="__actions"],
             [class*="__toggle"]
         ) {
-            margin-inline-end: var(--primary-nav-padding-x);
+            margin-inline-end: var(--primary-header-padding-x);
         }
 
         :is(
@@ -171,7 +171,7 @@ In this file:
             [class*="__action"],
             [class*="__toggle"]
         ) {
-            margin-block: var(--primary-nav-padding-y);
+            margin-block: var(--primary-header-padding-y);
         }
 
         [class*="__search"] {
@@ -187,7 +187,7 @@ In this file:
 
     // Primary Nav Below Variant
 
-    [class*="primary-nav--below--"] {
+    [class*="primary-header--below--"] {
         --_template-area-row-1-m: "logo logo logo";
         --_template-area-row-2-m: "toggle search button";
         --_template-area-row-3-m: "menu menu menu";
@@ -195,7 +195,7 @@ In this file:
         --_template-area-row-1-d: "logo search button";
         --_template-area-row-2-d: "menu menu menu";
 
-        column-gap: var(--primary-nav-padding-x);
+        column-gap: var(--primary-header-padding-x);
 
         &:has([class*="__search"]):not(:has([class*="__actions"])) {
             --_template-area-row-2-m: "toggle search search";
@@ -204,18 +204,22 @@ In this file:
 
         [class*="__logo"] a,
         [class*="__toggle"] {
-            margin-inline-start : var(--primary-nav-padding-x);
+            margin-inline-start : var(--primary-header-padding-x);
         }
 
-        > :is([class*="__search"], [class*="__actions"]):last-child {
-            margin-inline-end : var(--primary-nav-padding-x);
+        > [class*="__actions"] {
+            margin-inline-end: var(--primary-header-padding-x);
+        }
+
+        &:not(:has([class*="__actions"])) > [class*="__search"] {
+            margin-inline-end: var(--primary-header-padding-x);
         }
 
         [class*="__logo"] a,
         [class*="__toggle"],
         [class*="__search"],
         [class*="__actions"] {
-            margin-block : var(--primary-nav-padding-y);
+            margin-block : var(--primary-header-padding-y);
         }
 
         &:has([class*="__actions"]):not(:has([class*="__search"])) {
@@ -247,7 +251,7 @@ In this file:
 
     // Primary Nav Menu + Search
 
-    .primary-nav__menu {
+    .primary-header__menu {
 
         > ul > li:not(:last-child) {
             border-block-end-width: var(--border-width);
@@ -261,7 +265,7 @@ In this file:
 
             width: 100%;
 
-            padding: var(--nav-divider-padding-y) var(--primary-nav-padding-x);
+            padding: var(--nav-divider-padding-y) var(--primary-header-padding-x);
         }
 
         > ul > li:not(:has([class*="mega-menu"])) {
@@ -273,11 +277,11 @@ In this file:
         }
 
         .nav__dropdown {
-            padding: var(--primary-nav-padding-y) var(--primary-nav-padding-x);
+            padding: var(--primary-header-padding-y) var(--primary-header-padding-x);
         }
     }
 
-    .primary-nav__search {
+    .primary-header__search {
         .form-entry {
             width: 100%;
         }
@@ -294,8 +298,8 @@ In this file:
         @include breakpoint.breakpoint-up($breakpoint) {
             $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
-            .primary-nav--inline#{$mod},
-            .primary-nav--below#{$mod} {
+            .primary-header--inline#{$mod},
+            .primary-header--below#{$mod} {
 
                 [class*="__logo"] {
                     justify-content: flex-start;
@@ -339,7 +343,7 @@ In this file:
                 }
             }
 
-            .primary-nav--inline#{$mod} {
+            .primary-header--inline#{$mod} {
                 grid-template-columns: 1fr auto auto;
                 grid-template-areas: var(--_template-area-row-1-d);
 
@@ -348,7 +352,7 @@ In this file:
                     [class*="__search"]
                 ) {
                     border-block-start-style: none !important;
-                    margin-inline-end: var(--primary-nav-padding-x);
+                    margin-inline-end: var(--primary-header-padding-x);
                 }
 
                 [class*="__menu"] {
@@ -408,7 +412,7 @@ In this file:
                 }
             }
 
-            .primary-nav--below#{$mod} {
+            .primary-header--below#{$mod} {
                 grid-template-columns: 1fr auto auto;
 
                 grid-template-areas:
