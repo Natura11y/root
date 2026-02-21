@@ -1,0 +1,24 @@
+%caret {
+    --_caret-size: 0.25em;
+    --_caret-margin: 0.375em;
+
+    display: inline-flex;
+    flex-direction: row-reverse;
+    align-items: center;
+
+    &::before {
+        border-top: var(--_caret-size) solid;
+        border-right: var(--_caret-size) solid transparent;
+        border-bottom: 0;
+        border-left: var(--_caret-size) solid transparent;
+
+        position: relative;
+        content: "";
+
+        display: inline-flex;
+
+        color: inherit;
+
+        pointer-events: none;
+    }
+}

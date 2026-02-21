@@ -21,6 +21,7 @@ In this file:
 @use './assistive';
 @use './border';
 @use './button';
+@use './caret';
 @use './collapse';
 @use './color';
 @use './document';
@@ -45,9 +46,11 @@ In this file:
 @use './gradient';
 @use './grid'; 
 @use './lightbox';
+@use './dropdown';
 @use './flyout-menu';
 @use './modal';
 @use './navigation';
+@use './primary-nav';
 @use './opacity';
 @use './overflow';
 @use './position';
