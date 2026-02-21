@@ -27,7 +27,25 @@ In this file:
 @use './typography';
 
 ////////////////////////////////////////
-// C. Placeholder
+// B. Variables
+////////////////////////////////////////
+
+:root {
+    --nav-gap: 0.875em;
+
+    --nav-divider-padding-x: var(--container-padding-x);
+
+    --nav-divider-padding-y: 0.625em;
+
+    --primary-nav-padding-x: var(--container-padding-x);
+    
+    --primary-nav-padding-y: var(--spacer-2);
+
+    --nav-font-family: var(--font-family-sans-serif);
+}
+
+////////////////////////////////////////
+// C. Placeholders 
 ////////////////////////////////////////
 
 %caret {
@@ -54,40 +72,6 @@ In this file:
         pointer-events: none;
     }
 }
-
-// Mixin for hover safe zone
-
-@mixin hover-safe-zone {
-    content: "";
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 250%; // Arbitrary Height
-
-    background-color: hsla(0, 100%, 50%, 0.5);
-}
-
-////////////////////////////////////////
-// B. Variables
-////////////////////////////////////////
-
-:root {
-    --nav-gap: 0.875em;
-
-    --nav-divider-padding-x: var(--container-padding-x);
-
-    --nav-divider-padding-y: 0.625em;
-
-    --primary-nav-padding-x: var(--container-padding-x);
-    
-    --primary-nav-padding-y: var(--spacer-2);
-
-    --nav-font-family: var(--font-family-sans-serif);
-}
-
-////////////////////////////////////////
-// C. Placeholders 
-////////////////////////////////////////
 
 %list-style-nav {
     list-style: none;
@@ -122,13 +106,23 @@ In this file:
     }
 }
 
+// Mixin for hover safe zone
+
+@mixin hover-safe-zone {
+    content: "";
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 250%; // Arbitrary Height
+}
+
 ////////////////////////////////////////
 // D. Components
 ////////////////////////////////////////
 
 @layer component {
 
-    // Nav
+    // Nav Selector
 
     .nav, 
     .nav li > ul {
