@@ -4,11 +4,12 @@ In this file:
 
 // A. Modules
 // B. Variables
-// C. Primary Nav Base
-// D. Primary Nav Inline Variant
-// E. Primary Nav Below Variant
-// F. Primary Nav Menu + Search
-// G. Breakpoint Overrides
+// C. Global Header Base
+// D. Global Header Bar Variant
+// E. Global Header Stack Variant
+// F. Global Header Hat
+// G. Global Header Menu + Search
+// H. Breakpoint Overrides
 
 */
 
@@ -30,6 +31,8 @@ In this file:
     --global-header-padding-x: var(--container-padding-x);
 
     --global-header-padding-y: var(--spacer-2);
+
+    --global-header-hat-padding-y: var(--spacer-1);
 }
 
 // Mixin for hover safe zone
@@ -67,6 +70,27 @@ In this file:
 
         li:has([class*="nav__dropdown"]) {
             position: relative;
+        }
+
+        [class*="__hat"] {
+            grid-area: hat;
+
+            display: flex;
+            align-items: center;
+
+            padding-inline: var(--global-header-padding-x);
+            padding-block: var(--global-header-hat-padding-y);
+
+            font-size: var(--font-size-sm);
+        }
+
+        &:has([class*="__hat"]) {
+            grid-template-areas:
+                "hat hat hat"
+                var(--_template-area-row-1-m)
+                var(--_template-area-row-2-m)
+                var(--_template-area-row-3-m)
+            ;
         }
 
         [class*="__logo"],
@@ -347,6 +371,20 @@ In this file:
                 grid-template-columns: 1fr auto auto;
                 grid-template-areas: var(--_template-area-row-1-d);
 
+                &:has([class*="__hat"]) {
+                    grid-template-areas:
+                        "hat hat hat"
+                        var(--_template-area-row-1-d)
+                    ;
+                }
+
+                &:has([class*="__hat"]):has([class*="__search"]):has([class*="__actions"]) {
+                    grid-template-areas:
+                        "hat hat hat hat"
+                        var(--_template-area-row-1-d)
+                    ;
+                }
+
                 :is(
                     [class*="__menu"],
                     [class*="__search"]
@@ -418,6 +456,14 @@ In this file:
                 grid-template-areas:
                     var(--_template-area-row-1-d)
                     var(--_template-area-row-2-d);
+
+                &:has([class*="__hat"]) {
+                    grid-template-areas:
+                        "hat hat hat"
+                        var(--_template-area-row-1-d)
+                        var(--_template-area-row-2-d)
+                    ;
+                }
 
                 > [class*="__logo"] {
                     border-block-end-style: none !important;
