@@ -324,23 +324,14 @@ In this file:
                     border-block-end: unset;
                 }
 
-                // .nav-link-dropdown {
-                //     --_dropdown-button-size: 0.375em;
+                .nav-link-dropdown {
 
-                //     [data-toggle="dropdown"] {
-                //         pointer-events: none;
-                //         margin-inline-start: unset;
-                //     }
-
-                //     > [data-toggle="dropdown"] {
-                //         min-width: 0.75em;
-                //         background-color: transparent;
-                //     }
-
-                //     a::after {
-                //         display: block;
-                //     }
-                // }
+                    > [data-toggle="dropdown"] {
+                        background-color: transparent;
+                        min-width: unset;
+                        margin-inline-start: unset;
+                    }
+                }
             }
 
             .main-menu--bar#{$mod} {
@@ -366,7 +357,8 @@ In this file:
                     }
 
                     > ul > li > :is(a, button),
-                    > ul > li > .nav-link-dropdownX > a {
+                    > ul > li > .nav-link-dropdown,
+                    > ul > li > .nav-link-dropdown > a {
                         padding: unset;
                     }
 
@@ -404,7 +396,7 @@ In this file:
                             margin-inline-end: calc(var(--nav-gap) * -1);
                         }
 
-                        > li > :is(a, button, [class*="nav-link-dropdownX"]) {
+                        > li > :is(a, button, .nav-link-dropdown) {
                             margin-block: auto;
                         }
                     }
@@ -448,19 +440,21 @@ In this file:
                         }
 
                         > li > a {
-                            display: block;
+                            display: flex;
                             text-align: center;
                             padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
                         }
 
-                        // .nav-link-dropdown a {
-                        //     flex-grow: 0;
-                        //     padding-inline: unset;
-                        // }
+                        .nav-link-dropdown a {
+                            flex-grow: 0;
+                            padding-inline: unset;
 
-                        // :is([data-toggle="dropdown"], .nav-link-dropdown) {
-                        //     justify-content: center;
-                        // }
+                            background-color: aquamarine;
+                        }
+
+                        :is([data-toggle="dropdown"], .nav-link-dropdown) {
+                            justify-content: center;
+                        }
 
                         .nav__dropdown {
                             position: absolute;
