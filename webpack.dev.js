@@ -8,29 +8,31 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const devPages = {
 
     // Default
-    
+
     'Index': 'index',
 
-    // Components
+    // Pages
 
     'Accordion': 'accordion',
     'Alert': 'alert',
     'Article': 'article',
-    'Button': 'button',
-    'Border': 'border',
     'Backdrop': 'backdrop',
+    'Border': 'border',
+    'Breadcrumb': 'breadcrumb',
+    'Button': 'button',
     'Card': 'card',
-    'Color': 'color',
     'Collapse': 'collapse',
+    'Color': 'color',
     'Container': 'container',
+    'Dropdown': 'dropdown',
+    'Flyout': 'flyout',
     'Form': 'form',
     'Grid': 'grid',
     'Lightbox': 'lightbox',
-    'Modal': 'modal',                   
-    'Megamenu': 'megamenu',
-    'Flyout': 'flyout',
+    'MainMenu': 'main-menu',
+    'MegaMenu': 'megamenu',
+    'Modal': 'modal',
     'Navigation': 'navigation',
-    'New': 'new-features',
     'Spacer': 'spacer',
     'Tab': 'tab',
     'Table': 'table',
@@ -39,7 +41,7 @@ const devPages = {
 }
 
 const devDir = './dist/html';
-const devPage = `${devPages.Track}.html`;
+const devPage = `${devPages.Dropdown}.html`;
 
 module.exports = merge(common, {
     mode: 'development',

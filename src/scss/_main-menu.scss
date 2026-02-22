@@ -324,23 +324,23 @@ In this file:
                     border-block-end: unset;
                 }
 
-                .nav-link-dropdown {
-                    --_dropdown-button-size: 0.375em;
+                // .nav-link-dropdown {
+                //     --_dropdown-button-size: 0.375em;
 
-                    [data-toggle="dropdown"] {
-                        pointer-events: none;
-                        margin-inline-start: unset;
-                    }
+                //     [data-toggle="dropdown"] {
+                //         pointer-events: none;
+                //         margin-inline-start: unset;
+                //     }
 
-                    > [data-toggle="dropdown"] {
-                        min-width: 0.75em;
-                        background-color: transparent;
-                    }
+                //     > [data-toggle="dropdown"] {
+                //         min-width: 0.75em;
+                //         background-color: transparent;
+                //     }
 
-                    a::after {
-                        display: block;
-                    }
-                }
+                //     a::after {
+                //         display: block;
+                //     }
+                // }
             }
 
             .main-menu--bar#{$mod} {
@@ -366,7 +366,7 @@ In this file:
                     }
 
                     > ul > li > :is(a, button),
-                    > ul > li > .nav-link-dropdown > a {
+                    > ul > li > .nav-link-dropdownX > a {
                         padding: unset;
                     }
 
@@ -404,7 +404,7 @@ In this file:
                             margin-inline-end: calc(var(--nav-gap) * -1);
                         }
 
-                        > li > :is(a, button, [class*="nav-link-dropdown"]) {
+                        > li > :is(a, button, [class*="nav-link-dropdownX"]) {
                             margin-block: auto;
                         }
                     }
@@ -453,14 +453,14 @@ In this file:
                             padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
                         }
 
-                        .nav-link-dropdown a {
-                            flex-grow: 0;
-                            padding-inline: unset;
-                        }
+                        // .nav-link-dropdown a {
+                        //     flex-grow: 0;
+                        //     padding-inline: unset;
+                        // }
 
-                        :is([data-toggle="dropdown"], .nav-link-dropdown) {
-                            justify-content: center;
-                        }
+                        // :is([data-toggle="dropdown"], .nav-link-dropdown) {
+                        //     justify-content: center;
+                        // }
 
                         .nav__dropdown {
                             position: absolute;
