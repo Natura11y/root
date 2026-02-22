@@ -25,7 +25,7 @@
                     </h1>
                 </header>
 
-                <figure class="container narrow">
+                <div class="container narrow">
                 
                     <!-- Modal buttons -->
 
@@ -143,60 +143,12 @@
                         <!-- .modal__content -->
                     </div>
 
-                </figure>
+                </div>
 
             </section>
 
         </main>
 
-        <script>
-    setTimeout(() => {
-        // Create new button
-        const newButton = document.createElement('button');
-        newButton.className = 'button theme-primary';
-        newButton.setAttribute('data-modal', 'open');
-        newButton.setAttribute('aria-controls', 'modal-example-03');
-        newButton.textContent = 'New Modal (Dynamically Added)';
-        
-        // Append new button to the grid container
-        document.querySelector('.grid').appendChild(newButton);
-
-        // Create new modal
-        const newModal = document.createElement('div');
-        newModal.className = 'modal padding-2';
-        newModal.id = 'modal-example-03';
-        newModal.setAttribute('aria-hidden', 'true');
-        newModal.setAttribute('data-modal-close-outside', 'true');
-        
-        // Create modal content
-        newModal.innerHTML = `
-            <div class="modal__content narrow border-radius-2 box-shadow-3" aria-labelledby="modal-example-03-title" role="dialog">
-                <header class="modal__content__head border-bottom">
-                    <h2 class="h6" id="modal-example-03-title">New Dynamic Modal</h2>
-                    <button class="button button--icon-only" data-modal-close>
-                        <span class="icon icon-close" aria-hidden="true"></span>
-                    </button>
-                </header>
-                <main class="modal__content__body">
-                    <p>This modal was added dynamically after 5 seconds.</p>
-                </main>
-                <footer class="modal__content__foot border-top text-color-link">
-                    <ul class="nav nav--horizontal justify-content-between">
-                        <li>
-                            <a href="#1">Secondary Action</a>
-                        </li>
-                        <li>
-                            <a class="button rounded-pill" href="#1">Primary Action</a>
-                        </li>
-                    </ul>
-                </footer>
-            </div>
-        `;
-        
-        // Append new modal to the body
-        document.body.appendChild(newModal);
-    }, 5000);
-</script>
 
 
     </body>
