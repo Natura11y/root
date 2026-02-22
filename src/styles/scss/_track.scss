@@ -97,13 +97,13 @@ $track-panels: 8;
         scrollbar-width: none;
         -ms-overflow-style: none;
 
-        &::-webkit-scrollbar {
-            display: none;
-        }
-
         // Only animate scrolling if user hasn't requested reduced motion
         @media (prefers-reduced-motion: no-preference) {
             scroll-behavior: smooth;
+        }
+
+        &::-webkit-scrollbar {
+            display: none;
         }
 
         li {

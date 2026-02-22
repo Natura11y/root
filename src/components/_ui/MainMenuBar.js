@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import ButtonIconOnly from '../natura11y/button/ButtonIconOnly';
 import Button from '../natura11y/button';
 
-const GlobalHeader = () => {
+const MainMenuBar = () => {
 	const [menuShow, setMenuShow] = useState(false);
 	const navigationRef = useRef();
 	const location = useLocation();
@@ -15,8 +15,8 @@ const GlobalHeader = () => {
 	};
 
 	return (
-		<div className="primary-nav--inline--lg border-bottom">
-			<div className="primary-nav__logo">
+		<div className="main-menu--bar--lg border-bottom">
+			<div className="main-menu__logo">
 				<Link to="/" title="Home" data-logo="brand">
 					<p className='font-weight-bold'>
 						Natura11y React<br />Components
@@ -26,7 +26,7 @@ const GlobalHeader = () => {
 
 			<nav
 				ref={navigationRef}
-				className={classNames('primary-nav__menu', { shown: menuShow })}
+				className={classNames('main-menu__nav', { shown: menuShow })}
 				id="main-menu"
 				aria-label="Main Menu"
 			>
@@ -42,7 +42,7 @@ const GlobalHeader = () => {
 				</ul>
 			</nav>
 
-			<div className="primary-nav__toggle">
+			<div className="main-menu__toggle">
 				<ButtonIconOnly
 					iconHandle={menuShow ? 'close' : 'menu'}
 					clickHandler={handleMenuClick}
@@ -51,7 +51,7 @@ const GlobalHeader = () => {
 				/>
 			</div>
 
-			<div className="primary-nav__actions">
+			<div className="main-menu__actions">
 				<Button
 					tag="a"
 					linkUrl="https://gonatura11y.com/"
@@ -65,4 +65,4 @@ const GlobalHeader = () => {
 	);
 };
 
-export default GlobalHeader;
+export default MainMenuBar;

@@ -31,7 +31,7 @@ export { default as Dropdown } from './navigation/Dropdown';
 export { default as DropdownMenu } from './navigation/DropdownMenu';
 export { default as MegaMenu } from './navigation/MegaMenu';
 export { default as NavigationItem } from './navigation/NavigationItem';
-export { default as PrimaryNavigation } from './navigation/PrimaryNavigation';
+export { default as MainMenu } from './navigation/MainMenu';
 
 export { default as Tabs } from './tab';
 export { default as TabPanel } from './tab/TabPanel';

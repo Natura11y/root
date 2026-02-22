@@ -1,13 +1,13 @@
-import PrimaryNavigation from '../../natura11y/navigation/PrimaryNavigation';
+import MainMenu from '../../natura11y/navigation/MainMenu';
 
 const NavigationExamples = () => {
 	return (
 		<div className="grid">
 			<div className='box-shadow-1 theme-light margin-y-3'>
-				<PrimaryNavigation />
+				<MainMenu />
 			</div>
 			<div className='box-shadow-1 theme-light margin-y-3'>
-				<PrimaryNavigation navType={'below'} />
+				<MainMenu navType={'stack'} />
 			</div>
 		</div>
 	);

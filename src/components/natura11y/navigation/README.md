@@ -57,7 +57,7 @@ A mega menu component for complex navigation structures with multiple columns an
 </MegaMenu>
 ```
 
-### PrimaryNavigation
+### MainMenu
 The main navigation component that orchestrates all navigation elements.
 
 #### Props
@@ -95,7 +95,7 @@ The components use these exact Natura11y CSS classes:
 - `.nav-link-dropdown` - Wrapper for link + dropdown pattern
 - `.nav__dropdown` - Dropdown menu container
 - `.mega-menu` - Mega menu container
-- `.primary-nav--*` - Primary navigation layout classes
+- `.main-menu--*` - Primary navigation layout classes
 - `.shown` - State class for visible dropdowns/menus
 
 ## Integration with Natura11y

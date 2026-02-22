@@ -12,8 +12,8 @@ In this file:
 //////////////////////////////////////////////
 
 :root {
-    --flyout-menu-width: min(360px, 85dvw);
-    --flyout-menu-z-index: 10000;
+    --flyout-width: min(360px, 85dvw);
+    --flyout-z-index: 10000;
 }
 
 //////////////////////////////////////////////
@@ -22,9 +22,9 @@ In this file:
 
 @layer component {
 
-    // Flyout Menu Backdrop
+    // Flyout
 
-    .flyout-menu {
+    .flyout {
         position: fixed;
         inset: 0;
 
@@ -33,7 +33,7 @@ In this file:
 
         background-color: hsla(0, 0%, 0%, 0.5);
 
-        z-index: var(--flyout-menu-z-index);
+        z-index: var(--flyout-z-index);
 
         opacity: 0;
         visibility: hidden;
@@ -56,37 +56,37 @@ In this file:
                     visibility 0s;
             }
 
-            .flyout-menu__content {
+            .flyout__content {
                 transform: translateX(0);
             }
         }
     }
 
-    // Flyout Menu Content
+    // Flyout Content
 
-    .flyout-menu__content {
-        width: var(--flyout-menu-width);
-        height: 100dvh;
-
-        background-color: var(--background-color);
-
+    .flyout__content {
         display: flex;
         flex-direction: column;
 
+        width: var(--flyout-width);
+        height: 100dvh;
+
         overflow-x: hidden;
+
+        background-color: var(--background-color);
 
         box-shadow: -0.25rem 0 1rem hsla(var(--box-shadow-hsl) / var(--box-shadow-base-opacity));
 
-        transform: translateX(var(--flyout-menu-width));
+        transform: translateX(var(--flyout-width));
 
         @media (prefers-reduced-motion: no-preference) {
             transition: transform 0.3s ease-in-out;
         }
     }
 
-    // Flyout Menu Header
+    // Flyout Header
 
-    .flyout-menu__header {
+    .flyout__header {
         display: flex;
         align-items: center;
 
@@ -94,50 +94,50 @@ In this file:
 
         font-size: var(--font-size-md);
 
-        padding-inline: var(--primary-nav-padding-x);
-        padding-block: var(--primary-nav-padding-y);
+        padding-inline: var(--main-menu-padding-x);
+        padding-block: var(--main-menu-padding-y);
 
         border-block-end-width: var(--border-width);
         border-block-end-style: var(--border-style);
 
-        [data-flyout-menu-close] {
+        [data-flyout-close] {
             margin-inline-start: auto;
         }
 
-        [data-flyout-menu-back][hidden] {
+        [data-flyout-back][hidden] {
             display: none;
         }
 
-        [data-flyout-menu-back][data-entering] {
+        [data-flyout-back][data-entering] {
             @media (prefers-reduced-motion: no-preference) {
-                animation: flyout-menu-back-enter 0.25s ease-out;
+                animation: flyout-back-enter 0.25s ease-out;
             }
         }
     }
 
-    // Flyout Menu Panel Title (drill-down sub-panels)
+    // Flyout Panel Title (drill-down sub-panels)
 
-    .flyout-menu__panel-title {
+    .flyout__panel-title {
         font-weight: var(--font-weight-bold);
 
         opacity: 0.8;
 
-        padding-inline: var(--primary-nav-padding-x);
+        padding-inline: var(--main-menu-padding-x);
         padding-block: 0.25em;
 
         background-color: var(--subtle-fill-1);
     }
 
     @media (prefers-reduced-motion: no-preference) {
-        @keyframes flyout-menu-back-enter {
+        @keyframes flyout-back-enter {
             from { opacity: 0; }
             to   { opacity: 1; }
         }
     }
 
-    // Flyout Menu Body
+    // Flyout Body
 
-    .flyout-menu__body {
+    .flyout__body {
         overflow-y: auto;
 
         flex: 1;
@@ -145,15 +145,15 @@ In this file:
         min-height: 0;
     }
 
-    // Flyout Menu Panels (drill-down navigation)
+    // Flyout Panels (drill-down navigation)
 
-    .flyout-menu__panels {
+    .flyout__panels {
         position: relative;
 
         height: 100%;
     }
 
-    .flyout-menu__panel {
+    .flyout__panel {
         position: absolute;
         inset: 0;
 
@@ -175,19 +175,19 @@ In this file:
 
         &[data-entering] {
             @media (prefers-reduced-motion: no-preference) {
-                animation: flyout-menu-panel-enter 0.25s ease-out;
+                animation: flyout-panel-enter 0.25s ease-out;
             }
         }
     }
 
     @media (prefers-reduced-motion: no-preference) {
-        @keyframes flyout-menu-panel-enter {
+        @keyframes flyout-panel-enter {
             from { opacity: 0; }
             to   { opacity: 1; }
         }
     }
 
-    .flyout-menu__body [data-flyout-menu-next] {
+    .flyout__body [data-flyout-next] {
         display: flex;
         justify-content: space-between;
         align-items: center;

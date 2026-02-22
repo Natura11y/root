@@ -10,7 +10,7 @@ import './styles/index.scss';
 // import 'natura11y/src/scss/index.scss';
 
 import ScrollToTop from './components/_ui/ScrollToTop';
-import GlobalHeader from './components/_ui/GlobalHeader';
+import MainMenuBar from './components/_ui/MainMenuBar';
 import Home from './components/_ui/Home';
 import ExampleDetailPage from './components/_ui/ExampleDetailPage';
 import About from './components/_ui/About';
@@ -68,7 +68,7 @@ const App = () => {
 		<Router>
 			<ScrollToTop />
 
-			<GlobalHeader />
+			<MainMenuBar />
 
 			<LightboxProvider>
 				<Routes>

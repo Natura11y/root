@@ -1,0 +1,306 @@
+/*
+
+In this file:
+
+// A. Modules
+// B. Variables
+// C. Placeholders
+// D. Nav Component
+// E. Nav Divider Modifier
+// F. Nav Has Icons Modifier
+// G. Nav Breadcrumb Component
+
+*/
+
+////////////////////////////////////////
+// A. Modules
+////////////////////////////////////////
+
+@use 'sass:map';
+@use './breakpoint';
+
+////////////////////////////////////////
+// B. Variables
+////////////////////////////////////////
+
+:root {
+    --nav-gap: 0.875em;
+
+    --nav-divider-padding-x: var(--container-padding-x);
+
+    --nav-divider-padding-y: 0.625em;
+
+    --nav-font-family: var(--font-family-sans-serif);
+}
+
+////////////////////////////////////////
+// C. Placeholders
+////////////////////////////////////////
+
+%list-style-nav {
+    list-style: none;
+
+    line-height: normal;
+
+    font-family: var(--nav-font-family);
+
+    > li:has([class*="nav__dropdown"]) {
+        position: relative;
+    }
+
+    > li > :is(
+        a,
+        button
+    ):not(
+        [class*="button"],
+        :has([class*="icon"])
+    ) {
+        &:hover,
+        &:focus {
+            text-decoration: underline;
+        }
+    }
+
+    :is([aria-current], [aria-selected="true"]) {
+        font-weight: var(--font-weight-bold);
+    }
+
+    &:not([class*="nav--has-icons"]) :is([aria-selected="true"], [aria-current]) {
+        text-decoration-line: underline;
+    }
+}
+
+%caret {
+    --_caret-size: 0.25em;
+    --_caret-margin: 0.375em;
+
+    display: inline-flex;
+    flex-direction: row-reverse;
+    align-items: center;
+
+    &::before {
+        border-top: var(--_caret-size) solid;
+        border-right: var(--_caret-size) solid transparent;
+        border-bottom: 0;
+        border-left: var(--_caret-size) solid transparent;
+
+        position: relative;
+        content: "";
+
+        display: inline-flex;
+
+        color: inherit;
+
+        pointer-events: none;
+    }
+}
+
+////////////////////////////////////////
+// D. Components
+////////////////////////////////////////
+
+@layer component {
+
+    // Nav Component
+
+    .nav,
+    .nav li > ul {
+        @extend %list-style-nav;
+    }
+
+    .nav:not([class*="nav--divider"]):not([class*="nav--breadcrumb"]) {
+        display: flex;
+        flex-direction: column;
+
+        gap: var(--nav-gap);
+
+        > li > .nav__dropdown {
+            inset-inline-start: 0;
+
+            min-width: 200px;
+            width: calc(100% + (var(--nav-gap) * 2));
+
+            margin-inline-start: calc(var(--nav-gap) * -1);
+            margin-inline-end: calc(var(--nav-gap) * -1);
+
+            padding: var(--nav-gap);
+        }
+    }
+
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+            .nav:not([class*="nav--divider"]).nav--horizontal#{$mod} {
+                flex-direction: row;
+                align-items: stretch;
+
+                > li {
+                    display: flex;
+                    align-items: center;
+                }
+
+                > li > .nav__dropdown {
+                    position: absolute;
+                }
+
+                > li > [data-toggle="dropdown"][class*="-icon"] ~ ul {
+                    left: 50%;
+
+                    transform: translateX(-50%);
+
+                    margin-inline-start: 0;
+
+                    &::after {
+                        left: 50%;
+                    }
+                }
+            }
+
+        }
+    }
+
+    // Nav Divider Modifier
+
+    .nav--divider {
+
+        > li:not(:last-child) {
+            border-block-end-width: var(--border-width);
+            border-block-end-style: var(--border-style);
+            border-block-end-color: inherit;
+        }
+
+        > li > :is(a, button) {
+            position: relative;
+
+            display: block;
+
+            width: 100%;
+        }
+
+        > li > :is(a, button, .nav__dropdown) {
+            padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
+        }
+
+        > li > .nav__dropdown {
+            border-block-start-width: 0 !important;
+        }
+
+        > li > a > * {
+            margin-block: auto;
+        }
+
+        [data-toggle="dropdown"] {
+            justify-content: space-between;
+        }
+    }
+
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+            .nav--divider.nav--horizontal#{$mod} {
+                display: flex;
+                align-items: stretch;
+
+                > li {
+                    border-block-end-style: unset;
+
+                    display: flex;
+                    align-items: stretch;
+                    flex: 1 1 100%;
+                }
+
+                > li > :is(a, button) {
+                    display: flex;
+                    justify-content: center;
+                }
+
+                > li:not(:last-child) {
+                    border-inline-end-width: var(--border-width);
+                    border-inline-end-style: var(--border-style);
+                }
+
+                &[class*="border"] {
+                    > li > .nav__dropdown {
+                        border-block-start-width: 0;
+                        border-width: var(--border-width);
+                        border-style: var(--border-style);
+
+                        width: calc(100% + (var(--border-width) * 2));
+                    }
+                }
+
+                .nav__dropdown {
+                    position: absolute;
+                    inset-inline-start: 0;
+
+                    width: 100%;
+                }
+
+                // For <ul> tags with borders applied
+
+                &[class*="border"] .nav__dropdown {
+                    margin-inline-start: calc(var(--border-width) * -1);
+                }
+            }
+        }
+    }
+
+    // Nav Has Icons Modifier
+
+    [class*="nav--has-icons"] {
+
+        &:not([class*="nav--divider"]) {
+            > li > :is(a, button) {
+                width: fit-content;
+            }
+        }
+
+        > li > :is(a, button) {
+            display: flex;
+            align-items: center;
+
+            gap:0.375em;
+
+            &:is(:hover, :focus) {
+                .nav__text {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+
+    // Nav Breadcrumb Component
+
+    .nav-breadcrumb {
+        @extend %list-style-nav;
+
+        --breadcrumb-font-size: var(--font-size-md);
+
+        display: flex;
+        align-items: center;
+
+        font-size: var(--breadcrumb-font-size);
+
+        > li:last-child {
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        > li:not(:last-child) {
+            @extend %caret;
+
+            &::before {
+                margin-inline: var(--nav-gap) !important;
+
+                transform: rotate(-90deg);
+
+                [dir="rtl"] & {
+                    transform: rotate(90deg);
+                }
+            }
+        }
+    }
+
+} // end @layer

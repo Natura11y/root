@@ -10,10 +10,10 @@ import Brand from './Brand';
 import { getFocusableElements } from 'natura11y/src/js/utilities/focus';
 import { handleArrowKeyNavigation } from 'natura11y/src/js/utilities/keyboardNavigation';
 
-const PrimaryNavigation = ( props ) => {
+const MainMenu = ( props ) => {
 
 	const { 
-		navType = 'inline', // 'inline' or 'below'
+		navType = 'bar', // 'bar' or 'stack'
 		breakpoint = 'lg',
 		includeSearch = true,
 		utilities = null,
@@ -72,7 +72,7 @@ const PrimaryNavigation = ( props ) => {
 	}, [menuShow]);
 
 	const navigationClasses = classNames(
-		`primary-nav--${navType}--${breakpoint}`,
+		`main-menu--${navType}--${breakpoint}`,
 		{
 			[`${utilities}`] : utilities !== null
 		}
@@ -127,7 +127,7 @@ const PrimaryNavigation = ( props ) => {
 	return (
 		<div className={`${navigationClasses}`}>
 		
-			<div className='primary-nav__logo'>
+			<div className='main-menu__logo'>
 				<a href='/' title='Home' data-logo='brand'>
 					<Brand />
 				</a>
@@ -135,7 +135,7 @@ const PrimaryNavigation = ( props ) => {
 
 			<nav
 				ref={navigationRef}
-				className={`primary-nav__menu ${menuShow ? 'shown' : ''}`}
+				className={`main-menu__nav ${menuShow ? 'shown' : ''}`}
 				id='main-menu'
 				aria-label='Main Menu'
 				onKeyDown={handleNavigationKeyDown}
@@ -179,9 +179,9 @@ const PrimaryNavigation = ( props ) => {
 				</ul>
 			</nav>
 
-			<div className='primary-nav__toggle'>
+			<div className='main-menu__toggle'>
 
-				{includeSearch && navType === 'inline' && (
+				{includeSearch && navType === 'bar' && (
 				
 					<ButtonIconOnly
 						iconHandle='search'
@@ -204,7 +204,7 @@ const PrimaryNavigation = ( props ) => {
 			{includeSearch && (
 					
 				<form
-					className={`primary-nav__search ${searchShow ? 'shown' : ''}`}
+					className={`main-menu__search ${searchShow ? 'shown' : ''}`}
 					role='search'
 					id='search'
 				>
@@ -225,11 +225,11 @@ const PrimaryNavigation = ( props ) => {
 				</form>
 			)}
 
-			<div className='primary-nav__actions'>
+			<div className='main-menu__actions'>
 				<ButtonIconOnly iconHandle='mode-light-dark' ariaLabel='Toggle dark mode' />
 			</div>
 		</div>
 	);
 };
 
-export default PrimaryNavigation;
+export default MainMenu;

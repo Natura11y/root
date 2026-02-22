@@ -1,0 +1,236 @@
+/*
+
+In this file:
+
+// A. Modules
+// B. Dropdown Elements
+// C. Nav Link Dropdown Component
+// D. Nav Dropdown Panel
+// E. Mega Menu
+
+*/
+
+////////////////////////////////////////
+// A. Modules
+////////////////////////////////////////
+
+@use 'sass:map';
+@use './breakpoint';
+@use './navigation';
+
+////////////////////////////////////////
+// B. Components
+////////////////////////////////////////
+
+@layer component {
+
+    // Dropdown Elements
+
+    [data-toggle="dropdown"]:not([class*="button--icon-only"]) {
+        @extend %caret;
+
+        gap: 0.375rem;
+
+        &[aria-expanded="true"]{
+            text-decoration: underline;
+        }
+
+        &[aria-expanded="true"]::before {
+            transform: rotate(180deg);
+        }
+    }
+
+    [data-toggle="dropdown"][class*="-icon"] ~ ul {
+        --_dropdown-pointer-size: 0.75rem;
+
+        position: relative;
+
+        margin-top: 50px;
+        overflow: visible;
+
+        &::after {
+            position: absolute;
+            content: "";
+            inset-inline-start: 0;
+            inset-inline-start: calc(var(--nav-gap) + var(--_dropdown-pointer-size) + 4px);
+
+            transform: translateX(-50%) rotate(45deg);
+
+            width:  var(--_dropdown-pointer-size);
+            height:  var(--_dropdown-pointer-size);
+
+            margin-top: calc( var(--_dropdown-pointer-size) * -0.5 - var(--border-width) );
+
+            background-color: inherit;
+
+            border-color: inherit;
+            border-inline-start-width: inherit;
+            border-inline-start-style: inherit;
+            border-block-start-width: inherit;
+            border-block-start-style: inherit;
+        }
+    }
+
+    // Nav Link Dropdown Component
+
+    .nav-link-dropdown {
+        --_dropdown-button-size: 1.75em;
+
+        position: relative;
+
+        display: flex;
+        align-items: center;
+
+        gap: 0.25em;
+
+        padding-inline:  var(--nav-divider-padding-x);
+
+        z-index: auto;
+
+        padding-block: var(--nav-divider-padding-y);
+
+        > a {
+            display: flex;
+            align-items: center;
+
+            text-align: start;
+
+            &::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+
+                pointer-events: auto;
+                z-index: 1;
+
+                display: none;
+            }
+
+            &:hover,
+            &:focus {
+                text-decoration: underline;
+            }
+        }
+
+        &:has([data-toggle="dropdown"][aria-expanded="true"]) > a {
+            text-decoration: underline;
+        }
+
+        > [data-toggle="dropdown"] {
+
+            flex: 0 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            min-width: var(--_dropdown-button-size);
+
+            aspect-ratio: 1;
+
+            background-color: var(--subtle-fill-1);
+
+            margin-inline-start: auto;
+        }
+    }
+
+    // Nav Dropdown Panel
+
+    .nav__dropdown {
+        --_dropdown-z-index: 1200;
+
+        position: static;
+
+        inset-block-start: 100%;
+
+        width: 100%;
+
+        z-index: var(--_dropdown-z-index);
+
+        font-size: var(--font-size-md);
+
+        font-weight: normal;
+
+        text-align: start;
+
+        display: none;
+
+        &.shown {
+            display: block;
+        }
+
+        > li:not(:last-child) {
+            margin-bottom: var(--nav-gap);
+        }
+
+        padding: var(--nav-gap);
+        background-color: var(--background-color);
+    }
+
+    // Mega Menu
+
+    [class*="mega-menu"] {
+        inset-block-start: 100%;
+        inset-inline: 0;
+
+        text-align: start;
+
+        display: block;
+
+        &:not(.shown) {
+            display: none;
+        }
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+
+            display: none;
+        }
+
+        &::before {
+            inset-inline-start: 50%;
+            transform: translateX(-50%);
+
+            position: absolute;
+
+            width: 100dvw;
+            height: 100dvh;
+
+            max-width: var(--body-max-width);
+
+            z-index: -2;
+
+            pointer-events: none;
+
+            background-color: hsla(0, 0%, 0%, 0.75);
+
+            display: none;
+        }
+
+        &::after {
+            background-color: var(--background-color);
+            z-index: -1;
+
+            pointer-events: none;
+        }
+    }
+
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+            .mega-menu#{$mod} {
+                position: absolute;
+                &::before,
+                &::after {
+                    display: block;
+                }
+            }
+
+        }
+    }
+
+} // end @layer

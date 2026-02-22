@@ -146,7 +146,7 @@ npm audit fix
 - [x] **Icon** (`/icon/Icon.js`)
 - [x] **Lightbox** (`/lightbox/Lightbox.js`, `/lightbox/LightboxButton.js`)
 - [x] **Modal** (`/modal/Modal.js`, `/modal/ModalParent.js`)
-- [x] **Navigation** (`/navigation/Brand.js`, `/navigation/Dropdown.js`, `/navigation/PrimaryNavigation.js`)
+- [x] **Navigation** (`/navigation/Brand.js`, `/navigation/Dropdown.js`, `/navigation/MainMenu.js`)
 - [x] **Tab** (`/tab/TabPanel.js`, `/tab/Tabs.js`, `/tab/TabsNav.js`)
 - [x] **Table** (`/table/Table.js`, `/table/TableScroll.js`)
 
@@ -449,7 +449,7 @@ import { getFocusableElements, getCurrentBreakpoint } from 'natura11y';
   - Must have complex JavaScript behaviors (focus traps, keyboard nav, state management)
 
 - **`/_ui/`**: Presentation components specific to THIS demo application
-  - Examples: Preview, ExampleHeader, GlobalHeader, Home, About
+  - Examples: Preview, ExampleHeader, MainMenuBar, Home, About
   - Simple, app-specific components - no unnecessary abstraction
   - Hardcoded values are fine - it's just for presentation
 
