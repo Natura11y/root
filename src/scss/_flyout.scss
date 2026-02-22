@@ -39,10 +39,12 @@ In this file:
         visibility: hidden;
         pointer-events: none;
 
-        @media (prefers-reduced-motion: no-preference) {
-            transition:
-                opacity 0.3s ease-in-out,
-                visibility 0s 0.3s;
+        transition:
+            opacity 0.3s ease-in-out,
+            visibility 0s 0.3s;
+
+        @media (prefers-reduced-motion: reduce) {
+            transition: none;
         }
 
         &.shown {
@@ -50,10 +52,12 @@ In this file:
             visibility: visible;
             pointer-events: auto;
 
-            @media (prefers-reduced-motion: no-preference) {
-                transition:
-                    opacity 0.3s ease-in-out,
-                    visibility 0s;
+            transition:
+                opacity 0.3s ease-in-out,
+                visibility 0s;
+
+            @media (prefers-reduced-motion: reduce) {
+                transition: none;
             }
 
             .flyout__content {
@@ -79,8 +83,10 @@ In this file:
 
         transform: translateX(var(--flyout-width));
 
-        @media (prefers-reduced-motion: no-preference) {
-            transition: transform 0.3s ease-in-out;
+        transition: transform 0.3s ease-in-out;
+
+        @media (prefers-reduced-motion: reduce) {
+            transition: none;
         }
     }
 
@@ -109,8 +115,10 @@ In this file:
         }
 
         [data-flyout-back][data-entering] {
-            @media (prefers-reduced-motion: no-preference) {
-                animation: flyout-back-enter 0.25s ease-out;
+            animation: flyout-back-enter 0.25s ease-out;
+
+            @media (prefers-reduced-motion: reduce) {
+                animation: none;
             }
         }
     }
@@ -128,11 +136,9 @@ In this file:
         background-color: var(--subtle-fill-1);
     }
 
-    @media (prefers-reduced-motion: no-preference) {
-        @keyframes flyout-back-enter {
-            from { opacity: 0; }
-            to   { opacity: 1; }
-        }
+    @keyframes flyout-back-enter {
+        from { opacity: 0; }
+        to   { opacity: 1; }
     }
 
     // Flyout Body
@@ -174,17 +180,17 @@ In this file:
         }
 
         &[data-entering] {
-            @media (prefers-reduced-motion: no-preference) {
-                animation: flyout-panel-enter 0.25s ease-out;
+            animation: flyout-panel-enter 0.25s ease-out;
+
+            @media (prefers-reduced-motion: reduce) {
+                animation: none;
             }
         }
     }
 
-    @media (prefers-reduced-motion: no-preference) {
-        @keyframes flyout-panel-enter {
-            from { opacity: 0; }
-            to   { opacity: 1; }
-        }
+    @keyframes flyout-panel-enter {
+        from { opacity: 0; }
+        to   { opacity: 1; }
     }
 
     .flyout__body [data-flyout-next] {

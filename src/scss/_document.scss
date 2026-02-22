@@ -24,10 +24,16 @@ In this file:
     --body-min-width: 325px;
 
     --body-max-width: 100dvw;
-    
+
     --body-min-height: 100%;
 
     --html-scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --html-scroll-behavior: auto;
+    }
 }
 
 ////////////////////////////////////////
