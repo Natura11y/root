@@ -487,8 +487,8 @@
 
                     <button
                         class="button button--outline button--disperse"
-                        data-flyout-menu="open"
-                        aria-controls="flyout-menu-nav"
+                        data-flyout="open"
+                        aria-controls="flyout-nav"
                         aria-label="Open Drill-down Menu"
                     >
                         Drill-down Navigation
@@ -503,24 +503,24 @@
 
         <!-- Drill-down Flyout Menu -->
         <div
-            class="flyout-menu"
-            id="flyout-menu-nav"
+            class="flyout"
+            id="flyout-nav"
             aria-hidden="true"
         >
 
             <div
-                class="flyout-menu__content"
+                class="flyout__content"
                 aria-modal="true"
                 aria-label="Main Menu"
                 role="dialog"
             >
 
-                <div class="flyout-menu__header">
+                <div class="flyout__header">
 
                     <button
                         class="button button--icon-only"
                         aria-label="Back"
-                        data-flyout-menu-back
+                        data-flyout-back
                         hidden
                     >
                         <span class="icon icon-arrow-left"></span>
@@ -529,23 +529,23 @@
                     <button
                         class="button button--icon-only"
                         aria-label="Close Menu"
-                        data-flyout-menu-close
+                        data-flyout-close
                     >
                         <span class="icon icon-close"></span>
                     </button>
 
                 </div>
 
-                <nav class="flyout-menu__body" aria-label="Flyout Menu">
+                <nav class="flyout__body" aria-label="Flyout Menu">
 
-                    <div class="flyout-menu__panels">
+                    <div class="flyout__panels">
 
                         <!-- Panel 0: Root -->
-                        <div class="flyout-menu__panel">
+                        <div class="flyout__panel">
                             <ul class="nav nav--divider">
                                 <li>
                                     <button
-                                        data-flyout-menu-next
+                                        data-flyout-next
                                         aria-controls="fm-nav-wildlife"
                                     >
                                         Wildlife
@@ -554,7 +554,7 @@
                                 </li>
                                 <li>
                                     <button
-                                        data-flyout-menu-next
+                                        data-flyout-next
                                         aria-controls="fm-nav-trails"
                                     >
                                         Trails
@@ -568,16 +568,16 @@
                         </div>
 
                         <!-- Panel 1: Wildlife -->
-                        <div class="flyout-menu__panel" id="fm-nav-wildlife">
+                        <div class="flyout__panel" id="fm-nav-wildlife">
 
-                            <div class="flyout-menu__panel-title">
+                            <div class="flyout__panel-title">
                                 <p>Wildlife</p>
                             </div>
 
                             <ul class="nav nav--divider">
                                 <li>
                                     <button
-                                        data-flyout-menu-next
+                                        data-flyout-next
                                         aria-controls="fm-nav-birds"
                                     >
                                         Birds
@@ -586,7 +586,7 @@
                                 </li>
                                 <li>
                                     <button
-                                        data-flyout-menu-next
+                                        data-flyout-next
                                         aria-controls="fm-nav-mammals"
                                     >
                                         Mammals
@@ -595,7 +595,7 @@
                                 </li>
                                 <li>
                                     <button
-                                        data-flyout-menu-next
+                                        data-flyout-next
                                         aria-controls="fm-nav-reptiles"
                                     >
                                         Reptiles
@@ -608,9 +608,9 @@
                         </div>
 
                         <!-- Panel 2: Trails -->
-                        <div class="flyout-menu__panel" id="fm-nav-trails">
+                        <div class="flyout__panel" id="fm-nav-trails">
 
-                            <div class="flyout-menu__panel-title">
+                            <div class="flyout__panel-title">
                                 <p>Trails</p>
                             </div>
 
@@ -624,9 +624,9 @@
                         </div>
 
                         <!-- Panel 3: Birds -->
-                        <div class="flyout-menu__panel" id="fm-nav-birds">
+                        <div class="flyout__panel" id="fm-nav-birds">
 
-                            <div class="flyout-menu__panel-title">
+                            <div class="flyout__panel-title">
                                 <p>Birds</p>
                             </div>
 
@@ -640,9 +640,9 @@
                         </div>
 
                         <!-- Panel 4: Mammals -->
-                        <div class="flyout-menu__panel" id="fm-nav-mammals">
+                        <div class="flyout__panel" id="fm-nav-mammals">
 
-                            <div class="flyout-menu__panel-title">
+                            <div class="flyout__panel-title">
                                 <p>Mammals</p>
                             </div>
 
@@ -656,9 +656,9 @@
                         </div>
 
                         <!-- Panel 5: Reptiles -->
-                        <div class="flyout-menu__panel" id="fm-nav-reptiles">
+                        <div class="flyout__panel" id="fm-nav-reptiles">
 
-                            <div class="flyout-menu__panel-title">
+                            <div class="flyout__panel-title">
                                 <p>Reptiles</p>
                             </div>
 

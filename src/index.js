@@ -15,7 +15,7 @@ import Collapse from './js/collapse';
 import FormInput, { FormSubmission, FormFileUpload } from './js/form';
 import Lightbox from './js/lightbox';
 import Dropdown from './js/dropdown';
-import FlyoutMenu from './js/flyout-menu';
+import Flyout from './js/flyout';
 import Modal from './js/modal';
 import MainMenu from './js/main-menu';
 import Table from './js/table';
@@ -52,8 +52,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const lightbox = new Lightbox();
   lightbox.init();
 
-  const flyoutMenu = new FlyoutMenu();
-  flyoutMenu.init();
+  const flyout = new Flyout();
+  flyout.init();
 
   const dropdown = new Dropdown();
   dropdown.init();
