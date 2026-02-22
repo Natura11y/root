@@ -1,0 +1,59 @@
+/*
+
+In this file:
+
+// A. Modules
+// B. Variables
+// C. Breadcrumb Component
+
+*/
+
+////////////////////////////////////////
+// A. Modules
+////////////////////////////////////////
+
+@use './navigation';
+
+////////////////////////////////////////
+// B. Variables
+////////////////////////////////////////
+
+:root {
+    --breadcrumb-font-size: var(--font-size-md);
+}
+
+////////////////////////////////////////
+// C. Breadcrumb Component
+////////////////////////////////////////
+
+@layer component {
+
+    .nav-breadcrumb {
+        @extend %list-style-nav;
+
+        display: flex;
+        align-items: center;
+
+        font-size: var(--breadcrumb-font-size);
+
+        > li:last-child {
+            font-style: italic;
+            font-weight: bold;
+        }
+
+        > li:not(:last-child) {
+            @extend %caret;
+
+            &::before {
+                margin-inline: var(--nav-gap) !important;
+
+                transform: rotate(-90deg);
+
+                [dir="rtl"] & {
+                    transform: rotate(90deg);
+                }
+            }
+        }
+    }
+
+} // end @layer

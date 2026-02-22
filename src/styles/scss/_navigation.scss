@@ -8,7 +8,7 @@ In this file:
 // D. Nav Component
 // E. Nav Divider Modifier
 // F. Nav Has Icons Modifier
-// G. Nav Breadcrumb Component
+// G. (Breadcrumb moved to _breadcrumb.scss)
 
 */
 
@@ -108,7 +108,7 @@ In this file:
         @extend %list-style-nav;
     }
 
-    .nav:not([class*="nav--divider"]):not([class*="nav--breadcrumb"]) {
+    .nav:not([class*="nav--divider"]) {
         display: flex;
         flex-direction: column;
 
@@ -266,38 +266,6 @@ In this file:
             &:is(:hover, :focus) {
                 .nav__text {
                     text-decoration: underline;
-                }
-            }
-        }
-    }
-
-    // Nav Breadcrumb Component
-
-    .nav-breadcrumb {
-        @extend %list-style-nav;
-
-        --breadcrumb-font-size: var(--font-size-md);
-
-        display: flex;
-        align-items: center;
-
-        font-size: var(--breadcrumb-font-size);
-
-        > li:last-child {
-            font-style: italic;
-            font-weight: bold;
-        }
-
-        > li:not(:last-child) {
-            @extend %caret;
-
-            &::before {
-                margin-inline: var(--nav-gap) !important;
-
-                transform: rotate(-90deg);
-
-                [dir="rtl"] & {
-                    transform: rotate(90deg);
                 }
             }
         }

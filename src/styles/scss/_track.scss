@@ -97,9 +97,10 @@ $track-panels: 8;
         scrollbar-width: none;
         -ms-overflow-style: none;
 
-        // Only animate scrolling if user hasn't requested reduced motion
-        @media (prefers-reduced-motion: no-preference) {
-            scroll-behavior: smooth;
+        scroll-behavior: smooth;
+
+        @media (prefers-reduced-motion: reduce) {
+            scroll-behavior: auto;
         }
 
         &::-webkit-scrollbar {

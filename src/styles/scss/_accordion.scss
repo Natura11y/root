@@ -105,8 +105,10 @@ In this file:
         display: grid;
         grid-template-rows: 0fr;
 
-        @media (prefers-reduced-motion: no-preference) {
-            transition: grid-template-rows 0.3s ease-in;
+        transition: grid-template-rows 0.3s ease-in;
+
+        @media (prefers-reduced-motion: reduce) {
+            transition: none;
         }
 
         &.shown {
@@ -121,11 +123,13 @@ In this file:
 
         opacity: 0;
 
-        @media (prefers-reduced-motion: no-preference) {
-            transition:
-                opacity 0.3s ease-in-out,
-                padding-top 0.5s ease-in-out,
-                padding-bottom 0.5s ease-in-out;
+        transition:
+            opacity 0.3s ease-in-out,
+            padding-top 0.5s ease-in-out,
+            padding-bottom 0.5s ease-in-out;
+
+        @media (prefers-reduced-motion: reduce) {
+            transition: none;
         }
 
         .accordion__panel.shown & {
