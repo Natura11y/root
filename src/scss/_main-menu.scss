@@ -4,12 +4,11 @@ In this file:
 
 // A. Modules
 // B. Variables
-// C. Global Header Base
-// D. Global Header Bar Variant
-// E. Global Header Stack Variant
-// F. Global Header Hat
-// G. Global Header Menu + Search
-// H. Breakpoint Overrides
+// C. Main Menu Base
+// D. Main Menu Bar Variant
+// E. Main Menu Stack Variant
+// F. Main Menu Menu + Search
+// G. Breakpoint Overrides
 
 */
 
@@ -28,11 +27,9 @@ In this file:
 ////////////////////////////////////////
 
 :root {
-    --global-header-padding-x: var(--container-padding-x);
+    --main-menu-padding-x: var(--container-padding-x);
 
-    --global-header-padding-y: var(--spacer-2);
-
-    --global-header-hat-padding-y: var(--spacer-1);
+    --main-menu-padding-y: var(--spacer-2);
 }
 
 // Mixin for hover safe zone
@@ -53,7 +50,7 @@ In this file:
 
     // Primary Nav Components
 
-    [class*="global-header--"] {
+    [class*="main-menu--"] {
         position: relative;
 
         display: grid;
@@ -72,29 +69,8 @@ In this file:
             position: relative;
         }
 
-        [class*="__hat"] {
-            grid-area: hat;
-
-            display: flex;
-            align-items: center;
-
-            padding-inline: var(--global-header-padding-x);
-            padding-block: var(--global-header-hat-padding-y);
-
-            font-size: var(--font-size-sm);
-        }
-
-        &:has([class*="__hat"]) {
-            grid-template-areas:
-                "hat hat hat"
-                var(--_template-area-row-1-m)
-                var(--_template-area-row-2-m)
-                var(--_template-area-row-3-m)
-            ;
-        }
-
         [class*="__logo"],
-        [class*="__menu"],
+        [class*="__nav"],
         [class*="__toggle"],
         [class*="__search"],
         [class*="__actions"] {
@@ -112,7 +88,7 @@ In this file:
             grid-area: logo;
         }
 
-        [class*="__menu"] {
+        [class*="__nav"] {
             grid-area: menu;
 
             @extend .collapse;
@@ -127,7 +103,7 @@ In this file:
 
             justify-content: center;
 
-            gap: var(--global-header-padding-x);
+            gap: var(--main-menu-padding-x);
         }
 
         [class*="__search"] {
@@ -144,7 +120,7 @@ In this file:
 
     // Primary Nav Inline Variant
 
-    [class*="global-header--bar--"] {
+    [class*="main-menu--bar--"] {
         --_template-area-row-1-m: "logo toggle button";
         --_template-area-row-2-m: "menu menu menu";
         --_template-area-row-3-m: "search search search";
@@ -174,20 +150,20 @@ In this file:
             var(--_template-area-row-3-m)
         ;
 
-        [class*="__menu"] {
+        [class*="__nav"] {
             align-self: stretch;
             justify-content: end;
         }
 
         [class*="__logo"] a {
-            margin-inline-start : var(--global-header-padding-x);
+            margin-inline-start : var(--main-menu-padding-x);
         }
 
         :is(
             [class*="__actions"],
             [class*="__toggle"]
         ) {
-            margin-inline-end: var(--global-header-padding-x);
+            margin-inline-end: var(--main-menu-padding-x);
         }
 
         :is(
@@ -195,7 +171,7 @@ In this file:
             [class*="__action"],
             [class*="__toggle"]
         ) {
-            margin-block: var(--global-header-padding-y);
+            margin-block: var(--main-menu-padding-y);
         }
 
         [class*="__search"] {
@@ -211,7 +187,7 @@ In this file:
 
     // Primary Nav Below Variant
 
-    [class*="global-header--stack--"] {
+    [class*="main-menu--stack--"] {
         --_template-area-row-1-m: "logo logo logo";
         --_template-area-row-2-m: "toggle search button";
         --_template-area-row-3-m: "menu menu menu";
@@ -219,7 +195,7 @@ In this file:
         --_template-area-row-1-d: "logo search button";
         --_template-area-row-2-d: "menu menu menu";
 
-        column-gap: var(--global-header-padding-x);
+        column-gap: var(--main-menu-padding-x);
 
         &:has([class*="__search"]):not(:has([class*="__actions"])) {
             --_template-area-row-2-m: "toggle search search";
@@ -228,22 +204,22 @@ In this file:
 
         [class*="__logo"] a,
         [class*="__toggle"] {
-            margin-inline-start : var(--global-header-padding-x);
+            margin-inline-start : var(--main-menu-padding-x);
         }
 
         > [class*="__actions"] {
-            margin-inline-end: var(--global-header-padding-x);
+            margin-inline-end: var(--main-menu-padding-x);
         }
 
         &:not(:has([class*="__actions"])) > [class*="__search"] {
-            margin-inline-end: var(--global-header-padding-x);
+            margin-inline-end: var(--main-menu-padding-x);
         }
 
         [class*="__logo"] a,
         [class*="__toggle"],
         [class*="__search"],
         [class*="__actions"] {
-            margin-block : var(--global-header-padding-y);
+            margin-block : var(--main-menu-padding-y);
         }
 
         &:has([class*="__actions"]):not(:has([class*="__search"])) {
@@ -275,7 +251,7 @@ In this file:
 
     // Primary Nav Menu + Search
 
-    .global-header__menu {
+    .main-menu__nav {
 
         > ul > li:not(:last-child) {
             border-block-end-width: var(--border-width);
@@ -289,7 +265,7 @@ In this file:
 
             width: 100%;
 
-            padding: var(--nav-divider-padding-y) var(--global-header-padding-x);
+            padding: var(--nav-divider-padding-y) var(--main-menu-padding-x);
         }
 
         > ul > li:not(:has([class*="mega-menu"])) {
@@ -301,11 +277,11 @@ In this file:
         }
 
         .nav__dropdown {
-            padding: var(--global-header-padding-y) var(--global-header-padding-x);
+            padding: var(--main-menu-padding-y) var(--main-menu-padding-x);
         }
     }
 
-    .global-header__search {
+    .main-menu__search {
         .form-entry {
             width: 100%;
         }
@@ -322,8 +298,8 @@ In this file:
         @include breakpoint.breakpoint-up($breakpoint) {
             $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
-            .global-header--bar#{$mod},
-            .global-header--stack#{$mod} {
+            .main-menu--bar#{$mod},
+            .main-menu--stack#{$mod} {
 
                 [class*="__logo"] {
                     justify-content: flex-start;
@@ -334,7 +310,7 @@ In this file:
                 }
 
                 :is(
-                    [class*="__menu"],
+                    [class*="__nav"],
                     [class*="__search"]
                 ) {
                     display: flex !important;
@@ -344,7 +320,7 @@ In this file:
                     padding: unset;
                 }
 
-                [class*="__menu"] > ul > li {
+                [class*="__nav"] > ul > li {
                     border-block-end: unset;
                 }
 
@@ -367,33 +343,19 @@ In this file:
                 }
             }
 
-            .global-header--bar#{$mod} {
+            .main-menu--bar#{$mod} {
                 grid-template-columns: 1fr auto auto;
                 grid-template-areas: var(--_template-area-row-1-d);
 
-                &:has([class*="__hat"]) {
-                    grid-template-areas:
-                        "hat hat hat"
-                        var(--_template-area-row-1-d)
-                    ;
-                }
-
-                &:has([class*="__hat"]):has([class*="__search"]):has([class*="__actions"]) {
-                    grid-template-areas:
-                        "hat hat hat hat"
-                        var(--_template-area-row-1-d)
-                    ;
-                }
-
                 :is(
-                    [class*="__menu"],
+                    [class*="__nav"],
                     [class*="__search"]
                 ) {
                     border-block-start-style: none !important;
-                    margin-inline-end: var(--global-header-padding-x);
+                    margin-inline-end: var(--main-menu-padding-x);
                 }
 
-                [class*="__menu"] {
+                [class*="__nav"] {
                     justify-content: flex-end;
                     align-items: center;
 
@@ -450,26 +412,18 @@ In this file:
                 }
             }
 
-            .global-header--stack#{$mod} {
+            .main-menu--stack#{$mod} {
                 grid-template-columns: 1fr auto auto;
 
                 grid-template-areas:
                     var(--_template-area-row-1-d)
                     var(--_template-area-row-2-d);
 
-                &:has([class*="__hat"]) {
-                    grid-template-areas:
-                        "hat hat hat"
-                        var(--_template-area-row-1-d)
-                        var(--_template-area-row-2-d)
-                    ;
-                }
-
                 > [class*="__logo"] {
                     border-block-end-style: none !important;
                 }
 
-                > [class*="__menu"] {
+                > [class*="__nav"] {
                     padding: unset;
 
                     > ul {

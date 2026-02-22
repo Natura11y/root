@@ -2,11 +2,11 @@ import { delegateEvent } from './utilities/eventDelegation';
 import { getFocusableElements } from './utilities/focus';
 import { handleArrowKeyNavigation } from './utilities/keyboardNavigation';
 
-export default class GlobalHeader {
+export default class MainMenu {
 
   // Private properties
 
-  #primaryNavMenuList = document.querySelectorAll('.global-header__menu');
+  #primaryNavMenuList = document.querySelectorAll('.main-menu__nav');
 
   // Public methods
 
