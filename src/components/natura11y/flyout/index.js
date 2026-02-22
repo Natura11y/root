@@ -7,7 +7,7 @@ import ButtonIconOnly from '../button/ButtonIconOnly';
 import { getFocusableElements } from 'natura11y/src/js/utilities/focus';
 import { handleOverlayOpen, handleOverlayClose } from 'natura11y/src/js/utilities/overlay';
 
-const FlyoutMenu = (props) => {
+const Flyout = (props) => {
 
     const {
         isOpen = false,
@@ -46,7 +46,7 @@ const FlyoutMenu = (props) => {
 
         if (isOpen) {
             handleOverlayOpen(null, null, null);
-            contentRef.current.querySelector('[data-flyout-menu-close]')?.focus();
+            contentRef.current.querySelector('[data-flyout-close]')?.focus();
         } else {
             handleOverlayClose(containerRef.current);
         }
@@ -68,7 +68,7 @@ const FlyoutMenu = (props) => {
             }
 
             if (e.key === 'Tab') {
-                const focusable = getFocusableElements(contentRef.current, { exclude: ['.flyout-menu__panel--hidden'] });
+                const focusable = getFocusableElements(contentRef.current, { exclude: ['.flyout__panel--hidden'] });
                 if (!focusable.length) return;
 
                 const first = focusable[0];
@@ -115,7 +115,7 @@ const FlyoutMenu = (props) => {
         setEnteringPanel(index);
 
         setTimeout(() => {
-            contentRef.current?.querySelector('[data-flyout-menu-back]')?.focus({ preventScroll: true });
+            contentRef.current?.querySelector('[data-flyout-back]')?.focus({ preventScroll: true });
         }, 0);
     };
 
@@ -130,7 +130,7 @@ const FlyoutMenu = (props) => {
         setEnteringPanel(prevIndex);
 
         setTimeout(() => {
-            contentRef.current?.querySelector('[data-flyout-menu-close]')?.focus({ preventScroll: true });
+            contentRef.current?.querySelector('[data-flyout-close]')?.focus({ preventScroll: true });
         }, 0);
     };
 
@@ -141,7 +141,7 @@ const FlyoutMenu = (props) => {
     };
 
     const containerClasses = classNames(
-        'flyout-menu',
+        'flyout',
         { 'shown': isOpen },
         { [`${utilities}`]: utilities !== null }
     );
@@ -155,12 +155,12 @@ const FlyoutMenu = (props) => {
         >
             <div
                 ref={contentRef}
-                className="flyout-menu__content"
+                className="flyout__content"
                 role="dialog"
                 aria-modal="true"
                 aria-label={label}
             >
-                <div className="flyout-menu__header">
+                <div className="flyout__header">
 
                     {showBack && (
                         <ButtonIconOnly
@@ -168,7 +168,7 @@ const FlyoutMenu = (props) => {
                             ariaLabel="Back"
                             utilities="font-size-md"
                             clickHandler={navigateBack}
-                            attributes={{ 'data-flyout-menu-back': '' }}
+                            attributes={{ 'data-flyout-back': '' }}
                         />
                     )}
 
@@ -177,20 +177,20 @@ const FlyoutMenu = (props) => {
                         ariaLabel="Close Menu"
                         utilities="font-size-md"
                         clickHandler={onClose}
-                        attributes={{ 'data-flyout-menu-close': '' }}
+                        attributes={{ 'data-flyout-close': '' }}
                     />
 
                 </div>
 
-                <nav className="flyout-menu__body" aria-label={`${label} Navigation`}>
+                <nav className="flyout__body" aria-label={`${label} Navigation`}>
 
                     {panels ? (
-                        <div className="flyout-menu__panels">
+                        <div className="flyout__panels">
                             {panels.map((renderPanel, index) => (
                                 <div
                                     key={index}
                                     ref={el => panelRefs.current[index] = el}
-                                    className={`flyout-menu__panel${activePanelIndex === index ? ' flyout-menu__panel--active' : enteringPanel !== index ? ' flyout-menu__panel--hidden' : ''}`}
+                                    className={`flyout__panel${activePanelIndex === index ? ' flyout__panel--active' : enteringPanel !== index ? ' flyout__panel--hidden' : ''}`}
                                     data-entering={enteringPanel === index ? '' : undefined}
                                     onAnimationEnd={() => setEnteringPanel(null)}
                                 >
@@ -209,4 +209,4 @@ const FlyoutMenu = (props) => {
 
 };
 
-export default FlyoutMenu;
+export default Flyout;

@@ -1,9 +1,9 @@
 import { useState, useRef } from 'react';
 
-import FlyoutMenu from './index';
+import Flyout from './index';
 import ButtonIconOnly from '../button/ButtonIconOnly';
 
-const FlyoutMenuParent = () => {
+const FlyoutParent = () => {
 
     const [isOpen, setIsOpen] = useState(false);
     const triggerRef = useRef(null);
@@ -14,13 +14,13 @@ const FlyoutMenuParent = () => {
         ({ navigateTo }) => (
             <ul className="nav nav--divider">
                 <li>
-                    <button data-flyout-menu-next="" onClick={() => navigateTo(1)}>
+                    <button data-flyout-next="" onClick={() => navigateTo(1)}>
                         Wildlife
                         <span className="icon icon-arrow-right" aria-hidden="true"></span>
                     </button>
                 </li>
                 <li>
-                    <button data-flyout-menu-next="" onClick={() => navigateTo(2)}>
+                    <button data-flyout-next="" onClick={() => navigateTo(2)}>
                         Trails
                         <span className="icon icon-arrow-right" aria-hidden="true"></span>
                     </button>
@@ -34,24 +34,24 @@ const FlyoutMenuParent = () => {
         // Panel 1: Wildlife
         ({ navigateTo }) => (
             <>
-                <div className="flyout-menu__panel-title">
+                <div className="flyout__panel-title">
                     <p>Wildlife</p>
                 </div>
                 <ul className="nav nav--divider">
                     <li>
-                        <button data-flyout-menu-next="" onClick={() => navigateTo(3)}>
+                        <button data-flyout-next="" onClick={() => navigateTo(3)}>
                             Birds
                             <span className="icon icon-arrow-right" aria-hidden="true"></span>
                         </button>
                     </li>
                     <li>
-                        <button data-flyout-menu-next="" onClick={() => navigateTo(4)}>
+                        <button data-flyout-next="" onClick={() => navigateTo(4)}>
                             Mammals
                             <span className="icon icon-arrow-right" aria-hidden="true"></span>
                         </button>
                     </li>
                     <li>
-                        <button data-flyout-menu-next="" onClick={() => navigateTo(5)}>
+                        <button data-flyout-next="" onClick={() => navigateTo(5)}>
                             Reptiles
                             <span className="icon icon-arrow-right" aria-hidden="true"></span>
                         </button>
@@ -64,7 +64,7 @@ const FlyoutMenuParent = () => {
         // Panel 2: Trails
         () => (
             <>
-                <div className="flyout-menu__panel-title">
+                <div className="flyout__panel-title">
                     <p>Trails</p>
                 </div>
                 <ul className="nav nav--divider">
@@ -79,7 +79,7 @@ const FlyoutMenuParent = () => {
         // Panel 3: Birds (nested under Wildlife)
         () => (
             <>
-                <div className="flyout-menu__panel-title">
+                <div className="flyout__panel-title">
                     <p>Birds</p>
                 </div>
                 <ul className="nav nav--divider">
@@ -94,7 +94,7 @@ const FlyoutMenuParent = () => {
         // Panel 4: Mammals (nested under Wildlife)
         () => (
             <>
-                <div className="flyout-menu__panel-title">
+                <div className="flyout__panel-title">
                     <p>Mammals</p>
                 </div>
                 <ul className="nav nav--divider">
@@ -109,7 +109,7 @@ const FlyoutMenuParent = () => {
         // Panel 5: Reptiles (nested under Wildlife)
         () => (
             <>
-                <div className="flyout-menu__panel-title">
+                <div className="flyout__panel-title">
                     <p>Reptiles</p>
                 </div>
                 <ul className="nav nav--divider">
@@ -132,7 +132,7 @@ const FlyoutMenuParent = () => {
                 clickHandler={() => setIsOpen(true)}
             />
 
-            <FlyoutMenu
+            <Flyout
                 isOpen={isOpen}
                 onClose={() => setIsOpen(false)}
                 label="Main Menu"
@@ -144,4 +144,4 @@ const FlyoutMenuParent = () => {
 
 };
 
-export default FlyoutMenuParent;
+export default FlyoutParent;

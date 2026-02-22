@@ -9,7 +9,7 @@ export { default as Button } from './button';
 export { default as ButtonIconOnly } from './button/ButtonIconOnly';
 export { default as ButtonIconOverText } from './button/ButtonIconOverText';
 
-export { default as FlyoutMenu } from './flyout-menu';
+export { default as Flyout } from './flyout';
 
 export { default as Form } from './form';
 export { default as FormEntry } from './form/FormEntry';

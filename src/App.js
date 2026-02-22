@@ -32,7 +32,7 @@ const App = () => {
 		},
 		{
 			title: 'Flyout Menu',
-			slug: 'flyout-menu'
+			slug: 'flyout'
 		},
 		{
 			title: 'Form',
