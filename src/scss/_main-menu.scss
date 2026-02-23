@@ -57,7 +57,7 @@ In this file:
 
         align-items: stretch;
 
-        z-index: 10000;
+        z-index: 1000;
 
         ul {
             @extend %list-style-nav;
@@ -268,12 +268,12 @@ In this file:
             padding: var(--nav-divider-padding-y) var(--main-menu-padding-x);
         }
 
-        > ul > li:not(:has([class*="mega-menu"])) {
-            position: relative;
+        > ul > li > [data-toggle="dropdown"] {
+            justify-content: space-between;
         }
 
-        > ul > li > a {
-            @extend .link-expanded !optional;
+        > ul > li:not(:has([class*="mega-menu"])) {
+            position: relative;
         }
 
         .nav__dropdown {
@@ -292,7 +292,7 @@ In this file:
         }
     }
 
-    // Breakpoint Overrides
+    // Breakpoint Modifiers
 
     @each $breakpoint in map.keys(breakpoint.$breakpoints) {
         @include breakpoint.breakpoint-up($breakpoint) {
@@ -324,11 +324,16 @@ In this file:
                     border-block-end: unset;
                 }
 
+                [class*="__nav"] > ul > li :is(a, button) {
+                    justify-content: center;
+                }
+
                 .nav-link-dropdown {
 
                     > [data-toggle="dropdown"] {
                         background-color: transparent;
-                        min-width: unset;
+                        height: unset;
+                        width: unset;
                         margin-inline-start: unset;
                     }
                 }
@@ -411,7 +416,7 @@ In this file:
                     var(--_template-area-row-2-d);
 
                 > [class*="__logo"] {
-                    border-block-end-style: none !important;
+                    border-block-end-style: unset;
                 }
 
                 > [class*="__nav"] {
@@ -424,13 +429,9 @@ In this file:
                         > li {
                             flex-grow: 1;
 
-                            border-block-end-style: none !important;
+                            border-block-end-style: unset;
 
                             text-align: center;
-                        }
-
-                        > li > button {
-                            width: 100%;
                         }
 
                         > li:not(:last-child){
@@ -438,9 +439,14 @@ In this file:
                             border-inline-end-style: var(--border-style);
                         }
 
+                        > li > button {
+                            width: 100%;
+                        }
+
                         > li > a {
                             display: flex;
                             text-align: center;
+
                             padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
                         }
 

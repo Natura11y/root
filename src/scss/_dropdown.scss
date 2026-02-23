@@ -74,7 +74,7 @@ In this file:
     // Nav Link Dropdown Component
 
     .nav-link-dropdown {
-        --_dropdown-button-size: 2.5em;
+        --_dropdown-button-size: calc(var(--nav-divider-padding-y) * 2 + 1lh);
 
         position: relative;
 
@@ -88,14 +88,14 @@ In this file:
 
         z-index: auto;
 
+        cursor: pointer;
+
         > a {
             display: flex;
             align-items: center;
-            
+
             padding-inline:  var(--nav-divider-padding-x);
             padding-block: var(--nav-divider-padding-y);
-
-            // text-align: start;
 
             &::after {
                 content: "";
@@ -120,15 +120,14 @@ In this file:
 
         > [data-toggle="dropdown"] {
 
-            flex: 0 0;
+            flex: 0 0 auto;
 
             display: flex;
             align-items: center;
             justify-content: center;
 
-            min-width: var(--_dropdown-button-size);
-
-            aspect-ratio: 1;
+            width: var(--_dropdown-button-size);
+            height: var(--_dropdown-button-size);
 
             background-color: var(--subtle-fill-1);
 
