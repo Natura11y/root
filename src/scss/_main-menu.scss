@@ -357,7 +357,6 @@ In this file:
                     }
 
                     > ul > li > :is(a, button),
-                    > ul > li > .nav-link-dropdown,
                     > ul > li > .nav-link-dropdown > a {
                         padding: unset;
                     }
@@ -448,8 +447,6 @@ In this file:
                         .nav-link-dropdown a {
                             flex-grow: 0;
                             padding-inline: unset;
-
-                            background-color: aquamarine;
                         }
 
                         :is([data-toggle="dropdown"], .nav-link-dropdown) {
