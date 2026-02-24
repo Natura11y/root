@@ -206,11 +206,13 @@ export default class Dropdown {
             this.#openDropdown(dropdownButton, dropdownMenu);
           }
         });
+        
         dropdownMenu.addEventListener('mouseenter', dropdownMenu._hoverInHandler = () => {
           if (!openedByKeyboardOrClick) {
             this.#openDropdown(dropdownButton, dropdownMenu);
           }
         });
+        
         // Hover out
         const hoverOutHandler = () => {
           setTimeout(() => {
@@ -224,6 +226,7 @@ export default class Dropdown {
             }
           }, this.#hoverTimeout);
         };
+
         hoverTarget.addEventListener('mouseleave', hoverTarget._hoverOutHandler = hoverOutHandler);
         dropdownMenu.addEventListener('mouseleave', dropdownMenu._hoverOutHandler = hoverOutHandler);
 
@@ -239,8 +242,10 @@ export default class Dropdown {
     };
 
     const removeHoverListeners = () => {
+      
       // Target both data-hover="true" and nav-link-dropdown buttons
       const hoverButtons = document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"], .nav-link-dropdown [data-toggle="dropdown"]');
+      
       hoverButtons.forEach((dropdownButton) => {
         if (!dropdownButton._hasHoverListeners) return;
         const dropdownMenuId = dropdownButton.getAttribute('aria-controls');
@@ -248,10 +253,12 @@ export default class Dropdown {
         if (!dropdownMenu) return;
         this.#cleanupEventListeners(dropdownButton, dropdownMenu);
       });
+    
     };
 
     // Responsive hover logic
     const setupResponsiveHover = () => {
+
       // Check if any mega menu is at its required breakpoint
       const shouldEnableHover = Array.from(document.querySelectorAll('[class*="mega-menu"]')).some(menu =>
         this.#isAtBreakpoint(menu)
