@@ -65,7 +65,7 @@ In this file:
             width: 100%;
         }
 
-        li:has([class*="nav__dropdown"]) {
+        li:has([class*="dropdown__menu"]) {
             position: relative;
         }
 
@@ -280,7 +280,7 @@ In this file:
             position: relative;
         }
 
-        .nav__dropdown {
+        .dropdown__menu {
             padding: var(--main-menu-padding-y) var(--main-menu-padding-x);
         }
     }
@@ -366,7 +366,7 @@ In this file:
                             margin-inline-end: var(--nav-gap);
                         }
 
-                        > li > .nav__dropdown {
+                        > li > .dropdown__menu {
                             position: absolute;
 
                             min-width: 200px;
@@ -433,7 +433,7 @@ In this file:
                             padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
                         }
 
-                        .nav__dropdown {
+                        .dropdown__menu {
                             position: absolute;
 
                             width: 100%;

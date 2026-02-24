@@ -181,7 +181,7 @@
     );
 }
 
-.nav__dropdown {
+.dropdown__menu {
     clip-path: polygon(
         2% 0,
         96% 4%,

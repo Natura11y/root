@@ -44,7 +44,7 @@ In this file:
 
     font-family: var(--nav-font-family);
 
-    > li:has([class*="nav__dropdown"]) {
+    > li:has([class*="dropdown__menu"]) {
         position: relative;
     }
 
@@ -114,7 +114,7 @@ In this file:
 
         gap: var(--nav-gap);
 
-        > li > .nav__dropdown {
+        > li > .dropdown__menu {
             inset-inline-start: 0;
 
             min-width: 200px;
@@ -140,7 +140,7 @@ In this file:
                     align-items: center;
                 }
 
-                > li > .nav__dropdown {
+                > li > .dropdown__menu {
                     position: absolute;
                 }
 
@@ -183,7 +183,7 @@ In this file:
             padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
         }
 
-        > li > .nav__dropdown {
+        > li > .dropdown__menu {
             border-block-start-width: 0 !important;
         }
 
@@ -222,7 +222,7 @@ In this file:
                 }
 
                 &[class*="border"] {
-                    > li > .nav__dropdown {
+                    > li > .dropdown__menu {
                         border-block-start-width: 0;
                         border-width: var(--border-width);
                         border-style: var(--border-style);
@@ -231,7 +231,7 @@ In this file:
                     }
                 }
 
-                .nav__dropdown {
+                .dropdown__menu {
                     position: absolute;
                     inset-inline-start: 0;
 
@@ -240,7 +240,7 @@ In this file:
 
                 // For <ul> tags with borders applied
 
-                &[class*="border"] .nav__dropdown {
+                &[class*="border"] .dropdown__menu {
                     margin-inline-start: calc(var(--border-width) * -1);
                 }
             }

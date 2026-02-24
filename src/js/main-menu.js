@@ -17,7 +17,7 @@ export default class MainMenu {
 
         if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.code)) return;
 
-        const items = getFocusableElements(nav, { exclude: ['.nav__dropdown', '[class*="mega-menu"]'] });
+        const items = getFocusableElements(nav, { exclude: ['.dropdown__menu', '[class*="mega-menu"]'] });
         const index = items.indexOf(event.target);
 
         if (index === -1) return;
