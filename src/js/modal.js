@@ -64,7 +64,8 @@ export default class Modal {
 
 	#handleModalClose(modalTarget) {
 		modalTarget.classList.remove('shown');
-		
+		modalTarget.inert = true;
+
 		handleOverlayClose(modalTarget);
 		this.#removeOutsideClickHandler(modalTarget);
 		this.#removeModalCloseHandlers(modalTarget);
@@ -81,6 +82,7 @@ export default class Modal {
 			return;
 		}
 
+		modalTarget.inert = false;
 		modalTarget.classList.add('shown');
 		modalTarget.focus();
 
@@ -110,6 +112,12 @@ export default class Modal {
 	}
 
 	init() {
+		document.querySelectorAll('.modal').forEach((modal) => {
+			if (!modal.classList.contains('shown')) {
+				modal.inert = true;
+			}
+		});
+
 		delegateEvent(document, 'click', '[data-modal="open"]', (event) => {
 			const modalTargetID = event.target.getAttribute('aria-controls')?.replace(/^#/, '');
 			const modalTarget = document.getElementById(modalTargetID);
