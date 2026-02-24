@@ -78,6 +78,7 @@ export default class Dropdown {
         if (!clickTarget.contains(event.target)) {
           this.#closeDropdown(dropdownButton, dropdownMenu);
         }
+        
       }
     });
   };
@@ -113,6 +114,7 @@ export default class Dropdown {
   };
 
   #cleanupEventListeners(dropdownButton, dropdownMenu) {
+
     const linkDropdownItem = dropdownButton.closest('.nav-link-dropdown');
     const hoverTarget = linkDropdownItem || dropdownButton;
 
@@ -120,22 +122,27 @@ export default class Dropdown {
       hoverTarget.removeEventListener('mouseenter', hoverTarget._hoverInHandler);
       delete hoverTarget._hoverInHandler;
     }
+
     if (dropdownMenu._hoverInHandler) {
       dropdownMenu.removeEventListener('mouseenter', dropdownMenu._hoverInHandler);
       delete dropdownMenu._hoverInHandler;
     }
+    
     if (hoverTarget._hoverOutHandler) {
       hoverTarget.removeEventListener('mouseleave', hoverTarget._hoverOutHandler);
       delete hoverTarget._hoverOutHandler;
     }
+    
     if (dropdownMenu._hoverOutHandler) {
       dropdownMenu.removeEventListener('mouseleave', dropdownMenu._hoverOutHandler);
       delete dropdownMenu._hoverOutHandler;
     }
+    
     if (dropdownButton._hoverObserver) {
       dropdownButton._hoverObserver.disconnect();
       delete dropdownButton._hoverObserver;
     }
+    
     dropdownButton._hasHoverListeners = false;
   }
 
@@ -144,6 +151,7 @@ export default class Dropdown {
   init() {
 
     delegateEvent(document, 'click', '[data-toggle="dropdown"]', (event) => {
+
       const dropdownButton = event.target;
       const dropdownMenuId = dropdownButton.getAttribute('aria-controls');
       const dropdownMenu = document.getElementById(dropdownMenuId);
@@ -158,12 +166,15 @@ export default class Dropdown {
       isShown
         ? this.#closeDropdown(dropdownButton, dropdownMenu)
         : this.#openDropdown(dropdownButton, dropdownMenu);
+
     });
 
     // Helper to manage hover event listeners
     const addHoverListeners = () => {
+      
       // Target both data-hover="true" and nav-link-dropdown buttons
       const hoverButtons = document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"], .nav-link-dropdown [data-toggle="dropdown"]');
+      
       hoverButtons.forEach((dropdownButton) => {
         // Prevent duplicate listeners
         if (dropdownButton._hasHoverListeners) return;
@@ -177,11 +188,13 @@ export default class Dropdown {
         dropdownButton.addEventListener('click', () => {
           openedByKeyboardOrClick = true;
         });
+        
         dropdownButton.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown' || e.key === 'ArrowUp') {
             openedByKeyboardOrClick = true;
           }
         });
+        
         dropdownMenu.addEventListener('keydown', () => {
           openedByKeyboardOrClick = true;
         });
@@ -236,9 +249,11 @@ export default class Dropdown {
             openedByKeyboardOrClick = false;
           }
         });
+        
         observer.observe(dropdownMenu, { attributes: true, attributeFilter: ['class'] });
         dropdownButton._hoverObserver = observer;
       });
+    
     };
 
     const removeHoverListeners = () => {
