@@ -68,12 +68,14 @@ export default class Lightbox {
 
     this.lightbox = this.#createLightbox();
 
-    this.lightbox.setAttribute('aria-hidden', false);
-
     this.currentLB = index;
 
     this.#updateLightbox(index);
     handleOverlayOpen(this.lightbox, triggerElement);
+
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      this.lightbox.classList.add('shown');
+    }));
   };
 
   #handleLightboxClose = (e) => {
@@ -108,11 +110,22 @@ export default class Lightbox {
     this.#activeMediaHandlers.clear();
 
     handleOverlayClose(this.lightbox);
-
-    this.lightbox.parentElement.removeChild(this.lightbox);
-
-    // Remove keyup event listener
     window.removeEventListener('keyup', this.#handleLightboxUpdateKey);
+
+    this.lightbox.classList.remove('shown');
+    this.lightbox.inert = true;
+
+    const container = this.lightbox.querySelector('.lightbox__container');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (reduceMotion) {
+      this.lightbox.parentElement?.removeChild(this.lightbox);
+    } else {
+      container.addEventListener('transitionend', (e) => {
+        if (e.propertyName !== 'opacity') return;
+        this.lightbox.parentElement?.removeChild(this.lightbox);
+      }, { once: true });
+    }
   };
 
   #handleCaptionDisplay = (show = false) => {
@@ -186,10 +199,10 @@ export default class Lightbox {
       this.currentLB = 0;
     }
 
-    this.#updateLightbox(this.currentLB);
+    this.#updateLightbox(this.currentLB, dir);
   }
 
-  #updateLightbox(index) {
+  #updateLightbox(index, direction = 0) {
     const lightboxElement = this.lightbox.querySelector('.lightbox__media');
     const lightboxCaption = this.lightbox.querySelector('.lightbox__caption');
 
@@ -221,6 +234,15 @@ export default class Lightbox {
 
     if (shouldDisplayCaption) {
       lightboxCaption.innerHTML = lbCaption;
+    }
+
+    if (direction !== 0) {
+      const container = this.lightbox.querySelector('.lightbox__container');
+      const enterDirection = direction > 0 ? 'next' : 'prev';
+      container.setAttribute('data-entering', enterDirection);
+      container.addEventListener('animationend', () => {
+        container.removeAttribute('data-entering');
+      }, { once: true });
     }
 
     focusTrap(this.lightbox);
@@ -332,8 +354,6 @@ export default class Lightbox {
   #createLightbox = () => {
     const lightbox = document.createElement('div');
     lightbox.classList.add('lightbox');
-    lightbox.setAttribute('aria-hidden', true);
-    lightbox.setAttribute('aria-live', 'polite');
     lightbox.innerHTML = this.#lightboxHTML;
 
     document.body.appendChild(lightbox);
