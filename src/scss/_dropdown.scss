@@ -28,7 +28,8 @@ In this file:
 
     .nav-dropdown,
     .nav-link-dropdown {
-        --_dropdown-indicator-size: unset;
+        --_indicator-content: "\f10e";
+        --_indicator-icon-size: .875em;
 
         position: relative;
 
@@ -41,25 +42,50 @@ In this file:
 
         z-index: auto;
 
-        [class*="__indicator"] {
-            --icon-size: .875em;
-            display: flex;
-        }
-
-        &:is(
-            [aria-expanded="true"],
-            :has([aria-expanded="true"])
-        ) [class*="__indicator"] {
-            transform: rotate(180deg);
-        }
-
         &:is(
             :hover,
             :focus,
             [aria-expanded="true"],
             :has([aria-expanded="true"])
-        ) [class*="__text"] {
+        ) .text {
             text-decoration: underline;
+        }
+    }
+
+    .nav-dropdown {
+
+        &::before {
+            order: 1;
+            font-family: var(--icon-font-family);
+            font-size: var(--_indicator-icon-size);
+            content: var(--_indicator-content);
+            display: inline-flex;
+            pointer-events: none;
+        }
+
+        &[aria-expanded="true"]::before {
+            transform: rotate(180deg);
+        }
+    }
+
+    .nav-link-dropdown {
+
+        > [data-toggle="dropdown"] {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &::before {
+                font-family: var(--icon-font-family);
+                font-size: var(--_indicator-icon-size);
+                content: var(--_indicator-content);
+                display: inline-flex;
+                pointer-events: none;
+            }
+        }
+
+        &:has([aria-expanded="true"]) > [data-toggle="dropdown"] {
+            transform: rotate(180deg);
         }
     }
 

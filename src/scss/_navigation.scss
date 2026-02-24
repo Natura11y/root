@@ -53,6 +53,7 @@ In this file:
         button
     ):not(
         [class*="button"],
+        [class*="nav-dropdown"],
         :has([class*="icon"])
     ) {
         &:hover,
