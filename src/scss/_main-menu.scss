@@ -59,6 +59,8 @@ In this file:
 
         z-index: 1000;
 
+        background-color: var(--background-color);
+
         ul {
             @extend %list-style-nav;
 

@@ -205,7 +205,7 @@ In this file:
                 align-items: stretch;
 
                 > li {
-                    border-block-end-style: unset;
+                    border-block-end-style: unset !important;
 
                     display: flex;
                     align-items: stretch;

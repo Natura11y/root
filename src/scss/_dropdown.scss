@@ -16,6 +16,7 @@ In this file:
 
 @use 'sass:map';
 @use './breakpoint';
+@use './link';
 @use './navigation';
 
 ////////////////////////////////////////
@@ -63,7 +64,14 @@ In this file:
 
     .nav-link-dropdown {
 
+        > .text {
+            @extend .link-expanded;
+        }
+
         > [data-toggle="dropdown"] {
+            position: relative;
+            z-index: 2;
+
             display: flex;
             align-items: center;
             justify-content: center;
