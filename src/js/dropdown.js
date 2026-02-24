@@ -78,7 +78,7 @@ export default class Dropdown {
         if (!clickTarget.contains(event.target)) {
           this.#closeDropdown(dropdownButton, dropdownMenu);
         }
-        
+
       }
     });
   };
@@ -161,6 +161,8 @@ export default class Dropdown {
         return;
       }
 
+      if (dropdownButton.getAttribute('data-hover') === 'true' && dropdownButton._hasHoverListeners && event.detail > 0) return;
+
       const isShown = dropdownMenu.classList.contains('shown');
 
       isShown
@@ -176,16 +178,20 @@ export default class Dropdown {
       const hoverButtons = document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"], .nav-link-dropdown [data-toggle="dropdown"]');
       
       hoverButtons.forEach((dropdownButton) => {
+
         // Prevent duplicate listeners
         if (dropdownButton._hasHoverListeners) return;
         dropdownButton._hasHoverListeners = true;
 
         const dropdownMenuId = dropdownButton.getAttribute('aria-controls');
         const dropdownMenu = document.getElementById(dropdownMenuId);
+
         if (!dropdownMenu) return;
 
         let openedByKeyboardOrClick = false;
-        dropdownButton.addEventListener('click', () => {
+        
+        dropdownButton.addEventListener('click', (e) => {
+          if (dropdownButton.getAttribute('data-hover') === 'true' && e.detail > 0) return;
           openedByKeyboardOrClick = true;
         });
         
