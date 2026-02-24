@@ -29,7 +29,7 @@ In this file:
     .nav-dropdown,
     .nav-link-dropdown {
         --_indicator-content: "\f108"; // f10c
-        --_indicator-icon-size: 0.75em;
+        --_indicator-icon-size: 0.675em;
 
         position: relative;
 
@@ -52,18 +52,18 @@ In this file:
         }
     }
 
+    .nav-dropdown::after,
+    .nav-link-dropdown > [data-toggle="dropdown"]::after {
+        font-family: var(--icon-font-family);
+        font-size: var(--_indicator-icon-size);
+        content: var(--_indicator-content);
+        display: flex;
+        pointer-events: none;
+    }
+
     .nav-dropdown {
 
-        &::before {
-            order: 1;
-            font-family: var(--icon-font-family);
-            font-size: var(--_indicator-icon-size);
-            content: var(--_indicator-content);
-            display: inline-flex;
-            pointer-events: none;
-        }
-
-        &[aria-expanded="true"]::before {
+        &[aria-expanded="true"]::after {
             transform: rotate(180deg);
         }
     }
@@ -74,14 +74,6 @@ In this file:
             display: flex;
             align-items: center;
             justify-content: center;
-
-            &::before {
-                font-family: var(--icon-font-family);
-                font-size: var(--_indicator-icon-size);
-                content: var(--_indicator-content);
-                display: inline-flex;
-                pointer-events: none;
-            }
         }
 
         &:has([aria-expanded="true"]) > [data-toggle="dropdown"] {

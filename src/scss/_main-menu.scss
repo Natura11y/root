@@ -383,13 +383,13 @@ In this file:
                     [data-hover="true"] {
                         position: relative;
 
-                        &[aria-expanded="true"]::after {
+                        &[aria-expanded="true"]::before {
                             @include hover-safe-zone;
                         }
                     }
 
                     .nav-link-dropdown:has([aria-expanded="true"]) {
-                        &::after {
+                        &::before {
                             @include hover-safe-zone;
                         }
                     }
