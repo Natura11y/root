@@ -249,7 +249,7 @@ In this file:
         }
     }
 
-    // Primary Nav Menu + Search
+    // Primary Nav Menu
 
     .main-menu__nav {
 
@@ -260,15 +260,19 @@ In this file:
         }
 
         > ul > li > :is(a, button) {
+            position: relative;
+
             display: flex;
-            justify-content: space-between;
 
             width: 100%;
-
-            padding: var(--nav-divider-padding-y) var(--main-menu-padding-x);
         }
 
-        > ul > li > [data-toggle="dropdown"] {
+        > ul > li > :is(a, button, .nav-dropdown, .nav-link-dropdown) {
+            display: flex;
+            padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
+        }
+
+        > ul > li > :is(.nav-dropdown, .nav-link-dropdown) {
             justify-content: space-between;
         }
 
@@ -323,20 +327,6 @@ In this file:
                 [class*="__nav"] > ul > li {
                     border-block-end: unset;
                 }
-
-                [class*="__nav"] > ul > li :is(a, button) {
-                    justify-content: center;
-                }
-
-                .nav-link-dropdown {
-
-                    > [data-toggle="dropdown"] {
-                        background-color: transparent;
-                        height: unset;
-                        width: unset;
-                        margin-inline-start: unset;
-                    }
-                }
             }
 
             .main-menu--bar#{$mod} {
@@ -361,23 +351,8 @@ In this file:
                         height: 100%;
                     }
 
-                    > ul > li > :is(a, button),
-                    > ul > li > .nav-link-dropdown > a {
+                    ul > li > :is(a, button, .nav-dropdown, .nav-link-dropdown) {
                         padding: unset;
-                    }
-
-                    [data-hover="true"] {
-                        position: relative;
-
-                        &[aria-expanded="true"]::after {
-                            @include hover-safe-zone;
-                        }
-                    }
-
-                    .nav-link-dropdown:has([aria-expanded="true"]) {
-                        &::after {
-                            @include hover-safe-zone;
-                        }
                     }
 
                     > ul {
@@ -405,6 +380,19 @@ In this file:
                         }
                     }
 
+                    [data-hover="true"] {
+                        position: relative;
+
+                        &[aria-expanded="true"]::after {
+                            @include hover-safe-zone;
+                        }
+                    }
+
+                    .nav-link-dropdown:has([aria-expanded="true"]) {
+                        &::after {
+                            @include hover-safe-zone;
+                        }
+                    }
                 }
             }
 
@@ -439,24 +427,10 @@ In this file:
                             border-inline-end-style: var(--border-style);
                         }
 
-                        > li > button {
-                            width: 100%;
-                        }
-
-                        > li > a {
+                        > li > :is(a, button, .nav-dropdown, .nav-link-dropdown) {
                             display: flex;
-                            text-align: center;
-
-                            padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
-                        }
-
-                        .nav-link-dropdown a {
-                            flex-grow: 0;
-                            padding-inline: unset;
-                        }
-
-                        :is([data-toggle="dropdown"], .nav-link-dropdown) {
                             justify-content: center;
+                            padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
                         }
 
                         .nav__dropdown {

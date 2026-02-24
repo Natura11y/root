@@ -30,10 +30,13 @@
                     <ul class="nav nav--divider border nav--horizontal--lg">
                         <li>
                             <button
+                                class="nav-dropdown"
                                 data-toggle="dropdown"
                                 aria-controls="dropdown-standard-1"
+                                data-hover="true"
                             >
-                                Dropdown
+                                <span class="nav-dropdown__text">Dropdown</span>
+                                <span class="nav-dropdown__indicator icon icon-chevron-down" aria-hidden="true"></span>
                             </button>
                             <ul class="nav__dropdown box-shadow-1--lg" id="dropdown-standard-1">
                                 <li><a href="#1">Link</a></li>
@@ -42,99 +45,22 @@
                             </ul>
                         </li>
                         <li>
-                            <button
-                                data-toggle="dropdown"
-                                aria-controls="dropdown-standard-2"
-                                data-hover="true"
-                            >
-                                Hover Dropdown
-                            </button>
-                            <ul class="nav__dropdown box-shadow-1--lg" id="dropdown-standard-2">
-                                <li><a href="#1">Link</a></li>
-                                <li><a href="#1">Link</a></li>
-                                <li><a href="#1">Link</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#1">Link</a></li>
-                    </ul>
-
-                </div>
-
-                <!-- Nav Link Dropdown (Split Link) -->
-
-                <div class="container narrow margin-x-auto margin-bottom-6 z-index-1500">
-
-                    <ul class="nav nav--divider border nav--horizontal--lg">
-                        <li>
                             <div class="nav-link-dropdown">
-                                <a href="#1">Split Link</a>
+                                <a href="#1" class="nav-link-dropdown__text">Split Link</a>
                                 <button
+                                    class="nav-link-dropdown__indicator"
                                     data-toggle="dropdown"
-                                    aria-controls="dropdown-split-1"
+                                    aria-controls="dropdown-standard-split"
                                     data-hover="true"
                                 >
+                                    <span class="icon icon-chevron-down" aria-hidden="true"></span>
                                 </button>
                             </div>
-                            <ul class="nav__dropdown box-shadow-1--lg" id="dropdown-split-1">
-                                <li><a href="#1">Option 1</a></li>
-                                <li><a href="#1">Option 2</a></li>
-                                <li><a href="#1">Option 3</a></li>
+                            <ul class="nav__dropdown box-shadow-1--lg" id="dropdown-standard-split">
+                                <li><a href="#1">Link</a></li>
+                                <li><a href="#1">Link</a></li>
+                                <li><a href="#1">Link</a></li>
                             </ul>
-                        </li>
-                        <li><a href="#1">Link</a></li>
-                    </ul>
-
-                </div>
-
-                <!-- Mega Menu -->
-
-                <div class="wide margin-x-auto margin-bottom-6 z-index-1000">
-
-                    <ul class="nav nav--divider border nav--horizontal--lg">
-                        <li>
-                            <button
-                                data-toggle="dropdown"
-                                aria-controls="dropdown-mega-1"
-                                data-hover="true"
-                            >
-                                Mega Menu
-                            </button>
-                            <div class="mega-menu--lg box-shadow-1--lg padding-4" id="dropdown-mega-1">
-                                <div class="grid grid--column-2 grid--column-4--lg gap-4 font-size-md">
-                                    <nav>
-                                        <p><strong>Orci Sagittis</strong></p>
-                                        <ul class="nav">
-                                            <li><a href="#1">Diam Maecenas</a></li>
-                                            <li><a href="#1">Maecenas</a></li>
-                                            <li><a href="#1">Accumsan</a></li>
-                                        </ul>
-                                    </nav>
-                                    <nav>
-                                        <p><strong>Mi Bibendum</strong></p>
-                                        <ul class="nav">
-                                            <li><a href="#1">Arcu Vitae</a></li>
-                                            <li><a href="#1">Congue</a></li>
-                                            <li><a href="#1">Egestas</a></li>
-                                        </ul>
-                                    </nav>
-                                    <nav>
-                                        <p><strong>Orci Sagittis</strong></p>
-                                        <ul class="nav">
-                                            <li><a href="#1">Diam Maecenas</a></li>
-                                            <li><a href="#1">Maecenas</a></li>
-                                            <li><a href="#1">Accumsan</a></li>
-                                        </ul>
-                                    </nav>
-                                    <nav>
-                                        <p><strong>Mi Bibendum</strong></p>
-                                        <ul class="nav">
-                                            <li><a href="#1">Arcu Vitae</a></li>
-                                            <li><a href="#1">Congue</a></li>
-                                            <li><a href="#1">Egestas</a></li>
-                                        </ul>
-                                    </nav>
-                                </div>
-                            </div>
                         </li>
                         <li><a href="#1">Link</a></li>
                     </ul>
@@ -164,10 +90,13 @@
                             <ul>
                                 <li>
                                     <button
+                                        class="nav-dropdown"
                                         data-toggle="dropdown"
                                         aria-controls="dropdown-bar-1"
+                                        data-hover="true"
                                     >
-                                        Dropdown
+                                        <span class="nav-dropdown__text">Dropdown</span>
+                                        <span class="nav-dropdown__indicator icon icon-chevron-down" aria-hidden="true"></span>
                                     </button>
                                     <ul class="nav__dropdown box-shadow-1--lg" id="dropdown-bar-1">
                                         <li><a href="#1">Link</a></li>
@@ -176,65 +105,22 @@
                                     </ul>
                                 </li>
                                 <li>
-                                    <button
-                                        data-toggle="dropdown"
-                                        aria-controls="dropdown-bar-2"
-                                        data-hover="true"
-                                    >
-                                        Hover Dropdown
-                                    </button>
-                                    <ul class="nav__dropdown box-shadow-1--lg" id="dropdown-bar-2">
-                                        <li><a href="#1">Link</a></li>
-                                        <li><a href="#1">Link</a></li>
-                                        <li><a href="#1">Link</a></li>
-                                    </ul>
-                                </li>
-                                <li>
                                     <div class="nav-link-dropdown">
-                                        <a href="#1">Split Link</a>
+                                        <a href="#1" class="nav-link-dropdown__text">Split Link</a>
                                         <button
+                                            class="nav-link-dropdown__indicator"
                                             data-toggle="dropdown"
                                             aria-controls="dropdown-bar-split"
                                             data-hover="true"
                                         >
+                                            <span class="icon icon-chevron-down" aria-hidden="true"></span>
                                         </button>
                                     </div>
-                                    <div class="mega-menu--lg box-shadow-1--lg padding-4" id="dropdown-bar-split">
-                                        <div class="grid grid--column-2 grid--column-4--lg gap-4 font-size-md">
-                                            <nav>
-                                                <p><strong>Orci Sagittis</strong></p>
-                                                <ul class="nav">
-                                                    <li><a href="#1">Diam Maecenas</a></li>
-                                                    <li><a href="#1">Maecenas</a></li>
-                                                    <li><a href="#1">Accumsan</a></li>
-                                                </ul>
-                                            </nav>
-                                            <nav>
-                                                <p><strong>Mi Bibendum</strong></p>
-                                                <ul class="nav">
-                                                    <li><a href="#1">Arcu Vitae</a></li>
-                                                    <li><a href="#1">Congue</a></li>
-                                                    <li><a href="#1">Egestas</a></li>
-                                                </ul>
-                                            </nav>
-                                            <nav>
-                                                <p><strong>Orci Sagittis</strong></p>
-                                                <ul class="nav">
-                                                    <li><a href="#1">Diam Maecenas</a></li>
-                                                    <li><a href="#1">Maecenas</a></li>
-                                                    <li><a href="#1">Accumsan</a></li>
-                                                </ul>
-                                            </nav>
-                                            <nav>
-                                                <p><strong>Mi Bibendum</strong></p>
-                                                <ul class="nav">
-                                                    <li><a href="#1">Arcu Vitae</a></li>
-                                                    <li><a href="#1">Congue</a></li>
-                                                    <li><a href="#1">Egestas</a></li>
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                    </div>
+                                    <ul class="nav__dropdown box-shadow-1--lg" id="dropdown-bar-split">
+                                        <li><a href="#1">Link</a></li>
+                                        <li><a href="#1">Link</a></li>
+                                        <li><a href="#1">Link</a></li>
+                                    </ul>
                                 </li>
                                 <li><a href="#1">Link</a></li>
                             </ul>
@@ -325,11 +211,13 @@
                             <ul>
                                 <li>
                                     <button
+                                        class="nav-dropdown"
                                         data-toggle="dropdown"
                                         aria-controls="dropdown-stack-1"
                                         data-hover="true"
                                     >
-                                        Dropdown
+                                        <div class="nav-dropdown__text">Dropdown</div>
+                                        <span class="nav-dropdown__indicator icon icon-chevron-down" aria-hidden="true"></span>
                                     </button>
                                     <ul class="nav__dropdown box-shadow-1--lg" id="dropdown-stack-1">
                                         <li><a href="#1">Link</a></li>
@@ -339,12 +227,14 @@
                                 </li>
                                 <li>
                                     <div class="nav-link-dropdown">
-                                        <a href="#1">Split Link</a>
+                                        <a href="#1" class="nav-link-dropdown__text">Split Link</a>
                                         <button
+                                            class="nav-link-dropdown__indicator"
                                             data-toggle="dropdown"
                                             aria-controls="dropdown-stack-split"
                                             data-hover="true"
                                         >
+                                            <span class="icon icon-chevron-down" aria-hidden="true"></span>
                                         </button>
                                     </div>
                                     <div class="mega-menu--lg box-shadow-1--lg padding-4" id="dropdown-stack-split">
