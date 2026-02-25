@@ -80,8 +80,10 @@ In this file:
 
     [class*="drop-shadow-"] {
         --shadow-opacity: 0;
-
-        transform: translateZ(0); // Safari Bud
+        
+        // Safari / Firefox Bug
+        transform: translateZ(0); 
+        -webkit-transform: translateZ(0);
 
         filter:
             drop-shadow(0 calc(var(--box-shadow-base-size) * 0.25) calc(var(--box-shadow-base-size) * 1) hsla(var(--box-shadow-hsl) / calc(var(--shadow-opacity) * 1)))

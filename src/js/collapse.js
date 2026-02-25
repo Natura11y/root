@@ -22,8 +22,28 @@ export default class Collapse {
     button.setAttribute('aria-expanded', 'false');
     target.classList.remove('shown');
     target.inert = true;
-    this.#resizeObserver.observe(target);
+
     if (returnFocus) button.focus();
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const cleanup = () => {
+      const handler = this.#activeKeydownHandlers.get(target);
+      if (handler) {
+        target.removeEventListener('keydown', handler);
+        this.#activeKeydownHandlers.delete(target);
+      }
+      this.#resizeObserver.observe(target);
+    };
+
+    if (reducedMotion) {
+      cleanup();
+    } else {
+      target.addEventListener('transitionend', (e) => {
+        if (e.target !== target || !['height', 'grid-template-rows'].includes(e.propertyName)) return;
+        cleanup();
+      }, { once: true });
+    }
   }
 
   #handleCollapseOpen(button, target, focusTarget = null) {
@@ -36,10 +56,10 @@ export default class Collapse {
   }
 
   #toggleCollapse = (event) => {
-    event.preventDefault();
-
     const button = event.target.closest('[data-toggle="collapse"]');
     if (!button) return;
+
+    event.preventDefault();
 
     const targetId = button.getAttribute('aria-controls')?.replace(/^#/, '');
     const target = document.getElementById(targetId);
@@ -55,7 +75,16 @@ export default class Collapse {
     if (isExpanded) {
       this.#handleCollapseClose(button, target);
     } else {
-      this.#handleCollapseOpen(button, target, target.hasAttribute('data-focus-first') ? firstFocusable : null);
+      let focusTarget = null;
+      if (target.hasAttribute('data-focus-first')) {
+        if (firstFocusable) {
+          focusTarget = firstFocusable;
+        } else {
+          target.tabIndex = -1;
+          focusTarget = target;
+        }
+      }
+      this.#handleCollapseOpen(button, target, focusTarget);
     }
 
     const prev = this.#activeKeydownHandlers.get(target);
@@ -64,7 +93,7 @@ export default class Collapse {
     const handler = (e) => {
       if (e.code === 'Escape') {
         this.#handleCollapseClose(button, target, true);
-      } else if (e.code === 'Tab' && e.shiftKey && document.activeElement === firstFocusable) {
+      } else if (e.code === 'Tab' && e.shiftKey && firstFocusable && document.activeElement === firstFocusable) {
         e.preventDefault();
         button.focus();
       }
@@ -72,13 +101,6 @@ export default class Collapse {
 
     target.addEventListener('keydown', handler);
     this.#activeKeydownHandlers.set(target, handler);
-
-    target.addEventListener('transitionend', () => {
-      if (!target.classList.contains('shown')) {
-        target.removeEventListener('keydown', handler);
-        this.#activeKeydownHandlers.delete(target);
-      }
-    }, { once: true });
 
     if (button.hasAttribute('data-target-close')) {
       const closeId = button.getAttribute('data-target-close')?.replace(/^#/, '');
@@ -98,7 +120,6 @@ export default class Collapse {
     document.querySelectorAll('.collapse:not(.shown)').forEach((el) => {
       el.inert = true;
     });
-    
     delegateEvent(document, 'click', '[data-toggle="collapse"]', this.#toggleCollapse);
   };
 }
