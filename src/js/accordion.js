@@ -1,17 +1,8 @@
-import { getFocusableElements } from './utilities/focus';
 import { delegateEvent } from './utilities/eventDelegation';
 
 export default class Accordion {
 
     #accordionList = document.querySelectorAll('.accordion');
-
-    // Private method to set focusable elements within a panel
-    #setFocusableElements(element = document, focusable = false) {
-        const focusableElementList = getFocusableElements(element);
-        focusableElementList.forEach((focusableElement) => {
-            focusableElement.setAttribute('tabindex', focusable ? 0 : -1);
-        });
-    }
 
     // Private method to handle accordion initialization (open/close)
     #initAccordion(event, accordionButton, currentAccordionPanel, accordionPanelList) {
@@ -24,8 +15,7 @@ export default class Accordion {
             if (otherPanel !== currentAccordionPanel) {
                 otherPanel.classList.remove('shown');
                 otherPanel.previousElementSibling.setAttribute('aria-expanded', false);
-                otherPanel.setAttribute('aria-hidden', true);
-                this.#setFocusableElements(otherPanel, false);
+                otherPanel.inert = true;
             }
         });
 
@@ -34,8 +24,7 @@ export default class Accordion {
         const isExpanded = accordionButton.getAttribute('aria-expanded') === 'true';
 
         accordionButton.setAttribute('aria-expanded', !isExpanded);
-        currentAccordionPanel.setAttribute('aria-hidden', isExpanded);
-        this.#setFocusableElements(currentAccordionPanel, !isExpanded);
+        currentAccordionPanel.inert = isExpanded;
 
         // Dispatch a custom event when accordion is toggled
         const accTrigger = new Event('accTrigger', { bubbles: true });
@@ -77,14 +66,14 @@ export default class Accordion {
             const accordionButtonList = accordion.querySelectorAll(':scope > [data-accordion="button"]');
             const accordionPanelList = accordion.querySelectorAll(':scope > [data-accordion="panel"]');
 
-            accordionButtonList.forEach((accordionButton, index) => {
+            accordionButtonList.forEach((accordionButton) => {
 
                 const currentAccordionPanel = accordionButton.nextElementSibling;
                 const isExpanded = accordionButton.getAttribute('aria-expanded') === 'true';
 
                 accordionButton.setAttribute('tabindex', 0);
                 currentAccordionPanel.classList.toggle('show', isExpanded);
-                this.#setFocusableElements(currentAccordionPanel, isExpanded);
+                currentAccordionPanel.inert = !isExpanded;
 
             });
 

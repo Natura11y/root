@@ -154,7 +154,6 @@ In this file:
 
         [class*="__nav"] {
             align-self: stretch;
-            justify-content: end;
         }
 
         [class*="__logo"] a {
@@ -326,6 +325,14 @@ In this file:
                     padding: unset;
                 }
 
+                [class*="__nav"], 
+                [class*="__nav"] > ul {
+                    opacity: 1 !important;
+                    overflow: unset !important;
+                    height: auto !important;
+                    transition: none !important;
+                }
+
                 [class*="__nav"] > ul > li {
                     border-block-end: unset;
                 }
@@ -346,6 +353,8 @@ In this file:
                 [class*="__nav"] {
                     justify-content: flex-end;
                     align-items: center;
+
+                    width: 100%;
 
                     padding: unset;
 

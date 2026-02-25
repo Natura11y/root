@@ -25,7 +25,7 @@ In this file:
 //////////////////////////////////////////////
 
 :root {
-    --collapse-animation-duration: 0.25s;
+    --collapse-animation-duration: 0.3s;
 }
 
 //////////////////////////////////////////////
@@ -35,13 +35,13 @@ In this file:
 @layer utility {
 
     .collapse {
+        overflow: hidden;
+
         display: grid;
         grid-template-rows: 0fr;
 
-        overflow: hidden;
-
         // Exit
-        transition: grid-template-rows var(--collapse-animation-duration) ease-in-out;
+        transition: grid-template-rows calc(var(--collapse-animation-duration) * 0.75) ease-in;
 
         @media (prefers-reduced-motion: reduce) {
             transition: none;
@@ -52,7 +52,7 @@ In this file:
             opacity: 0;
 
             // Exit
-            transition: opacity var(--collapse-animation-duration) ease-in-out;
+            transition: opacity calc(var(--collapse-animation-duration) * 0.5) ease-in;
 
             @media (prefers-reduced-motion: reduce) {
                 transition: none;
@@ -63,7 +63,7 @@ In this file:
             grid-template-rows: 1fr;
 
             // Enter
-            transition: grid-template-rows var(--collapse-animation-duration) ease-in-out;
+            transition: grid-template-rows var(--collapse-animation-duration) ease-out;
 
             @media (prefers-reduced-motion: reduce) {
                 transition: none;
@@ -73,36 +73,7 @@ In this file:
                 opacity: 1;
 
                 // Enter
-                transition: opacity var(--collapse-animation-duration) ease-in-out;
-
-                @media (prefers-reduced-motion: reduce) {
-                    transition: none;
-                }
-            }
-        }
-
-        @supports (interpolate-size: allow-keywords) {
-            interpolate-size: allow-keywords;
-            height: 0;
-            grid-template-rows: unset;
-
-            // Exit
-            transition: height var(--collapse-animation-duration) ease-in-out;
-
-            @media (prefers-reduced-motion: reduce) {
-                transition: none;
-            }
-
-            > * {
-                overflow: unset;
-            }
-
-            &.shown {
-                height: auto;
-                grid-template-rows: unset;
-
-                // Enter
-                transition: height var(--collapse-animation-duration) ease-in-out;
+                transition: opacity var(--collapse-animation-duration) ease-out;
 
                 @media (prefers-reduced-motion: reduce) {
                     transition: none;
