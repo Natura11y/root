@@ -40,8 +40,11 @@ In this file:
 
         overflow: hidden;
 
+        visibility: hidden;
+
         // Exit
-        transition: grid-template-rows var(--collapse-animation-duration) ease-in-out;
+        transition: grid-template-rows var(--collapse-animation-duration) ease-in-out,
+                    visibility var(--collapse-animation-duration) step-end;
 
         @media (prefers-reduced-motion: reduce) {
             transition: none;
@@ -62,8 +65,11 @@ In this file:
         &.shown {
             grid-template-rows: 1fr;
 
+            visibility: visible;
+
             // Enter
-            transition: grid-template-rows var(--collapse-animation-duration) ease-in-out;
+            transition: grid-template-rows var(--collapse-animation-duration) ease-in-out,
+                        visibility 0s;
 
             @media (prefers-reduced-motion: reduce) {
                 transition: none;
@@ -87,7 +93,8 @@ In this file:
             grid-template-rows: unset;
 
             // Exit
-            transition: height var(--collapse-animation-duration) ease-in-out;
+            transition: height var(--collapse-animation-duration) ease-in-out,
+                        visibility var(--collapse-animation-duration) step-end;
 
             @media (prefers-reduced-motion: reduce) {
                 transition: none;
@@ -102,7 +109,8 @@ In this file:
                 grid-template-rows: unset;
 
                 // Enter
-                transition: height var(--collapse-animation-duration) ease-in-out;
+                transition: height var(--collapse-animation-duration) ease-in-out,
+                            visibility 0s;
 
                 @media (prefers-reduced-motion: reduce) {
                     transition: none;

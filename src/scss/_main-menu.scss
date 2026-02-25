@@ -319,6 +319,7 @@ In this file:
                     [class*="__search"]
                 ) {
                     display: flex !important;
+                    visibility: visible !important;
                 }
 
                 [class*="__search"] {
