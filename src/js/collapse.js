@@ -53,13 +53,27 @@ export default class Collapse {
     }
   }
 
-  #handleCollapseOpen(button, target, focusTarget = null) {
+  #handleCollapseOpen(button, target, focusMode = null) {
     button.setAttribute('aria-expanded', 'true');
     target.setAttribute('data-active', '');
     target.inert = false;
     this.#resizeObserver.unobserve(target);
     target.classList.add('shown');
-    focusTarget?.focus();
+
+    if (focusMode === 'first') {
+      const [firstFocusable] = getFocusableElements(target);
+      if (firstFocusable) {
+        firstFocusable.focus();
+      } else {
+        target.tabIndex = -1;
+        this.#fallbackTabTargets.add(target);
+        target.focus();
+      }
+    } else if (focusMode === 'panel') {
+      target.tabIndex = -1;
+      this.#fallbackTabTargets.add(target);
+      target.focus();
+    }
   }
 
   #toggleCollapse = (event) => {
@@ -80,17 +94,11 @@ export default class Collapse {
 
     if (isExpanded) {
       this.#handleCollapseClose(button, target);
-    } else if (target.hasAttribute('data-focus-first') && event.detail === 0) {
-      const [firstFocusable] = getFocusableElements(target);
-      let focusTarget = firstFocusable;
-      if (!focusTarget) {
-        target.tabIndex = -1;
-        this.#fallbackTabTargets.add(target);
-        focusTarget = target;
-      }
-      this.#handleCollapseOpen(button, target, focusTarget);
     } else {
-      this.#handleCollapseOpen(button, target);
+      const focusMode = target.hasAttribute('data-focus-first') ? 'first'
+                      : event.detail === 0 ? 'panel'
+                      : null;
+      this.#handleCollapseOpen(button, target, focusMode);
     }
 
     const prev = this.#activeKeydownHandlers.get(target);

@@ -326,6 +326,7 @@ In this file:
                     padding: unset;
                 }
 
+                [class*="__search"],
                 [class*="__nav"], 
                 [class*="__nav"] > ul {
                     opacity: 1 !important;

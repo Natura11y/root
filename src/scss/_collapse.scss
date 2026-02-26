@@ -42,11 +42,6 @@ In this file:
 
         visibility: hidden;
 
-        > * {
-            overflow: hidden;
-            opacity: 0;
-        }
-
         &:not(.shown) {
 
         padding-block: 0 !important;
@@ -57,10 +52,6 @@ In this file:
             grid-template-rows: 1fr;
 
             visibility: visible;
-
-            > * {
-                opacity: 1;
-            }
         }
 
         &[data-active] {
@@ -72,16 +63,6 @@ In this file:
 
             @media (prefers-reduced-motion: reduce) {
                 transition: none;
-            }
-
-            > * {
-
-                // Exit
-                transition: opacity var(--collapse-animation-duration) ease;
-
-                @media (prefers-reduced-motion: reduce) {
-                    transition: none;
-                }
             }
 
             &.shown {
