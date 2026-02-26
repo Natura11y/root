@@ -42,25 +42,14 @@ In this file:
 
         visibility: hidden;
 
-        > * {
-            overflow: hidden;
-            opacity: 0;
-        }
-
         &:not(.shown) {
-
-        padding-block: 0 !important;
-
+            padding-block: 0 !important;
         }
 
         &.shown {
             grid-template-rows: 1fr;
 
             visibility: visible;
-
-            > * {
-                opacity: 1;
-            }
         }
 
         &[data-active] {
@@ -74,22 +63,12 @@ In this file:
                 transition: none;
             }
 
-            > * {
-
-                // Exit
-                transition: opacity var(--collapse-animation-duration) ease;
-
-                @media (prefers-reduced-motion: reduce) {
-                    transition: none;
-                }
-            }
-
             &.shown {
 
                 // Enter
                 transition: grid-template-rows var(--collapse-animation-duration) ease,
                             padding-block var(--collapse-animation-duration) ease,
-                            visibility var(--collapse-animation-duration) step-end;
+                            visibility var(--collapse-animation-duration) step-start;
 
                 @media (prefers-reduced-motion: reduce) {
                     transition: none;
@@ -101,10 +80,6 @@ In this file:
             interpolate-size: allow-keywords;
             height: 0;
             grid-template-rows: unset;
-
-            > * {
-                overflow: unset;
-            }
 
             &.shown {
                 height: auto;
@@ -125,8 +100,8 @@ In this file:
                 &.shown {
 
                     // Enter
-                    transition: height var(--collapse-animation-duration) ease-in-out,
-                                padding-block var(--collapse-animation-duration) ease-in-out,
+                    transition: height var(--collapse-animation-duration) ease,
+                                padding-block var(--collapse-animation-duration) ease,
                                 visibility var(--collapse-animation-duration) step-start;
 
                     @media (prefers-reduced-motion: reduce) {
