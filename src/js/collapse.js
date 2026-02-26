@@ -10,7 +10,7 @@ export default class Collapse {
 
   #resizeObserver = new ResizeObserver((entries) => {
     entries.forEach(({ target }) => {
-      if (target.inert && target.offsetHeight > 0) {
+      if (target.inert && getComputedStyle(target).visibility === 'visible') {
         target.inert = false;
         this.#resizeObserver.unobserve(target);
       }
@@ -105,12 +105,14 @@ export default class Collapse {
     target.addEventListener('keydown', handler);
     this.#activeKeydownHandlers.set(target, handler);
 
-    if (button.hasAttribute('data-target-close')) {
+    if (!isExpanded && button.hasAttribute('data-target-close')) {
       const closeId = button.getAttribute('data-target-close')?.replace(/^#/, '');
       const closeTarget = document.getElementById(closeId);
       const closeButton = document.querySelector(`[aria-controls="${closeId}"]`);
       if (closeTarget && closeButton) {
-        this.#handleCollapseClose(closeButton, closeTarget);
+        if (closeButton.getAttribute('aria-expanded') === 'true') {
+          this.#handleCollapseClose(closeButton, closeTarget);
+        }
       } else {
         console.error(`Close target "${closeId}" not found.`);
       }
