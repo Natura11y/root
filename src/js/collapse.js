@@ -6,6 +6,8 @@ export default class Collapse {
   // Private properties
 
   #activeKeydownHandlers = new Map();
+  
+  #fallbackTabTargets = new Set();
 
   #resizeObserver = new ResizeObserver((entries) => {
     entries.forEach(({ target }) => {
@@ -22,6 +24,11 @@ export default class Collapse {
     button.setAttribute('aria-expanded', 'false');
     target.classList.remove('shown');
     target.inert = true;
+
+    if (this.#fallbackTabTargets.has(target)) {
+      target.removeAttribute('tabindex');
+      this.#fallbackTabTargets.delete(target);
+    }
 
     if (returnFocus) button.focus();
 
@@ -69,17 +76,20 @@ export default class Collapse {
     }
 
     const isExpanded = button.getAttribute('aria-expanded') === 'true';
-    const [firstFocusable] = getFocusableElements(target);
 
     if (isExpanded) {
       this.#handleCollapseClose(button, target);
-    } else {
+    } else if (target.hasAttribute('data-focus-first') && event.detail === 0) {
+      const [firstFocusable] = getFocusableElements(target);
       let focusTarget = firstFocusable;
       if (!focusTarget) {
         target.tabIndex = -1;
+        this.#fallbackTabTargets.add(target);
         focusTarget = target;
       }
       this.#handleCollapseOpen(button, target, focusTarget);
+    } else {
+      this.#handleCollapseOpen(button, target);
     }
 
     const prev = this.#activeKeydownHandlers.get(target);
