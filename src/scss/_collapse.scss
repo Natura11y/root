@@ -44,25 +44,15 @@ In this file:
 
         padding-block: 0;
 
-        // Exit
-        transition: grid-template-rows var(--collapse-animation-duration) ease-in-out,
-                    visibility var(--collapse-animation-duration) step-end,
-                    padding-block var(--collapse-animation-duration) ease-in-out;
-
-        @media (prefers-reduced-motion: reduce) {
-            transition: none;
-        }
-
         > * {
             overflow: hidden;
             opacity: 0;
+        }
 
-            // Exit
-            transition: opacity var(--collapse-animation-duration) ease-in-out;
+        &:not(.shown) {
 
-            @media (prefers-reduced-motion: reduce) {
-                transition: none;
-            }
+        padding-block: 0 !important;
+
         }
 
         &.shown {
@@ -70,27 +60,15 @@ In this file:
 
             visibility: visible;
 
-            // Enter
-            transition: grid-template-rows var(--collapse-animation-duration) ease,
-                        padding-block var(--collapse-animation-duration) ease-in-out,
-                        visibility var(--collapse-animation-duration) step-end;
-
-            @media (prefers-reduced-motion: reduce) {
-                transition: none;
-            }
-
             > * {
                 opacity: 1;
             }
         }
 
-        @supports (interpolate-size: allow-keywords) {
-            interpolate-size: allow-keywords;
-            height: 0;
-            grid-template-rows: unset;
+        &[data-active] {
 
             // Exit
-            transition: height var(--collapse-animation-duration) ease,
+            transition: grid-template-rows var(--collapse-animation-duration) ease,
                         padding-block var(--collapse-animation-duration) ease,
                         visibility var(--collapse-animation-duration) step-end;
 
@@ -99,24 +77,66 @@ In this file:
             }
 
             > * {
-                overflow: unset;
+
+                // Exit
+                transition: opacity var(--collapse-animation-duration) ease;
+
+                @media (prefers-reduced-motion: reduce) {
+                    transition: none;
+                }
             }
 
             &.shown {
-                height: auto;
-                grid-template-rows: unset;
 
                 // Enter
-                transition: height var(--collapse-animation-duration) ease-in-out,
-                            padding-block var(--collapse-animation-duration) ease-in-out,
-                            visibility 0s;
+                transition: grid-template-rows var(--collapse-animation-duration) ease,
+                            padding-block var(--collapse-animation-duration) ease,
+                            visibility var(--collapse-animation-duration) step-end;
 
                 @media (prefers-reduced-motion: reduce) {
                     transition: none;
                 }
             }
         }
-    }
 
+        @supports (interpolate-size: allow-keywords) {
+            interpolate-size: allow-keywords;
+            height: 0;
+            grid-template-rows: unset;
+
+            > * {
+                overflow: unset;
+            }
+
+            &.shown {
+                height: auto;
+                grid-template-rows: unset;
+            }
+
+            &[data-active] {
+
+                // Exit
+                transition: height var(--collapse-animation-duration) ease,
+                            padding-block var(--collapse-animation-duration) ease,
+                            visibility var(--collapse-animation-duration) step-end;
+
+                @media (prefers-reduced-motion: reduce) {
+                    transition: none;
+                }
+
+                &.shown {
+
+                    // Enter
+                    transition: height var(--collapse-animation-duration) ease-in-out,
+                                padding-block var(--collapse-animation-duration) ease-in-out,
+                                visibility var(--collapse-animation-duration) step-start;
+
+                    @media (prefers-reduced-motion: reduce) {
+                        transition: none;
+                    }
+                }
+            }
+        }
+    }
 
 } // end @layer

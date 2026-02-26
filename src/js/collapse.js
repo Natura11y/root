@@ -6,7 +6,6 @@ export default class Collapse {
   // Private properties
 
   #activeKeydownHandlers = new Map();
-  
   #fallbackTabTargets = new Set();
 
   #resizeObserver = new ResizeObserver((entries) => {
@@ -35,6 +34,7 @@ export default class Collapse {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     const cleanup = () => {
+      target.removeAttribute('data-active');
       const handler = this.#activeKeydownHandlers.get(target);
       if (handler) {
         target.removeEventListener('keydown', handler);
@@ -55,6 +55,7 @@ export default class Collapse {
 
   #handleCollapseOpen(button, target, focusTarget = null) {
     button.setAttribute('aria-expanded', 'true');
+    target.setAttribute('data-active', '');
     target.inert = false;
     this.#resizeObserver.unobserve(target);
     target.classList.add('shown');
