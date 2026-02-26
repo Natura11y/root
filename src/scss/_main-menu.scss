@@ -178,7 +178,7 @@ In this file:
         [class*="__search"] {
             @extend .collapse;
 
-            padding: var(--main-menu-padding-y);
+            padding: var(--nav-gap);
 
             border-block-start-width: var(--border-width);
             border-block-start-style: var(--border-style);
@@ -327,7 +327,6 @@ In this file:
                 }
 
                 [class*="__nav"], 
-                [class*="__search"], 
                 [class*="__nav"] > ul {
                     opacity: 1 !important;
                     overflow: unset !important;
