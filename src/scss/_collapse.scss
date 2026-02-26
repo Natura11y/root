@@ -43,9 +43,7 @@ In this file:
         visibility: hidden;
 
         &:not(.shown) {
-
-        padding-block: 0 !important;
-
+            padding-block: 0 !important;
         }
 
         &.shown {
@@ -80,12 +78,9 @@ In this file:
 
         @supports (interpolate-size: allow-keywords) {
             interpolate-size: allow-keywords;
+            
             height: 0;
             grid-template-rows: unset;
-
-            > * {
-                overflow: unset;
-            }
 
             &.shown {
                 height: auto;
