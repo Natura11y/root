@@ -1,4 +1,4 @@
-import { getFocusableElements, focusTrap } from './utilities/focus';
+import { getFocusableElements } from './utilities/focus';
 import { delegateEvent } from './utilities/eventDelegation';
 
 export default class Collapse {
@@ -51,7 +51,6 @@ export default class Collapse {
     target.inert = false;
     this.#resizeObserver.unobserve(target);
     target.classList.add('shown');
-    focusTrap(target);
     focusTarget?.focus();
   }
 
@@ -75,14 +74,10 @@ export default class Collapse {
     if (isExpanded) {
       this.#handleCollapseClose(button, target);
     } else {
-      let focusTarget = null;
-      if (target.hasAttribute('data-focus-first')) {
-        if (firstFocusable) {
-          focusTarget = firstFocusable;
-        } else {
-          target.tabIndex = -1;
-          focusTarget = target;
-        }
+      let focusTarget = firstFocusable;
+      if (!focusTarget) {
+        target.tabIndex = -1;
+        focusTarget = target;
       }
       this.#handleCollapseOpen(button, target, focusTarget);
     }
@@ -93,9 +88,6 @@ export default class Collapse {
     const handler = (e) => {
       if (e.code === 'Escape') {
         this.#handleCollapseClose(button, target, true);
-      } else if (e.code === 'Tab' && e.shiftKey && firstFocusable && document.activeElement === firstFocusable) {
-        e.preventDefault();
-        button.focus();
       }
     };
 
