@@ -170,14 +170,6 @@ In this file:
             visibility: hidden;
         }
 
-        &--active {
-            z-index: 1;
-        }
-
-        &--hidden {
-            visibility: hidden;
-        }
-
         &[data-entering] {
             animation: flyout-panel-enter 0.25s ease-out;
 
