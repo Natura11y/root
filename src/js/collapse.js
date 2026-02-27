@@ -10,7 +10,7 @@ export default class Collapse {
 
   #resizeObserver = new ResizeObserver((entries) => {
     entries.forEach(({ target }) => {
-      if (target.inert && getComputedStyle(target).visibility === 'visible') {
+      if (getComputedStyle(target).visibility === 'visible') {
         target.inert = false;
         this.#resizeObserver.unobserve(target);
       }
