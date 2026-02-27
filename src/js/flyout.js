@@ -132,8 +132,8 @@ export default class Flyout {
 	init() {
 		document.querySelectorAll('.flyout').forEach(menu => this.#resetPanels(menu));
 
-		delegateEvent(document, 'click', '[data-flyout="open"]', (event) => {
-			const trigger = event.target.closest('[data-flyout="open"]');
+		delegateEvent(document, 'click', '[data-open="flyout"]', (event) => {
+			const trigger = event.target.closest('[data-open="flyout"]');
 			const menuId = trigger?.getAttribute('aria-controls')?.replace(/^#/, '');
 			const menu = document.getElementById(menuId);
 			if (menu) this.#handleMenuOpen(menu);
@@ -156,7 +156,7 @@ export default class Flyout {
 			if (menu) this.#navigateBack(menu);
 		});
 
-		document.querySelectorAll('[data-flyout="open"]').forEach(trigger => {
+		document.querySelectorAll('[data-open="flyout"]').forEach(trigger => {
 			const menuId = trigger.getAttribute('aria-controls')?.replace(/^#/, '');
 			const menu = document.getElementById(menuId);
 			if (!menu) return;
