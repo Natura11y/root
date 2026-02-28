@@ -66,7 +66,7 @@ In this file:
         font-weight: var(--font-weight-bold);
     }
 
-    &:not([class*="nav--has-icons"]) :is([aria-selected="true"], [aria-current]) {
+    > li > :is(a, button):not(:has([class*="icon"])):is([aria-selected="true"], [aria-current]) {
         text-decoration-line: underline;
     }
 }
@@ -108,11 +108,28 @@ In this file:
         @extend %list-style-nav;
     }
 
+    .nav li > :is(a, button):has([class*="icon"]) {
+        display: flex;
+        align-items: center;
+
+        gap: 0.375em;
+
+        &:is(:hover, :focus) {
+            .nav__text {
+                text-decoration: underline;
+            }
+        }
+    }
+            
     .nav:not([class*="nav--divider"]) {
         display: flex;
         flex-direction: column;
 
         gap: var(--nav-gap);
+
+        > li > :is(a, button):has([class*="icon"]) {
+            width: fit-content;
+        }
 
         > li > .dropdown__menu {
             inset-inline-start: 0;
@@ -242,30 +259,6 @@ In this file:
 
                 &[class*="border"] .dropdown__menu {
                     margin-inline-start: calc(var(--border-width) * -1);
-                }
-            }
-        }
-    }
-
-    // Nav Has Icons Modifier
-
-    [class*="nav--has-icons"] {
-
-        &:not([class*="nav--divider"]) {
-            > li > :is(a, button) {
-                width: fit-content;
-            }
-        }
-
-        > li > :is(a, button) {
-            display: flex;
-            align-items: center;
-
-            gap:0.375em;
-
-            &:is(:hover, :focus) {
-                .nav__text {
-                    text-decoration: underline;
                 }
             }
         }
