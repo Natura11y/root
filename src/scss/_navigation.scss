@@ -115,12 +115,12 @@ In this file:
         gap: 0.375em;
 
         &:is(:hover, :focus) {
-            .nav__text {
+            [class*="text"] {
                 text-decoration: underline;
             }
         }
     }
-            
+
     .nav:not([class*="nav--divider"]) {
         display: flex;
         flex-direction: column;
