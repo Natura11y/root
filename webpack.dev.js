@@ -42,7 +42,7 @@ const devPages = {
 }
 
 const devDir = './dist/html';
-const devPage = `${devPages.Pagination}.html`;
+const devPage = `${devPages.Flyout}.html`;
 
 module.exports = merge(common, {
     mode: 'development',

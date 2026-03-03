@@ -31,16 +31,28 @@ In this file:
 
 @layer component {
 
-    .nav-pagination {
+    .pagination {
         @extend %list-style-nav;
 
         display: flex;
         align-items: center;
         flex-wrap: wrap;
 
-        gap: var(--pagination-gap);
+        width: fit-content;
+
+        max-width: 100%;
+
+        // gap: var(--pagination-gap);
 
         font-size: var(--pagination-font-size);
+
+        > li:has(.icon-more-horizontal){
+            min-width: var(--pagination-item-size);
+            height: var(--pagination-item-size);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
         > li > :is(a, button) {
             display: flex;
@@ -52,7 +64,7 @@ In this file:
 
             padding-inline: 0.5em;
 
-            border-radius: var(--pagination-border-radius);
+            // border-radius: var(--pagination-border-radius);
 
             &:has([class*="icon"]) {
                 gap: 0.375em;
@@ -63,6 +75,12 @@ In this file:
                     }
                 }
             }
+        }
+        
+        border: var(--border-width) var(--border-style) var(--border-color);
+
+        > li:not(:last-child) {
+            border-inline-end: var(--border-width) var(--border-style) var(--border-color);
         }
 
         > li > [aria-current="page"] {

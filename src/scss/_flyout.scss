@@ -166,6 +166,10 @@ In this file:
 
         background-color: var(--background-color);
 
+        &:not([inert]) {
+            z-index: 1;
+        }
+
         &[inert] {
             visibility: hidden;
         }

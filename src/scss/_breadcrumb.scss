@@ -28,7 +28,7 @@ In this file:
 
 @layer component {
 
-    .nav-breadcrumb {
+    .breadcrumb {
         @extend %list-style-nav;
 
         display: flex;
