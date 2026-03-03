@@ -20,7 +20,6 @@ In this file:
 
 :root {
     --pagination-font-size: var(--font-size-md);
-    --pagination-gap: 0.25em;
     --pagination-item-size: var(--button-target-size);
     --pagination-border-radius: var(--button-border-radius);
 }
@@ -41,8 +40,6 @@ In this file:
         width: fit-content;
 
         max-width: 100%;
-
-        // gap: var(--pagination-gap);
 
         font-size: var(--pagination-font-size);
 

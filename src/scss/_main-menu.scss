@@ -361,7 +361,7 @@ In this file:
                     padding: unset;
 
                     > ul {
-                        height: 100%;
+                        align-self: stretch;
                     }
 
                     ul > li > :is(a, button, .nav-dropdown, .nav-link-dropdown) {
