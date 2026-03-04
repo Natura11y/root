@@ -131,7 +131,10 @@ export default class Collapse {
 
   init = () => {
     document.querySelectorAll('.collapse:not(.shown)').forEach((el) => {
-      el.inert = true;
+      if (getComputedStyle(el).visibility !== 'visible') {
+        el.inert = true;
+      }
+      this.#resizeObserver.observe(el);
     });
     delegateEvent(document, 'click', '[data-toggle="collapse"]', this.#toggleCollapse);
   };
