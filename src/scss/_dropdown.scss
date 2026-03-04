@@ -39,13 +39,16 @@ In this file:
         z-index: auto;
 
         &:is(
-            :hover,
-            :focus,
             [aria-expanded="true"],
             :has([aria-expanded="true"])
         ) .text {
             text-decoration: underline;
         }
+    }
+
+    .dropdown:is(:hover, :focus) .text,
+    .dropdown-link-split:has(.text:is(:hover, :focus)) .text {
+        text-decoration: underline;
     }
 
     .dropdown:not([data-indicator]),
@@ -77,9 +80,6 @@ In this file:
             justify-content: center;
         }
 
-        button {
-        background-color: yellow;
-    }
     }
 
     [data-toggle="dropdown"]:not([data-indicator])[aria-expanded="true"]::before {
