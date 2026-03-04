@@ -30,7 +30,6 @@ const devPages = {
     'Grid': 'grid',
     'Lightbox': 'lightbox',
     'MainMenu': 'main-menu',
-    'MegaMenu': 'megamenu',
     'Modal': 'modal',
     'Navigation': 'navigation',
     'Pagination': 'pagination',
@@ -42,7 +41,7 @@ const devPages = {
 }
 
 const devDir = './dist/html';
-const devPage = `${devPages.Dropdown}.html`;
+const devPage = `${devPages.Breadcrumb}.html`;
 
 module.exports = merge(common, {
     mode: 'development',

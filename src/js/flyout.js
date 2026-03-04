@@ -24,6 +24,7 @@ export default class Flyout {
 
 		if (!content) return;
 
+		this.#resetPanels(menu);
 		menu.classList.add('shown');
 		menu.setAttribute('aria-hidden', 'false');
 
@@ -50,8 +51,6 @@ export default class Flyout {
 		}
 
 		window.removeEventListener('keydown', this.#escapeKeyHandler);
-
-		this.#resetPanels(menu);
 	}
 
 	#resetPanels(menu) {
