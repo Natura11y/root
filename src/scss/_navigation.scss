@@ -53,7 +53,7 @@ In this file:
         button
     ):not(
         [class*="button"],
-        [class*="nav-dropdown"],
+        [class*="dropdown"],
         :has([class*="icon"])
     ) {
         &:hover,
@@ -195,7 +195,7 @@ In this file:
             width: 100%;
         }
 
-        > li > :is(a, button, .nav-dropdown, .nav-link-dropdown) {
+        > li > :is(a, button, .dropdown, .dropdown-link-split) {
             display: flex;
             padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
         }
@@ -208,7 +208,7 @@ In this file:
             margin-block: auto;
         }
 
-        > li > :is(.nav-dropdown, .nav-link-dropdown) {
+        > li > :is(.dropdown, .dropdown-link-split) {
             justify-content: space-between;
         }
     }
@@ -229,7 +229,7 @@ In this file:
                     flex: 1 1 100%;
                 }
 
-                > li > :is(a, button, .nav-dropdown, .nav-link-dropdown) {
+                > li > :is(a, button, .dropdown, .dropdown-link-split) {
                     justify-content: center;
                 }
 

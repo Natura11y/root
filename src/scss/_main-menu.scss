@@ -268,12 +268,12 @@ In this file:
             width: 100%;
         }
 
-        > ul > li > :is(a, button, .nav-dropdown, .nav-link-dropdown) {
+        > ul > li > :is(a, button, .dropdown, .dropdown-link-split) {
             display: flex;
             padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
         }
 
-        > ul > li > :is(.nav-dropdown, .nav-link-dropdown) {
+        > ul > li > :is(.dropdown, .dropdown-link-split) {
             justify-content: space-between;
         }
 
@@ -364,7 +364,7 @@ In this file:
                         align-self: stretch;
                     }
 
-                    ul > li > :is(a, button, .nav-dropdown, .nav-link-dropdown) {
+                    ul > li > :is(a, button, .dropdown, .dropdown-link-split) {
                         padding: unset;
                     }
 
@@ -388,7 +388,7 @@ In this file:
                             margin-inline-end: calc(var(--nav-gap) * -1);
                         }
 
-                        > li > :is(a, button, .nav-link-dropdown) {
+                        > li > :is(a, button, .dropdown-link-split) {
                             margin-block: auto;
                         }
                     }
@@ -401,7 +401,7 @@ In this file:
                         }
                     }
 
-                    .nav-link-dropdown:has([aria-expanded="true"]) {
+                    .dropdown-link-split:has([aria-expanded="true"]) {
                         &::before {
                             @include hover-safe-zone;
                         }
@@ -440,7 +440,7 @@ In this file:
                             border-inline-end-style: var(--border-style);
                         }
 
-                        > li > :is(a, button, .nav-dropdown, .nav-link-dropdown) {
+                        > li > :is(a, button, .dropdown, .dropdown-link-split) {
                             display: flex;
                             justify-content: center;
                             padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);

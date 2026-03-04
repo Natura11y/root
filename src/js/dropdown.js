@@ -11,12 +11,12 @@ export default class Dropdown {
 
   // Private methods
 
-  #isMegaMenu(el) {
-    return Array.from(el.classList).some(cls => cls.startsWith('mega-menu'));
+  #isMegaMenu(element) {
+    return [...element.classList].some(cls => cls.startsWith('mega-menu'));
   }
 
   #isAtBreakpoint(dropdownMenu) {
-    const megaMenuClass = Array.from(dropdownMenu.classList).find(cls => cls.startsWith('mega-menu--'));
+    const megaMenuClass = [...dropdownMenu.classList].find(cls => cls.startsWith('mega-menu--'));
 
     if (!megaMenuClass) return true;
 
@@ -76,8 +76,8 @@ export default class Dropdown {
           return;
         }
 
-        // For nav-link-dropdown, check the entire wrapper
-        const linkDropdownItem = dropdownButton.closest('.nav-link-dropdown');
+        // For dropdown-link-split, check the entire wrapper
+        const linkDropdownItem = dropdownButton.closest('.dropdown-link-split');
         const clickTarget = linkDropdownItem || dropdownButton;
 
         // If click is outside the entire component, close dropdown
@@ -123,7 +123,7 @@ export default class Dropdown {
 
   #cleanupEventListeners(dropdownButton, dropdownMenu) {
 
-    const linkDropdownItem = dropdownButton.closest('.nav-link-dropdown');
+    const linkDropdownItem = dropdownButton.closest('.dropdown-link-split');
     const hoverTarget = linkDropdownItem || dropdownButton;
 
     if (dropdownButton._clickFlagHandler) {
@@ -200,8 +200,8 @@ export default class Dropdown {
     // Helper to manage hover event listeners
     const addHoverListeners = () => {
 
-      // Target both data-hover="true" and nav-link-dropdown buttons
-      const hoverButtons = document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"], .nav-link-dropdown [data-toggle="dropdown"]');
+      // Target both data-hover="true" and dropdown-link-split buttons
+      const hoverButtons = document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"], .dropdown-link-split [data-toggle="dropdown"]');
 
       hoverButtons.forEach((dropdownButton) => {
 
@@ -234,8 +234,8 @@ export default class Dropdown {
         };
         dropdownMenu.addEventListener('keydown', dropdownMenu._menuKeyFlagHandler);
 
-        // Hover in - check if this is a nav-link-dropdown item
-        const linkDropdownItem = dropdownButton.closest('.nav-link-dropdown');
+        // Hover in - check if this is a dropdown-link-split item
+        const linkDropdownItem = dropdownButton.closest('.dropdown-link-split');
         const hoverTarget = linkDropdownItem || dropdownButton;
 
         hoverTarget.addEventListener('mouseenter', hoverTarget._hoverInHandler = () => {
@@ -293,8 +293,8 @@ export default class Dropdown {
 
     const removeHoverListeners = () => {
 
-      // Target both data-hover="true" and nav-link-dropdown buttons
-      const hoverButtons = document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"], .nav-link-dropdown [data-toggle="dropdown"]');
+      // Target both data-hover="true" and dropdown-link-split buttons
+      const hoverButtons = document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"], .dropdown-link-split [data-toggle="dropdown"]');
 
       hoverButtons.forEach((dropdownButton) => {
         if (!dropdownButton._hasHoverListeners) return;
