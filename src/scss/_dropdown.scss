@@ -3,10 +3,7 @@
 In this file:
 
 // A. Modules
-// B. Dropdown Elements
-// C. Nav Link Dropdown Component
-// D. Nav Dropdown Panel
-// E. Mega Menu
+// B. Components
 
 */
 
@@ -16,6 +13,7 @@ In this file:
 
 @use 'sass:map';
 @use './breakpoint';
+@use './caret';
 @use './link';
 @use './navigation';
 
@@ -29,9 +27,6 @@ In this file:
 
     .dropdown,
     .dropdown-link-split {
-        --_indicator-content: "\f10e"; // f10e
-        --_indicator-icon-size: 0.75em;
-
         position: relative;
 
         display: flex;
@@ -53,11 +48,16 @@ In this file:
         }
     }
 
-    .dropdown::after,
-    .dropdown-link-split > [data-toggle="dropdown"]::after {
+    .dropdown:not([data-indicator]),
+    .dropdown-link-split > [data-toggle="dropdown"]:not([data-indicator]) {
+        @extend %caret;
+    }
+
+    .dropdown[data-indicator]::after,
+    .dropdown-link-split > [data-toggle="dropdown"][data-indicator]::after {
+        content: attr(data-indicator);
         font-family: var(--icon-font-family);
-        font-size: var(--_indicator-icon-size);
-        content: var(--_indicator-content);
+        font-size: 0.75em;
         display: flex;
         pointer-events: none;
     }
@@ -76,9 +76,17 @@ In this file:
             align-items: center;
             justify-content: center;
         }
+
+        button {
+        background-color: yellow;
+    }
     }
 
-    [data-toggle="dropdown"][aria-expanded="true"]::after {
+    [data-toggle="dropdown"]:not([data-indicator])[aria-expanded="true"]::before {
+        transform: rotate(180deg);
+    }
+
+    [data-toggle="dropdown"][data-indicator][aria-expanded="true"]::after {
         transform: rotate(180deg);
     }
     
