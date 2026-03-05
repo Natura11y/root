@@ -44,27 +44,31 @@ All notable changes to this project will be documented in this file.
 
 ### Breaking Changes
 
-#### JS module renames
+#### `Navigation` class removed
 
-| v4 | v5 |
-|---|---|
-| `Navigation` class (`navigation.js`) | Removed — replaced by `Dropdown` + `MainMenu` |
-| `import Navigation from '...'` | `import Dropdown from './js/dropdown'` |
-| — | `import MainMenu from './js/main-menu'` (new) |
-| — | `import Flyout from './js/flyout'` (new) |
+The `Navigation` class (`navigation.js`), which handled `primary-nav` dropdown behavior, has been removed and replaced by two dedicated classes:
 
-#### `primary-nav` renamed to `main-menu`
+- `Dropdown` (`dropdown.js`) — handles dropdown and mega menu behavior
+- `MainMenu` (`main-menu.js`) — handles the global site header navigation
+
+`Flyout` (`flyout.js`) is a brand new class for the off-canvas panel component and is unrelated to this change.
+
+#### `primary-nav` is now the `Main Menu` component
+
+What was previously `primary-nav` is now a fully named component: **Main Menu**. All classes, CSS variables, and the dedicated JS class reflect this.
 
 | v4 | v5 |
 |---|---|
 | `primary-nav--inline--{bp}` | `main-menu--bar--{bp}` |
 | `primary-nav--below--{bp}` | `main-menu--stack--{bp}` |
+| `primary-nav__logo` | `main-menu__logo` |
 | `primary-nav__menu` | `main-menu__nav` |
+| `primary-nav__toggle` | `main-menu__toggle` |
 | `primary-nav__search` | `main-menu__search` |
+| `primary-nav__actions` | `main-menu__actions` |
+| `mobile-menu-toggle` *(extra class on toggle buttons)* | removed |
 | `--primary-nav-padding-x` | `--main-menu-padding-x` |
 | `--primary-nav-padding-y` | `--main-menu-padding-y` |
-
-Child slot classes (`__logo`, `__toggle`, `__search`, `__actions`) are unchanged.
 
 #### `nav__dropdown` renamed to `dropdown__menu`
 Any element previously using `.nav__dropdown` must be updated to `.dropdown__menu`.
@@ -75,12 +79,12 @@ Any element previously using `.nav__dropdown` must be updated to `.dropdown__men
 Icon styles are now applied automatically when nav items contain icon elements — no modifier class required. Also: `.nav__text` → `.text` (generic text wrapper class).
 
 #### Navigation SCSS restructured
-`_navigation.scss` was significantly reduced. Functionality has moved to dedicated partials:
-- `_main-menu.scss` — global site header (was `primary-nav`)
+`_navigation.scss` was significantly reduced. Styles have moved to dedicated component partials:
+- `_main-menu.scss` — global site header (the renamed `primary-nav`)
 - `_dropdown.scss` — dropdown menus, mega menus, `nav-dropdown`, `nav-link-dropdown`
-- `_flyout.scss` — off-canvas panel (brand new)
-- `_breadcrumb.scss` — breadcrumb
-- `_pagination.scss` — pagination
+- `_breadcrumb.scss` — breadcrumb (new dedicated partial)
+- `_pagination.scss` — pagination (new dedicated partial)
+- `_flyout.scss` — off-canvas panel (new component)
 
 ---
 

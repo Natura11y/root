@@ -4,6 +4,7 @@
 node_modules
 dist/html
 .vscode
+.claude
 
 #Files
 package-lock.json
