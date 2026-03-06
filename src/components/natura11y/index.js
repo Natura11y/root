@@ -28,7 +28,6 @@ export { default as ModalParent } from './modal/ModalParent';
 
 export { default as Brand } from './navigation/Brand';
 export { default as Dropdown } from './navigation/Dropdown';
-export { default as DropdownLinkSplit } from './navigation/DropdownLinkSplit';
 export { default as MegaMenu } from './navigation/MegaMenu';
 export { default as NavigationItem } from './navigation/NavigationItem';
 export { default as MainMenu } from './navigation/MainMenu';
