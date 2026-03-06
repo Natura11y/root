@@ -1,6 +1,7 @@
 import MainMenu from '../../natura11y/main-menu';
 import Dropdown from '../../natura11y/navigation/Dropdown';
 import Brand from '../../natura11y/navigation/Brand';
+import FormEntry from '../../natura11y/form/FormEntry';
 
 const logo = (
     <a href="/" title="Home" data-logo="brand">
@@ -9,20 +10,19 @@ const logo = (
 );
 
 const search = (
-    <div className="form-entry" aria-label="Search">
-        <div className="form-entry__field">
-            <span className="form-entry__field__input">
-                <input type="text" name="global-search" placeholder="Search..." />
-                <button className="button">Search</button>
-            </span>
-        </div>
-    </div>
+    <FormEntry
+        entryType="search"
+        entryName="global-search"
+        labelText="Search"
+        labelVisible={false}
+        buttonLabel="Search"
+    />
 );
 
 const navItems = (
     <>
         <li>
-            <Dropdown buttonText="Dropdown" hover>
+            <Dropdown buttonText="Dropdown" hover utilities="box-shadow-1--lg">
                 <li><a href="#1">Link</a></li>
                 <li><a href="#1">Link</a></li>
                 <li><a href="#1">Link</a></li>
@@ -35,19 +35,22 @@ const navItems = (
 
 const MainMenuExamples = () => {
     return (
-        <div className="grid gap-4">
-            <div>
-                <p className="h6 container padding-x-3 margin-bottom-2">Bar</p>
+        <div className="container wide grid gap-4">
+
+            <div className="box-shadow-1">
+                <p className="h6 padding-x-3 padding-top-3 margin-bottom-2">Bar</p>
                 <MainMenu logo={logo} search={search}>
                     {navItems}
                 </MainMenu>
             </div>
-            <div>
-                <p className="h6 container padding-x-3 margin-bottom-2">Stack</p>
+
+            <div className="box-shadow-1">
+                <p className="h6 padding-x-3 padding-top-3 margin-bottom-2">Stack</p>
                 <MainMenu variant="stack" logo={logo} search={search}>
                     {navItems}
                 </MainMenu>
             </div>
+
         </div>
     );
 };

@@ -16,6 +16,7 @@ const FormEntry = forwardRef((props, ref) => {
 		entryName = null,
 		onChangeHandler = null,
 		ariaDescribedBy = null,
+		buttonLabel = null,
 		utilities = null
 	} = props;
 
@@ -90,16 +91,21 @@ const FormEntry = forwardRef((props, ref) => {
 			case 'url':
 
 				return (
-					<input
-						type={entryType ? entryType : 'text'}
-						name={entryName ? entryName : 'textInputId'}
-						id={entryId ? entryId : 'text-input-id'}
-						aria-describedby={ariaDescribedBy ? ariaDescribedBy : 'text-input-help-id'}
-						onChange={onChangeHandler}
-						onFocus={handleFocus}
-						onBlur={handleBlur}
-						required={required}
-					/>
+					<>
+						<input
+							type={entryType ? entryType : 'text'}
+							name={entryName ? entryName : 'textInputId'}
+							id={entryId ? entryId : 'text-input-id'}
+							aria-describedby={ariaDescribedBy ? ariaDescribedBy : 'text-input-help-id'}
+							onChange={onChangeHandler}
+							onFocus={handleFocus}
+							onBlur={handleBlur}
+							required={required}
+						/>
+						{buttonLabel && (
+							<button className="button">{buttonLabel}</button>
+						)}
+					</>
 				);
 
 			case 'textarea':
