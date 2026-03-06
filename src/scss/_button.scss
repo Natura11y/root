@@ -148,10 +148,11 @@ In this file:
         gap: 0.5em;
     }
 
-    .button:has([class*="text"]) {
+    .button:has(.text, [class*="__text"]) {
         &:hover,
         &:focus {
-            [class*="text"] {
+            .text,
+            [class*="__text"] {
                 text-decoration: underline;
             }
         }
@@ -217,7 +218,7 @@ In this file:
             }
         }
 
-        [class*="text"] {
+        [class*="__text"] {
             min-width: 100%;
 
             font-size: var(--button-icon-over-text-font-size);
