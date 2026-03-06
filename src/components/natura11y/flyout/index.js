@@ -7,49 +7,6 @@ import ButtonIconOnly from '../button/ButtonIconOnly';
 import { getFocusableElements } from 'natura11y/src/js/utilities/focus';
 import { handleOverlayOpen, handleOverlayClose } from 'natura11y/src/js/utilities/overlay';
 
-/*
- * Flyout
- *
- * A full-height overlay panel that slides in from the side.
- * A trigger button anywhere on the page opens it.
- * Close it with the X button, the Escape key, or clicking outside.
- *
- * Props:
- *   isOpen      {boolean}  Controls whether the flyout is visible. Required.
- *   onClose     {function} Called when the user wants to close. Required.
- *   label       {string}   Accessible name for the dialog and inner nav.
- *   children    {node}     Simple content — use this for a flat nav or any off-canvas content.
- *   panels      {array}    Render-function array for drill-down navigation (see below).
- *                          When provided, children is ignored.
- *   triggerRef  {ref}      Optional ref to the button that opened the flyout.
- *                          Enables auto-close when the trigger is hidden (e.g. at a breakpoint).
- *   utilities   {string}   Extra CSS utility classes on the outer flyout element.
- *
- * Drill-down panels:
- *   Each item in the panels array is a render function: ({ navigateTo }) => JSX
- *   Panel 0 is the root. Call navigateTo(index) from a button to go deeper.
- *   The back button appears automatically once the user has drilled in.
- *   Inactive panels receive the HTML inert attribute — keyboard and screen readers skip them.
- *
- * Example — simple:
- *   <Flyout isOpen={isOpen} onClose={close} label="Menu">
- *     <ul className="nav nav--divider">
- *       <li><a href="/about">About</a></li>
- *     </ul>
- *   </Flyout>
- *
- * Example — drill-down:
- *   const panels = [
- *     ({ navigateTo }) => (
- *       <ul>
- *         <li><button onClick={() => navigateTo(1)}>Products</button></li>
- *       </ul>
- *     ),
- *     () => <ul><li><a href="/products/shoes">Shoes</a></li></ul>,
- *   ];
- *   <Flyout isOpen={isOpen} onClose={close} label="Menu" panels={panels} />
- */
-
 const Flyout = (props) => {
 
     const {
@@ -65,26 +22,16 @@ const Flyout = (props) => {
     const containerRef = useRef(null);
     const contentRef = useRef(null);
     const panelRefs = useRef([]);
-
-    // Stored as a ref so updating it never causes a re-render.
-    // It only needs to tell the panel effect which panel to animate in.
     const enteringIndexRef = useRef(null);
-
-    // Track previous isOpen so we only steal focus on the closed → open transition.
     const prevIsOpen = useRef(isOpen);
 
     const [activePanelIndex, setActivePanelIndex] = useState(0);
     const [panelHistory, setPanelHistory] = useState([]);
 
-    // Show the back button only when inside a drill-down with navigation history.
     const showBack = panels !== null && panelHistory.length > 0;
 
-    // ─── Panel visibility: inert + enter animation ───────────────────────────
-    // The CSS hides panels via [inert] { visibility: hidden } and shows the
-    // active one via :not([inert]) { z-index: 1 }.
-    // This effect sets those attributes after every panel change or open event.
-    // isOpen is included so the initial open (activePanelIndex stays 0 → 0)
-    // still triggers this and correctly marks panels 1-N as inert.
+    // Set inert on inactive panels and trigger enter animation on the active one.
+    // isOpen is a dep so this fires on first open even when activePanelIndex stays 0.
 
     useEffect(() => {
         if (!panels) return;
@@ -110,7 +57,7 @@ const Flyout = (props) => {
         });
     }, [activePanelIndex, isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    // ─── Reset drill-down state on close ────────────────────────────────────
+    // Reset to root panel on close
 
     useEffect(() => {
         if (!isOpen) {
@@ -120,7 +67,7 @@ const Flyout = (props) => {
         }
     }, [isOpen]);
 
-    // ─── Page scroll lock ────────────────────────────────────────────────────
+    // Scroll lock
 
     useEffect(() => {
         if (!containerRef.current) return;
@@ -136,7 +83,7 @@ const Flyout = (props) => {
         };
     }, [isOpen]);
 
-    // ─── Move focus into the flyout on open ─────────────────────────────────
+    // Focus close button on open (only on closed → open transition)
 
     useEffect(() => {
         const wasOpen = prevIsOpen.current;
@@ -147,7 +94,7 @@ const Flyout = (props) => {
         }
     }, [isOpen]);
 
-    // ─── Focus trap + Escape key ─────────────────────────────────────────────
+    // Focus trap + Escape
 
     useEffect(() => {
         if (!isOpen || !contentRef.current) return;
@@ -185,7 +132,7 @@ const Flyout = (props) => {
         return () => document.removeEventListener('keydown', handleKeyDown);
     }, [isOpen, onClose]);
 
-    // ─── Auto-close when the trigger is hidden ───────────────────────────────
+    // Auto-close when trigger is hidden (e.g. breakpoint change)
 
     useEffect(() => {
         if (!triggerRef?.current) return;
@@ -200,8 +147,6 @@ const Flyout = (props) => {
 
         return () => observer.disconnect();
     }, [triggerRef, isOpen, onClose]);
-
-    // ─── Drill-down navigation ───────────────────────────────────────────────
 
     const navigateTo = (index) => {
         enteringIndexRef.current = index;
