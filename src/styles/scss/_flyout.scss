@@ -37,7 +37,6 @@ In this file:
 
         opacity: 0;
         visibility: hidden;
-        pointer-events: none;
 
         transition:
             opacity 0.3s ease-in-out,
@@ -167,15 +166,11 @@ In this file:
 
         background-color: var(--background-color);
 
-        &[inert] {
-            visibility: hidden;
-        }
-
-        &--active {
+        &:not([inert]) {
             z-index: 1;
         }
 
-        &--hidden {
+        &[inert] {
             visibility: hidden;
         }
 

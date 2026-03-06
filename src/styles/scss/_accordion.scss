@@ -19,8 +19,6 @@ In this file:
 // B. Variables
 //////////////////////////////////////////////
 
-// Scoped to Block
-
 :root {
     --accordion-button-padding-x: var(--container-padding-x);
     --accordion-button-padding-y: 0.75em;
@@ -32,6 +30,8 @@ In this file:
 
     --accordion-icon-closed: "\f116";
     --accordion-icon-open: "\f119";
+
+    --accordion-animation-duration: 0.3s;
 }
 
 //////////////////////////////////////////////
@@ -84,6 +84,10 @@ In this file:
             &::after {
                 content: var(--accordion-icon-open);
             }
+
+            .text {
+                text-decoration: underline;
+            }
         }
         
         &::after {
@@ -105,7 +109,8 @@ In this file:
         display: grid;
         grid-template-rows: 0fr;
 
-        transition: grid-template-rows 0.3s ease-in;
+        // Close
+        transition: grid-template-rows calc(var(--accordion-animation-duration) * 0.75) ease-in;
 
         @media (prefers-reduced-motion: reduce) {
             transition: none;
@@ -113,6 +118,13 @@ In this file:
 
         &.shown {
             grid-template-rows: 1fr;
+
+            // Open
+            transition: grid-template-rows var(--accordion-animation-duration) ease-out;
+
+            @media (prefers-reduced-motion: reduce) {
+                transition: none;
+            }
         }
     }
 
@@ -120,23 +132,34 @@ In this file:
         overflow: hidden;
 
         padding-inline: var(--accordion-panel-padding-x);
+        padding-block: 0;
 
         opacity: 0;
 
+        // Close
         transition:
-            opacity 0.3s ease-in-out,
-            padding-top 0.5s ease-in-out,
-            padding-bottom 0.5s ease-in-out;
+            opacity calc(var(--accordion-animation-duration) * 0.5) ease-in,
+            padding-block-start calc(var(--accordion-animation-duration) * 0.75) ease-in,
+            padding-block-end calc(var(--accordion-animation-duration) * 0.75) ease-in;
 
         @media (prefers-reduced-motion: reduce) {
             transition: none;
         }
 
         .accordion__panel.shown & {
-            padding-top: var(--accordion-panel-padding-y);
-            padding-bottom: var(--accordion-panel-padding-y);
+            padding-block: var(--accordion-panel-padding-y);
 
             opacity: 1;
+
+            // Open
+            transition:
+                opacity var(--accordion-animation-duration) ease-out,
+                padding-block-start var(--accordion-animation-duration) ease-out,
+                padding-block-end var(--accordion-animation-duration) ease-out;
+
+            @media (prefers-reduced-motion: reduce) {
+                transition: none;
+            }
         }
     }
 

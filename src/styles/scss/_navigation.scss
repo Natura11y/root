@@ -18,6 +18,7 @@ In this file:
 
 @use 'sass:map';
 @use './breakpoint';
+@use './dropdown';
 
 ////////////////////////////////////////
 // B. Variables
@@ -44,7 +45,7 @@ In this file:
 
     font-family: var(--nav-font-family);
 
-    > li:has([class*="nav__dropdown"]) {
+    > li:has([class*="dropdown__menu"]) {
         position: relative;
     }
 
@@ -53,6 +54,7 @@ In this file:
         button
     ):not(
         [class*="button"],
+        [class*="dropdown"],
         :has([class*="icon"])
     ) {
         &:hover,
@@ -65,35 +67,11 @@ In this file:
         font-weight: var(--font-weight-bold);
     }
 
-    &:not([class*="nav--has-icons"]) :is([aria-selected="true"], [aria-current]) {
+    > li > :is(a, button):not(:has([class*="icon"])):is([aria-selected="true"], [aria-current]) {
         text-decoration-line: underline;
     }
 }
 
-%caret {
-    --_caret-size: 0.25em;
-    --_caret-margin: 0.375em;
-
-    display: inline-flex;
-    flex-direction: row-reverse;
-    align-items: center;
-
-    &::before {
-        border-top: var(--_caret-size) solid;
-        border-right: var(--_caret-size) solid transparent;
-        border-bottom: 0;
-        border-left: var(--_caret-size) solid transparent;
-
-        position: relative;
-        content: "";
-
-        display: inline-flex;
-
-        color: inherit;
-
-        pointer-events: none;
-    }
-}
 
 ////////////////////////////////////////
 // D. Components
@@ -108,13 +86,30 @@ In this file:
         @extend %list-style-nav;
     }
 
+    .nav li > :is(a, button):has([class*="icon"]) {
+        display: flex;
+        align-items: center;
+
+        gap: 0.375em;
+
+        &:is(:hover, :focus) {
+            [class*="text"] {
+                text-decoration: underline;
+            }
+        }
+    }
+
     .nav:not([class*="nav--divider"]) {
         display: flex;
         flex-direction: column;
 
         gap: var(--nav-gap);
 
-        > li > .nav__dropdown {
+        > li > :is(a, button):has([class*="icon"]) {
+            width: fit-content;
+        }
+
+        > li > .dropdown__menu {
             inset-inline-start: 0;
 
             min-width: 200px;
@@ -140,7 +135,7 @@ In this file:
                     align-items: center;
                 }
 
-                > li > .nav__dropdown {
+                > li > .dropdown__menu {
                     position: absolute;
                 }
 
@@ -173,16 +168,17 @@ In this file:
         > li > :is(a, button) {
             position: relative;
 
-            display: block;
+            display: flex;
 
             width: 100%;
         }
 
-        > li > :is(a, button, .nav__dropdown) {
+        > li > :is(a, button, .dropdown, .dropdown-link-split) {
+            display: flex;
             padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
         }
 
-        > li > .nav__dropdown {
+        > li > .dropdown__menu {
             border-block-start-width: 0 !important;
         }
 
@@ -190,8 +186,12 @@ In this file:
             margin-block: auto;
         }
 
-        [data-toggle="dropdown"] {
+        > li > :is(.dropdown, .dropdown-link-split) {
             justify-content: space-between;
+        }
+
+        > li > .dropdown-link-split {
+            @include dropdown.split-mobile;
         }
     }
 
@@ -204,16 +204,19 @@ In this file:
                 align-items: stretch;
 
                 > li {
-                    border-block-end-style: unset;
+                    border-block-end-style: unset !important;
 
                     display: flex;
                     align-items: stretch;
                     flex: 1 1 100%;
                 }
 
-                > li > :is(a, button) {
-                    display: flex;
+                > li > :is(a, button, .dropdown, .dropdown-link-split) {
                     justify-content: center;
+                }
+
+                > li > .dropdown-link-split {
+                    @include dropdown.split-desktop;
                 }
 
                 > li:not(:last-child) {
@@ -222,7 +225,7 @@ In this file:
                 }
 
                 &[class*="border"] {
-                    > li > .nav__dropdown {
+                    > li > .dropdown__menu {
                         border-block-start-width: 0;
                         border-width: var(--border-width);
                         border-style: var(--border-style);
@@ -231,7 +234,7 @@ In this file:
                     }
                 }
 
-                .nav__dropdown {
+                .dropdown__menu {
                     position: absolute;
                     inset-inline-start: 0;
 
@@ -240,32 +243,8 @@ In this file:
 
                 // For <ul> tags with borders applied
 
-                &[class*="border"] .nav__dropdown {
+                &[class*="border"] .dropdown__menu {
                     margin-inline-start: calc(var(--border-width) * -1);
-                }
-            }
-        }
-    }
-
-    // Nav Has Icons Modifier
-
-    [class*="nav--has-icons"] {
-
-        &:not([class*="nav--divider"]) {
-            > li > :is(a, button) {
-                width: fit-content;
-            }
-        }
-
-        > li > :is(a, button) {
-            display: flex;
-            align-items: center;
-
-            gap:0.375em;
-
-            &:is(:hover, :focus) {
-                .nav__text {
-                    text-decoration: underline;
                 }
             }
         }

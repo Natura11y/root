@@ -39,20 +39,7 @@ In this file:
 }
 
 //////////////////////////////////////////////
-// C. Component
-//////////////////////////////////////////////
-
-@layer component {
-
-    .container {
-        padding-inline: var(--container-padding-x);
-        margin-inline: auto;
-    }
-
-} // end @layer
-
-//////////////////////////////////////////////
-// D. Narrow, Medium, and Wide Utilities
+// C. Container, Narrow, Medium, and Wide Utilities
 //////////////////////////////////////////////
 
 @layer utility {
@@ -60,6 +47,15 @@ In this file:
     @each $breakpoint in map.keys(breakpoint.$breakpoints) {
         @include breakpoint.breakpoint-up($breakpoint) {
             $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+            // Container
+
+            .container#{$mod} {
+                padding-inline: var(--container-padding-x);
+                margin-inline: auto;
+            }
+
+            // Width Variations 
 
             .narrow#{$mod} {
                 max-width: var(--narrow-width);

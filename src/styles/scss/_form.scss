@@ -16,7 +16,7 @@ In this file:
 
 @use 'sass:map';
 @use './icon';
-@use './navigation';
+@use './caret';
 
 //////////////////////////////////////////////
 // B. Variables
@@ -442,17 +442,17 @@ In this file:
         position: relative;
 
         &::before {
-            @extend %caret;
+            --_caret-size: 0.25em;
+
+            @include caret.caret-shape;
 
             position: absolute !important;
             content: "";
             inset-inline-end: 0;
             inset-block-start: 50%;
 
-            display: inline-block;
-            
             transform: translateY(-50%);
-            
+
             margin-inline: var(--form-entry-padding-x);
         }
 

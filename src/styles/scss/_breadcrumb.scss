@@ -12,6 +12,7 @@ In this file:
 // A. Modules
 ////////////////////////////////////////
 
+@use './caret';
 @use './navigation';
 
 ////////////////////////////////////////
@@ -28,7 +29,7 @@ In this file:
 
 @layer component {
 
-    .nav-breadcrumb {
+    .breadcrumb {
         @extend %list-style-nav;
 
         display: flex;
@@ -44,7 +45,7 @@ In this file:
         > li:not(:last-child) {
             @extend %caret;
 
-            &::before {
+            &::after {
                 margin-inline: var(--nav-gap) !important;
 
                 transform: rotate(-90deg);

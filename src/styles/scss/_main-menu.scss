@@ -19,6 +19,7 @@ In this file:
 @use 'sass:map';
 @use './breakpoint';
 @use './collapse';
+@use './dropdown';
 @use './link';
 @use './navigation';
 
@@ -48,7 +49,7 @@ In this file:
 
 @layer component {
 
-    // Primary Nav Components
+    // Main Menu Components
 
     [class*="main-menu--"] {
         position: relative;
@@ -57,7 +58,9 @@ In this file:
 
         align-items: stretch;
 
-        z-index: 10000;
+        z-index: 1000;
+
+        background-color: var(--background-color);
 
         ul {
             @extend %list-style-nav;
@@ -65,7 +68,7 @@ In this file:
             width: 100%;
         }
 
-        li:has([class*="nav__dropdown"]) {
+        li:has([class*="dropdown__menu"]) {
             position: relative;
         }
 
@@ -118,7 +121,7 @@ In this file:
         }
     }
 
-    // Primary Nav Inline Variant
+    // Main Menu Bar Variant
 
     [class*="main-menu--bar--"] {
         --_template-area-row-1-m: "logo toggle button";
@@ -152,7 +155,6 @@ In this file:
 
         [class*="__nav"] {
             align-self: stretch;
-            justify-content: end;
         }
 
         [class*="__logo"] a {
@@ -185,7 +187,7 @@ In this file:
         }
     }
 
-    // Primary Nav Below Variant
+    // Main Menu Stack Variant
 
     [class*="main-menu--stack--"] {
         --_template-area-row-1-m: "logo logo logo";
@@ -249,7 +251,7 @@ In this file:
         }
     }
 
-    // Primary Nav Menu + Search
+    // Main Menu Nav
 
     .main-menu__nav {
 
@@ -260,23 +262,31 @@ In this file:
         }
 
         > ul > li > :is(a, button) {
+            position: relative;
+
             display: flex;
-            justify-content: space-between;
 
             width: 100%;
+        }
 
-            padding: var(--nav-divider-padding-y) var(--main-menu-padding-x);
+        > ul > li > :is(a, button, .dropdown, .dropdown-link-split) {
+            display: flex;
+            padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
+        }
+
+        > ul > li > :is(.dropdown, .dropdown-link-split) {
+            justify-content: space-between;
+        }
+
+        > ul > li > .dropdown-link-split {
+            @include dropdown.split-mobile;
         }
 
         > ul > li:not(:has([class*="mega-menu"])) {
             position: relative;
         }
 
-        > ul > li > a {
-            @extend .link-expanded !optional;
-        }
-
-        .nav__dropdown {
+        .dropdown__menu {
             padding: var(--main-menu-padding-y) var(--main-menu-padding-x);
         }
     }
@@ -292,7 +302,7 @@ In this file:
         }
     }
 
-    // Breakpoint Overrides
+    // Breakpoint Modifiers
 
     @each $breakpoint in map.keys(breakpoint.$breakpoints) {
         @include breakpoint.breakpoint-up($breakpoint) {
@@ -314,33 +324,30 @@ In this file:
                     [class*="__search"]
                 ) {
                     display: flex !important;
+                    visibility: visible !important;
                 }
 
                 [class*="__search"] {
                     padding: unset;
                 }
 
+                [class*="__search"],
+                [class*="__nav"], 
+                [class*="__nav"] > ul {
+                    opacity: 1 !important;
+                    overflow: unset !important;
+                    height: auto !important;
+                    transition: none !important;
+                }
+
                 [class*="__nav"] > ul > li {
                     border-block-end: unset;
                 }
 
-                .nav-link-dropdown {
-                    --_dropdown-button-size: 0.375em;
-
-                    [data-toggle="dropdown"] {
-                        pointer-events: none;
-                        margin-inline-start: unset;
-                    }
-
-                    > [data-toggle="dropdown"] {
-                        min-width: 0.75em;
-                        background-color: transparent;
-                    }
-
-                    a::after {
-                        display: block;
-                    }
+                [class*="__nav"] > ul > li > .dropdown-link-split {
+                    @include dropdown.split-desktop;
                 }
+
             }
 
             .main-menu--bar#{$mod} {
@@ -359,29 +366,16 @@ In this file:
                     justify-content: flex-end;
                     align-items: center;
 
+                    width: 100%;
+
                     padding: unset;
 
                     > ul {
-                        height: 100%;
+                        align-self: stretch;
                     }
 
-                    > ul > li > :is(a, button),
-                    > ul > li > .nav-link-dropdown > a {
+                    ul > li > :is(a, button, .dropdown, .dropdown-link-split) {
                         padding: unset;
-                    }
-
-                    [data-hover="true"] {
-                        position: relative;
-
-                        &[aria-expanded="true"]::after {
-                            @include hover-safe-zone;
-                        }
-                    }
-
-                    .nav-link-dropdown:has([aria-expanded="true"]) {
-                        &::after {
-                            @include hover-safe-zone;
-                        }
                     }
 
                     > ul {
@@ -395,7 +389,7 @@ In this file:
                             margin-inline-end: var(--nav-gap);
                         }
 
-                        > li > .nav__dropdown {
+                        > li > .dropdown__menu {
                             position: absolute;
 
                             min-width: 200px;
@@ -404,11 +398,24 @@ In this file:
                             margin-inline-end: calc(var(--nav-gap) * -1);
                         }
 
-                        > li > :is(a, button, [class*="nav-link-dropdown"]) {
+                        > li > :is(a, button, .dropdown-link-split) {
                             margin-block: auto;
                         }
                     }
 
+                    [data-hover="true"] {
+                        position: relative;
+
+                        &[aria-expanded="true"]::before {
+                            @include hover-safe-zone;
+                        }
+                    }
+
+                    .dropdown-link-split:has([aria-expanded="true"]) {
+                        &::before {
+                            @include hover-safe-zone;
+                        }
+                    }
                 }
             }
 
@@ -420,7 +427,7 @@ In this file:
                     var(--_template-area-row-2-d);
 
                 > [class*="__logo"] {
-                    border-block-end-style: none !important;
+                    border-block-end-style: unset;
                 }
 
                 > [class*="__nav"] {
@@ -433,13 +440,9 @@ In this file:
                         > li {
                             flex-grow: 1;
 
-                            border-block-end-style: none !important;
+                            border-block-end-style: unset;
 
                             text-align: center;
-                        }
-
-                        > li > button {
-                            width: 100%;
                         }
 
                         > li:not(:last-child){
@@ -447,22 +450,13 @@ In this file:
                             border-inline-end-style: var(--border-style);
                         }
 
-                        > li > a {
-                            display: block;
-                            text-align: center;
+                        > li > :is(a, button, .dropdown, .dropdown-link-split) {
+                            display: flex;
+                            justify-content: center;
                             padding: var(--nav-divider-padding-y) var(--nav-divider-padding-x);
                         }
 
-                        .nav-link-dropdown a {
-                            flex-grow: 0;
-                            padding-inline: unset;
-                        }
-
-                        :is([data-toggle="dropdown"], .nav-link-dropdown) {
-                            justify-content: center;
-                        }
-
-                        .nav__dropdown {
+                        .dropdown__menu {
                             position: absolute;
 
                             width: 100%;

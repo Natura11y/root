@@ -28,6 +28,8 @@ In this file:
     --body-min-height: 100%;
 
     --html-scroll-behavior: smooth;
+    
+    interpolate-size: allow-keywords;
 }
 
 @media (prefers-reduced-motion: reduce) {

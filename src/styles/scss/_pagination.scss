@@ -1,0 +1,88 @@
+/*
+
+In this file:
+
+// A. Modules
+// B. Variables
+// C. Pagination Component
+
+*/
+
+////////////////////////////////////////
+// A. Modules
+////////////////////////////////////////
+
+@use './navigation';
+
+////////////////////////////////////////
+// B. Variables
+////////////////////////////////////////
+
+:root {
+    --pagination-font-size: var(--font-size-md);
+    --pagination-item-size: var(--button-target-size);
+    --pagination-border-radius: var(--button-border-radius);
+}
+
+////////////////////////////////////////
+// C. Pagination Component
+////////////////////////////////////////
+
+@layer component {
+
+    .pagination {
+        @extend %list-style-nav;
+
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+
+        width: fit-content;
+
+        max-width: 100%;
+
+        font-size: var(--pagination-font-size);
+
+        > li:has(.icon-more-horizontal){
+            min-width: var(--pagination-item-size);
+            height: var(--pagination-item-size);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        > li > :is(a, button) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            min-width: var(--pagination-item-size);
+            height: var(--pagination-item-size);
+
+            padding-inline: 0.5em;
+
+            // border-radius: var(--pagination-border-radius);
+
+            &:has([class*="icon"]) {
+                gap: 0.375em;
+
+                &:is(:hover, :focus) {
+                    [class*="text"] {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+        
+        border: var(--border-width) var(--border-style) var(--border-color);
+
+        > li:not(:last-child) {
+            border-inline-end: var(--border-width) var(--border-style) var(--border-color);
+        }
+
+        > li > [aria-current="page"] {
+            background-color: var(--subtle-fill-2);
+        }
+    }
+
+} // end @layer

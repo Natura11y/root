@@ -1,11 +1,10 @@
-import { useEffect, useRef } from 'react';
-
-import {getFocusableElements} from 'natura11y/src/js/utilities/focus';
+import { useRef } from 'react';
 
 const AccordionItem = ( props ) => {
 
     const {
         title = 'Accordion Header',
+        wrapText = true,
         children = (<p>Accordion Content</p>),
         isActive = false,
         handleClick = handleClick,
@@ -16,19 +15,6 @@ const AccordionItem = ( props ) => {
     } = props;
 
     const accordionButton = useRef();
-    const accordionPanel = useRef();
-
-    useEffect(() => {
-
-        const focusableElements = getFocusableElements(accordionPanel.current);
-
-        if (isActive) {
-            focusableElements.forEach(el => el.setAttribute('tabindex', 0));
-        } else {
-            focusableElements.forEach(el => el.setAttribute('tabindex', -1));
-        }
-
-    }, [isActive]);
 
     return (
         <>
@@ -47,22 +33,21 @@ const AccordionItem = ( props ) => {
                 data-title={title}
                 data-index={dataIndex}
             >
-                {title}
+                {wrapText ? <span className='text'>{title}</span> : title}
             </button>
 
             <div
                 className={`accordion__panel ${isActive ? 'shown' : ''}`}
-                ref={accordionPanel}
                 id={`acc-panel-${id}`}
                 data-accordion='panel'
                 aria-labelledby={`${id}`}
-                aria-hidden={isActive ? false : true}
+                inert={!isActive ? true : undefined}
                 role='region'
             >
                 <div className='accordion__panel__content'>
                     {children}
                 </div>
-                
+
             </div>
         </>
     );

@@ -131,9 +131,7 @@ const Accordion = ({ openDefault = null }) => {
 			dataIndex={index}
 			buttonRef={el => accordionButtons.current[index] = el}
 		>
-
 			{item.content}
-
 		</AccordionItem>
 	));
 	
@@ -143,9 +141,7 @@ const Accordion = ({ openDefault = null }) => {
 			className='accordion'
 			ref={accordion}
 		>
-
 			{accordionItems}
-		
 		</div>
 	);
 

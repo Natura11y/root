@@ -4,7 +4,6 @@ In this file:
 
 // A. Variables
 // B. Component
-// C. Body Class (via JS)
 
 */
 
@@ -18,11 +17,15 @@ In this file:
   --modal-padding-y: var(--spacer-2);
 
   --modal-overlay-color: #000;
-  
+
   --modal-overlay-opacity: 0.75;
-  
+
   --modal-z-index: 50000;
-} 
+
+  --modal-animation-duration: 0.35s;
+
+  --modal-animation-translate-y: 2rem;
+}
 
 //////////////////////////////////////////////
 // B. Component
@@ -31,8 +34,8 @@ In this file:
 @layer component {
 
   // Modal Block
-  
-  .modal, 
+
+  .modal,
   .modal::before {
     position: fixed;
     inset: 0;
@@ -40,26 +43,32 @@ In this file:
 
   .modal {
     --_display: grid;
-    
+
     display: var(--_display);
     align-content: center;
 
     z-index: var(--modal-z-index);
-    
+
     padding: var(--modal-padding);
 
     &[class*="theme-"] {
       background-color: transparent !important;
     }
-    
+
     &::before {
-        content: "";
+      content: "";
 
-        background-color: var(--modal-overlay-color);
-        
-        opacity: var(--modal-overlay-opacity);
+      background-color: var(--modal-overlay-color);
 
-        pointer-events: none;
+      opacity: var(--modal-overlay-opacity);
+
+      pointer-events: none;
+
+      transition: opacity calc(var(--modal-animation-duration) * 0.5) ease-out;
+
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
     }
 
     &:focus {
@@ -67,7 +76,23 @@ In this file:
     }
 
     &:not(.shown) {
-      display: none;
+      visibility: hidden;
+      pointer-events: none;
+      transition: visibility 0s var(--modal-animation-duration);
+
+      @media (prefers-reduced-motion: reduce) {
+        transition: none;
+      }
+
+      &::before {
+        opacity: 0;
+      }
+    }
+
+    &.shown {
+      visibility: visible;
+      pointer-events: auto;
+      transition: visibility 0s;
     }
 
   }
@@ -79,21 +104,45 @@ In this file:
 
     display: flex;
     flex-direction: column;
-    
+
     width: 100%;
 
     max-height: calc(100vh - (var(--modal-padding) * 2));
 
     z-index: auto;
-    
+
     background-color: inherit;
-    
+
     margin-inline: auto;
+
+    opacity: 0;
+    transform: translateY(var(--modal-animation-translate-y));
+
+    transition:
+      opacity calc(var(--modal-animation-duration) * 0.5) ease-out,
+      transform calc(var(--modal-animation-duration) * 0.5) ease-out;
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
 
   }
 
+  .modal.shown .modal__content {
+    opacity: 1;
+    transform: translateY(0);
+
+    transition:
+      opacity var(--modal-animation-duration) ease-out,
+      transform var(--modal-animation-duration) cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
   .modal__content__head,
-  .modal__content__body, 
+  .modal__content__body,
   .modal__content__foot {
     padding: var(--modal-padding-y) var(--modal-padding-x);
   }
@@ -106,11 +155,11 @@ In this file:
     padding: var(--modal-padding-y) var(--modal-padding-x);
 
     :is(
-      h1, .h1, 
-      h2, .h2, 
+      h1, .h1,
+      h2, .h2,
       h3, .h3,
-      h4, .h4, 
-      h5, .h5, 
+      h4, .h4,
+      h5, .h5,
       h6, .h6
     ) {
       margin-block-end: 0 !important;
@@ -119,12 +168,12 @@ In this file:
     button {
       flex-shrink: 0;
     }
-    
+
   }
 
   .modal__content__body {
     flex-shrink: 1;
-    
+
     overflow-y: auto;
   }
 
@@ -132,9 +181,9 @@ In this file:
 
   .modal--scroll-all {
     --_display: block;
-    
+
     overflow-y: scroll;
-    
+
     .modal__content {
       margin-block: auto;
     }

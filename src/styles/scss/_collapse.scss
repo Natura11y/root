@@ -3,7 +3,8 @@
 In this file:
 
 // A. Button Aria Expanded
-// B. Collapse Utility
+// B. Variables
+// C. Collapse Utility
 
 */
 
@@ -20,16 +21,94 @@ In this file:
 } // end @layer
 
 //////////////////////////////////////////////
-// B. Utility
+// B. Variables
+//////////////////////////////////////////////
+
+:root {
+    --collapse-animation-duration: 0.25s;
+}
+
+//////////////////////////////////////////////
+// C. Collapse Utility
 //////////////////////////////////////////////
 
 @layer utility {
 
     .collapse {
-        display: none;
-        
+        display: grid;
+        grid-template-rows: 0fr;
+
+        overflow: clip;
+
+        visibility: hidden;
+
+        &:not(.shown) {
+            padding-block: 0 !important;
+        }
+
         &.shown {
-            display: block;
+            grid-template-rows: 1fr;
+
+            visibility: visible;
+        }
+
+        &[data-active] {
+
+            // Exit
+            transition: grid-template-rows var(--collapse-animation-duration) ease,
+                        padding-block var(--collapse-animation-duration) ease,
+                        visibility var(--collapse-animation-duration) step-end;
+
+            @media (prefers-reduced-motion: reduce) {
+                transition: none;
+            }
+
+            &.shown {
+
+                // Enter
+                transition: grid-template-rows var(--collapse-animation-duration) ease,
+                            padding-block var(--collapse-animation-duration) ease,
+                            visibility var(--collapse-animation-duration) step-end;
+
+                @media (prefers-reduced-motion: reduce) {
+                    transition: none;
+                }
+            }
+        }
+
+        @supports (interpolate-size: allow-keywords) {
+
+            height: 0;
+            grid-template-rows: unset;
+
+            &.shown {
+                height: auto;
+                grid-template-rows: unset;
+            }
+
+            &[data-active] {
+
+                // Exit
+                transition: height var(--collapse-animation-duration) ease,
+                            padding-block var(--collapse-animation-duration) ease,
+                            visibility var(--collapse-animation-duration) step-end;
+
+                @media (prefers-reduced-motion: reduce) {
+                    transition: none;
+                }
+
+                &.shown {
+
+                    // Enter
+                    transition: height var(--collapse-animation-duration) ease-in-out,
+                                padding-block var(--collapse-animation-duration) ease-in-out,
+                                visibility var(--collapse-animation-duration) step-start;
+
+                    @media (prefers-reduced-motion: reduce) {
+                        transition: none;
+                    }
+                }
+            }
         }
     }
 
