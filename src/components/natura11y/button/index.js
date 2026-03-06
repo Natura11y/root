@@ -24,18 +24,16 @@ const Button = (props) => {
 	// Backwards compatibility: if iconHandle is used, treat as iconStartHandle
 	const startIcon = iconStartHandle || iconHandle;
 	const endIcon = iconEndHandle;
-	const hasIcon = startIcon !== null || endIcon !== null;
 
 	const buttonClasses = classNames('button', {
 		'button--outline': outline,
-		'button--has-icon': hasIcon,
 		[`${utilities}`]: utilities !== null,
 	});
 
 	const buttonContents = (
 		<>
 			{startIcon && <Icon iconHandle={startIcon} />}
-			{wrapText ? <span className='button__text'>{title}</span> : title}
+			{wrapText ? <span className='text'>{title}</span> : title}
 			{endIcon && <Icon iconHandle={endIcon} />}
 		</>
 	);

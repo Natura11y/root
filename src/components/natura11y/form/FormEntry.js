@@ -249,9 +249,9 @@ const FormEntry = forwardRef((props, ref) => {
 							accept='image/*'
 						/>
 
-						<span className='button button--outline button--has-icon file-upload__button'>
+						<span className='button button--outline file-upload__button'>
 							<span className='icon icon-upload'></span>
-							<span className='button__text'>Browse for a File</span>
+							<span className='text'>Browse for a File</span>
 						</span>
 
 					</span>
