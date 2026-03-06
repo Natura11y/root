@@ -13,7 +13,9 @@ export default class Accordion {
         accordionPanelList.forEach((otherPanel) => {
             if (otherPanel !== currentAccordionPanel) {
                 otherPanel.classList.remove('shown');
-                otherPanel.previousElementSibling.setAttribute('aria-expanded', false);
+                const prevSibling = otherPanel.previousElementSibling;
+                const prevButton = prevSibling.querySelector('[data-accordion="button"]') ?? prevSibling;
+                prevButton.setAttribute('aria-expanded', false);
                 otherPanel.inert = true;
             }
         });
@@ -62,12 +64,12 @@ export default class Accordion {
     init() {
 
         this.#accordionList.forEach((accordion) => {
-            const accordionButtonList = accordion.querySelectorAll(':scope > [data-accordion="button"]');
+            const accordionButtonList = accordion.querySelectorAll(':scope > [data-accordion="button"], :scope > [data-accordion="heading"] > [data-accordion="button"]');
             const accordionPanelList = accordion.querySelectorAll(':scope > [data-accordion="panel"]');
 
             accordionButtonList.forEach((accordionButton) => {
 
-                const currentAccordionPanel = accordionButton.nextElementSibling;
+                const currentAccordionPanel = accordionButton.closest('[data-accordion="heading"]')?.nextElementSibling ?? accordionButton.nextElementSibling;
                 const isExpanded = accordionButton.getAttribute('aria-expanded') === 'true';
 
                 accordionButton.setAttribute('tabindex', 0);
@@ -79,20 +81,13 @@ export default class Accordion {
             // Delegate events once per accordion container
             delegateEvent(accordion, 'click', '[data-accordion="button"]', (event) => {
                 const clickedButton = event.target;
-                const clickedPanel = clickedButton.nextElementSibling;
+                const clickedPanel = clickedButton.closest('[data-accordion="heading"]')?.nextElementSibling ?? clickedButton.nextElementSibling;
                 this.#initAccordion(event, clickedButton, clickedPanel, accordionPanelList);
             });
 
             delegateEvent(accordion, 'keydown', '[data-accordion="button"]', (event) => {
-                if (event.code === 'Enter' || event.code === 'Space') {
-                    event.preventDefault();
-                    const clickedButton = event.target;
-                    const clickedPanel = clickedButton.nextElementSibling;
-                    this.#initAccordion(event, clickedButton, clickedPanel, accordionPanelList);
-                } else {
-                    const buttonIndex = Array.from(accordionButtonList).indexOf(event.target);
-                    this.#handleKeyNavigation(event, accordionButtonList, buttonIndex);
-                }
+                const buttonIndex = Array.from(accordionButtonList).indexOf(event.target);
+                this.#handleKeyNavigation(event, accordionButtonList, buttonIndex);
             });
         });
     
