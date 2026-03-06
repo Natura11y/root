@@ -7,22 +7,27 @@ import { getCurrentBreakpoint } from 'natura11y/src/js/utilities/getCurrentBreak
 
 const HOVER_TIMEOUT = 400;
 
-const Dropdown = (props) => {
+const DropdownLinkSplit = (props) => {
 
     const {
         type = 'dropdown',
-        hover = false,
-        buttonText = null,
+        href = '#1',
+        linkText = 'Link',
+        linkTag = 'a',
+        linkProps = {},
+        dropdownId: dropdownIdProp,
         utilities = null,
         children
     } = props;
 
     const uid = useId();
-    const dropdownId = `dropdown-${uid.replace(/:/g, '')}`;
+    const dropdownId = dropdownIdProp || `dropdown-link-split-${uid.replace(/:/g, '')}`;
 
     const [menuShow, setMenuShow] = useState(false);
     const menuButton = useRef(null);
     const menuRef = useRef(null);
+    const navLink = useRef(null);
+    const wrapperRef = useRef(null);
 
     // Use refs for mutable values to avoid stale closures in event handlers
     const openedByKbOrClickRef = useRef(false);
@@ -41,23 +46,26 @@ const Dropdown = (props) => {
     const menuClasses = classNames({
         'dropdown__menu': type === 'dropdown',
         'mega-menu--lg box-shadow-1--lg padding-4': type === 'mega',
+        'box-shadow-1--lg': type === 'dropdown',
         'shown': menuShow,
         [utilities]: utilities !== null
     });
 
     const MenuContainer = type === 'mega' ? 'div' : 'ul';
 
+    // dropdown-link-split always enables hover on fine-pointer desktop
     const shouldEnableHover = useCallback(() => {
-        return hover &&
-            window.matchMedia &&
+        return window.matchMedia &&
             window.matchMedia('(hover: hover) and (pointer: fine)').matches &&
             getCurrentBreakpoint().isDesktop;
-    }, [hover]);
+    }, []);
 
     useEffect(() => {
         const button = menuButton.current;
         const menu = menuRef.current;
-        if (!button || !menu) return;
+        const wrapper = wrapperRef.current;
+
+        if (!button || !menu || !wrapper) return;
 
         const navigateMenu = (direction) => {
             const items = getFocusableElements(menu);
@@ -82,9 +90,10 @@ const Dropdown = (props) => {
             }
         };
 
+        // Outside click: check against the wrapper (contains both link and button)
         const handleOutsideClick = (e) => {
             if (!menuShowRef.current) return;
-            if (!menu.contains(e.target) && !button.contains(e.target)) {
+            if (!menu.contains(e.target) && !wrapper.contains(e.target)) {
                 setMenuShow(false);
             }
         };
@@ -106,7 +115,7 @@ const Dropdown = (props) => {
             const computedStyle = window.getComputedStyle(menu);
             if (computedStyle.position !== 'absolute') return;
             const relatedTarget = e.relatedTarget;
-            if (relatedTarget && !menu.contains(relatedTarget) && !button.contains(relatedTarget)) {
+            if (relatedTarget && !menu.contains(relatedTarget) && !wrapper.contains(relatedTarget)) {
                 setMenuShow(false);
             }
         };
@@ -130,7 +139,7 @@ const Dropdown = (props) => {
         menu.addEventListener('focusout', handleFocusout);
         menu.addEventListener('keydown', handleMenuKeyDown);
 
-        // Hover listeners — only for hover-enabled dropdowns on fine-pointer desktop
+        // Hover listeners — hover target is the wrapper div, not just the button
         const addHoverListeners = () => {
             if (hasHoverListenersRef.current) return;
             hasHoverListenersRef.current = true;
@@ -151,19 +160,19 @@ const Dropdown = (props) => {
             const hoverOut = () => {
                 clearTimeout(hoverTimeoutRef.current);
                 hoverTimeoutRef.current = setTimeout(() => {
-                    if (!button.matches(':hover') && !menu.matches(':hover') && !openedByKbOrClickRef.current) {
+                    if (!wrapper.matches(':hover') && !menu.matches(':hover') && !openedByKbOrClickRef.current) {
                         setMenuShow(false);
                     }
                 }, HOVER_TIMEOUT);
             };
 
-            button._hoverIn = hoverIn;
-            button._hoverOut = hoverOut;
+            wrapper._hoverIn = hoverIn;
+            wrapper._hoverOut = hoverOut;
             menu._hoverIn = menuHoverIn;
             menu._hoverOut = hoverOut;
 
-            button.addEventListener('mouseenter', hoverIn);
-            button.addEventListener('mouseleave', hoverOut);
+            wrapper.addEventListener('mouseenter', hoverIn);
+            wrapper.addEventListener('mouseleave', hoverOut);
             menu.addEventListener('mouseenter', menuHoverIn);
             menu.addEventListener('mouseleave', hoverOut);
         };
@@ -171,13 +180,13 @@ const Dropdown = (props) => {
         const removeHoverListeners = () => {
             if (!hasHoverListenersRef.current) return;
 
-            if (button._hoverIn) {
-                button.removeEventListener('mouseenter', button._hoverIn);
-                delete button._hoverIn;
+            if (wrapper._hoverIn) {
+                wrapper.removeEventListener('mouseenter', wrapper._hoverIn);
+                delete wrapper._hoverIn;
             }
-            if (button._hoverOut) {
-                button.removeEventListener('mouseleave', button._hoverOut);
-                delete button._hoverOut;
+            if (wrapper._hoverOut) {
+                wrapper.removeEventListener('mouseleave', wrapper._hoverOut);
+                delete wrapper._hoverOut;
             }
             if (menu._hoverIn) {
                 menu.removeEventListener('mouseenter', menu._hoverIn);
@@ -213,12 +222,12 @@ const Dropdown = (props) => {
             removeHoverListeners();
             clearTimeout(hoverTimeoutRef.current);
         };
-    }, [hover, shouldEnableHover, dropdownId]);
+    }, [shouldEnableHover, dropdownId]);
 
-    const handleClick = (e) => {
-        // Click guard: when hover is active, a real mouse click (detail > 0) should not
-        // double-toggle since hover already opened/closed the menu
-        if (hover && hasHoverListenersRef.current && e.detail > 0) return;
+    const handleDropdownClick = (e) => {
+        // Click guard: when hover listeners are active, a real mouse click (detail > 0)
+        // should not double-toggle since hover already opened/closed the menu
+        if (hasHoverListenersRef.current && e.detail > 0) return;
         openedByKbOrClickRef.current = true;
         setMenuShow(prev => !prev);
     };
@@ -231,19 +240,24 @@ const Dropdown = (props) => {
 
     return (
         <>
-            <button
-                className="dropdown"
-                data-toggle="dropdown"
-                data-hover={hover ? 'true' : undefined}
-                ref={menuButton}
-                aria-expanded={menuShow}
-                aria-haspopup="true"
-                aria-controls={dropdownId}
-                onClick={handleClick}
-                onKeyDown={handleButtonKeyDown}
-            >
-                {buttonText || (type === 'dropdown' ? 'Dropdown' : 'Mega Menu')}
-            </button>
+            <div className="dropdown-link-split" ref={wrapperRef}>
+                {React.createElement(linkTag, {
+                    ref: navLink,
+                    href,
+                    className: 'text',
+                    ...linkProps
+                }, linkText)}
+                <button
+                    data-toggle="dropdown"
+                    ref={menuButton}
+                    aria-expanded={menuShow}
+                    aria-haspopup="true"
+                    aria-controls={dropdownId}
+                    onClick={handleDropdownClick}
+                    onKeyDown={handleButtonKeyDown}
+                >
+                </button>
+            </div>
 
             <MenuContainer
                 ref={menuRef}
@@ -256,4 +270,4 @@ const Dropdown = (props) => {
     );
 };
 
-export default Dropdown;
+export default DropdownLinkSplit;
