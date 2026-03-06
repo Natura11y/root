@@ -11,7 +11,6 @@ export default class Accordion {
 
         // Close all other accordion panels
         accordionPanelList.forEach((otherPanel) => {
-            otherPanel.classList.remove('show');
             if (otherPanel !== currentAccordionPanel) {
                 otherPanel.classList.remove('shown');
                 otherPanel.previousElementSibling.setAttribute('aria-expanded', false);
@@ -72,7 +71,7 @@ export default class Accordion {
                 const isExpanded = accordionButton.getAttribute('aria-expanded') === 'true';
 
                 accordionButton.setAttribute('tabindex', 0);
-                currentAccordionPanel.classList.toggle('show', isExpanded);
+                currentAccordionPanel.classList.toggle('shown', isExpanded);
                 currentAccordionPanel.inert = !isExpanded;
 
             });
@@ -83,7 +82,6 @@ export default class Accordion {
                 const clickedPanel = clickedButton.nextElementSibling;
                 this.#initAccordion(event, clickedButton, clickedPanel, accordionPanelList);
             });
-
 
             delegateEvent(accordion, 'keydown', '[data-accordion="button"]', (event) => {
                 if (event.code === 'Enter' || event.code === 'Space') {
@@ -99,5 +97,4 @@ export default class Accordion {
         });
     
     }
-
 }

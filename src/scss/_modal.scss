@@ -24,8 +24,6 @@ In this file:
 
   --modal-animation-duration: 0.35s;
 
-  --modal-animation-scale: 0.85; // Set to 1 to disable scale effect
-
   --modal-animation-translate-y: 2rem;
 }
 
@@ -118,7 +116,7 @@ In this file:
     margin-inline: auto;
 
     opacity: 0;
-    transform: scale(var(--modal-animation-scale)) translateY(var(--modal-animation-translate-y));
+    transform: translateY(var(--modal-animation-translate-y));
 
     transition:
       opacity calc(var(--modal-animation-duration) * 0.5) ease-out,
@@ -132,7 +130,7 @@ In this file:
 
   .modal.shown .modal__content {
     opacity: 1;
-    transform: scale(1) translateY(0);
+    transform: translateY(0);
 
     transition:
       opacity var(--modal-animation-duration) ease-out,

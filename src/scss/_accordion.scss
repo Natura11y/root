@@ -19,8 +19,6 @@ In this file:
 // B. Variables
 //////////////////////////////////////////////
 
-// Scoped to Block
-
 :root {
     --accordion-button-padding-x: var(--container-padding-x);
     --accordion-button-padding-y: 0.75em;
@@ -86,6 +84,10 @@ In this file:
             &::after {
                 content: var(--accordion-icon-open);
             }
+
+            .text {
+                text-decoration: underline;
+            }
         }
         
         &::after {
@@ -107,7 +109,7 @@ In this file:
         display: grid;
         grid-template-rows: 0fr;
 
-        // Exit
+        // Close
         transition: grid-template-rows calc(var(--accordion-animation-duration) * 0.75) ease-in;
 
         @media (prefers-reduced-motion: reduce) {
@@ -117,7 +119,7 @@ In this file:
         &.shown {
             grid-template-rows: 1fr;
 
-            // Enter
+            // Open
             transition: grid-template-rows var(--accordion-animation-duration) ease-out;
 
             @media (prefers-reduced-motion: reduce) {
@@ -134,7 +136,7 @@ In this file:
 
         opacity: 0;
 
-        // Exit
+        // Close
         transition:
             opacity calc(var(--accordion-animation-duration) * 0.5) ease-in,
             padding-block-start calc(var(--accordion-animation-duration) * 0.75) ease-in,
@@ -149,7 +151,7 @@ In this file:
 
             opacity: 1;
 
-            // Enter
+            // Open
             transition:
                 opacity var(--accordion-animation-duration) ease-out,
                 padding-block-start var(--accordion-animation-duration) ease-out,
