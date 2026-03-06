@@ -9,6 +9,7 @@ import Tabs from '../natura11y/tab';
 
 import ButtonExamples from './examples/ButtonExamples';
 import FlyoutParent from '../natura11y/flyout/FlyoutParent';
+import MainMenuExamples from './examples/MainMenuExamples';
 import NavigationExamples from './examples/NavigationExamples';
 import TableExamples from './examples/TableExamples';
 import TrackExamples from './examples/TrackExamples';
@@ -52,6 +53,11 @@ const exampleConfig = {
 		component: LightboxExample,
 		wrapperClass: 'medium margin-x-auto',
 		title: 'Lightbox',
+	},
+	'main-menu': {
+		component: MainMenuExamples,
+		wrapperClass: null,
+		title: 'Main Menu',
 	},
 	navigation: {
 		component: NavigationExamples,

@@ -1,16 +1,41 @@
-import MainMenu from '../../natura11y/navigation/MainMenu';
+import Dropdown from '../../natura11y/navigation/Dropdown';
 
 const NavigationExamples = () => {
-	return (
-		<div className="grid">
-			<div className='box-shadow-1 theme-light margin-y-3'>
-				<MainMenu />
-			</div>
-			<div className='box-shadow-1 theme-light margin-y-3'>
-				<MainMenu navType={'stack'} />
-			</div>
-		</div>
-	);
+    return (
+        <div className="container narrow margin-x-auto grid gap-4">
+
+            <div>
+                <p className="h6 margin-bottom-2">Horizontal Nav with Dropdown</p>
+                <ul className="nav nav--horizontal--md">
+                    <li>
+                        <Dropdown buttonText="Dropdown" hover>
+                            <li><a href="#1">Link</a></li>
+                            <li><a href="#1">Link</a></li>
+                            <li><a href="#1">Link</a></li>
+                        </Dropdown>
+                    </li>
+                    <li><a href="#1">Link</a></li>
+                    <li><a href="#1">Link</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <p className="h6 margin-bottom-2">Vertical Nav with Dropdown</p>
+                <ul className="nav nav--divider">
+                    <li>
+                        <Dropdown buttonText="Dropdown">
+                            <li><a href="#1">Link</a></li>
+                            <li><a href="#1">Link</a></li>
+                            <li><a href="#1">Link</a></li>
+                        </Dropdown>
+                    </li>
+                    <li><a href="#1">Link</a></li>
+                    <li><a href="#1">Link</a></li>
+                </ul>
+            </div>
+
+        </div>
+    );
 };
 
 export default NavigationExamples;

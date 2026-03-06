@@ -47,6 +47,10 @@ const App = () => {
 			slug: 'lightbox'
 		},
 		{
+			title: 'Main Menu',
+			slug: 'main-menu'
+		},
+		{
 			title: 'Navigation',
 			slug: 'navigation'
 		},
