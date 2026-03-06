@@ -1,16 +1,56 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 
-import Flyout from './index';
-import ButtonIconOnly from '../button/ButtonIconOnly';
+import Flyout from '../../natura11y/flyout';
+import ButtonIconOnly from '../../natura11y/button/ButtonIconOnly';
 
-const FlyoutParent = () => {
+// ─────────────────────────────────────────────────────────────
+// Simple Flyout
+// A flat list of links — no drill-down, just open and close.
+// ─────────────────────────────────────────────────────────────
 
+const SimpleFlyout = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const triggerRef = useRef(null);
+
+    return (
+        <>
+            <ButtonIconOnly
+                iconHandle="menu"
+                ariaLabel="Open Flyout"
+                ariaExpanded={isOpen}
+                clickHandler={() => setIsOpen(true)}
+            />
+
+            <Flyout
+                isOpen={isOpen}
+                onClose={() => setIsOpen(false)}
+                label="Menu"
+            >
+                <ul className="nav nav--divider">
+                    <li><a href="#1">Home</a></li>
+                    <li><a href="#1">Trails</a></li>
+                    <li><a href="#1">Wildlife</a></li>
+                    <li><a href="#1">Events</a></li>
+                    <li><a href="#1">About</a></li>
+                    <li><a href="#1">Contact</a></li>
+                </ul>
+            </Flyout>
+        </>
+    );
+};
+
+// ─────────────────────────────────────────────────────────────
+// Flyout with Drill-Down Navigation
+// Each panel is a render function that receives navigateTo(index).
+// Call navigateTo with a panel index to go deeper.
+// The back button appears automatically once the user drills in.
+// ─────────────────────────────────────────────────────────────
+
+const DrillDownFlyout = () => {
+    const [isOpen, setIsOpen] = useState(false);
 
     const panels = [
 
-        // Panel 0: Root
+        // Panel 0 — Root
         ({ navigateTo }) => (
             <ul className="nav nav--divider">
                 <li>
@@ -31,7 +71,7 @@ const FlyoutParent = () => {
             </ul>
         ),
 
-        // Panel 1: Wildlife
+        // Panel 1 — Wildlife
         ({ navigateTo }) => (
             <>
                 <div className="flyout__panel-title">
@@ -61,7 +101,7 @@ const FlyoutParent = () => {
             </>
         ),
 
-        // Panel 2: Trails
+        // Panel 2 — Trails
         () => (
             <>
                 <div className="flyout__panel-title">
@@ -76,7 +116,7 @@ const FlyoutParent = () => {
             </>
         ),
 
-        // Panel 3: Birds (nested under Wildlife)
+        // Panel 3 — Birds
         () => (
             <>
                 <div className="flyout__panel-title">
@@ -91,7 +131,7 @@ const FlyoutParent = () => {
             </>
         ),
 
-        // Panel 4: Mammals (nested under Wildlife)
+        // Panel 4 — Mammals
         () => (
             <>
                 <div className="flyout__panel-title">
@@ -100,13 +140,13 @@ const FlyoutParent = () => {
                 <ul className="nav nav--divider">
                     <li><a href="#1">Bears</a></li>
                     <li><a href="#1">Deer</a></li>
-                    <li><a href="#1">Fox</a></li>
+                    <li><a href="#1">Foxes</a></li>
                     <li><a href="#1">All Mammals</a></li>
                 </ul>
             </>
         ),
 
-        // Panel 5: Reptiles (nested under Wildlife)
+        // Panel 5 — Reptiles
         () => (
             <>
                 <div className="flyout__panel-title">
@@ -126,9 +166,9 @@ const FlyoutParent = () => {
     return (
         <>
             <ButtonIconOnly
-                ref={triggerRef}
                 iconHandle="menu"
-                ariaLabel="Open Menu"
+                ariaLabel="Open Drill-Down Navigation"
+                ariaExpanded={isOpen}
                 clickHandler={() => setIsOpen(true)}
             />
 
@@ -137,11 +177,31 @@ const FlyoutParent = () => {
                 onClose={() => setIsOpen(false)}
                 label="Main Menu"
                 panels={panels}
-                triggerRef={triggerRef}
             />
         </>
     );
-
 };
 
-export default FlyoutParent;
+// ─────────────────────────────────────────────────────────────
+// FlyoutExamples — shown on the /flyout detail page
+// ─────────────────────────────────────────────────────────────
+
+const FlyoutExamples = () => {
+    return (
+        <div className="container narrow margin-y-5">
+
+            <section className="margin-y-4">
+                <h2 className="h4 margin-bottom-2">Flyout</h2>
+                <SimpleFlyout />
+            </section>
+
+            <section className="margin-y-4">
+                <h2 className="h4 margin-bottom-2">Flyout with Drill-Down Navigation</h2>
+                <DrillDownFlyout />
+            </section>
+
+        </div>
+    );
+};
+
+export default FlyoutExamples;

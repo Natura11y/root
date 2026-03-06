@@ -31,7 +31,7 @@ const App = () => {
 			slug: 'button'
 		},
 		{
-			title: 'Flyout Menu',
+			title: 'Flyout',
 			slug: 'flyout'
 		},
 		{

@@ -8,7 +8,7 @@ import LightboxExample from '../natura11y/lightbox/LightboxExample';
 import Tabs from '../natura11y/tab';
 
 import ButtonExamples from './examples/ButtonExamples';
-import FlyoutParent from '../natura11y/flyout/FlyoutParent';
+import FlyoutExamples from './examples/FlyoutExamples';
 import MainMenuExamples from './examples/MainMenuExamples';
 import NavigationExamples from './examples/NavigationExamples';
 import TableExamples from './examples/TableExamples';
@@ -35,9 +35,9 @@ const exampleConfig = {
 		title: 'Button',
 	},
 	'flyout': {
-		component: FlyoutParent,
-		wrapperClass: 'narrow margin-x-auto',
-		title: 'Flyout Menu',
+		component: FlyoutExamples,
+		wrapperClass: null,
+		title: 'Flyout',
 	},
 	form: {
 		component: FormValidation,
