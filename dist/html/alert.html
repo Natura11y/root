@@ -28,20 +28,30 @@
                 <div class="container narrow">
 
                     <div
-                        class="alert alert--confirm alert--dismissable margin-bottom-4"
-                        aria-labelledby="alert-label"
-                        aria-describedby="alert-description"
+                        class="alert alert--confirm margin-bottom-4"
+                        aria-labelledby="alert-label-1"
+                        aria-describedby="alert-desc-1"
+                        aria-live="assertive"
+                        aria-atomic="true"
                         role="alert"
                     >
 
+                        <button
+                            class="button button--icon-only"
+                            aria-label="Close alert"
+                            data-alert-close
+                        >
+                            <span class="icon icon-close" aria-hidden="true"></span>
+                        </button>
+
                         <div class="alert__title h5">
                             <span class="icon icon-confirm" aria-hidden="true"></span>
-                            <span class="alert__title__text" id="alert-label">
+                            <span class="alert__title__text" id="alert-label-1">
                                 Alert Confirm
                             </span>
                         </div>
 
-                        <div class="alert__description" id="alert-description">
+                        <div class="alert__description" id="alert-desc-1">
                             <p>
                                 Thank you for your feedback. A confirmation message has been sent to your email. Return to our <a href="#1">homepage</a>.
                             </p>
@@ -51,18 +61,19 @@
 
                     <div
                         class="alert alert--warn margin-bottom-4"
-                        aria-labelledby="alert-label"
-                        aria-describedby="alert-description"
-                        role="alert">
+                        aria-labelledby="alert-label-2"
+                        aria-describedby="alert-desc-2"
+                        role="alert"
+                    >
 
                         <div class="alert__title h5">
-                            <span class="icon icon-confirm" aria-hidden="true"></span>
-                            <span class="alert__title__text" id="alert-label">
+                            <span class="icon icon-warn" aria-hidden="true"></span>
+                            <span class="alert__title__text" id="alert-label-2">
                                 Alert Warn
                             </span>
                         </div>
 
-                        <div class="alert__description" id="alert-description">
+                        <div class="alert__description" id="alert-desc-2">
                             <p>
                                 Your feedback was not sent. Complete <a href="#1">all required fields</a> below and submit the form again.
                             </p>
@@ -72,18 +83,19 @@
 
                     <div
                         class="alert alert--confirm--inverse margin-bottom-4"
-                        aria-labelledby="alert-label"
-                        aria-describedby="alert-description"
-                        role="alert">
+                        aria-labelledby="alert-label-3"
+                        aria-describedby="alert-desc-3"
+                        role="alert"
+                    >
 
                         <div class="alert__title h5">
                             <span class="icon icon-confirm" aria-hidden="true"></span>
-                            <span class="alert__title__text" id="alert-label">
+                            <span class="alert__title__text" id="alert-label-3">
                                 Alert Confirm
                             </span>
                         </div>
 
-                        <div class="alert__description" id="alert-description">
+                        <div class="alert__description" id="alert-desc-3">
                             <p>
                                 Thank you for your feedback. A confirmation message has been sent to your email. Return to our <a href="#1">homepage</a>.
                             </p>
@@ -93,18 +105,19 @@
 
                     <div
                         class="alert alert--warn--inverse"
-                        aria-labelledby="alert-label"
-                        aria-describedby="alert-description"
-                        role="alert">
+                        aria-labelledby="alert-label-4"
+                        aria-describedby="alert-desc-4"
+                        role="alert"
+                    >
 
                         <div class="alert__title h5">
-                            <span class="icon icon-confirm" aria-hidden="true"></span>
-                            <span class="alert__title__text" id="alert-label">
+                            <span class="icon icon-warn" aria-hidden="true"></span>
+                            <span class="alert__title__text" id="alert-label-4">
                                 Alert Warn
                             </span>
                         </div>
 
-                        <div class="alert__description" id="alert-description">
+                        <div class="alert__description" id="alert-desc-4">
                             <p>
                                 Your feedback was not sent. Complete <a href="#1">all required fields</a> below and submit the form again.
                             </p>
