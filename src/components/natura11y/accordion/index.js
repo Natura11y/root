@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 
 import AccordionItem from './AccordionItem';
 
-const Accordion = ({ openDefault = null }) => {
+const Accordion = ({ openDefault = null, headingLevel = null }) => {
 
   	const data = [
 		{
@@ -124,6 +124,7 @@ const Accordion = ({ openDefault = null }) => {
 		<AccordionItem
 			key={index}
 			title={item.title}
+			headingLevel={headingLevel}
 			isActive={openAccordion === item.title ? true : false}
 			handleClick={handleClick}
 			handleKeyDown={handleKeyDown}

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 
 import classNames from 'classnames';
 
@@ -7,7 +7,6 @@ import Alert from './';
 const AlertParent = () => {
 
 	const [showAlert, setShowAlert] = useState(true);
-	const alertRef = useRef();
 
     const handleAlertClose = () => {
 		setShowAlert(false);
@@ -17,7 +16,6 @@ const AlertParent = () => {
 		<>
 			{showAlert && (
 				<Alert
-					ref={alertRef}
 					handleAlertClose={handleAlertClose}
 					title="Success!"
 					utilities={classNames('box-shadow-1', 'margin-bottom-4')}

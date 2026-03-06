@@ -1,11 +1,11 @@
-import { forwardRef } from 'react';
+import { forwardRef, useRef, useId } from 'react';
 
 import classNames from 'classnames';
 
 import ButtonIconOnly from '../button/ButtonIconOnly';
 import Icon from '../icon';
 
-const Alert = forwardRef((props, ref) => {
+const Alert = forwardRef((props, forwardedRef) => {
 
   	const {
 		success = true,
@@ -16,6 +16,12 @@ const Alert = forwardRef((props, ref) => {
 		utilities = null, // For example, 'theme-primary'
 	} = props;
 
+	const internalRef = useRef();
+	const labelId = useId();
+	const descId = useId();
+
+	const isDismissable = handleAlertClose !== null;
+
 	const alertClasses = classNames(
 		'alert',
 		{
@@ -23,7 +29,6 @@ const Alert = forwardRef((props, ref) => {
 			'alert--confirm--inverse' : success && inverse,
 			'alert--warn' : !success && !inverse,
 			'alert--warn--inverse' : !success && inverse,
-			'alert--dismissable' : handleAlertClose !== null,
 			[`${utilities}`] : utilities !== null
 		}
 	);
@@ -35,32 +40,52 @@ const Alert = forwardRef((props, ref) => {
 		}
 	);
 
+	const handleClose = () => {
+		const el = internalRef.current;
+		if (!el) return;
+		el.classList.add('dismissed');
+		el.addEventListener('animationend', handleAlertClose, { once: true });
+	};
+
+	const setRef = (node) => {
+		internalRef.current = node;
+		if (typeof forwardedRef === 'function') {
+			forwardedRef(node);
+		} else if (forwardedRef !== null) {
+			forwardedRef.current = node;
+		}
+	};
+
 	return (
 		<div
-			ref={ref}
+			ref={setRef}
 			className={alertClasses}
-			aria-labelledby='alert-label'
-			aria-describedby='alert-description'
+			aria-labelledby={labelId}
+			aria-describedby={children ? descId : undefined}
 			role='alert'
+			{...(isDismissable && { 'aria-live': 'assertive', 'aria-atomic': 'true' })}
 		>
-			{handleAlertClose !== null && (
+			{isDismissable && (
 				<ButtonIconOnly
 					iconHandle='close'
-					clickHandler={handleAlertClose}
-					ariaLabel='Close'
+					clickHandler={handleClose}
+					ariaLabel='Close alert'
+					attributes={{ 'data-alert-close': '' }}
 				/>
 			)}
 
 			<div className='alert__title h5'>
 				<Icon iconHandle={alertIconClasses} />
-				<span className='alert__title__text' id='alert-label'>
+				<span className='alert__title__text' id={labelId}>
 					{title}
 				</span>
 			</div>
 
-			<div className='alert__description' id='alert-description'>
-				{children}
-			</div>
+			{children ? (
+				<div className='alert__description' id={descId}>
+					{children}
+				</div>
+			) : null}
 		</div>
 	);
 });
