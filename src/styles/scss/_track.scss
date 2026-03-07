@@ -44,14 +44,6 @@ $track-panels: 8;
 
     // Track Container
 
-    :is(.track__prev, .track__next):not([class*='theme-']) {
-        --_background-color: var(--text-color);
-        --_text-color: var(--background-color);
-        
-        background-color: var(--_background-color) !important;
-        color: var(--_text-color) !important;
-    }
-
     .track__container {
         --_button-offset: calc((var(--button-target-size) * 0.5) + var(--_peeking, 0px));
 
@@ -75,6 +67,7 @@ $track-panels: 8;
             inset-inline-end: var(--_button-offset);
         }
     }
+
 
     // Track Panels (Scrollable <ul>)
 
@@ -130,40 +123,10 @@ $track-panels: 8;
         }
     }
 
-    // Track Controls
-
-    .track__controls {
-        --_track-control-layout: "pagination prev next";
-        --_track-control-columns: 1fr auto auto;
-        
-        display: grid;
-        align-items: center;
-        
-        gap: 0.75em;
-
-        grid-template-columns: var(--_track-control-columns);
-        grid-template-areas: var(--_track-control-layout);
-
-        .track__pagination {
-            grid-area: pagination;
-        }
-
-        .track__prev {
-            grid-area: prev;
-        }
-
-        .track__next {
-            grid-area: next;
-        }
-    }
-
-    .track__prev,
-    .track__next {
-        font-size: var(--font-size-md);
-    }
+    // Track Pagination
 
     .track__pagination {
-        --_justify-pages: start;
+        --_justify-pages: center;
 
         display: flex;
         justify-content: var(--_justify-pages);
@@ -192,15 +155,9 @@ $track-panels: 8;
 
             cursor: pointer;
 
-            &::before {
-                font-weight: var(--font-weight-bold);
-
-                display: none;
-            }
-
             &:is(
                 .active,
-                [aria-current='true']) 
+                [aria-current='true'])
             {
                 --border-color: currentColor;
 
@@ -208,12 +165,52 @@ $track-panels: 8;
 
                 border-width: calc(var(--border-width) * 2);
                 border-style: var(--border-style);
-
-                &::before {
-                    display: flex;
-                }
             }
         }
+    }
+
+    // Track Controls
+
+    .track__controls {
+        --_track-control-layout: "pagination prev next";
+        --_track-control-columns: 1fr auto auto;
+        
+        display: grid;
+        align-items: center;
+        
+        gap: 0.75em;
+
+        grid-template-columns: var(--_track-control-columns);
+        grid-template-areas: var(--_track-control-layout);
+
+        .track__pagination {
+            grid-area: pagination;
+            
+            --_justify-pages: start;
+        }
+
+        .track__prev {
+            grid-area: prev;
+        }
+
+        .track__next {
+            grid-area: next;
+        }
+    }
+
+    // Next / Previous Buttons
+
+    .track__prev,
+    .track__next {
+        font-size: var(--font-size-md);
+    }
+
+    :is(.track__prev, .track__next):not([class*='theme-']) {
+        --_background-color: var(--text-color);
+        --_text-color: var(--background-color);
+        
+        background-color: var(--_background-color) !important;
+        color: var(--_text-color) !important;
     }
 
     // Track Peeking Modifier

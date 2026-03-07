@@ -1,5 +1,3 @@
-import React from 'react';
-
 const TrackPagination = ({ currentPageIndex, totalPages, onNavigate }) => {
   return (
     <ul className='track__pagination'>
