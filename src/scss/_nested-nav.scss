@@ -2,42 +2,43 @@
 
 In this file:
 
-// A. Variables
-// B. Nested Nav Component
+// A. Modules
+// B. Variables
+// C. Nested Nav Component
 
 */
 
 ////////////////////////////////////////
-// A. Variables
+// A. Modules
+////////////////////////////////////////
+
+@use './navigation';
+
+////////////////////////////////////////
+// B. Variables
 ////////////////////////////////////////
 
 :root {
     --nav-nested-padding-x: var(--spacer-2);
     --nav-nested-padding-y: 0.5em;
+    --nav-nested-font-size: var(--font-size-md);
+    --nav-nested-sub-font-size: var(--font-size-sm);
     --nav-nested-indicator-width: 3px;
+    --nav-nested-indicator-color: currentColor;
 }
 
 ////////////////////////////////////////
-// B. Nested Nav Component
+// C. Nested Nav Component
 ////////////////////////////////////////
 
 @layer component {
 
     .nested-nav {
-        list-style: none;
-        line-height: normal;
-        font-family: var(--nav-font-family);
-        
+        @extend %list-style-nav;
+
         border: var(--border-width) var(--border-style) var(--border-color);
 
-        // Active items: bold + underline at any level
-
-        :is([aria-current], [aria-selected="true"]) {
-            font-weight: var(--font-weight-bold);
-            text-decoration-line: underline;
-        }
-
-        // All levels: full-width block links with hover background + underline
+        // All levels: full-width block links with hover background
 
         :is(a, button) {
             display: block;
@@ -46,11 +47,12 @@ In this file:
             padding-block: var(--nav-nested-padding-y);
             padding-inline-start: var(--nav-nested-padding-x);
 
+            font-size: var(--nav-nested-font-size);
+
             transition: background-color 0.15s ease;
 
             &:is(:hover, :focus) {
                 background-color: var(--subtle-fill-1);
-                text-decoration: underline;
             }
         }
 
@@ -80,7 +82,7 @@ In this file:
 
                 width: var(--nav-nested-indicator-width);
 
-                background-color: currentColor;
+                background-color: var(--nav-nested-indicator-color);
 
                 opacity: 0;
             }
@@ -93,11 +95,11 @@ In this file:
         // L2 and L3: indent via padding, smaller font, borders between items
 
         li > ul {
-            list-style: none;
+            @extend %list-style-nav;
 
             :is(a, button) {
                 padding-inline-start: calc(var(--nav-nested-padding-x) * 2);
-                font-size: var(--font-size-md);
+                font-size: var(--nav-nested-sub-font-size);
             }
 
             li > ul :is(a, button) {

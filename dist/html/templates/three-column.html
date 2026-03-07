@@ -27,9 +27,9 @@
 
         <!-- Header -->
 
-        <header>
+        <header class="margin-x-auto wide--lg">
 
-            <div class="main-menu--bar--lg">
+            <div class="main-menu--bar--lg padding-y-2">
 
                 <div class="main-menu__logo">
                     <a href="#" title="Home" data-logo="brand">
@@ -97,56 +97,99 @@
 
             <!-- Page Banner -->
 
-            <header class="backdrop backdrop--fixed theme-dark">
+            <header class="backdrop backdrop--fixed aspect-ratio-3x1 theme-dark">
 
                 <div class="backdrop__media">
-                    <img class="opacity-50" src="https://placehold.co/1500x750" alt="">
+                    <img class="opacity-50 gradient-mask-left" src="https://placehold.co/1500x750" alt="">
                 </div>
 
                 <div class="backdrop__cover">
-                    <div class="margin-y-5">
-                        <div class="container narrow">
-                            <p class="h1 text-shadow">Page Title</p>
+
+                    <div class="subtle-fill-2 drop-shadow-1 display-none display-block--lg">
+                        <div class="container wide padding-y-2">
+                            <nav aria-label="Breadcrumb">
+                                <ul class="breadcrumb">
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="#">Section</a></li>
+                                    <li aria-current="page">Page Title</li>
+                                </ul>
+                            </nav>
                         </div>
                     </div>
+
+                    <div class="margin-y-auto">
+                        <div class="container wide">
+                            <h1 class="banner-headline">Page Title</h1>
+                        </div>
+                    </div>
+
                 </div>
 
             </header>
 
-            <div class="grid-sidebars">
+            <div class="container--lg wide--lg margin-y-5">
 
-                <aside class="grid-sidebars__minor-start border-right" aria-label="Section Navigation">
-                    <div class="position-sticky-top">
+            <div class="grid-sidebars gap-4">
+
+                <aside class="grid-sidebars__minor-start" aria-label="Section Navigation">
+
+                    <div class="narrow margin-x-auto">
 
                         <button
-                            class="button button--disperse display-none--lg"
+                            class="sidebar-toggle button button--disperse display-none--lg"
                             data-toggle="collapse"
                             aria-controls="sidebar-nav-start"
-                            aria-expanded="false"
-                        >
+                            aria-expanded="false">
                             Navigation
                             <span class="icon icon-chevron-down" aria-hidden="true"></span>
                         </button>
 
                         <div class="collapse shown--lg" id="sidebar-nav-start">
-                            <nav class="padding-3" aria-label="Section Navigation">
-                                <ul class="nav nav--divider">
-                                    <li><a href="#" aria-current="page">Introduction</a></li>
-                                    <li><a href="#">Getting Started</a></li>
-                                    <li><a href="#">Configuration</a></li>
-                                    <li><a href="#">Components</a></li>
-                                    <li><a href="#">Examples</a></li>
-                                    <li><a href="#">FAQ</a></li>
+                            <nav aria-label="Section Navigation">
+                                <ul class="nested-nav">
+                                    <li>
+                                        <a href="#" aria-current="page">
+                                            Section One
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            Section Two
+                                        </a>
+                                        <ul>
+                                            <li>
+                                                <a href="#">Item One</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Item Two</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Item Three</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="#">Section Three</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Section Four</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Section Five</a>
+                                    </li>
                                 </ul>
                             </nav>
                         </div>
 
                     </div>
+
                 </aside>
 
-                <article class="grid-sidebars__major container narrow margin-y-5">
+                <article class="grid-sidebars__major">
 
-                        <h1>Page Title</h1>
+                    <div class="container narrow margin-y-5">
+
+                        <h2 class="h1">Page Title</h2>
 
                         <p class="font-size-lg">Brief introduction or lead paragraph goes here. This should summarize the content of the page in one or two sentences.</p>
 
@@ -162,45 +205,26 @@
 
                         <p>Final paragraph. Add as many sections and content types as needed — headings, images, lists, tables, and other Natura11y components all work here.</p>
 
+                    </div>
+
                 </article>
 
-                <aside class="grid-sidebars__minor-end border-left" aria-label="Related Content">
-                    <div class="position-sticky-top">
+                <aside class="grid-sidebars__minor-end" aria-label="On This Page">
+                    <div class="font-size-sm">
 
-                        <button
-                            class="button button--disperse display-none--lg"
-                            data-toggle="collapse"
-                            aria-controls="sidebar-nav-end"
-                            aria-expanded="false"
-                        >
-                            On This Page
-                            <span class="icon icon-chevron-down" aria-hidden="true"></span>
-                        </button>
-
-                        <div class="collapse shown--lg" id="sidebar-nav-end">
-                            <div class="padding-3">
-
-                                <nav aria-label="On This Page">
-                                    <ul class="nav nav--divider">
-                                        <li><a href="#">Introduction</a></li>
-                                        <li><a href="#">Section Heading</a></li>
-                                        <li><a href="#">Another Section</a></li>
-                                    </ul>
-                                </nav>
-
-                                <h2 class="h6 margin-top-4">Related</h2>
-
-                                <ul class="nav nav--divider">
-                                    <li><a href="#">Related Article One</a></li>
-                                    <li><a href="#">Related Article Two</a></li>
-                                    <li><a href="#">Related Article Three</a></li>
-                                </ul>
-
-                            </div>
-                        </div>
+                        <nav aria-label="On This Page">
+                            <h2 class="h6">On This Page</h2>
+                            <ul class="nav nav--divider">
+                                <li><a href="#">Introduction</a></li>
+                                <li><a href="#">Section Heading</a></li>
+                                <li><a href="#">Another Section</a></li>
+                            </ul>
+                        </nav>
 
                     </div>
                 </aside>
+
+            </div>
 
             </div>
 
