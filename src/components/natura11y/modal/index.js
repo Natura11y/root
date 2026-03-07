@@ -35,7 +35,10 @@ const Modal = forwardRef((props, ref) => {
     );
 
     const modalContentClasses = classNames(
-        'modal__content', {
+        'modal__content',
+        'border-radius-2',
+        'box-shadow-3',
+        {
             [`${modalContentUtilities}`]: modalContentUtilities !== null
         }
     );
@@ -90,18 +93,17 @@ const Modal = forwardRef((props, ref) => {
             ref={modalContainer}
             className={modalClasses}
             aria-hidden={!isOpen}
-            aria-modal='true'
-            tabIndex={isOpen ? 0 : -1}
-            aria-describedby='modal-example-01-title'
-            role='dialog'
             onClick={handleCloseOutside}
         >
             <div
                 ref={modalContent}
-                className={`${modalContentClasses} border-radius-2 box-shadow-3`}
+                className={modalContentClasses}
+                role='dialog'
+                aria-modal='true'
+                aria-labelledby='modal-example-01-title'
             >
                 <header className='modal__content__head border-bottom'>
-                    <h2 id='h3 modal-example-01-title'>
+                    <h2 id='modal-example-01-title'>
                         {title}
                     </h2>
                     <ButtonIconOnly
