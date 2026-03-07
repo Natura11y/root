@@ -153,19 +153,18 @@ In this file:
 
                 td {
                     display: flex;
-                    flex-direction: row-reverse;
                     justify-content: space-between;
 
                     &:first-child{
                         border: unset;
                     }
                 }
-                
+
                 .td-content {
                     text-align: end;
                 }
 
-                td::after {
+                td::before {
                     content: attr(data-header);
                     font-weight: bold;
                 }
