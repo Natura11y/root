@@ -48,7 +48,7 @@ const Track = (props) => {
 
   const getVisiblePanels = () => {
     if (!trackRef.current) return 1;
-    return parseInt(getComputedStyle(trackRef.current).getPropertyValue('--visible-panels'), 10) || 1;
+    return parseInt(getComputedStyle(trackRef.current).getPropertyValue('--_visible-panels'), 10) || 1;
   };
 
   const getPeekingPadding = () => {

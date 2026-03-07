@@ -12,9 +12,7 @@
 //////////////////////////////////////////////
 
 :root {
-    --visible-panels: 1;
-
-    --panel-peeking: var(--container-padding-x);
+    --panel-peeking: calc(var(--container-padding-x) * 2);
 }
 
 $track-panels: 8;
@@ -33,6 +31,8 @@ $track-panels: 8;
     }
 
     .track {
+        --_visible-panels: 1;
+
         display: grid;
 
         gap: var(--gap-size, var(--spacer-2));
@@ -76,7 +76,7 @@ $track-panels: 8;
 
         display: grid;
 
-        grid-auto-columns: calc((100% / var(--visible-panels)) - (var(--gap-size, 0px) * ((var(--visible-panels) - 1) / var(--visible-panels))));
+        grid-auto-columns: calc((100% / var(--_visible-panels)) - (var(--gap-size, 0px) * ((var(--_visible-panels) - 1) / var(--_visible-panels))));
 
         grid-auto-flow: column;
 
@@ -307,7 +307,7 @@ $track-panels: 8;
 
             @for $i from 1 through $track-panels {
                 .track--column-#{$i}#{$mod} {
-                    --visible-panels: #{$i};
+                    --_visible-panels: #{$i};
                 }
             }
         }
