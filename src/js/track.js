@@ -27,7 +27,7 @@ export default class Track {
     }
 
     #getVisiblePanels(trackElement) {
-        return parseInt(getComputedStyle(trackElement).getPropertyValue('--visible-panels'), 10) || 1;
+        return parseInt(getComputedStyle(trackElement).getPropertyValue('--_visible-panels'), 10) || 1;
     }
 
     #toggleControlsVisibility(trackElement, totalPages) {
