@@ -59,6 +59,7 @@ const Table = forwardRef((props, ref) => {
       <thead>
         <tr>
           {tableHeaders}
+          <th scope='col' className='text-align-right'>Map View</th>
         </tr>
       </thead>
 

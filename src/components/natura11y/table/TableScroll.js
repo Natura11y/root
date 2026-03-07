@@ -4,8 +4,6 @@ import Table from './';
 
 const TableScroll = forwardRef((props, ref) => {
 
-    const { tableCaption = 'Table Caption' } = props;
-
     const [scrollable, setScrollable] = useState(false);
     const [isScrolling, setIsScrolling] = useState(false);
 
