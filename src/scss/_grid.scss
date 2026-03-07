@@ -34,7 +34,7 @@ $rows: math.div($columns, 2);
     
     --grid-divider-border-y-color: var(--canvas-border);
 
-    --grid-sidebar-width: var(--article-sidebar-width);
+    --grid-sidebar-width: 300px;
 }
 
 //////////////////////////////////////////////
@@ -175,6 +175,10 @@ $rows: math.div($columns, 2);
 
         > [class*="minor"] {
             grid-area: minor;
+
+            > * {
+                width: 100%;
+            }
         }
     }
 

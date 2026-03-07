@@ -31,6 +31,7 @@ const devPages = {
     'Lightbox': 'lightbox',
     'MainMenu': 'main-menu',
     'Modal': 'modal',
+    'NavNested': 'nav-nested',
     'Navigation': 'navigation',
     'Pagination': 'pagination',
     'Spacer': 'spacer',
@@ -41,7 +42,7 @@ const devPages = {
 }
 
 const devDir = './dist/html';
-const devPage = `${devPages.Pagination}.html`;
+const devPage = `${devPages.NavNested}.html`;
 
 module.exports = merge(common, {
     mode: 'development',

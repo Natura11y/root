@@ -1,0 +1,113 @@
+/*
+
+In this file:
+
+// A. Variables
+// B. Nested Nav Component
+
+*/
+
+////////////////////////////////////////
+// A. Variables
+////////////////////////////////////////
+
+:root {
+    --nav-nested-padding-x: var(--spacer-2);
+    --nav-nested-padding-y: 0.5em;
+    --nav-nested-indicator-width: 3px;
+}
+
+////////////////////////////////////////
+// B. Nested Nav Component
+////////////////////////////////////////
+
+@layer component {
+
+    .nested-nav {
+        list-style: none;
+        line-height: normal;
+        font-family: var(--nav-font-family);
+        
+        border: var(--border-width) var(--border-style) var(--border-color);
+
+        // Active items: bold + underline at any level
+
+        :is([aria-current], [aria-selected="true"]) {
+            font-weight: var(--font-weight-bold);
+            text-decoration-line: underline;
+        }
+
+        // All levels: full-width block links with hover background + underline
+
+        :is(a, button) {
+            display: block;
+            width: 100%;
+
+            padding-block: var(--nav-nested-padding-y);
+            padding-inline-start: var(--nav-nested-padding-x);
+
+            transition: background-color 0.15s ease;
+
+            &:is(:hover, :focus) {
+                background-color: var(--subtle-fill-1);
+                text-decoration: underline;
+            }
+        }
+
+        // Any link that has child items gets a border under it
+
+        li:has(> ul) > :is(a, button) {
+            border-block-end: var(--border-width) var(--border-style) var(--border-color);
+        }
+
+        // L1: border between items (not last)
+
+        > li:not(:last-child) {
+            border-block-end: var(--border-width) var(--border-style) var(--border-color);
+        }
+
+        // L1 only: active indicator bar
+
+        > li > :is(a, button) {
+            position: relative;
+
+            &::before {
+                content: "";
+                position: absolute;
+                inset-block-start: 0;
+                inset-block-end: 0;
+                inset-inline-start: 0;
+
+                width: var(--nav-nested-indicator-width);
+
+                background-color: currentColor;
+
+                opacity: 0;
+            }
+
+            &:is([aria-current], [aria-selected="true"])::before {
+                opacity: 1;
+            }
+        }
+
+        // L2 and L3: indent via padding, smaller font, borders between items
+
+        li > ul {
+            list-style: none;
+
+            :is(a, button) {
+                padding-inline-start: calc(var(--nav-nested-padding-x) * 2);
+                font-size: var(--font-size-md);
+            }
+
+            li > ul :is(a, button) {
+                padding-inline-start: calc(var(--nav-nested-padding-x) * 3);
+            }
+
+            li:not(:last-child) {
+                border-block-end: var(--border-width) var(--border-style) var(--border-color);
+            }
+        }
+    }
+
+} // end @layer

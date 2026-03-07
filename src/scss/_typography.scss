@@ -53,6 +53,7 @@ In this file:
     --font-size-md: calc(var(--font-size-sm) * var(--type-scale));
     --font-size-rg: calc(var(--font-size-md) * var(--type-scale)); // Body
     --font-size-lg: calc(var(--font-size-rg) * var(--type-scale));
+    --font-size-xl: calc(var(--font-size-lg) * var(--type-scale));
 
     // Header Font Sizes
 
@@ -236,6 +237,10 @@ In this file:
 
         lg: (
             size: var(--font-size-lg)
+        ),
+
+        xl: (
+            size: var(--font-size-xl)
         ),
         
     );

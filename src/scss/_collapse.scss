@@ -2,14 +2,22 @@
 
 In this file:
 
-// A. Button Aria Expanded
-// B. Variables
-// C. Collapse Utility
+// A. Modules
+// B. Button Aria Expanded
+// C. Variables
+// D. Collapse Utility
 
 */
 
 //////////////////////////////////////////////
-// A. Button Aria Expanded
+// A. Modules
+//////////////////////////////////////////////
+
+@use 'sass:map';
+@use './breakpoint';
+
+//////////////////////////////////////////////
+// B. Button Aria Expanded
 //////////////////////////////////////////////
 
 @layer component {
@@ -21,7 +29,7 @@ In this file:
 } // end @layer
 
 //////////////////////////////////////////////
-// B. Variables
+// C. Variables
 //////////////////////////////////////////////
 
 :root {
@@ -29,7 +37,7 @@ In this file:
 }
 
 //////////////////////////////////////////////
-// C. Collapse Utility
+// D. Collapse Utility
 //////////////////////////////////////////////
 
 @layer utility {
@@ -107,6 +115,23 @@ In this file:
                     @media (prefers-reduced-motion: reduce) {
                         transition: none;
                     }
+                }
+            }
+        }
+    }
+
+    // Shown Breakpoints
+
+    @each $breakpoint in map.keys(breakpoint.$breakpoints) {
+        @include breakpoint.breakpoint-up($breakpoint) {
+            $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
+
+            .shown#{$mod} {
+                grid-template-rows: 1fr;
+                visibility: visible;
+
+                @supports (interpolate-size: allow-keywords) {
+                    height: auto;
                 }
             }
         }
