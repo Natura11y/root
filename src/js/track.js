@@ -78,7 +78,6 @@ export default class Track {
         }
 
         this.#toggleControlsVisibility(trackElement, pages.length);
-        this.#updateTabIndexes(trackElement, 0);
     }
 
     #updatePagination(trackElement, activeIndex) {
@@ -93,23 +92,6 @@ export default class Track {
         }
 
         this.#updateLiveRegion(trackElement, activeIndex, trackElement.pages.length);
-    }
-
-    // Use getFocusableElements to update all focusable elements' tabindex and aria-hidden
-    #updateTabIndexes(trackElement, activeIndex) {
-        trackElement.pages.forEach((page, pageIndex) => {
-            page.forEach(panel => {
-                const focusableElements = getFocusableElements(panel);  // Get all focusable elements in the panel
-
-                // Set tabindex and aria-hidden based on visibility
-                const isVisible = pageIndex === activeIndex;
-                panel.setAttribute('aria-hidden', isVisible ? 'false' : 'true');  // Update aria-hidden
-
-                focusableElements.forEach(el => {
-                    el.setAttribute('tabindex', isVisible ? '0' : '-1');  // Enable or disable based on visibility
-                });
-            });
-        });
     }
 
     // Primary method for navigating to a specific page index
@@ -228,20 +210,12 @@ export default class Track {
 
         const tabbingObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                const focusableElements = getFocusableElements(entry.target);  // Get all focusable elements in the panel
-
-                // Set tabindex and aria-hidden based on visibility
-                const isVisible = entry.isIntersecting;
-                entry.target.setAttribute('aria-hidden', isVisible ? 'false' : 'true');  // Update aria-hidden
-
-                focusableElements.forEach(el => {
-                    el.setAttribute('tabindex', isVisible ? '0' : '-1');  // Enable or disable based on visibility
-                });
+                entry.target.toggleAttribute('inert', !entry.isIntersecting);
             });
         }, {
             root: trackPanels,
-            threshold: 0.5, // Only fully visible panels should be tabbable
-            rootMargin: `0px -${panelPeeking}px`, // Simplified negative root margin for both sides
+            threshold: 0.5,
+            rootMargin: `0px -${panelPeeking}px`,
         });
 
         trackElement.pages.flat().forEach(panel => {
