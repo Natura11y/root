@@ -157,6 +157,7 @@ In this file:
             align-self: stretch;
         }
 
+
         [class*="__logo"] a {
             margin-inline-start : var(--main-menu-padding-x);
         }
@@ -179,7 +180,10 @@ In this file:
         [class*="__search"] {
             @extend .collapse;
 
-            padding: var(--nav-gap);
+            > * {
+                padding-inline: var(--main-menu-padding-x);
+                padding-block: var(--main-menu-padding-y);
+            }
 
             border-block-start-width: var(--border-width);
             border-block-start-style: var(--border-style);
@@ -327,10 +331,6 @@ In this file:
                     visibility: visible !important;
                 }
 
-                [class*="__search"] {
-                    padding: unset;
-                }
-
                 [class*="__search"],
                 [class*="__nav"], 
                 [class*="__nav"] > ul {
@@ -416,6 +416,10 @@ In this file:
                             @include hover-safe-zone;
                         }
                     }
+                }
+
+                [class*="__search"] > *{
+                    padding-inline: unset;
                 }
             }
 

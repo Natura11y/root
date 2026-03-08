@@ -29,7 +29,7 @@
 
         <header class="margin-x-auto wide--lg">
 
-            <div class="main-menu--bar--lg padding-y-2">
+            <div class="main-menu--bar--lg">
 
                 <div class="main-menu__logo">
                     <a href="#" title="Home" data-logo="brand">
@@ -46,10 +46,26 @@
 
                 <nav class="main-menu__nav" id="main-menu" aria-label="Main Menu">
                     <ul>
-                        <li><a href="#" aria-current="page">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Work</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li>
+                            <a href="#">
+                                Link
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Link
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Link
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Link
+                            </a>
+                        </li>
                     </ul>
                 </nav>
 
@@ -59,27 +75,37 @@
                         data-toggle="collapse"
                         aria-label="Menu"
                         aria-controls="main-menu"
+                        data-target-close="main-menu-search"
                         aria-expanded="false"
                     >
                         <span class="icon icon-menu"></span>
                     </button>
+                    <button
+                        class="button button--icon-only"
+                        data-toggle="collapse"
+                        aria-label="Search"
+                        aria-controls="main-menu-search"
+                        data-target-close="main-menu"
+                        aria-expanded="false"
+                    >
+                        <span class="icon icon-search"></span>
+                    </button>
                 </div>
+
+                <form class="main-menu__search" id="main-menu-search" role="search" data-focus-first>
+                    <div class="form-entry" aria-label="Search">
+                        <div class="form-entry__field">
+                            <span class="form-entry__field__input">
+                                <input type="text" name="search">
+                                <button class="button">Search</button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
 
             </div>
 
         </header>
-
-        <!-- Notice Banner -->
-
-        <div class="alert " role="alert">
-            <div class="alert__title">
-                <span class="icon icon-info" aria-hidden="true"></span>
-                <span class="alert__title__text">Official Notice</span>
-            </div>
-            <div class="alert__description">
-                <p>This is a placeholder announcement. Use this space for important updates, alerts, or time-sensitive information relevant to your agency or program.</p>
-            </div>
-        </div>
 
         <!-- Main Content -->
 
@@ -90,7 +116,7 @@
             <div class="backdrop backdrop--stack--lg theme-dark">
 
                 <div class="backdrop__media">
-                    <img class="opacity-30" src="https://placehold.co/1500x500/4b5563/6b7280?text=Landing&font=oswald" alt="">
+                    <img class="opacity-30 gradient-mask-bottom" src="https://placehold.co/1500x500/4b5563/6b7280?text=Landing&font=oswald" alt="">
                 </div>
 
                 <div class="backdrop__cover">
@@ -110,9 +136,14 @@
 
             <!-- Stats -->
 
-            <section class="theme-light padding-y-4" aria-labelledby="stats-heading">
-                <h2 id="stats-heading" class="screen-reader-only">Program Statistics</h2>
+            <section class="subtle-fill-1 padding-y-4" aria-labelledby="stats-heading">
+                
+                <h2 class="screen-reader-only" id="stats-heading">
+                    Program Statistics
+                </h2>
+                
                 <div class="container wide">
+                    
                     <div class="grid grid--column-2 grid--column-4--md gap-4 text-align-center">
                         <div>
                             <p class="h1 margin-bottom-1">50</p>
@@ -132,20 +163,23 @@
                         </div>
                     </div>
                 </div>
+            
             </section>
 
-            <!-- Features -->
+            <!-- The Latest -->
 
             <section aria-labelledby="features-heading">
 
                 <div class="container wide margin-y-5">
 
-                    <h2 id="features-heading" class="text-align-center margin-bottom-4">Features</h2>
+                    <h2 class="text-align-center margin-bottom-4" id="features-heading">
+                        The Latest
+                    </h2>
 
                     <div class="grid grid--column-3--md gap-4">
 
-                        <div class="card">
-                            <div class="card__head">
+                        <a class="card theme- drop-shadow-2" href="#1">
+                            <div class="card__media ">
                                 <img src="https://placehold.co/800x400/4b5563/6b7280?text=Feature+Image&font=oswald" alt="">
                             </div>
                             <div class="card__body">
@@ -153,35 +187,35 @@
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                             </div>
                             <div class="card__foot">
-                                <a href="#" class="button button--outline">Learn More</a>
+                                <span class="icon icon-arrow-right"></span>
                             </div>
-                        </div>
+                        </a>
 
-                        <div class="card">
-                            <div class="card__head">
+                        <a class="card theme- drop-shadow-2" href="#1">
+                            <div class="card__media ">
                                 <img src="https://placehold.co/800x400/4b5563/6b7280?text=Feature+Image&font=oswald" alt="">
                             </div>
                             <div class="card__body">
-                                <h3>Feature Two</h3>
+                                <h3>Feature One</h3>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                             </div>
                             <div class="card__foot">
-                                <a href="#" class="button button--outline">Learn More</a>
+                                <span class="icon icon-arrow-right"></span>
                             </div>
-                        </div>
+                        </a>
 
-                        <div class="card">
-                            <div class="card__head">
+                        <a class="card theme- drop-shadow-2" href="#1">
+                            <div class="card__media ">
                                 <img src="https://placehold.co/800x400/4b5563/6b7280?text=Feature+Image&font=oswald" alt="">
                             </div>
                             <div class="card__body">
-                                <h3>Feature Three</h3>
+                                <h3>Feature One</h3>
                                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                             </div>
                             <div class="card__foot">
-                                <a href="#" class="button button--outline">Learn More</a>
+                                <span class="icon icon-arrow-right"></span>
                             </div>
-                        </div>
+                        </a>
 
                     </div>
 
