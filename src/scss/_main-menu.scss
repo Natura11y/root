@@ -180,14 +180,13 @@ In this file:
         [class*="__search"] {
             @extend .collapse;
 
+            border-block-start: var(--border-width) var(--border-style) var(--border-color);
+            
             > * {
                 padding-inline: var(--main-menu-padding-x);
                 padding-block: var(--main-menu-padding-y);
             }
 
-            border-block-start-width: var(--border-width);
-            border-block-start-style: var(--border-style);
-            border-block-start-color: inherit;
         }
     }
 
