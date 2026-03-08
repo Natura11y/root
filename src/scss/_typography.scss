@@ -88,12 +88,6 @@ In this file:
     --blockquote-border-width: var(--border-width);
     --blockquote-border-color: currentColor;
     --blockquote-font-size: 1.25em;
-
-    // Tag
-
-    --tag-padding-x: 0.5em;
-    --tag-padding-y: 0.125em;
-    --tag-background-color: color-mix(in srgb, currentColor 10%, transparent);
 }
 
 //////////////////////////////////////////////
@@ -465,29 +459,6 @@ $headers: (
             margin-block-end: 0.5em;
         }
 
-    }
-
-} // end @layer
-
-//////////////////////////////////////////////
-// H. Tag Utility
-//////////////////////////////////////////////
-
-@layer utility {
-
-    .tag {
-        display: inline-block;
-
-        padding-block: var(--tag-padding-y);
-        padding-inline: var(--tag-padding-x);
-
-        border-radius: var(--border-radius-pill);
-
-        font-size: var(--font-size-sm);
-        font-weight: var(--font-weight-bold);
-        line-height: normal;
-
-        background-color: var(--tag-background-color);
     }
 
 } // end @layer

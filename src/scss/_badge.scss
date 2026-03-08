@@ -1,0 +1,44 @@
+/*
+
+In this file:
+
+// A. Variables
+// B. Badge Utility
+
+*/
+
+//////////////////////////////////////////////
+// A. Variables
+//////////////////////////////////////////////
+
+:root {
+    --badge-padding-x: 0.75em;
+    --badge-padding-y: 0.125em;
+    --badge-background-color: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+//////////////////////////////////////////////
+// B. Badge Utility
+//////////////////////////////////////////////
+
+@layer utility {
+
+    .badge {
+        display: inline-block;
+
+        padding-block: var(--badge-padding-y);
+        padding-inline: var(--badge-padding-x);
+
+        border-radius: var(--border-radius-pill);
+
+        font-size: var(--font-size-sm);
+
+        font-weight: var(--font-weight-bold);
+        line-height: normal;
+
+        &:not([class*="theme-"]) {
+            background-color: var(--badge-background-color);
+        }
+    }
+
+} // end @layer
