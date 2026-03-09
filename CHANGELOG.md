@@ -4,6 +4,39 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [5.0.0] — 2026-03-09
+
+### New Components
+
+#### Badge
+- New component: `_badge.scss`
+- Class: `.badge`
+- CSS variables: `--badge-font-size`, `--badge-padding-x`, `--badge-padding-y`, `--badge-border-radius`
+
+#### Nested Nav
+- New component: `_nested-nav.scss`
+- Class: `.nested-nav`
+- Supports up to three levels of indented navigation with bordered structure and active indicator bar
+- CSS variables: `--nav-nested-padding-x`, `--nav-nested-padding-y`, `--nav-nested-parent-font-size`, `--nav-nested-child-font-size`, `--nav-nested-indicator-width`, `--nav-nested-indicator-color`
+
+---
+
+### Templates
+
+- Added landing page template
+- Added two-column layout template
+- Added three-column layout template
+- Added form page template
+
+---
+
+### Bug Fixes & Polish
+
+- Fixed CSS variable name: `--nav-nested-decendent-font-size` → `--nav-nested-child-font-size`
+- `package.json` `main` field updated to point to `dist/natura11y.js`
+
+---
+
 ## [5.0.0-alpha.1] — 2026-03-05
 
 ### New Components
