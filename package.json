@@ -8,7 +8,7 @@
 		"build": "webpack --config webpack.prod.js"
 	},
 	"style": "dist/natura11y.css",
-	"main": "src/index.js",
+	"main": "dist/natura11y.js",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/cavidano/natura11y.git"

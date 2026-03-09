@@ -130,6 +130,8 @@ In this file:
                 grid-template-rows: 1fr;
                 visibility: visible;
 
+                overflow: unset;
+
                 @supports (interpolate-size: allow-keywords) {
                     height: auto;
                 }

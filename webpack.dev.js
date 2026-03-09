@@ -18,6 +18,7 @@ const devPages = {
     'Article': 'article',
     'Backdrop': 'backdrop',
     'Border': 'border',
+    'Badge': 'badge',
     'Breadcrumb': 'breadcrumb',
     'Button': 'button',
     'Card': 'card',
@@ -42,7 +43,7 @@ const devPages = {
 }
 
 const devDir = './dist/html';
-const devPage = `${devPages.Typography}.html`;
+const devPage = `${devPages.Badge}.html`;
 
 module.exports = merge(common, {
     mode: 'development',

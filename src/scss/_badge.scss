@@ -12,9 +12,18 @@ In this file:
 //////////////////////////////////////////////
 
 :root {
-    --badge-padding-x: 0.75em;
-    --badge-padding-y: 0.125em;
+    --badge-padding-x: 1.25em;
+    --badge-padding-y: 0.5em;
+
     --badge-background-color: color-mix(in srgb, currentColor 10%, transparent);
+
+    --badge-border-radius: var(--border-radius-pill);
+
+    --badge-font-size: var(--font-size-sm);
+    --badge-font-weight: var(--font-weight-bold);
+    --badge-font-family: var(--body-font-family);
+
+    --badge-gap: 0.25em;
 }
 
 //////////////////////////////////////////////
@@ -24,20 +33,53 @@ In this file:
 @layer utility {
 
     .badge {
-        display: inline-block;
 
-        padding-block: var(--badge-padding-y);
-        padding-inline: var(--badge-padding-x);
+        display: inline-flex;
 
-        border-radius: var(--border-radius-pill);
+        width: fit-content;
 
-        font-size: var(--font-size-sm);
+        padding: var(--badge-padding-y) var(--badge-padding-x);
 
-        font-weight: var(--font-weight-bold);
+        border-radius: var(--badge-border-radius);
+
+        font-size: var(--badge-font-size);
+        font-family: var(--badge-font-family);
+        font-weight: var(--badge-font-weight);
+        
         line-height: normal;
 
         &:not([class*="theme-"]) {
             background-color: var(--badge-background-color);
+        }
+
+        &:has([class*="icon-"]) {
+            --badge-padding-x: 1em;
+
+            align-items: center;
+
+            gap: var(--badge-gap);
+        }
+    }
+
+    :is(a, button).badge {
+        --_badge-opacity-hover: 0.75;
+
+        transition: opacity 0.5s ease-out;
+
+        &:hover,
+        &:focus {
+            opacity: var(--_badge-opacity-hover);
+        }
+    }
+
+    :is(a, button):has(> .badge) {
+        display: flex;
+        align-items: center;
+
+        gap: var(--badge-gap);
+
+        .badge {
+            margin-block: calc(var(--badge-padding-y) * -1);
         }
     }
 
