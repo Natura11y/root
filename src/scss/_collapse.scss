@@ -126,7 +126,7 @@ In this file:
         @include breakpoint.breakpoint-up($breakpoint) {
             $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
 
-            .shown#{$mod} {
+            .collapse.shown#{$mod} {
                 grid-template-rows: 1fr;
                 visibility: visible;
 
