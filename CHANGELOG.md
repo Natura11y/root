@@ -4,6 +4,21 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [5.0.1] — 2026-03-10
+
+### Bug Fixes
+
+#### Collapse
+- Scoped breakpoint override from `.shown` to `.collapse.shown` — the unscoped rule was overriding `.shown` on unrelated components (e.g. `modal--scroll-all` lost its `overflow-y: scroll` behavior)
+
+#### Flyout
+- Added `user-select: none` to `.flyout :is(a, button)` — prevents browser text-selection artifacts on flyout links and controls during rapid open/close interactions
+
+#### Button
+- Added `user-select: none` to `.button` — prevents accidental text selection on interactive button controls
+
+---
+
 ## [5.0.0] — 2026-03-09
 
 ### New Components
