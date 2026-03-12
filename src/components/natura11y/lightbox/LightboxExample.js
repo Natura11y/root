@@ -4,24 +4,20 @@ import { LightboxContext } from '../../../context/LightboxContext';
 
 import LightboxButton from './LightboxButton';
 
-import LocalImage from './images/eberhard-grossgasteiger-yF9Tm4qrYmM-unsplash.jpg';
-import LocalVideoThumb from './images/pexels-dmitry-varennikov-5527698-thumbnail.jpg';
-import LocalVideo from './images/pexels-dmitry-varennikov-5527698-1080p.mp4';
-
 const LightboxExample = () => {
   const { addToMediaArray } = useContext(LightboxContext);
 
-  const localImageMedia = {
+  const imageMedia1 = {
     utilities: 'lightbox-thumbnail',
     lbType: 'image',
-    lbSrc: LocalImage,
+    lbSrc: 'https://placehold.co/1500x750',
     lbCaption: 'Caption for example 1',
   };
 
-  const localVideoMedia = {
+  const imageMedia2 = {
     utilities: 'lightbox-thumbnail',
-    lbType: 'video',
-    lbSrc: LocalVideo,
+    lbType: 'image',
+    lbSrc: 'https://placehold.co/1500x750',
     lbCaption: 'Caption for example 2',
   };
 
@@ -40,25 +36,22 @@ const LightboxExample = () => {
   };
 
   useEffect(() => {
-    addToMediaArray(localImageMedia);
-    addToMediaArray(localVideoMedia);
+    addToMediaArray(imageMedia1);
+    addToMediaArray(imageMedia2);
     addToMediaArray(youtubeMedia);
     addToMediaArray(vimeoMedia);
 
-    // Clean up on unmount
-    return () => {
-      // You may want to update your context function to specifically remove items if necessary
-    };
+    return () => {};
   }, []);
 
   return (
     <div className='container narrow grid gap-4'>
-      <LightboxButton {...localImageMedia}>
-        <img src={LocalImage} alt='Placeholder' />
+      <LightboxButton {...imageMedia1}>
+        <img src='https://placehold.co/1500x750' alt='Placeholder' />
       </LightboxButton>
 
-      <LightboxButton {...localVideoMedia}>
-        <img src={LocalVideoThumb} alt='Placeholder' />
+      <LightboxButton {...imageMedia2}>
+        <img src='https://placehold.co/1500x750' alt='Placeholder' />
       </LightboxButton>
 
       <LightboxButton {...youtubeMedia}>

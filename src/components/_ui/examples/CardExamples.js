@@ -37,7 +37,7 @@ const CardExamples = () => (
 
         <Card horizontal utilities='theme-canvas border'>
             <Card.Media>
-                <img src='https://picsum.photos/seed/card/400/300' alt='' />
+                <img src='https://placehold.co/600x300' alt='' />
             </Card.Media>
             <Card.Head>Category</Card.Head>
             <Card.Body>
