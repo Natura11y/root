@@ -2,58 +2,68 @@ import { useState, useRef, useEffect, useCallback, useId } from 'react';
 
 import classNames from 'classnames';
 
-const prefersReducedMotion = () =>
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+import { getFocusableElements } from 'natura11y/src/js/utilities/focus';
 
 const useCollapse = (panelRef) => {
     const [isOpen, setIsOpen] = useState(false);
+    const isFirstRender = useRef(true);
 
-    const open = useCallback(() => {
+    useEffect(() => {
         const el = panelRef.current;
         if (!el) return;
 
-        if (prefersReducedMotion()) {
-            el.classList.add('shown');
-            setIsOpen(true);
-            return;
+        // First render: set inert, use ResizeObserver to lift it when visible at desktop
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+            el.inert = true;
+            const observer = new ResizeObserver(() => {
+                if (getComputedStyle(el).visibility === 'visible') {
+                    el.inert = false;
+                    observer.unobserve(el);
+                }
+            });
+            observer.observe(el);
+            return () => observer.disconnect();
         }
 
-        el.setAttribute('data-active', '');
-        requestAnimationFrame(() => {
+        if (isOpen) {
+            el.inert = false;
+            el.setAttribute('data-active', '');
             el.classList.add('shown');
-            setIsOpen(true);
-        });
-    }, [panelRef]);
-
-    const close = useCallback(() => {
-        const el = panelRef.current;
-        if (!el) return;
-
-        if (prefersReducedMotion()) {
+        } else {
             el.classList.remove('shown');
-            el.removeAttribute('data-active');
-            setIsOpen(false);
-            return;
+            el.inert = true;
+
+            const observer = new ResizeObserver(() => {
+                if (getComputedStyle(el).visibility === 'visible') {
+                    el.inert = false;
+                    observer.unobserve(el);
+                }
+            });
+            observer.observe(el);
+
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reducedMotion) {
+                el.removeAttribute('data-active');
+                return () => observer.disconnect();
+            }
+
+            const onEnd = (e) => {
+                if (!['height', 'grid-template-rows'].includes(e.propertyName)) return;
+                el.removeAttribute('data-active');
+                el.removeEventListener('transitionend', onEnd);
+            };
+            el.addEventListener('transitionend', onEnd);
+            return () => {
+                el.removeEventListener('transitionend', onEnd);
+                observer.disconnect();
+            };
         }
+    }, [isOpen, panelRef]);
 
-        el.classList.remove('shown');
-
-        const onEnd = (e) => {
-            if (e.propertyName !== 'grid-template-rows' && e.propertyName !== 'height') return;
-            el.removeEventListener('transitionend', onEnd);
-            el.removeAttribute('data-active');
-        };
-        el.addEventListener('transitionend', onEnd);
-
-        setIsOpen(false);
-    }, [panelRef]);
-
-    const toggle = useCallback(() => {
-        const el = panelRef.current;
-        if (!el) return;
-        el.classList.contains('shown') ? close() : open();
-    }, [panelRef, open, close]);
+    const open = useCallback(() => setIsOpen(true), []);
+    const close = useCallback(() => setIsOpen(false), []);
+    const toggle = useCallback(() => setIsOpen(prev => !prev), []);
 
     return { isOpen, open, close, toggle };
 };
@@ -77,11 +87,14 @@ const MainMenu = ({
 
     const navRef = useRef(null);
     const searchFormRef = useRef(null);
+    const menuToggleRef = useRef(null);
+    const keyboardNavRef = useRef(false);
 
     const nav = useCollapse(navRef);
     const searchPanel = useCollapse(searchFormRef);
 
-    const handleMenuToggle = () => {
+    const handleMenuToggle = (e) => {
+        keyboardNavRef.current = e.detail === 0;
         if (!nav.isOpen && searchPanel.isOpen) searchPanel.close();
         nav.toggle();
     };
@@ -91,30 +104,42 @@ const MainMenu = ({
         searchPanel.toggle();
     };
 
-    // Focus first focusable element after search panel finishes opening (bar variant only)
+    // Focus nav on keyboard-activated open
+    useEffect(() => {
+        if (!nav.isOpen || !navRef.current) return;
+        if (!keyboardNavRef.current) return;
+        const el = navRef.current;
+        el.tabIndex = -1;
+        el.focus();
+        keyboardNavRef.current = false;
+    }, [nav.isOpen]);
+
+    // Escape key: close nav and return focus to toggle button
+    useEffect(() => {
+        if (!nav.isOpen || !navRef.current) return;
+        const el = navRef.current;
+        const handler = (e) => {
+            if (e.code === 'Escape') {
+                nav.close();
+                menuToggleRef.current?.focus();
+            }
+        };
+        el.addEventListener('keydown', handler);
+        return () => el.removeEventListener('keydown', handler);
+    }, [nav.isOpen, nav]);
+
+    // Focus first element after search panel opens
     useEffect(() => {
         if (!searchPanel.isOpen || !searchFormRef.current) return;
-
         const el = searchFormRef.current;
-
-        const focusFirst = () => {
-            const first = el.querySelector(
-                'input, button, select, textarea, [tabindex]:not([tabindex="-1"])'
-            );
-            first?.focus();
-        };
-
+        const focusFirst = () => getFocusableElements(el)[0]?.focus();
         const onTransitionEnd = (e) => {
             if (e.propertyName !== 'grid-template-rows' && e.propertyName !== 'height') return;
             el.removeEventListener('transitionend', onTransitionEnd);
             focusFirst();
         };
-
         el.addEventListener('transitionend', onTransitionEnd);
-
-        // Fallback: if no transition fires (e.g. reduced motion), focus immediately
         requestAnimationFrame(focusFirst);
-
         return () => el.removeEventListener('transitionend', onTransitionEnd);
     }, [searchPanel.isOpen]);
 
@@ -154,6 +179,7 @@ const MainMenu = ({
                 </button>
             )}
             <button
+                ref={menuToggleRef}
                 className="button button--icon-only"
                 aria-label="Menu"
                 aria-controls={navId}

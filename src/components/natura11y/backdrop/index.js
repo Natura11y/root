@@ -21,6 +21,7 @@ const BackdropVideo = ({
 	);
 
 	// Sync play/pause state to the video element
+	
 	useEffect(() => {
 		const video = videoRef.current;
 		if (!video) return;
@@ -65,6 +66,7 @@ const BackdropVideo = ({
 
 			<div className='backdrop__media'>
 				<video
+					className='opacity-30 gradient-mask-bottom'
 					ref={videoRef}
 					muted
 					loop
