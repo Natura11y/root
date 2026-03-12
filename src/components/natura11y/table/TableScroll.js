@@ -1,8 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 
-import Table from './';
-
-const TableScroll = () => {
+const TableScroll = ({ children }) => {
 
     const [scrollable, setScrollable] = useState(false);
     const [isScrolling, setIsScrolling] = useState(false);
@@ -13,16 +11,12 @@ const TableScroll = () => {
     const checkWidths = useCallback(() => {
         const maxWidth = scrollElement.current.offsetWidth;
         const scrollWidth = scrollTarget.current.scrollWidth;
-
         setScrollable(scrollWidth > maxWidth);
     }, []);
 
     useEffect(() => {
         window.addEventListener('resize', checkWidths);
-
-        return () => {
-            window.removeEventListener('resize', checkWidths);
-        };
+        return () => window.removeEventListener('resize', checkWidths);
     }, [checkWidths]);
 
     useEffect(() => {
@@ -30,24 +24,23 @@ const TableScroll = () => {
     }, [checkWidths]);
 
     const scrollHandler = () => {
-        const scrollPosition = scrollTarget.current.scrollLeft;
-        setIsScrolling(scrollPosition > 1);
-    }
+        setIsScrolling(scrollTarget.current.scrollLeft > 1);
+    };
 
     return (
         <div
             ref={scrollElement}
             className='table-scroll'
-            data-scroll={scrollable ? true : false}
+            data-scroll={scrollable}
         >
             <small className='table-scroll__help'>Scroll to see whole table</small>
             <div
                 ref={scrollTarget}
                 className='table-scroll__container'
-                data-scrolling={isScrolling ? true : false}
+                data-scrolling={isScrolling}
                 onScroll={scrollHandler}
             >
-                <Table />
+                {children}
             </div>
         </div>
     );

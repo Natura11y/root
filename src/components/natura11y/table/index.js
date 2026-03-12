@@ -1,66 +1,38 @@
 import classNames from 'classnames';
 
-import { tableData } from './tableData';
-
 const Table = ({
-  ref,
-  utilities = null
+    ref,
+    caption = null,
+    headers = [],
+    rows = [],
+    utilities = null
 }) => {
-
-  const {
-      headers,
-      rows
-  } = tableData;
-
-  const tableHeaders = headers.map((header, index) => (
-    <th key={index} scope='col'>
-      {header}
-    </th>
-  ));
-
-  const tableRows = rows.map((row, index) => {
-
-    // convert object to array
-    const rowData = Object.values(row);
-
-    const tableCells = rowData.map((cell, index) => (
-      <td key={index} data-header={headers[index]}>
-        {cell}
-      </td>
-    ));
+    const tableClasses = classNames('table', utilities);
 
     return (
-      <tr key={index}>
-        {tableCells}
-        <td data-header='Map' className='text-align-right'>
-          <a href={`#${index}`}>Map View</a>
-        </td>
-      </tr>
+        <table ref={ref} className={tableClasses}>
+            {caption && <caption>{caption}</caption>}
+            <thead>
+                <tr>
+                    {headers.map((header, index) => (
+                        <th key={index} scope='col'>{header}</th>
+                    ))}
+                </tr>
+            </thead>
+            <tbody>
+                {rows.map((row, rowIndex) => {
+                    const cells = Object.values(row);
+                    return (
+                        <tr key={rowIndex}>
+                            {cells.map((cell, cellIndex) => (
+                                <td key={cellIndex} data-header={headers[cellIndex]}>{cell}</td>
+                            ))}
+                        </tr>
+                    );
+                })}
+            </tbody>
+        </table>
     );
-  });
-
-	const tableClasses = classNames('table', utilities);
-
-  return (
-    <table ref={ref} className={tableClasses}>
-
-      <caption>
-        {tableData.caption}
-      </caption>
-
-      <thead>
-        <tr>
-          {tableHeaders}
-          <th scope='col' className='text-align-right'>Map View</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {tableRows}
-      </tbody>
-
-    </table>
-  );
 };
 
 export default Table;
