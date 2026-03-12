@@ -5,21 +5,21 @@ const BadgeExamples = () => (
 
         <div className='flex-row gap-2 flex-wrap'>
             <Badge>Default</Badge>
-            <Badge theme='primary'>Primary</Badge>
-            <Badge theme='secondary'>Secondary</Badge>
-            <Badge theme='dark'>Dark</Badge>
+            <Badge utilities='theme-primary'>Primary</Badge>
+            <Badge utilities='theme-secondary'>Secondary</Badge>
+            <Badge utilities='theme-dark'>Dark</Badge>
         </div>
 
         <div className='flex-row gap-2 flex-wrap'>
             <Badge iconHandle='bell'>Default</Badge>
-            <Badge iconHandle='bell' theme='primary'>Primary</Badge>
-            <Badge iconHandle='bell' theme='secondary'>Secondary</Badge>
-            <Badge iconHandle='bell' theme='dark'>Dark</Badge>
+            <Badge iconHandle='bell' utilities='theme-primary'>Primary</Badge>
+            <Badge iconHandle='bell' utilities='theme-secondary'>Secondary</Badge>
+            <Badge iconHandle='bell' utilities='theme-dark'>Dark</Badge>
         </div>
 
         <div className='flex-row gap-2 flex-wrap'>
             <Badge tag='a' href='#1' iconHandle='bell'>Link Badge</Badge>
-            <Badge tag='button' iconHandle='star' theme='primary'>Button Badge</Badge>
+            <Badge tag='button' iconHandle='star' utilities='theme-primary'>Button Badge</Badge>
         </div>
 
     </div>

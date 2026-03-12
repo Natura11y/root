@@ -136,7 +136,6 @@ const Accordion = ({ openDefault = null, headingLevel = null }) => {
 		</AccordionItem>
 	));
 	
-
 	return (
 		<div
 			className='accordion'
