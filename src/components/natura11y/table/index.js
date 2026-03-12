@@ -39,12 +39,7 @@ const Table = ({
     );
   });
 
-	const tableClasses = classNames(
-		'table',
-		{
-			[`${utilities}`] : utilities !== null
-		}
-	);
+	const tableClasses = classNames('table', utilities);
 
   return (
     <table ref={ref} className={tableClasses}>

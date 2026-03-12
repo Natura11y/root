@@ -18,17 +18,11 @@ const ButtonIconOverText = ({
 	attributes = {},
 }) => {
 
-	const buttonClasses = classNames('button', 'button--icon-over-text', {
-		[`${utilities}`]: utilities !== null,
-	});
+	const buttonClasses = classNames('button', 'button--icon-over-text', utilities);
 
-	const iconClasses = classNames('button__icon', {
-		[`${iconUtilities}`]: iconUtilities !== null,
-	});
+	const iconClasses = classNames('button__icon', iconUtilities);
 
-	const textClasses = classNames('button__text', {
-		[`${textUtilities}`]: textUtilities !== null,
-	});
+	const textClasses = classNames('button__text', textUtilities);
 
 	const buttonContent = (
 		<>

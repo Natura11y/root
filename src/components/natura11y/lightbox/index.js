@@ -1,5 +1,7 @@
 import { useContext } from 'react';
 
+import classNames from 'classnames';
+
 import { LightboxContext } from '../../../context/LightboxContext';
 
 import ButtonIconOnly from '../button/ButtonIconOnly';
@@ -60,7 +62,7 @@ const Lightbox = () => {
 
   return (
     <div
-      className='lightbox'
+      className={classNames('lightbox', { 'shown': isOpen })}
       ref={lbContainer}
       aria-hidden={!isOpen}
       tabIndex={isOpen ? 0 : -1}

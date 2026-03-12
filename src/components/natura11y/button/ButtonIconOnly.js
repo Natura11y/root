@@ -18,8 +18,7 @@ const ButtonIconOnly = ({
 
 	const buttonClasses = classNames('button', 'button--icon-only', {
 		'button--outline': outline,
-		[`${utilities}`]: utilities !== null,
-	});
+	}, utilities);
 
 	const Component = {
 		button: (

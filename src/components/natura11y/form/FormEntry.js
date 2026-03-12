@@ -28,8 +28,8 @@ const FormEntry = ({
 			'is-invalid': showError,
 			'has-value': hasValue,
 			'is-focused': isFocused && entryType !== 'groupRadio' && entryType !== 'groupCheck',
-			[`${utilities}`]: utilities !== null
-		}
+		},
+		utilities
 	);
 
 	const floatClass = classNames({

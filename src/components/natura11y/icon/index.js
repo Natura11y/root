@@ -6,13 +6,7 @@ const Icon = ({
     utilities = null
 }) => {
 
-    const iconClasses = classNames(
-        'icon',
-        [`icon-${iconHandle}`],
-        {
-            [`${utilities}`] : utilities !== null
-        }
-    );
+    const iconClasses = classNames('icon', `icon-${iconHandle}`, utilities);
 
 	return (
         <span

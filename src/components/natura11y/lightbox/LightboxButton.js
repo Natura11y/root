@@ -1,7 +1,5 @@
 import { useContext } from 'react';
 
-import classNames from 'classnames';
-
 import { LightboxContext } from '../../../context/LightboxContext';
 
 const LightboxButton = (props) => {
@@ -16,13 +14,9 @@ const LightboxButton = (props) => {
 
   const { handleLightboxOpen } = useContext(LightboxContext);
 
-  const lightboxButtonClasses = classNames({
-    [`${utilities}`]: utilities !== null,
-  });
-
   return (
     <button
-      className={lightboxButtonClasses}
+      className={utilities || undefined}
       data-lightbox={lbType}
       onClick={() => handleLightboxOpen(lbType, lbSrc, lbCaption)}
     >
