@@ -30,8 +30,8 @@ const Modal = ({
         {
             'modal--scroll-all': scrollAll,
             'shown': isOpen,
-            [`${modalUtilities}`]: modalUtilities !== null
-        }
+        },
+        modalUtilities
     );
 
     const modalContentClasses = classNames(
@@ -39,8 +39,8 @@ const Modal = ({
         'border-radius-2',
         'box-shadow-3',
         {
-            [`${modalContentUtilities}`]: modalContentUtilities !== null
-        }
+        },
+        modalContentUtilities
     );
 
     const handleKeyDown = (event) => {

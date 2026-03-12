@@ -27,8 +27,7 @@ const Button = (props) => {
 
 	const buttonClasses = classNames('button', {
 		'button--outline': outline,
-		[`${utilities}`]: utilities !== null,
-	});
+	}, utilities);
 
 	const buttonContents = (
 		<>

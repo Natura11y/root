@@ -2,6 +2,12 @@
 export { default as Accordion } from './accordion';
 export { default as AccordionItem } from './accordion/AccordionItem';
 
+export { default as Badge } from './badge';
+
+export { default as Breadcrumb } from './breadcrumb';
+
+export { default as Card, CardHead, CardBody, CardFoot, CardMedia } from './card';
+
 export { default as BackdropVideo } from './backdrop';
 
 export { default as Collapse } from './collapse';
@@ -33,6 +39,10 @@ export { default as ModalParent } from './modal/ModalParent';
 export { default as Brand } from './main-menu/Brand';
 export { default as Dropdown } from './dropdown';
 export { default as MainMenu } from './main-menu';
+
+export { default as NestedNav } from './nested-nav';
+
+export { default as Pagination } from './pagination';
 
 export { default as Tabs } from './tab';
 export { default as TabPanel } from './tab/TabPanel';

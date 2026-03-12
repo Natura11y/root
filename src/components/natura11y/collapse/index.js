@@ -70,9 +70,7 @@ const Collapse = ({
 		return () => el.removeEventListener('keydown', handler);
 	}, [isOpen, onClose]);
 
-	const collapseClasses = classNames('collapse', {
-		[`${utilities}`]: utilities !== null,
-	});
+	const collapseClasses = classNames('collapse', utilities);
 
 	return (
 		<div

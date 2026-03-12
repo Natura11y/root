@@ -183,7 +183,7 @@ const Flyout = (props) => {
     const containerClasses = classNames(
         'flyout',
         { 'shown': isOpen },
-        { [`${utilities}`]: utilities !== null }
+        utilities
     );
 
     return (

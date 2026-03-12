@@ -23,20 +23,36 @@ const App = () => {
 			slug: 'accordion'
 		},
 		{
+			title: 'Alert',
+			slug: 'alert'
+		},
+		{
 			title: 'Backdrop',
 			slug: 'backdrop'
 		},
 		{
-			title: 'Alert',
-			slug: 'alert'
+			title: 'Badge',
+			slug: 'badge'
+		},
+		{
+			title: 'Breadcrumb',
+			slug: 'breadcrumb'
 		},
 		{
 			title: 'Button',
 			slug: 'button'
 		},
 		{
+			title: 'Card',
+			slug: 'card'
+		},
+		{
 			title: 'Collapse',
 			slug: 'collapse'
+		},
+		{
+			title: 'Dropdown',
+			slug: 'dropdown'
 		},
 		{
 			title: 'Flyout',
@@ -47,10 +63,6 @@ const App = () => {
 			slug: 'form'
 		},
 		{
-			title: 'Modal',
-			slug: 'modal'
-		},
-		{
 			title: 'Lightbox',
 			slug: 'lightbox'
 		},
@@ -59,8 +71,16 @@ const App = () => {
 			slug: 'main-menu'
 		},
 		{
-			title: 'Dropdown',
-			slug: 'dropdown'
+			title: 'Modal',
+			slug: 'modal'
+		},
+		{
+			title: 'Nested Nav',
+			slug: 'nested-nav'
+		},
+		{
+			title: 'Pagination',
+			slug: 'pagination'
 		},
 		{
 			title: 'Tab',

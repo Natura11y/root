@@ -28,8 +28,8 @@ const Alert = ({
 			'alert--confirm--inverse' : success && inverse,
 			'alert--warn' : !success && !inverse,
 			'alert--warn--inverse' : !success && inverse,
-			[`${utilities}`] : utilities !== null
-		}
+		},
+		utilities
 	);
 
 	const alertIconClasses = classNames(

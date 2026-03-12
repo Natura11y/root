@@ -8,11 +8,16 @@ import LightboxExample from '../natura11y/lightbox/LightboxExample';
 import Tabs from '../natura11y/tab';
 
 import BackdropVideoExamples from './examples/BackdropVideoExamples';
+import BadgeExamples from './examples/BadgeExamples';
+import BreadcrumbExamples from './examples/BreadcrumbExamples';
+import CardExamples from './examples/CardExamples';
 import CollapseExamples from './examples/CollapseExamples';
 import ButtonExamples from './examples/ButtonExamples';
+import DropdownExamples from './examples/DropdownExamples';
 import FlyoutExamples from './examples/FlyoutExamples';
 import MainMenuExamples from './examples/MainMenuExamples';
-import DropdownExamples from './examples/DropdownExamples';
+import NestedNavExamples from './examples/NestedNavExamples';
+import PaginationExamples from './examples/PaginationExamples';
 import TableExamples from './examples/TableExamples';
 import TrackExamples from './examples/TrackExamples';
 
@@ -26,27 +31,47 @@ const exampleConfig = {
 		wrapperClass: 'narrow margin-x-auto',
 		title: 'Accordion',
 	},
+	alert: {
+		component: AlertParent,
+		wrapperClass: 'narrow margin-x-auto',
+		title: 'Alert',
+	},
 	backdrop: {
 		component: BackdropVideoExamples,
 		wrapperClass: null,
 		title: 'Backdrop',
 	},
-	alert: {
-		component: AlertParent,
-		wrapperClass: 'narrow margin-x-auto',
-		title: 'Alert',
+	badge: {
+		component: BadgeExamples,
+		wrapperClass: null,
+		title: 'Badge',
+	},
+	breadcrumb: {
+		component: BreadcrumbExamples,
+		wrapperClass: null,
+		title: 'Breadcrumb',
 	},
 	button: {
 		component: ButtonExamples,
 		wrapperClass: null,
 		title: 'Button',
 	},
+	card: {
+		component: CardExamples,
+		wrapperClass: null,
+		title: 'Card',
+	},
 	collapse: {
 		component: CollapseExamples,
 		wrapperClass: null,
 		title: 'Collapse',
 	},
-	'flyout': {
+	dropdown: {
+		component: DropdownExamples,
+		wrapperClass: 'container',
+		title: 'Dropdown',
+	},
+	flyout: {
 		component: FlyoutExamples,
 		wrapperClass: null,
 		title: 'Flyout',
@@ -55,11 +80,6 @@ const exampleConfig = {
 		component: FormValidation,
 		wrapperClass: 'narrow margin-x-auto',
 		title: 'Form',
-	},
-	modal: {
-		component: ModalParent,
-		wrapperClass: 'narrow margin-x-auto',
-		title: 'Modal',
 	},
 	lightbox: {
 		component: LightboxExample,
@@ -71,10 +91,20 @@ const exampleConfig = {
 		wrapperClass: null,
 		title: 'Main Menu',
 	},
-	dropdown: {
-		component: DropdownExamples,
-		wrapperClass: 'container',
-		title: 'Dropdown',
+	modal: {
+		component: ModalParent,
+		wrapperClass: 'narrow margin-x-auto',
+		title: 'Modal',
+	},
+	'nested-nav': {
+		component: NestedNavExamples,
+		wrapperClass: null,
+		title: 'Nested Nav',
+	},
+	pagination: {
+		component: PaginationExamples,
+		wrapperClass: null,
+		title: 'Pagination',
 	},
 	tab: {
 		component: Tabs,

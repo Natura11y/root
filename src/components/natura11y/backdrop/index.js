@@ -53,8 +53,8 @@ const BackdropVideo = ({
 		{
 			'backdrop--fixed': fixedHeight !== null || utilities?.includes('aspect-ratio'),
 			[`backdrop--stack--${stack}`]: stack !== null && fixedHeight === null,
-			[`${utilities}`]: utilities !== null,
-		}
+		},
+		utilities
 	);
 
 	const backdropStyle = {

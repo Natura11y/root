@@ -47,8 +47,7 @@ const Dropdown = (props) => {
         'mega-menu--lg box-shadow-1--lg padding-4': type === 'mega',
         'box-shadow-1--lg': linkSplit && type === 'dropdown',
         'shown': menuShow,
-        [utilities]: utilities !== null
-    });
+    }, utilities);
 
     const MenuContainer = type === 'mega' ? 'div' : 'ul';
 
