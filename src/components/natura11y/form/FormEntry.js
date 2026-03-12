@@ -13,7 +13,7 @@ const FormEntry = ({
 	entryType = 'text',
 	entryId = null,
 	entryName = null,
-	onChangeHandler = null,
+	onChange = null,
 	ariaDescribedBy = null,
 	buttonLabel = null,
 	utilities = null
@@ -96,7 +96,7 @@ const FormEntry = ({
 							name={entryName ? entryName : 'textInputId'}
 							id={entryId ? entryId : 'text-input-id'}
 							aria-describedby={ariaDescribedBy ? ariaDescribedBy : 'text-input-help-id'}
-							onChange={onChangeHandler}
+							onChange={onChange}
 							onFocus={handleFocus}
 							onBlur={handleBlur}
 							required={required}
@@ -115,7 +115,7 @@ const FormEntry = ({
 						name={entryName ? entryName : 'textareaEntry'}
 						id={entryId ? entryId : 'textarea-entry'}
 						aria-describedby={ariaDescribedBy ? ariaDescribedBy : 'textarea-help-id'}
-						onChange={onChangeHandler}
+						onChange={onChange}
 						onFocus={handleFocus}
 						onBlur={handleBlur}
 					></textarea>
@@ -164,7 +164,7 @@ const FormEntry = ({
 								onFocus={handleFocus}
 								onBlur={handleBlur}
 								value={`option-${index}`}
-								onChange={onChangeHandler}
+								onChange={onChange}
 							/>
 							<span className='option__label'>{radio}</span>
 						</label>

@@ -181,7 +181,7 @@ const FormValidation = () => {
 						entryId='name'
 						entryName='name'
 						inputValue={enteredName}
-						onChangeHandler={nameChangeHandler}
+						onChange={nameChangeHandler}
 						showError={nameIsInvalid ? true : false}
 					/>
 
@@ -193,7 +193,7 @@ const FormValidation = () => {
 						entryId='email'
 						entryName='email'
 						inputValue={enteredEmail}
-						onChangeHandler={emailChangeHandler}
+						onChange={emailChangeHandler}
 						showError={emailIsInvalid ? true : false}
 					/>
 
@@ -205,7 +205,7 @@ const FormValidation = () => {
 						entryId='phone'
 						entryName='phone'
 						inputValue={enteredPhone}
-						onChangeHandler={phoneChangeHandler}
+						onChange={phoneChangeHandler}
 						showError={phoneIsInvalid ? true : false}
 					/>
 
@@ -215,7 +215,7 @@ const FormValidation = () => {
 						entryType='textarea'
 						entryId='message'
 						entryName='message'
-						onChangeHandler={messageChangeHandler}
+						onChange={messageChangeHandler}
 						showError={messageIsInvalid ? true : false}
 					/>
 
@@ -225,7 +225,7 @@ const FormValidation = () => {
 						required={true}
 						entryId='contact-preference'
 						entryName='contactPreference'
-						onChangeHandler={contactPreferenceChangeHandler}
+						onChange={contactPreferenceChangeHandler}
 						showError={contactPreferenceIsInvalid ? true : false}
 					/>
 

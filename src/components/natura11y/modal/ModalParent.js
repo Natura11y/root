@@ -111,7 +111,7 @@ const ModalParent = () => {
 
 			<Modal
 				isOpen={isOpen}
-				handleModalClose={handleModalClose}
+				onClose={handleModalClose}
 				closeOutside={true}
 				scrollAll={modalExample === 'scrollAll'}
 				title='Suricata Suricatta'

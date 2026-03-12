@@ -1,4 +1,4 @@
-import { useEffect, useRef, useImperativeHandle } from 'react';
+import { useEffect, useRef, useImperativeHandle, useId } from 'react';
 
 import classNames from 'classnames';
 
@@ -13,7 +13,7 @@ const Modal = ({
     scrollAll = false,
     closeOutside = false,
     title = 'Modal Title',
-    handleModalClose = null,
+    onClose = null,
     children = <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>,
     footerContent = null,
     modalUtilities = null,
@@ -22,6 +22,7 @@ const Modal = ({
 
     const modalContainer = useRef(null);
     const modalContent = useRef(null);
+    const titleId = useId();
 
     useImperativeHandle(ref, () => modalContainer.current);
 
@@ -57,7 +58,7 @@ const Modal = ({
                 firstElement.focus();
             }
         } else if (event.code === 'Escape') {
-            handleModalClose();
+            onClose();
         }
     };
 
@@ -84,7 +85,7 @@ const Modal = ({
 
     const handleCloseOutside = (event) => {
         if (closeOutside && modalContent.current && !modalContent.current.contains(event.target)) {
-            handleModalClose();
+            onClose();
         }
     };
 
@@ -100,17 +101,17 @@ const Modal = ({
                 className={modalContentClasses}
                 role='dialog'
                 aria-modal='true'
-                aria-labelledby='modal-example-01-title'
+                aria-labelledby={titleId}
             >
                 <header className='modal__content__head border-bottom'>
-                    <h2 id='modal-example-01-title'>
+                    <h2 id={titleId}>
                         {title}
                     </h2>
                     <ButtonIconOnly
                         buttonType='button'
                         iconHandle='close'
                         utilities='font-size-md'
-                        onClick={handleModalClose}
+                        onClick={onClose}
                     />
                 </header>
 
