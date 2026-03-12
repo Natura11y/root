@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import Flyout from '../../natura11y/flyout';
-import ButtonIconOnly from '../../natura11y/button/ButtonIconOnly';
+import Button from '../../natura11y/button';
 
 // ─────────────────────────────────────────────────────────────
 // Simple Flyout
@@ -13,12 +13,14 @@ const SimpleFlyout = () => {
 
     return (
         <>
-            <ButtonIconOnly
-                iconHandle="menu"
-                ariaLabel="Open Flyout"
-                ariaExpanded={isOpen}
-                onClick={() => setIsOpen(true)}
-            />
+            <div className="narrow">
+                <Button
+                    title="Flyout Menu"
+                    iconStartHandle="menu"
+                    onClick={() => setIsOpen(true)}
+                    attributes={{ 'aria-expanded': isOpen }}
+                />
+            </div>
 
             <Flyout
                 isOpen={isOpen}
@@ -165,12 +167,14 @@ const DrillDownFlyout = () => {
 
     return (
         <>
-            <ButtonIconOnly
-                iconHandle="menu"
-                ariaLabel="Open Drill-Down Navigation"
-                ariaExpanded={isOpen}
-                onClick={() => setIsOpen(true)}
-            />
+            <div className="narrow">
+                <Button
+                    title="Flyout Menu with Drill Down"
+                    iconStartHandle="menu"
+                    onClick={() => setIsOpen(true)}
+                    attributes={{ 'aria-expanded': isOpen }}
+                />
+            </div>
 
             <Flyout
                 isOpen={isOpen}
@@ -189,17 +193,12 @@ const DrillDownFlyout = () => {
 const FlyoutExamples = () => {
     return (
         <div className="container narrow margin-y-5">
-
-            <section className="margin-y-4">
-                <h2 className="h4 margin-bottom-2">Flyout</h2>
+            <div className="margin-y-4">
                 <SimpleFlyout />
-            </section>
-
-            <section className="margin-y-4">
-                <h2 className="h4 margin-bottom-2">Flyout with Drill-Down Navigation</h2>
+            </div>
+            <div className="margin-y-4">
                 <DrillDownFlyout />
-            </section>
-
+            </div>
         </div>
     );
 };

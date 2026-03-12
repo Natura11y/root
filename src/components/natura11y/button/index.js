@@ -25,7 +25,8 @@ const Button = (props) => {
 	const startIcon = iconStartHandle || iconHandle;
 	const endIcon = iconEndHandle;
 
-	const buttonClasses = classNames('button', {
+	const buttonClasses = classNames(
+		'button', {
 		'button--outline': outline,
 	}, utilities);
 
