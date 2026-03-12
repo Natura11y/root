@@ -1,10 +1,9 @@
-import { forwardRef } from 'react';
-
-const MegaMenu = forwardRef(({ 
+const MegaMenu = ({
+    ref,
     children,
     breakpoint = 'lg',
-    ...props 
-}, ref) => {
+    ...props
+}) => {
 
     return (
         <div
@@ -17,6 +16,6 @@ const MegaMenu = forwardRef(({
             {children}
         </div>
     );
-});
+};
 
 export default MegaMenu;

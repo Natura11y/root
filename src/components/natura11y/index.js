@@ -2,6 +2,10 @@
 export { default as Accordion } from './accordion';
 export { default as AccordionItem } from './accordion/AccordionItem';
 
+export { default as BackdropVideo } from './backdrop';
+
+export { default as Collapse } from './collapse';
+
 export { default as Alert } from './alert';
 export { default as AlertParent } from './alert/AlertParent';
 

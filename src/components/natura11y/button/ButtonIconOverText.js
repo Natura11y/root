@@ -1,25 +1,22 @@
-import { forwardRef } from 'react';
-
 import classNames from 'classnames';
 
 import Icon from '../icon';
 
-const ButtonIconOverText = forwardRef((props, ref) => {
-
-	const {
-		iconHandle = 'home',
-		iconUtilities = null,
-		textUtilities = null,
-		label = 'Home',
-		tag = 'button',
-		buttonType = 'button',
-		linkUrl = '#1',
-		ariaLabel = null,
-		clickHandler = null,
-		ariaExpanded = null,
-		utilities = null,
-		attributes = {}, // Custom data attributes
-	} = props;
+const ButtonIconOverText = ({
+	ref,
+	iconHandle = 'home',
+	iconUtilities = null,
+	textUtilities = null,
+	label = 'Home',
+	tag = 'button',
+	buttonType = 'button',
+	linkUrl = '#1',
+	ariaLabel = null,
+	clickHandler = null,
+	ariaExpanded = null,
+	utilities = null,
+	attributes = {},
+}) => {
 
 	const buttonClasses = classNames('button', 'button--icon-over-text', {
 		[`${utilities}`]: utilities !== null,
@@ -70,6 +67,6 @@ const ButtonIconOverText = forwardRef((props, ref) => {
 	};
 
 	return Component[tag] || Component.button;
-});
+};
 
 export default ButtonIconOverText;

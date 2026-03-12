@@ -117,10 +117,8 @@ In this file:
         overflow: hidden;
 
         display: grid;
-
-        &:not([class*='aspect-ratio-']) {
-            min-height: var(--backdrop-fixed-height);
-        }
+        
+        min-height: var(--backdrop-fixed-height);
 
         .backdrop__media {
             position: absolute !important;

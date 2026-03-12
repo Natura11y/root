@@ -1,24 +1,23 @@
-import { useState, forwardRef } from 'react';
+import { useState } from 'react';
 
 import classNames from 'classnames';
 
-const FormEntry = forwardRef((props, ref) => {
-
-	const {
-		labelText = 'Label',
-		labelVisible = true,
-		labelFloat = false,
-		helpText = null,
-		required = false,
-		showError = false,
-		entryType = 'text',
-		entryId = null,
-		entryName = null,
-		onChangeHandler = null,
-		ariaDescribedBy = null,
-		buttonLabel = null,
-		utilities = null
-	} = props;
+const FormEntry = ({
+	ref,
+	labelText = 'Label',
+	labelVisible = true,
+	labelFloat = false,
+	helpText = null,
+	required = false,
+	showError = false,
+	entryType = 'text',
+	entryId = null,
+	entryName = null,
+	onChangeHandler = null,
+	ariaDescribedBy = null,
+	buttonLabel = null,
+	utilities = null
+}) => {
 
 	const [isFocused, setIsFocused] = useState(false);
 	const [hasValue, setHasValue] = useState(false);
@@ -297,6 +296,6 @@ const FormEntry = forwardRef((props, ref) => {
 			)}
 		</div>
 	);
-});
+};
 
 export default FormEntry;

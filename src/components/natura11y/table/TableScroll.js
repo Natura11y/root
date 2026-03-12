@@ -1,8 +1,8 @@
-import { forwardRef, useRef, useState, useEffect, useCallback } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 
 import Table from './';
 
-const TableScroll = forwardRef((props, ref) => {
+const TableScroll = () => {
 
     const [scrollable, setScrollable] = useState(false);
     const [isScrolling, setIsScrolling] = useState(false);
@@ -51,6 +51,6 @@ const TableScroll = forwardRef((props, ref) => {
             </div>
         </div>
     );
-});
+};
 
 export default TableScroll;

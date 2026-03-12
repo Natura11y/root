@@ -1,20 +1,19 @@
-import { forwardRef, useRef, useId } from 'react';
+import { useRef, useId } from 'react';
 
 import classNames from 'classnames';
 
 import ButtonIconOnly from '../button/ButtonIconOnly';
 import Icon from '../icon';
 
-const Alert = forwardRef((props, forwardedRef) => {
-
-  	const {
-		success = true,
-		inverse = false,
-		handleAlertClose = null,
-		title = 'Alert Title',
-		children = <p>Alert Description</p>,
-		utilities = null, // For example, 'theme-primary'
-	} = props;
+const Alert = ({
+	ref,
+	success = true,
+	inverse = false,
+	handleAlertClose = null,
+	title = 'Alert Title',
+	children = <p>Alert Description</p>,
+	utilities = null,
+}) => {
 
 	const internalRef = useRef();
 	const labelId = useId();
@@ -49,10 +48,10 @@ const Alert = forwardRef((props, forwardedRef) => {
 
 	const setRef = (node) => {
 		internalRef.current = node;
-		if (typeof forwardedRef === 'function') {
-			forwardedRef(node);
-		} else if (forwardedRef !== null) {
-			forwardedRef.current = node;
+		if (typeof ref === 'function') {
+			ref(node);
+		} else if (ref) {
+			ref.current = node;
 		}
 	};
 
@@ -88,6 +87,6 @@ const Alert = forwardRef((props, forwardedRef) => {
 			) : null}
 		</div>
 	);
-});
+};
 
 export default Alert;

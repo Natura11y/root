@@ -1,13 +1,10 @@
-import { forwardRef } from 'react';
-
 import classNames from 'classnames';
 
-const Icon = forwardRef((props, ref) => {
-
-    const {
-        iconHandle = 'home',
-        utilities = null
-    } = props;
+const Icon = ({
+    ref,
+    iconHandle = 'home',
+    utilities = null
+}) => {
 
     const iconClasses = classNames(
         'icon',
@@ -24,6 +21,6 @@ const Icon = forwardRef((props, ref) => {
             aria-hidden='true'>
         </span>
     );
-});
+};
 
 export default Icon;

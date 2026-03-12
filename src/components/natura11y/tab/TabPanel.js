@@ -1,10 +1,8 @@
-import { forwardRef } from 'react';
-
-const TabPanel = forwardRef((props, ref) => {
-    const {
-        isActive = false,
-        children = <p>Tab panel content.</p>
-    } = props;
+const TabPanel = ({
+    ref,
+    isActive = false,
+    children = <p>Tab panel content.</p>
+}) => {
 
 	return (
 		<div
@@ -19,6 +17,6 @@ const TabPanel = forwardRef((props, ref) => {
 			</div>
 		</div>
 	);
-});
+};
 
 export default TabPanel;

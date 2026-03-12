@@ -1,14 +1,13 @@
-import { useState, useRef, forwardRef } from 'react';
+import { useState, useRef } from 'react';
 
 import TabsNav from './TabsNav';
 import TabPanel from './TabPanel';
 
-const Tabs = forwardRef((props, ref) => {
-
-    const {
-        pill = false,
-        breakpoint = 'md'
-    } = props;
+const Tabs = ({
+    ref,
+    pill = false,
+    breakpoint = 'md'
+}) => {
 
   	const data = [
 		{
@@ -138,6 +137,6 @@ const Tabs = forwardRef((props, ref) => {
 			{tabPanels}
 		</div>
 	);
-});
+};
 
 export default Tabs;

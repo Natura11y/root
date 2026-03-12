@@ -1,14 +1,11 @@
-import { forwardRef } from 'react';
-
 import classNames from 'classnames';
 
 import { tableData } from './tableData';
 
-const Table = forwardRef((props, ref) => {
-
-  const {
-    utilities = null
-  } = props;
+const Table = ({
+  ref,
+  utilities = null
+}) => {
 
   const {
       headers,
@@ -69,6 +66,6 @@ const Table = forwardRef((props, ref) => {
 
     </table>
   );
-});
+};
 
 export default Table;

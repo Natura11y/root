@@ -9,6 +9,7 @@ In this file:
 // E. Heading Sizes and Utilities
 // F. Text Utilities
 // G. Blockquote Utility
+// H. Tag Utility
 
 */
 
@@ -53,6 +54,7 @@ In this file:
     --font-size-md: calc(var(--font-size-sm) * var(--type-scale));
     --font-size-rg: calc(var(--font-size-md) * var(--type-scale)); // Body
     --font-size-lg: calc(var(--font-size-rg) * var(--type-scale));
+    --font-size-xl: calc(var(--font-size-lg) * var(--type-scale));
 
     // Header Font Sizes
 
@@ -85,7 +87,13 @@ In this file:
 
     --blockquote-border-width: var(--border-width);
     --blockquote-border-color: currentColor;
-    --blockquote-font-size: 1.25em; 
+    --blockquote-font-size: 1.25em;
+
+    // Tag
+
+    --tag-padding-x: 0.75em;
+    --tag-padding-y: 0.125em;
+    --tag-background-color: color-mix(in srgb, currentColor 10%, transparent);
 }
 
 //////////////////////////////////////////////
@@ -236,6 +244,10 @@ In this file:
 
         lg: (
             size: var(--font-size-lg)
+        ),
+
+        xl: (
+            size: var(--font-size-xl)
         ),
         
     );
@@ -439,12 +451,12 @@ $headers: (
     .blockquote {
         --border-width: var(--blockquote-border-width);
         --border-color: var(--blockquote-border-color);
-    
+
         font-size: var(--blockquote-font-size);
 
         padding-inline-start: 1.25em;
 
-        border-inline-start: 
+        border-inline-start:
             var(--border-width)
             var(--border-style)
             var(--border-color);

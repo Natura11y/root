@@ -1,18 +1,15 @@
-import { forwardRef } from 'react';
-
 import classNames from 'classnames';
 
-const TabsNav = forwardRef((props, ref) => {
-
-    const {
-        data,
-        breakpoint = 'md',
-        pill = false,
-        activeTab,
-        handleClick = handleClick,
-        handleKeyDown = handleKeyDown,
-        tabButtonRefs
-    } = props;
+const TabsNav = ({
+    ref,
+    data,
+    breakpoint = 'md',
+    pill = false,
+    activeTab,
+    handleClick,
+    handleKeyDown,
+    tabButtonRefs
+}) => {
 
 	const tabButtons = data.map((button, index) => (
 
@@ -48,6 +45,6 @@ const TabsNav = forwardRef((props, ref) => {
 			{tabButtons}
 		</ul>
 	);
-});
+};
 
 export default TabsNav;

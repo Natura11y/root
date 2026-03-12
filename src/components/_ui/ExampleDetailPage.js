@@ -7,6 +7,8 @@ import ModalParent from '../natura11y/modal/ModalParent';
 import LightboxExample from '../natura11y/lightbox/LightboxExample';
 import Tabs from '../natura11y/tab';
 
+import BackdropVideoExamples from './examples/BackdropVideoExamples';
+import CollapseExamples from './examples/CollapseExamples';
 import ButtonExamples from './examples/ButtonExamples';
 import FlyoutExamples from './examples/FlyoutExamples';
 import MainMenuExamples from './examples/MainMenuExamples';
@@ -24,6 +26,11 @@ const exampleConfig = {
 		wrapperClass: 'narrow margin-x-auto',
 		title: 'Accordion',
 	},
+	backdrop: {
+		component: BackdropVideoExamples,
+		wrapperClass: null,
+		title: 'Backdrop',
+	},
 	alert: {
 		component: AlertParent,
 		wrapperClass: 'narrow margin-x-auto',
@@ -33,6 +40,11 @@ const exampleConfig = {
 		component: ButtonExamples,
 		wrapperClass: null,
 		title: 'Button',
+	},
+	collapse: {
+		component: CollapseExamples,
+		wrapperClass: null,
+		title: 'Collapse',
 	},
 	'flyout': {
 		component: FlyoutExamples,

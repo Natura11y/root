@@ -21,7 +21,9 @@ In this file:
 :root {
     --pagination-font-size: var(--font-size-md);
     --pagination-item-size: var(--button-target-size);
-    --pagination-border-radius: var(--button-border-radius);
+
+    --pagination-current-text-color: currentColor;
+    --pagination-current-background-color: var(--subtle-fill-2);
 }
 
 ////////////////////////////////////////
@@ -61,8 +63,6 @@ In this file:
 
             padding-inline: 0.5em;
 
-            // border-radius: var(--pagination-border-radius);
-
             &:has([class*="icon"]) {
                 gap: 0.375em;
 
@@ -81,7 +81,8 @@ In this file:
         }
 
         > li > [aria-current="page"] {
-            background-color: var(--subtle-fill-2);
+            color: var(--pagination-current-text-color);
+            background-color: var(--pagination-current-background-color);
         }
     }
 

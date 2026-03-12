@@ -1,9 +1,7 @@
-import { forwardRef } from 'react';
-
 import RequiredIndicator from './RequiredIndicator';
 import FormEntry from './FormEntry';
 
-const Form = forwardRef((props, ref) => {
+const Form = ({ ref }) => {
   return (
 
     <form ref={ref}>
@@ -32,6 +30,6 @@ const Form = forwardRef((props, ref) => {
     </form>
 
   );
-});
+};
 
 export default Form;

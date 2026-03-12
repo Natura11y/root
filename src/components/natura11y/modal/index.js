@@ -1,4 +1,4 @@
-import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
+import { useEffect, useRef, useImperativeHandle } from 'react';
 
 import classNames from 'classnames';
 
@@ -7,18 +7,18 @@ import ButtonIconOnly from '../button/ButtonIconOnly';
 import { getFocusableElements } from 'natura11y/src/js/utilities/focus';
 import { handleOverlayOpen, handleOverlayClose } from 'natura11y/src/js/utilities/overlay';
 
-const Modal = forwardRef((props, ref) => {
-    const {
-        isOpen = false,
-        scrollAll = false,
-        closeOutside = false,
-        title = 'Modal Title',
-        handleModalClose = null,
-        children = <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>,
-        footerContent = null,
-        modalUtilities = null,
-        modalContentUtilities = null
-    } = props;
+const Modal = ({
+    ref,
+    isOpen = false,
+    scrollAll = false,
+    closeOutside = false,
+    title = 'Modal Title',
+    handleModalClose = null,
+    children = <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>,
+    footerContent = null,
+    modalUtilities = null,
+    modalContentUtilities = null
+}) => {
 
     const modalContainer = useRef(null);
     const modalContent = useRef(null);
@@ -126,6 +126,6 @@ const Modal = forwardRef((props, ref) => {
             </div>
         </div>
     );
-});
+};
 
 export default Modal;

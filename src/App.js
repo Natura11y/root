@@ -23,12 +23,20 @@ const App = () => {
 			slug: 'accordion'
 		},
 		{
+			title: 'Backdrop',
+			slug: 'backdrop'
+		},
+		{
 			title: 'Alert',
 			slug: 'alert'
 		},
 		{
 			title: 'Button',
 			slug: 'button'
+		},
+		{
+			title: 'Collapse',
+			slug: 'collapse'
 		},
 		{
 			title: 'Flyout',
