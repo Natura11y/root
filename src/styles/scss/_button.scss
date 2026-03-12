@@ -89,6 +89,8 @@ In this file:
         
         cursor: pointer;
 
+        user-select: none;
+
         border-radius: var(--button-border-radius);
 
         transition: opacity 0.5s ease-out;

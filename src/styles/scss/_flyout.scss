@@ -194,4 +194,8 @@ In this file:
         align-items: center;
     }
 
+    .flyout :is(a, button) {
+        user-select: none;
+    }
+
 } // end @layer

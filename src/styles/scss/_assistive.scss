@@ -71,7 +71,10 @@ In this file:
             }
         }
         
-        &.button {
+        &:is(
+            .button,
+            [class*="badge"]
+        ){
             --focus-outline-offset: calc(var(--focus-outline-width) * -2);
         }
         

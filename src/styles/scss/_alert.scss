@@ -15,6 +15,8 @@ In this file:
     --alert-padding-x: var(--spacer-2);
 
     --alert-padding-y: var(--spacer-2);
+
+    --alert-max-width: calc(var(--wide-width) - (var(--container-padding-x) * 2));
 }
 
 //////////////////////////////////////////////
@@ -32,6 +34,12 @@ In this file:
 
         padding: var(--alert-padding-y) var(--alert-padding-x);
 
+        > * {
+            width: 100%;
+            max-width: var(--alert-max-width);
+            margin-inline: auto;
+        }
+        
         &:has(> [class*="__description"]) {
             row-gap: calc(var(--alert-padding-y) / 2);
         }
@@ -42,7 +50,7 @@ In this file:
             [class*="background-"]
         ) {
             background-color: var(--subtle-fill-2);
-        }
+        }    
 
         &[class*="border"] {
             border-color: currentColor !important;

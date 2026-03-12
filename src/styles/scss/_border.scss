@@ -178,13 +178,12 @@ In this file:
                     border-end-start-radius: var(--border-radius-#{$i});
                 }
             }
-
-            // Special case for pill
+            // Pill
             .border-radius-pill#{$mod} {
                 border-radius: var(--border-radius-pill);
             }
 
-            // Special case for circle
+            // Circle
             .border-radius-circle#{$mod} {
                 border-radius: 100%;
             }

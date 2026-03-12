@@ -27,11 +27,11 @@ In this file:
 
     --container-padding-x: var(--container-padding-x-sm);
 
-    --narrow-width: min(40rem, 85vw); // Approximately 55 characters wide for readability
+    --narrow-width: min(44rem, 85vw); // Approximately 60 characters wide for readability
 
-    --medium-width: min(var(--narrow-width) * 1.75, 90vw);
+    --medium-width: min(var(--narrow-width) * 1.5, 90vw);
     
-    --wide-width: min( var(--narrow-width) * 2.5, 95vw);
+    --wide-width: min( var(--narrow-width) * 2.25, 95vw);
 
     @include breakpoint.breakpoint-up(lg) {
         --container-padding-x: var(--container-padding-x-lg);

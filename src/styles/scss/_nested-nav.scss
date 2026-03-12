@@ -19,10 +19,12 @@ In this file:
 ////////////////////////////////////////
 
 :root {
-    --nav-nested-padding-x: var(--spacer-2);
+    --nav-nested-padding-x: var(--nav-divider-padding-x);
     --nav-nested-padding-y: 0.5em;
-    --nav-nested-font-size: var(--font-size-md);
-    --nav-nested-sub-font-size: var(--font-size-sm);
+
+    --nav-nested-parent-font-size: var(--font-size-md);
+    --nav-nested-child-font-size: var(--font-size-sm);
+    
     --nav-nested-indicator-width: 3px;
     --nav-nested-indicator-color: currentColor;
 }
@@ -47,7 +49,7 @@ In this file:
             padding-block: var(--nav-nested-padding-y);
             padding-inline-start: var(--nav-nested-padding-x);
 
-            font-size: var(--nav-nested-font-size);
+            font-size: var(--nav-nested-parent-font-size);
 
             transition: background-color 0.15s ease;
 
@@ -99,7 +101,7 @@ In this file:
 
             :is(a, button) {
                 padding-inline-start: calc(var(--nav-nested-padding-x) * 2);
-                font-size: var(--nav-nested-sub-font-size);
+                font-size: var(--nav-nested-child-font-size);
             }
 
             li > ul :is(a, button) {

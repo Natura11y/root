@@ -105,6 +105,10 @@ In this file:
 
         gap: var(--nav-gap);
 
+        &[class*="gap-"] {
+            --nav-gap: var(--gap-size);
+        }
+
         > li > :is(a, button):has([class*="icon"]) {
             width: fit-content;
         }
