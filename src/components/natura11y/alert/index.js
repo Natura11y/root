@@ -9,7 +9,7 @@ const Alert = ({
 	ref,
 	success = true,
 	inverse = false,
-	handleAlertClose = null,
+	onClose = null,
 	title = 'Alert Title',
 	children = <p>Alert Description</p>,
 	utilities = null,
@@ -19,7 +19,7 @@ const Alert = ({
 	const labelId = useId();
 	const descId = useId();
 
-	const isDismissable = handleAlertClose !== null;
+	const isDismissable = onClose !== null;
 
 	const alertClasses = classNames(
 		'alert',
@@ -43,7 +43,7 @@ const Alert = ({
 		const el = internalRef.current;
 		if (!el) return;
 		el.classList.add('dismissed');
-		el.addEventListener('animationend', handleAlertClose, { once: true });
+		el.addEventListener('animationend', onClose, { once: true });
 	};
 
 	const setRef = (node) => {

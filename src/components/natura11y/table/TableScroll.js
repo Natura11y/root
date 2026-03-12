@@ -33,7 +33,9 @@ const TableScroll = ({ children }) => {
             className='table-scroll'
             data-scroll={scrollable}
         >
-            <small className='table-scroll__help'>Scroll to see whole table</small>
+            <small className='table-scroll__help'>
+                Scroll to see whole table
+            </small>
             <div
                 ref={scrollTarget}
                 className='table-scroll__container'

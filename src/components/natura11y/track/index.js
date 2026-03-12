@@ -8,17 +8,15 @@ import TrackPagination from './TrackPagination';
 
 import { getFocusableElements } from 'natura11y/src/js/utilities/focus';
 
-const Track = (props) => {
-
-  const {
-    panels,
-    ariaLabel,
-    trackId: trackIdProp = null,
-    utilities = null,
-    floatDirectionalButtons = true,
-    PanelComponent = TrackPanel,
-    PaginationComponent = TrackPagination,
-  } = props;
+const Track = ({
+  panels,
+  ariaLabel,
+  trackId: trackIdProp = null,
+  utilities = null,
+  floatDirectionalButtons = true,
+  PanelComponent = TrackPanel,
+  PaginationComponent = TrackPagination,
+}) => {
 
   const generatedId = useId();
   const trackId = trackIdProp ?? generatedId;

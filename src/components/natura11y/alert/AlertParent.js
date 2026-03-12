@@ -16,7 +16,7 @@ const AlertParent = () => {
 		<>
 			{showAlert && (
 				<Alert
-					handleAlertClose={handleAlertClose}
+					onClose={handleAlertClose}
 					title="Success!"
 					utilities={classNames('box-shadow-1', 'margin-bottom-4')}
 				>
