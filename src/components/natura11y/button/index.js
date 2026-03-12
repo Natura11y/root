@@ -16,7 +16,7 @@ const Button = (props) => {
 		iconEndHandle = null,
 		utilities = null,
 		attributes = {}, // Custom data attributes
-		clickHandler = null,
+		onClick = null,
 		target = null,
 		rel = null,
 	} = props;
@@ -42,7 +42,7 @@ const Button = (props) => {
 			<button
 				type={buttonType}
 				className={buttonClasses}
-				onClick={clickHandler}
+				onClick={onClick}
 				{...attributes}
 			>
 				{buttonContents}

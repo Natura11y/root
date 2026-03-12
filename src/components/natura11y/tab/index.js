@@ -1,142 +1,97 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
+import React from 'react';
+import classNames from 'classnames';
 
-import TabsNav from './TabsNav';
-import TabPanel from './TabPanel';
+import { TabContext } from './TabContext';
+import Tab from './Tab';
 
-const Tabs = ({
-    ref,
-    pill = false,
-    breakpoint = 'md'
-}) => {
+const Tabs = ({ children, pill = false, breakpoint = 'md', navClass = null }) => {
 
-  	const data = [
-		{
-			title: 'Mackerel',
-			content: (
-                <p>
-                    The mackerel tabby pattern gives slender vertical, gently curving stripes on the sides of the body. These stripes may be continuous or broken into bars and short segments/spots, especially on the flanks and stomach. Three or five vertical lines in an 'M' shape almost always appear on the forehead, along with dark lines from the corners of the eyes, one or more crossing each cheek, and of course many stripes and lines at various angles on the neck and shoulder area, on the flanks, and around the legs and tail. Mackerel tabbies are also called 'fishbone tabbies,' probably doubly named after the <a href="#1">mackerel</a> fish.
-                </p>
-			),
-		},
-		{
-			title: 'Classic',
-			content: (
-				<p>
-                    The classic tabby (also known as blotched or marbled tabby) has the 'M' pattern on the forehead but the body markings, rather than primarily thin stripes or spots, are thick curving bands in a whirled or swirled pattern with a distinctive mark on each side of the body resembling a bullseye. Classic tabby is a <a href="#1">recessive</a>  trait. Classic tabbies are the most common type of tabby in much of the United Kingdom and the Middle East, among other places, but they are a far second in number to mackerel tabbies in most parts of the world.
-                </p>
-			),
-		},
-		{
-			title: 'Ticked',
-			content: (
-				<p>
-                    The ticked tabby pattern is due to even fields of <a href="#1">agouti</a> hairs, each with distinct bands of color, which break up the tabby patterning into a salt-and-pepper appearance that makes them look sand-like—thus there are few to no stripes or bands. Residual ghost striping and/or barring can often be seen on the lower legs, face, and belly and sometimes at the tail tip, as well as the standard 'M' and a long dark line running along the spine, primarily in ticked tabbies who also carry a mackerel or classic tabby allele. These types of cats come in many forms and colors.
-                </p>
-			),
-		}
-	];
+	const childArray = React.Children.toArray(children);
+	const [activeTab, setActiveTab] = useState(childArray[0]?.props.title ?? null);
+	const tabsRef = useRef(null);
 
-    const [activeTab, setActiveTab] = useState(data[0].title);
+	const handleKeyDown = useCallback((e) => {
+		if (!tabsRef.current) return;
 
-	const tabs = useRef(null);
-	const tabButtons = useRef([]);
+		const buttons = Array.from(tabsRef.current.querySelectorAll('[role="tab"]'));
+		const index = buttons.indexOf(e.target);
 
-	const handleClick = (e) => {
+		if (index === -1) return;
 
-		const clicked = e.target.dataset.title;
+		const navigate = (dir) => {
+			e.preventDefault();
+			let next = index + dir;
+			if (next < 0) next = buttons.length - 1;
+			if (next >= buttons.length) next = 0;
+			buttons[next].focus();
+		};
 
-		activeTab === clicked
-			? setActiveTab(data[0].title)
-			: setActiveTab(clicked);
-	};
-
-	const handleKeyDown = (e) => {
-
-		if (e.target === document.activeElement) {
-
-			const pressed = e.target.dataset.index;
-
-			const focusLastTab = (e) => {
+		switch (e.code) {
+			case 'Home':
 				e.preventDefault();
-				tabButtons.current[tabButtons.current.length - 1].focus();
-			};
-
-			const focusFirstTab = (e) => {
+				buttons[0].focus();
+				break;
+			case 'End':
 				e.preventDefault();
-				tabButtons.current[0].focus();
-			};
-
-			const directionalFocus = (dir) => {
-
-				e.preventDefault();
-
-				if (tabButtons.current) {
-
-					let targetFocus = parseInt(pressed) + dir;
-
-					if (dir === -1 && targetFocus < 0) {
-						tabButtons.current[tabButtons.current.length -1].focus();
-					} else if (dir === 1 && targetFocus >= tabButtons.current.length) {
-						tabButtons.current[0].focus();
-					} else {
-						tabButtons.current[targetFocus].focus();
-					}
-				}
-
-			}
-
-			switch (e.code) {
-				case 'Home':
-					focusFirstTab(e)
-					break;
-				case 'End':
-					focusLastTab(e)
-					break;
-				case 'ArrowUp':
-				case 'ArrowLeft':
-					directionalFocus(-1);
-					break;
-				case 'ArrowDown':
-				case 'ArrowRight':
-					directionalFocus(1);
-					break;
-				default:
+				buttons[buttons.length - 1].focus();
+				break;
+			case 'ArrowLeft':
+			case 'ArrowUp':
+				navigate(-1);
+				break;
+			case 'ArrowRight':
+			case 'ArrowDown':
+				navigate(1);
+				break;
+			default:
 				// do nothing
-			}
-
 		}
-	};
+	}, []);
 
-	const tabPanels = data.map((panel, index) => (
-        <TabPanel
-            key={index}
-            isActive={activeTab === panel.title ? true : false}
-        >
-            {panel.content}
-        </TabPanel>
-	));
+	const titleToId = (title) => title.toLowerCase().replace(/\s+/g, '-');
 
+	const navClasses = navClass ?? classNames(
+		'tabs-nav',
+		`tabs-nav--horizontal--${breakpoint}`,
+		{ 'tabs-nav--pill': pill }
+	);
 
 	return (
-		<div
-			ref={ref ?? tabs}
-			className='tabs box-shadow-1'
-			role='tablist'
-		>
+		<TabContext.Provider value={{ activeTab }}>
+			<div ref={tabsRef} className='tabs' role='tablist'>
 
-			<TabsNav
-				data={data}
-				activeTab={activeTab}
-				handleClick={handleClick}
-				handleKeyDown={handleKeyDown}
-				pill={pill}
-				breakpoint={breakpoint}
-				tabButtonRefs={tabButtons}
-			/>
+				<ul className={navClasses}>
+					{childArray.map((child) => {
+						const title = child.props.title;
+						const id = titleToId(title);
+						const isActive = activeTab === title;
+						return (
+							<li key={title}>
+								<button
+									className={isActive ? 'is-active' : ''}
+									id={`tab-button-${id}`}
+									aria-controls={`tab-panel-${id}`}
+									aria-selected={isActive}
+									onClick={() => setActiveTab(title)}
+									onKeyDown={handleKeyDown}
+									role='tab'
+								>
+									{title}
+								</button>
+							</li>
+						);
+					})}
+				</ul>
 
-			{tabPanels}
-		</div>
+				{children}
+
+			</div>
+		</TabContext.Provider>
 	);
+
 };
+
+Tabs.Tab = Tab;
 
 export default Tabs;

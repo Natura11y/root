@@ -63,6 +63,10 @@ const App = () => {
 			slug: 'form'
 		},
 		{
+			title: 'Icon',
+			slug: 'icon'
+		},
+		{
 			title: 'Lightbox',
 			slug: 'lightbox'
 		},

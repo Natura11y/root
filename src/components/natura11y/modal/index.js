@@ -110,7 +110,7 @@ const Modal = ({
                         buttonType='button'
                         iconHandle='close'
                         utilities='font-size-md'
-                        clickHandler={handleModalClose}
+                        onClick={handleModalClose}
                     />
                 </header>
 

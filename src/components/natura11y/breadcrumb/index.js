@@ -7,8 +7,8 @@ const Breadcrumb = ({
     utilities = null
 }) => {
     return (
-        <nav aria-label={ariaLabel} className={utilities || undefined}>
-            <ul className={classNames('breadcrumb')}>
+        <nav aria-label={ariaLabel}>
+            <ul className={classNames('breadcrumb', utilities)}>
                 {items.map((item, index) => {
                     const isLast = index === items.length - 1;
                     const LinkTag = item.linkTag || linkTag;

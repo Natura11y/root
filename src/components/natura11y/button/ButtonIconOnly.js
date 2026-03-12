@@ -10,7 +10,7 @@ const ButtonIconOnly = ({
 	linkUrl = '#1',
 	outline = false,
 	ariaLabel = null,
-	clickHandler = null,
+	onClick = null,
 	ariaExpanded = null,
 	utilities = null,
 	attributes = {},
@@ -26,7 +26,7 @@ const ButtonIconOnly = ({
 				ref={ref}
 				type={buttonType}
 				className={buttonClasses}
-				onClick={clickHandler}
+				onClick={onClick}
 				aria-label={ariaLabel}
 				aria-expanded={ariaExpanded}
 				{...attributes}

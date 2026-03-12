@@ -207,7 +207,7 @@ const Flyout = (props) => {
                             iconHandle="arrow-left"
                             ariaLabel="Back"
                             utilities="font-size-md"
-                            clickHandler={navigateBack}
+                            onClick={navigateBack}
                             attributes={{ 'data-flyout-back': '' }}
                         />
                     )}
@@ -216,7 +216,7 @@ const Flyout = (props) => {
                         iconHandle="close"
                         ariaLabel="Close Menu"
                         utilities="font-size-md"
-                        clickHandler={onClose}
+                        onClick={onClose}
                         attributes={{ 'data-flyout-close': '' }}
                     />
 

@@ -12,7 +12,7 @@ const ButtonIconOverText = ({
 	buttonType = 'button',
 	linkUrl = '#1',
 	ariaLabel = null,
-	clickHandler = null,
+	onClick = null,
 	ariaExpanded = null,
 	utilities = null,
 	attributes = {},
@@ -39,7 +39,7 @@ const ButtonIconOverText = ({
 				ref={ref}
 				type={buttonType}
 				className={buttonClasses}
-				onClick={clickHandler}
+				onClick={onClick}
 				aria-label={ariaLabel}
 				aria-expanded={ariaExpanded}
 				{...attributes}

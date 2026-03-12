@@ -67,7 +67,7 @@ const Alert = ({
 			{isDismissable && (
 				<ButtonIconOnly
 					iconHandle='close'
-					clickHandler={handleClose}
+					onClick={handleClose}
 					ariaLabel='Close alert'
 					attributes={{ 'data-alert-close': '' }}
 				/>

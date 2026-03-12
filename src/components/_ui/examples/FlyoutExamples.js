@@ -17,7 +17,7 @@ const SimpleFlyout = () => {
                 iconHandle="menu"
                 ariaLabel="Open Flyout"
                 ariaExpanded={isOpen}
-                clickHandler={() => setIsOpen(true)}
+                onClick={() => setIsOpen(true)}
             />
 
             <Flyout
@@ -169,7 +169,7 @@ const DrillDownFlyout = () => {
                 iconHandle="menu"
                 ariaLabel="Open Drill-Down Navigation"
                 ariaExpanded={isOpen}
-                clickHandler={() => setIsOpen(true)}
+                onClick={() => setIsOpen(true)}
             />
 
             <Flyout

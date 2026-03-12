@@ -1,11 +1,11 @@
 import { useParams } from 'react-router-dom';
 
-import Accordion from '../natura11y/accordion';
+import AccordionExamples from './examples/AccordionExamples';
 import AlertParent from '../natura11y/alert/AlertParent';
 import FormValidation from '../natura11y/form/FormValidation';
 import ModalParent from '../natura11y/modal/ModalParent';
 import LightboxExample from '../natura11y/lightbox/LightboxExample';
-import Tabs from '../natura11y/tab';
+import TabExamples from './examples/TabExamples';
 
 import BackdropVideoExamples from './examples/BackdropVideoExamples';
 import BadgeExamples from './examples/BadgeExamples';
@@ -18,6 +18,7 @@ import FlyoutExamples from './examples/FlyoutExamples';
 import MainMenuExamples from './examples/MainMenuExamples';
 import NestedNavExamples from './examples/NestedNavExamples';
 import PaginationExamples from './examples/PaginationExamples';
+import IconExamples from './examples/IconExamples';
 import TableExamples from './examples/TableExamples';
 import TrackExamples from './examples/TrackExamples';
 
@@ -27,7 +28,7 @@ import ExampleHeader from './ExampleHeader';
 
 const exampleConfig = {
 	accordion: {
-		component: Accordion,
+		component: AccordionExamples,
 		wrapperClass: 'narrow margin-x-auto',
 		title: 'Accordion',
 	},
@@ -81,6 +82,11 @@ const exampleConfig = {
 		wrapperClass: 'narrow margin-x-auto',
 		title: 'Form',
 	},
+	icon: {
+		component: IconExamples,
+		wrapperClass: 'container narrow margin-x-auto',
+		title: 'Icon',
+	},
 	lightbox: {
 		component: LightboxExample,
 		wrapperClass: 'medium margin-x-auto',
@@ -107,7 +113,7 @@ const exampleConfig = {
 		title: 'Pagination',
 	},
 	tab: {
-		component: Tabs,
+		component: TabExamples,
 		wrapperClass: 'medium margin-x-auto',
 		title: 'Tab',
 	},

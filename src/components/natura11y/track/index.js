@@ -287,7 +287,7 @@ const Track = (props) => {
               ref={prevButtonRef}
               ariaLabel="Previous Slide"
               iconHandle="arrow-left"
-              clickHandler={() => {
+              onClick={() => {
                 const newIndex = (currentPageIndexRef.current - 1 + trackPagesRef.current.length) % trackPagesRef.current.length;
                 navigateToPage(newIndex);
               }}
@@ -300,7 +300,7 @@ const Track = (props) => {
               ref={nextButtonRef}
               ariaLabel="Next Slide"
               iconHandle="arrow-right"
-              clickHandler={() => {
+              onClick={() => {
                 const newIndex = (currentPageIndexRef.current + 1) % trackPagesRef.current.length;
                 navigateToPage(newIndex);
               }}
@@ -332,7 +332,7 @@ const Track = (props) => {
               ref={prevButtonRef}
               ariaLabel="Previous Slide"
               iconHandle="arrow-left"
-              clickHandler={() => {
+              onClick={() => {
                 const newIndex = (currentPageIndexRef.current - 1 + trackPagesRef.current.length) % trackPagesRef.current.length;
                 navigateToPage(newIndex);
               }}
@@ -343,7 +343,7 @@ const Track = (props) => {
               ref={nextButtonRef}
               ariaLabel="Next Slide"
               iconHandle="arrow-right"
-              clickHandler={() => {
+              onClick={() => {
                 const newIndex = (currentPageIndexRef.current + 1) % trackPagesRef.current.length;
                 navigateToPage(newIndex);
               }}

@@ -87,14 +87,14 @@ const Lightbox = () => {
               ref={lbPrevious}
               buttonType='button'
               iconHandle='arrow-left'
-              clickHandler={() => handleNextPrevious(-1)}
+              onClick={() => handleNextPrevious(-1)}
             />
 
             <ButtonIconOnly
               ref={lbNext}  
               buttonType='button'
               iconHandle='arrow-right'
-              clickHandler={() => handleNextPrevious(1)}
+              onClick={() => handleNextPrevious(1)}
             />
 
           </>
@@ -104,7 +104,7 @@ const Lightbox = () => {
           ref={lbClose}  
           buttonType='button'
           iconHandle='close'
-          clickHandler={handleLightboxClose}
+          onClick={handleLightboxClose}
         />
 
       </div>

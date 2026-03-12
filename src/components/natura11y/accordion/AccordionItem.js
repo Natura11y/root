@@ -1,66 +1,50 @@
-import { useRef } from 'react';
+import { useContext, useId } from 'react';
 
-const AccordionItem = ( props ) => {
+import { AccordionContext } from './AccordionContext';
 
-    const {
-        title = 'Accordion Header',
-        wrapText = true,
-        headingLevel = null,
-        children = (<p>Accordion Content</p>),
-        isActive = false,
-        handleClick = handleClick,
-        handleKeyDown = handleKeyDown,
-        id,
-        dataIndex,
-        buttonRef
-    } = props;
+const AccordionItem = ({ title = 'Accordion Header', children }) => {
 
-    const accordionButton = useRef();
+	const { openAccordion, headingLevel, handleClick, handleKeyDown } = useContext(AccordionContext);
 
-    const Heading = headingLevel ? `h${headingLevel}` : null;
+	const id = useId();
+	const isActive = openAccordion === title;
+	const Heading = headingLevel ? `h${headingLevel}` : null;
 
-    const button = (
-        <button
-            className='accordion__button h5'
-            ref={el => {
-                accordionButton.current = el;
-                if (buttonRef) buttonRef(el);
-            }}
-            id={`${id}`}
-            data-accordion='button'
-            aria-controls={`acc-panel-${id}`}
-            aria-expanded={isActive ? true : false}
-            onClick={handleClick}
-            onKeyDown={handleKeyDown}
-            data-title={title}
-            data-index={dataIndex}
-        >
-            {wrapText ? <span className='text'>{title}</span> : title}
-        </button>
-    );
+	const button = (
+		<button
+			className='accordion__button h5'
+			id={id}
+			data-accordion='button'
+			aria-controls={`acc-panel-${id}`}
+			aria-expanded={isActive}
+			onClick={() => handleClick(title)}
+			onKeyDown={handleKeyDown}
+		>
+			<span className='text'>{title}</span>
+		</button>
+	);
 
-    return (
-        <>
-            {Heading
-                ? <Heading data-accordion='heading'>{button}</Heading>
-                : button
-            }
+	return (
+		<>
+			{Heading
+				? <Heading data-accordion='heading'>{button}</Heading>
+				: button
+			}
 
-            <div
-                className={`accordion__panel ${isActive ? 'shown' : ''}`}
-                id={`acc-panel-${id}`}
-                data-accordion='panel'
-                aria-labelledby={`${id}`}
-                inert={!isActive ? true : undefined}
-                role='region'
-            >
-                <div className='accordion__panel__content'>
-                    {children}
-                </div>
-
-            </div>
-        </>
-    );
+			<div
+				className={`accordion__panel${isActive ? ' shown' : ''}`}
+				id={`acc-panel-${id}`}
+				data-accordion='panel'
+				aria-labelledby={id}
+				inert={!isActive ? true : undefined}
+				role='region'
+			>
+				<div className='accordion__panel__content'>
+					{children}
+				</div>
+			</div>
+		</>
+	);
 
 };
 
