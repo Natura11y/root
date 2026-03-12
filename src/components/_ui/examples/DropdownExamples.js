@@ -1,6 +1,6 @@
-import Dropdown from '../../natura11y/navigation/Dropdown';
+import Dropdown from '../../natura11y/dropdown';
 
-const NavigationExamples = () => {
+const DropdownExamples = () => {
     return (
         <div className="container narrow margin-x-auto grid gap-4">
 
@@ -34,8 +34,23 @@ const NavigationExamples = () => {
                 </ul>
             </div>
 
+            <div>
+                <p className="h6 margin-bottom-2">Link Split</p>
+                <ul className="nav nav--horizontal--md">
+                    <li>
+                        <Dropdown linkSplit linkText="Page" linkHref="#1">
+                            <li><a href="#1">Link</a></li>
+                            <li><a href="#1">Link</a></li>
+                            <li><a href="#1">Link</a></li>
+                        </Dropdown>
+                    </li>
+                    <li><a href="#1">Link</a></li>
+                    <li><a href="#1">Link</a></li>
+                </ul>
+            </div>
+
         </div>
     );
 };
 
-export default NavigationExamples;
+export default DropdownExamples;

@@ -59,8 +59,8 @@ const App = () => {
 			slug: 'main-menu'
 		},
 		{
-			title: 'Navigation',
-			slug: 'navigation'
+			title: 'Dropdown',
+			slug: 'dropdown'
 		},
 		{
 			title: 'Tab',

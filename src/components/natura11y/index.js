@@ -30,10 +30,8 @@ export { default as ImageWithLoading } from './lightbox/ImageWithLoading';
 export { default as Modal } from './modal';
 export { default as ModalParent } from './modal/ModalParent';
 
-export { default as Brand } from './navigation/Brand';
-export { default as Dropdown } from './navigation/Dropdown';
-export { default as MegaMenu } from './navigation/MegaMenu';
-export { default as NavigationItem } from './navigation/NavigationItem';
+export { default as Brand } from './main-menu/Brand';
+export { default as Dropdown } from './dropdown';
 export { default as MainMenu } from './main-menu';
 
 export { default as Tabs } from './tab';

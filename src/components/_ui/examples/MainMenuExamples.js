@@ -1,6 +1,6 @@
 import MainMenu from '../../natura11y/main-menu';
-import Dropdown from '../../natura11y/navigation/Dropdown';
-import Brand from '../../natura11y/navigation/Brand';
+import Dropdown from '../../natura11y/dropdown';
+import Brand from '../../natura11y/main-menu/Brand';
 import FormEntry from '../../natura11y/form/FormEntry';
 
 const logo = (

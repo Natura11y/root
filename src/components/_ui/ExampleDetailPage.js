@@ -12,7 +12,7 @@ import CollapseExamples from './examples/CollapseExamples';
 import ButtonExamples from './examples/ButtonExamples';
 import FlyoutExamples from './examples/FlyoutExamples';
 import MainMenuExamples from './examples/MainMenuExamples';
-import NavigationExamples from './examples/NavigationExamples';
+import DropdownExamples from './examples/DropdownExamples';
 import TableExamples from './examples/TableExamples';
 import TrackExamples from './examples/TrackExamples';
 
@@ -71,10 +71,10 @@ const exampleConfig = {
 		wrapperClass: null,
 		title: 'Main Menu',
 	},
-	navigation: {
-		component: NavigationExamples,
+	dropdown: {
+		component: DropdownExamples,
 		wrapperClass: 'container',
-		title: 'Navigation',
+		title: 'Dropdown',
 	},
 	tab: {
 		component: Tabs,

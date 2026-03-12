@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback, useId } from 'react';
+import { useState, useEffect, useRef, useCallback, useId } from 'react';
 
 import classNames from 'classnames';
 
@@ -14,8 +14,7 @@ const Dropdown = (props) => {
         hover = false,
         buttonText = null,
         dataIndicator = null,
-        // Link-split mode: renders the dropdown-link-split pattern
-        linkSplit = false,
+        linkSplit = false, // Link-split mode: renders the dropdown-link-split pattern
         linkHref = '#1',
         linkText = 'Link',
         linkTag = 'a',
@@ -214,15 +213,13 @@ const Dropdown = (props) => {
         }
     };
 
+    const LinkTag = linkTag;
+
     return (
         <>
             {linkSplit ? (
                 <div className="dropdown-link-split" ref={wrapperRef}>
-                    {React.createElement(linkTag, {
-                        href: linkHref,
-                        className: 'text',
-                        ...linkProps
-                    }, linkText)}
+                    <LinkTag href={linkHref} className="text" {...linkProps}>{linkText}</LinkTag>
                     <button
                         data-toggle="dropdown"
                         ref={menuButton}
