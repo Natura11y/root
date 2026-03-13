@@ -35,6 +35,7 @@ const devPages = {
     'NestedNav': 'nested-nav',
     'Navigation': 'navigation',
     'Pagination': 'pagination',
+    'Search': 'search',
     'Spacer': 'spacer',
     'Tab': 'tab',
     'Table': 'table',
@@ -43,7 +44,7 @@ const devPages = {
 }
 
 const devDir = './dist/html';
-const devPage = `${devPages.Modal}.html`;
+const devPage = `${devPages.Search}.html`;
 
 module.exports = merge(common, {
     mode: 'development',

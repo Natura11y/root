@@ -12,7 +12,7 @@ import Accordion from './js/accordion';
 import AlertDismissable from './js/alert';
 import Backdrop from './js/backdrop';
 import Collapse from './js/collapse';
-import FormInput, { FormSubmission, FormFileUpload } from './js/form';
+import FormInput, { FormSubmission, FormFileUpload, FormSearch } from './js/form';
 import Lightbox from './js/lightbox';
 import Dropdown from './js/dropdown';
 import Flyout from './js/flyout';
@@ -42,6 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const formInput = new FormInput();
   formInput.init();
+
+  const formSearch = new FormSearch();
+  formSearch.init();
 
   const formSubmission = new FormSubmission();
   formSubmission.init();

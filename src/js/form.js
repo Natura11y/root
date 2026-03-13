@@ -416,3 +416,75 @@ export class FormFileUpload extends FormBase {
     this.#fileUploadList.forEach((fileUpload) => this.#handleFileUpload(fileUpload));
   }
 }
+
+//////////////////////////////////////////////
+// E. Form Search
+//////////////////////////////////////////////
+
+export class FormSearch extends FormBase {
+
+  #searchList = document.querySelectorAll('.form-entry--search');
+
+  #inputHandlers = new Map();
+  #clickHandlers = new Map();
+  #liveRegions = new Map();
+  #liveRegionTimers = new Map();
+
+  #handleInput(formEntry, input) {
+    formEntry.classList.toggle('has-value', input.value !== '');
+  }
+
+  #handleClear(formEntry, input) {
+    input.value = '';
+    formEntry.classList.remove('has-value');
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.focus();
+
+    const liveRegion = this.#liveRegions.get(formEntry);
+    if (liveRegion) {
+      clearTimeout(this.#liveRegionTimers.get(formEntry));
+      liveRegion.textContent = 'Search cleared';
+      const timer = setTimeout(() => { liveRegion.textContent = ''; }, 1000);
+      this.#liveRegionTimers.set(formEntry, timer);
+    }
+  }
+
+  cleanup() {
+    this._cleanupHandlers(this.#inputHandlers, 'input');
+    this._cleanupHandlers(this.#clickHandlers, 'click');
+    this.#liveRegionTimers.forEach((timer) => clearTimeout(timer));
+    this.#liveRegionTimers.clear();
+    this.#liveRegions.forEach((region) => region.remove());
+    this.#liveRegions.clear();
+  }
+
+  init() {
+    this.#searchList.forEach((formEntry) => {
+      const input = formEntry.querySelector('input[type="search"]');
+      const clearBtn = formEntry.querySelector('[data-search-clear]');
+
+      if (!input) return;
+
+      if (input.value !== '') {
+        formEntry.classList.add('has-value');
+      }
+
+      const liveRegion = document.createElement('span');
+      liveRegion.setAttribute('aria-live', 'polite');
+      liveRegion.setAttribute('aria-atomic', 'true');
+      liveRegion.classList.add('screen-reader-only');
+      formEntry.appendChild(liveRegion);
+      this.#liveRegions.set(formEntry, liveRegion);
+
+      const inputHandler = () => this.#handleInput(formEntry, input);
+      input.addEventListener('input', inputHandler);
+      this.#inputHandlers.set(input, inputHandler);
+
+      if (clearBtn) {
+        const clickHandler = () => this.#handleClear(formEntry, input);
+        clearBtn.addEventListener('click', clickHandler);
+        this.#clickHandlers.set(clearBtn, clickHandler);
+      }
+    });
+  }
+}

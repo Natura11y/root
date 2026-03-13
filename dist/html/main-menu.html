@@ -87,11 +87,25 @@
                         </div>
 
                         <form class="main-menu__search" role="search" id="main-menu-bar-search" data-focus-first>
-                            <div class="form-entry" aria-label="Search">
+                            <div class="form-entry form-entry--search">
                                 <div class="form-entry__field">
                                     <span class="form-entry__field__input">
-                                        <input type="text" name="search">
-                                        <button class="button">Search</button>
+                                        <input
+                                            type="search"
+                                            name="search"
+                                            aria-label="Search"
+                                            id="main-menu-bar-search-input" />
+                                        <button
+                                            type="button"
+                                            class="button button--icon-only"
+                                            data-search-clear
+                                            aria-label="Clear search"
+                                            aria-controls="main-menu-bar-search-input">
+                                            <span class="icon icon-clear" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="submit" class="button theme-primary">
+                                            Search
+                                        </button>
                                     </span>
                                 </div>
                             </div>
@@ -139,11 +153,28 @@
                         </div>
 
                         <form class="main-menu__search" role="search">
-                            <div class="form-entry" aria-label="Search">
+                            <div class="form-entry form-entry--search">
                                 <div class="form-entry__field">
                                     <span class="form-entry__field__input">
-                                        <input type="text" name="search">
-                                        <button class="button">Search</button>
+                                        <input
+                                            type="search"
+                                            name="search"
+                                            aria-label="Search"
+                                            id="main-menu-stack-search-input" />
+                                        <button
+                                            type="button"
+                                            class="button button--icon-only"
+                                            data-search-clear
+                                            aria-label="Clear search"
+                                            aria-controls="main-menu-stack-search-input">
+                                            <span class="icon icon-clear" aria-hidden="true"></span>
+                                        </button>
+                                        <button
+                                            type="submit"
+                                            class="button button--icon-only theme-primary"
+                                            aria-label="Search">
+                                            <span class="icon icon-search" aria-hidden="true"></span>
+                                        </button>
                                     </span>
                                 </div>
                             </div>
