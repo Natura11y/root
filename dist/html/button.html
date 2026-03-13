@@ -160,12 +160,23 @@
 								</a>
 							</li>
                             <li>
-                            <div class="form-entry" aria-label="Search">
+                            <div class="form-entry form-entry--search">
                         <div class="form-entry__field">
                             <span class="form-entry__field__input">
-                                <span class="icon icon-search"></span>
-                                <input type="text" name="global-search">
-                                <button class="button theme-primary">
+                                <input
+                                    type="search"
+                                    name="global-search"
+                                    aria-label="Search"
+                                    id="button-search-input" />
+                                <button
+                                    type="button"
+                                    class="button button--icon-only"
+                                    data-search-clear
+                                    aria-label="Clear search"
+                                    aria-controls="button-search-input">
+                                    <span class="icon icon-clear" aria-hidden="true"></span>
+                                </button>
+                                <button type="submit" class="button">
                                     Search
                                 </button>
                             </span>

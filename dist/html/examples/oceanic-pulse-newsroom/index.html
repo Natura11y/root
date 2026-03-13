@@ -128,19 +128,28 @@
                 </div>
       
                 <form class="site-nav__search collapse" id="search" role="search" data-focus-first>
-
-                    <div class="form-entry" aria-label="Search">
+                    <div class="form-entry form-entry--search">
                         <div class="form-entry__field">
                             <span class="form-entry__field__input">
-                            <span class="icon icon-search"></span>
-                                <input type="text" name="global-search">
-                                <button class="button font-size-sm">
+                                <input
+                                    type="search"
+                                    name="global-search"
+                                    aria-label="Search"
+                                    id="search-input" />
+                                <button
+                                    type="button"
+                                    class="button button--icon-only"
+                                    data-search-clear
+                                    aria-label="Clear search"
+                                    aria-controls="search-input">
+                                    <span class="icon icon-clear" aria-hidden="true"></span>
+                                </button>
+                                <button type="submit" class="button theme-primary font-size-sm">
                                     Search
                                 </button>
                             </span>
                         </div>
                     </div>
-
                 </form>
 
             </div>

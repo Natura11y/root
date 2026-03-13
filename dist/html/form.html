@@ -454,132 +454,106 @@
                         </form>
                 </div>
 
-                <div class="container medium margin-y-4">
-                    
-                    <div class="grid gap-3 margin-bottom-5">
+                <div class="container narrow margin-y-5 grid gap-5 ">
 
-                        <div
-                            class="form-entry"
-                            id="material-search"
-                            data-focus-first>
+                    <!-- Icon variant: search icon + input + clear button -->
 
-                            <div class="form-entry__field">
+                    <div class="form-entry form-entry--search">
+                        <div class="form-entry__field">
+                            <span class="form-entry__field__input">
+                                <span class="icon icon-search opacity-50" aria-hidden="true"></span>
+                                <input
+                                    type="search"
+                                    placeholder="Search..."
+                                    aria-label="Search"
+                                    id="form-search-icon" />
+                                <button
+                                    type="button"
+                                    class="button button--icon-only"
+                                    data-search-clear
+                                    aria-label="Clear search"
+                                    aria-controls="form-search-icon">
+                                    <span class="icon icon-clear" aria-hidden="true"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
 
-                                <label class="form-entry__field__label screen-reader-only" for="search-example">
+                    <!-- Button variant: search icon + input + clear + text Search button -->
+
+                    <div class="form-entry form-entry--search">
+                        <div class="form-entry__field">
+                            <span class="form-entry__field__input">
+                                <span class="icon icon-search opacity-50" aria-hidden="true"></span>
+                                <input
+                                    type="search"
+                                    aria-label="Search"
+                                    id="form-search-button" />
+                                <button
+                                    type="button"
+                                    class="button button--icon-only"
+                                    data-search-clear
+                                    aria-label="Clear search"
+                                    aria-controls="form-search-button">
+                                    <span class="icon icon-clear" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="button theme-primary">
                                     Search
-                                </label>
-                                        
-                                <span class="form-entry__field__input">
-                                    <input
-                                        type="search"
-                                        name="search-example"
-                                        id="search-example"
-                                        placeholder="Search"
-                                        autocomplete="off"
-                                    />
-                                    <button class="button button--icon-only">
-                                        <span class="icon icon-search" aria-hidden="true"></span>
-                                    </button>
-                                </span>
-
-                            </div>
-
+                                </button>
+                            </span>
                         </div>
-
-                        <div class="form-entry" aria-label="Search">
-                            <div class="form-entry__field">
-                                <span class="form-entry__field__input">
-                                    <span class="icon icon-mail opacity-50" aria-hidden="true"></span>
-                                    <input
-                                        type="email"
-                                    />
-                                    <button class="button theme-primary">
-                                        Sign Up
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="form-entry" aria-label="Search">
-                            <div class="form-entry__field">
-                                <span class="form-entry__field__input border-radius-pill">
-                                    <span class="icon icon-search opacity-50" aria-hidden="true"></span>
-                                    <input
-                                        type="search"
-                                        placeholder="Search"
-                                    />
-                                        <button class="button button--icon-only theme-light border-radius-circle" aria-label="Search">
-                                            <span class="icon icon-close" aria-hidden="true"></span>
-                                        </button>
-                                        <button class="button button--icon-only theme-light border-radius-circle" aria-label="More">
-                                            <span class="icon icon-more-vertical" aria-hidden="true"></span>
-                                        </button>
-                                </span>
-                            </div>
-                        </div>
-
                     </div>
 
-                    <div class="grid grid--column-2 gap-3 margin-bottom-4">
-                        
-                        <div class="form-entry" aria-label="Search">
-                            <div class="form-entry__field">
-                                <span class="form-entry__field__input">
-                                    <span class="icon icon-search opacity-50" aria-hidden="true"></span>
-                                    <input type="text" name="global-search">
-                                </span>
-                            </div>
-                        </div>
+                    <!-- Icon-only search button: input + clear + icon search button -->
 
-                        <div class="form-entry" aria-label="Search">
-                            <div class="form-entry__field">
-                                <span class="form-entry__field__input">
-                                    <input type="text" name="global-search">
-                                    <button class="button">
-                                        Search
-                                    </button>
-                                </span>
-                            </div>
+                    <div class="form-entry form-entry--search">
+                        <div class="form-entry__field">
+                            <span class="form-entry__field__input">
+                                <input
+                                    type="search"
+                                    aria-label="Search"
+                                    id="form-search-icon-button" />
+                                <button
+                                    type="button"
+                                    class="button button--icon-only"
+                                    data-search-clear
+                                    aria-label="Clear search"
+                                    aria-controls="form-search-icon-button">
+                                    <span class="icon icon-clear" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="button button--icon-only theme-primary" aria-label="Search">
+                                    <span class="icon icon-search" aria-hidden="true"></span>
+                                </button>
+                            </span>
                         </div>
-
                     </div>
-                     
-                    <div class="grid grid--column-2 gap-3 margin-bottom-4 ">
-                        
-                        <div class="form-entry font-size-lg" aria-label="Search">
-                            <div class="form-entry__field">
-                                <span class="form-entry__field__input">
-                                    <span class="icon icon-search opacity-50" aria-hidden="true"></span>
-                                    <input type="text" name="global-search">
-                                </span>
-                            </div>
-                        </div>
 
-                        <div class="form-entry font-size-sm" aria-label="Search">
-                            <div class="form-entry__field">
-                                <span class="form-entry__field__input">
-                                    <input type="text" name="global-search">
-                                    <button class="button theme-dark">
-                                        Search
-                                    </button>
-                                </span>
-                            </div>
-                        </div>
+                    <!-- Pre-populated variant: simulates a search results page -->
 
-                        <div class="form-entry grid__colspan-2" aria-label="Search">
-                            <div class="form-entry__field">
-                                <span class="form-entry__field__input">
-                                    <span class="icon icon-mail opacity-50" aria-hidden="true"></span>
-                                    <input type="email" name="global-search">
-                                    <button class="button theme-dark">
-                                        Sign Up
-                                    </button>
-                                </span>
-                            </div>
+                    <div class="form-entry form-entry--search">
+                        <div class="form-entry__field">
+                            <span class="form-entry__field__input">
+                                <span class="icon icon-search opacity-50" aria-hidden="true"></span>
+                                <input
+                                    type="search"
+                                    aria-label="Search"
+                                    id="form-search-results"
+                                    value="Monarch butterfly" />
+                                <button
+                                    type="button"
+                                    class="button button--icon-only"
+                                    data-search-clear
+                                    aria-label="Clear search"
+                                    aria-controls="form-search-results">
+                                    <span class="icon icon-clear" aria-hidden="true"></span>
+                                </button>
+                                <button type="button" class="button theme-primary">
+                                    Search
+                                </button>
+                            </span>
                         </div>
-
                     </div>
-                    
+
                 </div>
 
             </section>

@@ -95,11 +95,23 @@
                 </div>
 
                 <form class="main-menu__search" id="main-menu-search" role="search" data-focus-first>
-                    <div class="form-entry" aria-label="Search">
+                    <div class="form-entry form-entry--search">
                         <div class="form-entry__field">
                             <span class="form-entry__field__input">
-                                <input type="text" name="search" aria-label="Search">
-                                <button class="button">
+                                <input
+                                    type="search"
+                                    name="search"
+                                    aria-label="Search"
+                                    id="main-menu-search-input" />
+                                <button
+                                    type="button"
+                                    class="button button--icon-only"
+                                    data-search-clear
+                                    aria-label="Clear search"
+                                    aria-controls="main-menu-search-input">
+                                    <span class="icon icon-clear" aria-hidden="true"></span>
+                                </button>
+                                <button type="submit" class="button">
                                     Search
                                 </button>
                             </span>

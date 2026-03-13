@@ -373,7 +373,11 @@ In this file:
 
         [data-search-clear] {
             display: none;
-            border-radius: 100% !important;
+            border-radius: 100%;
+
+            [class*="icon-"] {
+                --icon-size: 75cqi;
+            }
         }
 
         &.has-value [data-search-clear] {

@@ -229,18 +229,28 @@
                         </div>
 
                         <form class="main-menu__search" role="search" id="search" data-focus-first>
-
-                            <div class="form-entry" aria-label="Search">
+                            <div class="form-entry form-entry--search">
                                 <div class="form-entry__field">
                                     <span class="form-entry__field__input">
-                                        <input type="text" name="global-search">
-                                        <button class="button">
+                                        <input
+                                            type="search"
+                                            name="global-search"
+                                            aria-label="Search"
+                                            id="search-input" />
+                                        <button
+                                            type="button"
+                                            class="button button--icon-only"
+                                            data-search-clear
+                                            aria-label="Clear search"
+                                            aria-controls="search-input">
+                                            <span class="icon icon-clear" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="submit" class="button">
                                             Search
                                         </button>
                                     </span>
                                 </div>
                             </div>
-
                         </form>
 
                         <div class="main-menu__actions">
@@ -704,18 +714,28 @@
                         </div>
 
                         <form class="main-menu__search" role="search" id="search-2" data-focus-first>
-
-                            <div class="form-entry" aria-label="Search">
+                            <div class="form-entry form-entry--search">
                                 <div class="form-entry__field">
                                     <span class="form-entry__field__input">
-                                        <input type="text" name="global-search-2">
-                                        <button class="button">
+                                        <input
+                                            type="search"
+                                            name="global-search-2"
+                                            aria-label="Search"
+                                            id="search-2-input" />
+                                        <button
+                                            type="button"
+                                            class="button button--icon-only"
+                                            data-search-clear
+                                            aria-label="Clear search"
+                                            aria-controls="search-2-input">
+                                            <span class="icon icon-clear" aria-hidden="true"></span>
+                                        </button>
+                                        <button type="submit" class="button">
                                             Search
                                         </button>
                                     </span>
                                 </div>
                             </div>
-
                         </form>
 
                         <div class="main-menu__actions">

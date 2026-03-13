@@ -336,6 +336,10 @@ In this file:
                     visibility: visible !important;
                 }
 
+                [class*="__search"] {
+                    width: var(--main-menu-search-width);
+                }
+
                 [class*="__search"],
                 [class*="__nav"], 
                 [class*="__nav"] > ul {
@@ -365,10 +369,6 @@ In this file:
                 ) {
                     border-block-start-style: none !important;
                     margin-inline-end: var(--main-menu-padding-x);
-                }
-
-                [class*="__search"] {
-                    width: var(--main-menu-search-width);
                 }
 
                 [class*="__nav"] {
