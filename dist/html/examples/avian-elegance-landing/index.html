@@ -666,7 +666,7 @@
         >
 
             <div
-                class="modal__content narrow border-radius-2 box-shadow-3"
+                class="modal__content theme-dark narrow border-radius-2 box-shadow-3"
                 role="dialog"
                 aria-labelledby="language-modal-title"
             >
@@ -684,7 +684,7 @@
                     </button>
                 </header>
 
-                <main class="modal__content__body">
+                <main class="modal__content__body" id="language-modal-content">
                     <form id="language-form">
                         <fieldset>
                             <legend class="screen-reader-only">
@@ -772,6 +772,17 @@
                     </form>
                 </main>
 
+                <footer class="modal__content__foot border-top">
+                    <button
+                        type="button"
+                        class="button theme-primary width-100"
+                        id="language-confirm"
+                        data-i18n="lang-confirm"
+                    >
+                        Apply Language
+                    </button>
+                </footer>
+
             </div>
 
         </div>
@@ -805,6 +816,7 @@
 
             const applyLanguage = (langCode, strings) => {
                 const meta = LANG_MAP.get(langCode) ?? LANG_MAP.get('en');
+                currentLang = langCode;
 
                 // Update html element attributes
                 document.documentElement.lang = meta.lang;
@@ -844,12 +856,24 @@
                 }
             };
 
-            // Wire up radio buttons
-            document.querySelectorAll('[name="language"]').forEach(radio => {
-                radio.addEventListener('change', async function () {
-                    await switchLanguage(this.value);
-                    document.querySelector('#language-modal [data-modal-close]')?.click();
-                });
+            let currentLang = 'en';
+
+            // Sync radios to the currently active language (called on modal open)
+            const syncRadios = () => {
+                const radio = document.querySelector(`[name="language"][value="${currentLang}"]`);
+                if (radio) radio.checked = true;
+            };
+
+            // Apply on confirm — radios are free to browse without side effects
+            document.querySelector('#language-confirm').addEventListener('click', async () => {
+                const selected = document.querySelector('[name="language"]:checked')?.value;
+                if (selected) await switchLanguage(selected);
+                document.querySelector('#language-modal [data-modal-close]')?.click();
+            });
+
+            // Reset radio if user dismisses without confirming
+            document.querySelectorAll('[aria-controls="language-modal"]').forEach(btn => {
+                btn.addEventListener('click', syncRadios);
             });
 
             // Restore saved preference on load
@@ -857,11 +881,11 @@
                 const saved = (() => {
                     try { return localStorage.getItem('preferred-lang'); } catch (_) { return null; }
                 })();
-                if (saved && saved !== 'en' && LANG_MAP.has(saved)) {
-                    // Pre-check the right radio
+                if (saved && LANG_MAP.has(saved)) {
+                    currentLang = saved;
                     const radio = document.querySelector(`[name="language"][value="${saved}"]`);
                     if (radio) radio.checked = true;
-                    await switchLanguage(saved);
+                    if (saved !== 'en') await switchLanguage(saved);
                 }
             };
 
