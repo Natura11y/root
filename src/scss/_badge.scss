@@ -12,8 +12,8 @@ In this file:
 //////////////////////////////////////////////
 
 :root {
-    --badge-padding-x: 1.25em;
-    --badge-padding-y: 0.5em;
+    --badge-padding-x: 1em;
+    --badge-padding-y: 0.375em;
 
     --badge-background-color: color-mix(in srgb, currentColor 10%, transparent);
 
@@ -48,6 +48,7 @@ In this file:
         
         line-height: normal;
 
+
         &:not([class*="theme-"]) {
             background-color: var(--badge-background-color);
         }
@@ -76,7 +77,7 @@ In this file:
         display: flex;
         align-items: center;
 
-        gap: var(--badge-gap);
+        gap: 0.5em;
 
         .badge {
             margin-block: calc(var(--badge-padding-y) * -1);
