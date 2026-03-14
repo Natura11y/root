@@ -26,7 +26,19 @@
 
     --base-font-size: 1rem;
 
-    --type-scale: 1.2;
+    --type-scale: 1.225;
+}
+
+/*
+
+// Reduce Type Scale for Mobile
+
+*/
+
+@media screen and (max-width: 1000px) {
+    :root {
+        --type-scale: 1.125;
+    }
 }
 
 #introduction.backdrop, 
