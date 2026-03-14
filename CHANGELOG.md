@@ -4,6 +4,39 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [5.1.0] — 2026-03-14
+
+### New Components
+
+#### Search
+- New `FormSearch` class (`form.js`) — powers enhanced search input behavior
+- New CSS modifier: `.form-entry--search` on `.form-entry`
+- `[data-search-clear]` attribute — marks a button that clears the input; shown automatically via `.has-value` class when input has content
+- Native browser search cancel button suppressed cross-browser via CSS (`-webkit-search-cancel-button`, `-webkit-search-decoration`)
+- ARIA live region (`aria-live="polite"`) injected automatically — announces "Search cleared" to screen readers when the clear button is used
+- New CSS variable: `--main-menu-search-width` (default `300px`) — controls inline search width inside the main menu bar at desktop breakpoints
+
+---
+
+### Bug Fixes
+
+#### Collapse
+- Scoped breakpoint override from `.shown` to `.collapse.shown` — the unscoped rule was overriding `.shown` on unrelated components (e.g. `modal--scroll-all` lost its `overflow-y: scroll` behavior)
+
+#### Flyout
+- Added `user-select: none` to `.flyout :is(a, button)` — prevents browser text-selection artifacts on flyout links during rapid open/close interactions
+
+#### Button
+- Added `user-select: none` to `.button` — prevents accidental text selection on interactive controls
+
+#### Main Menu
+- Added `user-select: none` to mobile nav `> ul > li > :is(a, button)` — consistent with flyout and button fix
+
+#### Form Entry
+- Improved button sizing inside `.form-entry__field__input`: replaced hardcoded `margin` and `font-size` with `--_form-entry-button-inset` internal variable; `gap` added between input and button; icon-only buttons now correctly size to target size
+
+---
+
 ## [5.0.1] — 2026-03-10
 
 ### Bug Fixes
