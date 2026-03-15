@@ -26,7 +26,9 @@
 
     --base-font-size: 1rem;
 
-    --type-scale: 1.225;
+    --type-scale: 1.2;
+
+    --form-entry-option-group-border-color: var(--border-color)
 }
 
 /*
@@ -37,7 +39,7 @@
 
 @media screen and (max-width: 1000px) {
     :root {
-        --type-scale: 1.125;
+        --type-scale: 1.1;
     }
 }
 
