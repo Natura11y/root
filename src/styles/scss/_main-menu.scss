@@ -31,6 +31,8 @@ In this file:
     --main-menu-padding-x: var(--container-padding-x);
 
     --main-menu-padding-y: var(--spacer-2);
+
+    --main-menu-search-width: 300px;
 }
 
 // Mixin for hover safe zone
@@ -334,6 +336,10 @@ In this file:
                     visibility: visible !important;
                 }
 
+                [class*="__search"] {
+                    width: var(--main-menu-search-width);
+                }
+
                 [class*="__search"],
                 [class*="__nav"], 
                 [class*="__nav"] > ul {
@@ -421,7 +427,7 @@ In this file:
                     }
                 }
 
-                [class*="__search"] > *{
+                [class*="__search"] > * {
                     padding-inline: unset;
                 }
             }

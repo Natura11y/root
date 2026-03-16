@@ -23,6 +23,7 @@ export { default as Flyout } from './flyout';
 
 export { default as Form } from './form';
 export { default as FormEntry } from './form/FormEntry';
+export { default as FormEntrySearch } from './form/FormEntrySearch';
 export { default as FormValidation } from './form/FormValidation';
 export { default as RequiredIndicator } from './form/RequiredIndicator';
 

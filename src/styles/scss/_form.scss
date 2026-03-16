@@ -311,10 +311,14 @@ In this file:
     }
 
     .form-entry__field__input {
+        --_form-entry-button-inset: 0.25em;
+        
         display: flex;
         align-items: center;
 
         height: 100%;
+
+        gap: var(--_form-entry-button-inset);
 
         input {
             flex-grow: 1;
@@ -324,27 +328,60 @@ In this file:
         button {
             --button-padding-y: 0;
             --button-border-radius: 0;
-            --button-target-size: calc(var(--form-entry-target-size) - 0.75rem);
-            
+            --button-target-size: calc(var(--form-entry-target-size) - (var(--_form-entry-button-inset) * 2));
+
             flex-shrink: 0;
 
-            margin: 0.375rem;
+            margin-inline-end: var(--_form-entry-button-inset);
+            margin-block: var(--_form-entry-button-inset);
 
             border-radius: inherit;
-
-            font-size: 85%;
         }
 
         > .button:not([class*='--icon-only']) {
             align-self: stretch;
         }
 
+        > .button--icon-only {
+            height: calc(var(--button-target-size) - (var(--_form-entry-button-inset) * 2));
+        }
+
         > .icon {
-            margin-inline: calc(var(--form-entry-padding-x) * 0.5);
+            margin-inline-start: calc(var(--form-entry-padding-x) * 0.5);
         }
 
         > .icon + input {
             padding-inline-start: unset;
+        }
+    }
+
+    // Search Modifier
+
+    .form-entry--search {
+
+        input[type="search"] {
+            -webkit-appearance: none;
+            appearance: none;
+
+            &::-webkit-search-cancel-button,
+            &::-webkit-search-decoration {
+                -webkit-appearance: none;
+                appearance: none;
+                display: none;
+            }
+        }
+
+        [data-search-clear] {
+            display: none;
+            border-radius: 100%;
+
+            [class*="icon-"] {
+                --icon-size: 75cqi;
+            }
+        }
+
+        &.has-value [data-search-clear] {
+            display: flex;
         }
     }
 

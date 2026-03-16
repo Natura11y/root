@@ -1,7 +1,7 @@
 import MainMenu from '../../natura11y/main-menu';
 import Dropdown from '../../natura11y/dropdown';
 import Brand from '../../natura11y/main-menu/Brand';
-import FormEntry from '../../natura11y/form/FormEntry';
+import FormEntrySearch from '../../natura11y/form/FormEntrySearch';
 
 const logo = (
     <a href="/" title="Home" data-logo="brand">
@@ -9,13 +9,21 @@ const logo = (
     </a>
 );
 
-const search = (
-    <FormEntry
-        entryType="search"
-        entryName="global-search"
-        labelText="Search"
-        labelVisible={false}
-        buttonLabel="Search"
+const searchBar = (
+    <FormEntrySearch
+        id='main-menu-search-bar'
+        name='globalSearch'
+        leadingIcon={false}
+        submitButton='text'
+    />
+);
+
+const searchStack = (
+    <FormEntrySearch
+        id='main-menu-search-stack'
+        name='globalSearch'
+        leadingIcon={false}
+        submitButton='icon'
     />
 );
 
@@ -39,14 +47,14 @@ const MainMenuExamples = () => {
 
             <div className="box-shadow-1">
                 <p className="h6 padding-x-3 padding-top-3 margin-bottom-2">Bar</p>
-                <MainMenu logo={logo} search={search}>
+                <MainMenu logo={logo} search={searchBar}>
                     {navItems}
                 </MainMenu>
             </div>
 
             <div className="box-shadow-1">
                 <p className="h6 padding-x-3 padding-top-3 margin-bottom-2">Stack</p>
-                <MainMenu variant="stack" logo={logo} search={search}>
+                <MainMenu variant="stack" logo={logo} search={searchStack}>
                     {navItems}
                 </MainMenu>
             </div>
