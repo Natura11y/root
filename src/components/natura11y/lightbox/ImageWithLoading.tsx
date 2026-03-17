@@ -1,6 +1,11 @@
 import { useState } from 'react';
 
-const ImageWithLoading = ({ src, alt }) => {
+interface ImageWithLoadingProps {
+  src: string;
+  alt: string;
+}
+
+const ImageWithLoading = ({ src, alt }: ImageWithLoadingProps) => {
   const [loading, setLoading] = useState(true);
 
   return (
@@ -14,19 +19,17 @@ const ImageWithLoading = ({ src, alt }) => {
         backgroundColor: 'hsla(0, 0%, 0%, 0.5)',
       }}
     >
-      <img 
-        src={src} 
-        alt={alt} 
+      <img
+        src={src}
+        alt={alt}
         onLoad={() => setLoading(false)}
         style={{ opacity: loading ? 0 : 1, transition: 'opacity 0.5s ease' }}
       />
-      {loading && 
-        <div 
-          className='icon icon-loading icon--rotate' 
+      {loading &&
+        <div
+          className='icon icon-loading icon--rotate'
           aria-hidden='true'
-          style={{
-            position: 'absolute',
-          }}
+          style={{ position: 'absolute' }}
         />
       }
     </div>

@@ -1,8 +1,14 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts'
+import path from 'path'
 
 export default defineConfig(({ command }) => ({
+  resolve: {
+    alias: {
+      'natura11y/utilities': path.resolve('./node_modules/natura11y/src/js/utilities'),
+    }
+  },
   plugins: [
     react(),
     ...(command === 'build'
@@ -39,7 +45,7 @@ export default defineConfig(({ command }) => ({
     build: {
       lib: {
         entry: {
-          'natura11y-react': 'src/components/natura11y/index.jsx',
+          'natura11y-react': 'src/components/natura11y/index.ts',
           'hooks': 'src/hooks/index.ts'
         },
         formats: ['es', 'cjs'],

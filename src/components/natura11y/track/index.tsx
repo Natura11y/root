@@ -1,12 +1,25 @@
-import { useState, useEffect, useRef, useId } from 'react';
-
+import { useState, useEffect, useRef, useId, type ComponentType } from 'react';
 import classNames from 'classnames';
-
 import TrackPanel from './TrackPanel';
 import ButtonIconOnly from '../button/ButtonIconOnly';
 import TrackPagination from './TrackPagination';
+import { getFocusableElements } from 'natura11y/utilities/focus';
 
-import { getFocusableElements } from 'natura11y/src/js/utilities/focus';
+interface PaginationProps {
+  currentPageIndex: number;
+  totalPages: number;
+  onNavigate: (index: number) => void;
+}
+
+interface TrackProps {
+  panels: Record<string, unknown>[];
+  ariaLabel: string;
+  trackId?: string | null;
+  utilities?: string | null;
+  floatDirectionalButtons?: boolean;
+  PanelComponent?: ComponentType<{ panel: Record<string, unknown> }>;
+  PaginationComponent?: ComponentType<PaginationProps>;
+}
 
 const Track = ({
   panels,
@@ -14,34 +27,29 @@ const Track = ({
   trackId: trackIdProp = null,
   utilities = null,
   floatDirectionalButtons = true,
-  PanelComponent = TrackPanel,
+  PanelComponent = TrackPanel as ComponentType<{ panel: Record<string, unknown> }>,
   PaginationComponent = TrackPagination,
-}) => {
-
+}: TrackProps) => {
   const generatedId = useId();
   const trackId = trackIdProp ?? generatedId;
 
   const trackClasses = classNames('track', utilities);
 
-  // State
-
   const [visiblePanels, setVisiblePanels] = useState(1);
-  const [trackPages, setTrackPages] = useState([]);
+  const [trackPages, setTrackPages] = useState<HTMLLIElement[][]>([]);
   const [currentPageIndex, setCurrentPageIndex] = useState(0);
 
-  // Refs
-
-  const trackRef = useRef(null);
-  const trackPanelsRef = useRef(null);
-  const liveRegionRef = useRef(null);
-  const tabbingObserverRef = useRef(null);
-  const paginationObserverRef = useRef(null);
-  const panelRefs = useRef([]);
-  const debounceTimeout = useRef(null);
-  const prevButtonRef = useRef(null);
-  const nextButtonRef = useRef(null);
+  const trackRef = useRef<HTMLElement>(null);
+  const trackPanelsRef = useRef<HTMLUListElement>(null);
+  const liveRegionRef = useRef<HTMLDivElement>(null);
+  const tabbingObserverRef = useRef<IntersectionObserver | null>(null);
+  const paginationObserverRef = useRef<IntersectionObserver | null>(null);
+  const panelRefs = useRef<(HTMLLIElement | null)[]>([]);
+  const debounceTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const prevButtonRef = useRef<HTMLButtonElement>(null);
+  const nextButtonRef = useRef<HTMLButtonElement>(null);
   const currentPageIndexRef = useRef(0);
-  const trackPagesRef = useRef([]);
+  const trackPagesRef = useRef<HTMLLIElement[][]>([]);
   const isNavigatingRef = useRef(false);
 
   const getVisiblePanels = () => {
@@ -54,16 +62,15 @@ const Track = ({
     return parseFloat(getComputedStyle(trackPanelsRef.current).paddingLeft) || 0;
   };
 
-  // Group panels into pages based on visible panel count
-
   const setupPagination = () => {
     const visiblePanelsCount = getVisiblePanels();
     setVisiblePanels(visiblePanelsCount);
 
-    const pages = [];
-    let currentPage = [];
+    const pages: HTMLLIElement[][] = [];
+    let currentPage: HTMLLIElement[] = [];
 
     panelRefs.current.forEach((panel, index) => {
+      if (!panel) return;
       currentPage.push(panel);
       if (currentPage.length === visiblePanelsCount || index === panelRefs.current.length - 1) {
         pages.push([...currentPage]);
@@ -75,9 +82,7 @@ const Track = ({
     setCurrentPageIndex(0);
   };
 
-  // Debounced page index update (skipped during programmatic navigation)
-
-  const debouncedSetPageIndex = (pageIndex) => {
+  const debouncedSetPageIndex = (pageIndex: number) => {
     if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
     debounceTimeout.current = setTimeout(() => {
       if (isNavigatingRef.current) return;
@@ -86,16 +91,14 @@ const Track = ({
     }, 150);
   };
 
-  // IntersectionObserver: tracks which page is currently in view
-
-  const applyPaginationObserver = (panelPeeking) => {
+  const applyPaginationObserver = (panelPeeking: number) => {
     if (!trackPanelsRef.current) return;
     if (paginationObserverRef.current) paginationObserverRef.current.disconnect();
 
     const observer = new IntersectionObserver((entries) => {
       const intersectingEntry = entries.find(entry => entry.isIntersecting);
       if (intersectingEntry) {
-        const pageIndex = parseInt(intersectingEntry.target.getAttribute('data-page'), 10);
+        const pageIndex = parseInt(intersectingEntry.target.getAttribute('data-page') ?? '0', 10);
         debouncedSetPageIndex(pageIndex);
       }
     }, {
@@ -104,14 +107,11 @@ const Track = ({
       rootMargin: `0px -${panelPeeking * 0.5}px`,
     });
 
-    panelRefs.current.forEach(panel => observer.observe(panel));
+    panelRefs.current.forEach(panel => { if (panel) observer.observe(panel); });
     paginationObserverRef.current = observer;
   };
 
-  // IntersectionObserver: applies inert to off-screen panels
-  // Mirrors vanilla #setupTabbingObserver — hides panels from tab order and assistive tech
-
-  const applyTabbingObserver = (panelPeeking) => {
+  const applyTabbingObserver = (panelPeeking: number) => {
     if (!trackPanelsRef.current) return;
     if (tabbingObserverRef.current) tabbingObserverRef.current.disconnect();
 
@@ -129,8 +129,6 @@ const Track = ({
     tabbingObserverRef.current = observer;
   };
 
-  // Reset on resize
-
   const resetTrackState = () => {
     if (!trackPanelsRef.current) return;
     const panelPeeking = getPeekingPadding();
@@ -140,9 +138,7 @@ const Track = ({
     applyTabbingObserver(panelPeeking);
   };
 
-  // Scroll to a specific page index
-
-  const navigateToPage = (pageIndex) => {
+  const navigateToPage = (pageIndex: number) => {
     const targetPanel = trackPagesRef.current[pageIndex]?.[0];
     if (!targetPanel || !trackPanelsRef.current) return;
 
@@ -158,25 +154,21 @@ const Track = ({
 
     setCurrentPageIndex(pageIndex);
 
-    clearTimeout(debounceTimeout.current);
+    if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
     debounceTimeout.current = setTimeout(() => {
       isNavigatingRef.current = false;
     }, prefersReducedMotion ? 0 : 300);
   };
 
-  // Update ARIA live region for screen readers
-
-  const updateLiveRegion = (pageIndex) => {
+  const updateLiveRegion = (pageIndex: number) => {
     if (liveRegionRef.current) {
       liveRegionRef.current.textContent = `Page ${pageIndex + 1} of ${trackPagesRef.current.length}`;
     }
   };
 
-  // Arrow key navigation: prev/next buttons navigate pages; panels navigate within a page
-
   const initKeyboardNavigation = () => {
-    const handleKeyDown = (event) => {
-      const button = event.target.closest('button');
+    const handleKeyDown = (event: KeyboardEvent) => {
+      const button = (event.target as HTMLElement).closest('button');
       const isPrevButton = button?.classList.contains('track__prev');
       const isNextButton = button?.classList.contains('track__next');
 
@@ -194,7 +186,7 @@ const Track = ({
         }
       }
 
-      const currentPanel = event.target.closest('.track__panel');
+      const currentPanel = (event.target as HTMLElement).closest('.track__panel') as HTMLLIElement | null;
       if (currentPanel && (event.code === 'ArrowRight' || event.code === 'ArrowLeft')) {
         event.preventDefault();
 
@@ -202,15 +194,15 @@ const Track = ({
         const currentIndex = currentPage?.indexOf(currentPanel);
         if (currentIndex == null || currentIndex === -1) return;
 
-        let targetPanel = null;
+        let targetPanel: HTMLLIElement | null = null;
         if (event.code === 'ArrowRight' && currentIndex < currentPage.length - 1) {
-          targetPanel = currentPage[currentIndex + 1];
+          targetPanel = currentPage[currentIndex + 1] ?? null;
         } else if (event.code === 'ArrowLeft' && currentIndex > 0) {
-          targetPanel = currentPage[currentIndex - 1];
+          targetPanel = currentPage[currentIndex - 1] ?? null;
         }
 
         if (targetPanel) {
-          getFocusableElements(targetPanel)[0]?.focus();
+          (getFocusableElements(targetPanel)[0] as HTMLElement | undefined)?.focus();
         }
       }
     };
@@ -219,14 +211,10 @@ const Track = ({
     return () => trackRef.current?.removeEventListener('keydown', handleKeyDown);
   };
 
-  // Keep refs in sync with state
-
   useEffect(() => {
     currentPageIndexRef.current = currentPageIndex;
     trackPagesRef.current = trackPages;
   }, [currentPageIndex, trackPages]);
-
-  // Initialize and clean up
 
   useEffect(() => {
     setupPagination();
@@ -245,15 +233,13 @@ const Track = ({
     };
   }, [panels]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // Shared panel list markup
-
   const panelList = (
     <ul className="track__panels gap-1" ref={trackPanelsRef}>
       {panels.map((panel, index) => {
         const pageIndex = Math.floor(index / visiblePanels);
         return (
           <li
-            ref={(el) => (panelRefs.current[index] = el)}
+            ref={(el) => { panelRefs.current[index] = el; }}
             key={`${trackId}-panel-${index}`}
             data-index={index}
             data-page={pageIndex}
@@ -272,7 +258,6 @@ const Track = ({
       aria-labelledby={`${trackId}-heading`}
       ref={trackRef}
     >
-
       <h3 id={`${trackId}-heading`} className="screen-reader-only">
         {ariaLabel}
       </h3>
@@ -280,7 +265,6 @@ const Track = ({
       {floatDirectionalButtons ? (
         <>
           <div className="track__container">
-
             <ButtonIconOnly
               ref={prevButtonRef}
               ariaLabel="Previous Slide"
@@ -291,9 +275,7 @@ const Track = ({
               }}
               utilities="track__prev"
             />
-
             {panelList}
-
             <ButtonIconOnly
               ref={nextButtonRef}
               ariaLabel="Next Slide"
@@ -304,9 +286,7 @@ const Track = ({
               }}
               utilities="track__next"
             />
-
           </div>
-
           <PaginationComponent
             currentPageIndex={currentPageIndex}
             totalPages={trackPages.length}
@@ -318,14 +298,12 @@ const Track = ({
           <div className="track__container">
             {panelList}
           </div>
-
           <div className="track__controls">
             <PaginationComponent
               currentPageIndex={currentPageIndex}
               totalPages={trackPages.length}
               onNavigate={navigateToPage}
             />
-
             <ButtonIconOnly
               ref={prevButtonRef}
               ariaLabel="Previous Slide"
@@ -336,7 +314,6 @@ const Track = ({
               }}
               utilities="track__prev"
             />
-
             <ButtonIconOnly
               ref={nextButtonRef}
               ariaLabel="Next Slide"
@@ -357,7 +334,6 @@ const Track = ({
         aria-live="polite"
         aria-atomic="true"
       />
-
     </section>
   );
 };
