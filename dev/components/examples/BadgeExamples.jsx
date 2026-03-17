@@ -1,4 +1,4 @@
-import Badge from '../../natura11y/badge';
+import Badge from '@lib/components/natura11y/badge';
 
 const BadgeExamples = () => (
     <div className='container narrow margin-x-auto grid gap-4'>

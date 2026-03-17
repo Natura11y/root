@@ -1,4 +1,4 @@
-import Card from '../../natura11y/card';
+import Card from '@lib/components/natura11y/card';
 
 const CardExamples = () => (
     <div className='container medium margin-x-auto grid gap-4'>

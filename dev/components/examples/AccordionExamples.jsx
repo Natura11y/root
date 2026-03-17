@@ -1,4 +1,4 @@
-import Accordion from '../../natura11y/accordion';
+import Accordion from '@lib/components/natura11y/accordion';
 
 const AccordionExamples = () => (
 	<Accordion>

@@ -1,4 +1,4 @@
-import Breadcrumb from '../../natura11y/breadcrumb';
+import Breadcrumb from '@lib/components/natura11y/breadcrumb';
 
 const BreadcrumbExamples = () => (
     <div className='container narrow margin-x-auto grid gap-4'>

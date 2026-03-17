@@ -1,6 +1,6 @@
-import Button from '../../natura11y/button';
-import ButtonIconOnly from '../../natura11y/button/ButtonIconOnly';
-import ButtonIconOverText from '../../natura11y/button/ButtonIconOverText';
+import Button from '@lib/components/natura11y/button';
+import ButtonIconOnly from '@lib/components/natura11y/button/ButtonIconOnly';
+import ButtonIconOverText from '@lib/components/natura11y/button/ButtonIconOverText';
 
 const ButtonExamples = () => {
 	return (

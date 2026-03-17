@@ -1,4 +1,4 @@
-import Dropdown from '../../natura11y/dropdown';
+import Dropdown from '@lib/components/natura11y/dropdown';
 
 const DropdownExamples = () => {
     return (

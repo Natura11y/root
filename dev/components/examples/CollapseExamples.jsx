@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 
-import Collapse from '../../natura11y/collapse';
+import Collapse from '@lib/components/natura11y/collapse';
 
 // ─────────────────────────────────────────────────────────────
 // Basic Collapse

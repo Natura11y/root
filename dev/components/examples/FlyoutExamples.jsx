@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import Flyout from '../../natura11y/flyout';
-import Button from '../../natura11y/button';
+import Flyout from '@lib/components/natura11y/flyout';
+import Button from '@lib/components/natura11y/button';
 
 // ─────────────────────────────────────────────────────────────
 // Simple Flyout

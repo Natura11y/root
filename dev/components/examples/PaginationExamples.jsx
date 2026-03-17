@@ -1,4 +1,4 @@
-import Pagination from '../../natura11y/pagination';
+import Pagination from '@lib/components/natura11y/pagination';
 
 const basicItems = [
     { ariaLabel: 'Previous page', href: '#1', iconHandle: 'arrow-left' },

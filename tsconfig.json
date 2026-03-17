@@ -8,7 +8,11 @@
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "skipLibCheck": true,
-    "noEmit": true
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@lib/*": ["src/*"]
+    }
   },
   "include": ["src/components/natura11y", "src/hooks", "src/types"],
   "exclude": ["node_modules", "dist"]

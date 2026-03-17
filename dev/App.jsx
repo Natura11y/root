@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import { LightboxProvider } from './context/LightboxContext';
+import { LightboxProvider } from '@lib/context/LightboxContext';
 
 import classNames from 'classnames';
 
@@ -9,11 +9,11 @@ import './styles/index.scss';
 // NPM: swap to this line after publishing natura11y with new components
 // import 'natura11y/src/scss/index.scss';
 
-import ScrollToTop from './components/_ui/ScrollToTop';
-import MainMenuBar from './components/_ui/MainMenuBar';
-import Home from './components/_ui/Home';
-import ExampleDetailPage from './components/_ui/ExampleDetailPage';
-import About from './components/_ui/About';
+import ScrollToTop from './components/ScrollToTop';
+import MainMenuBar from './components/MainMenuBar';
+import Home from './components/Home';
+import ExampleDetailPage from './components/ExampleDetailPage';
+import About from './components/About';
 
 const App = () => {
 

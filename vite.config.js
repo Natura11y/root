@@ -7,6 +7,7 @@ export default defineConfig(({ command }) => ({
   resolve: {
     alias: {
       'natura11y/utilities': path.resolve('./node_modules/natura11y/src/js/utilities'),
+      '@lib': path.resolve('./src'),
     }
   },
   plugins: [
