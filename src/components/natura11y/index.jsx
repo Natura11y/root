@@ -46,8 +46,7 @@ export { default as NestedNav } from './nested-nav';
 export { default as Pagination } from './pagination';
 
 export { default as Tabs } from './tab';
-export { default as TabPanel } from './tab/TabPanel';
-export { default as TabsNav } from './tab/TabsNav';
+export { default as TabPanel } from './tab/Tab';
 
 export { default as Table } from './table';
 export { default as TableScroll } from './table/TableScroll';

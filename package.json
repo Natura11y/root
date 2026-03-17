@@ -1,29 +1,57 @@
 {
-  "name": "react-natura11y",
+  "name": "@natura11y/react",
   "version": "1.0.0",
+  "type": "module",
   "private": false,
-  "main": "src/components/natura11y/index.js",
+  "main": "./dist/natura11y-react.cjs",
+  "module": "./dist/natura11y-react.js",
+  "types": "./dist/types/index.d.ts",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./dist/natura11y-react.js",
+      "require": "./dist/natura11y-react.cjs"
+    },
+    "./hooks": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/hooks.js",
+      "require": "./dist/hooks.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "sync-styles": "cp -r node_modules/natura11y/src/scss/. src/styles/natura11y/"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19",
+    "react-dom": "^18 || ^19",
+    "natura11y": "^5.0.0"
+  },
   "dependencies": {
-    "classnames": "^2.5.1",
-    "natura11y": "^5.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-router-dom": "^6.28.1"
+    "classnames": "^2.5.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.1.0",
     "@testing-library/user-event": "^14.5.2",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "natura11y": "^5.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^6.28.1",
     "sass": "^1.83.4",
+    "typescript": "^5.6.0",
     "vite": "^6.3.5",
+    "vite-plugin-dts": "^4.0.0",
     "web-vitals": "^4.2.4"
-  },
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview",
-    "sync-styles": "cp -r node_modules/natura11y/src/scss/. src/styles/natura11y/"
   },
   "browserslist": {
     "production": [
