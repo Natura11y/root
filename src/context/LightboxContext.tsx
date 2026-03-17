@@ -1,5 +1,6 @@
 import { createContext, useState, useRef, useEffect, type ReactNode, type RefObject } from 'react';
 import { useScrollLock } from '../hooks/useScrollLock';
+import { useStableCallback } from '../hooks/useStableCallback';
 import Lightbox from '../components/natura11y/lightbox';
 
 export interface MediaItem {
@@ -87,7 +88,7 @@ export const LightboxProvider = ({ children }: { children: ReactNode }) => {
     refToFocus.current?.focus();
   };
 
-  const handleLightboxUpdate = (e: KeyboardEvent) => {
+  const handleLightboxUpdate = useStableCallback((e: KeyboardEvent) => {
     if (!lightboxData.isOpen || mediaArray.length <= 1) return;
 
     const keyHandlers: Record<string, () => void> = {
@@ -97,7 +98,7 @@ export const LightboxProvider = ({ children }: { children: ReactNode }) => {
     };
 
     keyHandlers[e.code]?.();
-  };
+  });
 
   const handleNextPrevious = (dir: number) => {
     if (mediaArray.length <= 1) return;
@@ -111,22 +112,18 @@ export const LightboxProvider = ({ children }: { children: ReactNode }) => {
   };
 
   useEffect(() => {
-    if (lightboxData.isOpen) {
-      document.addEventListener('keydown', handleLightboxUpdate);
-
-      if (!previousIsOpen.current) {
-        lbClose.current?.focus();
-      }
-    } else {
-      document.removeEventListener('keydown', handleLightboxUpdate);
-    }
-
+    const wasOpen = previousIsOpen.current;
     previousIsOpen.current = lightboxData.isOpen;
 
-    return () => {
-      document.removeEventListener('keydown', handleLightboxUpdate);
-    };
-  }, [lightboxData, mediaArray]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (!lightboxData.isOpen) return;
+
+    if (!wasOpen) {
+      lbClose.current?.focus();
+    }
+
+    document.addEventListener('keydown', handleLightboxUpdate);
+    return () => document.removeEventListener('keydown', handleLightboxUpdate);
+  }, [lightboxData.isOpen, handleLightboxUpdate]);
 
   useEffect(() => {
     const currentMedia = mediaArray[lightboxData.currentLB];
