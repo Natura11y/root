@@ -49,7 +49,7 @@ const Lightbox = () => {
     default: src => <ImageWithLoading src={src} alt='Lightbox content' key={src} />,
   };
 
-  const renderContent = () => (mediaTypes[lbType] ?? mediaTypes.default)(lbSrc);
+  const renderContent = () => (mediaTypes[lbType as keyof typeof mediaTypes] ?? mediaTypes.default)!(lbSrc);
 
   return (
     <div

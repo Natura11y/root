@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback, useId, type ReactNode, type RefObject } from 'react';
 import classNames from 'classnames';
 import { getFocusableElements } from 'natura11y/utilities/focus';
+import { useLinearKeyNav } from '../../../hooks/useLinearKeyNav';
 
 const useCollapse = (panelRef: RefObject<HTMLElement | null>) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -101,6 +102,11 @@ const MainMenu = ({
 
   const nav = useCollapse(navRef);
   const searchPanel = useCollapse(searchFormRef);
+  const { onKeyDown: onNavKeyDown } = useLinearKeyNav({
+    containerRef: navRef,
+    itemSelector: ':scope > ul > li > :is(a, button)',
+    orientation: 'horizontal',
+  });
 
   const handleMenuToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
     keyboardNavRef.current = e.detail === 0;
@@ -165,7 +171,7 @@ const MainMenu = ({
       id={navId}
       aria-label={navAriaLabel}
     >
-      <ul>{children}</ul>
+      <ul onKeyDown={onNavKeyDown}>{children}</ul>
     </nav>
   );
 

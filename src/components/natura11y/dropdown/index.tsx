@@ -250,7 +250,7 @@ const Dropdown = ({
       )}
 
       <MenuContainer
-        ref={menuRef}
+        ref={menuRef as unknown as React.RefObject<HTMLDivElement & HTMLUListElement>}
         id={dropdownId}
         className={menuClasses}
         data-state={menuShow ? 'open' : 'closed'}

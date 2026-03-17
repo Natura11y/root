@@ -27,7 +27,7 @@ const Track = ({
   trackId: trackIdProp = null,
   utilities = null,
   floatDirectionalButtons = true,
-  PanelComponent = TrackPanel as ComponentType<{ panel: Record<string, unknown> }>,
+  PanelComponent = TrackPanel as unknown as ComponentType<{ panel: Record<string, unknown> }>,
   PaginationComponent = TrackPagination,
 }: TrackProps) => {
   const generatedId = useId();
@@ -191,8 +191,9 @@ const Track = ({
         event.preventDefault();
 
         const currentPage = trackPagesRef.current[currentPageIndexRef.current];
-        const currentIndex = currentPage?.indexOf(currentPanel);
-        if (currentIndex == null || currentIndex === -1) return;
+        if (!currentPage) return;
+        const currentIndex = currentPage.indexOf(currentPanel);
+        if (currentIndex === -1) return;
 
         let targetPanel: HTMLLIElement | null = null;
         if (event.code === 'ArrowRight' && currentIndex < currentPage.length - 1) {
