@@ -253,6 +253,7 @@ const Dropdown = ({
         ref={menuRef}
         id={dropdownId}
         className={menuClasses}
+        data-state={menuShow ? 'open' : 'closed'}
       >
         {children}
       </MenuContainer>

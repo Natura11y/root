@@ -1,9 +1,10 @@
-import { useRef, useId, type Ref, type ReactNode, type MouseEvent } from 'react';
+import { useRef, useId, useEffect, type Ref, type ReactNode, type MouseEvent } from 'react';
 import classNames from 'classnames';
 import ButtonIconOnly from '../button/ButtonIconOnly';
 import { useMergedRefs } from '../../../hooks/useMergedRefs';
 import { useFocusTrap } from '../../../hooks/useFocusTrap';
 import { useScrollLock } from '../../../hooks/useScrollLock';
+import { getFocusableElements } from 'natura11y/utilities/focus';
 
 interface ModalProps {
   ref?: Ref<HTMLDivElement>;
@@ -37,6 +38,12 @@ const Modal = ({
 
   useScrollLock(isOpen);
   useFocusTrap(contentRef, { enabled: isOpen, onEscape: onClose ?? undefined });
+
+  useEffect(() => {
+    if (!isOpen || !contentRef.current) return;
+    const first = getFocusableElements(contentRef.current)[0] as HTMLElement | undefined;
+    first?.focus();
+  }, [isOpen]);
 
   const handleCloseOutside = (e: MouseEvent<HTMLDivElement>) => {
     if (closeOutside && contentRef.current && !contentRef.current.contains(e.target as Node)) {

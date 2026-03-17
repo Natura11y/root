@@ -48,6 +48,7 @@ export const LightboxProvider = ({ children }: { children: ReactNode }) => {
   const lbPrevious = useRef<HTMLButtonElement>(null);
   const lbNext = useRef<HTMLButtonElement>(null);
   const lbClose = useRef<HTMLButtonElement>(null);
+  const lastFocusedRef = useRef<HTMLElement | null>(null);
 
   const previousIsOpen = useRef(lightboxData.isOpen);
 
@@ -66,11 +67,13 @@ export const LightboxProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const handleLightboxOpen = (lbType: string, lbSrc: string, lbCaption: string) => {
+    lastFocusedRef.current = document.activeElement as HTMLElement;
     updateLightboxState(lbType, lbSrc, lbCaption, true);
   };
 
   const handleLightboxClose = () => {
     updateLightboxState('', '', '', false);
+    lastFocusedRef.current?.focus();
   };
 
   const updateDirection = (dir: number) => {
@@ -89,12 +92,18 @@ export const LightboxProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const handleLightboxUpdate = useStableCallback((e: KeyboardEvent) => {
-    if (!lightboxData.isOpen || mediaArray.length <= 1) return;
+    if (!lightboxData.isOpen) return;
+
+    if (e.code === 'Escape') {
+      handleLightboxClose();
+      return;
+    }
+
+    if (mediaArray.length <= 1) return;
 
     const keyHandlers: Record<string, () => void> = {
       ArrowLeft: () => updateLightboxAndFocus(-1, lbPrevious),
       ArrowRight: () => updateLightboxAndFocus(1, lbNext),
-      Escape: handleLightboxClose,
     };
 
     keyHandlers[e.code]?.();

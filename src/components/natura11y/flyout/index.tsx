@@ -28,6 +28,7 @@ const Flyout = ({
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
   const enteringIndexRef = useRef<number | null>(null);
   const prevIsOpen = useRef(isOpen);
+  const lastFocusedRef = useRef<HTMLElement | null>(null);
 
   const [activePanelIndex, setActivePanelIndex] = useState(0);
   const [panelHistory, setPanelHistory] = useState<number[]>([]);
@@ -71,13 +72,16 @@ const Flyout = ({
     }
   }, [isOpen]);
 
-  // Focus close button on open (only on closed → open transition)
+  // Focus close button on open; restore focus on close
   useEffect(() => {
     const wasOpen = prevIsOpen.current;
     prevIsOpen.current = isOpen;
 
-    if (isOpen && !wasOpen && contentRef.current) {
-      (contentRef.current.querySelector('[data-flyout-close]') as HTMLElement | null)?.focus();
+    if (isOpen && !wasOpen) {
+      lastFocusedRef.current = document.activeElement as HTMLElement;
+      (contentRef.current?.querySelector('[data-flyout-close]') as HTMLElement | null)?.focus();
+    } else if (!isOpen && wasOpen) {
+      lastFocusedRef.current?.focus();
     }
   }, [isOpen]);
 
@@ -130,6 +134,7 @@ const Flyout = ({
     <div
       ref={containerRef}
       className={containerClasses}
+      data-state={isOpen ? 'open' : 'closed'}
       aria-hidden={!isOpen}
       onClick={handleBackdropClick}
     >

@@ -15,6 +15,7 @@ const Tab = ({ title, children }: TabProps) => {
     <div
       className={`tabs__panel${isActive ? ' shown' : ''}`}
       id={`${idPrefix}-panel-${slug}`}
+      data-state={isActive ? 'active' : 'inactive'}
       aria-labelledby={`${idPrefix}-btn-${slug}`}
       role='tabpanel'
       inert={!isActive ? true : undefined}

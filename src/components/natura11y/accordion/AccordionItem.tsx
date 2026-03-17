@@ -35,6 +35,7 @@ const AccordionItem = ({ itemId, title = 'Accordion Header', children }: Accordi
         className={`accordion__panel${isActive ? ' shown' : ''}`}
         id={`acc-panel-${resolvedId}`}
         data-accordion='panel'
+        data-state={isActive ? 'open' : 'closed'}
         aria-labelledby={resolvedId}
         inert={!isActive ? true : undefined}
         role='region'
