@@ -50,6 +50,8 @@ In this file:
 
         visibility: hidden;
 
+        height: 0;
+
         &:not(.shown) {
             padding-block: 0 !important;
         }
@@ -57,40 +59,16 @@ In this file:
         &.shown {
             grid-template-rows: 1fr;
 
+            height: auto;
+            
             visibility: visible;
-        }
-
-        &[data-active] {
-
-            // Exit
-            transition: grid-template-rows var(--collapse-animation-duration) ease,
-                        padding-block var(--collapse-animation-duration) ease,
-                        visibility var(--collapse-animation-duration) step-end;
-
-            @media (prefers-reduced-motion: reduce) {
-                transition: none;
-            }
-
-            &.shown {
-
-                // Enter
-                transition: grid-template-rows var(--collapse-animation-duration) ease,
-                            padding-block var(--collapse-animation-duration) ease,
-                            visibility var(--collapse-animation-duration) step-end;
-
-                @media (prefers-reduced-motion: reduce) {
-                    transition: none;
-                }
-            }
         }
 
         @supports (interpolate-size: allow-keywords) {
 
-            height: 0;
             grid-template-rows: unset;
 
             &.shown {
-                height: auto;
                 grid-template-rows: unset;
             }
 

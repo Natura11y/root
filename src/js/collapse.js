@@ -31,7 +31,8 @@ export default class Collapse {
 
     if (returnFocus) button.focus();
 
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const noAnimation = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      || !CSS.supports('interpolate-size', 'allow-keywords');
 
     const cleanup = () => {
       target.removeAttribute('data-active');
@@ -43,11 +44,11 @@ export default class Collapse {
       this.#resizeObserver.observe(target);
     };
 
-    if (reducedMotion) {
+    if (noAnimation) {
       cleanup();
     } else {
       target.addEventListener('transitionend', (e) => {
-        if (e.target !== target || !['height', 'grid-template-rows'].includes(e.propertyName)) return;
+        if (e.target !== target || e.propertyName !== 'height') return;
         cleanup();
       }, { once: true });
     }
