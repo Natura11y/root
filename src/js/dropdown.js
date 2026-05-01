@@ -15,21 +15,19 @@ export default class Dropdown {
     return [...element.classList].some(cls => cls.startsWith('mega-menu'));
   }
 
-  #isAtBreakpoint(dropdownMenu) {
-    const megaMenuClass = [...dropdownMenu.classList].find(cls => cls.startsWith('mega-menu--'));
-
-    if (!megaMenuClass) return true;
-
-    const requiredBp = megaMenuClass.split('--')[1];
-    const currentBp = getCurrentBreakpoint().value;
-
+  #isBreakpointAtLeast(requiredBp) {
     const breakpoints = ['sm', 'md', 'lg', 'xl', 'xxl'];
+    const currentBp = getCurrentBreakpoint().value;
     const currentIndex = breakpoints.indexOf(currentBp);
     const requiredIndex = breakpoints.indexOf(requiredBp);
-
     if (requiredIndex === -1) return true;
-
     return currentIndex !== -1 && currentIndex >= requiredIndex;
+  }
+
+  #isAtBreakpoint(dropdownMenu) {
+    const megaMenuClass = [...dropdownMenu.classList].find(cls => cls.startsWith('mega-menu--'));
+    if (!megaMenuClass) return true;
+    return this.#isBreakpointAtLeast(megaMenuClass.split('--')[1]);
   }
 
   #openDropdown(dropdownButton, dropdownMenu) {
@@ -310,9 +308,16 @@ export default class Dropdown {
     const setupResponsiveHover = () => {
 
       // Check if any mega menu is at its required breakpoint
-      const shouldEnableHover = Array.from(document.querySelectorAll('[class*="mega-menu--"]')).some(menu =>
+      const megaMenuAtBreakpoint = Array.from(document.querySelectorAll('[class*="mega-menu--"]')).some(menu =>
         this.#isAtBreakpoint(menu)
       );
+
+      // Check if the main menu is at its required breakpoint
+      const mainMenuEl = document.querySelector('[class*="main-menu--"]');
+      const mainMenuBpClass = mainMenuEl && [...mainMenuEl.classList].find(cls => cls.startsWith('main-menu--'));
+      const mainMenuAtBreakpoint = mainMenuBpClass ? this.#isBreakpointAtLeast(mainMenuBpClass.split('--').pop()) : false;
+
+      const shouldEnableHover = megaMenuAtBreakpoint || mainMenuAtBreakpoint;
 
       if (
         window.matchMedia &&
