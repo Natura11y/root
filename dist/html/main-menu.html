@@ -23,11 +23,11 @@
                     <h1 class="banner-headline">Main Menu</h1>
                 </header>
 
-                <!-- Bar Layout -->
+                <!-- Main Menu: Bar Layout -->
 
-                <div class="wide margin-x-auto margin-bottom-6 z-index-1500">
+                <div class="wide margin-x-auto margin-bottom-6 z-index-500">
 
-                    <div class="main-menu--bar--lg box-shadow-1">
+                    <div class="main-menu--bar--lg drop-shadow-1">
 
                         <div class="main-menu__logo">
                             <a href="#1" title="Home" data-logo="brand">
@@ -46,19 +46,34 @@
                             <ul>
                                 <li>
                                     <button
+                                        class="dropdown"
                                         data-toggle="dropdown"
                                         aria-controls="dropdown-bar-1"
                                         data-hover="true"
                                     >
-                                        Dropdown
+                                        <span class="text">Dropdown</span>
                                     </button>
-                                    <ul class="dropdown__menu box-shadow-1--lg" id="dropdown-bar-1">
+                                    <ul class="dropdown__menu" id="dropdown-bar-1">
                                         <li><a href="#1">Link</a></li>
                                         <li><a href="#1">Link</a></li>
                                         <li><a href="#1">Link</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#1">Link</a></li>
+                                <li>
+                                    <div class="dropdown-link-split">
+                                        <a href="#1" class="text">Split Link</a>
+                                        <button
+                                            data-toggle="dropdown"
+                                            aria-controls="dropdown-bar-split"
+                                            data-hover="true"
+                                        ></button>
+                                    </div>
+                                    <ul class="dropdown__menu" id="dropdown-bar-split">
+                                        <li><a href="#1">Link</a></li>
+                                        <li><a href="#1">Link</a></li>
+                                        <li><a href="#1">Link</a></li>
+                                    </ul>
+                                </li>
                                 <li><a href="#1">Link</a></li>
                             </ul>
                         </nav>
@@ -81,12 +96,13 @@
                                 aria-controls="main-menu-bar-search"
                                 data-target-close="main-menu-bar"
                                 aria-expanded="false"
+
                             >
                                 <span class="icon icon-search"></span>
                             </button>
                         </div>
 
-                        <form class="main-menu__search" role="search" id="main-menu-bar-search" data-focus-first>
+                        <form class="main-menu__search collapse" id="main-menu-bar-search" role="search" data-focus-first>
                             <div class="form-entry form-entry--search">
                                 <div class="form-entry__field">
                                     <span class="form-entry__field__input">
@@ -121,11 +137,11 @@
 
                 </div>
 
-                <!-- Stack Layout -->
+                <!-- Main Menu: Stack Layout -->
 
                 <div class="wide margin-x-auto margin-bottom-6">
 
-                    <div class="main-menu--stack--lg box-shadow-1">
+                    <div class="main-menu--stack--lg drop-shadow-1">
 
                         <div class="main-menu__logo">
                             <a href="#1" title="Home" data-logo="brand">
@@ -169,11 +185,8 @@
                                             aria-controls="main-menu-stack-search-input">
                                             <span class="icon icon-clear" aria-hidden="true"></span>
                                         </button>
-                                        <button
-                                            type="submit"
-                                            class="button button--icon-only theme-primary"
-                                            aria-label="Search">
-                                            <span class="icon icon-search" aria-hidden="true"></span>
+                                        <button type="submit" class="button">
+                                            Search
                                         </button>
                                     </span>
                                 </div>
@@ -190,14 +203,15 @@
                             <ul>
                                 <li>
                                     <button
+                                        class="dropdown"
                                         data-toggle="dropdown"
                                         aria-controls="dropdown-stack-1"
                                         data-hover="true"
                                         data-indicator="&#xf10e;"
                                     >
-                                        Dropdown
+                                        <div class="text">Dropdown</div>
                                     </button>
-                                    <ul class="dropdown__menu box-shadow-1--lg" id="dropdown-stack-1">
+                                    <ul class="dropdown__menu" id="dropdown-stack-1">
                                         <li><a href="#1">Link</a></li>
                                         <li><a href="#1">Link</a></li>
                                         <li><a href="#1">Link</a></li>
@@ -205,15 +219,14 @@
                                 </li>
                                 <li>
                                     <div class="dropdown-link-split">
-                                        <a href="#1">Split Link</a>
+                                        <a href="#1" class="text">Split Link</a>
                                         <button
                                             data-toggle="dropdown"
                                             aria-controls="dropdown-stack-split"
                                             data-hover="true"
-                                        >
-                                        </button>
+                                        ></button>
                                     </div>
-                                    <div class="mega-menu--lg box-shadow-1--lg padding-4" id="dropdown-stack-split">
+                                    <div class="mega-menu--lg padding-4" id="dropdown-stack-split">
                                         <div class="grid grid--column-2 grid--column-4--lg gap-4 font-size-md">
                                             <nav>
                                                 <p><strong>Orci Sagittis</strong></p>
