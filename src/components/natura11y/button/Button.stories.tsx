@@ -1,10 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import Button from './index';
 
-const meta: Meta<typeof Button> = {
+const meta = {
   title: 'Components/Button',
   component: Button,
   tags: ['autodocs'],
+  args: {
+    title: 'Button',
+    tag: 'button',
+    buttonType: 'button',
+    wrapText: true,
+    linkUrl: '#',
+    outline: false,
+    iconStartHandle: null,
+    iconEndHandle: null,
+    utilities: '',
+  },
   argTypes: {
     tag: {
       control: 'radio',
@@ -14,43 +25,46 @@ const meta: Meta<typeof Button> = {
       control: 'radio',
       options: ['button', 'submit', 'reset'],
     },
+    title: { control: 'text' },
+    wrapText: { control: 'boolean' },
+    outline: { control: 'boolean' },
+    iconStartHandle: { control: 'text' },
+    iconEndHandle: { control: 'text' },
+    linkUrl: { control: 'text' },
+    target: { control: 'text' },
+    rel: { control: 'text' },
+    utilities: { control: 'text' },
+    attributes: { control: false },
+    onClick: { control: false },
+    iconHandle: {
+      table: {
+        disable: true,
+      },
+    },
   },
-};
+} satisfies Meta<typeof Button>;
 
 export default meta;
-type Story = StoryObj<typeof Button>;
+type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    title: 'Button',
-  },
-};
+export const Default: Story = {};
 
 export const Outline: Story = {
   args: {
-    title: 'Outline Button',
     outline: true,
   },
 };
 
-export const WithIconStart: Story = {
+export const WithIcon: Story = {
   args: {
-    title: 'Menu',
-    iconStartHandle: 'menu',
+    title: 'Edit',
+    iconStartHandle: 'edit',
   },
 };
 
-export const WithIconEnd: Story = {
+export const Disperse: Story = {
   args: {
-    title: 'Next',
     iconEndHandle: 'arrow-right',
-  },
-};
-
-export const AsLink: Story = {
-  args: {
-    tag: 'a',
-    title: 'Link Button',
-    linkUrl: '#',
+    utilities: 'button--disperse',
   },
 };

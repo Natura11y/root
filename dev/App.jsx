@@ -4,10 +4,7 @@ import { LightboxProvider } from '@lib/context/LightboxContext';
 
 import classNames from 'classnames';
 
-// LOCAL: full SCSS with local component additions (development)
-import './styles/index.scss';
-// NPM: swap to this line after publishing natura11y with new components
-// import 'natura11y/src/scss/index.scss';
+import 'natura11y/dist/natura11y.css';
 
 import ScrollToTop from './components/ScrollToTop';
 import MainMenuBar from './components/MainMenuBar';

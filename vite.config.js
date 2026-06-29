@@ -9,7 +9,6 @@ export default defineConfig(({ command }) => {
   return {
     resolve: {
       alias: {
-        'natura11y/utilities': path.resolve('./node_modules/natura11y/src/js/utilities'),
         '@lib': path.resolve('./src'),
       }
     },
@@ -37,14 +36,6 @@ export default defineConfig(({ command }) => {
         }
       }
     }),
-    css: {
-      preprocessorOptions: {
-        scss: {
-          api: 'modern',
-          silenceDeprecations: ['legacy-js-api']
-        }
-      }
-    },
     ...(isPackageBuild && {
       build: {
         copyPublicDir: false,

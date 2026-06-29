@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { Preview } from '@storybook/react-vite';
 import { DocsContainer } from '@storybook/addon-docs/blocks';
-import '../dev/styles/scss/index.scss';
+import 'natura11y/dist/natura11y.css';
 
 const CustomDocsContainer = ({ children, ...props }: React.ComponentProps<typeof DocsContainer>) => (
   <DocsContainer {...props}>
@@ -14,7 +14,7 @@ const CustomDocsContainer = ({ children, ...props }: React.ComponentProps<typeof
 const preview: Preview = {
   decorators: [
     (Story) => (
-      <div className='storybook-canvas'>
+      <div className='storybook-canvas container padding-y-3'>
         <Story />
       </div>
     ),
@@ -33,7 +33,7 @@ const preview: Preview = {
     backgrounds: { disable: true },
     docs: {
       container: CustomDocsContainer,
-      story: { height: '500px', width: '100%' },
+      story: { height: '500px', inline: false, width: '100%' },
     },
     a11y: {
       test: 'todo',

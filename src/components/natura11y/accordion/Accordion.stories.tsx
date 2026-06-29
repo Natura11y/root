@@ -1,10 +1,87 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import Accordion from './index';
 
-const meta: Meta<typeof Accordion> = {
+const items = [
+  {
+    itemId: 'danaus-plexippus',
+    title: 'Danaus Plexippus',
+    content: (
+      <p>
+        The monarch butterfly or simply monarch is a milkweed butterfly in the
+        family Nymphalidae. Other common names, depending on region, include
+        milkweed, common tiger, wanderer, and black veined brown. It may be
+        the most familiar <a href='#1'>North American</a> butterfly, and is
+        considered an iconic pollinator species.
+      </p>
+    ),
+  },
+  {
+    itemId: 'papilio-polyxenes',
+    title: 'Papilio Polyxenes',
+    content: (
+      <p>
+        The black swallowtail, American swallowtail, or parsnip swallowtail,
+        is a butterfly found throughout much of <a href='#1'>North America</a>.
+        It is the state butterfly of Oklahoma and New Jersey.
+      </p>
+    ),
+  },
+  {
+    itemId: 'hyalophora-cecropia',
+    title: 'Hyalophora Cecropia',
+    content: (
+      <p>
+        The cecropia moth is <a href='#1'>North America&apos;s</a> largest native
+        moth. It is a member of the family Saturniidae, or giant silk moths.
+        Females have been documented with a wingspan of five to seven inches
+        or more.
+      </p>
+    ),
+  },
+  {
+    itemId: 'deilephila-elpenor',
+    title: 'Deilephila Elpenor',
+    content: (
+      <p>
+        The elephant hawk moth or large elephant hawk moth, is a moth in the
+        family Sphingidae. Its common name is derived from the caterpillar&apos;s
+        resemblance to an elephant&apos;s trunk. It is most common in{' '}
+        <a href='#1'>central Europe</a> and is distributed throughout the
+        Palearctic region.
+      </p>
+    ),
+  },
+  {
+    itemId: 'papilio-troilus',
+    title: 'Papilio Troilus',
+    content: (
+      <p>
+        The spicebush swallowtail or green-clouded butterfly, is a common
+        black swallowtail butterfly found in <a href='#1'>North America</a>.
+        It has two subspecies, Papilio troilus troilus and Papilio troilus
+        ilioneus, the latter found mainly in the Florida peninsula.
+      </p>
+    ),
+  },
+];
+
+const renderItems = () => (
+  <>
+    {items.map(({ itemId, title, content }) => (
+      <Accordion.Item key={itemId} itemId={itemId} title={title}>
+        {content}
+      </Accordion.Item>
+    ))}
+  </>
+);
+
+const meta = {
   title: 'Components/Accordion',
   component: Accordion,
   tags: ['autodocs'],
+  args: {
+    children: renderItems(),
+  },
   argTypes: {
     headingLevel: {
       control: 'select',
@@ -13,56 +90,25 @@ const meta: Meta<typeof Accordion> = {
     defaultOpen: {
       control: 'text',
     },
+    open: { control: false },
+    onOpenChange: { control: false },
+    children: { control: false },
+  },
+} satisfies Meta<typeof Accordion>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};
+
+export const OpenByDefault: Story = {
+  args: {
+    defaultOpen: 'danaus-plexippus',
   },
 };
 
-export default meta;
-type Story = StoryObj<typeof Accordion>;
-
-export const Default: Story = {
-  render: (args) => (
-    <Accordion {...args}>
-      <Accordion.Item itemId='item-1' title='What is Natura11y?'>
-        <p>Natura11y is an open-source accessibility-first design system built for modern web development.</p>
-      </Accordion.Item>
-      <Accordion.Item itemId='item-2' title='How do I get started?'>
-        <p>Install the package via npm and import the components you need into your project.</p>
-      </Accordion.Item>
-      <Accordion.Item itemId='item-3' title='Is it accessible?'>
-        <p>Yes. All components follow WCAG guidelines and include proper ARIA attributes and keyboard navigation.</p>
-      </Accordion.Item>
-    </Accordion>
-  ),
-};
-
-export const WithDefaultOpen: Story = {
-  render: (args) => (
-    <Accordion {...args} defaultOpen='item-1'>
-      <Accordion.Item itemId='item-1' title='This item is open by default'>
-        <p>This panel is open when the component first renders.</p>
-      </Accordion.Item>
-      <Accordion.Item itemId='item-2' title='Second item'>
-        <p>Click to expand this panel.</p>
-      </Accordion.Item>
-      <Accordion.Item itemId='item-3' title='Third item'>
-        <p>Click to expand this panel.</p>
-      </Accordion.Item>
-    </Accordion>
-  ),
-};
-
 export const WithHeadings: Story = {
-  render: (args) => (
-    <Accordion {...args} headingLevel={3}>
-      <Accordion.Item itemId='item-1' title='Wrapped in an h3'>
-        <p>Each accordion button is wrapped in an h3 element for proper document outline.</p>
-      </Accordion.Item>
-      <Accordion.Item itemId='item-2' title='Second heading'>
-        <p>Use headingLevel when the accordion lives inside a section with a known heading hierarchy.</p>
-      </Accordion.Item>
-      <Accordion.Item itemId='item-3' title='Third heading'>
-        <p>Omit headingLevel when the accordion is standalone or headings are not needed.</p>
-      </Accordion.Item>
-    </Accordion>
-  ),
+  args: {
+    headingLevel: 3,
+  },
 };
