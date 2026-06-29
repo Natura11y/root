@@ -7,7 +7,7 @@ In this file:
 
 */
 
-import { handleOverlayClose } from './overlay';
+import { handleOverlayClose } from './overlay.js';
 
 // Track active focus trap handlers to prevent memory leaks
 const activeFocusTraps = new Map();

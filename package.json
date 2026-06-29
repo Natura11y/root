@@ -9,6 +9,14 @@
 	},
 	"style": "dist/natura11y.css",
 	"main": "dist/natura11y.js",
+	"exports": {
+		".": "./dist/natura11y.js",
+		"./dist/natura11y.css": "./dist/natura11y.css",
+		"./src/scss/*": "./src/scss/*",
+		"./utilities/focus": "./src/js/utilities/focus.js",
+		"./utilities/getCurrentBreakpoint": "./src/js/utilities/getCurrentBreakpoint.js",
+		"./utilities/keyboardNavigation": "./src/js/utilities/keyboardNavigation.js"
+	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/cavidano/natura11y.git"
