@@ -143,6 +143,10 @@ In this file:
 
     cursor: pointer;
 
+    img {
+      width: 100%;
+    }
+
     &::after {
       @extend .icon_font;
 

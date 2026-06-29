@@ -36,7 +36,11 @@ export const handleOverlayOpen = (element, triggerElement = null, firstFocusTarg
 }
 
 export const handleOverlayClose = (element) => {
-    rootElement.removeAttribute('style');
+    rootElement.style.removeProperty('--scroll-position');
+
+    if(!rootElement.getAttribute('style')) {
+        rootElement.removeAttribute('style');
+    }
 
     rootElement.classList.remove('has-overlay');
 
