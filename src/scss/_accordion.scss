@@ -31,6 +31,7 @@ In this file:
     --accordion-icon-open: "\f119";
 
     --accordion-animation-duration: 0.3s;
+    --accordion-gap-size: 0.2em;
 }
 
 //////////////////////////////////////////////
@@ -44,7 +45,7 @@ In this file:
     .accordion {
         display: grid;
         
-        gap: var(--gap-size, 0.2em);
+        gap: var(--accordion-gap-size);
     }
 
     // Accordion Elements

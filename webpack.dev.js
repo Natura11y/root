@@ -44,7 +44,7 @@ const devPages = {
 }
 
 const devDir = './dist/html';
-const devPage = `${devPages.Dropdown}.html`;
+const devPage = `${devPages.Grid}.html`;
 
 module.exports = merge(common, {
     mode: 'development',
