@@ -4,6 +4,33 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [5.1.1] — 2026-06-29
+
+### Package
+
+- Added package exports for framework CSS, SCSS source entry points, and shared JavaScript utilities used by React integrations.
+- Exposed utility imports for `focus`, `getCurrentBreakpoint`, and `keyboardNavigation`.
+
+### Bug Fixes
+
+#### Collapse
+- Improved collapse transition cleanup and Safari behavior.
+
+#### Dropdown
+- Fixed dropdown behavior and updated the HTML examples to match current menu patterns.
+
+#### Grid
+- Updated grid divider and sidebar behavior, including top alignment for sidebar items.
+
+#### Lightbox
+- Fixed thumbnail image sizing so media fills the thumbnail frame correctly.
+
+### Examples
+
+- Cleaned up framework HTML examples served by the development build.
+
+---
+
 ## [5.1.0] — 2026-03-14
 
 ### New Components
