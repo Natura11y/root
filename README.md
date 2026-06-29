@@ -14,27 +14,26 @@ Natura11y is an open-source front-end toolkit for building modern websites.
 git clone <repo-url>
 cd natura11y-react
 npm install
-npm run dev
+npm run storybook
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to see the component examples.
+Open [http://localhost:6006](http://localhost:6006) to see the component stories.
 
 ---
 
 ## Using Components
 
-All components are located in `src/components/natura11y/`. Here's a quick example:
+Components are exported from `@natura11y/react`. Here's a quick example:
 
 ```jsx
-import Alert from './components/natura11y/alert/Alert';
-import Button from './components/natura11y/button/Button';
+import { Alert, Button } from '@natura11y/react';
 
 function App() {
   return (
     <Alert
       success={true}
       title="Success!"
-      handleAlertClose={() => console.log('closed')}
+      onClose={() => console.log('closed')}
     >
       Your changes have been saved.
     </Alert>
@@ -62,7 +61,7 @@ function App() {
 
 ## Features
 
-✅ **Uses Natura11y v4.2.0** - Latest framework with all improvements
+✅ **Uses Natura11y v5.1.0** - Latest framework with all improvements
 ✅ **Shared CSS** - No duplicate stylesheets, imports from natura11y npm
 ✅ **Shared Utilities** - Uses natura11y's JavaScript utilities (focus, overlay, etc.)
 ✅ **Fully Accessible** - WCAG compliant with proper ARIA attributes
@@ -73,9 +72,13 @@ function App() {
 
 ## Development Scripts
 
-**`npm run dev`** - Start development server (http://localhost:3000)
+**`npm run storybook`** - Start Storybook (http://localhost:6006)
 
 **`npm run build`** - Build for production to `dist/` folder
+
+**`npm run build-storybook`** - Build static Storybook output
+
+**`npm run dev`** - Start the Vite demo app (http://localhost:3000)
 
 **`npm run preview`** - Preview production build locally
 

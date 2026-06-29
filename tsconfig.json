@@ -9,9 +9,8 @@
     "noUncheckedIndexedAccess": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "baseUrl": ".",
     "paths": {
-      "@lib/*": ["src/*"]
+      "@lib/*": ["./src/*"]
     }
   },
   "include": ["src/components/natura11y", "src/hooks", "src/types", ".storybook"],
