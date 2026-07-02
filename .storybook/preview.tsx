@@ -11,13 +11,45 @@ const CustomDocsContainer = ({ children, ...props }: React.ComponentProps<typeof
   </DocsContainer>
 );
 
+const themeClassNames = {
+  canvas: 'theme-canvas',
+  dark: 'theme-dark',
+  prefers: 'theme-canvas--prefers',
+} as const;
+
 const preview: Preview = {
+  globalTypes: {
+    natura11yTheme: {
+      name: 'Theme',
+      description: 'Natura11y theme context',
+      defaultValue: 'canvas',
+      toolbar: {
+        icon: 'mirror',
+        items: [
+          { value: 'canvas', title: 'Canvas (default)' },
+          { value: 'dark', title: 'Dark Mode' },
+          { value: 'prefers', title: 'Prefers' },
+        ],
+        dynamicTitle: true,
+      },
+    },
+  },
+  globals: {
+    natura11yTheme: 'canvas',
+  },
   decorators: [
-    (Story) => (
-      <div className='storybook-canvas container padding-y-3'>
-        <Story />
-      </div>
-    ),
+    (Story, context) => {
+      const themeName = context.globals.natura11yTheme as keyof typeof themeClassNames;
+      const themeClassName = themeClassNames[themeName] ?? themeClassNames.canvas;
+
+      return (
+        <div className={themeClassName}>
+          <div className='storybook-canvas container padding-y-3'>
+            <Story />
+          </div>
+        </div>
+      );
+    },
   ],
   parameters: {
     layout: 'fullscreen',
