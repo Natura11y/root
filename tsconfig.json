@@ -13,6 +13,6 @@
       "@lib/*": ["./src/*"]
     }
   },
-  "include": ["src/components/natura11y", "src/hooks", "src/stories", "src/types", ".storybook"],
+  "include": ["src/components/natura11y", "src/hooks", "src/stories", "src/types", ".storybook/**/*"],
   "exclude": ["node_modules", "dist"]
 }

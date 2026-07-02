@@ -28,6 +28,12 @@ declare module '*.svg' {
   export default src;
 }
 
+declare module '*.css' {}
+
+declare module '*.scss' {}
+
+declare module '*.sass' {}
+
 declare module '*.mp4' {
   const src: string;
   export default src;

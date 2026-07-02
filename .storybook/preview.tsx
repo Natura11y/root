@@ -1,7 +1,7 @@
 import * as React from 'react';
 import type { Preview } from '@storybook/react-vite';
 import { DocsContainer } from '@storybook/addon-docs/blocks';
-import 'natura11y/dist/natura11y.css';
+import './preview.scss';
 
 const CustomDocsContainer = ({ children, ...props }: React.ComponentProps<typeof DocsContainer>) => (
   <DocsContainer {...props}>
@@ -34,7 +34,7 @@ const preview: Preview = {
       },
     },
   },
-  globals: {
+  initialGlobals: {
     natura11yTheme: 'canvas',
   },
   decorators: [
