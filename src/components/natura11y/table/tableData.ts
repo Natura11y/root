@@ -28,4 +28,8 @@ export const tableData = {
       coordinates: '64.023°N 16.975°W',
     },
   ],
+} satisfies {
+  caption: string;
+  headers: string[];
+  rows: Record<string, string>[];
 };
