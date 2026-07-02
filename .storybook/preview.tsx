@@ -33,7 +33,7 @@ const preview: Preview = {
     backgrounds: { disable: true },
     docs: {
       container: CustomDocsContainer,
-      story: { height: '500px', inline: false, width: '100%' },
+      story: { inline: true, width: '100%' },
     },
     a11y: {
       test: 'todo',

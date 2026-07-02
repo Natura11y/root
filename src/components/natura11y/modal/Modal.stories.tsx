@@ -13,7 +13,7 @@ const meta: Meta<typeof Modal> = {
   },
   parameters: {
     docs: {
-      story: { height: '500px' },
+      story: { height: '500px', inline: false, width: '100%' },
     },
   },
 };

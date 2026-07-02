@@ -9,7 +9,7 @@ const meta: Meta<typeof Flyout> = {
   tags: ['autodocs'],
   parameters: {
     docs: {
-      story: { height: '600px' },
+      story: { height: '600px', inline: false, width: '100%' },
     },
   },
 };

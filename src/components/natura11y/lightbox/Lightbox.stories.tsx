@@ -17,7 +17,7 @@ const meta: Meta = {
   ],
   parameters: {
     docs: {
-      story: { height: '600px' },
+      story: { height: '600px', inline: false, width: '100%' },
     },
   },
 };

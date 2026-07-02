@@ -38,7 +38,7 @@ export const Default: Story = {
   render: (args) => (
     <div className='wide margin-x-auto'>
       <BackdropVideo {...args}>
-        <div className='container medium text-align-center margin-y-5'>
+        <div className='container medium text-align-center'>
           <h1 className='banner-headline text-shadow margin-bottom-4'>
             Faucibus scelerisque eleifend donec pretium vulputate
           </h1>
