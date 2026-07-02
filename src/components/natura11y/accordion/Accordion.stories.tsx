@@ -75,24 +75,74 @@ const renderItems = () => (
   </>
 );
 
+const itemIds = items.map(({ itemId }) => itemId);
+
 const meta = {
   title: 'Components/Accordion',
   component: Accordion,
   tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          'Use accordions to group related sections of content that expand and collapse with button controls. The React component manages the ARIA state, keyboard navigation, and optional heading wrappers described in the Natura11y accordion docs.',
+      },
+    },
+  },
   args: {
     children: renderItems(),
   },
   argTypes: {
+    defaultOpen: {
+      name: 'Initial open item',
+      description:
+        'Opens one accordion item on first render. Use the matching `itemId` from an `Accordion.Item`.',
+      control: 'select',
+      options: [null, ...itemIds],
+      table: {
+        category: 'Behavior',
+        type: { summary: 'itemId or none' },
+        defaultValue: { summary: 'none' },
+      },
+    },
     headingLevel: {
+      name: 'Heading level',
+      description:
+        'Wraps each accordion button in a semantic heading. Choose the level that fits the page outline.',
       control: 'select',
       options: [null, 2, 3, 4, 5, 6],
+      table: {
+        category: 'Structure',
+        type: { summary: '2, 3, 4, 5, 6, or none' },
+        defaultValue: { summary: 'none' },
+      },
     },
-    defaultOpen: {
-      control: 'text',
+    open: {
+      name: 'Open item',
+      description:
+        'Controlled open item ID. Pair with `onOpenChange` when the parent owns accordion state.',
+      control: false,
+      table: {
+        category: 'Controlled API',
+        type: { summary: 'itemId or none' },
+      },
     },
-    open: { control: false },
-    onOpenChange: { control: false },
-    children: { control: false },
+    onOpenChange: {
+      description: 'Called with the next open item ID, or `null` when all items are closed.',
+      control: false,
+      table: {
+        category: 'Controlled API',
+        type: { summary: '(itemId or none) => void' },
+      },
+    },
+    children: {
+      description: 'Accordion item content. Use `Accordion.Item` for each button and panel pair.',
+      control: false,
+      table: {
+        category: 'Content',
+        type: { summary: 'Accordion.Item elements' },
+      },
+    },
   },
 } satisfies Meta<typeof Accordion>;
 
