@@ -6,7 +6,6 @@ addons.setConfig({
   theme: {
     ...themes.light,
     brandTitle: 'Natura11y React',
-    brandUrl: 'https://gonatura11y.com/',
     brandImage: naturallyLogo,
   },
 });

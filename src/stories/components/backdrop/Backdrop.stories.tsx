@@ -10,7 +10,7 @@ const meta = {
   args: {
     videoSrc: storyMedia.videoOne,
     stack: 'lg',
-    utilities: 'theme-dark margin-y-5',
+    utilities: 'theme-dark',
   },
   argTypes: {
     videoSrc: { control: 'text' },
