@@ -9,8 +9,6 @@ interface ButtonProps {
   wrapText?: boolean;
   linkUrl?: string;
   outline?: boolean;
-  /** @deprecated Use iconStartHandle instead */
-  iconHandle?: string | null;
   iconStartHandle?: string | null;
   iconEndHandle?: string | null;
   utilities?: string | null;
@@ -27,7 +25,6 @@ const Button = ({
   wrapText = true,
   linkUrl = '#1',
   outline = false,
-  iconHandle = null,
   iconStartHandle = null,
   iconEndHandle = null,
   utilities = null,
@@ -36,13 +33,11 @@ const Button = ({
   target = null,
   rel = null,
 }: ButtonProps) => {
-  const startIcon = iconStartHandle || iconHandle;
-
   const buttonClasses = classNames('button', { 'button--outline': outline }, utilities);
 
   const buttonContents = (
     <>
-      {startIcon && <Icon iconHandle={startIcon} />}
+      {iconStartHandle && <Icon iconHandle={iconStartHandle} />}
       {wrapText ? <span className='text'>{title}</span> : title}
       {iconEndHandle && <Icon iconHandle={iconEndHandle} />}
     </>

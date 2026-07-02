@@ -19,7 +19,7 @@ const MainMenuBar = () => {
 			tag="a"
 			linkUrl="https://gonatura11y.com/"
 			title="Docs"
-			iconHandle="open-new"
+			iconStartHandle="open-new"
 			target="_blank"
 			rel="noopener noreferrer"
 		/>
