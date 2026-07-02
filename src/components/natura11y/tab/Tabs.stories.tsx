@@ -3,7 +3,7 @@ import Tabs from './index';
 import Tab from './Tab';
 
 const meta: Meta<typeof Tabs> = {
-  title: 'Components/Tabs',
+  title: 'Components/Tab',
   component: Tabs,
   tags: ['autodocs'],
   argTypes: {
