@@ -25,7 +25,7 @@ export const Default: Story = {
 
 export const WithIcon: Story = {
   args: {
-    iconHandle: 'check',
+    iconHandle: 'confirm',
     children: 'Verified',
   },
 };

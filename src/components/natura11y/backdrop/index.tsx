@@ -5,7 +5,7 @@ import { useMergedRefs } from '../../../hooks/useMergedRefs';
 
 interface BackdropVideoProps {
   ref?: Ref<HTMLDivElement>;
-  videoSrc?: string;
+  videoSrc: string;
   videoType?: string;
   fixedHeight?: string | null;
   stack?: string | null;
