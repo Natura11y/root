@@ -1,85 +1,14 @@
 {
-	"name": "natura11y",
-	"version": "5.1.1",
-	"description": "Natura11y is an open-source design system for creating beautiful web interfaces with a focus on accessible interaction design and front-end development.",
-	"private": false,
-	"scripts": {
-		"start": "webpack serve --config webpack.dev.js",
-		"build": "webpack --config webpack.prod.js"
-	},
-	"style": "dist/natura11y.css",
-	"main": "dist/natura11y.js",
-	"exports": {
-		".": "./dist/natura11y.js",
-		"./dist/natura11y.css": "./dist/natura11y.css",
-		"./src/scss/*": "./src/scss/*",
-		"./utilities/focus": "./src/js/utilities/focus.js",
-		"./utilities/getCurrentBreakpoint": "./src/js/utilities/getCurrentBreakpoint.js",
-		"./utilities/keyboardNavigation": "./src/js/utilities/keyboardNavigation.js"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/cavidano/natura11y.git"
-	},
-	"keywords": [
-		"accessibility",
-		"design system",
-		"css",
-		"framework",
-		"front-end",
-		"sass",
-		"scss",
-		"js",
-		"responsive",
-		"web",
-		"web accessibility",
-		"inclusive design",
-		"a11y",
-		"user experience",
-		"UI",
-		"semantic HTML",
-		"ARIA",
-		"WCAG",
-		"HTML5",
-		"cross-browser",
-		"SEO-friendly",
-		"performance",
-		"mobile-first",
-		"flexible",
-		"customizable"
-	],
-	"author": "Carl Avidano",
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/cavidano/natura11y/issues"
-	},
-	"homepage": "https://gonatura11y.com",
-	"devDependencies": {
-		"@babel/core": "^7.19.6",
-		"@babel/plugin-transform-shorthand-properties": "^7.18.6",
-		"@babel/preset-env": "^7.19.4",
-		"autoprefixer": "^10.4.13",
-		"babel-loader": "^8.3.0",
-		"css-loader": "^6.7.1",
-		"css-minimizer-webpack-plugin": "^4.2.2",
-		"extract-loader": "^5.1.0",
-		"html-webpack-plugin": "^5.5.0",
-		"mini-css-extract-plugin": "^2.6.1",
-		"postcss": "^8.4.21",
-		"postcss-combine-duplicated-selectors": "^10.0.3",
-		"postcss-loader": "^7.0.2",
-		"sass": "^1.83.0",
-		"sass-loader": "^16.0.4",
-		"style-loader": "^3.3.1",
-		"webpack": "^5.97.1",
-		"webpack-cli": "^4.10.0",
-		"webpack-dev-server": "^4.11.1",
-		"webpack-merge": "^5.8.0"
-	},
-	"dependencies": {
-		"file-loader": "^6.2.0"
-	},
-	"browserslist": [
-		"defaults"
-	]
+  "name": "natura11y-monorepo",
+  "private": true,
+  "version": "0.0.0",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces --if-present",
+    "build:core": "npm --workspace @natura11y/core run build",
+    "start:core": "npm --workspace @natura11y/core run start"
+  }
 }
