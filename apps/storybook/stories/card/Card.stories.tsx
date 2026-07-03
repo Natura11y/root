@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import Card from '@lib/components/natura11y/card';
 import VanillaExample from '../../utils/VanillaExample';
-import { storyMedia } from '../../media';
+import { storyMedia } from '../media';
 import cardMarkup from './card.example.html?raw';
 
 const CardFooter = () => (

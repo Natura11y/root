@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import VanillaExample from '../utils/VanillaExample';
+import VanillaExample from '../../utils/VanillaExample';
 import spacingMarkup from './spacing.example.html?raw';
 
 const meta = {

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaTrack from '@core-js/track';
 import Track from '@lib/components/natura11y/track';
 import VanillaExample from '../../utils/VanillaExample';
-import { storyMedia } from '../../media';
+import { storyMedia } from '../media';
 import trackMarkup from './track.example.html?raw';
 
 const initializeTrack = () => {

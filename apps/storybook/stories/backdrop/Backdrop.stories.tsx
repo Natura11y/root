@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import BackdropVideo from '@lib/components/natura11y/backdrop';
 import Button from '@lib/components/natura11y/button';
 import VanillaExample from '../../utils/VanillaExample';
-import { storyMedia } from '../../media';
+import { storyMedia } from '../media';
 import backdropMarkup from './backdrop.example.html?raw';
 
 const meta = {

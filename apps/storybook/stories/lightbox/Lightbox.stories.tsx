@@ -4,7 +4,7 @@ import { LightboxProvider } from '@lib/context/LightboxContext';
 import Lightbox from '@lib/components/natura11y/lightbox';
 import LightboxButton from '@lib/components/natura11y/lightbox/LightboxButton';
 import VanillaExample from '../../utils/VanillaExample';
-import { storyMedia } from '../../media';
+import { storyMedia } from '../media';
 import lightboxMarkup from './lightbox.example.html?raw';
 
 const meta: Meta = {

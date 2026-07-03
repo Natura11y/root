@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import VanillaExample from '../utils/VanillaExample';
+import VanillaExample from '../../utils/VanillaExample';
 import articleMarkup from './typography-article.example.html?raw';
 import overviewMarkup from './typography-overview.example.html?raw';
 
