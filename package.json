@@ -11,14 +11,9 @@
     "build:react": "npm --workspace @natura11y/react run build",
     "build:icons": "npm --workspace @natura11y/icons run build:icons",
     "typecheck:react": "npm --workspace @natura11y/react run typecheck",
-    "storybook": "npm --workspace @natura11y/react run storybook",
-    "build-storybook": "npm --workspace @natura11y/react run build-storybook",
+    "storybook": "npm --workspace @natura11y/storybook run storybook",
+    "build-storybook": "npm --workspace @natura11y/storybook run build-storybook",
     "build:core": "npm --workspace @natura11y/core run build",
     "start:core": "npm --workspace @natura11y/core run start"
-  },
-  "devDependencies": {
-    "@storybook/react-vite": "^10.4.6",
-    "storybook": "^10.4.6",
-    "vite": "^8.1.0"
   }
 }

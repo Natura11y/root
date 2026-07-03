@@ -12,12 +12,12 @@ Natura11y is an open-source front-end toolkit for building modern websites.
 
 ```bash
 git clone <repo-url>
-cd natura11y-react
+cd natura11y
 npm install
 npm run storybook
 ```
 
-Open [http://localhost:6006](http://localhost:6006) to see the component stories.
+Open [http://localhost:6006](http://localhost:6006) to see the Storybook app.
 
 ---
 
@@ -71,7 +71,7 @@ function App() {
 ## Features
 
 ✅ **Uses Natura11y v5.1.1** - Latest framework with all improvements
-✅ **Shared CSS** - No duplicate stylesheets, imports from natura11y npm
+✅ **Shared CSS** - No duplicate stylesheets, imports from `@natura11y/core`
 ✅ **Shared Utilities** - Uses natura11y's JavaScript utilities where React components need behavior
 ✅ **Fully Accessible** - WCAG compliant with proper ARIA attributes
 ✅ **React 19 Only** - Built with hooks and ref-as-prop component APIs
@@ -81,11 +81,11 @@ function App() {
 
 ## Development Scripts
 
-**`npm run storybook`** - Start Storybook (http://localhost:6006)
+**`npm run storybook`** - Start the monorepo Storybook app from the repository root (http://localhost:6006)
 
 **`npm run build`** - Build for production to `dist/` folder
 
-**`npm run build-storybook`** - Build static Storybook output
+**`npm run build-storybook`** - Build the monorepo Storybook app from the repository root
 
 **`npm run dev`** - Start the Vite demo app (http://localhost:3000)
 

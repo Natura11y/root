@@ -3,6 +3,7 @@
 #Folders
 node_modules
 .vscode
+storybook-static
 
 #Files
 naturally-logo.svg

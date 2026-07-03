@@ -6,13 +6,16 @@
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
     "strict": true,
-    "noUncheckedIndexedAccess": true,
     "skipLibCheck": true,
     "noEmit": true,
     "paths": {
-      "@lib/*": ["./src/*"]
+      "@lib/*": ["../../packages/react/src/*"]
     }
   },
-  "include": ["src/components/natura11y", "src/hooks", "src/types"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    ".storybook/**/*",
+    "src/**/*",
+    "../../packages/react/src/types/**/*.d.ts"
+  ],
+  "exclude": ["node_modules", "storybook-static"]
 }
