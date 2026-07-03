@@ -51,7 +51,7 @@ const actions = (
 );
 
 const meta = {
-  title: 'React/Main Menu',
+  title: 'Main Menu',
   component: MainMenu,
   tags: ['autodocs'],
   args: {
@@ -77,7 +77,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Bar: Story = {
+export const React: Story = {
   args: {
     logo,
     search: barSearch,

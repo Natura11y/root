@@ -5,7 +5,7 @@ import LightboxButton from '@lib/components/natura11y/lightbox/LightboxButton';
 import { storyMedia } from '../../media';
 
 const meta: Meta = {
-  title: 'React/Lightbox',
+  title: 'Lightbox',
   tags: ['autodocs'],
   decorators: [
     (Story) => (
@@ -25,7 +25,7 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
-export const SingleImage: Story = {
+export const React: Story = {
   render: () => (
     <LightboxButton lbType='image' lbSrc={storyMedia.landscapeImage} lbCaption='Mountain landscape' utilities='button'>
       Open Image

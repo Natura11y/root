@@ -1,9 +1,30 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-
 import Button from '@lib/components/natura11y/button';
+import buttonMarkup from './button.example.html?raw';
+
+const buttonReactCode = `<Button
+  tag="button"
+  buttonType="button"
+  title="Button"
+/>
+
+<Button
+  tag="button"
+  buttonType="button"
+  title="Edit"
+  iconStartHandle="edit"
+/>
+
+<Button
+  tag="a"
+  title="Learn more"
+  linkUrl="#"
+  iconEndHandle="arrow-right"
+  utilities="button--disperse"
+/>`;
 
 const meta = {
-  title: 'React/Button',
+  title: 'Button',
   component: Button,
   tags: ['autodocs'],
   args: {
@@ -43,7 +64,32 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const React: Story = {};
+export const HTML: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: buttonMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => (
+    <div dangerouslySetInnerHTML={{ __html: buttonMarkup }} />
+  ),
+};
+
+export const React: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: buttonReactCode,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
+};
 
 export const Outline: Story = {
   args: {

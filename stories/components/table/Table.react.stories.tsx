@@ -4,7 +4,7 @@ import TableScroll from '@lib/components/natura11y/table/TableScroll';
 import { tableData } from '@lib/components/natura11y/table/tableData';
 
 const meta: Meta<typeof Table> = {
-  title: 'React/Table',
+  title: 'Table',
   component: Table,
   tags: ['autodocs'],
   argTypes: {
@@ -27,7 +27,7 @@ const rows = [
   { name: 'Svartifoss', country: 'Iceland', map: <a href='#1'>Map View</a> },
 ];
 
-export const Default: Story = {
+export const React: Story = {
   args: {
     caption: 'Places with columnar jointed volcanics',
     headers,

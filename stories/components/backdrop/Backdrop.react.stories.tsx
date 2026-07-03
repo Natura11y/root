@@ -4,7 +4,7 @@ import Button from '@lib/components/natura11y/button';
 import { storyMedia } from '../../media';
 
 const meta = {
-  title: 'React/Backdrop',
+  title: 'Backdrop',
   component: BackdropVideo,
   tags: ['autodocs'],
   args: {
@@ -33,8 +33,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof BackdropVideo>;
 
-export const Default: Story = {
-  name: 'Video',
+export const React: Story = {
   render: (args) => (
     <div className='wide margin-x-auto'>
       <BackdropVideo {...args}>

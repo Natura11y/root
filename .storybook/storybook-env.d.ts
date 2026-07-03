@@ -23,6 +23,11 @@ declare module '*.gif' {
   export default src;
 }
 
+declare module '*.html?raw' {
+  const src: string;
+  export default src;
+}
+
 declare module '*.svg' {
   const src: string;
   export default src;

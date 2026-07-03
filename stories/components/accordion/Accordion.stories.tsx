@@ -1,5 +1,8 @@
+import { useEffect, useRef } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import VanillaAccordion from '@core-js/accordion';
 import Accordion from '@lib/components/natura11y/accordion';
+import accordionMarkup from './accordion.example.html?raw';
 
 const items = [
   {
@@ -77,15 +80,43 @@ const renderItems = () => (
 
 const itemIds = items.map(({ itemId }) => itemId);
 
+const accordionReactCode = `<Accordion>
+  <Accordion.Item itemId="danaus-plexippus" title="Danaus Plexippus">
+    <p>The monarch butterfly is a milkweed butterfly and one of the most familiar North American pollinators.</p>
+  </Accordion.Item>
+
+  <Accordion.Item itemId="papilio-polyxenes" title="Papilio Polyxenes">
+    <p>The black swallowtail is a butterfly found throughout much of North America.</p>
+  </Accordion.Item>
+</Accordion>`;
+
+const VanillaAccordionExample = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    container.innerHTML = accordionMarkup;
+    new VanillaAccordion().init();
+
+    return () => {
+      container.innerHTML = '';
+    };
+  }, []);
+
+  return <div ref={containerRef} />;
+};
+
 const meta = {
-  title: 'React/Accordion',
+  title: 'Accordion',
   component: Accordion,
-  tags: ['autodocs'],
   parameters: {
     docs: {
+      codePanel: true,
       description: {
         component:
-          'Use accordions to group related sections of content that expand and collapse with button controls. The React component manages the ARIA state, keyboard navigation, and optional heading wrappers described in the Natura11y accordion docs.',
+          'Use accordions to group related sections of content that expand and collapse with button controls.',
       },
     },
   },
@@ -149,7 +180,30 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const React: Story = {};
+export const HTML: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: accordionMarkup,
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => <VanillaAccordionExample />,
+};
+
+export const React: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: accordionReactCode,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
+};
 
 export const OpenByDefault: Story = {
   args: {

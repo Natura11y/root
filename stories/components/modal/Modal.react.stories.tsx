@@ -4,7 +4,7 @@ import Modal from '@lib/components/natura11y/modal';
 import Button from '@lib/components/natura11y/button';
 
 const meta: Meta<typeof Modal> = {
-  title: 'React/Modal',
+  title: 'Modal',
   component: Modal,
   tags: ['autodocs'],
   argTypes: {
@@ -21,7 +21,7 @@ const meta: Meta<typeof Modal> = {
 export default meta;
 type Story = StoryObj<typeof Modal>;
 
-export const Default: Story = {
+export const React: Story = {
   render: () => {
     const [isOpen, setIsOpen] = useState(false);
     return (

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import Pagination from '@lib/components/natura11y/pagination';
 
 const meta: Meta<typeof Pagination> = {
-  title: 'React/Pagination',
+  title: 'Pagination',
   component: Pagination,
   tags: ['autodocs'],
 };
@@ -10,7 +10,7 @@ const meta: Meta<typeof Pagination> = {
 export default meta;
 type Story = StoryObj<typeof Pagination>;
 
-export const Default: Story = {
+export const React: Story = {
   args: {
     items: [
       { iconHandle: 'arrow-left', ariaLabel: 'Previous page', href: '#' },

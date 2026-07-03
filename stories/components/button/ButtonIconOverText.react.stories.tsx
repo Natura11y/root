@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import ButtonIconOverText from '@lib/components/natura11y/button/ButtonIconOverText';
 
 const meta = {
-  title: 'React/Button Icon Over Text',
+  title: 'Button Icon Over Text',
   component: ButtonIconOverText,
   tags: ['autodocs'],
   args: {
@@ -40,7 +40,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const React: Story = {};
 
 export const StyledIcon: Story = {
   args: {

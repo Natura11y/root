@@ -3,7 +3,7 @@ import Tabs from '@lib/components/natura11y/tab';
 import Tab from '@lib/components/natura11y/tab/Tab';
 
 const meta: Meta<typeof Tabs> = {
-  title: 'React/Tab',
+  title: 'Tab',
   component: Tabs,
   tags: ['autodocs'],
   argTypes: {
@@ -18,7 +18,7 @@ const meta: Meta<typeof Tabs> = {
 export default meta;
 type Story = StoryObj<typeof Tabs>;
 
-export const Default: Story = {
+export const React: Story = {
   render: (args) => (
     <Tabs {...args}>
       <Tab title='Overview'>

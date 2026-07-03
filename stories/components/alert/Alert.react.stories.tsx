@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import Alert from '@lib/components/natura11y/alert';
 
 const meta: Meta<typeof Alert> = {
-  title: 'React/Alert',
+  title: 'Alert',
   component: Alert,
   tags: ['autodocs'],
   argTypes: {
@@ -15,7 +15,7 @@ const meta: Meta<typeof Alert> = {
 export default meta;
 type Story = StoryObj<typeof Alert>;
 
-export const Default: Story = {
+export const React: Story = {
   args: {
     title: 'Success',
     children: <p>Your changes have been saved successfully.</p>,

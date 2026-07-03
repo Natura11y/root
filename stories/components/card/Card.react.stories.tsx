@@ -25,7 +25,7 @@ const CardImage = () => (
 );
 
 const meta = {
-  title: 'React/Card',
+  title: 'Card',
   component: Card,
   tags: ['autodocs'],
   args: {
@@ -44,7 +44,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const React: Story = {
   render: (args) => (
     <Card {...args}>
       <Card.Head utilities='border-bottom'>

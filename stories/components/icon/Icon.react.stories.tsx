@@ -15,7 +15,7 @@ const iconSamples = [
 ];
 
 const meta = {
-  title: 'React/Icon',
+  title: 'Icon',
   component: Icon,
   tags: ['autodocs'],
   args: {
@@ -31,7 +31,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const React: Story = {};
 
 export const IconSet: Story = {
   name: 'Icon Set',

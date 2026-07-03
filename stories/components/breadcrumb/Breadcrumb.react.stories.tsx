@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import Breadcrumb from '@lib/components/natura11y/breadcrumb';
 
 const meta: Meta<typeof Breadcrumb> = {
-  title: 'React/Breadcrumb',
+  title: 'Breadcrumb',
   component: Breadcrumb,
   tags: ['autodocs'],
 };
@@ -10,7 +10,7 @@ const meta: Meta<typeof Breadcrumb> = {
 export default meta;
 type Story = StoryObj<typeof Breadcrumb>;
 
-export const Default: Story = {
+export const React: Story = {
   args: {
     items: [
       { label: 'Home', href: '#' },

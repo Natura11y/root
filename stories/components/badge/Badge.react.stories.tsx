@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import Badge from '@lib/components/natura11y/badge';
 
 const meta: Meta<typeof Badge> = {
-  title: 'React/Badge',
+  title: 'Badge',
   component: Badge,
   tags: ['autodocs'],
   argTypes: {
@@ -17,7 +17,7 @@ const meta: Meta<typeof Badge> = {
 export default meta;
 type Story = StoryObj<typeof Badge>;
 
-export const Default: Story = {
+export const React: Story = {
   args: {
     children: 'New',
   },

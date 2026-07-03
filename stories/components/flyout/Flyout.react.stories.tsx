@@ -4,7 +4,7 @@ import Flyout from '@lib/components/natura11y/flyout';
 import Button from '@lib/components/natura11y/button';
 
 const meta: Meta<typeof Flyout> = {
-  title: 'React/Flyout',
+  title: 'Flyout',
   component: Flyout,
   tags: ['autodocs'],
   parameters: {
@@ -17,7 +17,7 @@ const meta: Meta<typeof Flyout> = {
 export default meta;
 type Story = StoryObj<typeof Flyout>;
 
-export const Default: Story = {
+export const React: Story = {
   render: () => {
     const [isOpen, setIsOpen] = useState(false);
     return (

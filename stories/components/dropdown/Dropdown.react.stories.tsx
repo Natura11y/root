@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import Dropdown from '@lib/components/natura11y/dropdown';
 
 const meta: Meta<typeof Dropdown> = {
-  title: 'React/Dropdown',
+  title: 'Dropdown',
   component: Dropdown,
   tags: ['autodocs'],
   argTypes: {
@@ -15,7 +15,7 @@ const meta: Meta<typeof Dropdown> = {
 export default meta;
 type Story = StoryObj<typeof Dropdown>;
 
-export const Default: Story = {
+export const React: Story = {
   args: {
     buttonText: 'Options',
   },

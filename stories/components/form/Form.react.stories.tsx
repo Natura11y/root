@@ -5,7 +5,7 @@ import FormValidation from '@lib/components/natura11y/form/FormValidation';
 import RequiredIndicator from '@lib/components/natura11y/form/RequiredIndicator';
 
 const meta = {
-  title: 'React/Form',
+  title: 'Form',
   component: FormEntry,
   tags: ['autodocs'],
   argTypes: {
@@ -36,8 +36,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const TextInput: Story = {
-  name: 'Text Input',
+export const React: Story = {
   args: {
     labelText: 'Full name',
     helpText: 'Enter your first and last name.',

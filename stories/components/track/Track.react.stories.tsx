@@ -81,7 +81,7 @@ const CreditPanel = ({ panel }: { panel: Record<string, unknown> }) => {
 };
 
 const meta = {
-  title: 'React/Track',
+  title: 'Track',
   component: Track,
   tags: ['autodocs'],
   args: {
@@ -105,7 +105,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
+export const React: Story = {
   args: {
     trackId: 'track-default',
   },

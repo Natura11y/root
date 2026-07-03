@@ -4,7 +4,7 @@ import Collapse from '@lib/components/natura11y/collapse';
 import Button from '@lib/components/natura11y/button';
 
 const meta: Meta<typeof Collapse> = {
-  title: 'React/Collapse',
+  title: 'Collapse',
   component: Collapse,
   tags: ['autodocs'],
 };
@@ -12,7 +12,7 @@ const meta: Meta<typeof Collapse> = {
 export default meta;
 type Story = StoryObj<typeof Collapse>;
 
-export const Default: Story = {
+export const React: Story = {
   render: () => {
     const [isOpen, setIsOpen] = useState(false);
     return (
