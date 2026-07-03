@@ -1,5 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import Button from '@lib/components/natura11y/button';
+import ButtonIconOnly from '@lib/components/natura11y/button/ButtonIconOnly';
+import ButtonIconOverText from '@lib/components/natura11y/button/ButtonIconOverText';
+import VanillaExample from '../../utils/VanillaExample';
 import buttonMarkup from './button.example.html?raw';
 
 const buttonReactCode = `<Button
@@ -26,7 +29,6 @@ const buttonReactCode = `<Button
 const meta = {
   title: 'Button',
   component: Button,
-  tags: ['autodocs'],
   args: {
     title: 'Button',
     tag: 'button',
@@ -59,6 +61,11 @@ const meta = {
     attributes: { control: false },
     onClick: { control: false },
   },
+  parameters: {
+    docs: {
+      codePanel: true,
+    },
+  },
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -74,9 +81,7 @@ export const HTML: Story = {
       },
     },
   },
-  render: () => (
-    <div dangerouslySetInnerHTML={{ __html: buttonMarkup }} />
-  ),
+  render: () => <VanillaExample html={buttonMarkup} />,
 };
 
 export const React: Story = {
@@ -109,4 +114,36 @@ export const Disperse: Story = {
     iconEndHandle: 'arrow-right',
     utilities: 'button--disperse',
   },
+};
+
+export const IconOnly: Story = {
+  name: 'Icon Only',
+  render: () => (
+    <ButtonIconOnly
+      iconHandle='home'
+      ariaLabel='Home'
+    />
+  ),
+};
+
+export const IconOverText: Story = {
+  name: 'Icon Over Text',
+  render: () => (
+    <ButtonIconOverText
+      iconHandle='home'
+      label='Home'
+    />
+  ),
+};
+
+export const IconOverTextStyled: Story = {
+  name: 'Icon Over Text Styled',
+  render: () => (
+    <ButtonIconOverText
+      iconHandle='home'
+      label='Home'
+      iconUtilities='theme-primary border-radius-circle'
+      textUtilities='text-color-link'
+    />
+  ),
 };

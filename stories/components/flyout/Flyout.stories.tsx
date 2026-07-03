@@ -1,21 +1,46 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import VanillaFlyout from '@core-js/flyout';
 import Flyout from '@lib/components/natura11y/flyout';
 import Button from '@lib/components/natura11y/button';
+import VanillaExample from '../../utils/VanillaExample';
+import flyoutMarkup from './flyout.example.html?raw';
+
+const initializeFlyout = () => {
+  new VanillaFlyout().init();
+};
 
 const meta: Meta<typeof Flyout> = {
   title: 'Flyout',
   component: Flyout,
-  tags: ['autodocs'],
   parameters: {
     docs: {
-      story: { height: '600px', inline: false, width: '100%' },
+      codePanel: true,
     },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Flyout>;
+
+export const HTML: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: flyoutMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => (
+    <VanillaExample
+      html={flyoutMarkup}
+      initialize={initializeFlyout}
+      initializeOnceKey='flyout'
+    />
+  ),
+};
 
 export const React: Story = {
   render: () => {

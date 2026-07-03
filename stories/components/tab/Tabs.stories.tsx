@@ -1,11 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import VanillaTab from '@core-js/tab';
 import Tabs from '@lib/components/natura11y/tab';
 import Tab from '@lib/components/natura11y/tab/Tab';
+import VanillaExample from '../../utils/VanillaExample';
+import tabMarkup from './tab.example.html?raw';
+
+const initializeTab = () => {
+  new VanillaTab().init();
+};
 
 const meta: Meta<typeof Tabs> = {
   title: 'Tab',
   component: Tabs,
-  tags: ['autodocs'],
   argTypes: {
     pill: { control: 'boolean' },
     breakpoint: {
@@ -13,10 +19,30 @@ const meta: Meta<typeof Tabs> = {
       options: ['sm', 'md', 'lg', 'xl'],
     },
   },
+  parameters: {
+    docs: {
+      codePanel: true,
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Tabs>;
+
+export const HTML: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: tabMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => (
+    <VanillaExample html={tabMarkup} initialize={initializeTab} />
+  ),
+};
 
 export const React: Story = {
   render: (args) => (

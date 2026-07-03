@@ -1,23 +1,17 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
+import VanillaLightbox from '@core-js/lightbox';
 import { LightboxProvider } from '@lib/context/LightboxContext';
 import Lightbox from '@lib/components/natura11y/lightbox';
 import LightboxButton from '@lib/components/natura11y/lightbox/LightboxButton';
+import VanillaExample from '../../utils/VanillaExample';
 import { storyMedia } from '../../media';
+import lightboxMarkup from './lightbox.example.html?raw';
 
 const meta: Meta = {
   title: 'Lightbox',
-  tags: ['autodocs'],
-  decorators: [
-    (Story) => (
-      <LightboxProvider>
-        <Story />
-        <Lightbox />
-      </LightboxProvider>
-    ),
-  ],
   parameters: {
     docs: {
-      story: { height: '600px', inline: false, width: '100%' },
+      codePanel: true,
     },
   },
 };
@@ -25,7 +19,34 @@ const meta: Meta = {
 export default meta;
 type Story = StoryObj;
 
+const initializeLightbox = () => {
+  new VanillaLightbox().init();
+};
+
+const withReactLightbox: Decorator = (Story) => (
+  <LightboxProvider>
+    <Story />
+    <Lightbox />
+  </LightboxProvider>
+);
+
+export const HTML: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: lightboxMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => (
+    <VanillaExample html={lightboxMarkup} initialize={initializeLightbox} />
+  ),
+};
+
 export const React: Story = {
+  decorators: [withReactLightbox],
   render: () => (
     <LightboxButton lbType='image' lbSrc={storyMedia.landscapeImage} lbCaption='Mountain landscape' utilities='button'>
       Open Image
@@ -34,6 +55,7 @@ export const React: Story = {
 };
 
 export const Gallery: Story = {
+  decorators: [withReactLightbox],
   render: () => (
     <div className='flex-row gap-3'>
       <LightboxButton lbType='image' lbSrc={storyMedia.landscapeImage} lbCaption='Mountain landscape' utilities='button'>
@@ -50,6 +72,7 @@ export const Gallery: Story = {
 };
 
 export const ThumbnailGrid: Story = {
+  decorators: [withReactLightbox],
   render: () => (
     <div className='grid grid--column-3--md gap-3'>
       <LightboxButton lbType='image' lbSrc={storyMedia.landscapeImage} lbCaption='Mountain landscape'>

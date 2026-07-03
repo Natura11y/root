@@ -1,14 +1,33 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import Pagination from '@lib/components/natura11y/pagination';
+import VanillaExample from '../../utils/VanillaExample';
+import paginationMarkup from './pagination.example.html?raw';
 
 const meta: Meta<typeof Pagination> = {
   title: 'Pagination',
   component: Pagination,
-  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      codePanel: true,
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Pagination>;
+
+export const HTML: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: paginationMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => <VanillaExample html={paginationMarkup} />,
+};
 
 export const React: Story = {
   args: {

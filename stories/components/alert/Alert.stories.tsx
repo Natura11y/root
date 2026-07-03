@@ -1,19 +1,49 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import VanillaAlert from '@core-js/alert';
 import Alert from '@lib/components/natura11y/alert';
+import VanillaExample from '../../utils/VanillaExample';
+import alertMarkup from './alert.example.html?raw';
+
+const initializeAlert = () => {
+  new VanillaAlert().init();
+};
 
 const meta: Meta<typeof Alert> = {
   title: 'Alert',
   component: Alert,
-  tags: ['autodocs'],
   argTypes: {
     success: { control: 'boolean' },
     inverse: { control: 'boolean' },
     iconHandle: { control: 'text' },
   },
+  parameters: {
+    docs: {
+      codePanel: true,
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Alert>;
+
+export const HTML: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: alertMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => (
+    <VanillaExample
+      html={alertMarkup}
+      initialize={initializeAlert}
+      initializeOnceKey='alert'
+    />
+  ),
+};
 
 export const React: Story = {
   args: {

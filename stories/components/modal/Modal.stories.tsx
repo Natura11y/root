@@ -1,25 +1,50 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import VanillaModal from '@core-js/modal';
 import Modal from '@lib/components/natura11y/modal';
 import Button from '@lib/components/natura11y/button';
+import VanillaExample from '../../utils/VanillaExample';
+import modalMarkup from './modal.example.html?raw';
+
+const initializeModal = () => {
+  new VanillaModal().init();
+};
 
 const meta: Meta<typeof Modal> = {
   title: 'Modal',
   component: Modal,
-  tags: ['autodocs'],
   argTypes: {
     scrollAll: { control: 'boolean' },
     closeOutside: { control: 'boolean' },
   },
   parameters: {
     docs: {
-      story: { height: '500px', inline: false, width: '100%' },
+      codePanel: true,
     },
   },
 };
 
 export default meta;
 type Story = StoryObj<typeof Modal>;
+
+export const HTML: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: modalMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => (
+    <VanillaExample
+      html={modalMarkup}
+      initialize={initializeModal}
+      initializeOnceKey='modal'
+    />
+  ),
+};
 
 export const React: Story = {
   render: () => {

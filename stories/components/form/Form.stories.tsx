@@ -1,13 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import VanillaFormInput from '@core-js/form';
 import FormEntry from '@lib/components/natura11y/form/FormEntry';
 import FormEntrySearch from '@lib/components/natura11y/form/FormEntrySearch';
 import FormValidation from '@lib/components/natura11y/form/FormValidation';
 import RequiredIndicator from '@lib/components/natura11y/form/RequiredIndicator';
+import VanillaExample from '../../utils/VanillaExample';
+import formMarkup from './form.example.html?raw';
+
+const initializeForm = () => {
+  new VanillaFormInput().init();
+};
 
 const meta = {
   title: 'Form',
   component: FormEntry,
-  tags: ['autodocs'],
   argTypes: {
     entryType: {
       control: 'select',
@@ -31,10 +37,30 @@ const meta = {
     required: { control: 'boolean' },
     showError: { control: 'boolean' },
   },
+  parameters: {
+    docs: {
+      codePanel: true,
+    },
+  },
 } satisfies Meta<typeof FormEntry>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const HTML: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: formMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => (
+    <VanillaExample html={formMarkup} initialize={initializeForm} />
+  ),
+};
 
 export const React: Story = {
   args: {

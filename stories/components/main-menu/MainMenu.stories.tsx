@@ -1,9 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import VanillaCollapse from '@core-js/collapse';
+import VanillaDropdown from '@core-js/dropdown';
+import VanillaMainMenu from '@core-js/main-menu';
 import MainMenu from '@lib/components/natura11y/main-menu';
 import Brand from '@lib/components/natura11y/main-menu/Brand';
 import Dropdown from '@lib/components/natura11y/dropdown';
 import FormEntrySearch from '@lib/components/natura11y/form/FormEntrySearch';
 import ButtonIconOnly from '@lib/components/natura11y/button/ButtonIconOnly';
+import VanillaExample from '../../utils/VanillaExample';
+import mainMenuMarkup from './main-menu.example.html?raw';
+
+const initializeMainMenu = () => {
+  new VanillaCollapse().init();
+  new VanillaDropdown().init();
+  new VanillaMainMenu().init();
+};
 
 const logo = (
   <a href='/' title='Home' data-logo='brand'>
@@ -53,7 +64,6 @@ const actions = (
 const meta = {
   title: 'Main Menu',
   component: MainMenu,
-  tags: ['autodocs'],
   args: {
     variant: 'bar',
     breakpoint: 'lg',
@@ -72,10 +82,34 @@ const meta = {
     navId: { control: false },
     searchId: { control: false },
   },
+  parameters: {
+    docs: {
+      codePanel: true,
+    },
+  },
 } satisfies Meta<typeof MainMenu>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const HTML: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: mainMenuMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => (
+    <VanillaExample
+      html={mainMenuMarkup}
+      initialize={initializeMainMenu}
+      initializeOnceKey='main-menu'
+    />
+  ),
+};
 
 export const React: Story = {
   args: {

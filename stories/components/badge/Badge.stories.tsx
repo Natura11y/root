@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import Badge from '@lib/components/natura11y/badge';
+import VanillaExample from '../../utils/VanillaExample';
+import badgeMarkup from './badge.example.html?raw';
 
 const meta: Meta<typeof Badge> = {
   title: 'Badge',
   component: Badge,
-  tags: ['autodocs'],
   argTypes: {
     tag: {
       control: 'radio',
@@ -12,10 +13,28 @@ const meta: Meta<typeof Badge> = {
     },
     iconHandle: { control: 'text' },
   },
+  parameters: {
+    docs: {
+      codePanel: true,
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Badge>;
+
+export const HTML: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: badgeMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => <VanillaExample html={badgeMarkup} />,
+};
 
 export const React: Story = {
   args: {

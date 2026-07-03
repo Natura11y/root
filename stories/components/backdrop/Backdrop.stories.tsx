@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import BackdropVideo from '@lib/components/natura11y/backdrop';
 import Button from '@lib/components/natura11y/button';
+import VanillaExample from '../../utils/VanillaExample';
 import { storyMedia } from '../../media';
+import backdropMarkup from './backdrop.example.html?raw';
 
 const meta = {
   title: 'Backdrop',
   component: BackdropVideo,
-  tags: ['autodocs'],
   args: {
     videoSrc: storyMedia.videoOne,
     stack: 'lg',
@@ -22,6 +23,7 @@ const meta = {
   },
   parameters: {
     docs: {
+      codePanel: true,
       description: {
         component:
           'React provides BackdropVideo for video backdrops. Static image, fixed-height, and stack backdrop patterns are framework markup and should follow the regular Backdrop documentation.',
@@ -32,6 +34,23 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof BackdropVideo>;
+
+export const HTML: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: backdropMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => (
+    <div className='wide margin-x-auto'>
+      <VanillaExample html={backdropMarkup} />
+    </div>
+  ),
+};
 
 export const React: Story = {
   render: (args) => (

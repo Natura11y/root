@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import Icon from '@lib/components/natura11y/icon';
+import VanillaExample from '../../utils/VanillaExample';
+import iconMarkup from './icon.example.html?raw';
 
 const iconSamples = [
   'home',
@@ -17,7 +19,6 @@ const iconSamples = [
 const meta = {
   title: 'Icon',
   component: Icon,
-  tags: ['autodocs'],
   args: {
     iconHandle: 'home',
     utilities: 'font-size-lg',
@@ -26,10 +27,28 @@ const meta = {
     iconHandle: { control: 'text' },
     utilities: { control: 'text' },
   },
+  parameters: {
+    docs: {
+      codePanel: true,
+    },
+  },
 } satisfies Meta<typeof Icon>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const HTML: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: iconMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => <VanillaExample html={iconMarkup} />,
+};
 
 export const React: Story = {};
 

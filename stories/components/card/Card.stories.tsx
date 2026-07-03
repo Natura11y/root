@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import Card from '@lib/components/natura11y/card';
+import VanillaExample from '../../utils/VanillaExample';
 import { storyMedia } from '../../media';
+import cardMarkup from './card.example.html?raw';
 
 const CardFooter = () => (
   <Card.Foot utilities='border-top font-size-md text-color-link'>
@@ -27,7 +29,6 @@ const CardImage = () => (
 const meta = {
   title: 'Card',
   component: Card,
-  tags: ['autodocs'],
   args: {
     tag: 'div',
     horizontal: false,
@@ -39,10 +40,28 @@ const meta = {
     utilities: { control: 'text' },
     children: { control: false },
   },
+  parameters: {
+    docs: {
+      codePanel: true,
+    },
+  },
 } satisfies Meta<typeof Card>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const HTML: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: cardMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => <VanillaExample html={cardMarkup} />,
+};
 
 export const React: Story = {
   render: (args) => (

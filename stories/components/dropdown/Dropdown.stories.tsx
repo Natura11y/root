@@ -1,19 +1,49 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import VanillaDropdown from '@core-js/dropdown';
 import Dropdown from '@lib/components/natura11y/dropdown';
+import VanillaExample from '../../utils/VanillaExample';
+import dropdownMarkup from './dropdown.example.html?raw';
+
+const initializeDropdown = () => {
+  new VanillaDropdown().init();
+};
 
 const meta: Meta<typeof Dropdown> = {
   title: 'Dropdown',
   component: Dropdown,
-  tags: ['autodocs'],
   argTypes: {
     type: { control: 'radio', options: ['dropdown', 'mega'] },
     hover: { control: 'boolean' },
     linkSplit: { control: 'boolean' },
   },
+  parameters: {
+    docs: {
+      codePanel: true,
+    },
+  },
 };
 
 export default meta;
 type Story = StoryObj<typeof Dropdown>;
+
+export const HTML: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: dropdownMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => (
+    <VanillaExample
+      html={dropdownMarkup}
+      initialize={initializeDropdown}
+      initializeOnceKey='dropdown'
+    />
+  ),
+};
 
 export const React: Story = {
   args: {

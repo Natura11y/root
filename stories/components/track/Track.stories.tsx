@@ -1,6 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import VanillaTrack from '@core-js/track';
 import Track from '@lib/components/natura11y/track';
+import VanillaExample from '../../utils/VanillaExample';
 import { storyMedia } from '../../media';
+import trackMarkup from './track.example.html?raw';
+
+const initializeTrack = () => {
+  new VanillaTrack().init();
+};
 
 interface TrackStoryPanel extends Record<string, unknown> {
   linkUrl: string;
@@ -83,7 +90,6 @@ const CreditPanel = ({ panel }: { panel: Record<string, unknown> }) => {
 const meta = {
   title: 'Track',
   component: Track,
-  tags: ['autodocs'],
   args: {
     ariaLabel: 'Featured content',
     trackId: 'track-story',
@@ -100,10 +106,30 @@ const meta = {
     PanelComponent: { control: false },
     PaginationComponent: { control: false },
   },
+  parameters: {
+    docs: {
+      codePanel: true,
+    },
+  },
 } satisfies Meta<typeof Track>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
+
+export const HTML: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: trackMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => (
+    <VanillaExample html={trackMarkup} initialize={initializeTrack} />
+  ),
+};
 
 export const React: Story = {
   args: {
