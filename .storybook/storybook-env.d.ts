@@ -43,3 +43,8 @@ declare module '*.webm' {
   const src: string;
   export default src;
 }
+
+declare module '@core-js/*' {
+  const CoreComponent: new () => { init(): void };
+  export default CoreComponent;
+}

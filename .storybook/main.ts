@@ -27,6 +27,7 @@ const config: StorybookConfig = {
   viteFinal: async (config) => mergeConfig(config, {
     resolve: {
       alias: {
+        '@core-js': resolve(rootDir, 'packages/core/src/js'),
         '@lib': resolve(rootDir, 'packages/react/src'),
       },
     },

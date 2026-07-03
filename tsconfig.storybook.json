@@ -9,6 +9,7 @@
     "skipLibCheck": true,
     "noEmit": true,
     "paths": {
+      "@core-js/*": ["./packages/core/src/js/*"],
       "@lib/*": ["./packages/react/src/*"]
     }
   },
