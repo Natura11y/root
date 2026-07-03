@@ -4,7 +4,7 @@ import Modal from '@lib/components/natura11y/modal';
 import Button from '@lib/components/natura11y/button';
 
 const meta: Meta<typeof Modal> = {
-  title: 'Components/Modal',
+  title: 'React/Modal',
   component: Modal,
   tags: ['autodocs'],
   argTypes: {

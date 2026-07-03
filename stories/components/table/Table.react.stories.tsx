@@ -4,7 +4,7 @@ import TableScroll from '@lib/components/natura11y/table/TableScroll';
 import { tableData } from '@lib/components/natura11y/table/tableData';
 
 const meta: Meta<typeof Table> = {
-  title: 'Components/Table',
+  title: 'React/Table',
   component: Table,
   tags: ['autodocs'],
   argTypes: {

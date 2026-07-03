@@ -4,7 +4,7 @@ import Button from '@lib/components/natura11y/button';
 import { storyMedia } from '../../media';
 
 const meta = {
-  title: 'Components/Backdrop',
+  title: 'React/Backdrop',
   component: BackdropVideo,
   tags: ['autodocs'],
   args: {

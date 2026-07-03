@@ -5,7 +5,7 @@ import LightboxButton from '@lib/components/natura11y/lightbox/LightboxButton';
 import { storyMedia } from '../../media';
 
 const meta: Meta = {
-  title: 'Components/Lightbox',
+  title: 'React/Lightbox',
   tags: ['autodocs'],
   decorators: [
     (Story) => (

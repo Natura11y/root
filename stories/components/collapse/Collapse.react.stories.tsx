@@ -4,7 +4,7 @@ import Collapse from '@lib/components/natura11y/collapse';
 import Button from '@lib/components/natura11y/button';
 
 const meta: Meta<typeof Collapse> = {
-  title: 'Components/Collapse',
+  title: 'React/Collapse',
   component: Collapse,
   tags: ['autodocs'],
 };

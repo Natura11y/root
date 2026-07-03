@@ -5,7 +5,7 @@ import FormValidation from '@lib/components/natura11y/form/FormValidation';
 import RequiredIndicator from '@lib/components/natura11y/form/RequiredIndicator';
 
 const meta = {
-  title: 'Components/Form',
+  title: 'React/Form',
   component: FormEntry,
   tags: ['autodocs'],
   argTypes: {

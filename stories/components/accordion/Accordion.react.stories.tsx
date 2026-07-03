@@ -78,7 +78,7 @@ const renderItems = () => (
 const itemIds = items.map(({ itemId }) => itemId);
 
 const meta = {
-  title: 'Components/Accordion',
+  title: 'React/Accordion',
   component: Accordion,
   tags: ['autodocs'],
   parameters: {

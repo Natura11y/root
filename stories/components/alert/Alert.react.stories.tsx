@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import Alert from '@lib/components/natura11y/alert';
 
 const meta: Meta<typeof Alert> = {
-  title: 'Components/Alert',
+  title: 'React/Alert',
   component: Alert,
   tags: ['autodocs'],
   argTypes: {

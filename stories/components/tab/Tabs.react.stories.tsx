@@ -3,7 +3,7 @@ import Tabs from '@lib/components/natura11y/tab';
 import Tab from '@lib/components/natura11y/tab/Tab';
 
 const meta: Meta<typeof Tabs> = {
-  title: 'Components/Tab',
+  title: 'React/Tab',
   component: Tabs,
   tags: ['autodocs'],
   argTypes: {

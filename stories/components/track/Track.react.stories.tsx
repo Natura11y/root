@@ -81,7 +81,7 @@ const CreditPanel = ({ panel }: { panel: Record<string, unknown> }) => {
 };
 
 const meta = {
-  title: 'Components/Track',
+  title: 'React/Track',
   component: Track,
   tags: ['autodocs'],
   args: {

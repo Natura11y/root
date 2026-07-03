@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import NestedNav from '@lib/components/natura11y/nested-nav';
 
 const meta: Meta<typeof NestedNav> = {
-  title: 'Components/Nested Nav',
+  title: 'React/Nested Nav',
   component: NestedNav,
   tags: ['autodocs'],
 };

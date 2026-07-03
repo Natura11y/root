@@ -25,7 +25,7 @@ const CardImage = () => (
 );
 
 const meta = {
-  title: 'Components/Card',
+  title: 'React/Card',
   component: Card,
   tags: ['autodocs'],
   args: {

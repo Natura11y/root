@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import Button from '@lib/components/natura11y/button';
 
 const meta = {
-  title: 'Components/Button',
+  title: 'React/Button',
   component: Button,
   tags: ['autodocs'],
   args: {

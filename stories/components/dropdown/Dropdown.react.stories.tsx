@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import Dropdown from '@lib/components/natura11y/dropdown';
 
 const meta: Meta<typeof Dropdown> = {
-  title: 'Components/Dropdown',
+  title: 'React/Dropdown',
   component: Dropdown,
   tags: ['autodocs'],
   argTypes: {

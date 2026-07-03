@@ -15,7 +15,7 @@ const iconSamples = [
 ];
 
 const meta = {
-  title: 'Components/Icon',
+  title: 'React/Icon',
   component: Icon,
   tags: ['autodocs'],
   args: {

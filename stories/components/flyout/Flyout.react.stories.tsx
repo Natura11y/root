@@ -4,7 +4,7 @@ import Flyout from '@lib/components/natura11y/flyout';
 import Button from '@lib/components/natura11y/button';
 
 const meta: Meta<typeof Flyout> = {
-  title: 'Components/Flyout',
+  title: 'React/Flyout',
   component: Flyout,
   tags: ['autodocs'],
   parameters: {

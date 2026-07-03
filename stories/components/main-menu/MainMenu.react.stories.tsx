@@ -51,7 +51,7 @@ const actions = (
 );
 
 const meta = {
-  title: 'Components/Main Menu',
+  title: 'React/Main Menu',
   component: MainMenu,
   tags: ['autodocs'],
   args: {

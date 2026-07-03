@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import ButtonIconOnly from '@lib/components/natura11y/button/ButtonIconOnly';
 
 const meta = {
-  title: 'Components/Button Icon Only',
+  title: 'React/Button Icon Only',
   component: ButtonIconOnly,
   tags: ['autodocs'],
   args: {

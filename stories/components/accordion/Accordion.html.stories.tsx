@@ -65,7 +65,7 @@ const VanillaAccordionExample = () => {
 };
 
 const meta = {
-  title: 'Components/Accordion',
+  title: 'Core/Accordion',
   tags: ['autodocs'],
   parameters: {
     docs: {
@@ -81,5 +81,14 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const HTML: Story = {
+  parameters: {
+    docs: {
+      source: {
+        code: accordionMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
   render: () => <VanillaAccordionExample />,
 };
