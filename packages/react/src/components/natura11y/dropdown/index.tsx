@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback, useId, type ElementType, type ReactNode } from 'react';
 import classNames from 'classnames';
-import { getFocusableElements } from 'natura11y/utilities/focus';
-import { getCurrentBreakpoint } from 'natura11y/utilities/getCurrentBreakpoint';
+import { getFocusableElements } from '@natura11y/core/utilities/focus';
+import { getCurrentBreakpoint } from '@natura11y/core/utilities/getCurrentBreakpoint';
 
 const HOVER_TIMEOUT = 400;
 

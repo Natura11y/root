@@ -4,7 +4,7 @@ import { LightboxProvider } from '@lib/context/LightboxContext';
 
 import classNames from 'classnames';
 
-import 'natura11y/dist/natura11y.css';
+import '@natura11y/core/dist/natura11y.css';
 
 import ScrollToTop from './components/ScrollToTop';
 import MainMenuBar from './components/MainMenuBar';

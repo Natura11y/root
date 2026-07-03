@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback, useId, type ReactNode, type RefObject } from 'react';
 import classNames from 'classnames';
-import { getFocusableElements } from 'natura11y/utilities/focus';
+import { getFocusableElements } from '@natura11y/core/utilities/focus';
 import { useLinearKeyNav } from '../../../hooks/useLinearKeyNav';
 
 const useCollapse = (panelRef: RefObject<HTMLElement | null>) => {

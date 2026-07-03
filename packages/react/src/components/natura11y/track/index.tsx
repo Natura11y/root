@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import TrackPanel from './TrackPanel';
 import ButtonIconOnly from '../button/ButtonIconOnly';
 import TrackPagination from './TrackPagination';
-import { getFocusableElements } from 'natura11y/utilities/focus';
+import { getFocusableElements } from '@natura11y/core/utilities/focus';
 
 interface PaginationProps {
   currentPageIndex: number;

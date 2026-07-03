@@ -1,5 +1,5 @@
 import { useEffect, type RefObject } from 'react';
-import { getFocusableElements } from 'natura11y/utilities/focus';
+import { getFocusableElements } from '@natura11y/core/utilities/focus';
 import { useStableCallback } from './useStableCallback';
 
 /**

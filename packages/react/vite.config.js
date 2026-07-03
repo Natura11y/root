@@ -54,14 +54,14 @@ export default defineConfig(({ command }) => {
         rollupOptions: {
           external: (id) =>
             ['react', 'react-dom', 'react/jsx-runtime'].includes(id) ||
-            id === 'natura11y' ||
-            id.startsWith('natura11y/'),
+            id === '@natura11y/core' ||
+            id.startsWith('@natura11y/core/'),
           output: {
             globals: {
               'react': 'React',
               'react-dom': 'ReactDOM',
               'react/jsx-runtime': 'ReactJSXRuntime',
-              'natura11y': 'Natura11y'
+              '@natura11y/core': 'Natura11yCore'
             }
           }
         }
