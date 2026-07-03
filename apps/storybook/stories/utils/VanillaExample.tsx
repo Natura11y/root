@@ -4,7 +4,7 @@ const initializedExamples = new Set<string>();
 
 type VanillaExampleProps = {
   html: string;
-  initialize?: () => void;
+  initialize?: (container: HTMLDivElement) => void;
   initializeOnceKey?: string;
 };
 
@@ -12,12 +12,15 @@ const VanillaExample = ({ html, initialize, initializeOnceKey }: VanillaExampleP
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
     if (initializeOnceKey) {
       if (initializedExamples.has(initializeOnceKey)) return;
       initializedExamples.add(initializeOnceKey);
     }
 
-    initialize?.();
+    initialize?.(container);
   }, [initialize, html, initializeOnceKey]);
 
   return (
