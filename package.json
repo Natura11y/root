@@ -11,8 +11,8 @@
     "build:icons": "npm --workspace @natura11y/icons run build:icons",
     "typecheck:react": "npm --workspace @natura11y/react run typecheck",
     "typecheck:storybook": "tsc -p tsconfig.storybook.json --noEmit",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "storybook": "storybook dev -p 6006 -c apps/storybook/.storybook",
+    "build-storybook": "storybook build -c apps/storybook/.storybook",
     "build:core": "npm --workspace @natura11y/core run build",
     "start:core": "npm --workspace @natura11y/core run start"
   },

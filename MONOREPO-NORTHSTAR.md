@@ -97,23 +97,21 @@ natura11y/
 
   apps/
     storybook/
-      package.json
       .storybook/
         main.ts
         preview.tsx
         preview-head.html
         manager.ts
-      src/
-        stories/
-          components/
-            accordion/
-              Accordion.docs.mdx
-              Accordion.html.stories.ts
-              Accordion.react.stories.tsx
-            table/
-              Table.docs.mdx
-              Table.html.stories.ts
-              Table.react.stories.tsx
+      public/
+        story-assets/
+      stories/
+        components/
+          accordion/
+            Accordion.stories.tsx
+            accordion.example.html
+          table/
+            Table.stories.tsx
+            table.example.html
 
     docs/
       package.json
@@ -409,21 +407,18 @@ If shared Sass or utilities change, both `natura11y` and `@natura11y/react` can 
 
 ## Root Workspace
 
-The root `package.json` should be private and use npm workspaces unless there is a strong reason to choose another workspace manager.
+The root `package.json` should be private and use npm workspaces unless there is a strong reason to choose another workspace manager. In the current phase, packages are workspaces and Storybook lives under `apps/storybook` but is run by root scripts. When docs becomes a managed app, add `apps/*` to the workspace list.
 
 ```json
 {
   "private": true,
   "workspaces": [
-    "packages/*",
-    "apps/*"
+    "packages/*"
   ],
   "scripts": {
     "build": "npm run build --workspaces",
-    "storybook": "npm run storybook -w apps/storybook",
-    "build-storybook": "npm run build-storybook -w apps/storybook",
-    "docs": "npm run dev -w apps/docs",
-    "build-docs": "npm run build -w apps/docs",
+    "storybook": "storybook dev -p 6006 -c apps/storybook/.storybook",
+    "build-storybook": "storybook build -c apps/storybook/.storybook",
     "typecheck": "npm run typecheck --workspaces --if-present"
   }
 }
@@ -434,20 +429,17 @@ The root `package.json` should be private and use npm workspaces unless there is
 Storybook should become the internal place to test component-level behavior across HTML and React.
 
 ```text
-apps/storybook/src/stories/
+apps/storybook/stories/
   components/
     accordion/
-      Accordion.docs.mdx
-      Accordion.html.stories.ts
-      Accordion.react.stories.tsx
+      Accordion.stories.tsx
+      accordion.example.html
     table/
-      Table.docs.mdx
-      Table.html.stories.ts
-      Table.react.stories.tsx
+      Table.stories.tsx
+      table.example.html
     icon/
-      Icon.docs.mdx
-      Icon.html.stories.ts
-      Icon.react.stories.tsx
+      Icon.stories.tsx
+      icon.example.html
 ```
 
 The key idea is that HTML stories render real DOM using the HTML package source, not static screenshots. React stories render real React components using `packages/react`.

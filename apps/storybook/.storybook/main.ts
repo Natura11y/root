@@ -3,16 +3,16 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { mergeConfig } from 'vite';
 
-const rootDir = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const rootDir = resolve(dirname(fileURLToPath(import.meta.url)), '../../..');
 
 const config: StorybookConfig = {
   stories: [
     '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'
   ],
   staticDirs: [
-    '../storybook-public',
+    '../public',
     {
-      from: '../packages/icons/dist',
+      from: '../../../packages/icons/dist',
       to: '/icons',
     },
   ],

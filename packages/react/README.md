@@ -11,13 +11,8 @@ Natura11y is an open-source front-end toolkit for building modern websites.
 ## Quick Start
 
 ```bash
-git clone <repo-url>
-cd natura11y
-npm install
-npm run storybook
+npm install @natura11y/react @natura11y/core
 ```
-
-Open [http://localhost:6006](http://localhost:6006) to see the Storybook app.
 
 ---
 
@@ -81,11 +76,7 @@ function App() {
 
 ## Development Scripts
 
-**`npm run storybook`** - Start the monorepo Storybook app from the repository root (http://localhost:6006)
-
 **`npm run build`** - Build for production to `dist/` folder
-
-**`npm run build-storybook`** - Build the monorepo Storybook app from the repository root
 
 **`npm run dev`** - Start the Vite demo app (http://localhost:3000)
 

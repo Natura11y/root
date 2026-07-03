@@ -4,7 +4,7 @@ import dts from 'vite-plugin-dts'
 import path from 'path'
 
 export default defineConfig(({ command }) => {
-  const isPackageBuild = command === 'build' && process.env.STORYBOOK !== 'true'
+  const isPackageBuild = command === 'build'
 
   return {
     resolve: {
@@ -16,8 +16,7 @@ export default defineConfig(({ command }) => {
       react(),
       ...(isPackageBuild
         ? [dts({
-            include: ['src/components/natura11y', 'src/hooks', 'src/types'],
-            exclude: ['src/**/*.stories.*']
+            include: ['src/components/natura11y', 'src/hooks', 'src/types']
           })]
         : [])
     ],

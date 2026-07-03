@@ -14,9 +14,9 @@
     }
   },
   "include": [
-    ".storybook/**/*",
-    "stories/**/*",
+    "apps/storybook/.storybook/**/*",
+    "apps/storybook/stories/**/*",
     "packages/react/src/types/**/*.d.ts"
   ],
-  "exclude": ["node_modules", "storybook-static"]
+  "exclude": ["node_modules", "storybook-static", "apps/storybook/storybook-static"]
 }
