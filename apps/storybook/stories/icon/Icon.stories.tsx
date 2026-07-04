@@ -1,20 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { natura11yIcons } from '@natura11y/icons/src/data/icons.mjs';
 import Icon from '@lib/components/icon';
 import VanillaExample from '../../utils/VanillaExample';
 import iconMarkup from './icon.example.html?raw';
-
-const iconSamples = [
-  'home',
-  'settings',
-  'bell',
-  'calendar',
-  'search',
-  'menu',
-  'close',
-  'open-new',
-  'car',
-  'map-pin',
-];
 
 const meta = {
   title: 'Icon',
@@ -55,11 +43,12 @@ export const React: Story = {};
 export const IconSet: Story = {
   name: 'Icon Set',
   render: () => (
-    <div className='grid grid--column-4--md gap-3'>
-      {iconSamples.map((iconHandle) => (
-        <div key={iconHandle} className='display-flex flex-direction-column align-items-center padding-3 border-radius theme-light'>
-          <Icon iconHandle={iconHandle} utilities='font-size-lg margin-bottom-2' />
-          <code className='font-size-sm'>{iconHandle}</code>
+    <div className='grid grid--column-3 grid--column-4--md grid--column-8--lg gap-3'>
+      {natura11yIcons.map((icon) => (
+        <div key={icon.className} className='display-flex flex-direction-column align-items-center gap-1 padding-2 border-radius subtle-fill-1 text-align-center'>
+          <Icon iconHandle={icon.className} utilities='font-size-lg' />
+          <span className='font-size-sm font-weight-bold'>{icon.icon}</span>
+          <code className='font-size-sm'>{`.icon-${icon.className}`}</code>
         </div>
       ))}
     </div>
