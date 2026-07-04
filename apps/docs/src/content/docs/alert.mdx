@@ -1,0 +1,321 @@
+---
+category: a-z
+type: component
+title: Alert
+slug: alert
+bannerCreditName: Zdeněk Macháček
+bannerCreditUrl: https://unsplash.com/@zmachacek
+bannerImage: ./banner/alert.jpg
+bannerAlt: Grey owl in a tree
+description: Create accessible alert messages with confirm, warning, and error styles. Learn color contrast requirements, ARIA roles, and dismissable alerts for better user feedback.
+relatedPages:
+  - Form
+  - Accessibility
+---
+
+import AlertExample from '../../components/examples/AlertExample.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">Introduction</h2>
+
+<TextBlock>
+
+Alerts help draw attention to important messages, like confirmations or warnings, that visitors should not miss while browsing the page.
+
+</TextBlock>
+
+<AccessibilitySpotlight>
+
+When changing alert colors, ensure your colors meet a sufficient <LinkOpenNew LinkUrl="https://webaim.org/resources/contrastchecker" LinkText="contrast ratio" />.
+
+Do not rely on color alone to convey meaning. Include a visual icon for those who experience colors differently.
+
+Use an appropriate <LinkOpenNew LinkUrl="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role" LinkText="alert role" /> for assistive technology.
+
+Respects `prefers-reduced-motion`, so the dismiss animation is disabled when this preference is active.
+
+</AccessibilitySpotlight>
+
+</Section>
+
+---
+
+<Section id="confirm-and-warn">
+
+<TextBlock>
+
+## Confirm and Warn
+
+Natura11y provides two types of alerts: **Confirm** in *green* and **Warn** in *red*.
+
+Each alert should include an icon to help convey its meaning. Use icons from the <a href="/icons/">Natura11y Icons</a> library.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="1"
+  lineAnnotations={[
+    { range: '1-5' },
+    { range: '6-11' },
+    { range: '13-18' },
+  ]}
+  code={`
+  <div
+    class="alert alert--confirm"
+    aria-labelledby="alert-confirm-label"
+    aria-describedby="alert-confirm-description"
+    role="alert">
+    <div class="alert__title h5">
+      <span class="icon icon-confirm" aria-hidden="true"></span>
+      <span class="alert__title__text" id="alert-confirm-label">
+        Alert Confirm
+      </span>
+    </div>
+
+    <div class="alert__description" id="alert-confirm-description">
+      <p>
+        Thank you for your feedback. A confirmation message has been sent to your email. Return to our
+        <a href="#1">homepage</a>.
+      </p>
+    </div>
+  </div>
+  `}
+>
+  <AlertExample idPrefix="alert-figure-1" />
+</FigureExample>
+
+<TableLineDescBlock targetFigure="1">
+
+<TableLineDescRow targetFigure="1" lines="1-5">
+
+The parent `.alert` class is required.
+
+The `.alert--{x}` class sets the alert's color, where *x* can be *confirm* or *warn*.
+
+The `aria-labelledby` attribute should match the alert title's `id`.
+
+The `aria-describedby` attribute should match the alert description's `id`.
+
+Include `role="alert"` for urgent information.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="6-11">
+
+The `.alert__title` class is required. It contains the alert's title and icon.
+
+The `.alert__title__text` class holds the alert title text and must match the `aria-labelledby` attribute.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="13-18">
+
+The `.alert__description` class is optional. It contains the alert description and should match the `aria-describedby` attribute.
+
+All links (`<a>` tags) within the `<p>` tags will automatically inherit the alert's text color.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+<TextBlock>
+
+### Inverse Color Modifier
+
+For a bolder alert look, add `--inverse` to the `alert--confirm` or `alert--warn` classes.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="2"
+  highlightedLines="1,5"
+  code={`
+  <div class="alert alert--confirm--inverse">
+    ...
+  </div>
+
+  <div class="alert alert--warn--inverse">
+    ...
+  </div>
+  `}
+>
+  <AlertExample idPrefix="alert-figure-2" inverse />
+</FigureExample>
+
+<TextBlock>
+
+### Title Only Alert
+
+You can create a title-only alert by omitting the `.alert__description` element entirely.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="3"
+  code={`
+  <div
+    class="alert alert--confirm--inverse"
+    aria-labelledby="alert-title-only-label"
+    role="alert">
+    <div class="alert__title h5">
+      <span class="icon icon-confirm" aria-hidden="true"></span>
+      <span class="alert__title__text" id="alert-title-only-label">
+        Alert Confirm
+      </span>
+    </div>
+  </div>
+  `}
+>
+  <AlertExample idPrefix="alert-figure-3" inverse hasDescription={false} />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="dismissable-alerts">
+
+<TextBlock>
+
+## Dismissable Alerts
+
+To make an alert dismissable, place a close button as the **first child** of `.alert`. Add `data-alert-close` to the button; the JavaScript uses this attribute to wire up the dismiss behavior.
+
+Add `aria-live="assertive"` and `aria-atomic="true"` to the `.alert` element itself so assistive technology announces when the alert is removed.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="4"
+  lineAnnotations={[
+    { range: '3-4' },
+    { range: '8-14' },
+  ]}
+  code={`
+  <div
+    class="alert alert--confirm"
+    aria-live="assertive"
+    aria-atomic="true"
+    role="alert"
+    aria-labelledby="alert-confirm-label"
+    aria-describedby="alert-confirm-description">
+    <button
+      class="button button--icon-only"
+      aria-label="Close alert"
+      data-alert-close
+      type="button">
+      <span class="icon icon-close" aria-hidden="true"></span>
+    </button>
+
+    <div class="alert__title h5">
+      <span class="icon icon-confirm" aria-hidden="true"></span>
+      <span class="alert__title__text" id="alert-confirm-label">
+        Alert Confirm
+      </span>
+    </div>
+
+    <div class="alert__description" id="alert-confirm-description">
+      <p>Thank you for your feedback.</p>
+    </div>
+  </div>
+  `}
+>
+  <AlertExample idPrefix="alert-figure-4" dismissable />
+</FigureExample>
+
+<TableLineDescBlock targetFigure="4">
+
+<TableLineDescRow targetFigure="4" lines="3-4">
+
+Add `aria-live="assertive"` and `aria-atomic="true"` directly on the `.alert` element for dismissable alerts. This tells assistive technology to announce changes when the alert is removed.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="4" lines="8-14">
+
+The `data-alert-close` attribute on the button is required. The Natura11y JavaScript uses this attribute, not a class, to handle the dismiss behavior.
+
+The close button must be the **first child** of `.alert`, placed before `.alert__title`.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+</Section>
+
+---
+
+<Section id="more-style-variations">
+
+<TextBlock>
+
+## More Style Variations
+
+For additional alert styles, you can exclude the `.alert--confirm` or `.alert--warn` classes. Instead, use color utilities or border utilities for different styles.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="5"
+  code={`
+  <div
+    class="alert theme-secondary text-align-center border-radius-2"
+    aria-labelledby="alert-mail-label"
+    aria-describedby="alert-mail-description"
+    role="alert">
+    <div class="alert__title h5">
+      <span class="icon icon-mail" aria-hidden="true"></span>
+      <span class="alert__title__text" id="alert-mail-label">
+        You have new mail
+      </span>
+    </div>
+
+    <div class="alert__description" id="alert-mail-description">
+      <p>
+        You have <strong>(4)</strong> unread messages waiting in
+        <a href="#1">your account dashboard</a>.
+      </p>
+    </div>
+  </div>
+  `}
+>
+  <AlertExample idPrefix="alert-figure-5" styleVariation />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Alert styles can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+  figureNumber="6"
+  properties={[
+    {
+      property: 'alert-padding-x',
+      defaultValue: 'var(--spacer-2)',
+      purpose: 'Left and right padding of the alert header and body.',
+    },
+    {
+      property: 'alert-padding-y',
+      defaultValue: 'var(--spacer-2)',
+      purpose: 'Top and bottom padding of the alert header and body.',
+    },
+    {
+      property: 'alert-max-width',
+      defaultValue: 'calc(var(--wide-width) - (var(--container-padding-x) * 2))',
+      purpose: 'Maximum width of the content inside an alert.',
+    },
+  ]}
+/>
+
+</Section>
