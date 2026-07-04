@@ -1,12 +1,18 @@
 ---
 import { Code } from 'astro-expressive-code/components';
-import './code-block.scss';
 
 type MarkerLineOrRange = number | { range: string };
+
+interface LineAnnotation {
+  range: string;
+  label: string;
+}
 
 interface Props {
   preID?: string | null;
   highlightedLines?: string | null;
+  lineAnnotations?: LineAnnotation[];
+  showLineNumbers?: boolean | null;
   codeToolbar?: boolean;
   codeLanguage?: string;
   codeExample?: string | null;
@@ -17,6 +23,8 @@ interface Props {
 const {
   preID = null,
   highlightedLines = null,
+  lineAnnotations = [],
+  showLineNumbers = null,
   codeToolbar = true,
   codeLanguage = 'html',
   codeExample = null,
@@ -25,7 +33,10 @@ const {
 
 const codeText = codeExample ?? code;
 const language = codeLanguage.toLowerCase();
-const highlightedLinesValue = highlightedLines == null ? null : String(highlightedLines);
+const annotationLinesValue = lineAnnotations.length
+  ? lineAnnotations.map((annotation) => annotation.range).join(',')
+  : null;
+const highlightedLinesValue = highlightedLines == null ? annotationLinesValue : String(highlightedLines);
 const languageLabels: Record<string, string> = {
   bash: 'Shell',
   css: 'CSS',
@@ -70,6 +81,8 @@ const parseLineMarkers = (value: string | null) => {
 };
 
 const markers = parseLineMarkers(highlightedLinesValue);
+const annotationMarkers = lineAnnotations.map(({ range, label }) => ({ range, label }));
+const shouldShowLineNumbers = showLineNumbers ?? lineAnnotations.length > 0;
 ---
 
 <div
@@ -83,7 +96,8 @@ const markers = parseLineMarkers(highlightedLinesValue);
       lang={language}
       title={codeToolbar ? languageLabel : undefined}
       frame={codeToolbar ? 'code' : 'none'}
-      mark={markers}
+      mark={annotationMarkers.length ? annotationMarkers : markers}
+      showLineNumbers={shouldShowLineNumbers}
     />
   ) : (
     <p>No code provided.</p>
@@ -91,24 +105,29 @@ const markers = parseLineMarkers(highlightedLinesValue);
 </div>
 
 <script>
+  type CodeLineAnchor = {
+    start: number;
+    range: string;
+  };
+
   const setupKey = '__natura11yCodeLineAnchors';
 
   if (!Reflect.get(window, setupKey)) {
     Reflect.set(window, setupKey, true);
 
-    const getAnchorRanges = (value) => {
+    const getAnchorRanges = (value: string): CodeLineAnchor[] => {
       return value
         .split(',')
-        .map((part) => part.trim().replace(/\s+/gu, ''))
+        .map((part: string) => part.trim().replace(/\s+/gu, ''))
         .filter(Boolean)
-        .map((range) => {
+        .map((range: string) => {
           const start = Number.parseInt(range.split('-')[0] ?? '', 10);
           return Number.isNaN(start) ? null : { start, range };
         })
-        .filter(Boolean);
+        .filter((anchor): anchor is CodeLineAnchor => anchor !== null);
     };
 
-    const applyLineAnchors = () => {
+    const applyLineAnchors = (): void => {
       document.querySelectorAll('[data-code-id][data-line-anchors]').forEach((codeBlock) => {
         const codeId = codeBlock.getAttribute('data-code-id');
         const lineAnchors = codeBlock.getAttribute('data-line-anchors');

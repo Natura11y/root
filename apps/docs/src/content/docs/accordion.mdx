@@ -63,7 +63,11 @@ The following is a basic accordion component. All accordion panels are closed by
 
 <FigureExample
   figureNumber="1"
-  highlightedLines="1,3-10,12-25"
+  lineAnnotations={[
+    { range: '1', label: 'Root' },
+    { range: '2-9', label: 'Button' },
+    { range: '11-21', label: 'Panel' },
+  ]}
   code={`
 <div class="accordion">
   <button
@@ -101,7 +105,7 @@ This selector uses JavaScript to group a set of topics with one another.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="3-10">
+<TableLineDescRow targetFigure="1" lines="2-9">
 
 The child `.accordion__button` selector is required.
 
@@ -111,7 +115,7 @@ The `aria-controls` attribute equals its associated panel's `id` attribute.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="12-25">
+<TableLineDescRow targetFigure="1" lines="11-21">
 
 The child `.accordion__panel` selector is required.
 
