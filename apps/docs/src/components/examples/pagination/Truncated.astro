@@ -1,0 +1,38 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+---
+
+<div style={exampleStyle}>
+  <nav aria-label="Pagination" class="display-flex justify-content-center">
+    <ul class="pagination">
+      <li>
+        <a href="#prev" aria-label="Previous page">
+          <span class="icon icon-arrow-left" aria-hidden="true"></span>
+        </a>
+      </li>
+      <li>
+        <a href="#1">1</a>
+      </li>
+      <li>
+        <a href="#2">2</a>
+      </li>
+      <li>
+        <a href="#3" aria-current="page">3</a>
+      </li>
+      <li>
+        <a href="#4">4</a>
+      </li>
+      <li aria-hidden="true">
+        <span class="icon icon-more-horizontal" aria-hidden="true"></span>
+      </li>
+      <li>
+        <a href="#9">9</a>
+      </li>
+      <li>
+        <a href="#next" aria-label="Next page">
+          <span class="icon icon-arrow-right" aria-hidden="true"></span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>

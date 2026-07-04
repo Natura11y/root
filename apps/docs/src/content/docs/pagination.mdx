@@ -14,3 +14,165 @@ relatedPages:
   - "Button"
   - "Icon"
 ---
+
+import Truncated from '../../components/examples/pagination/Truncated.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+The pagination component lets users navigate across pages of content. It uses the `.pagination` class on a `<ul>` element and inherits base styles from the navigation system.
+
+</TextBlock>
+
+<AccessibilitySpotlight>
+
+Wrap the pagination in a `<nav>` element with a unique `aria-label` to identify it as a navigation landmark.
+
+Add `aria-current="page"` to the active page link so assistive technology can announce the current page.
+
+Use `aria-label` on previous and next links when they contain only an icon. If visible text is present, the text is the accessible name and `aria-label` is not needed.
+
+Add `aria-hidden="true"` to truncation items so screen readers skip them.
+
+</AccessibilitySpotlight>
+
+</Section>
+
+---
+
+<Section id="pagination">
+
+<TextBlock>
+
+## Pagination
+
+Add `.pagination` to a `<ul>` element wrapped in a `<nav>`. Each `<li>` contains an `<a>` or `<button>`. Use `icon-more-horizontal` inside a `<li>` to indicate skipped pages. See Figure 1.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    lineAnnotations={[
+        { range: '1' },
+        { range: '2' },
+        { range: '3-7' },
+        { range: '15' },
+        { range: '20-22' },
+        { range: '26-30' },
+    ]}
+    code={`<nav aria-label="Pagination">
+  <ul class="pagination">
+    <li>
+      <a href="#prev" aria-label="Previous page">
+        <span class="icon icon-arrow-left" aria-hidden="true"></span>
+      </a>
+    </li>
+    <li>
+      <a href="#1">1</a>
+    </li>
+    <li>
+      <a href="#2">2</a>
+    </li>
+    <li>
+      <a href="#3" aria-current="page">3</a>
+    </li>
+    <li>
+      <a href="#4">4</a>
+    </li>
+    <li aria-hidden="true">
+      <span class="icon icon-more-horizontal" aria-hidden="true"></span>
+    </li>
+    <li>
+      <a href="#9">9</a>
+    </li>
+    <li>
+      <a href="#next" aria-label="Next page">
+        <span class="icon icon-arrow-right" aria-hidden="true"></span>
+      </a>
+    </li>
+  </ul>
+</nav>`}
+>
+    <Truncated />
+</FigureExample>
+
+<TableLineDescBlock targetFigure="1">
+
+<TableLineDescRow targetFigure="1" lines="1">
+
+The `<nav>` element with `aria-label` is required. It identifies the pagination as a navigation landmark. Use a unique label if more than one pagination component appears on a page.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="2">
+
+The `.pagination` class on the `<ul>` element provides the bordered bar layout, item sizing, and dividers between items.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="3-7,26-30">
+
+Previous and next links are placed first and last in the list. `aria-label` is required when the link contains only an icon. Optionally include `<span class="text">Previous</span>` alongside the icon for a visible label — in that case, `aria-label` is not needed.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="15">
+
+Add `aria-current="page"` to the active page link. Omit the previous link when on the first page and the next link when on the last.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="20-22">
+
+The truncation item indicates skipped pages. Place `icon-more-horizontal` directly inside the `<li>` with no `<a>` or `<button>` wrapper — it is purely visual. Add `aria-hidden="true"` to the `<li>` so screen readers skip it. Repeat wherever pages are omitted.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Pagination styles can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+    figureNumber="2"
+    properties={[
+        {
+            property: 'pagination-font-size',
+            defaultValue: 'var(--font-size-md)',
+            purpose: 'Font size of pagination items.',
+        },
+        {
+            property: 'pagination-item-size',
+            defaultValue: 'var(--button-target-size)',
+            purpose: 'Minimum width and height of each pagination item, matching the accessible button tap target size.',
+        },
+        {
+            property: 'pagination-current-text-color',
+            defaultValue: 'currentColor',
+            purpose: 'Text color of the active current page item.',
+        },
+        {
+            property: 'pagination-current-background-color',
+            defaultValue: 'var(--subtle-fill-2)',
+            purpose: 'Background color of the active current page item.',
+        },
+    ]}
+/>
+
+</Section>

@@ -12,3 +12,70 @@ description:
 relatedPages:
   - "Backdrop"
 ---
+
+import BreakpointModifier from '../../components/examples/opacity/BreakpointModifier.astro';
+import Utilities from '../../components/examples/opacity/Utilities.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+Change the <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/opacity' LinkText='opacity' /> property of an element. While opacity utilities work well with <a href="/docs/backdrop/">backdrops</a>, you can apply them to any element you wish.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="opacity-utilities">
+
+<TextBlock>
+
+## Opacity Utilities
+
+The opacity utilities (Figure 1) range from ***10*** to ***90*** in increments of 10. For example, `.opacity-50` applies a 50% opacity to its selector.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    code={`
+        <div class="opacity-10">...</div>
+        <div class="opacity-20">...</div>
+        <div class="opacity-30">...</div>
+        <div class="opacity-40">...</div>
+        <div class="opacity-50">...</div>
+        <div class="opacity-60">...</div>
+        <div class="opacity-70">...</div>
+        <div class="opacity-80">...</div>
+        <div class="opacity-90">...</div>
+    `}
+>
+    <Utilities />
+</FigureExample>
+
+<TextBlock>
+
+### Breakpoint Modifiers
+
+Opacity utilities accept <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a>.
+
+With the HTML in Figure 2, the purple rectangle changes to <em>50%</em> opacity at the large breakpoint.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    code={`
+        <div class="opacity-50--lg 👈">...</div>
+    `}
+>
+    <BreakpointModifier />
+</FigureExample>
+
+</Section>
