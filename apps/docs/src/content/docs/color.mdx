@@ -1,0 +1,649 @@
+---
+category: a-z
+type: utility
+title: Color
+slug: color
+bannerCreditName: David Clode
+bannerCreditUrl: https://unsplash.com/@davidclode
+bannerImage: ./banner/color.jpg
+bannerAlt: Yellow, blue, red, and green bird in close-up photograph
+description:
+    Apply theme colors, contrast ratios, and dark mode support. Includes color utilities, accessibility compliance, and OS preference detection.
+relatedPages:
+  - "Customization"
+  - "Accessibility"
+---
+
+import PrincipalPalette from '../../components/examples/color/PrincipalPalette.astro';
+import ThemeColors from '../../components/examples/color/ThemeColors.astro';
+import PrefersColorScheme from '../../components/examples/color/PrefersColorScheme.astro';
+import SubtleFill from '../../components/examples/color/SubtleFill.astro';
+import LinkColors from '../../components/examples/color/LinkColors.astro';
+import FeedbackColors from '../../components/examples/color/FeedbackColors.astro';
+import InfinitelyNestable from '../../components/examples/color/InfinitelyNestable.astro';
+import LinkButtons from '../../components/examples/color/LinkButtons.astro';
+import BreakpointNav from '../../components/examples/color/BreakpointNav.astro';
+import BackgroundUtilities from '../../components/examples/color/BackgroundUtilities.astro';
+import TextUtilities from '../../components/examples/color/TextUtilities.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+Natura11y's dynamic color system makes it easy to maintain consistent colors across your design. You can easily create and apply color themes for entire pages, such as *dark mode*. Themes can also be applied to specific sections or individual components like cards or buttons.
+
+</TextBlock>
+
+<AccessibilitySpotlight>
+
+Ensure your color combinations meet a <a href="https://colorable.jxnblk.com/" target="_blank">sufficient contrast</a> ratio.
+
+Learn more about <a href="https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html" target="_blank">accessible contrast ratios</a>.
+
+</AccessibilitySpotlight>
+
+</Section>
+
+---
+
+<Section id="theme-colors">
+
+<TextBlock>
+
+## Theme Colors: Your Principal Palette
+
+Your principal theme colors include ***Primary***, ***Secondary***, ***Dark***, ***Light***, and ***Canvas***.
+
+</TextBlock>
+
+<PrincipalPalette />
+
+<TextBlock>
+
+These five colors produce utility classes for <a href="#theme-color-utilities">theme colors</a>, <a href="#background-color-utilities">background colors</a>, <a href="#text-color-utilities">text colors</a>, and <a href="/docs/border/#border-color-utilities">border colors</a>.
+
+Natura11y treats ***canvas*** (white) as a color, which serves as the default theme. Natura11y's CSS file applies the *canvas* theme (and its <a href="#correlated-colors">correlated colors</a>) to the <code>&lt;body&gt;</code> selector.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="correlated-colors">
+
+<TextBlock>
+
+## Correlated Colors
+
+Every theme color has five correlated colors. These are used for text, borders, links, and instances of **confirm** and **warn**. Correlated colors work in isolation within their corresponding <a href="#theme-color-utilities">theme color utility</a> class.
+
+Figure 1 (below) depicts the CSS variable declared for the ***primary*** theme on line 3. Lines 7-11 provide CSS variables for primary's correlated colors.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    codeLanguage="scss"
+    figureWidth="narrow"
+    codeToolbar={false}
+    lineAnnotations={[
+        { range: '3' },
+        { range: '7-11' },
+    ]}
+    code={`
+        // Primary Theme Color
+
+        --primary: #440381;
+
+        // Primary Correlated Colors
+
+        --primary-text: white;
+        --primary-border: hsla(0, 0%, 0%, 0.25);
+        --primary-link: currentColor;
+        --primary-confirm: #16db93;
+        --primary-warn: #ff73aa;
+    `}
+/>
+
+<TextBlock>
+
+For a descriptive list of all colors available, jump over to the <a href="/docs/customization/#cp_color" target="blank">css variable reference guide</a>.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="theme-color-utilities">
+
+<TextBlock>
+
+## Theme Color Utilities
+
+Natura11y's theme color utility classes are one of its most useful features. Each theme color utility provides predefined colors for <strong>background</strong>, <strong>text</strong>, <strong>borders</strong>, and <strong>links</strong> (within paragraphs). Theme color utilities also provide colors for instances of <strong>confirm</strong> and <strong>warn</strong>.
+
+Figure 2 (below) provides the five theme color utilities:
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    figureWidth="narrow"
+    code={`
+        <div class="theme-primary">...</div>
+        <div class="theme-secondary">...</div>
+        <div class="theme-dark">...</div>
+        <div class="theme-light">...</div>
+        <div class="theme-canvas">...</div>
+    `}
+/>
+
+<TextBlock>
+
+You may apply theme colors to any containing block-level element within the DOM. Consider the following five cards, each colored with a different theme color utility.
+
+</TextBlock>
+
+<ThemeColors />
+
+<TextBlock>
+
+In Figure 3 (below), on line 1, notice the `.theme-primary` utility present. No other element within the card needs color specified. Each theme color utility applies its <a href="#correlated-colors">correlated colors</a> to all descendants.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="3"
+    figureWidth="medium"
+    lineAnnotations={[
+        { range: '1' },
+    ]}
+    code={`
+        <div class="card 👉 theme-primary border-radius-2">
+
+            <div class="card__head border-bottom">
+                <p>
+                    <strong>Theme: Primary</strong>
+                </p>
+            </div>
+
+            <div class="card__body">
+                <h2 class="h4">
+                    Rainbow lorikeet
+                </h2>
+                <p>
+                    The rainbow lorikeet is a species of parrot found in Australia. It is common along the eastern seaboard, from northern <a href="#">Queensland</a> to <a href="#1">South Australia</a>. Its habitat is rainforest, coastal bush and woodland areas.
+                </p>
+            </div>
+
+            <div class="card__foot border-top">
+                <ul class="nav nav--horizontal justify-content-between">
+                    <li>
+                        <a href="#1">Search Images</a>
+                    </li>
+                    <li>
+                        <a class="button button--outline border-radius-pill" href="#1">
+                            Visit Wikipedia
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    `}
+/>
+
+<TextBlock>
+
+### Links
+
+Refer to Figure 1 (above), on line 9. The correlated link color (e.g. <code>--primary-link</code>) value sets the color of generic links (<code>&lt;a&gt;</code> tags) within paragraphs (<code>&lt;p&gt;</code> tags). This is not only convenient, it keeps paragraph links visible and accessible.
+
+</TextBlock>
+
+<LinkColors />
+
+<TextBlock>
+
+Beyond generic links, a <a href="#text-color-utilities">text color utility</a> named <code>.text-color-link</code> is available. With the following example, <code>.text-color-link</code> (Figure 4, Line 5) colors the buttons within the same selector *blue*.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="4"
+    lineAnnotations={[
+        { range: '1' },
+    ]}
+    code={`
+        <div class="display-flex gap-2 justify-content-center 👉 text-color-link">
+
+            <a class="button button--outline" href="#1">
+                Sign In
+            </a>
+
+            <a class="button button--icon-only" href="#1" aria-label="Language">
+                <span class="icon icon-language" aria-hidden="true"></span>
+            </a>
+
+            <a class="button button--icon-only" href="#1" aria-label="Search">
+                <span class="icon icon-search" aria-hidden="true"></span>
+            </a>
+
+        </div>
+    `}
+>
+    <LinkButtons />
+</FigureExample>
+
+<TextBlock>
+
+### Confirm and Warn
+
+In Figure 1 (above), on lines 10 and 11, you will find declarations for ***confirm*** and ***warn*** color values. Natura11y allows you to specify confirm and warn values for each theme color!
+
+</TextBlock>
+
+<FeedbackColors />
+
+<TextBlock>
+
+Instances of *confirm* and *warn* appear in <a href="/docs/alert/">alert</a> and <a href="/docs/form/">form</a> elements.
+
+</TextBlock>
+
+<TextBlock>
+
+### Infinitely Nestable
+
+You can nest theme color utilities throughout the DOM.
+
+</TextBlock>
+
+<InfinitelyNestable />
+
+<TextBlock>
+
+### Breakpoint Specific
+
+Apply a theme color at a specific breakpoint. Chain a breakpoint modifier (e.g. `--lg` for a *large* breakpoint) to a the color utility. In the following example, `.theme-primary--lg` is present on the parent selector of our nav (Figure 5, line 1).
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="5"
+    lineAnnotations={[
+        { range: '1' },
+    ]}
+    visualExampleClass="theme-primary--lg"
+    code={`
+        <div class="theme-primary--lg">
+
+            <ul class="nav nav--divider nav--horizontal border border-radius-2">
+                <li>
+                    <a href="#1">Link</a>
+                </li>
+                <li>
+                    <a href="#1">Link</a>
+                </li>
+                <li>
+                    <a href="#1">Link</a>
+                </li>
+            </ul>
+
+        </div>
+    `}
+>
+    <BreakpointNav />
+</FigureExample>
+
+<TextBlock>
+
+On smaller viewports The above example uses the default ***canvas*** theme. It instead used the ***primary*** theme when the viewport reaches the large breakpoint. Scale your browser horizontally to see this change occur.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="prefers-color-scheme">
+
+<TextBlock>
+
+## Prefers Color Scheme
+
+Natura11y's `.theme-canvas` utility offers a special `--prefers` modifier class. With `.theme-canvas--prefers` present on the `<body>` tag for example, a light or dark color theme is used depending on the operating system's settings.
+
+</TextBlock>
+
+<PrefersColorScheme />
+
+</Section>
+
+---
+
+<Section id="subtle-fill">
+
+<TextBlock>
+
+## Subtle Fill
+
+The `.subtle-fill-1` and `.subtle-fill-2` classes add light background tints to any element, using a percentage of the element's text color (`currentColor`).
+
+- `.subtle-fill-1` applies a background color that is 5% of the current text color.
+- `.subtle-fill-2` applies a background color that is 10% of the current text color.
+
+In the card examples below, we apply a subtle fill to the action buttons within the `.card__footer` class using these new variations.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="3"
+    code={`
+        <div class="card theme-dark">
+
+            <div class="card__body">
+                <!-- ... -->
+            </div>
+
+            <div class="card__foot 👉 subtle-fill-1">
+                <!-- ... -->
+            </div>
+
+        </div>
+    `}
+>
+    <SubtleFill />
+</FigureExample>
+
+<TextBlock>
+
+Notice how the subtle fills appear differently depending on the theme: darker in the *white theme* and lighter in the *dark theme* cards.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="background-color-utilities">
+
+<TextBlock>
+
+## Background Color Utilities
+
+Need to apply only a background color? Our background color utilities (shown in Figure 6) apply a background color to its selector.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="6"
+    code={`
+        <div class="background-color-primary">...</div>
+        <div class="background-color-secondary">...</div>
+        <div class="background-color-dark">...</div>
+        <div class="background-color-light">...</div>
+        <div class="background-color-canvas">...</div>
+    `}
+>
+    <BackgroundUtilities />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="text-color-utilities">
+
+<TextBlock>
+
+## Text Color Utilities
+
+Natura11y's text color utilities are useful for applying text color specificly to certain selectors.
+
+Consider the following example in Figure 7. With our primary theme applied to the containing element (line 1), `.text-color-secondary` is present on the third button selector.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="7"
+    lineAnnotations={[
+        { range: '1' },
+        { range: '15' },
+    ]}
+    visualExampleClass="theme-primary"
+    code={`
+        <div class="theme-light">
+
+            <ul class="nav nav--horizontal justify-content-center">
+                <li>
+                    <a class="button" href="#1">
+                        Button
+                    </a>
+                </li>
+                <li>
+                    <a class="button" href="#1">
+                        Button
+                    </a>
+                </li>
+                <li>
+                    <a class="button text-color-secondary" href="#1">
+                        Button
+                    </a>
+                </li>
+            </ul>
+
+        </div>
+    `}
+>
+    <TextUtilities />
+</FigureExample>
+
+<TextBlock>
+
+Keep in mind that text color utilities take priority over color applied with theme color utilies. This, of course allows for even more variations within your themes.
+
+Available text color utilities shown in figure 8:
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="8"
+    figureWidth="narrow"
+    code={`
+        <div class="text-color-primary">...</div>
+        <div class="text-color-secondary">...</div>
+        <div class="text-color-dark">...</div>
+        <div class="text-color-light">...</div>
+        <div class="text-color-canvas">...</div>
+        <div class="text-color-link">...</div>
+    `}
+/>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Color styles can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+    figureNumber="9"
+    properties={[
+        {
+            property: 'primary',
+            defaultValue: '#440381',
+            purpose: 'The primary color applied within the theme and color utility classes.',
+        },
+        {
+            property: 'primary-text',
+            defaultValue: 'white',
+            purpose: 'Color of text elements within the primary theme utility class.',
+        },
+        {
+            property: 'primary-border',
+            defaultValue: 'hsla(0, 0%, 0%, 0.25)',
+            purpose: 'Color of borders within the primary theme utility class.',
+        },
+        {
+            property: 'primary-link',
+            defaultValue: 'currentColor',
+            purpose: 'Color of links within the primary theme utility class.',
+        },
+        {
+            property: 'primary-confirm',
+            defaultValue: '#16db93',
+            purpose: 'Color of confirmation alerts within the primary theme utility class.',
+        },
+        {
+            property: 'primary-warn',
+            defaultValue: '#ff73aa',
+            purpose: 'Color of warning alerts within the primary theme utility class.',
+        },
+        {
+            property: 'secondary',
+            defaultValue: '#ffcc66',
+            purpose: 'The secondary color applied within the theme and color utility classes.',
+        },
+        {
+            property: 'secondary-text',
+            defaultValue: 'var(--dark)',
+            purpose: 'Color of text elements within the secondary theme utility class.',
+        },
+        {
+            property: 'secondary-border',
+            defaultValue: 'hsla(0, 0%, 0%, 0.25)',
+            purpose: 'Color of borders within the secondary theme utility class.',
+        },
+        {
+            property: 'secondary-link',
+            defaultValue: 'currentColor',
+            purpose: 'Color of links within the secondary theme utility class.',
+        },
+        {
+            property: 'secondary-confirm',
+            defaultValue: '#41e0f2',
+            purpose: 'Color of confirmation alerts within the secondary theme utility class.',
+        },
+        {
+            property: 'secondary-warn',
+            defaultValue: '#ffa3a4',
+            purpose: 'Color of warning alerts within the secondary theme utility class.',
+        },
+        {
+            property: 'dark',
+            defaultValue: '#1f163f',
+            purpose: 'The dark color applied within the theme and color utility classes.',
+        },
+        {
+            property: 'dark-text',
+            defaultValue: 'white',
+            purpose: 'Color of text elements within the dark theme utility class.',
+        },
+        {
+            property: 'dark-border',
+            defaultValue: 'hsla(0, 0%, 100%, 0.125)',
+            purpose: 'Color of borders within the dark theme utility class.',
+        },
+        {
+            property: 'dark-link',
+            defaultValue: '#21b2fa',
+            purpose: 'Color of links within the dark theme utility class.',
+        },
+        {
+            property: 'dark-confirm',
+            defaultValue: '#00a242',
+            purpose: 'Color of confirmation alerts within the dark theme utility class.',
+        },
+        {
+            property: 'dark-warn',
+            defaultValue: '#fe3c3e',
+            purpose: 'Color of warning alerts within the dark theme utility class.',
+        },
+        {
+            property: 'light',
+            defaultValue: '#f2edeb',
+            purpose: 'The light color applied within the theme and color utility classes.',
+        },
+        {
+            property: 'light-text',
+            defaultValue: 'var(--dark)',
+            purpose: 'Color of text elements within the light theme utility class.',
+        },
+        {
+            property: 'light-border',
+            defaultValue: 'hsla(0, 0%, 50%, 0.25)',
+            purpose: 'Color of borders within the light theme utility class.',
+        },
+        {
+            property: 'light-link',
+            defaultValue: '#0066cc',
+            purpose: 'Color of links within the light theme utility class.',
+        },
+        {
+            property: 'light-confirm',
+            defaultValue: '#007e35',
+            purpose: 'Color of confirmation alerts within the light theme utility class.',
+        },
+        {
+            property: 'light-warn',
+            defaultValue: '#ce1736',
+            purpose: 'Color of warning alerts within the light theme utility class.',
+        },
+        {
+            property: 'canvas',
+            defaultValue: 'white',
+            purpose: 'The canvas color applied within theme and color utility classes.',
+        },
+        {
+            property: 'canvas-text',
+            defaultValue: 'var(--dark)',
+            purpose: 'Color of text elements within the canvas theme (default) utility class.',
+        },
+        {
+            property: 'canvas-border',
+            defaultValue: 'hsla(0, 0%, 50%, 0.25)',
+            purpose: 'Color of borders within the canvas theme (default) utility class.',
+        },
+        {
+            property: 'canvas-link',
+            defaultValue: '#0066cc',
+            purpose: 'Color of links within the canvas theme (default) utility class.',
+        },
+        {
+            property: 'canvas-confirm',
+            defaultValue: '#008237',
+            purpose: 'Color of confirmation alerts within the canvas theme (default) utility class.',
+        },
+        {
+            property: 'canvas-warn',
+            defaultValue: '#e4193c',
+            purpose: 'Color of warning alerts within the canvas theme (default) utility class.',
+        },
+        {
+            property: 'subtle-fill-1',
+            defaultValue: 'color-mix(in srgb, currentColor 5%, transparent)',
+            purpose: 'Light background tint based on the current text color.',
+        },
+        {
+            property: 'subtle-fill-2',
+            defaultValue: 'color-mix(in srgb, currentColor 10%, transparent)',
+            purpose: 'Stronger background tint based on the current text color.',
+        },
+    ]}
+/>
+
+</Section>

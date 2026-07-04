@@ -1,0 +1,93 @@
+---
+interface Props {
+  cardType?: 'theme' | 'link' | 'feedback';
+  themeColor?: 'Primary' | 'Secondary' | 'Dark' | 'Light' | 'Canvas' | 'Prefers';
+  border?: boolean;
+}
+
+const {
+  cardType = 'theme',
+  themeColor = 'Canvas',
+  border = true,
+} = Astro.props;
+
+const themeClassMap = {
+  Primary: 'theme-primary',
+  Secondary: 'theme-secondary',
+  Dark: 'theme-dark',
+  Light: 'theme-light',
+  Canvas: 'theme-canvas',
+  Prefers: 'theme-canvas--prefers',
+};
+
+const themeClass = themeClassMap[themeColor];
+---
+
+<div
+  class:list={[
+    'card border-radius-2',
+    themeClass,
+    border && 'border',
+  ]}
+>
+  <div class="card__head border-bottom font-size-rg">
+    <p>
+      <strong>{themeColor}</strong>
+    </p>
+  </div>
+
+  {cardType === 'theme' && (
+    <>
+      <div class="card__body">
+        <h2 class="h4">Rainbow lorikeet</h2>
+        <p>
+          The rainbow lorikeet is a species of parrot found in Australia. It is common along the eastern seaboard, from northern <a href="#">Queensland</a> to <a href="#1">South Australia</a>. Its habitat is rainforest, coastal bush and woodland areas.
+        </p>
+      </div>
+
+      <div class="card__foot font-size-md border-top">
+        <ul class="nav nav--horizontal justify-content-between">
+          <li>
+            <a href="#1">Search Images</a>
+          </li>
+          <li>
+            <a class="button button--outline border-radius-pill" href="#1">
+              Visit Wikipedia
+            </a>
+          </li>
+        </ul>
+      </div>
+    </>
+  )}
+
+  {cardType === 'link' && (
+    <div class="card__body">
+      <p>
+        It is common along the eastern seaboard, from northern <a href="#">Queensland</a> to <a href="#1">South Australia</a>.
+      </p>
+    </div>
+  )}
+
+  {cardType === 'feedback' && (
+    <div class="card__body">
+      <div class="grid grid--column-2 gap-2 text-align-center">
+        <div class="alert alert--confirm border">
+          <div class="alert__title">
+            <span class="icon icon-confirm" aria-hidden="true"></span>
+            <span class="alert__title__text">
+              Alert Confirm
+            </span>
+          </div>
+        </div>
+        <div class="alert alert--warn border">
+          <div class="alert__title">
+            <span class="icon icon-warn" aria-hidden="true"></span>
+            <span class="alert__title__text">
+              Alert Warn
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )}
+</div>

@@ -1,0 +1,183 @@
+---
+category: a-z
+type: utility
+title: Container
+slug: container
+bannerCreditName: Mark Basarab
+bannerCreditUrl: https://unsplash.com/@markbasarabvisuals
+bannerImage: ./banner/container.jpg
+bannerAlt: Mountain alps near river and tree
+description:
+    Control container widths, padding, and responsive layouts. Includes breakpoint modifiers and width variations for different screen sizes.
+relatedPages:
+  - "Customization"
+---
+
+import Container from '../../components/examples/container/Default.astro';
+import ContainerBreakpoint from '../../components/examples/container/Breakpoint.astro';
+import WidthVariations from '../../components/examples/container/WidthVariations.astro';
+import BreakpointModifier from '../../components/examples/container/BreakpointModifier.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+Manage the padding and widths of the containing elements that make up your layouts.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="the-container-utility">
+
+<TextBlock>
+
+## The Container Utility
+
+The container utility (`.container`) applies consistent padding on the left and right sides of its selector. A container without a <a href="#width-variations">width variation utility</a> span the full width of its parent.
+
+</TextBlock>
+
+<Container />
+
+<FigureExample
+    figureNumber="1"
+    figureWidth="medium"
+    code={`
+        <div class="container">...</div>
+    `}
+/>
+
+</Section>
+
+---
+
+<Section id="breakpoint-modifiers">
+
+<TextBlock>
+
+## Breakpoint Modifiers
+
+The container utility accepts <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a>. Use them to defer the container padding until a specific breakpoint.
+
+Consider the HTML in Figure 2. The element has no padding below the large breakpoint. At the large breakpoint and above, it gains the standard container padding.
+
+</TextBlock>
+
+<ContainerBreakpoint />
+
+<FigureExample
+    figureNumber="2"
+    figureWidth="medium"
+    code={`
+        <div class="container--lg">...</div>
+    `}
+/>
+
+</Section>
+
+---
+
+<Section id="width-variations">
+
+<TextBlock>
+
+## Width Variations
+
+Width variation utilities come in three sizes: ***narrow***, ***medium***, and ***wide*** (Figure 2). Apply them to containers or use them independently.
+
+When present on `.container` selectors, width variation utilities (e.g. `narrow`) center horizontally within their parent.
+
+</TextBlock>
+
+<WidthVariations />
+
+<FigureExample
+    figureNumber="3"
+    figureWidth="medium"
+    code={`
+        <div class="container 👉 narrow">...</div>
+        <div class="container 👉 medium">...</div>
+        <div class="container 👉 wide">...</div>
+    `}
+/>
+
+<TextBlock>
+
+### Breakpoint Modifiers
+
+Width variation utilities accept <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a>.
+
+Consider the HTML in Figure 4. The container starts at the **narrow** width. It then changes to the **medium** width at the large breakpoint. Finally, the container changes to the **wide** width at the extra-large breakpoint.
+
+</TextBlock>
+
+<BreakpointModifier />
+
+<FigureExample
+    figureNumber="4"
+    figureWidth="medium"
+    code={`
+        <!-- With breakpoint modifiers -->
+
+        <div class="container narrow 👉 medium--lg 👉 wide--xl">...</div>
+    `}
+/>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Container styles can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+    figureNumber="5"
+    properties={[
+        {
+            property: 'container-padding-x',
+            defaultValue: 'var(--container-padding-x-sm)',
+            purpose: 'Default left and right padding of the container component.',
+        },
+        {
+            property: 'container-padding-x-sm',
+            defaultValue: 'var(--spacer-2)',
+            purpose: 'Left and right padding of the container component on smaller (mobile) viewports.',
+        },
+        {
+            property: 'container-padding-x-lg',
+            defaultValue: 'var(--spacer-3)',
+            purpose: 'Left and right padding of the container component on larger (desktop) viewports.',
+        },
+        {
+            property: 'narrow-width',
+            defaultValue: 'min(44rem, 85vw)',
+            purpose: 'Maximum width of the narrow utility class.',
+        },
+        {
+            property: 'medium-width',
+            defaultValue: 'min(var(--narrow-width) * 1.5, 90vw)',
+            purpose: 'Maximum width of the medium utility class.',
+        },
+        {
+            property: 'wide-width',
+            defaultValue: 'min(var(--narrow-width) * 2.25, 95vw)',
+            purpose: 'Maximum width of the wide utility class.',
+        },
+    ]}
+/>
+
+</Section>

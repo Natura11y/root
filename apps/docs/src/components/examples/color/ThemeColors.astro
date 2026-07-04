@@ -1,0 +1,14 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+import ThemeCard from './ThemeCard.astro';
+---
+
+<figure class="margin-y-5">
+  <div class="container narrow grid gap-3" style={exampleStyle}>
+    <ThemeCard themeColor="Primary" border={false} />
+    <ThemeCard themeColor="Secondary" border={false} />
+    <ThemeCard themeColor="Dark" border={false} />
+    <ThemeCard themeColor="Light" border={false} />
+    <ThemeCard />
+  </div>
+</figure>

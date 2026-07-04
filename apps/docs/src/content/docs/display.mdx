@@ -1,0 +1,76 @@
+---
+category: a-z
+type: utility
+title: Display
+slug: display
+bannerCreditName: Julian Andres Carmona Serrato
+bannerCreditUrl: https://unsplash.com/@juliancs
+bannerImage: ./banner/display.jpg
+bannerAlt: shallow focus photo of blue and green peacock
+description:
+    Control element display types (block, inline, flex, grid) with responsive breakpoint modifiers. Includes hide/show utilities for different screen sizes.
+relatedPages:
+  - "Flex"
+  - "Grid"
+---
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+Change the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/display" target="_blank">display</a> property of an element.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="display-utilities">
+
+<TextBlock>
+
+## Display Utilities
+
+Natura11y provides the following display utilities:
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    figureWidth="medium"
+    code={`
+        <div class="display-block">...</div>
+        <div class="display-inline">...</div>
+        <div class="display-inline-block">...</div>
+        <div class="display-flex">...</div>
+        <div class="display-inline-flex">...</div>
+        <div class="display-grid">...</div>
+        <div class="display-inline-grid">...</div>
+        <div class="display-none">...</div>
+    `}
+/>
+
+<TextBlock>
+
+### Breakpoint Modifiers
+
+Display utilities accept <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a>.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    figureWidth="medium"
+    code={`
+        <!-- With breakpoint modifier -->
+
+        <div class="display-none display-block--lg 👈">...</div>
+    `}
+/>
+
+</Section>

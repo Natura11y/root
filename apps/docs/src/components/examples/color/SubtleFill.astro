@@ -1,0 +1,92 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+---
+
+<div style={exampleStyle} data-subtle-fill-example>
+  <ul
+    class="nav nav--horizontal justify-content-center margin-bottom-4"
+    aria-label="Theme Selection Navigation"
+  >
+    <li>
+      <button
+        class="active"
+        type="button"
+        data-theme-button="canvas"
+        aria-pressed="true"
+        aria-current="true"
+      >
+        Canvas
+      </button>
+    </li>
+    <li>
+      <button
+        type="button"
+        data-theme-button="dark"
+        aria-pressed="false"
+      >
+        Dark
+      </button>
+    </li>
+  </ul>
+
+  <div class="card border theme-canvas" data-theme-card>
+    <div class="card__body">
+      <h3 class="h4">Rainbow</h3>
+      <p>
+        A rainbow is a meteorological phenomenon that appears as a
+        multicolored arc that forms with the sunlight reflecting off water.
+      </p>
+    </div>
+
+    <div class="card__foot subtle-fill-1 font-size-md">
+      <ul class="nav nav--horizontal justify-content-between">
+        <li>
+          <a href="#1">Secondary Action</a>
+        </li>
+        <li>
+          <a
+            class="button button--outline border-radius-pill"
+            href="#1"
+          >
+            Primary Action
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  const examples = document.querySelectorAll('[data-subtle-fill-example]');
+
+  examples.forEach((example) => {
+    const card = example.querySelector('[data-theme-card]');
+    const buttons = example.querySelectorAll('[data-theme-button]');
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const theme = button.getAttribute('data-theme-button');
+
+        if (!card || !theme) {
+          return;
+        }
+
+        card.classList.toggle('theme-dark', theme === 'dark');
+        card.classList.toggle('theme-canvas', theme === 'canvas');
+
+        buttons.forEach((currentButton) => {
+          const isActive = currentButton === button;
+
+          currentButton.classList.toggle('active', isActive);
+          currentButton.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+
+          if (isActive) {
+            currentButton.setAttribute('aria-current', 'true');
+          } else {
+            currentButton.removeAttribute('aria-current');
+          }
+        });
+      });
+    });
+  });
+</script>
