@@ -1,0 +1,52 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+---
+
+<div style={`${exampleStyle} --border-color: currentColor;`}>
+  <div class="grid grid--column-2 gap-2 text-align-center font-size-md margin-bottom-2">
+    <div class="grid__colspan-2 padding-3 subtle-fill-1 border">
+      <p class="margin-bottom-1">
+        Border (all sides)
+      </p>
+      <p>
+        <code>.border</code>
+      </p>
+    </div>
+    <div class="padding-3 subtle-fill-1 border-top">
+      <p class="margin-bottom-1">
+        Border (top side only)
+      </p>
+      <p>
+        <code>.border-top</code>
+      </p>
+    </div>
+    <div class="padding-3 subtle-fill-1 border-right">
+      <p class="margin-bottom-1">
+        Border (right side only)
+      </p>
+      <p>
+        <code>.border-right</code>
+      </p>
+    </div>
+    <div class="padding-3 subtle-fill-1 border-bottom">
+      <p class="margin-bottom-1">
+        Border (bottom side only)
+      </p>
+      <p>
+        <code>.border-bottom</code>
+      </p>
+    </div>
+    <div class="padding-3 subtle-fill-1 border-left">
+      <p class="margin-bottom-1">
+        Border (left side only)
+      </p>
+      <p>
+        <code>.border-left</code>
+      </p>
+    </div>
+  </div>
+
+  <p class="font-size-sm">
+    Border color (above) emphasized for clarity.
+  </p>
+</div>

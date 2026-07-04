@@ -1,0 +1,39 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+import { Image } from 'astro:assets';
+import backdropImage from './images/backdrop-example-01.jpg';
+---
+
+<div class="backdrop theme-dark border-radius-2" style={exampleStyle}>
+  <div class="backdrop__media">
+    <Image class="opacity-40" src={backdropImage} alt="" layout="full-width" />
+
+    <div class="backdrop__media__credit">
+      <p>
+        Photo by{' '}
+        <a
+          href="https://unsplash.com/@zmachacek?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Zdeněk Macháček
+        </a>
+      </p>
+    </div>
+  </div>
+
+  <div class="backdrop__cover">
+    <div class="container text-align-center">
+      <p class="h4 text-shadow margin-bottom-3">
+        <em>
+          In Their Eternal Faces
+          <br />
+          The Sun—with just delight
+        </em>
+      </p>
+      <a class="button font-size-md theme-secondary" href="#1">
+        Emily Dickenson Poetry
+      </a>
+    </div>
+  </div>
+</div>

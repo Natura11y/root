@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## Unreleased
+
+### Pending Bug Fixes
+
+#### Images
+- Add `height: auto` to the core `img` reset so responsive and optimized images with `width` and `height` attributes preserve their aspect ratio inside framework components such as Backdrop.
+
+---
+
 ## [5.1.1] — 2026-06-29
 
 ### Package

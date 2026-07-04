@@ -1,0 +1,64 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+import Swatch from './Swatch.astro';
+
+interface Props {
+  borderType?: 'direction' | null;
+}
+
+const {
+  borderType = null,
+} = Astro.props;
+---
+
+<div class="grid grid--column-4 gap-1" style={exampleStyle}>
+  {borderType === 'direction' ? (
+    <>
+      <Swatch
+        borderUtility="border-block-start-color-primary"
+        title="Border Block Start Color Primary"
+      />
+
+      <Swatch
+        swatchUtility="theme-dark"
+        borderUtility="border-right-color-secondary"
+        title="Border Right Color Secondary"
+      />
+
+      <Swatch
+        borderUtility="border-block-end-color-dark"
+        title="Border Block End Color Dark"
+      />
+
+      <Swatch
+        swatchUtility="theme-dark"
+        borderUtility="border-left-color-canvas"
+        title="Border Left Color Canvas"
+      />
+    </>
+  ) : (
+    <>
+      <Swatch
+        borderUtility="border-color-primary"
+        title="Border Color Primary"
+      />
+
+      <Swatch
+        swatchUtility="theme-dark"
+        borderUtility="border-color-secondary"
+        title="Border Color Secondary"
+      />
+
+      <Swatch
+        borderUtility="border-color-dark"
+        title="Border Color Dark"
+      />
+
+      <Swatch
+        swatchUtility="theme-dark"
+        borderUtility="border-color-canvas"
+        title="Border Color Canvas"
+      />
+    </>
+  )}
+</div>

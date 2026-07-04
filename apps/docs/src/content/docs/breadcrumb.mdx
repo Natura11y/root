@@ -1,0 +1,129 @@
+---
+category: a-z
+type: component
+title: Breadcrumb
+slug: breadcrumb
+bannerCreditName: Monika Grabkowska
+bannerCreditUrl: https://unsplash.com/@moniqa
+bannerImage: ./banner/breadcrumb.jpg
+bannerAlt: Close-up of golden breadcrumbs
+description: A simple breadcrumb navigation component to support wayfinding across multi-level page hierarchies.
+relatedPages:
+  - Navigation
+  - Link
+  - Button
+---
+
+import Breadcrumb from '../../components/examples/breadcrumb/Breadcrumb.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">Introduction</h2>
+
+<TextBlock>
+
+The breadcrumb component provides a simple, secondary navigation trail to help users understand their location within a site hierarchy.
+
+</TextBlock>
+
+<AccessibilitySpotlight>
+
+Wrap the breadcrumb in a `<nav>` element with `aria-label="Breadcrumb"` to identify it as a navigation landmark.
+
+Add `aria-current="page"` to the last item to indicate the current page to assistive technology.
+
+</AccessibilitySpotlight>
+
+</Section>
+
+---
+
+<Section id="breadcrumb">
+
+<TextBlock>
+
+## Breadcrumb
+
+Use the `.breadcrumb` class on a `<ul>` element to create a breadcrumb trail. Each item is a link except the last, which represents the current page as plain text.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="1"
+  lineAnnotations={[
+    { range: '1' },
+    { range: '3' },
+    { range: '13' },
+  ]}
+  code={`
+  <nav aria-label="Breadcrumb">
+
+    <ul class="breadcrumb">
+      <li>
+        <a href="#1">Home</a>
+      </li>
+      <li>
+        <a href="#1">Recipes</a>
+      </li>
+      <li>
+        <a href="#1">Baking</a>
+      </li>
+      <li aria-current="page">
+        Focaccia
+      </li>
+    </ul>
+
+  </nav>
+  `}
+>
+  <Breadcrumb />
+</FigureExample>
+
+<TableLineDescBlock targetFigure="1">
+
+<TableLineDescRow targetFigure="1" lines="1">
+
+The `<nav>` element with `aria-label="Breadcrumb"` identifies the breadcrumb as a navigation landmark for assistive technology.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="3">
+
+The `.breadcrumb` class on the `<ul>` element is required. It provides the component's flex layout and caret separators between items.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="13">
+
+The final item represents the current page and is plain text, not a link. Add `aria-current="page"` so assistive technology can announce the user's location.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Breadcrumb styles can be customized by redefining the related CSS custom property.
+
+</TextBlock>
+
+<RelatedCustomProperties
+  figureNumber="2"
+  properties={[
+    {
+      property: 'breadcrumb-font-size',
+      defaultValue: 'var(--font-size-md)',
+      purpose: 'Font size of breadcrumb items.',
+    },
+  ]}
+/>
+
+</Section>

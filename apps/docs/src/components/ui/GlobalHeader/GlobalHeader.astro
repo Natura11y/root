@@ -110,26 +110,28 @@ const isCurrentPage = (item: (typeof navItems)[number]) => pathname === item.hre
     >
       <span class="icon icon-mode-light-dark" aria-hidden="true"></span>
     </button>
-    <ul class="dropdown__menu theme-picker__dropdown nav nav--divider box-shadow-1" id="global-theme-menu" role="menu">
-      <li>
-        <button type="button" data-theme-option="light" role="menuitemradio" aria-checked="false">
-          <span class="icon icon-sun" aria-hidden="true"></span>
-          <span class="nav__text">Canvas (default)</span>
-        </button>
-      </li>
-      <li>
-        <button type="button" data-theme-option="dark" role="menuitemradio" aria-checked="false">
-          <span class="icon icon-moon" aria-hidden="true"></span>
-          <span class="nav__text">Dark Mode</span>
-        </button>
-      </li>
-      <li>
-        <button type="button" data-theme-option="os" role="menuitemradio" aria-checked="false">
-          <span class="icon icon-mode-light-dark" aria-hidden="true"></span>
-          <span class="nav__text">Prefers</span>
-        </button>
-      </li>
-    </ul>
+    <div class="dropdown__menu theme-picker__dropdown box-shadow-1" id="global-theme-menu">
+      <ul class="nav nav--divider" role="menu">
+        <li>
+          <button type="button" data-theme-option="light" aria-expanded="false" role="menuitem">
+            <span class="icon icon-sun" aria-hidden="true"></span>
+            <span class="nav__text">Canvas (default)</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" data-theme-option="dark" aria-expanded="false" role="menuitem">
+            <span class="icon icon-moon" aria-hidden="true"></span>
+            <span class="nav__text">Dark Mode</span>
+          </button>
+        </li>
+        <li>
+          <button type="button" data-theme-option="os" aria-expanded="false" role="menuitem">
+            <span class="icon icon-mode-light-dark" aria-hidden="true"></span>
+            <span class="nav__text">Prefers</span>
+          </button>
+        </li>
+      </ul>
+    </div>
   </div>
 </header>
 
@@ -154,7 +156,7 @@ const isCurrentPage = (item: (typeof navItems)[number]) => pathname === item.hre
     os: 'theme-canvas--prefers',
   };
 
-  const isThemeOption = (value: string | null): value is ThemeOption => (
+  const isThemeOption = (value: string | null | undefined): value is ThemeOption => (
     value === 'light' || value === 'dark' || value === 'os'
   );
 
@@ -177,7 +179,7 @@ const isCurrentPage = (item: (typeof navItems)[number]) => pathname === item.hre
 
   const updateThemePicker = (theme: ThemeOption) => {
     document.querySelectorAll<HTMLButtonElement>('[data-theme-option]').forEach((button) => {
-      button.setAttribute('aria-checked', String(button.dataset.themeOption === theme));
+      button.setAttribute('aria-expanded', String(button.dataset.themeOption === theme));
     });
   };
 

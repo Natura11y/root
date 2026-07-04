@@ -9,14 +9,14 @@
   --dark-link: hsl(215, 100%, 70%);
   --secondary-text: white;
 
-  --body-font-family: 'Poppins';
+  --body-font-family: 'Figtree', sans-serif;
   --arabic-font-family: 'Amiri', serif;
   --font-weight-normal: 400;
   --font-weight-medium: 600;
-  --font-weight-bold: 700;
-  --base-font-size: 0.95rem;
+  --font-weight-bold: 800;
+  --base-font-size: 1rem;
   --type-scale: 1.2;
-  --body-line-height: 1.625;
+  --body-line-height: 1.5;
   --header-line-height: 1.2;
   --banner-headline-font-size: 3em;
   --banner-headline-font-weight: var(--font-weight-normal);
@@ -113,7 +113,7 @@ a[data-logo='brand']:is(:focus, :hover) .a11y {
   white-space: nowrap;
 }
 
-.theme-picker__dropdown [aria-checked='true'] .nav__text {
+.theme-picker__dropdown [aria-expanded='true'] .nav__text {
   text-decoration: underline;
 }
 
@@ -123,7 +123,7 @@ a[data-logo='brand']:is(:focus, :hover) .a11y {
 
 .docs-layout__nav {
   grid-area: nav;
-  padding: var(--spacer-3) var(--container-padding-x);
+  padding-block: var(--spacer-3);
 }
 
 .docs-layout__brand {
@@ -223,6 +223,15 @@ mark {
     min-block-size: 100dvh;
     position: sticky;
     inset-block-start: 0;
+  }
+}
+
+@include breakpoint.breakpoint-up(lg) {
+  .docs-layout__nav #docs-sidebar.collapse.shown--lg {
+    grid-template-rows: 1fr;
+    height: auto;
+    overflow: unset;
+    visibility: visible;
   }
 }
 

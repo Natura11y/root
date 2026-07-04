@@ -10,6 +10,8 @@ interface Props {
       title: string;
       slug: string;
       category?: string;
+      navOrder?: number;
+      draft?: boolean;
     };
   }>;
   currentSlug?: string;
@@ -26,7 +28,14 @@ interface Props {
 
 const { docs = [], currentSlug = '', headings = [], frontmatter = {} } = Astro.props;
 const title = frontmatter.title ?? 'Natura11y Astro Docs Spike';
-const sortedDocs = [...docs].sort((a, b) => a.data.title.localeCompare(b.data.title));
+const visibleDocs = docs.filter((doc) => doc.data.draft !== true);
+const introductionDocs = visibleDocs
+  .filter((doc) => doc.data.category === 'introduction')
+  .sort((a, b) => (a.data.navOrder ?? 999) - (b.data.navOrder ?? 999) || a.data.title.localeCompare(b.data.title));
+const alphabeticalDocs = visibleDocs
+  .filter((doc) => doc.data.category === 'a-z')
+  .sort((a, b) => a.data.title.localeCompare(b.data.title));
+const navGroups = [introductionDocs, alphabeticalDocs].filter((group) => group.length > 0);
 const bannerImage = frontmatter.bannerImage;
 const bannerAlt = frontmatter.bannerAlt ?? '';
 ---
@@ -36,27 +45,61 @@ const bannerAlt = frontmatter.bannerAlt ?? '';
   <div class="docs-layout">
     
     <aside class="docs-layout__nav">
+      <div class="doc-left-rail">
+        <div class="container narrow">
+          <div class="grid gap-2">
+            <button
+              class="button font-size-md button--disperse button--outline text-color-link font-size-sm--lg"
+              type="button"
+            >
+              <span class="text">Search Docs</span>
+              <span class="icon icon-search" aria-hidden="true"></span>
+            </button>
 
-      {sortedDocs.length > 0 && (
-        <nav aria-label="Documentation">
-          <ul class="nav">
-            {sortedDocs.map((doc) => (
-              <li>
-                <a
-                  class:list={[
-                    'text-decoration-none',
-                    doc.data.slug === currentSlug && 'font-weight-bold',
-                  ]}
-                  href={`/docs/${doc.data.slug}/`}
-                  aria-current={doc.data.slug === currentSlug ? 'page' : undefined}
-                >
-                  {doc.data.title}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
+            <button
+              class="button button--outline button--disperse font-size-md display-none--xl"
+              aria-expanded="false"
+              aria-controls="docs-sidebar"
+              data-toggle="collapse"
+              type="button"
+            >
+              <span class="text">Documentation</span>
+              <span class="icon icon-arrow-down button__icon" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <div class="position-relative collapse shown--lg" id="docs-sidebar">
+            <a class="focusable-only" href="#primary-content">
+              Skip Navigation
+            </a>
+
+            <div class="padding-y-3">
+              {navGroups.length > 0 && (
+                <nav class="grid grid--divider gap-4" aria-label="Documentation">
+                  {navGroups.map((group) => (
+                    <ul class="nav font-size-md">
+                      {group.map((doc) => (
+                        <li>
+                          <a
+                            class:list={[
+                              'text-decoration-none',
+                              doc.data.slug === currentSlug && 'font-weight-bold',
+                            ]}
+                            href={`/docs/${doc.data.slug}/`}
+                            aria-current={doc.data.slug === currentSlug ? 'page' : undefined}
+                          >
+                            {doc.data.title}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  ))}
+                </nav>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
     </aside>
 
     <header class="docs-layout__banner backdrop backdrop--fixed theme-dark aspect-ratio-banner">

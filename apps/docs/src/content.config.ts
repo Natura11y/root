@@ -8,6 +8,8 @@ const docs = defineCollection({
     type: z.string().optional(),
     title: z.string(),
     slug: z.string(),
+    navOrder: z.number().optional(),
+    draft: z.boolean().optional(),
     bannerCreditName: z.string().optional(),
     bannerCreditUrl: z.string().url().optional(),
     bannerImage: image().optional(),

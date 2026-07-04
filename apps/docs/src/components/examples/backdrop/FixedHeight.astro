@@ -1,0 +1,27 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+import { Image } from 'astro:assets';
+import backdropImage from './images/backdrop-example-03.jpg';
+---
+
+<div class="backdrop backdrop--fixed theme-dark margin-y-5" style={exampleStyle}>
+  
+  <div class="backdrop__media">
+    
+    <Image class="opacity-40" src={backdropImage} alt="" />
+
+    <div class="backdrop__media__credit">
+      <p>
+        Photo by <a href="#">Jane Doe</a> on Unsplash
+      </p>
+    </div>
+  </div>
+
+  <div class="backdrop__cover">
+    <div class="container medium margin-y-4">
+      <h1 class="banner-headline text-color-secondary text-shadow">
+        The Mountain sat upon the Plain
+      </h1>
+    </div>
+  </div>
+</div>

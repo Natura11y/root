@@ -1,0 +1,216 @@
+---
+category: a-z
+type: component
+title: Badge
+slug: badge
+bannerCreditName: Cloudtail the Snow Leopard
+bannerCreditUrl: https://unsplash.com/@cloudtail
+bannerImage: ./banner/badge.jpg
+bannerAlt: Close-up of a badger in the wild
+description: A small inline label for displaying counts, statuses, or categories alongside other content.
+relatedPages:
+  - Button
+  - Navigation
+---
+
+import Badge from '../../components/examples/badge/Badge.astro';
+import BadgeInContext from '../../components/examples/badge/BadgeInContext.astro';
+import BadgeWithIcon from '../../components/examples/badge/BadgeWithIcon.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">Introduction</h2>
+
+<TextBlock>
+
+The badge component is a small inline label for surfacing tags, counts, statuses, or short categorical labels alongside other content.
+
+</TextBlock>
+
+<AccessibilitySpotlight>
+
+When used on a link or button, the badge inherits proper hover and focus states automatically, including a visible focus outline and an opacity transition on hover.
+
+</AccessibilitySpotlight>
+
+</Section>
+
+---
+
+<Section id="badge">
+
+<TextBlock>
+
+## Badge
+
+Add `.badge` to any inline element. Without a theme class, the background is a subtle tint derived from the current text color.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="1"
+  code={`
+  <span class="badge">Default</span>
+  <span class="badge theme-primary">Primary</span>
+  <span class="badge theme-secondary">Secondary</span>
+  <span class="badge theme-dark">Dark</span>
+  `}
+>
+  <Badge />
+</FigureExample>
+
+<TableLineDescBlock targetFigure="1">
+
+<TableLineDescRow targetFigure="1" lines="1">
+
+Without a theme class, the badge background is a 10% `color-mix` tint of the current text color.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="2,3,4">
+
+Add any `theme-*` class to apply a solid background color.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+</Section>
+
+---
+
+<Section id="badge-with-icon">
+
+<TextBlock>
+
+## Badge with icon
+
+Place an icon inside the badge. The padding and gap adjust automatically via `:has()` — no extra class needed.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="2"
+  highlightedLines="2,6,10"
+  code={`
+  <span class="badge">
+    <span class="icon icon-bell" aria-hidden="true"></span>
+    Alerts
+  </span>
+  <span class="badge theme-primary">
+    <span class="icon icon-bell" aria-hidden="true"></span>
+    Alerts
+  </span>
+  <span class="badge theme-dark">
+    <span class="icon icon-bell" aria-hidden="true"></span>
+    Alerts
+  </span>
+  `}
+>
+  <BadgeWithIcon />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="badge-in-context">
+
+<TextBlock>
+
+## Badge in context
+
+Place a `.badge` inside an `<a>` or `<button>` to display a count or status inline. The parent becomes a flex container automatically, and the badge uses a negative `margin-block` to stay within the parent's natural line height.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="3"
+  highlightedLines="6,7,11,12"
+  code={`
+  <ul class="nav nav--divider">
+    <li>
+      <a href="#1">Home</a>
+    </li>
+    <li>
+      <a href="#1">
+        Inbox
+        <span class="badge theme-primary">4</span>
+      </a>
+    </li>
+    <li>
+      <a href="#1">
+        Notifications
+        <span class="badge theme-dark">12</span>
+      </a>
+    </li>
+    <li>
+      <a href="#1">Archive</a>
+    </li>
+  </ul>
+  `}
+>
+  <BadgeInContext />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Badge styles can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+  figureNumber="4"
+  properties={[
+    {
+      property: 'badge-padding-x',
+      defaultValue: '1em',
+      purpose: 'Left and right padding of the badge.',
+    },
+    {
+      property: 'badge-padding-y',
+      defaultValue: '0.375em',
+      purpose: 'Top and bottom padding of the badge.',
+    },
+    {
+      property: 'badge-background-color',
+      defaultValue: 'color-mix(in srgb, currentColor 10%, transparent)',
+      purpose: 'Background color for badges without a theme class.',
+    },
+    {
+      property: 'badge-border-radius',
+      defaultValue: 'var(--border-radius-pill)',
+      purpose: 'Border radius of the badge.',
+    },
+    {
+      property: 'badge-font-size',
+      defaultValue: 'var(--font-size-sm)',
+      purpose: 'Font size of badge text.',
+    },
+    {
+      property: 'badge-font-weight',
+      defaultValue: 'var(--font-weight-bold)',
+      purpose: 'Font weight of badge text.',
+    },
+    {
+      property: 'badge-font-family',
+      defaultValue: 'var(--body-font-family)',
+      purpose: 'Font family of badge text.',
+    },
+    {
+      property: 'badge-gap',
+      defaultValue: '0.25em',
+      purpose: 'Gap between badge text and icons.',
+    },
+  ]}
+/>
+
+</Section>

@@ -1,0 +1,87 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+---
+
+<div class="font-size-md" style={`${exampleStyle} --border-color: currentColor;`}>
+  <div class="margin-bottom-3">
+    <p class="margin-bottom-2">
+      <strong>
+        Border Radius Sizes
+      </strong>
+    </p>
+
+    <div class="grid gap-2 margin-bottom-2 text-align-center">
+      <div class="padding-3 subtle-fill-1 border border-radius-1">
+        <p class="margin-bottom-1">
+          Border Radius (Small)
+        </p>
+        <p>
+          <code>.border-radius-1</code>
+        </p>
+      </div>
+      <div class="padding-3 subtle-fill-1 border border-radius-2">
+        <p class="margin-bottom-1">
+          Border Radius (Regular)
+        </p>
+        <p>
+          <code>.border-radius-2</code>
+        </p>
+      </div>
+      <div class="padding-3 subtle-fill-1 border border-radius-3">
+        <p class="margin-bottom-1">
+          Border Radius (Large)
+        </p>
+        <p>
+          <code>.border-radius-3</code>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="margin-bottom-3">
+    <p class="margin-bottom-2">
+      <strong>
+        Border Radius Directional (Sides)
+      </strong>
+    </p>
+
+    <div class="grid grid--column-2 gap-2 text-align-center">
+      <div class="padding-3 subtle-fill-1 border border-radius-top-2">
+        <p class="margin-bottom-1">
+          Border (top side only)
+        </p>
+        <p>
+          <code>.border-radius-top-2</code>
+        </p>
+      </div>
+      <div class="padding-3 subtle-fill-1 border border-radius-right-2">
+        <p class="margin-bottom-1">
+          Border (right side only)
+        </p>
+        <p>
+          <code>.border-radius-right-2</code>
+        </p>
+      </div>
+      <div class="padding-3 subtle-fill-1 border border-radius-bottom-2">
+        <p class="margin-bottom-1">
+          Border (bottom side only)
+        </p>
+        <p>
+          <code>.border-radius-bottom-2</code>
+        </p>
+      </div>
+      <div class="padding-3 subtle-fill-1 border border-radius-left-2">
+        <p class="margin-bottom-1">
+          Border (left side only)
+        </p>
+        <p>
+          <code>.border-radius-left-2</code>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <p class="font-size-sm">
+    Border color (above) emphasized for clarity.
+  </p>
+</div>

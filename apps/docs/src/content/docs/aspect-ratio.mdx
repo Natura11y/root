@@ -1,0 +1,115 @@
+---
+category: a-z
+type: utility
+title: Aspect Ratio
+slug: aspect-ratio
+bannerCreditName: Jenna Brummond
+bannerCreditUrl: https://unsplash.com/@jbru922
+bannerImage: ./banner/aspect-ratio.jpg
+bannerAlt: Delicate Arch, Arches National Park, Utah at daytime
+description: Natura11y's aspect ratio utilities are perfect for embedding videos, maps, and other media that require fixed width-to-height ratios. Learn about available sizes, breakpoint modifiers, and practical embedding examples.
+relatedPages:
+  - Backdrop
+---
+
+import AspectRatioExample from '../../components/examples/aspect-ratio/AspectRatioExample.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">Introduction</h2>
+
+<TextBlock>
+
+Natura11y's aspect ratio utilities are ideal for embedding videos, maps, or any content where maintaining a specific width-to-height ratio is essential.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="aspect-ratio-sizes">
+
+<TextBlock>
+
+## Aspect Ratio Sizes
+
+Here are the available aspect ratio sizes (see Figure 1):
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="1"
+  code={`
+  <div class="aspect-ratio-16x9">...</div>
+
+  <div class="aspect-ratio-3x2">...</div>
+
+  <div class="aspect-ratio-4x3">...</div>
+
+  <div class="aspect-ratio-1x1">...</div>
+  `}
+>
+  <AspectRatioExample />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="breakpoint-modifiers">
+
+<TextBlock>
+
+### Breakpoint Modifiers
+
+Aspect ratio utilities can use <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a> to adjust sizes at different screen widths.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="2"
+  code={`
+  <!-- With breakpoint modifier -->
+
+  <div class="aspect-ratio-16x9--lg">...</div>
+  `}
+/>
+
+</Section>
+
+---
+
+<Section id="embedding-video">
+
+<TextBlock>
+
+## Embedding Video
+
+Aspect ratios are useful for embedding videos on a page. Here is an example:
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="3"
+  code={`
+  <iframe
+    class="aspect-ratio-16x9"
+    src="..."
+    frameborder="0"
+    allow="autoplay;"
+    allowfullscreen>
+  </iframe>
+  `}
+>
+  <iframe
+    className="aspect-ratio-16x9 background-color-dark"
+    src="https://player.vimeo.com/video/261715638"
+    title="Arches National Park"
+    style={{ border: 0 }}
+    allow="autoplay; fullscreen"
+    allowfullscreen>
+  </iframe>
+</FigureExample>
+
+</Section>

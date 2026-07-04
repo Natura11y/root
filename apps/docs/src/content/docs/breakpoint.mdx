@@ -1,0 +1,114 @@
+---
+category: a-z
+type: guide
+title: Breakpoint
+slug: breakpoint
+bannerCreditName: Lachlan Dempsey
+bannerCreditUrl: https://unsplash.com/@lachlanjdempsey
+bannerImage: ./banner/breakpoint.jpg
+bannerAlt: High-angle photography of beach shore
+description: Discover how Natura11y creates responsive designs using five essential breakpoints. Learn how to apply these breakpoints for a seamless user experience across different devices.
+relatedPages:
+  - Get Started
+  - Navigation
+---
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">Introduction</h2>
+
+<TextBlock>
+
+Easily adapt layouts for various viewports with Natura11y's responsive breakpoints.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="breakpoint-values">
+
+<TextBlock>
+
+## Breakpoint Values
+
+Natura11y includes five predefined breakpoint sizes, as shown in the table below.
+
+</TextBlock>
+
+<figure className="container narrow margin-y-4">
+  <table className="table table--edge">
+    <caption className="screen-reader-only">
+      Natura11y Breakpoints
+    </caption>
+    <thead>
+      <tr>
+        <th className="width-40" scope="col">Name</th>
+        <th className="width-20" scope="col">Modifier</th>
+        <th className="width-40 text-align-right" scope="col">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Small</td>
+        <td><code>{'--sm'}</code></td>
+        <td className="text-align-right">576px</td>
+      </tr>
+      <tr>
+        <td>Medium</td>
+        <td><code>{'--md'}</code></td>
+        <td className="text-align-right">768px</td>
+      </tr>
+      <tr>
+        <td>Large</td>
+        <td><code>{'--lg'}</code></td>
+        <td className="text-align-right">992px</td>
+      </tr>
+      <tr>
+        <td>Extra Large</td>
+        <td><code>{'--xl'}</code></td>
+        <td className="text-align-right">1200px</td>
+      </tr>
+      <tr>
+        <td>Extra Extra Large</td>
+        <td><code>{'--xxl'}</code></td>
+        <td className="text-align-right">1440px</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+
+</Section>
+
+---
+
+<Section id="breakpoint-modifiers">
+
+<TextBlock>
+
+## Breakpoint Modifiers
+
+The *Modifier* column in the table above shows the breakpoint modifiers. These modifiers can be added to many component and utility classes to apply styles at specific breakpoints.
+
+Breakpoint modifiers are always added to the end of the class name, using a double dash and a two-letter abbreviation for the breakpoint (e.g., `.theme-dark--lg`). Below are some examples of how to use breakpoint modifiers.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="1"
+  figureWidth="narrow"
+  code={`
+  <!-- A grid that changes to two columns at the medium breakpoint -->
+  <div class="grid grid--column-2--md">
+    ...
+  </div>
+
+  <!-- Theme color changes at the large breakpoint -->
+  <div class="theme-dark--lg">
+    ...
+  </div>
+  `}
+/>
+
+</Section>

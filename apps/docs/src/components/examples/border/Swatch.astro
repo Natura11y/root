@@ -1,0 +1,25 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+
+interface Props {
+  title?: string;
+  swatchUtility?: string | null;
+  borderUtility?: string | null;
+}
+
+const {
+  title = 'Swatch Title',
+  swatchUtility = 'theme-canvas',
+  borderUtility = null,
+} = Astro.props;
+---
+
+<div class:list={['aspect-ratio-1x1 box-shadow-1', swatchUtility]} style={exampleStyle}>
+  <div class="width-100 height-100 padding-2">
+    <div class:list={['width-100 height-100 border', borderUtility]}>
+      <p class="screen-reader-only">
+        {title}
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+import { getImage } from 'astro:assets';
+import videoSrc from './images/BackdropVideo.mp4?url';
+import posterImage from './images/BackdropVideo.jpg';
+
+const poster = await getImage({ src: posterImage, format: 'webp' });
+---
+
+<div class="backdrop backdrop--stack--lg theme-dark margin-y-5" style={exampleStyle}>
+  <div class="backdrop__media">
+    <div class="backdrop__media__control margin-y-2 container">
+      <button
+        class="button button--icon-only font-size-md border-radius-circle"
+        aria-label="Pause video"
+        aria-pressed="true"
+        data-check-reduced-motion
+        type="button"
+      >
+        <span class="icon icon-pause" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <video
+      class="background-video opacity-30 gradient-mask-bottom"
+      autoplay
+      muted
+      loop
+      poster={poster.src}
+      aria-hidden="true"
+    >
+      <source src={videoSrc} type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <div class="backdrop__cover align-content-end">
+    <div class="container medium text-align-center margin-y-5">
+      <h1 class="banner-headline text-shadow--lg margin-bottom-4 text-shadow">
+        Faucibus scelerisque eleifend donec pretium vulputate
+      </h1>
+
+      <a class="button theme-primary box-shadow-1--lg" href="#">
+        <span class="text">Augue Eget Arcu</span>
+        <span class="icon icon-arrow-right button__icon" aria-hidden="true"></span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  import Backdrop from '../../../../../../packages/core/src/js/backdrop';
+
+  const setupKey = '__natura11yDocsBackdrop';
+
+  if (!Reflect.get(window, setupKey)) {
+    Reflect.set(window, setupKey, true);
+    new Backdrop().init();
+  }
+</script>
