@@ -48,7 +48,7 @@ In this file:
     .backdrop__media {
         position: relative;
 
-        img, video {
+        :is(img, picture, video) {
             min-width: 100%;
             min-height: 100%;
             height: auto;

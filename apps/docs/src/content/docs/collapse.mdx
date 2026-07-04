@@ -1,0 +1,207 @@
+---
+category: a-z
+type: component
+title: Collapse
+slug: collapse
+bannerCreditName: Nicole Geri
+bannerCreditUrl: https://unsplash.com/@nicolegeri
+bannerImage: ./banner/collapse.jpg
+bannerAlt: Brown and green plant in close-up photography
+description: Create expandable content sections with show/hide functionality. Includes button triggers, target selectors, and accessibility patterns.
+relatedPages:
+  - Button
+  - Navigation
+---
+
+import CollapseDefault from '../../components/examples/collapse/Default.astro';
+import CloseTarget from '../../components/examples/collapse/CloseTarget.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">Introduction</h2>
+
+<TextBlock>
+
+Toggle the visibility of a block-level selector from a button located anywhere in the DOM.
+
+</TextBlock>
+
+<AccessibilitySpotlight>
+
+The trigger button uses `aria-expanded` to communicate the open and closed state to assistive technology.
+
+Pressing *Escape* while focus is inside the collapsed panel closes it and returns focus to the trigger button.
+
+Respects `prefers-reduced-motion` — height and transition animations are disabled when this preference is active.
+
+</AccessibilitySpotlight>
+
+</Section>
+
+---
+
+<Section id="the-collapse-relationship">
+
+<TextBlock>
+
+## The Collapse Relationship
+
+The collapse mechanism establishes a relationship between a button and its target selector. With each button press, the target's visibility toggles between *show* and *hide*.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="1"
+  lineAnnotations={[
+    { range: '3-6' },
+    { range: '12-13' },
+    { range: '14-30' },
+  ]}
+  code={`
+  <button
+    class="button width-100 theme-primary"
+    data-toggle="collapse"
+    aria-controls="target-id"
+    aria-expanded="false"
+    type="button"
+  >
+    Navigation
+  </button>
+
+  <div class="collapse margin-y-3" id="target-id">
+    <div class="border padding-3">
+      <nav aria-label="Example navigation">
+        <ul class="nav nav--divider">
+          <li>
+            <a href="#1">Link</a>
+          </li>
+          <li>
+            <a href="#1">Link</a>
+          </li>
+          <li>
+            <a href="#1">Link</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+  `}
+>
+  <CollapseDefault />
+</FigureExample>
+
+<TableLineDescBlock targetFigure="1">
+
+<TableLineDescRow targetFigure="1" lines="3-6">
+
+On a `<button>` tag, the `data-toggle="collapse"` attribute is required.
+
+The `aria-controls` attribute equals the value of its target selector's `id` attribute.
+
+The `aria-expanded="false"` attribute communicates the initial collapsed state.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="12-13">
+
+The `.collapse` class is required. It initially hides the target selector.
+
+The `id` attribute equals the value of its associated button's `aria-controls` attribute.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="14-30">
+
+Place padding and borders on a child inside `.collapse`. This keeps the collapsing element's height animation predictable.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+</Section>
+
+---
+
+<Section id="close-target">
+
+<TextBlock>
+
+## Close Target
+
+To close a selector while opening another, add the `data-target-close` attribute to a button. The value should equal the target selector's `id` attribute.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="2"
+  lineAnnotations={[
+    { range: '7' },
+    { range: '21' },
+  ]}
+  code={`
+  <div class="grid grid--column-2 gap-3">
+    <button
+      class="button width-100 theme-primary"
+      data-toggle="collapse"
+      aria-controls="target-id-1"
+      aria-expanded="false"
+      data-target-close="target-id-2"
+      type="button"
+    >
+      Button 1
+    </button>
+
+    <button
+      class="button width-100 theme-primary"
+      data-toggle="collapse"
+      aria-controls="target-id-2"
+      aria-expanded="false"
+      data-target-close="target-id-1"
+      type="button"
+    >
+      Button 2
+    </button>
+  </div>
+
+  <div class="collapse margin-y-3" id="target-id-1">
+    <div class="border padding-4">
+      <p>Target 1</p>
+    </div>
+  </div>
+
+  <div class="collapse margin-y-3" id="target-id-2">
+    <div class="border padding-4">
+      <p>Target 2</p>
+    </div>
+  </div>
+  `}
+>
+  <CloseTarget />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Collapse styles can be customized by redefining the related CSS custom property.
+
+</TextBlock>
+
+<RelatedCustomProperties
+  figureNumber="3"
+  properties={[
+    {
+      property: 'collapse-animation-duration',
+      defaultValue: '0.25s',
+      purpose: 'Duration of collapse enter and exit animations.',
+    },
+  ]}
+/>
+
+</Section>

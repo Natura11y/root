@@ -1,0 +1,38 @@
+---
+import { Image } from 'astro:assets';
+import { exampleStyle } from '../shared/exampleStyles';
+import cardImage from './images/card-example-01.jpg';
+import Footer from './Footer.astro';
+---
+
+<div class="card border" style={exampleStyle}>
+  <div class="card__media">
+    <Image src={cardImage} alt="" layout="full-width" />
+  </div>
+
+  <div class="card__body">
+    <h2 class="h4">Stellaria graminea</h2>
+
+    <p>
+      Stellaria graminea is a species of flowering plant in the family
+      Caryophyllaceae known by these common names:
+    </p>
+
+    <ul>
+      <li>
+        <em>common starwort</em>
+      </li>
+      <li>
+        <em>lesser stitchwort</em>
+      </li>
+      <li>
+        <em>grass-leaved stitchwort</em>
+      </li>
+      <li>
+        <em>grass-like starwort</em>
+      </li>
+    </ul>
+  </div>
+
+  <Footer secondaryLabel="Search Images" primaryLabel="Visit Wikipedia" />
+</div>

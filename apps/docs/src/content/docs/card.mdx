@@ -1,0 +1,323 @@
+---
+category: a-z
+type: component
+title: Card
+slug: card
+bannerCreditName: David Clode
+bannerCreditUrl: https://unsplash.com/@davidclode
+bannerImage: ./banner/card.jpg
+bannerAlt: Macro photo of pink flower
+description: Build interactive content cards with images, text, and actions. Learn card layouts, media integration, and responsive grid arrangements.
+relatedPages:
+  - Color
+  - Button
+  - Typography
+---
+
+import CardDefault from '../../components/examples/card/Default.astro';
+import CardMedia from '../../components/examples/card/Media.astro';
+import CardGrid from '../../components/examples/card/Grid.astro';
+import CardHorizontal from '../../components/examples/card/Horizontal.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">Introduction</h2>
+
+<TextBlock>
+
+The Natura11y card component organizes and displays content that users can interact with.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="the-card-component">
+
+<TextBlock>
+
+## The Card Component
+
+Here's an example of a basic card component.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="1"
+  lineAnnotations={[
+    { range: '1' },
+    { range: '3-5' },
+    { range: '7-14' },
+    { range: '16-29' },
+  ]}
+  code={`
+  <div class="card border">
+
+    <div class="card__head border-bottom">
+      <p>Tropical flowers</p>
+    </div>
+
+    <div class="card__body">
+      <h2 class="h4">
+        Gustavia superba
+      </h2>
+      <p>
+        Gustavia superba is an understory tree that grows in <a href="#1">Central</a> and north-western <a href="#1">South America</a>. Common names include membrillo, sachamango and heaven lotus.
+      </p>
+    </div>
+
+    <div class="card__foot border-top font-size-md text-color-link">
+      <ul class="nav nav--horizontal justify-content-between">
+        <li>
+          <a href="#1">
+            Secondary Action
+          </a>
+        </li>
+        <li>
+          <a class="button button--outline" href="#1">
+            <span class="text">Primary Action</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+  `}
+>
+  <CardDefault />
+</FigureExample>
+
+<TableLineDescBlock targetFigure="1">
+
+<TableLineDescRow targetFigure="1" lines="1">
+
+The parent `.card` class is required. The `.border` utility class is optional. It provides the card's outer border.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="3-5">
+
+The `.card__head` selector is optional. It holds the card's small title. The `.border-bottom` utility class is optional. It provides the card header's bottom border.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="7-14">
+
+The `.card__body` selector is required. It holds the card's main message. Cards can have multiple `.card__body` elements.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="16-29">
+
+The `.card__foot` selector is optional. It holds the card's actionable buttons and links. The `.border-top` utility class is optional. It provides the card footer's top border.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+</Section>
+
+---
+
+<Section id="including-images">
+
+<TextBlock>
+
+## Including Media
+
+To include an image or video within a card, add the `.card__media` child selector to the card component. This selector is optional.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="2"
+  highlightedLines="3-5"
+  code={`
+  <div class="card border">
+
+    <div class="card__media">
+      <img src="https://placehold.co/800x450" alt="Placeholder" />
+    </div>
+
+    <div class="card__body">
+      <h2 class="h4">Stellaria graminea</h2>
+      <p>
+        Stellaria graminea is a species of flowering plant in the family Caryophyllaceae known by these common names:
+      </p>
+      <ul>
+        <li>
+          <em>common starwort</em>
+        </li>
+        <li>
+          <em>lesser stitchwort</em>
+        </li>
+        <li>
+          <em>grass-leaved stitchwort</em>
+        </li>
+        <li>
+          <em>grass-like starwort</em>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card__foot border-top font-size-md text-color-link">
+      <ul class="nav nav--horizontal justify-content-between">
+        <li>
+          <a href="#1">
+            Search Images
+          </a>
+        </li>
+        <li>
+          <a class="button button--outline" href="#1">
+            <span class="text">Visit Wikipedia</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+  `}
+>
+  <CardMedia />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="cards-within-grids">
+
+<TextBlock>
+
+## Cards Within Grids
+
+It's common to display cards within a <a href="/docs/grid">grid</a> component. When doing so, the card footer aligns to the bottom. Consider the following example. Each card has a different character count, while their actionable footers remain aligned.
+
+</TextBlock>
+
+<CardGrid />
+
+</Section>
+
+---
+
+<Section id="horizontal-card">
+
+<TextBlock>
+
+## Horizontal Card
+
+The horizontal card modifier (`.card--horizontal`) provides a layout where an image is placed next to contextual content, creating a side-by-side card. This design is intended to offer simple flexibility, especially in scenarios where the image is mostly vertical (portrait orientation).
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="3"
+  highlightedLines="1,3-5"
+  code={`
+  <div class="card card--horizontal border font-size-md">
+
+    <div class="card__media">
+      <img src="https://placehold.co/200x300" alt="Placeholder" />
+    </div>
+
+    <div class="card__head border-bottom">
+      <p>Tropical flowers</p>
+    </div>
+
+    <div class="card__body">
+      <h2 class="h5">Stellaria graminea</h2>
+      <p>Stellaria graminea is a species of flowering plant in the family Caryophyllaceae.</p>
+    </div>
+
+    <div class="card__foot border-top font-size-sm text-color-link">
+      <ul class="nav nav--horizontal justify-content-between">
+        <li>
+          <a href="#1">Search Images</a>
+        </li>
+        <li>
+          <a class="button button--outline" href="#1">
+            Visit Wikipedia
+          </a>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+  `}
+>
+  <CardHorizontal variant="withHeaderAndFooter" />
+</FigureExample>
+
+<TextBlock>
+
+### Flexibility of the Horizontal Card Component
+
+The horizontal card component automatically adjusts its layout based on the presence of different child elements, such as headers, footers, and body content. This behavior allows the card to be versatile in various use cases:
+
+#### With Header and Footer
+
+When both a header and a footer are present, the card gracefully accommodates these elements by adjusting the space allocated for the image and the content, ensuring a balanced and cohesive appearance.
+
+</TextBlock>
+
+<div className="container narrow">
+  <CardHorizontal variant="withHeaderAndFooter" utilities="margin-y-4" />
+</div>
+
+<TextBlock>
+
+#### With Only a Header
+
+If the card only includes a header and body content, the layout still maintains a clear separation between the image and text, while providing ample space for the content to be the focal point.
+
+</TextBlock>
+
+<div className="container narrow">
+  <CardHorizontal variant="withHeader" utilities="margin-x-auto margin-y-4" />
+</div>
+
+<TextBlock>
+
+#### Without Header or Footer
+
+Even in its most minimal configuration, with just the image and body content, the horizontal card remains aesthetically pleasing and functional.
+
+</TextBlock>
+
+<div className="container narrow">
+  <CardHorizontal utilities="margin-y-4" />
+</div>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Card styles can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+  figureNumber="4"
+  properties={[
+    {
+      property: 'card-padding-x',
+      defaultValue: 'var(--container-padding-x)',
+      purpose: 'Left and right padding for card headers, bodies, and footers.',
+    },
+    {
+      property: 'card-padding-y',
+      defaultValue: 'var(--container-padding-x)',
+      purpose: 'Vertical padding used to calculate card header, body, and footer spacing.',
+    },
+  ]}
+/>
+
+</Section>

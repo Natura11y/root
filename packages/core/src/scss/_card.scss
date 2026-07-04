@@ -44,6 +44,13 @@ In this file:
         font-size: var(--font-size-sm);
     }
 
+    .card__media {
+        > img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
     .card__body {
         padding: var(--card-padding-y) var(--card-padding-x);
     }

@@ -9,7 +9,8 @@ All notable changes to this project will be documented in this file.
 ### Pending Bug Fixes
 
 #### Images
-- Add `height: auto` to the core `img` reset so responsive and optimized images with `width` and `height` attributes preserve their aspect ratio inside framework components such as Backdrop.
+- Update `.backdrop__media` media sizing to include `picture` elements alongside `img` and `video`, preserving aspect ratios for optimized image output.
+- Add default `.card__media > img` sizing so card media images span their container width while preserving their natural aspect ratio.
 
 ---
 

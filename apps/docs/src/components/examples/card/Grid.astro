@@ -1,0 +1,75 @@
+---
+import { Image } from 'astro:assets';
+import { exampleStyle } from '../shared/exampleStyles';
+import cardImageOne from './images/card-example-02.jpg';
+import cardImageTwo from './images/card-example-03.jpg';
+import cardImageThree from './images/card-example-04.jpg';
+---
+
+<div class="container medium margin-y-5" style={exampleStyle}>
+  <div class="grid grid--column-3--md gap-3">
+    <div class="card border font-size-md">
+      <div class="card__media">
+        <Image src={cardImageOne} alt="" layout="full-width" />
+      </div>
+
+      <div class="card__body">
+        <p class="h6">Prunus mume</p>
+        <p>
+          Prunus mume is an East Asian and Southeast Asian tree species
+          classified in the Armeniaca section of the genus Prunus subgenus
+          Prunus.
+        </p>
+      </div>
+
+      <div class="card__foot border-top">
+        <a class="button button--outline width-100 text-color-link" href="#1">
+          <span class="text">Wikipedia</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="card border font-size-md">
+      <div class="card__media">
+        <Image src={cardImageTwo} alt="" layout="full-width" />
+      </div>
+
+      <div class="card__body">
+        <p class="h6">Eschscholzia californica</p>
+        <p>
+          Eschscholzia californica, the California poppy, golden poppy,
+          California sunlight or cup of gold, is a species of flowering
+          plant in the family Papaveraceae, native to the United States
+          and Mexico.
+        </p>
+      </div>
+
+      <div class="card__foot border-top">
+        <a class="button button--outline width-100 text-color-link" href="#1">
+          <span class="text">Wikipedia</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="card border font-size-md">
+      <div class="card__media">
+        <Image src={cardImageThree} alt="" layout="full-width" />
+      </div>
+
+      <div class="card__body">
+        <p class="h6">Geranium pratense</p>
+        <p>
+          Geranium pratense, the meadow crane's-bill or meadow geranium,
+          is a species of flowering plant in the family Geraniaceae,
+          native to Europe and Asia.
+        </p>
+      </div>
+
+      <div class="card__foot border-top">
+        <a class="button button--outline width-100 text-color-link" href="#1">
+          <span class="text">Wikipedia</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

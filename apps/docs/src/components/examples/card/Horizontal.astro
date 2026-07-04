@@ -1,0 +1,53 @@
+---
+import { Image } from 'astro:assets';
+import { exampleStyle } from '../shared/exampleStyles';
+import cardImage from './images/card-example-06.jpg';
+import Footer from './Footer.astro';
+
+interface Props {
+  variant?: 'withHeaderAndFooter' | 'withHeader' | null;
+  utilities?: string | null;
+}
+
+const {
+  variant = null,
+  utilities = null,
+} = Astro.props;
+
+const hasHeader = variant === 'withHeaderAndFooter' || variant === 'withHeader';
+const hasFooter = variant === 'withHeaderAndFooter';
+const showBodyButton = !hasFooter;
+---
+
+<div
+  class:list={[
+    'card card--horizontal border',
+    utilities,
+  ]}
+  style={exampleStyle}
+>
+  <div class="card__media">
+    <Image src={cardImage} alt="" layout="full-width" />
+  </div>
+
+  {hasHeader && (
+    <div class="card__head border-bottom">
+      <p>Tropical flowers</p>
+    </div>
+  )}
+
+  <div class="card__body">
+    <h2 class="h5">Stellaria graminea</h2>
+    <p>Stellaria graminea is a species of flowering plant in the family Caryophyllaceae.</p>
+
+    {showBodyButton && (
+      <a class="button button--outline font-size-sm text-color-link" href="#1">
+        <span class="text">Visit Wikipedia</span>
+      </a>
+    )}
+  </div>
+
+  {hasFooter && (
+    <Footer secondaryLabel="Search Images" primaryLabel="Visit Wikipedia" />
+  )}
+</div>

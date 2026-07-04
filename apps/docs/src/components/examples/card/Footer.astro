@@ -1,0 +1,30 @@
+---
+interface Props {
+  secondaryLabel?: string;
+  primaryLabel?: string;
+}
+
+const {
+  secondaryLabel = 'Secondary Action',
+  primaryLabel = 'Primary Action',
+} = Astro.props;
+---
+
+<div class="card__foot border-top font-size-md text-color-link">
+
+  <ul class="nav nav--horizontal justify-content-between">
+    <li>
+      <a href="#1">
+        {secondaryLabel}
+      </a>
+    </li>
+    <li>
+      <a class="button button--outline" href="#1">
+        <span class="text">
+          {primaryLabel}
+        </span>
+      </a>
+    </li>
+  </ul>
+  
+</div>
