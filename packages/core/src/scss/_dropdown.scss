@@ -15,7 +15,6 @@ In this file:
 @use 'sass:map';
 @use './breakpoint';
 @use './caret';
-@use './link';
 
 ////////////////////////////////////////
 // B. Mixins
@@ -104,21 +103,13 @@ In this file:
         pointer-events: none;
     }
 
-    .dropdown-link-split {
+    .dropdown-link-split > [data-toggle="dropdown"] {
+        position: relative;
+        z-index: 2;
 
-        > .text {
-            @extend .link-expanded;
-        }
-
-        > [data-toggle="dropdown"] {
-            position: relative;
-            z-index: 2;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     [data-toggle="dropdown"]:not([data-indicator])[aria-expanded="true"]::after {

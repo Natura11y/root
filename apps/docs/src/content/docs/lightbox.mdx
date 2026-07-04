@@ -14,3 +14,166 @@ relatedPages:
   - "Accessibility"
   - "Button"
 ---
+
+import LightboxThumbnailButtons from '../../components/examples/lightbox/ThumbnailButtons.astro';
+import LightboxCustomButtons from '../../components/examples/lightbox/CustomButtons.astro';
+import LightboxGallery from '../../components/examples/lightbox/Gallery.astro';
+import LightboxSetup from '../../components/examples/lightbox/LightboxSetup.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+Natura11y's lightbox component provides an intuitive way to enlarge images and video. The lightbox is designed for simplicity in setup and use. Fully-integrated, it works out-of-the-box with:
+
+- High-resolution images
+- Local video files
+- YouTube videos
+- Vimeo videos
+
+</TextBlock>
+
+<AccessibilitySpotlight>
+
+Lightboxes have keyboard support for focusable elements. Use the *Tab* key without leaving the lightbox by accident. Use the *Left* and *Right* arrow keys to navigate between items. Using the *Esc* key closes it.
+
+When a lightbox closes, keyboard users return to the last active element in the document.
+
+</AccessibilitySpotlight>
+
+</Section>
+
+---
+
+<Section id="lightbox-thumbnail-buttons">
+
+<TextBlock>
+
+## Lightbox Thumbnail Buttons
+
+For an easy way to add a lightbox functionality to your website, use the `.lightbox-thumbnail` class and required `data` attributes to a `<button>` tag. Include a small image or video thumbnail inside the button.
+
+Natura11y's JavaScript looks for these attributes and applies the lightbox effect accordingly. The `.lightbox-thumbnail` class automatically adds the appropriate *enlarge* icon  for images or videos. With Figure 1 below, the first button is an image lightbox and the second button is a video lightbox.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    lineAnnotations={[
+        { range: '3-6' },
+        { range: '16-19' },
+        { range: '6' },
+    ]}
+    code={`
+        <!-- Image Lightbox -->
+        <button
+            class="lightbox-thumbnail"
+            data-lightbox="image"
+            data-lightbox-src="/path/to/image.jpg"
+            data-lightbox-caption="..."
+        >
+            <img
+                src="./_assets/eberhard-grossgasteiger-yF9Tm4qrYmM-unsplash.jpg"
+                alt="Placeholder"
+            />
+        </button>
+
+        <!-- Video Lightbox -->
+        <button
+            class="lightbox-thumbnail"
+            data-lightbox="video"
+            data-lightbox-src="/path/to/video.mp4"
+            data-lightbox-caption="..."
+        >
+            <img
+                src="./_assets/eberhard-grossgasteiger-yF9Tm4qrYmM-unsplash.jpg"
+                alt="Placeholder"
+            />
+        </button>
+    `}
+>
+    <LightboxThumbnailButtons />
+</FigureExample>
+
+<TableLineDescBlock targetFigure="1">
+
+<TableLineDescRow targetFigure="1" lines="3-6">
+
+The `lightbox-thumbnail` class is optional. It adds the appropriate *enlarge* icon for images or videos.
+
+The `data-lightbox` attribute is required.
+
+It is used to initiate the lightbox script. Set the value to *"image"* for an image lightbox or *"video"* for a video lightbox.
+
+The `data-lightbox-src` attribute is optional for image lightboxes but required for video lightboxes.
+
+For image lightboxes, if no `data-lightbox-src` attribute is present, the `src` attribute value (of the child image) is used instead.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="6">
+
+The `data-lightbox-caption` attribute is optional. It is used to add a caption to the lightbox.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+</Section>
+
+---
+
+<Section id="custom-lightbox-buttons">
+
+<TextBlock>
+
+## Custom Lightbox Buttons
+
+If you want to use a custom button, you can do so by adding the required `data-lightbox` attributes to a `<button>` tag. In Figure 2, generic buttons are used to initiate the lightbox.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    lineAnnotations={[
+        { range: '3-5' },
+    ]}
+    code={`
+        <button
+            class="button theme-primary width-100 margin-bottom-3"
+            data-lightbox="video"
+            data-lightbox-src="https://www.youtube.com/embed/XXXXXXXXXX"
+            data-lightbox-caption="YouTube video"
+        >
+            Open YouTube Video
+        </button>
+    `}
+>
+    <LightboxCustomButtons />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="lightbox-gallery">
+
+<TextBlock>
+
+## Lightbox Gallery
+
+The lightbox gallery functionality in Natura11y is activated automatically. Upon page load, the JavaScript scans the DOM for any element marked with the necessary data attributes. Every instance located, whether an image or video, is auto-populated into the lightbox gallery. Once the lightbox is active, users can navigate through the gallery using the *Previous* and *Next* buttons, or the *Left* and *Right* arrow keys.
+
+Take a look at the grid of images below. Did you notice these images and all other lightboxes from this page are incorporated into the gallery?
+
+</TextBlock>
+
+<LightboxGallery />
+
+</Section>
+
+<LightboxSetup />

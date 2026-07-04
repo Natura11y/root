@@ -1,0 +1,132 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+import Brand from './Brand.astro';
+import NavItems from './NavItems.astro';
+
+interface Props {
+  idPrefix?: string;
+  variant?: 'bar' | 'stack';
+  hasMegaMenu?: boolean;
+}
+
+const {
+  idPrefix = 'main-menu-example',
+  variant = 'bar',
+  hasMegaMenu = false,
+} = Astro.props;
+
+const navId = `${idPrefix}-menu`;
+const searchId = `${idPrefix}-search`;
+const dropdownId = `${idPrefix}-dropdown`;
+const megaMenuId = `${idPrefix}-mega-menu`;
+const rootClass = `main-menu--${variant}--lg theme-canvas drop-shadow-1`;
+---
+
+<div class={rootClass} style={exampleStyle}>
+      <div class="main-menu__logo">
+        <a href="#1" title="Home" data-logo="brand">
+          <Brand />
+        </a>
+      </div>
+
+      {variant === 'bar' ? (
+        <>
+          <nav class="main-menu__nav" id={navId} aria-label="Main Menu">
+            <NavItems dropdownId={dropdownId} megaMenuId={megaMenuId} hasMegaMenu={hasMegaMenu} />
+          </nav>
+
+          <div class="main-menu__toggle">
+            <button
+              class="button button--icon-only"
+              aria-label="Search"
+              data-toggle="collapse"
+              aria-controls={searchId}
+              data-target-close={navId}
+              aria-expanded="false"
+              type="button"
+            >
+              <span class="icon icon-search" aria-hidden="true"></span>
+            </button>
+
+            <button
+              class="button button--icon-only"
+              aria-label="Menu"
+              data-toggle="collapse"
+              aria-controls={navId}
+              data-target-close={searchId}
+              aria-expanded="false"
+              type="button"
+            >
+              <span class="icon icon-menu" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <form class="main-menu__search" id={searchId} role="search" data-focus-first>
+            <div class="form-entry form-entry--search" aria-label="Search">
+              <label class="form-entry__field">
+                <span class="form-entry__field__label screen-reader-only">Search</span>
+                <span class="form-entry__field__input">
+                  <input type="search" name="global-search" />
+                  <button class="button theme-primary" type="submit">
+                    Search
+                  </button>
+                </span>
+              </label>
+            </div>
+          </form>
+
+          <div class="main-menu__actions">
+            <button
+              class="button button--icon-only"
+              aria-label="Language"
+              type="button"
+            >
+              <span class="icon icon-language" aria-hidden="true"></span>
+            </button>
+          </div>
+        </>
+      ) : (
+        <>
+          <div class="main-menu__toggle">
+            <button
+              class="button button--icon-only"
+              aria-label="Menu"
+              data-toggle="collapse"
+              aria-controls={navId}
+              aria-expanded="false"
+              type="button"
+            >
+              <span class="icon icon-menu" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <form class="main-menu__search" id={searchId} role="search" data-focus-first>
+            <div class="form-entry form-entry--search" aria-label="Search">
+              <label class="form-entry__field">
+                <span class="form-entry__field__label screen-reader-only">Search</span>
+                <span class="form-entry__field__input">
+                  <input type="search" name="global-search" />
+                  <button class="button button--icon-only theme-primary" type="submit" aria-label="Search">
+                    <span class="icon icon-search" aria-hidden="true"></span>
+                  </button>
+                </span>
+              </label>
+            </div>
+          </form>
+
+          <div class="main-menu__actions">
+            <button
+              class="button button--icon-only"
+              aria-label="Language"
+              type="button"
+            >
+              <span class="icon icon-language" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <nav class="main-menu__nav" id={navId} aria-label="Main Menu">
+            <NavItems dropdownId={dropdownId} megaMenuId={megaMenuId} hasMegaMenu={hasMegaMenu} />
+          </nav>
+        </>
+      )}
+</div>

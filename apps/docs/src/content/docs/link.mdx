@@ -13,3 +13,121 @@ relatedPages:
   - "Color"
   - "Accessibility"
 ---
+
+import LinkDefault from '../../components/examples/link/Default.astro';
+import LinkTextAndIcon from '../../components/examples/link/TextAndIcon.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+Natura11y offers various styles and options to help you create accessible and visually distinct links.
+
+</TextBlock>
+
+<AccessibilitySpotlight>
+
+Like <a href="/docs/button/">buttons</a>, links feature distinct *hover* and *focus* states for keyboard users, ensuring accessibility and ease of navigation.
+
+In-paragraph links inside `<p>` tags are automatically colored and underlined when hovered over, making them easier to see.
+
+</AccessibilitySpotlight>
+
+</Section>
+
+---
+
+<Section id="the-link-selector">
+
+<TextBlock>
+
+## The Link Selector
+
+The `.link` utility class lets you style non-clickable elements to look like links. For example, you can apply the `.link` class to a `<span>` within an `<a>` tag to mimic the appearance of a standard link.
+
+Figure 1 shows a `span` tag with the `.link` class.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    code={`
+        <span class="link">
+            I look like a styled link
+        </span>
+    `}
+>
+    <LinkDefault />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="text-and-icon-links">
+
+<TextBlock>
+
+## Text and Icon Links
+
+To add an icon to a `.link`, include an icon element inside the link (refer to Figure 2). Creating links with icons involves two child elements.
+
+The first is a `<span>` containing the appropriate icon classes. The second is a `<span>` with the `.link__text` class, which encapsulates the link text.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    code={`
+        <a class="link" href="#1">
+            <span class="link__text">Label</span>
+            <span class="icon icon-arrow-right" aria-hidden="true"></span>
+        </a>
+    `}
+>
+    <LinkTextAndIcon />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="skip-links">
+
+<TextBlock>
+
+## Skip Links
+
+Skip links are specially designed to assist keyboard users by providing a mechanism to quickly jump to main sections of a page. They remain hidden from view until they are focused upon by keyboard navigation.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="3"
+    figureWidth="wide"
+    code={`
+        <body>
+
+            <!-- Place skip links directly after the opening body tag to ensure they are the first elements focused by keyboard navigation. -->
+
+            <div class="skip-links">
+
+                <a href="#main">
+                    Jump to main content
+                </a>
+
+                <a href="#global-footer">
+                    Jump to website footer
+                </a>
+
+            </div>
+
+            ...
+    `}
+/>
+
+</Section>

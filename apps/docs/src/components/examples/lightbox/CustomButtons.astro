@@ -1,0 +1,23 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+---
+
+<div class="container narrow grid grid--column-2 gap-3" style={exampleStyle}>
+  <button
+    class="button theme-primary width-100"
+    data-lightbox="video"
+    data-lightbox-src="https://www.youtube.com/embed/k3ftlbnbwuc"
+    data-lightbox-caption="Example of a YouTube video"
+  >
+    Open YouTube Video
+  </button>
+
+  <button
+    class="button theme-secondary width-100"
+    data-lightbox="video"
+    data-lightbox-src="https://player.vimeo.com/video/54802209?h=53340e8e30"
+    data-lightbox-caption="Example of a Vimeo video"
+  >
+    Open Vimeo Video
+  </button>
+</div>

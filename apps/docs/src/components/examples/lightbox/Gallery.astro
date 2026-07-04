@@ -1,0 +1,59 @@
+---
+import { Image } from 'astro:assets';
+import { exampleStyle } from '../shared/exampleStyles';
+import imageOne from './images/benjamin-child-6msS8vT5pzw-unsplash.jpg';
+import imageTwo from './images/zan-douglas-qlQoj-uhgb0-unsplash.jpg';
+import imageThree from './images/noah-silliman-vhInzGLpnyI-unsplash.jpg';
+import imageFour from './images/marcus-dall-col-Mw-VdasLXxI-unsplash.jpg';
+
+const galleryItems = [
+  {
+    src: imageOne,
+    caption: 'A full moon above snow-capped mountains',
+    credit: 'Benjamin Child',
+    creditUrl: 'https://unsplash.com/@bchild311',
+  },
+  {
+    src: imageTwo,
+    caption: 'An orange moon above a mountain range',
+    credit: 'zan douglas',
+    creditUrl: 'https://unsplash.com/@artozan',
+  },
+  {
+    src: imageThree,
+    caption: 'A yellow moon visible through treetops',
+    credit: 'Noah Silliman',
+    creditUrl: 'https://unsplash.com/@noahsilliman',
+  },
+  {
+    src: imageFour,
+    caption: 'A half moon floating in the blue sky',
+    credit: 'Marcus Dall Col',
+    creditUrl: 'https://unsplash.com/@marcusdallcol',
+  },
+];
+---
+
+<figure class="container narrow margin-y-5" style={exampleStyle}>
+  <div class="grid grid--column-2 gap-2">
+    {galleryItems.map(({ src, caption }) => (
+      <button
+        class="lightbox-thumbnail"
+        data-lightbox="image"
+        data-lightbox-src={src.src}
+        data-lightbox-caption={caption}
+      >
+        <Image src={src} alt={caption} />
+      </button>
+    ))}
+  </div>
+
+  <figcaption>
+    <p>
+      Upper left image by <a href={galleryItems[0].creditUrl}>{galleryItems[0].credit}</a>.{' '}
+      Upper right image by <a href={galleryItems[1].creditUrl}>{galleryItems[1].credit}</a>.{' '}
+      Bottom left image by <a href={galleryItems[2].creditUrl}>{galleryItems[2].credit}</a>.{' '}
+      Bottom right image by <a href={galleryItems[3].creditUrl}>{galleryItems[3].credit}</a>.
+    </p>
+  </figcaption>
+</figure>

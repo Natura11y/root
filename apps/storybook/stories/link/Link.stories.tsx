@@ -8,7 +8,7 @@ const meta = {
     docs: {
       codePanel: true,
       description: {
-        component: 'Link utilities make non-paragraph links, icon links, and expanded link targets consistent.',
+        component: 'Link utilities make non-paragraph links and icon links consistent.',
       },
     },
   },

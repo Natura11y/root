@@ -14,3 +14,338 @@ relatedPages:
   - "Navigation"
   - "Flyout"
 ---
+
+import MainMenu from '../../components/examples/main-menu/MainMenu.astro';
+import Browser from '../../components/ui/Browser/Browser.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+The main menu is a complete responsive header system with four preassigned areas: ***logo***, ***nav***, ***search***, and ***actions***. Two layout variants are available: ***bar*** places the menu *inline* with the logo, while ***stack*** places it *below*, spanning the full width. Both variants share the same child selectors and differ only in their parent modifier class.
+
+</TextBlock>
+
+<AccessibilitySpotlight>
+
+The main menu uses `role="navigation"` via the `<nav>` element. Include `aria-label` to distinguish it from other navigation landmarks on the page.
+
+Mobile toggle buttons use `aria-controls` to reference the menu or search `id`, and `aria-expanded` to communicate open and closed state to assistive technology.
+
+Learn more about <a href="https://www.w3.org/TR/WCAG21/#content-on-hover-or-focus" target="_blank">visible hover and focus</a>.
+
+</AccessibilitySpotlight>
+
+</Section>
+
+---
+
+<Section id="main-menu-bar">
+
+<TextBlock>
+
+## Main Menu Bar
+
+The `.main-menu--bar--{bp}` selector places the main menu *inline* with the logo. Here, ***bp*** is the responsive breakpoint at which the component transitions from its mobile stacked layout to the desktop inline layout (e.g. *lg* for large). At this breakpoint the toggle buttons are hidden and the full menu is displayed.
+
+</TextBlock>
+
+<Browser exampleName="Main Menu Bar Example" utilities="wide">
+    <MainMenu idPrefix="main-menu-bar-example" />
+</Browser>
+
+<FigureExample
+    figureNumber="1"
+    figureWidth="wide"
+    lineAnnotations={[
+        { range: '1' },
+        { range: '2-10' },
+        { range: '12-44' },
+        { range: '46-70' },
+        { range: '72-85' },
+        { range: '87-96' },
+    ]}
+    code={`<div class="main-menu--bar--lg">
+  <div class="main-menu__logo">
+    <a href="#1" title="Home" data-logo="brand">
+      <!-- Placeholder logo, replace the following <svg> with your own -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="126" height="34" viewBox="0 0 126 34" aria-hidden="true">
+        ...
+      </svg>
+    </a>
+  </div>
+
+  <nav class="main-menu__nav" id="main-menu" aria-label="Main Menu">
+    <ul>
+      <li>
+        <button
+          class="dropdown"
+          data-toggle="dropdown"
+          aria-controls="menu-1"
+          aria-expanded="false"
+          data-hover="true"
+          type="button"
+        >
+          <span class="text">Dropdown</span>
+        </button>
+        <ul class="dropdown__menu box-shadow-1--lg" id="menu-1">
+          <li>
+            <a href="#1">Link</a>
+          </li>
+          <li>
+            <a href="#1">Link</a>
+          </li>
+          <li>
+            <a href="#1">Link</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#1">Link</a>
+      </li>
+      <li>
+        <a href="#1">Link</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="main-menu__toggle">
+    <button
+      class="button button--icon-only"
+      aria-label="Search"
+      data-toggle="collapse"
+      aria-controls="search"
+      data-target-close="main-menu"
+      aria-expanded="false"
+      type="button"
+    >
+      <span class="icon icon-search" aria-hidden="true"></span>
+    </button>
+    <button
+      class="button button--icon-only"
+      aria-label="Menu"
+      data-toggle="collapse"
+      aria-controls="main-menu"
+      data-target-close="search"
+      aria-expanded="false"
+      type="button"
+    >
+      <span class="icon icon-menu" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <form class="main-menu__search" id="search" role="search" data-focus-first>
+    <div class="form-entry form-entry--search" aria-label="Search">
+      <label class="form-entry__field">
+        <span class="form-entry__field__label screen-reader-only">Search</span>
+        <span class="form-entry__field__input">
+          <input type="search" name="global-search">
+          <button class="button theme-primary" type="submit">Search</button>
+        </span>
+      </label>
+    </div>
+  </form>
+
+  <div class="main-menu__actions">
+    <button class="button button--icon-only" aria-label="Language" type="button">
+      <span class="icon icon-language" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>`}
+/>
+
+<TableLineDescBlock targetFigure="1">
+
+<TableLineDescRow targetFigure="1" lines="1">
+
+The `.main-menu--bar--{bp}` block-level selector is required.
+
+It accepts two modifiers: the variant (*bar* or *stack*) and the responsive breakpoint. At the breakpoint, the component transitions from its mobile layout to the desktop inline layout.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="2-10">
+
+The `.main-menu__logo` selector is required.
+
+It contains the website's logo and home link.
+
+When using a single-color `<svg>` for the logo, the `data-logo="brand"` attribute placed on the `<a>` tag sets the SVG fill color to `currentColor`. This is useful when a theme color utility is present on a parent element.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="12-44">
+
+The `.main-menu__nav` selector is required.
+
+The `id` attribute must match the `aria-controls` value of the associated mobile toggle button found within `.main-menu__toggle`.
+
+Include `aria-label` on the `<nav>` tag to provide a descriptive name for assistive technology.
+
+Learn about <a href="/docs/dropdown/">dropdowns</a>.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="46-70">
+
+The `.main-menu__toggle` selector is required.
+
+It contains the mobile toggle buttons for the menu and search. Both are visible on mobile and hidden at the component's breakpoint.
+
+The search toggle button is only needed in the Main Menu Bar. In the Main Menu Stack, the search field remains visible from mobile to desktop.
+
+Each button uses `data-toggle="collapse"` and `data-target-close` to mutually dismiss the other panel when opened.
+
+Learn about <a href="/docs/collapse/">collapse</a>.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="72-85">
+
+The `.main-menu__search` selector is optional.
+
+The `role="search"` attribute on the `<form>` tag is present for assistive technology.
+
+The `data-focus-first` attribute moves focus to the search input when the field is revealed.
+
+Learn about <a href="/docs/form/#form-entries">form entries</a>.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="87-96">
+
+The `.main-menu__actions` selector is optional.
+
+It contains action buttons that should persist on every page (e.g. *Sign In*, *Translate*).
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+</Section>
+
+---
+
+<Section id="main-menu-stack">
+
+<TextBlock>
+
+## Main Menu Stack
+
+The `.main-menu--stack--{bp}` selector places the main menu *below* the logo row, spanning the full width of the component. On desktop the logo row displays alongside the search and actions areas. The menu appears beneath on its own full-width row.
+
+</TextBlock>
+
+<TextBlock>
+
+Both variants use the same HTML markup and child selectors. The only differences in the stack variant are:
+
+1. The parent class is `.main-menu--stack--{bp}` instead of `.main-menu--bar--{bp}`
+2. The `<nav>` element is placed *last* in source order, after the toggle, search, and actions areas
+3. The search toggle button inside `.main-menu__toggle` is *not* required — the search field remains visible from mobile to desktop
+
+</TextBlock>
+
+<Browser exampleName="Main Menu Stack Example" utilities="wide">
+    <MainMenu idPrefix="main-menu-stack-example" variant="stack" />
+</Browser>
+
+<FigureExample
+    figureNumber="2"
+    figureWidth="wide"
+    lineAnnotations={[
+        { range: '1' },
+        { range: '29-31' },
+    ]}
+    code={`<div class="main-menu--stack--lg">
+  <div class="main-menu__logo">
+    <a href="#1" title="Home" data-logo="brand">
+      <!-- SVG logo -->
+    </a>
+  </div>
+
+  <div class="main-menu__toggle">
+    <button
+      class="button button--icon-only"
+      aria-label="Menu"
+      data-toggle="collapse"
+      aria-controls="main-menu"
+      aria-expanded="false"
+      type="button"
+    >
+      <span class="icon icon-menu" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <form class="main-menu__search" role="search">
+    <!-- Search field -->
+  </form>
+
+  <div class="main-menu__actions">
+    <!-- Action buttons -->
+  </div>
+
+  <nav class="main-menu__nav" id="main-menu" aria-label="Main Menu">
+    <!-- Navigation links -->
+  </nav>
+</div>`}
+/>
+
+<TableLineDescBlock targetFigure="2">
+
+<TableLineDescRow targetFigure="2" lines="1">
+
+The `.main-menu--stack--{bp}` selector is the only required change from the bar variant.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="2" lines="29-31">
+
+In the stack variant, the `.main-menu__nav` `<nav>` is placed *last* in source order.
+
+The CSS grid layout positions it below the logo row regardless of source order, but placing it last ensures a logical reading order for assistive technology.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Main menu styles can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+    figureNumber="3"
+    properties={[
+        {
+            property: 'main-menu-padding-x',
+            defaultValue: 'var(--container-padding-x)',
+            purpose: 'Left and right padding of the main menu global header.',
+        },
+        {
+            property: 'main-menu-padding-y',
+            defaultValue: 'var(--spacer-2)',
+            purpose: 'Top and bottom padding of the main menu global header.',
+        },
+        {
+            property: 'main-menu-search-width',
+            defaultValue: '300px',
+            purpose: 'Desktop width of the main menu search area.',
+        },
+    ]}
+/>
+
+</Section>

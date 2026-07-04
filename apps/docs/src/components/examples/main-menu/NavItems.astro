@@ -1,0 +1,67 @@
+---
+import MegaMenu from './MegaMenu.astro';
+
+interface Props {
+  dropdownId: string;
+  megaMenuId: string;
+  hasMegaMenu?: boolean;
+}
+
+const {
+  dropdownId,
+  megaMenuId,
+  hasMegaMenu = false,
+} = Astro.props;
+---
+
+<ul>
+  <li>
+    {hasMegaMenu ? (
+      <>
+        <button
+          class="dropdown"
+          data-toggle="dropdown"
+          aria-controls={megaMenuId}
+          aria-expanded="false"
+          data-hover="true"
+          type="button"
+        >
+          <span class="text">Dropdown</span>
+        </button>
+        <div class="mega-menu--lg padding-4" id={megaMenuId}>
+          <MegaMenu />
+        </div>
+      </>
+    ) : (
+      <>
+        <button
+          class="dropdown"
+          data-toggle="dropdown"
+          aria-controls={dropdownId}
+          aria-expanded="false"
+          data-hover="true"
+          type="button"
+        >
+          <span class="text">Dropdown</span>
+        </button>
+        <ul class="dropdown__menu box-shadow-1--lg" id={dropdownId}>
+          <li>
+            <a href="#1">Link</a>
+          </li>
+          <li>
+            <a href="#1">Link</a>
+          </li>
+          <li>
+            <a href="#1">Link</a>
+          </li>
+        </ul>
+      </>
+    )}
+  </li>
+  <li>
+    <a href="#1">Link</a>
+  </li>
+  <li>
+    <a href="#1">Link</a>
+  </li>
+</ul>

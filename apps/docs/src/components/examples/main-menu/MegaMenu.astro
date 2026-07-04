@@ -1,0 +1,33 @@
+---
+const columns = [
+  {
+    title: 'Orci Sagittis',
+    links: ['Diam Maecenas', 'Maecenas', 'Accumsan'],
+  },
+  {
+    title: 'Mi Bibendum',
+    links: ['Arcu Vitae', 'Congue', 'Egestas'],
+  },
+  {
+    title: 'Orci Sagittis',
+    links: ['Diam Maecenas', 'Maecenas', 'Accumsan'],
+  },
+  {
+    title: 'Mi Bibendum',
+    links: ['Arcu Vitae', 'Congue', 'Egestas'],
+  },
+];
+---
+
+<div class="grid grid--column-4--lg gap-4 font-size-md">
+  {columns.map(({ title, links }) => (
+    <nav>
+      <p><strong>{title}</strong></p>
+      <ul class="nav">
+        {links.map((link) => (
+          <li><a href="#1">{link}</a></li>
+        ))}
+      </ul>
+    </nav>
+  ))}
+</div>

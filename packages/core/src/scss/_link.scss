@@ -83,19 +83,4 @@ In this file:
         }
     }
 
-    // Link Expanded  
-
-    .link-expanded {
-        &::before {
-            position: absolute;
-            content: "";
-            
-            inset: 0;
-            
-            z-index: 1;
-
-            pointer-events: auto;
-        }
-    }
-
 } // end @layer

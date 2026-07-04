@@ -11,6 +11,13 @@ All notable changes to this project will be documented in this file.
 #### Images
 - Update `.backdrop__media` media sizing to include `picture` elements alongside `img` and `video`, preserving aspect ratios for optimized image output.
 - Add default `.card__media > img` sizing so card media images span their container width while preserving their natural aspect ratio.
+- Add default `.lightbox-thumbnail :is(img, picture)` sizing so thumbnail media spans the trigger width while preserving its natural aspect ratio.
+
+#### Modal
+- Add the missing `--modal-padding` default so the modal container padding and content max-height calculation resolve without requiring a spacing utility.
+
+#### Link
+- Remove the legacy `.link-expanded` utility and stop extending it inside split dropdown links.
 
 ---
 

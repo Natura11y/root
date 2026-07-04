@@ -13,3 +13,295 @@ relatedPages:
   - "Lightbox"
   - "Accessibility"
 ---
+
+import Dialog from '../../components/examples/modal/Dialog.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+Present actionable content to visitors with dismissable modal dialog overlays.
+
+</TextBlock>
+
+<AccessibilitySpotlight>
+
+Modals have keyboard support for focusable elements. Use the *Tab* and *Shift + Tab* keys without leaving the modal by accident. Using the *Esc* key closes the modal.
+
+When a modal closes, keyboard users return to the last active element in the document.
+
+Include *role="dialog"* on the modal content element.
+
+Provide an accessible name with *aria-labelledby*, referring to the modal title element.
+
+</AccessibilitySpotlight>
+
+</Section>
+
+---
+
+<Section id="default-behavior">
+
+<TextBlock>
+
+## Default Behavior
+
+Use the button below to launch the modal component with default behavior. Modals center horizontally and vertically. Content within the `.modal__content__body` selector scrolls (vertically) when its content's height exceeds the height of the viewport.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    lineAnnotations={[
+        { range: '2-9' },
+        { range: '13-17' },
+        { range: '18-23' },
+        { range: '24-31' },
+        { range: '33-35' },
+        { range: '37-48' },
+    ]}
+    code={`<!-- Modal button -->
+<button
+  class="button theme-primary"
+  data-modal="open"
+  aria-controls="modal-example-01"
+  type="button"
+>
+  Open Modal
+</button>
+
+<!-- Modal dialog -->
+<div
+  class="modal"
+  id="modal-example-01"
+  aria-hidden="true"
+>
+  <div
+    class="modal__content narrow border-radius-2 box-shadow-3"
+    aria-labelledby="modal-example-01-title"
+    role="dialog"
+    aria-modal="true"
+  >
+    <header class="modal__content__head border-bottom">
+      <h2 class="h6" id="modal-example-01-title">
+        Modal Title One
+      </h2>
+      <button class="button button--icon-only" data-modal-close type="button">
+        <span class="icon icon-close" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <main class="modal__content__body" id="modal-example-01-content">
+      <p>...</p>
+    </main>
+
+    <footer class="modal__content__foot border-top text-color-link">
+      <ul class="nav nav--horizontal justify-content-between">
+        <li>
+          <a href="#1">Secondary Action</a>
+        </li>
+        <li>
+          <a class="button border-radius-pill" href="#1">Primary Action</a>
+        </li>
+      </ul>
+    </footer>
+  </div>
+</div>`}
+>
+    <Dialog id="modal-example-01" />
+</FigureExample>
+
+<TableLineDescBlock targetFigure="1">
+
+<TableLineDescRow targetFigure="1" lines="2-9">
+
+A button with the `data-modal="open"` attribute is required.
+
+The `aria-controls` attribute equals its associated modal's `id` attribute.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="13-17">
+
+The `.modal` selector is required.
+
+The `id` attribute equals the value of its associated button's `aria-controls` attribute.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="18-23">
+
+The `.modal__content` selector is required.
+
+It centers the modal and holds the modal's header, body, and footer selectors.
+
+The `.narrow` utility is optional. It sets the width of the modal.
+
+The `.border-radius-2` utility is optional.
+
+The `.box-shadow-3` utility is optional.
+
+The `aria-labelledby` attribute is recommended for assistive technology.
+
+The `aria-labelledby` attribute equals its associated header's `id` attribute. This header is present within `.modal__content__head`.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="24-31">
+
+The `.modal__content__head` selector is required.
+
+It holds the modal's header and close icon button.
+
+The `.border-bottom` utility is optional.
+
+The `.button` selector with the `data-modal-close` attribute closes the modal.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="33-35">
+
+The `.modal__content__body` selector is required.
+
+It holds the modal's main content.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="37-48">
+
+The `.modal__content__foot` selector is not required.
+
+It holds the modal's actionable buttons and links.
+
+The `.border-top` utility class is not required.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+</Section>
+
+---
+
+<Section id="scroll-entire-modal">
+
+<TextBlock>
+
+## Scroll Entire Modal
+
+If you wish for the entire modal to scroll, add the `.modal--scroll-all` modifier class to the `.modal` selector (Figure 2, line 1).
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    lineAnnotations={[
+        { range: '1' },
+    ]}
+    code={`<div class="modal modal--scroll-all" id="...">
+  ...
+</div>`}
+>
+    <Dialog
+        id="modal-example-scroll-all"
+        buttonText="Modal (scroll all)"
+        scrollAll
+        longContent
+    />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="close-outside">
+
+<TextBlock>
+
+## Close Outside
+
+With the `data-modal-close-outside="true"` attribute present, the modal closes when the user clicks outside of the modal content (Figure 3, line 1).
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="3"
+    lineAnnotations={[
+        { range: '1' },
+    ]}
+    code={`<div class="modal" id="..." data-modal-close-outside="true">
+  ...
+</div>`}
+>
+    <Dialog
+        id="modal-example-close-outside"
+        buttonText="Modal (close outside)"
+        closeOutside
+    />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Modal styles can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+    figureNumber="4"
+    properties={[
+        {
+            property: 'modal-padding',
+            defaultValue: 'var(--spacer-2)',
+            purpose: 'Outer padding around the modal content, used by the modal container and max-height calculation.',
+        },
+        {
+            property: 'modal-padding-x',
+            defaultValue: 'var(--spacer-2)',
+            purpose: 'Left and right padding of the modal component header, body, and footer.',
+        },
+        {
+            property: 'modal-padding-y',
+            defaultValue: 'var(--spacer-2)',
+            purpose: 'Top and bottom padding of the modal component header, body, and footer.',
+        },
+        {
+            property: 'modal-overlay-color',
+            defaultValue: '#000',
+            purpose: 'Color of the modal overlay.',
+        },
+        {
+            property: 'modal-overlay-opacity',
+            defaultValue: '0.75',
+            purpose: 'Opacity of the modal overlay.',
+        },
+        {
+            property: 'modal-z-index',
+            defaultValue: '50000',
+            purpose: 'Z-index value of the entire modal component.',
+        },
+        {
+            property: 'modal-animation-duration',
+            defaultValue: '0.35s',
+            purpose: 'Duration of the modal open and close transitions.',
+        },
+        {
+            property: 'modal-animation-translate-y',
+            defaultValue: '2rem',
+            purpose: 'Vertical translate distance used in the modal open and close animations.',
+        },
+    ]}
+/>
+
+</Section>

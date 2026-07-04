@@ -13,3 +13,143 @@ relatedPages:
   - "Get Started"
   - "Accessibility"
 ---
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+Natura11y uses the `@layer` CSS <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/@layer' LinkText='at-rule' />. This helps organize styles into layers, making it easier to manage, customize, and ensure consistency in your designs.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="cascade-layers">
+
+<TextBlock>
+
+## Cascade Layers
+
+Natura11y includes three main layers: ***base***, ***component***, and ***utility***. These layers, as shown in Figure 1, are defined in the `_layer.scss` <LinkOpenNew LinkUrl='https://github.com/cavidano/natura11y/blob/v2/src/scss/_layer.scss' LinkText='SASS partial' />.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    figureWidth="narrow"
+    codeLanguage="css"
+    codeToolbar={false}
+    code={`
+        /* Natura11y's CSS Layer Declaration */
+
+        @layer base, component, utility;
+    `}
+/>
+
+</Section>
+
+---
+
+<Section id="the-base-layer">
+
+<TextBlock>
+
+## The Base Layer
+
+The `base` layer includes all basic selectors, such as `html`, `body`, and `p` tags. It also contains targeted CSS resets where needed. Instead of using a global CSS reset, Natura11y applies specific resets in its SASS partial to ensure styles are consistent and predictable.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    figureWidth="narrow"
+    codeLanguage="css"
+    codeToolbar={false}
+    code={`
+        /* Base Layer Styles */
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        p {
+            margin: 0;
+            padding: 0;
+        }
+    `}
+/>
+
+</Section>
+
+---
+
+<Section id="the-component-layer">
+
+<TextBlock>
+
+## The Component Layer
+
+The `component` layer holds specific styles for UI components like buttons, cards, and navigation bars. By keeping component styles in their own layer, Natura11y makes it easier to maintain and override these styles without affecting the base layer.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="3"
+    figureWidth="narrow"
+    codeLanguage="css"
+    codeToolbar={false}
+    code={`
+        /* Component Layer Styles */
+
+        .button {
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .card {
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    `}
+/>
+
+</Section>
+
+---
+
+<Section id="the-utility-layer">
+
+<TextBlock>
+
+## The Utility Layer
+
+The `utility` layer includes small, reusable styles that can be applied to any element, such as margin helpers, text alignment, and display properties. These utilities are designed to be used in combination with the base and component layers to build out your design system.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="4"
+    figureWidth="narrow"
+    codeLanguage="css"
+    codeToolbar={false}
+    code={`
+        /* Utility Layer Styles */
+
+        .mt-1 {
+            margin-top: 10px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+    `}
+/>
+
+</Section>

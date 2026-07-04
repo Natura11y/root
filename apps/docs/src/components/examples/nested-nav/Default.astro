@@ -1,0 +1,52 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+---
+
+<div style={exampleStyle}>
+  <nav aria-label="Field Guide Navigation" style="max-width: 280px;">
+    <ul class="nested-nav">
+      <li>
+        <a href="#">Overview</a>
+      </li>
+      <li>
+        <a href="#" aria-current="page">American Robin</a>
+        <ul>
+          <li>
+            <a href="#">Nesting</a>
+          </li>
+          <li>
+            <a href="#">Diet</a>
+          </li>
+          <li>
+            <a href="#">Migration</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">Eastern Bluebird</a>
+        <ul>
+          <li>
+            <a href="#">Identification</a>
+            <ul>
+              <li>
+                <a href="#">Plumage</a>
+              </li>
+              <li>
+                <a href="#">Song</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">Habitat</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">Conservation</a>
+      </li>
+      <li>
+        <a href="#">Resources</a>
+      </li>
+    </ul>
+  </nav>
+</div>

@@ -1,0 +1,65 @@
+---
+import { exampleStyle } from '../../examples/shared/exampleStyles';
+import MobileIcons from './MobileIcons.astro';
+import './browser.scss';
+
+interface Props {
+  viewportType?: 'desktop' | 'mobile';
+  exampleName?: string;
+  theme?: string | null;
+  utilities?: string | null;
+}
+
+const {
+  viewportType = 'desktop',
+  exampleName = 'Example',
+  theme = null,
+  utilities = null,
+} = Astro.props;
+
+const isMobile = viewportType === 'mobile';
+---
+
+<div class:list={['browser', 'container', 'margin-y-5', utilities]}>
+  {isMobile ? (
+    <div class="browser__mobile box-shadow-3 natura11y-context">
+      <div class:list={['browser__mobile__viewport', theme]}>
+        <ul class="browser__mobile__bar">
+          <li>
+            <p>9:41</p>
+          </li>
+
+          <li>
+            <div class="browser__mobile__notch"></div>
+          </li>
+
+          <li>
+            <MobileIcons />
+          </li>
+        </ul>
+
+        <div class="browser__mobile__content" style={exampleStyle}>
+          <slot />
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div class="browser__desktop box-shadow-3">
+      <div class="browser__desktop__bar">
+        <div class="browser__desktop__buttons" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+
+        <div class="browser__desktop__tab">
+          <p>{exampleName}</p>
+        </div>
+      </div>
+
+      <div class:list={['browser__desktop__viewport', theme]} style={exampleStyle}>
+        <slot />
+      </div>
+    </div>
+  )}
+</div>

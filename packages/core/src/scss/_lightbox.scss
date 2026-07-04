@@ -143,8 +143,9 @@ In this file:
 
     cursor: pointer;
 
-    img {
+    :is(img, picture) {
       width: 100%;
+      height: auto;
     }
 
     &::after {
