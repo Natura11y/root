@@ -1,11 +1,12 @@
 ---
 import { Code } from 'astro-expressive-code/components';
+import './code-block.scss';
 
 type MarkerLineOrRange = number | { range: string };
 
 interface LineAnnotation {
   range: string;
-  label: string;
+  label?: string;
 }
 
 interface Props {
@@ -81,7 +82,7 @@ const parseLineMarkers = (value: string | null) => {
 };
 
 const markers = parseLineMarkers(highlightedLinesValue);
-const annotationMarkers = lineAnnotations.map(({ range, label }) => ({ range, label }));
+const annotationMarkers = lineAnnotations.map(({ range }) => ({ range }));
 const shouldShowLineNumbers = showLineNumbers ?? lineAnnotations.length > 0;
 ---
 
