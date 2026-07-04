@@ -1,8 +1,7 @@
 ---
-import '@natura11y-icons/natura11y-icons.css';
-import GlobalFooter from '../components/ui/GlobalFooter/GlobalFooter.astro';
-import GlobalHeader from '../components/ui/GlobalHeader/GlobalHeader.astro';
-import '../styles/global.scss';
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import BaseLayout from './BaseLayout.astro';
 
 interface Props {
   docs?: Array<{
@@ -16,7 +15,7 @@ interface Props {
   frontmatter?: {
     title?: string;
     description?: string;
-    bannerImage?: string;
+    bannerImage?: ImageMetadata;
     bannerAlt?: string;
     bannerCreditName?: string;
     bannerCreditUrl?: string;
@@ -26,89 +25,79 @@ interface Props {
 const { docs = [], currentSlug = '', frontmatter = {} } = Astro.props;
 const title = frontmatter.title ?? 'Natura11y Astro Docs Spike';
 const sortedDocs = [...docs].sort((a, b) => a.data.title.localeCompare(b.data.title));
+const bannerImage = frontmatter.bannerImage;
+const bannerAlt = frontmatter.bannerAlt ?? '';
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{title}</title>
-    {frontmatter.description && <meta name="description" content={frontmatter.description} />}
-  </head>
-  <body class="theme-canvas">
-    <div class="skip-links">
-      <a href="#primary-content">Skip to content</a>
-      <a href="#global-footer">Skip to footer</a>
-    </div>
-    <GlobalHeader />
+<BaseLayout title={title} description={frontmatter.description}>
 
-    <div class="docs-layout theme-canvas">
-      <aside class="docs-layout__nav border-right">
-        <a class="docs-layout__brand h4 text-decoration-none" href="/">
-          Natura11y
-        </a>
+  <div class="docs-layout theme-canvas">
+    
+    <aside class="docs-layout__nav border-right">
 
-        {sortedDocs.length > 0 && (
-          <nav aria-label="Documentation">
-            <ul class="nav">
-              {sortedDocs.map((doc) => (
-                <li>
-                  <a
-                    class:list={[
-                      'text-decoration-none',
-                      doc.data.slug === currentSlug && 'font-weight-bold',
-                    ]}
-                    href={`/docs/${doc.data.slug}/`}
-                    aria-current={doc.data.slug === currentSlug ? 'page' : undefined}
-                  >
-                    {doc.data.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        )}
-      </aside>
+      {sortedDocs.length > 0 && (
+        <nav aria-label="Documentation">
+          <ul class="nav">
+            {sortedDocs.map((doc) => (
+              <li>
+                <a
+                  class:list={[
+                    'text-decoration-none',
+                    doc.data.slug === currentSlug && 'font-weight-bold',
+                  ]}
+                  href={`/docs/${doc.data.slug}/`}
+                  aria-current={doc.data.slug === currentSlug ? 'page' : undefined}
+                >
+                  {doc.data.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
+    </aside>
 
-      <header class="docs-layout__banner backdrop backdrop--fixed theme-dark aspect-ratio-banner">
-        {frontmatter.bannerImage && (
-          <div class="backdrop__media">
-            <img class="opacity-40" src={frontmatter.bannerImage} alt={frontmatter.bannerAlt ?? ''} />
+    <header class="docs-layout__banner backdrop backdrop--fixed theme-dark aspect-ratio-banner">
+      {bannerImage && (
+        <div class="backdrop__media">
+          <Picture
+            class="opacity-40"
+            src={bannerImage}
+            formats={['avif', 'webp']}
+            alt={bannerAlt}
+          />
 
-            {frontmatter.bannerCreditName && (
-              <div class="backdrop__media__credit margin-1">
-                <p>
-                  <em>
-                    Photo:{' '}
-                    {frontmatter.bannerCreditUrl ? (
-                      <a class="text-decoration-underline" href={frontmatter.bannerCreditUrl} target="_blank" rel="noreferrer">
-                        {frontmatter.bannerCreditName}
-                      </a>
-                    ) : (
-                      frontmatter.bannerCreditName
-                    )}
-                  </em>
-                </p>
-              </div>
-            )}
-          </div>
-        )}
-
-        <div class="backdrop__cover">
-          <div class="container narrow">
-            <h1 class="banner-headline text-shadow">{title}</h1>
-            {frontmatter.description && (
-              <p class="font-size-md text-shadow margin-top-2">{frontmatter.description}</p>
-            )}
-          </div>
+          {frontmatter.bannerCreditName && (
+            <div class="backdrop__media__credit margin-1">
+              <p>
+                <em>
+                  Photo:{' '}
+                  {frontmatter.bannerCreditUrl ? (
+                    <a class="text-decoration-underline" href={frontmatter.bannerCreditUrl} target="_blank" rel="noreferrer">
+                      {frontmatter.bannerCreditName}
+                    </a>
+                  ) : (
+                    frontmatter.bannerCreditName
+                  )}
+                </em>
+              </p>
+            </div>
+          )}
         </div>
-      </header>
+      )}
 
-      <main class="docs-layout__body" id="primary-content">
-        <slot />
-      </main>
+      <div class="backdrop__cover">
+        <div class="container narrow">
+          <h1 class="banner-headline text-shadow">{title}</h1>
+          {frontmatter.description && (
+            <p class="font-size-md text-shadow margin-top-2">{frontmatter.description}</p>
+          )}
+        </div>
+      </div>
+    </header>
+
+    <div class="docs-layout__body">
+      <slot />
     </div>
-    <GlobalFooter />
-  </body>
-</html>
+  </div>
+</BaseLayout>
