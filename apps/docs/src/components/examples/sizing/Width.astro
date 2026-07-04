@@ -1,0 +1,15 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+
+const widths = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+---
+
+<div style={exampleStyle}>
+  <div class="subtle-fill-1 font-size-md text-align-center">
+    {widths.map((width) => (
+      <div class={`padding-1 theme-canvas border width-${width}`}>
+        <p>{width}</p>
+      </div>
+    ))}
+  </div>
+</div>

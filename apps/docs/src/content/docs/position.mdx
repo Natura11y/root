@@ -13,3 +13,66 @@ relatedPages:
   - "Backdrop"
   - "Layer"
 ---
+
+import Absolute from '../../components/examples/position/Absolute.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+Change the <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/position' LinkText='position' /> property of an element.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="position-utilities">
+
+<TextBlock>
+
+## Position Utilities
+
+Natura11y provides the following position utilities:
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    code={`
+        <div class="position-static">...</div>
+        <div class="position-relative">...</div>
+        <div class="position-absolute">...</div>
+        <div class="position-fixed">...</div>
+        <div class="position-sticky-top">...</div>
+    `}
+/>
+
+<TextBlock>
+
+### Position Absolute (Directional) Utilities
+
+You can swap the `.position-absolute` utility with any of the four directional utilities shown in Figure 2. Doing so applies the absolute position and direction at once.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    code={`
+        <div class="position-relative">
+            <div class="position-top-left">...</div>
+            <div class="position-top-right">...</div>
+            <div class="position-bottom-left">...</div>
+            <div class="position-bottom-right">...</div>
+        </div>
+    `}
+>
+    <Absolute />
+</FigureExample>
+
+</Section>

@@ -12,3 +12,195 @@ description:
 relatedPages:
   - "Color"
 ---
+
+import BoxShadow from '../../components/examples/shadow/BoxShadow.astro';
+import DropShadow from '../../components/examples/shadow/DropShadow.astro';
+import TextShadow from '../../components/examples/shadow/TextShadow.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">Introduction</h2>
+
+<TextBlock>
+
+Apply a beautiful <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow' LinkText='box shadow' /> to any block-level element.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="box-shadow-utilities">
+
+<TextBlock>
+
+## Box Shadow Utilities
+
+Natura11y's box shadow utilities come in three sizes. Each size is represented by a number: <em>1</em> for <strong><em>small</em></strong>, <em>2</em> for <strong><em>medium</em></strong>, and <em>3</em> for <strong><em>large</em></strong>.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    code={`
+        <div class="box-shadow-1">...</div>
+        <div class="box-shadow-2">...</div>
+        <div class="box-shadow-3">...</div>
+    `}
+>
+    <BoxShadow />
+</FigureExample>
+
+<TextBlock>
+
+### Breakpoint Modifiers
+
+Box shadow utilities accept <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a>.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    code={`
+        <!-- With breakpoint modifier -->
+
+        <div class="box-shadow-1--lg 👈">...</div>
+    `}
+/>
+
+</Section>
+
+---
+
+<Section id="drop-shadow-utilities">
+
+<TextBlock>
+
+## Drop Shadow Utilities
+
+Drop shadow utilities use the CSS <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/filter-function/drop-shadow' LinkText='filter: drop-shadow()' /> function. Unlike box shadows, drop shadows follow the shape of the element, making them ideal for transparent images, SVGs, and cutout shapes.
+
+Drop shadow utilities come in three sizes: <em>1</em> for <strong><em>small</em></strong>, <em>2</em> for <strong><em>medium</em></strong>, and <em>3</em> for <strong><em>large</em></strong>.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="3"
+    code={`
+        <div class="drop-shadow-1">...</div>
+        <div class="drop-shadow-2">...</div>
+        <div class="drop-shadow-3">...</div>
+    `}
+>
+    <DropShadow />
+</FigureExample>
+
+<TextBlock>
+
+### Breakpoint Modifiers
+
+Drop shadow utilities accept <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a>.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="4"
+    code={`
+        <!-- With breakpoint modifier -->
+
+        <div class="drop-shadow-1--lg 👈">...</div>
+    `}
+/>
+
+</Section>
+
+---
+
+<Section id="text-shadow-utility">
+
+<TextBlock>
+
+## Text Shadow Utility
+
+Add a soft and elegant <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow' LinkText='text shadow' /> to your typography with Natura11y's text shadow utility.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="5"
+    code={`
+        <span class="text-shadow">Your text here</span>
+    `}
+>
+    <TextShadow />
+</FigureExample>
+
+<TextBlock>
+
+### Breakpoint Modifiers
+
+Text shadow utility also accepts <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a>.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="6"
+    code={`
+        <!-- With breakpoint modifier -->
+
+        <span class="text-shadow--lg 👈">Your text here</span>
+    `}
+/>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Shadow styles can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+    figureNumber="7"
+    properties={[
+        {
+            property: 'box-shadow-hsl',
+            defaultValue: '0 0% 0%',
+            purpose: 'Hue, saturation, and lightness color values for box shadow utilities.',
+        },
+        {
+            property: 'box-shadow-base-size',
+            defaultValue: '0.5em',
+            purpose: 'Base size of the box shadow, used in multiplying the three box shadow sizes.',
+        },
+        {
+            property: 'box-shadow-base-opacity',
+            defaultValue: '0.125',
+            purpose: 'Base opacity value of the box shadow utilities.',
+        },
+        {
+            property: 'text-shadow-hsl',
+            defaultValue: '0 0% 0%',
+            purpose: 'Hue, saturation, and lightness color values for the text shadow utility.',
+        },
+        {
+            property: 'text-shadow-base-size',
+            defaultValue: '0.25rem',
+            purpose: 'Base size of the text shadow, used in multiplying the text shadow utility.',
+        },
+        {
+            property: 'text-shadow-base-opacity',
+            defaultValue: '0.5',
+            purpose: 'Base opacity value of the text shadow utility.',
+        },
+    ]}
+/>
+
+</Section>

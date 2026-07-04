@@ -13,3 +13,184 @@ relatedPages:
   - "Container"
   - "Grid"
 ---
+
+import Gap from '../../components/examples/spacing/Gap.astro';
+import Margin from '../../components/examples/spacing/Margin.astro';
+import Padding from '../../components/examples/spacing/Padding.astro';
+import SpacingValues from '../../components/examples/spacing/SpacingValues.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">Introduction</h2>
+
+<TextBlock>
+
+Natura11y provides tools for consistent <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/margin' LinkText='margin' />, <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/padding' LinkText='padding' />, and <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/gap' LinkText='gap' /> spacing across elements. These utilities ensure uniformity throughout your design.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="spacer-values">
+
+<TextBlock>
+
+## Spacing Values
+
+Spacing values range from 1 to 6, with 1 being the smallest and 6 the largest. These values follow the eight-point grid system for consistent spacing.
+
+</TextBlock>
+
+<SpacingValues />
+
+<TextBlock>
+
+### Understanding the Scale
+
+The spacing values in Natura11y are based on a base unit of `1rem` (typically 16px). Each subsequent value is a multiple of this base unit, but the increase is not linear. Instead, the values grow more significantly as they get larger. Specifically, each value is the sum of the previous two values. For example, *8 + 8 = 16*, *16 + 8 = 24*, and so on.
+
+This scaling system allows you to apply spacing that increases more quickly with larger values, providing flexibility in how much space you can create between elements.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="padding-and-margin-utilites">
+
+<TextBlock>
+
+## Padding and Margin Utilities
+
+You can apply padding or margin to all sides of an element using the `.padding-{x}` or `.margin-{x}` classes, where ***x*** equals the spacer amount (from 1 to 6). Figure 1 demonstrates different padding utilities applied to boxes.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    code={`
+        <div class="padding-1">...</div>
+        <div class="padding-2">...</div>
+        <div class="padding-3">...</div>
+        <div class="padding-4">...</div>
+        <div class="padding-5">...</div>
+        <div class="padding-6">...</div>
+    `}
+>
+    <Padding />
+</FigureExample>
+
+<TextBlock>
+
+Figure 2 shows different margin utilities applied to boxes.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    code={`
+        <div class="margin-1">...</div>
+        <div class="margin-2">...</div>
+        <div class="margin-3">...</div>
+        <div class="margin-4">...</div>
+        <div class="margin-5">...</div>
+        <div class="margin-6">...</div>
+    `}
+>
+    <Margin />
+</FigureExample>
+
+<TextBlock>
+
+### Direction-Specific Utilities
+
+Apply padding or margin to a specific side, top and bottom, or left and right of an element. Figure 3 provides examples of these directional utilities with a spacer value of *2*.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="3"
+    code={`
+        <!-- Single side only (top, right, bottom, left) -->
+
+        <div class="padding-top-2">...</div>
+        <div class="padding-right-2">...</div>
+        <div class="padding-bottom-2">...</div>
+        <div class="padding-left-2">...</div>
+
+        <div class="margin-top-2">...</div>
+        <div class="margin-right-2">...</div>
+        <div class="margin-bottom-2">...</div>
+        <div class="margin-left-2">...</div>
+
+        <!-- Top and bottom only -->
+        <div class="padding-y-2">...</div>
+        <div class="margin-y-2">...</div>
+
+        <!-- Left and right only -->
+        <div class="padding-x-2">...</div>
+        <div class="margin-x-2">...</div>
+
+        <!-- Centering with margin -->
+        <div class="margin-x-auto">...</div>
+    `}
+/>
+
+<TextBlock>
+
+### Breakpoint Modifiers
+
+Natura11y's padding and margin utilities also support <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a> for responsive designs.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="4"
+    code={`
+        <!-- With breakpoint modifiers -->
+
+        <div class="padding-1 padding-4--lg">...</div>
+        <div class="margin-1 margin-4--lg">...</div>
+    `}
+/>
+
+</Section>
+
+---
+
+<Section id="gap-utilities">
+
+<TextBlock>
+
+## Gap Utilities
+
+Apply the `.gap-{x}` utility class to <a href="/docs/grid/">grid</a> and <a href="/docs/flex/">flex</a> selectors. Here <em><strong>x</strong></em> equals the gap value. Gap value include spacer values and the global border width (e.g., `.gap-border`).
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="11"
+    highlightedLines="1,5"
+    code={`
+        <div class="grid gap-2">
+            ...
+        </div>
+
+        <!-- All gap utilities: -->
+
+        <div class="grid gap-border">...</div>
+        <div class="grid gap-1">...</div>
+        <div class="grid gap-2">...</div>
+        <div class="grid gap-3">...</div>
+        <div class="grid gap-4">...</div>
+        <div class="grid gap-5">...</div>
+        <div class="grid gap-6">...</div>
+    `}
+>
+    <Gap />
+</FigureExample>
+
+</Section>

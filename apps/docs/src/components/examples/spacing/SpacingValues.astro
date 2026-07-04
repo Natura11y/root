@@ -1,0 +1,45 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+
+const spacers = [
+  { name: 'spacer-1', value: 8 },
+  { name: 'spacer-2', value: 16 },
+  { name: 'spacer-3', value: 24 },
+  { name: 'spacer-4', value: 40 },
+  { name: 'spacer-5', value: 64 },
+  { name: 'spacer-6', value: 104 },
+];
+---
+
+<div style={exampleStyle}>
+  <div class="container narrow--md">
+    <table class="table table--edge">
+      <thead>
+        <tr>
+          <th>Local Variable</th>
+          <th>Value</th>
+          <th class="text-align-center">Visual Size</th>
+        </tr>
+      </thead>
+      <tbody>
+        {spacers.map((spacer) => (
+          <tr>
+            <td>
+              <div>{spacer.name}</div>
+            </td>
+            <td>
+              <div>{spacer.value}</div>
+            </td>
+            <td class="text-align-center">
+              <div
+                class="display-inline-block theme-primary"
+                style={`width: ${spacer.value}px; height: ${spacer.value}px;`}
+                aria-hidden="true"
+              />
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>

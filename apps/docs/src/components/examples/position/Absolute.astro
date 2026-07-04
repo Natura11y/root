@@ -1,0 +1,24 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+
+const positions = [
+  'position-top-left',
+  'position-top-right',
+  'position-bottom-left',
+  'position-bottom-right',
+];
+---
+
+<div style={exampleStyle}>
+  <div class="grid gap-3 font-size-md">
+    {positions.map((position) => (
+      <div class="position-relative subtle-fill-1" style="height: 240px;">
+        <div class={`${position} padding-x-3 padding-y-2 theme-canvas border`}>
+          <p>
+            <code>{`.${position}`}</code>
+          </p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

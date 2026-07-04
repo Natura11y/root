@@ -1,0 +1,17 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+
+const shadows = [1, 2, 3];
+---
+
+<div style={exampleStyle}>
+  <div class="grid gap-5 text-align-center font-size-md">
+    {shadows.map((shadow) => (
+      <div class={`padding-x-2 padding-y-3 box-shadow-${shadow}`}>
+        <p>
+          <code>{`.box-shadow-${shadow}`}</code>
+        </p>
+      </div>
+    ))}
+  </div>
+</div>

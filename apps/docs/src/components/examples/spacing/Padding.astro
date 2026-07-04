@@ -1,0 +1,18 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+
+const spacers = [1, 2, 3, 4, 5, 6];
+---
+
+<div style={exampleStyle}>
+  <div class="grid gap-2 font-size-md text-align-center">
+    {spacers.map((spacer) => (
+      <div class={`padding-${spacer} subtle-fill-1 border`}>
+        <p class="margin-bottom-1">Padding value {spacer} (all sides)</p>
+        <p>
+          <code>{`.padding-${spacer}`}</code>
+        </p>
+      </div>
+    ))}
+  </div>
+</div>

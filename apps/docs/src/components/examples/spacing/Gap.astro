@@ -1,0 +1,23 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+
+const items = ['01', '02', '03', '04', '05', '06'];
+---
+
+<div style={exampleStyle}>
+  <div class="grid gap-3">
+    <div>
+      <p class="font-size-md margin-bottom-2">
+        The <code>.grid</code> selector with <code>.gap-2</code> applied:
+      </p>
+
+      <div class="grid grid--column-3 gap-2">
+        {items.map((item) => (
+          <div class="theme-light padding-2 border font-size-md text-align-center">
+            <p>{item}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>

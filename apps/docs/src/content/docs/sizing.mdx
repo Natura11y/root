@@ -13,3 +13,114 @@ relatedPages:
   - "Container"
   - "Grid"
 ---
+
+import Height from '../../components/examples/sizing/Height.astro';
+import Width from '../../components/examples/sizing/Width.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">Introduction</h2>
+
+<TextBlock>
+
+Set specific <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/width' LinkText='width' /> and <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/height' LinkText='height' /> values to an element.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="width-utilities">
+
+<TextBlock>
+
+## Width Utilities
+
+Natura11y provides the following width utilities. Number values represent a percentage. For example, the <code>.width-50</code> utility makes its selector 50% of its parent.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    code={`
+        <div class="width-10">...</div>
+        <div class="width-20">...</div>
+        <div class="width-25">...</div>
+        <div class="width-30">...</div>
+        <div class="width-40">...</div>
+        <div class="width-50">...</div>
+        <div class="width-60">...</div>
+        <div class="width-70">...</div>
+        <div class="width-75">...</div>
+        <div class="width-80">...</div>
+        <div class="width-90">...</div>
+        <div class="width-100">...</div>
+        <div class="width-auto">...</div>
+    `}
+>
+    <Width />
+</FigureExample>
+
+<TextBlock>
+
+### Breakpoint Modifiers
+
+Width Utilities accept <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a>.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    code={`
+        <!-- With breakpoint modifier -->
+
+        <div class="width-75--lg 👈">...</div>
+    `}
+/>
+
+</Section>
+
+---
+
+<Section id="height-utilities">
+
+<TextBlock>
+
+## Height Utilities
+
+Natura11y provides only two height utilities:
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="3"
+    code={`
+        <div class="height-100">...</div>
+
+        <!-- 100% height of viewport -->
+        <div class="height-100vh">...</div>
+    `}
+>
+    <Height />
+</FigureExample>
+
+<TextBlock>
+
+### Breakpoint Modifiers
+
+Height utilities accept <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a>.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="4"
+    code={`
+        <!-- With breakpoint modifier -->
+
+        <div class="height-100--lg">...</div>
+        <div class="height-100vh--lg">...</div>
+    `}
+/>
+
+</Section>
