@@ -15,8 +15,8 @@
     "build-storybook": "storybook build -c apps/storybook/.storybook",
     "build:core": "npm --workspace @natura11y/core run build",
     "start:core": "npm --workspace @natura11y/core run start",
-    "docs:astro": "cd apps/docs-astro && astro dev --port 4321",
-    "build:docs-astro": "cd apps/docs-astro && astro build"
+    "docs": "cd apps/docs && astro dev --port 4321",
+    "build:docs": "cd apps/docs && astro build"
   },
   "devDependencies": {
     "@astrojs/mdx": "^7.0.2",

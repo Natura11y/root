@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = 'Natura11y Inclusive Framework';
+const description =
+  'Natura11y is a user-friendly front end ecosystem. Natura11y provides bleeding-edge CSS, modern JavaScript, and its own icon library. Get started using CDNs, NPM, or Webpack. Start creating amazing web experiences with Natura11y.';
+
+const features = [
+  {
+    headline: 'Accessibility',
+    description:
+      'Build websites everyone can use. Natura11y comes packed with accessibility features right out of the box.',
+    image: '/docs-assets/banner/accessibility.jpg',
+    altText: 'A giraffe reaching for a leaf',
+    href: '/docs/accessibility/',
+  },
+  {
+    headline: 'Customizable CDN',
+    description:
+      "Customize styles with simple CSS variables using Natura11y's CDN. Skip the Sass compilers and get straight to building.",
+    image: '/docs-assets/banner/customization.jpg',
+    altText: 'Close up of a beautiful chameleon',
+    href: '/docs/customization/',
+  },
+  {
+    headline: 'Dynamic Color System',
+    description:
+      'Beyond Dark Mode: Apply color themes to entire pages or components, even at specific breakpoints.',
+    image: '/docs-assets/banner/color.jpg',
+    altText: 'Yellow, blue, red, and green bird in close-up photograph',
+    href: '/docs/color/',
+  },
+  {
+    headline: 'Figma UI Kit',
+    description:
+      "Natura11y's free Figma UI Kit is perfect for design exploration or building a complete design system from the ground up.",
+    image: '/docs-assets/banner/figma.jpg',
+    altText: 'A plate of figs on a tablecloth',
+    href: '/docs/figma/',
+  },
+  {
+    headline: 'Navigation',
+    description:
+      'Build responsive navigation systems with ready-made headers, menus, dropdowns, and breadcrumbs.',
+    image: '/docs-assets/banner/navigation.jpg',
+    altText: 'A flock of snow geese flying in the sky',
+    href: '/docs/navigation/',
+  },
+  {
+    headline: 'Open Source Icon Library',
+    description:
+      'Access 100+ open-source icons, or build your own custom icon font, all without creating an account or paying a dime.',
+    image: '/docs-assets/banner/icon.jpg',
+    altText: 'A silhouette of a parrot on bare branches',
+    href: '/icons/',
+  },
+  {
+    headline: 'React Starter Components',
+    description:
+      "Jumpstart your next React project with Naturally's starter components. Use exact same CSS as Naturally's HTML components.",
+    image: '/docs-assets/banner/react.jpg',
+    altText: 'Two great black-backed gulls on a rocky beach',
+    href: '/docs/react/',
+  },
+  {
+    headline: 'RTL Support',
+    description:
+      'Create layouts that flow naturally in any reading direction. Natura11y ships with full right-to-left language support.',
+    image: '/docs-assets/banner/rtl.jpg',
+    altText: 'A crab on a rock in Cuba',
+    href: '/docs/rtl/',
+  },
+  {
+    headline: 'Typography',
+    description:
+      'Naturally makes typography effortless. Two variables control your entire scale and adapt seamlessly across breakpoints.',
+    image: '/docs-assets/banner/typography.jpg',
+    altText: 'Dead trees in the Namib Desert',
+    href: '/docs/typography/',
+  },
+];
+---
+
+<BaseLayout title={title} description={description}>
+
+  <section class="backdrop theme-dark backdrop--stack--lg">
+    <div class="backdrop__media">
+      <img
+        class="opacity-40"
+        src="/docs-assets/home/banner-introduction.jpg"
+        alt="A hummingbird pollinating a flower"
+      />
+      <div class="backdrop__media__credit margin-1">
+        <p>
+          <em>
+            Photo:{' '}
+            <a
+              class="text-decoration-underline"
+              href="https://unsplash.com/@zmachacek"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Photo credit Zdenek Machacek (opens in a new tab)"
+            >
+              Zdenek Machacek
+            </a>
+          </em>
+        </p>
+      </div>
+    </div>
+
+    <div class="backdrop__cover">
+
+      <div class="container wide margin-y-5">
+
+        <h1 class="banner-headline text-align-center margin-x-auto text-shadow--lg width-80--xl margin-bottom-4">
+          Natura11y helps you make websites beautiful <em>and</em> accessible
+        </h1>
+
+        <div class="container narrow">
+          <div class="grid narrow grid--column-2--md gap-3">
+            <a class="button theme-canvas" href="/docs/get-started/">
+              <span class="text">Get Started</span>
+            </a>
+            <a class="button theme-primary" href="/examples/">
+              <span class="text">Explore Examples</span>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  
+  </section>
+
+  <section class="overflow-hidden">
+    <div class="margin-y-5">
+      <div class="container narrow margin-bottom-5 text-align-center">
+        <h2>An Open Source Design ECOsystem</h2>
+
+        <p>
+          Natura11y empowers you with modern tools, ready-to-use components, and
+          accessibility resources to build websites and scalable design systems.
+        </p>
+
+        <img
+          class="home-ecosystem-logos"
+          src="/docs-assets/home/ecosystem-logos.svg"
+          alt="Naturally ecosystem powered by Webpack, HTML5, Sass, JavaScript, React, and Figma"
+        />
+      </div>
+
+      <div class="container wide--md">
+        <div class="grid grid--column-3--lg gap-2 text-align-center">
+          {features.map((feature) => (
+            <a class="card subtle-fill-1 border-radius-2 text-decoration-none" href={feature.href}>
+              <div class="card__media border-radius-2">
+                <img class="home-card-image" src={feature.image} alt={feature.altText} />
+              </div>
+
+              <div class="card__body">
+                <h3 class="h4">{feature.headline}</h3>
+                <p>{feature.description}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .home-ecosystem-logos {
+    inline-size: min(100%, 44rem);
+  }
+
+  .home-card-image {
+    aspect-ratio: 16 / 9;
+    display: block;
+    inline-size: 100%;
+    object-fit: cover;
+  }
+
+</style>
