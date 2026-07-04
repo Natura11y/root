@@ -1,0 +1,89 @@
+---
+import corePackage from '../../../../../../packages/core/package.json';
+import Logo from './Logo.astro';
+
+const version = corePackage.version;
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="font-size-md subtle-fill-1" id="global-footer">
+  <h2 class="screen-reader-only">Page Footer</h2>
+
+  <div class="container wide padding-y-5">
+    <div class="grid grid--column-5--lg gap-5">
+      <div class="grid__colspan-2--lg">
+        <div class="narrow">
+          <a
+            class="display-block margin-bottom-2"
+            aria-label="Avidano Digital"
+            rel="noreferrer"
+            target="_blank"
+            href="https://avidanodigital.com/"
+          >
+            <Logo />
+          </a>
+
+          <p>
+            Natura11y is an inclusive design ecosystem. It's created and maintained by{' '}
+            <a href="https://avidanodigital.com" target="_blank" rel="noreferrer">
+              Avidano Digital
+              <span class="icon icon-open-new" aria-hidden="true"></span>
+            </a>,
+            a strategic communications agency serving nonprofit and social impact organizations.
+          </p>
+        </div>
+      </div>
+
+      <nav aria-label="Natura11y">
+        <p class="opacity-60 margin-bottom-2">{version}</p>
+
+        <ul class="nav">
+          <li><a href="/docs/get-started/">Docs</a></li>
+          <li><a href="/icons/">Icons</a></li>
+          <li><a href="/examples/">Examples</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label="Resources">
+        <p class="opacity-60 margin-bottom-2">Resources</p>
+
+        <ul class="nav">
+          <li>
+            <a href="https://www.npmjs.com/package/natura11y" target="_blank" rel="noreferrer">
+              NPM
+              <span class="icon icon-open-new" aria-hidden="true"></span>
+            </a>
+          </li>
+          <li>
+            <a href="https://github.com/cavidano/natura11y" target="_blank" rel="noreferrer">
+              Github
+              <span class="icon icon-open-new" aria-hidden="true"></span>
+            </a>
+          </li>
+          <li>
+            <a href="https://www.figma.com/community/file/1455137800245836909" target="_blank" rel="noreferrer">
+              Figma UI Kit
+              <span class="icon icon-open-new" aria-hidden="true"></span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div>
+        <a class="button button--outline" href="#primary-content">
+          <span class="icon icon-arrow-up" aria-hidden="true"></span>
+          <span class="text">Back to top</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="padding-y-2 border-top">
+    <div class="container wide font-size-sm">
+      <div class="flex-column flex-row--md gap-1">
+        <span>&copy; {currentYear} - Natura11y Inclusive Framework.</span>
+        <span>All Rights Reserved.</span>
+      </div>
+    </div>
+  </div>
+</footer>

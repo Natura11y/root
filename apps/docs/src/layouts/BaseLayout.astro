@@ -1,5 +1,7 @@
 ---
 import '@natura11y-icons/natura11y-icons.css';
+import GlobalFooter from '../components/ui/GlobalFooter/GlobalFooter.astro';
+import GlobalHeader from '../components/ui/GlobalHeader/GlobalHeader.astro';
 import '../styles/global.scss';
 
 interface Props {
@@ -21,10 +23,15 @@ const { title, description } = Astro.props;
   </head>
   
   <body class="theme-canvas">
-    <a class="skip-link focusable-only" href="#primary-content">Skip to content</a>
+    <div class="skip-links">
+      <a href="#primary-content">Skip to content</a>
+      <a href="#global-footer">Skip to footer</a>
+    </div>
+    <GlobalHeader />
     <main id="primary-content">
       <slot />
     </main>
+    <GlobalFooter />
   </body>
 
 </html>

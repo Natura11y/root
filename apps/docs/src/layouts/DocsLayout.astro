@@ -1,5 +1,7 @@
 ---
 import '@natura11y-icons/natura11y-icons.css';
+import GlobalFooter from '../components/ui/GlobalFooter/GlobalFooter.astro';
+import GlobalHeader from '../components/ui/GlobalHeader/GlobalHeader.astro';
 import '../styles/global.scss';
 
 interface Props {
@@ -34,8 +36,12 @@ const sortedDocs = [...docs].sort((a, b) => a.data.title.localeCompare(b.data.ti
     <title>{title}</title>
     {frontmatter.description && <meta name="description" content={frontmatter.description} />}
   </head>
-  <body>
-    <a class="skip-link focusable-only" href="#primary-content">Skip to content</a>
+  <body class="theme-canvas">
+    <div class="skip-links">
+      <a href="#primary-content">Skip to content</a>
+      <a href="#global-footer">Skip to footer</a>
+    </div>
+    <GlobalHeader />
 
     <div class="docs-layout theme-canvas">
       <aside class="docs-layout__nav border-right">
@@ -103,5 +109,6 @@ const sortedDocs = [...docs].sort((a, b) => a.data.title.localeCompare(b.data.ti
         <slot />
       </main>
     </div>
+    <GlobalFooter />
   </body>
 </html>

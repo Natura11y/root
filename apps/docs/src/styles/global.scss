@@ -1,5 +1,21 @@
 @use '@natura11y/core/src/scss/index';
 
+a[data-logo='brand'] svg > g {
+  transition: fill 0.3s ease;
+}
+
+a[data-logo='brand']:is(:focus, :hover) .a11y {
+  fill: var(--primary);
+}
+
+.theme-picker {
+  --nav-divider-padding-x: 0.75em;
+
+  align-items: center;
+  margin-block: unset;
+  position: relative;
+}
+
 .docs-layout {
   min-block-size: 100dvh;
 }
