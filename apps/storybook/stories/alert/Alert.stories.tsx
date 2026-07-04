@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaAlert from '@core-js/alert';
-import Alert from '@lib/components/natura11y/alert';
+import Alert from '@lib/components/alert';
 import VanillaExample from '../../utils/VanillaExample';
 import alertMarkup from './alert.example.html?raw';
 

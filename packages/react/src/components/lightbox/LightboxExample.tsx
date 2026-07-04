@@ -1,5 +1,5 @@
 import { useEffect, useContext } from 'react';
-import { LightboxContext } from '../../../context/LightboxContext';
+import { LightboxContext } from '../../context/LightboxContext';
 import LightboxButton from './LightboxButton';
 
 const LightboxExample = () => {

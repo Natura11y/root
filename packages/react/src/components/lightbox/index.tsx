@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import classNames from 'classnames';
-import { LightboxContext } from '../../../context/LightboxContext';
+import { LightboxContext } from '../../context/LightboxContext';
 import ButtonIconOnly from '../button/ButtonIconOnly';
 import ImageWithLoading from './ImageWithLoading';
 

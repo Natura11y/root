@@ -16,7 +16,7 @@ export default defineConfig(({ command }) => {
       react(),
       ...(isPackageBuild
         ? [dts({
-            include: ['src/components/natura11y', 'src/hooks', 'src/types']
+            include: ['src/components', 'src/hooks', 'src/types']
           })]
         : [])
     ],
@@ -41,7 +41,7 @@ export default defineConfig(({ command }) => {
         emptyOutDir: true,
         lib: {
           entry: {
-            'natura11y-react': 'src/components/natura11y/index.ts',
+            'natura11y-react': 'src/components/index.ts',
             'hooks': 'src/hooks/index.ts'
           },
           formats: ['es', 'cjs'],

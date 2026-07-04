@@ -1,7 +1,7 @@
 import { createContext, useState, useRef, useEffect, type ReactNode, type RefObject } from 'react';
 import { useScrollLock } from '../hooks/useScrollLock';
 import { useStableCallback } from '../hooks/useStableCallback';
-import Lightbox from '../components/natura11y/lightbox';
+import Lightbox from '../components/lightbox';
 
 export interface MediaItem {
   lbType: string;

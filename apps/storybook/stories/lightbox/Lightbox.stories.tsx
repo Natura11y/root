@@ -1,8 +1,8 @@
 import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
 import VanillaLightbox from '@core-js/lightbox';
 import { LightboxProvider } from '@lib/context/LightboxContext';
-import Lightbox from '@lib/components/natura11y/lightbox';
-import LightboxButton from '@lib/components/natura11y/lightbox/LightboxButton';
+import Lightbox from '@lib/components/lightbox';
+import LightboxButton from '@lib/components/lightbox/LightboxButton';
 import VanillaExample from '../../utils/VanillaExample';
 import { storyMedia } from '../media';
 import lightboxMarkup from './lightbox.example.html?raw';

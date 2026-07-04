@@ -299,11 +299,10 @@ Consumer usage:
 
 ```tsx
 import { Accordion, Table } from "@natura11y/react";
-import "@natura11y/react/css";
 ```
 
 ```scss
-@use "@natura11y/react/scss";
+@use "@natura11y/core/scss";
 ```
 
 Example export map:
@@ -311,6 +310,9 @@ Example export map:
 ```json
 {
   "name": "@natura11y/react",
+  "dependencies": {
+    "@natura11y/core": "^5.1.1"
+  },
   "peerDependencies": {
     "react": "^19",
     "react-dom": "^19"
@@ -320,17 +322,14 @@ Example export map:
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
     },
-    "./css": "./dist/css/natura11y-react.css",
-    "./scss": "./scss/index.scss",
-    "./utilities": "./utilities/index.js",
-    "./utilities/*": "./utilities/*.js"
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/hooks.js"
+    }
   },
   "files": [
     "dist",
-    "scss",
-    "utilities",
-    "README.md",
-    "LICENSE"
+    "README.md"
   ]
 }
 ```

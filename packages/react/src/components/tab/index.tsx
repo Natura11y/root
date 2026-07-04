@@ -1,8 +1,8 @@
 import React, { useRef, useId, type ReactNode } from 'react';
 import classNames from 'classnames';
 import { TabContext } from './TabContext';
-import { useControlled } from '../../../hooks/useControlled';
-import { useLinearKeyNav } from '../../../hooks/useLinearKeyNav';
+import { useControlled } from '../../hooks/useControlled';
+import { useLinearKeyNav } from '../../hooks/useLinearKeyNav';
 import Tab from './Tab';
 
 interface TabsProps {

@@ -1,7 +1,7 @@
 import { useRef, type ReactNode } from 'react';
 import { AccordionContext } from './AccordionContext';
-import { useControlled } from '../../../hooks/useControlled';
-import { useLinearKeyNav } from '../../../hooks/useLinearKeyNav';
+import { useControlled } from '../../hooks/useControlled';
+import { useLinearKeyNav } from '../../hooks/useLinearKeyNav';
 import AccordionItem from './AccordionItem';
 
 interface AccordionProps {

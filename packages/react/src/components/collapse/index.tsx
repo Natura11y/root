@@ -1,7 +1,7 @@
 import { useRef, useEffect, type Ref, type ReactNode } from 'react';
 import classNames from 'classnames';
 import { getFocusableElements } from '@natura11y/core/utilities/focus';
-import { useMergedRefs } from '../../../hooks/useMergedRefs';
+import { useMergedRefs } from '../../hooks/useMergedRefs';
 
 interface CollapseProps {
   ref?: Ref<HTMLDivElement>;

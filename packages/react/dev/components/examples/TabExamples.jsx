@@ -1,4 +1,4 @@
-import Tabs from '@lib/components/natura11y/tab';
+import Tabs from '@lib/components/tab';
 
 const TabExamples = () => (
 	<Tabs>

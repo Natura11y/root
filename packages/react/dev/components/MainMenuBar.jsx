@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom';
 
-import MainMenu from '@lib/components/natura11y/main-menu';
-import Button from '@lib/components/natura11y/button';
+import MainMenu from '@lib/components/main-menu';
+import Button from '@lib/components/button';
 
 const MainMenuBar = () => {
 	const location = useLocation();

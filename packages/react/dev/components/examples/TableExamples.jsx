@@ -1,6 +1,6 @@
-import Table from '@lib/components/natura11y/table';
-import TableScroll from '@lib/components/natura11y/table/TableScroll';
-import { tableData } from '@lib/components/natura11y/table/tableData';
+import Table from '@lib/components/table';
+import TableScroll from '@lib/components/table/TableScroll';
+import { tableData } from '@lib/components/table/tableData';
 
 const { caption, headers, rows } = tableData;
 

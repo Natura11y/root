@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback, createContext, useContext, type RefObject, type ReactNode } from 'react';
 import classNames from 'classnames';
 import ButtonIconOnly from '../button/ButtonIconOnly';
-import { useScrollLock } from '../../../hooks/useScrollLock';
-import { useFocusTrap } from '../../../hooks/useFocusTrap';
+import { useScrollLock } from '../../hooks/useScrollLock';
+import { useFocusTrap } from '../../hooks/useFocusTrap';
 
 // ─── FlyoutPanel ──────────────────────────────────────────────────────────────
 // Marker component. When Flyout detects these as children it switches into

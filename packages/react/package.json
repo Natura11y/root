@@ -5,11 +5,11 @@
   "private": false,
   "main": "./dist/natura11y-react.cjs",
   "module": "./dist/natura11y-react.js",
-  "types": "./dist/components/natura11y/index.d.ts",
+  "types": "./dist/components/index.d.ts",
   "sideEffects": false,
   "exports": {
     ".": {
-      "types": "./dist/components/natura11y/index.d.ts",
+      "types": "./dist/components/index.d.ts",
       "import": "./dist/natura11y-react.js",
       "require": "./dist/natura11y-react.cjs"
     },
@@ -32,18 +32,17 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "@natura11y/core": "^5.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "dependencies": {
+    "@natura11y/core": "^5.1.1",
     "classnames": "^2.5.1"
   },
   "devDependencies": {
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^6.0.3",
-    "@natura11y/core": "^5.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^6.28.1",

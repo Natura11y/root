@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaCollapse from '@core-js/collapse';
-import Collapse from '@lib/components/natura11y/collapse';
-import Button from '@lib/components/natura11y/button';
+import Collapse from '@lib/components/collapse';
+import Button from '@lib/components/button';
 import VanillaExample from '../../utils/VanillaExample';
 import collapseMarkup from './collapse.example.html?raw';
 

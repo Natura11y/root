@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, type Ref, type ReactNode, type CSSProperties } from 'react';
 import classNames from 'classnames';
 import Icon from '../icon';
-import { useMergedRefs } from '../../../hooks/useMergedRefs';
+import { useMergedRefs } from '../../hooks/useMergedRefs';
 
 interface BackdropVideoProps {
   ref?: Ref<HTMLDivElement>;

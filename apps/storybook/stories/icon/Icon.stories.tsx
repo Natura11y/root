@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import Icon from '@lib/components/natura11y/icon';
+import Icon from '@lib/components/icon';
 import VanillaExample from '../../utils/VanillaExample';
 import iconMarkup from './icon.example.html?raw';
 

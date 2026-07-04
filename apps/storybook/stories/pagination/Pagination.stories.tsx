@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import Pagination from '@lib/components/natura11y/pagination';
+import Pagination from '@lib/components/pagination';
 import VanillaExample from '../../utils/VanillaExample';
 import paginationMarkup from './pagination.example.html?raw';
 

@@ -1,4 +1,4 @@
-import NestedNav from '@lib/components/natura11y/nested-nav';
+import NestedNav from '@lib/components/nested-nav';
 
 const navItems = [
     {

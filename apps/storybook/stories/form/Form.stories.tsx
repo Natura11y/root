@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaFormInput from '@core-js/form';
-import FormEntry from '@lib/components/natura11y/form/FormEntry';
-import FormEntrySearch from '@lib/components/natura11y/form/FormEntrySearch';
-import FormValidation from '@lib/components/natura11y/form/FormValidation';
-import RequiredIndicator from '@lib/components/natura11y/form/RequiredIndicator';
+import FormEntry from '@lib/components/form/FormEntry';
+import FormEntrySearch from '@lib/components/form/FormEntrySearch';
+import FormValidation from '@lib/components/form/FormValidation';
+import RequiredIndicator from '@lib/components/form/RequiredIndicator';
 import VanillaExample from '../../utils/VanillaExample';
 import formMarkup from './form.example.html?raw';
 

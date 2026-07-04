@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaModal from '@core-js/modal';
-import Modal from '@lib/components/natura11y/modal';
-import Button from '@lib/components/natura11y/button';
+import Modal from '@lib/components/modal';
+import Button from '@lib/components/button';
 import VanillaExample from '../../utils/VanillaExample';
 import modalMarkup from './modal.example.html?raw';
 

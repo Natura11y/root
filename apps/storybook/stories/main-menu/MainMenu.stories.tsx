@@ -2,11 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaCollapse from '@core-js/collapse';
 import VanillaDropdown from '@core-js/dropdown';
 import VanillaMainMenu from '@core-js/main-menu';
-import MainMenu from '@lib/components/natura11y/main-menu';
-import Brand from '@lib/components/natura11y/main-menu/Brand';
-import Dropdown from '@lib/components/natura11y/dropdown';
-import FormEntrySearch from '@lib/components/natura11y/form/FormEntrySearch';
-import ButtonIconOnly from '@lib/components/natura11y/button/ButtonIconOnly';
+import MainMenu from '@lib/components/main-menu';
+import Brand from '@lib/components/main-menu/Brand';
+import Dropdown from '@lib/components/dropdown';
+import FormEntrySearch from '@lib/components/form/FormEntrySearch';
+import ButtonIconOnly from '@lib/components/button/ButtonIconOnly';
 import VanillaExample from '../../utils/VanillaExample';
 import mainMenuMarkup from './main-menu.example.html?raw';
 

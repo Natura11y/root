@@ -11,7 +11,13 @@ Natura11y is an open-source front-end toolkit for building modern websites.
 ## Quick Start
 
 ```bash
-npm install @natura11y/react @natura11y/core
+npm install @natura11y/react
+```
+
+`@natura11y/core` is installed automatically as a dependency. Use it for Natura11y styles:
+
+```scss
+@use '@natura11y/core/scss';
 ```
 
 ---
@@ -66,8 +72,8 @@ function App() {
 ## Features
 
 ✅ **Uses Natura11y v5.1.1** - Latest framework with all improvements
-✅ **Shared CSS** - No duplicate stylesheets, imports from `@natura11y/core`
-✅ **Shared Utilities** - Uses natura11y's JavaScript utilities where React components need behavior
+✅ **Shared Sass/CSS** - Uses `@natura11y/core` as the customization source
+✅ **Shared Utilities** - Uses Natura11y's JavaScript utilities where React components need behavior
 ✅ **Fully Accessible** - WCAG compliant with proper ARIA attributes
 ✅ **React 19 Only** - Built with hooks and ref-as-prop component APIs
 ✅ **Fast Development** - Powered by Vite for instant HMR

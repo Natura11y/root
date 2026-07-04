@@ -1,5 +1,5 @@
 import { useContext, type ReactNode } from 'react';
-import { LightboxContext } from '../../../context/LightboxContext';
+import { LightboxContext } from '../../context/LightboxContext';
 
 interface LightboxButtonProps {
   lbType?: string;

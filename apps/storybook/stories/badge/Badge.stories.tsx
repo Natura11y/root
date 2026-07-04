@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import Badge from '@lib/components/natura11y/badge';
+import Badge from '@lib/components/badge';
 import VanillaExample from '../../utils/VanillaExample';
 import badgeMarkup from './badge.example.html?raw';
 

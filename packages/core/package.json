@@ -11,11 +11,15 @@
 	"main": "dist/natura11y.js",
 	"exports": {
 		".": "./dist/natura11y.js",
+		"./css": "./dist/natura11y.css",
+		"./scss": "./src/scss/index.scss",
+		"./scss/*": "./src/scss/*",
 		"./dist/natura11y.css": "./dist/natura11y.css",
 		"./src/scss/*": "./src/scss/*",
 		"./utilities/focus": "./src/js/utilities/focus.js",
 		"./utilities/getCurrentBreakpoint": "./src/js/utilities/getCurrentBreakpoint.js",
-		"./utilities/keyboardNavigation": "./src/js/utilities/keyboardNavigation.js"
+		"./utilities/keyboardNavigation": "./src/js/utilities/keyboardNavigation.js",
+		"./utilities/overlay": "./src/js/utilities/overlay.js"
 	},
 	"repository": {
 		"type": "git",
@@ -75,9 +79,6 @@
 		"webpack-cli": "^4.10.0",
 		"webpack-dev-server": "^4.11.1",
 		"webpack-merge": "^5.8.0"
-	},
-	"dependencies": {
-		"file-loader": "^6.2.0"
 	},
 	"browserslist": [
 		"defaults"

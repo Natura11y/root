@@ -2,7 +2,7 @@ import { useRef, useId, type Ref, type ReactNode } from 'react';
 import classNames from 'classnames';
 import ButtonIconOnly from '../button/ButtonIconOnly';
 import Icon from '../icon';
-import { useMergedRefs } from '../../../hooks/useMergedRefs';
+import { useMergedRefs } from '../../hooks/useMergedRefs';
 
 interface AlertProps {
   ref?: Ref<HTMLDivElement>;

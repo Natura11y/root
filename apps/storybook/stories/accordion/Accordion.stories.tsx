@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaAccordion from '@core-js/accordion';
-import Accordion from '@lib/components/natura11y/accordion';
+import Accordion from '@lib/components/accordion';
 import accordionMarkup from './accordion.example.html?raw';
 
 const items = [

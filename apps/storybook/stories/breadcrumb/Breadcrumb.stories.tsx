@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import Breadcrumb from '@lib/components/natura11y/breadcrumb';
+import Breadcrumb from '@lib/components/breadcrumb';
 import VanillaExample from '../../utils/VanillaExample';
 import breadcrumbMarkup from './breadcrumb.example.html?raw';
 

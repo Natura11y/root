@@ -3,7 +3,12 @@
   "version": "2.1.0",
   "description": "Open source icon library for the Natura11y Inclusive Framework.",
   "private": false,
-  "dependencies": {
+  "files": [
+    "dist",
+    "optimized-svg",
+    "README.md"
+  ],
+  "devDependencies": {
     "fantasticon": "^3.0.0",
     "svgo": "^3.0.2"
   },

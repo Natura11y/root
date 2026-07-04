@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaDropdown from '@core-js/dropdown';
-import Dropdown from '@lib/components/natura11y/dropdown';
+import Dropdown from '@lib/components/dropdown';
 import VanillaExample from '../../utils/VanillaExample';
 import dropdownMarkup from './dropdown.example.html?raw';
 

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaTab from '@core-js/tab';
-import Tabs from '@lib/components/natura11y/tab';
-import Tab from '@lib/components/natura11y/tab/Tab';
+import Tabs from '@lib/components/tab';
+import Tab from '@lib/components/tab/Tab';
 import VanillaExample from '../../utils/VanillaExample';
 import tabMarkup from './tab.example.html?raw';
 

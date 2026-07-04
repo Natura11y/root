@@ -1,6 +1,6 @@
 import { useState, useId, useRef, useCallback, type Ref } from 'react';
 import classNames from 'classnames';
-import { useMergedRefs } from '../../../hooks/useMergedRefs';
+import { useMergedRefs } from '../../hooks/useMergedRefs';
 
 interface FormEntrySearchProps {
   ref?: Ref<HTMLInputElement>;

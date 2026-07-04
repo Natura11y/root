@@ -1,10 +1,10 @@
 import { useParams } from 'react-router-dom';
 
 import AccordionExamples from './examples/AccordionExamples';
-import AlertParent from '@lib/components/natura11y/alert/AlertParent';
-import FormValidation from '@lib/components/natura11y/form/FormValidation';
-import ModalParent from '@lib/components/natura11y/modal/ModalParent';
-import LightboxExample from '@lib/components/natura11y/lightbox/LightboxExample';
+import AlertParent from '@lib/components/alert/AlertParent';
+import FormValidation from '@lib/components/form/FormValidation';
+import ModalParent from '@lib/components/modal/ModalParent';
+import LightboxExample from '@lib/components/lightbox/LightboxExample';
 import TabExamples from './examples/TabExamples';
 
 import BackdropVideoExamples from './examples/BackdropVideoExamples';

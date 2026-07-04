@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaFlyout from '@core-js/flyout';
-import Flyout from '@lib/components/natura11y/flyout';
-import Button from '@lib/components/natura11y/button';
+import Flyout from '@lib/components/flyout';
+import Button from '@lib/components/button';
 import VanillaExample from '../../utils/VanillaExample';
 import flyoutMarkup from './flyout.example.html?raw';
 

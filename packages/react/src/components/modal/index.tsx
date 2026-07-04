@@ -1,9 +1,9 @@
 import { useRef, useId, useEffect, type Ref, type ReactNode, type MouseEvent } from 'react';
 import classNames from 'classnames';
 import ButtonIconOnly from '../button/ButtonIconOnly';
-import { useMergedRefs } from '../../../hooks/useMergedRefs';
-import { useFocusTrap } from '../../../hooks/useFocusTrap';
-import { useScrollLock } from '../../../hooks/useScrollLock';
+import { useMergedRefs } from '../../hooks/useMergedRefs';
+import { useFocusTrap } from '../../hooks/useFocusTrap';
+import { useScrollLock } from '../../hooks/useScrollLock';
 import { getFocusableElements } from '@natura11y/core/utilities/focus';
 
 interface ModalProps {

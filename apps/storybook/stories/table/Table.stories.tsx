@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaTable from '@core-js/table';
-import Table from '@lib/components/natura11y/table';
-import TableScroll from '@lib/components/natura11y/table/TableScroll';
-import { tableData } from '@lib/components/natura11y/table/tableData';
+import Table from '@lib/components/table';
+import TableScroll from '@lib/components/table/TableScroll';
+import { tableData } from '@lib/components/table/tableData';
 import VanillaExample from '../../utils/VanillaExample';
 import tableMarkup from './table.example.html?raw';
 

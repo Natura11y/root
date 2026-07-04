@@ -1,4 +1,4 @@
-import BackdropVideo from '@lib/components/natura11y/backdrop';
+import BackdropVideo from '@lib/components/backdrop';
 
 // ─────────────────────────────────────────────────────────────
 // BackdropVideoExamples — shown on the /backdrop-video detail page

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import NestedNav from '@lib/components/natura11y/nested-nav';
+import NestedNav from '@lib/components/nested-nav';
 import VanillaExample from '../../utils/VanillaExample';
 import nestedNavMarkup from './nested-nav.example.html?raw';
 

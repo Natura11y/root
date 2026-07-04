@@ -1,7 +1,7 @@
-import MainMenu from '@lib/components/natura11y/main-menu';
-import Dropdown from '@lib/components/natura11y/dropdown';
-import Brand from '@lib/components/natura11y/main-menu/Brand';
-import FormEntrySearch from '@lib/components/natura11y/form/FormEntrySearch';
+import MainMenu from '@lib/components/main-menu';
+import Dropdown from '@lib/components/dropdown';
+import Brand from '@lib/components/main-menu/Brand';
+import FormEntrySearch from '@lib/components/form/FormEntrySearch';
 
 const logo = (
     <a href="/" title="Home" data-logo="brand">
