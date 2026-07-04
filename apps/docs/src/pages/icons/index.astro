@@ -1,12 +1,14 @@
 ---
 import { natura11yIcons } from '@natura11y/icons/src/data/icons.mjs';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import IconModal from '../../components/ui/IconModal/IconModal.astro';
 
 const title = 'Icons • Natura11y Inclusive Framework';
 const description =
   "Discover Natura11y's beautiful, clean open source icons - free to use with no sign-ups required. Use them as is or customize with GitHub source files for a tailored web design experience.";
 
 const icons = [...natura11yIcons].sort((a, b) => a.icon.localeCompare(b.icon));
+const getIconModalId = (className: string) => `icon-${className}-modal`;
 const iconGridStyle = [
   '--icon-size: 2.25em',
   '--button-icon-only-size: 2.5em',
@@ -73,14 +75,22 @@ const iconGridStyle = [
             data-icon-item
             data-icon-keywords={[icon.icon, icon.className, ...icon.tags].join(' ').toLowerCase()}
           >
-            <span class="button button--icon-over-text">
+            <button
+              class="button button--icon-over-text"
+              type="button"
+              data-modal="open"
+              data-icon-modal-trigger
+              data-icon-class-name={icon.className}
+              aria-controls={getIconModalId(icon.className)}
+              aria-label={`View ${icon.icon} icon details`}
+            >
               <span class="button__icon width-100">
                 <span class={`icon icon-${icon.className}`} aria-hidden="true"></span>
               </span>
               <span class="button__text font-weight-normal opacity-80">
                 {icon.className}
               </span>
-            </span>
+            </button>
           </li>
         ))}
       </ul>
@@ -95,6 +105,8 @@ const iconGridStyle = [
       </div>
     </div>
   </section>
+
+  <IconModal icons={icons} />
 
 </BaseLayout>
 
