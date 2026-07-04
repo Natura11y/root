@@ -14,3 +14,293 @@ relatedPages:
   - "Accordion"
   - "Button"
 ---
+
+import TabExample from '../../components/examples/tab/Default.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">Introduction</h2>
+
+<TextBlock>
+
+The tabs component provides a keyboard-friendly tabbed interface with flexible styling options. You can choose between **classic**, **pill**, or **generic** tabs you can customize to fit your needs.
+
+</TextBlock>
+
+<AccessibilitySpotlight>
+
+All focusable elements in tabs are included in the page *tab* sequence.
+
+Tabs have keyboard support including *Tab*, *left* and *right* arrows, *home*, and *end*.
+
+When focused, tab buttons expand the panel with *space* or *enter* keys.
+
+When clicked, tab buttons toggle the appropriate *aria-hidden* and *aria-selected* attributes.
+
+</AccessibilitySpotlight>
+
+</Section>
+
+---
+
+<Section id="classic-tabs">
+
+<TextBlock>
+
+## Classic Tabs
+
+To use the classic tab style, apply the `.tabs-nav` class. You can add the optional modifier `.tabs-nav--horizontal--{x}` to control the tab direction, where *x* is the breakpoint (e.g., `md` for medium). This allows the tabs to switch from a vertical layout to a horizontal one based on the specified screen size, ensuring consistent appearance across devices.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    highlightedLines="1,3-30,32-42"
+    code={`
+        <div class="tabs box-shadow-1" role="tablist">
+
+            <ul class="tabs-nav tabs-nav--horizontal--md">
+                <li>
+                    <button
+                        id="tab-button-example-01"
+                        aria-controls="tab-panel-example-01"
+                        aria-selected="true"
+                        role="tab">
+                            Mackerel
+                    </button>
+                </li>
+                <li>
+                    <button
+                        id="tab-button-example-02"
+                        aria-controls="tab-panel-example-02"
+                        aria-selected="false"
+                        role="tab">
+                            Classic
+                    </button>
+                </li>
+                <li>
+                    <button id="tab-button-example-03"
+                        aria-controls="tab-panel-example-03"
+                        aria-selected="false"
+                        role="tab">
+                            Ticked
+                    </button>
+                </li>
+            </ul>
+
+            <div
+                class="tabs__panel shown"
+                id="tab-panel-example-01"
+                aria-labelledby="tab-button-example-01"
+                role="tabpanel">
+                <div class="container padding-y-4">
+                    <p>
+                        The mackerel tabby pattern gives slender vertical, gently curving stripes on the sides of the body. These stripes may be continuous or broken into bars and short segments/spots, especially on the flanks and stomach. Three or five vertical lines in an 'M' shape almost always appear on the forehead, along with dark lines from the corners of the eyes, one or more crossing each cheek, and of course many stripes and lines at various angles on the neck and shoulder area, on the flanks, and around the legs and tail. Mackerel tabbies are also called 'fishbone tabbies,' probably doubly named after the mackerel fish.
+                    </p>
+                </div>
+            </div>
+
+            <div
+                class="tabs__panel"
+                id="tab-panel-example-02"
+                aria-labelledby="tab-button-example-02"
+                role="tabpanel">
+                <div class="container padding-y-4">
+                    <p>
+                        The classic tabby (also known as blotched or marbled tabby) has the 'M' pattern on the forehead but the body markings, rather than primarily thin stripes or spots, are thick curving bands in a whirled or swirled pattern with a distinctive mark on each side of the body resembling a bullseye. Classic tabby is a recessive trait. Classic tabbies are the most common type of tabby in much of the United Kingdom and the Middle East, among other places, but they are a far second in number to mackerel tabbies in most parts of the world.
+                    </p>
+                </div>
+            </div>
+
+            <div
+                class="tabs__panel"
+                id="tab-panel-example-03"
+                aria-labelledby="tab-button-example-03"
+                role="tabpanel">
+                <div class="container padding-y-4">
+                    <p>
+                        The ticked tabby pattern is due to even fields of agouti hairs, each with distinct bands of color, which break up the tabby patterning into a salt-and-pepper appearance that makes them look sand-like—thus there are few to no stripes or bands. Residual ghost striping and/or barring can often be seen on the lower legs, face, and belly and sometimes at the tail tip, as well as the standard 'M' and a long dark line running along the spine, primarily in ticked tabbies who also carry a mackerel or classic tabby allele. These types of cats come in many forms and colors.
+                    </p>
+                </div>
+            </div>
+        </div>
+    `}
+>
+    <TabExample />
+</FigureExample>
+
+<TableLineDescBlock targetFigure="1">
+
+<TableLineDescRow targetFigure="1" lines="1">
+
+The parent `.tabs` class is required.
+
+This selector uses JavaScript to group the tab buttons and panels with one another.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="3-30">
+
+The child `.tabs-nav` `<ul>` selector is required for styled tabs.
+
+With the child `.tabs-nav` selector, the `.tabs-nav--horizontal--{x}` modifier is optional. Here *x* equals its breakpoint modifier (e.g., lg for large).
+
+Each list item requires a `<button>`. The button's `id` attribute equals the value of its associated panel's `aria-labelledby` attribute.
+
+The `aria-controls` attribute equals its associated panel's `id` attribute.
+
+The `role="tab"` attribute is present on the tab button for assistive technology.
+
+The `aria-selected="true"` attribute is present on the button where its associated tab panel should be open when the page loads.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="32-42">
+
+The child `.tabs__panel` selector is required.
+
+The `id` attribute equals the value of its associated button's `aria-controls` attribute.
+
+The `aria-labelledby` attribute equals the value of its associated button's `id` attribute.
+
+The `role="tabpanel"` attribute is present on the tab panel for assistive technology.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+</Section>
+
+---
+
+<Section id="pill-tabs">
+
+<TextBlock>
+
+## Pill Tabs
+
+For pill-style tabs, use the `.tabs-nav--pill` modifier along with `.tabs-nav`. This modifier gives tabs a rounded, pill-like appearance. As with the classic tabs, you can use the `.tabs-nav--horizontal--{x}` modifier to control the tab layout at different screen sizes.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    highlightedLines="3-5"
+    code={`
+        <div class="tabs" role="tablist">
+
+            <ul class="tabs-nav 👉 tabs-nav--pill tabs-nav--horizontal--md">
+                <!-- Tab buttons -->
+            </ul>
+
+             <!-- Tab panels -->
+        </div>
+    `}
+>
+    <TabExample pill />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="generic-tabs">
+
+<TextBlock>
+
+## Generic Tabs
+
+Create a tabbed interface without the `.tabs-nav` selector. To do this, you need the `.tabs` parent class and a button for each `.tabs__panel` element. Each button should include the necessary attributes: `aria-selected`, `aria-controls`, and a unique `id`. Be sure to add `role="tab"` to each button for proper accessibility.
+
+The example below replaces `.tabs-nav` with <a href="/docs/navigation/">navigation</a>.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="3"
+    highlightedLines="3-5"
+    code={`
+        <div class="tabs" role="tablist">
+
+            <ul class="nav nav--horizontal--md">
+                <!-- Tab buttons -->
+            </ul>
+
+             <!-- Tab panels -->
+        </div>
+    `}
+>
+    <TabExample navClass="container nav nav--horizontal--md" />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Tab styles can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+    figureNumber="4"
+    properties={[
+        {
+            property: 'tab-button-padding-x',
+            defaultValue: 'var(--button-padding-x)',
+            purpose: 'Left and right padding of the tabs nav buttons.',
+        },
+        {
+            property: 'tab-button-padding-y',
+            defaultValue: 'var(--button-padding-y)',
+            purpose: 'Top and bottom padding of the tabs nav buttons.',
+        },
+        {
+            property: 'tab-nav-text-color',
+            defaultValue: 'var(--link-color, currentColor)',
+            purpose: 'Color of the text of the non-active tab buttons.',
+        },
+        {
+            property: 'tab-nav-background-color',
+            defaultValue: 'var(--subtle-fill-1)',
+            purpose: 'Background color of the tabs nav.',
+        },
+        {
+            property: 'tab-nav-active-text-color',
+            defaultValue: 'currentColor',
+            purpose: 'Color of the text of the active tab buttons.',
+        },
+        {
+            property: 'tab-nav-active-background-color',
+            defaultValue: 'transparent',
+            purpose: 'Background color of the active tab buttons.',
+        },
+        {
+            property: 'tab-nav-active-bar-size',
+            defaultValue: 'calc(var(--border-width) * 3)',
+            purpose: 'Size of the accent bar within the active tab button.',
+        },
+        {
+            property: 'tab-nav-active-bar-color',
+            defaultValue: 'currentColor',
+            purpose: 'Color of the accent bar within the active tab button.',
+        },
+        {
+            property: 'tab-nav-pill-active-text-color',
+            defaultValue: 'currentColor',
+            purpose: 'Color of the text of the pill active tab buttons.',
+        },
+        {
+            property: 'tab-nav-pill-active-background-color',
+            defaultValue: 'var(--subtle-fill-2)',
+            purpose: 'Background color of the pill active tab buttons.',
+        },
+    ]}
+/>
+
+</Section>

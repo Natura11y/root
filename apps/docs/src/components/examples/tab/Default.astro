@@ -1,0 +1,20 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+import Tab from './Tab';
+
+interface Props {
+  pill?: boolean;
+  breakpoint?: string;
+  navClass?: string | null;
+}
+
+const {
+  pill = false,
+  breakpoint = 'md',
+  navClass = null,
+} = Astro.props;
+---
+
+<div style={exampleStyle}>
+  <Tab client:load pill={pill} breakpoint={breakpoint} navClass={navClass} />
+</div>
