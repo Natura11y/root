@@ -13,3 +13,437 @@ relatedPages:
   - "Customization"
   - "Color"
 ---
+
+import BannerHeadline from '../../components/examples/typography/BannerHeadline.astro';
+import Headings from '../../components/examples/typography/Headings.astro';
+import FontSize from '../../components/examples/typography/FontSize.astro';
+import Paragraphs from '../../components/examples/typography/Paragraphs.astro';
+import TextAlign from '../../components/examples/typography/TextAlign.astro';
+import TextTransform from '../../components/examples/typography/TextTransform.astro';
+import TextDecoration from '../../components/examples/typography/TextDecoration.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+Natura11y offers a wide range of customizable typography styles. Out-of-the-box, font sizes are set using a <LinkOpenNew LinkUrl='https://type-scale.com' LinkText='type scale' />. This makes it easy to adjust all font sizes with just one variable, without needing to specify sizes for each element individually.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="banner-headline">
+
+<TextBlock>
+
+## Banner Headline
+
+The `.banner-headline` utility is named after the large headlines in newspapers that stretch across the top of the front page. This utility is useful for creating a header that is larger or visually distinct from the usual `<h1>` tag.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    code={`
+        <h1 class="banner-headline">
+            Banner Headline
+        </h1>
+    `}
+>
+    <BannerHeadline />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="headings">
+
+<TextBlock>
+
+## Section Headings
+
+Natura11y provides six levels of section headings, `<h1>` through `<h6>`. Styles for each level are consistent for a tag header (e.g. `<h1>`) and a utility class header (e.g. `.h1`).
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    code={`
+        <h1>Header 1</h1>
+        <p class="h1">Header 1</p>
+
+        <h2>Header 2</h2>
+        <p class="h2">Header 2</p>
+
+        <h3>Header 3</h3>
+        <p class="h3">Header 3</p>
+
+        <h4>Header 4</h4>
+        <p class="h4">Header 4</p>
+
+        <h5>Header 5</h5>
+        <p class="h5">Header 5</p>
+
+        <h6>Header 6</h6>
+        <p class="h6">Header 6</p>
+    `}
+>
+    <Headings />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="font-size-utilities">
+
+<TextBlock>
+
+## Font Size Utilities
+
+Easily change the font-size of text, buttons, navigation, entire forms, or any DOM element with Natura11y's font size utilities.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="3"
+    code={`
+        <p class="font-size-lg">
+            Large
+        </p>
+        <p class="font-size-rg">
+            Regular
+        </p>
+        <p class="font-size-md">
+            Medium
+        </p>
+        <p class="font-size-sm">
+            Small
+        </p>
+
+        <!-- With Breakpoint Modifier (e.g., medium breakpoint) -->
+
+        <p class="font-size-lg--md 👈">
+            Large
+        </p>
+    `}
+>
+    <FontSize />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="paragraphs">
+
+<TextBlock>
+
+## Paragraphs
+
+Below is an example of Natura11y's default `<p>` tags.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="4"
+    code={`
+        <p>
+            The <strong>Namib-Naukluft Park</strong> is a <a href="#1">national park</a> in western <a href="#1">Namibia</a> situated between the coast of the <a href="#1">Atlantic Ocean</a> and the edge of the <a href="#1">Great Escarpment</a>. It encompasses part of the <a href="#1">Namib Desert</a> (considered the world's oldest desert), the <a href="#1" title="Namibia">Naukluft mountain range</a>, and the lagoon at <a href="/wiki/Sandwich_Harbour">Sandwich Harbour</a>.
+        </p>
+
+        <p>
+            The best known area of the park and one of the main visitor attractions in Namibia is <a href="#1">Sossusvlei</a>, a clay pan surrounded by sand dunes, and <a href="#1">Sesriem</a>, a small canyon of the <a href="#1">Tsauchab</a>. The desert research station of <a href="#1">Gobabeb</a> is situated within the park.
+        </p>
+    `}
+>
+    <Paragraphs />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="text-align-utilities">
+
+<TextBlock>
+
+## Text Align Utilities
+
+Apply <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/text-align' LinkText='text-align' /> property to a selector.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="5"
+    code={`
+        <p class="text-align-left">Text align left</p>
+        <p class="text-align-center">Text align center</p>
+        <p class="text-align-right">Text align right</p>
+
+        <!-- With Breakpoint Modifier -->
+
+        <p class="text-align-left--lg 👈">Text align right</p>
+    `}
+>
+    <TextAlign />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="text-transform-utilities">
+
+<TextBlock>
+
+## Text Transform Utilities
+
+Apply <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform' LinkText='text-transform' /> property to a selector.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="6"
+    code={`
+        <p class="text-transform-uppercase">text transform capitalize</p>
+        <p class="text-transform-capitalize">text transform uppercase</p>
+        <p class="text-transform-lowercase">text transform lowercase</p>
+    `}
+>
+    <TextTransform />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="text-decoration-utilities">
+
+<TextBlock>
+
+## Text Decoration Utilities
+
+Apply <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/text-decoration' LinkText='text-decoration' /> property to a selector.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="7"
+    code={`
+        <p class="text-decoration-underline">Underline</p>
+        <p class="text-decoration-line-through">Line through</p>
+    `}
+>
+    <TextDecoration />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="natura11y-type-scale">
+
+<TextBlock>
+
+## Natura11y's Type Scale
+
+A type scale helps maintain consistent, readable font sizes across your projects and screen sizes. In Natura11y, font sizes follow a simple type scale that you can easily adjust with two properties.
+
+The first property, `--base-font-size`, controls the smallest font size. The second property, `--type-scale`, sets the multiplier used to create larger font sizes. Each size is a multiple of the one before it, based on the scale value.
+
+For more details, check out the <a href="#related-custom-properties">Related Custom Properties</a> section at the end of this page, which explains how font sizes relate to each other.
+
+</TextBlock>
+
+<TextBlock>
+
+### Responsive Fonts
+
+You can easily make fonts responsive by using a different type scale inside a `@media` or `@container` query (see Figure 9).
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="9"
+    figureWidth="narrow"
+    codeLanguage="scss"
+    code={`
+        /* Adjust the type scale at a specific screen size */
+
+        @media (max-width: 768px) {
+            :root {
+                --type-scale: 1.125 👈
+            }
+        }
+    `}
+/>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Typography styles can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+    figureNumber="10"
+    properties={[
+        {
+            property: 'body-font-family',
+            defaultValue: '"Source Sans Pro", sans-serif',
+            purpose: 'Font family applied to the entire document.',
+        },
+        {
+            property: 'header-font-family',
+            defaultValue: 'var(--body-font-family)',
+            purpose: 'Font family applied to headers.',
+        },
+        {
+            property: 'font-weight-normal',
+            defaultValue: '400',
+            purpose: 'Numeric font weight value for normal fonts.',
+        },
+        {
+            property: 'font-weight-medium',
+            defaultValue: '600',
+            purpose: 'Numeric font weight value for medium fonts.',
+        },
+        {
+            property: 'font-weight-bold',
+            defaultValue: '700',
+            purpose: 'Numeric font weight value for bold fonts.',
+        },
+        {
+            property: 'header-font-weight',
+            defaultValue: 'var(--font-weight-bold)',
+            purpose: 'Font weight applied to headers.',
+        },
+        {
+            property: 'base-font-size',
+            defaultValue: '1rem',
+            purpose: 'Smallest font size in the document.',
+        },
+        {
+            property: 'type-scale',
+            defaultValue: '1.2',
+            purpose: 'Multiplier for all font sizes in the document.',
+        },
+        {
+            property: 'font-size-sm',
+            defaultValue: 'var(--base-font-size)',
+            purpose: 'Small font size used in CSS including font size utility classes.',
+        },
+        {
+            property: 'font-size-md',
+            defaultValue: 'calc(var(--font-size-sm) * var(--type-scale))',
+            purpose: 'Medium font size used in CSS including font size utility classes.',
+        },
+        {
+            property: 'font-size-rg',
+            defaultValue: 'calc(var(--font-size-md) * var(--type-scale))',
+            purpose: 'Regular paragraph font size used in CSS including font size utility classes.',
+        },
+        {
+            property: 'font-size-lg',
+            defaultValue: 'calc(var(--font-size-rg) * var(--type-scale))',
+            purpose: 'Large font size used in CSS including font size utility classes.',
+        },
+        {
+            property: 'font-size-xl',
+            defaultValue: 'calc(var(--font-size-lg) * var(--type-scale))',
+            purpose: 'Extra large font size used in CSS including font size utility classes.',
+        },
+        {
+            property: 'h1-font-size',
+            defaultValue: 'calc(var(--h2-font-size) * var(--type-scale))',
+            purpose: 'Font size of section header level 1.',
+        },
+        {
+            property: 'h2-font-size',
+            defaultValue: 'calc(var(--h3-font-size) * var(--type-scale))',
+            purpose: 'Font size of section header level 2.',
+        },
+        {
+            property: 'h3-font-size',
+            defaultValue: 'calc(var(--h4-font-size) * var(--type-scale))',
+            purpose: 'Font size of section header level 3.',
+        },
+        {
+            property: 'h4-font-size',
+            defaultValue: 'calc(var(--h5-font-size) * var(--type-scale))',
+            purpose: 'Font size of section header level 4.',
+        },
+        {
+            property: 'h5-font-size',
+            defaultValue: 'calc(var(--h6-font-size) * var(--type-scale))',
+            purpose: 'Font size of section header level 5.',
+        },
+        {
+            property: 'h6-font-size',
+            defaultValue: 'var(--font-size-rg)',
+            purpose: 'Font size of section header level 6.',
+        },
+        {
+            property: 'banner-headline-font-size',
+            defaultValue: 'calc(var(--h1-font-size) * var(--type-scale))',
+            purpose: 'Font size of the Banner Headline utility class.',
+        },
+        {
+            property: 'banner-headline-font-weight',
+            defaultValue: 'var(--font-weight-normal)',
+            purpose: 'Font weight of the Banner Headline utility class.',
+        },
+        {
+            property: 'body-line-height',
+            defaultValue: '1.5',
+            purpose: 'Line height applied to the entire document, excluding headers.',
+        },
+        {
+            property: 'header-line-height',
+            defaultValue: '1.175',
+            purpose: 'Line height applied only to headers.',
+        },
+        {
+            property: 'paragraph-margin-bottom',
+            defaultValue: '1.25em',
+            purpose: 'Bottom margin set to paragraphs.',
+        },
+        {
+            property: 'header-margin-bottom',
+            defaultValue: '0.25em',
+            purpose: 'Bottom margin set to headers.',
+        },
+        {
+            property: 'blockquote-border-width',
+            defaultValue: 'var(--border-width)',
+            purpose: 'Border width applied to blockquotes.',
+        },
+        {
+            property: 'blockquote-border-color',
+            defaultValue: 'currentColor',
+            purpose: 'Border color applied to blockquotes.',
+        },
+        {
+            property: 'blockquote-font-size',
+            defaultValue: '1.25em',
+            purpose: 'Font size applied to blockquotes.',
+        },
+    ]}
+/>
+
+</Section>

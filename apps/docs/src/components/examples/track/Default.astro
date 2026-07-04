@@ -1,0 +1,27 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+import Track from './Track';
+
+interface Props {
+  trackId?: string;
+  utilities?: string | null;
+  floatDirectionalButtons?: boolean;
+  wide?: boolean;
+}
+
+const {
+  trackId = 'track-docs',
+  utilities = null,
+  floatDirectionalButtons = false,
+  wide = false,
+} = Astro.props;
+---
+
+<div class:list={[wide && 'wide margin-x-auto']} style={exampleStyle}>
+  <Track
+    client:load
+    trackId={trackId}
+    utilities={utilities}
+    floatDirectionalButtons={floatDirectionalButtons}
+  />
+</div>

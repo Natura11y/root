@@ -13,3 +13,252 @@ relatedPages:
   - "Backdrop"
   - "Grid"
 ---
+
+import TrackExample from '../../components/examples/track/Default.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+Introducing **Track**, Naturally's accessible carousel component. It gives you full control with responsive panels that switch between single and multi-panel views at different screen sizes.
+
+</TextBlock>
+
+<AccessibilitySpotlight>
+
+Tab navigation highlights only visible, interactive elements, ensuring smooth navigation for keyboard users.
+
+Users can move between slides using arrow keys when focused on the "previous" or "next" buttons. This keeps navigation inside the carousel.
+
+The carousel uses ARIA live regions to announce the current page. This keeps screen reader users updated on page changes in real-time.
+
+Respects `prefers-reduced-motion` — smooth scrolling between panels is disabled when this preference is active.
+
+</AccessibilitySpotlight>
+
+</Section>
+
+<FigureExample
+    figureNumber="1"
+    highlightedLines="2,3,6,8,10-24,28,30-35,37,39-44"
+    code={`
+        <section
+            class="track"
+            aria-labelledby="carousel-heading"
+        >
+
+            <h3 id="carousel-heading" class="screen-reader-only">Section Title</h3>
+
+            <div class="track__container">
+
+                <ul class="track__panels gap-2">
+
+                    <li class="track__panel">
+                        <img src="https://placehold.co/1500x750?text=One" alt="Placeholder" />
+                    </li>
+                    <li class="track__panel">
+                        <img src="https://placehold.co/1500x750?text=Two" alt="Placeholder" />
+                    </li>
+                    <li class="track__panel">
+                        <img src="https://placehold.co/1500x750?text=Three" alt="Placeholder" />
+                    </li>
+
+                    <!-- Add more panels as needed -->
+
+                </ul>
+
+            </div>
+
+            <div class="track__controls margin-y-3">
+
+                <button
+                    class="track__prev button button--icon-only"
+                    data-track-prev
+                    aria-label="Previous Slide">
+                    <span class="icon icon-arrow-left" aria-hidden="true"></span>
+                </button>
+
+                <ul class="track__pagination" data-track-pagination></ul>
+
+                <button
+                    class="track__next button button--icon-only"
+                    data-track-next
+                    aria-label="Next Slide">
+                    <span class="icon icon-arrow-right" aria-hidden="true"></span>
+                </button>
+
+            </div>
+
+        </section>
+    `}
+>
+    <TrackExample trackId="track-docs-default" />
+</FigureExample>
+
+<TableLineDescBlock targetFigure="1">
+
+<TableLineDescRow targetFigure="1" lines="2-3">
+
+The `.track` class is ***required***. It wraps the entire carousel component.
+
+The `aria-labelledby` attribute is **recommended**. It links the carousel to its title for screen readers.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="6">
+
+Use the `h3` element with the `.screen-reader-only` class to provide a title for screen readers.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="8">
+
+The `.track__container` class is ***required***. It contains the carousel panels.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="10-24">
+
+The `.track__panels` class is ***required***. This `<ul>` holds the carousel's panels.
+
+The `.gap-2` utility class is optional and adds space between the panels.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="28">
+
+The `.track__controls` class is **optional**. It holds the navigation buttons.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="30-35">
+
+The `.track__prev` button is **optional**. It moves to the previous panel.
+
+The `data-track-prev` attribute is ***required*** for JavaScript to detect the button.
+
+The `aria-label` attribute is **recommended** to provide context for screen readers.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="37">
+
+The `.track__pagination` class is **optional**. It holds pagination, which is generated dynamically with JavaScript.
+
+The `data-track-pagination` attribute is ***required*** for JavaScript to locate the pagination container.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="39-44">
+
+The `.track__next` button is **optional**. It moves to the next panel.
+
+The `data-track-next` attribute is ***required*** for JavaScript to detect the button.
+
+The `aria-label` attribute is **recommended** to support screen readers.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+---
+
+<Section id="responsive-columns">
+
+<TextBlock>
+
+## Responsive Columns
+
+To change the number of visible panels per page, add `track--column-{x}` to the `.track` selector. Replace `{x}` with the number of columns (from 1 to 8) you want.
+
+To adjust for specific breakpoints, add a <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifier</a> (e.g., `track--column-3--lg`) displays 3 columns on large screens.
+
+</TextBlock>
+
+<TrackExample
+    trackId="track-docs-responsive-columns"
+    utilities="track--column-3--lg margin-y-5"
+    floatDirectionalButtons
+/>
+
+<FigureExample
+    figureNumber="2"
+    figureWidth="narrow"
+    code={`
+        <div class="track 👉 track--column-3--lg">
+            ...
+        </div>
+    `}
+/>
+
+</Section>
+
+---
+
+<Section id="panel-peeking">
+
+<TextBlock>
+
+## Panel Peeking
+
+Panel peeking reveals a sliver of the next and previous panels, giving users a visual cue that more content exists in either direction.
+
+Like responsive columns, peeking supports breakpoint modifiers. Use `track--peeking--{bp}` to enable peeking only at a specific breakpoint and above. This lets you combine a single-column, no-peeking layout on mobile with a multi-column peeking layout on larger screens.
+
+The example below is a single panel with no peeking on small screens, then switches to three columns with peeking at the large breakpoint.
+
+</TextBlock>
+
+<TrackExample
+    trackId="track-docs-panel-peeking"
+    utilities="track--column-2--xl track--peeking--xl margin-y-5"
+    floatDirectionalButtons
+    wide
+/>
+
+<FigureExample
+    figureNumber="3"
+    figureWidth="narrow"
+    code={`
+        <div class="track 👉 track--column-2--xl track--peeking--xl">
+            ...
+        </div>
+    `}
+/>
+
+<TextBlock>
+
+When peeking is active, the track bleeds slightly outside its container's padding. Add `track--peeking-edge--{bp}` at the same breakpoint to apply a negative margin that cancels out the bleed, keeping the track visually flush with the surrounding layout.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Track styles can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+    figureNumber="4"
+    properties={[
+        {
+            property: 'panel-peeking',
+            defaultValue: 'calc(var(--container-padding-x) * 2)',
+            purpose: 'Size of the peeking reveal on either side of the active panel.',
+        },
+    ]}
+/>
+
+</Section>
