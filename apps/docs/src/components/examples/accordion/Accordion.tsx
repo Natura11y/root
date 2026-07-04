@@ -1,17 +1,17 @@
-import { Accordion, AccordionItem } from '@natura11y/react';
+import { Accordion as ReactAccordion, AccordionItem } from '@natura11y/react';
 
-interface AccordionExampleProps {
+interface AccordionProps {
   defaultOpen?: string | null;
   headingLevel?: 2 | 3 | 4 | 5 | 6 | null;
   idPrefix?: string;
 }
 
-const AccordionExample = ({
+const Accordion = ({
   defaultOpen = null,
   headingLevel = null,
   idPrefix = '',
-}: AccordionExampleProps) => (
-  <Accordion
+}: AccordionProps) => (
+  <ReactAccordion
     defaultOpen={defaultOpen ? `${idPrefix}${defaultOpen}` : null}
     headingLevel={headingLevel}
   >
@@ -35,7 +35,7 @@ const AccordionExample = ({
         many regions and habitats throughout the year.
       </p>
     </AccordionItem>
-  </Accordion>
+  </ReactAccordion>
 );
 
-export default AccordionExample;
+export default Accordion;

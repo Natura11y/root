@@ -1,0 +1,455 @@
+---
+category: a-z
+type: component
+title: Button
+slug: button
+bannerCreditName: Karl Anderson
+bannerCreditUrl: https://unsplash.com/@karlkiwi90
+bannerImage: ./banner/button.jpg
+bannerAlt: Brown mushrooms on ground
+description: Style buttons with colors, sizes, icons, and outline variants. Includes accessibility features, loading states, and button groups.
+relatedPages:
+  - Color
+  - Icon
+---
+
+import ButtonDefault from '../../components/examples/button/Default.astro';
+import Colors from '../../components/examples/button/Colors.astro';
+import FullWidth from '../../components/examples/button/FullWidth.astro';
+import Outline from '../../components/examples/button/Outline.astro';
+import BorderRadius from '../../components/examples/button/BorderRadius.astro';
+import Sizing from '../../components/examples/button/Sizing.astro';
+import TextAndIcon from '../../components/examples/button/TextAndIcon.astro';
+import Disperse from '../../components/examples/button/Disperse.astro';
+import IconOnly from '../../components/examples/button/IconOnly.astro';
+import IconOverText from '../../components/examples/button/IconOverText.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">Introduction</h2>
+
+<TextBlock>
+
+Create distinct, actionable buttons with options for icons, color, sizing, and customization.
+
+</TextBlock>
+
+<AccessibilitySpotlight>
+
+Like navigation links, buttons include visible hover and focus states for keyboard users. Icon-only buttons must include an accessible name with `aria-label`.
+
+</AccessibilitySpotlight>
+
+</Section>
+
+---
+
+<Section id="using-buttons">
+
+<TextBlock>
+
+## Using Buttons
+
+To use buttons in Natura11y, add `.button` to an `<a>` or `<button>` element. Buttons inherit the text color and font size of their parent element by default.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="1"
+  highlightedLines="2,7,12"
+  code={`
+  <!-- Link styled as a button -->
+  <a class="button" href="#1">
+    Button
+  </a>
+
+  <!-- Button element -->
+  <button class="button" type="button">
+    Button
+  </button>
+
+  <!-- Text span for underline on hover/focus -->
+  <a class="button" href="#1">
+    <span class="text">Button</span>
+  </a>
+  `}
+>
+  <ButtonDefault />
+</FigureExample>
+
+<TableLineDescBlock targetFigure="1">
+
+<TableLineDescRow targetFigure="1" lines="2,7">
+
+The `.button` class is required on the `<a>` or `<button>` element.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="12">
+
+Optionally wrap the button text in `<span class="text">` to add a visible underline when the button is hovered or focused.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+</Section>
+
+---
+
+<Section id="coloring-buttons">
+
+<TextBlock>
+
+## Coloring Buttons
+
+Add color to a `.button` selector with <a href="/docs/color/#theme-colors">theme color utilities</a>. These classes apply the button's appropriate text color automatically.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="2"
+  highlightedLines="1,5,9"
+  code={`
+  <a class="button theme-primary" href="#1">
+    Primary
+  </a>
+
+  <a class="button theme-secondary" href="#1">
+    Secondary
+  </a>
+
+  <a class="button theme-dark" href="#1">
+    Dark
+  </a>
+  `}
+>
+  <Colors />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="full-width-buttons">
+
+<TextBlock>
+
+## Full-width Buttons
+
+For buttons that span the width of their parent, add the `.width-100` utility. Do not use `.display-block`; buttons use flex for vertical centering, especially when icons are present.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="3"
+  highlightedLines="1"
+  code={`
+  <a class="button theme-primary width-100" href="#1">
+    Button
+  </a>
+  `}
+>
+  <FullWidth />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="outlined-buttons">
+
+<TextBlock>
+
+## Outlined Buttons
+
+Create a button with an outline instead of a fill. Add `.button--outline` to the `.button` selector. The outline color inherits from the button's current text color.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="4"
+  highlightedLines="1,5"
+  code={`
+  <a class="button button--outline" href="#1">
+    Button
+  </a>
+
+  <a class="button button--outline text-color-link" href="#1">
+    Button
+  </a>
+  `}
+>
+  <Outline />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="border-radius">
+
+<TextBlock>
+
+## Button Border Radius
+
+Globally, all `.button` selectors have a border radius set with `--button-border-radius`. You can also use border-radius utility classes directly on `.button` selectors.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="5"
+  highlightedLines="1,5"
+  code={`
+  <a class="button theme-primary border-radius-0 width-100" href="#1">
+    Button
+  </a>
+
+  <a class="button theme-secondary border-radius-pill width-100" href="#1">
+    Button
+  </a>
+  `}
+>
+  <BorderRadius />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="sizing-buttons">
+
+<TextBlock>
+
+## Sizing Buttons
+
+Buttons inherit font size. Padding uses relative units, so resizing a parent with a font-size utility resizes the buttons inside it.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="6"
+  highlightedLines="1"
+  code={`
+  <ul class="nav nav--horizontal font-size-sm">
+    <li>
+      <a class="button" href="#1">Button</a>
+    </li>
+    <li>
+      <a class="button" href="#1">Button</a>
+    </li>
+    <li>
+      <a class="button" href="#1">Button</a>
+    </li>
+  </ul>
+  `}
+>
+  <Sizing />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="text-and-icon-buttons">
+
+<TextBlock>
+
+## Text and Icon Buttons
+
+To include an icon in a button, add an icon element as a child of `.button`. Icons can appear before or after the text.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="7"
+  highlightedLines="2,7"
+  code={`
+  <a class="button theme-primary" href="#1">
+    <span class="icon icon-edit" aria-hidden="true"></span>
+    <span class="text">Edit</span>
+  </a>
+
+  <a class="button button--outline" href="#1">
+    <span class="icon icon-delete" aria-hidden="true"></span>
+    <span class="text">Delete</span>
+  </a>
+  `}
+>
+  <TextAndIcon />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="disperse-buttons">
+
+<TextBlock>
+
+## Disperse Buttons
+
+Create a button where the text and icon sit on opposing sides. Add `.button--disperse` to the `.button` selector. This modifier makes the button full-width of its parent by default.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="8"
+  highlightedLines="1"
+  code={`
+  <a class="button button--disperse text-color-link" href="#1">
+    <span class="text">Button</span>
+    <span class="icon icon-arrow-right" aria-hidden="true"></span>
+  </a>
+  `}
+>
+  <Disperse />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="icon-only-buttons">
+
+<TextBlock>
+
+## Icon-only Buttons
+
+For icon-only buttons, apply `.button--icon-only` to the `.button` selector. Icon-only buttons require an accessible name with `aria-label` and the icon should be hidden from assistive technology with `aria-hidden="true"`.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="9"
+  highlightedLines="1,4"
+  code={`
+  <a class="button button--icon-only" href="#1" aria-label="Home">
+    <span class="icon icon-home" aria-hidden="true"></span>
+  </a>
+
+  <a class="button button--icon-only theme-primary" href="#1" aria-label="Print">
+    <span class="icon icon-print" aria-hidden="true"></span>
+  </a>
+  `}
+>
+  <IconOnly />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="icon-over-text-buttons">
+
+<TextBlock>
+
+## Icon Over Text Buttons
+
+Position a prominent icon over smaller text with `.button--icon-over-text`. The icon and text use `.button__icon` and `.button__text` child elements.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="10"
+  highlightedLines="1,2,5,9,12"
+  code={`
+  <button class="button button--icon-over-text" type="button">
+    <span class="button__icon">
+      <span class="icon icon-home" aria-hidden="true"></span>
+    </span>
+    <span class="button__text">Home</span>
+  </button>
+
+  <button class="button button--icon-over-text" type="button">
+    <span class="button__icon theme-primary border-radius-circle">
+      <span class="icon icon-print" aria-hidden="true"></span>
+    </span>
+    <span class="button__text">Print</span>
+  </button>
+  `}
+>
+  <IconOverText />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Button styles can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+  figureNumber="11"
+  properties={[
+    {
+      property: 'button-padding-x',
+      defaultValue: '1.25em',
+      purpose: 'Left and right padding for regular buttons.',
+    },
+    {
+      property: 'button-padding-y',
+      defaultValue: '0.5em',
+      purpose: 'Top and bottom padding for regular buttons.',
+    },
+    {
+      property: 'button-target-size',
+      defaultValue: '2.5em',
+      purpose: 'Minimum target size for buttons and related controls.',
+    },
+    {
+      property: 'button-font-family',
+      defaultValue: 'var(--body-font-family)',
+      purpose: 'Font family for regular button text.',
+    },
+    {
+      property: 'button-font-weight',
+      defaultValue: 'var(--font-weight-bold)',
+      purpose: 'Font weight for regular button text.',
+    },
+    {
+      property: 'button-text-transform',
+      defaultValue: 'initial',
+      purpose: 'Text transform for regular button text.',
+    },
+    {
+      property: 'button-letter-spacing',
+      defaultValue: 'normal',
+      purpose: 'Letter spacing for regular button text.',
+    },
+    {
+      property: 'button-border-radius',
+      defaultValue: '0.25em',
+      purpose: 'Default button border radius.',
+    },
+    {
+      property: 'button-outline-border-width',
+      defaultValue: 'calc(var(--border-width) * 2)',
+      purpose: 'Outline width for `.button--outline`.',
+    },
+    {
+      property: 'button-icon-over-text-width',
+      defaultValue: '4em',
+      purpose: 'Width of `.button--icon-over-text` buttons.',
+    },
+    {
+      property: 'button-icon-over-text-border-radius',
+      defaultValue: 'var(--button-border-radius)',
+      purpose: 'Border radius of the icon container in `.button--icon-over-text`.',
+    },
+    {
+      property: 'button-icon-over-text-font-size',
+      defaultValue: '0.675em',
+      purpose: 'Font size of `.button__text` in `.button--icon-over-text`.',
+    },
+  ]}
+/>
+
+</Section>

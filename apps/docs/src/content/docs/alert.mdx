@@ -13,7 +13,7 @@ relatedPages:
   - Accessibility
 ---
 
-import AlertExample from '../../components/examples/alert/AlertExample.astro';
+import Alert from '../../components/examples/alert/Alert.astro';
 
 <Section id="introduction">
 
@@ -82,7 +82,7 @@ Each alert should include an icon to help convey its meaning. Use icons from the
   </div>
   `}
 >
-  <AlertExample idPrefix="alert-figure-1" />
+  <Alert idPrefix="alert-figure-1" />
 </FigureExample>
 
 <TableLineDescBlock targetFigure="1">
@@ -140,7 +140,7 @@ For a bolder alert look, add `--inverse` to the `alert--confirm` or `alert--warn
   </div>
   `}
 >
-  <AlertExample idPrefix="alert-figure-2" inverse />
+  <Alert idPrefix="alert-figure-2" inverse />
 </FigureExample>
 
 <TextBlock>
@@ -167,7 +167,7 @@ You can create a title-only alert by omitting the `.alert__description` element 
   </div>
   `}
 >
-  <AlertExample idPrefix="alert-figure-3" inverse hasDescription={false} />
+  <Alert idPrefix="alert-figure-3" inverse hasDescription={false} />
 </FigureExample>
 
 </Section>
@@ -221,7 +221,7 @@ Add `aria-live="assertive"` and `aria-atomic="true"` to the `.alert` element its
   </div>
   `}
 >
-  <AlertExample idPrefix="alert-figure-4" dismissable />
+  <Alert idPrefix="alert-figure-4" dismissable />
 </FigureExample>
 
 <TableLineDescBlock targetFigure="4">
@@ -280,7 +280,7 @@ For additional alert styles, you can exclude the `.alert--confirm` or `.alert--w
   </div>
   `}
 >
-  <AlertExample idPrefix="alert-figure-5" styleVariation />
+  <Alert idPrefix="alert-figure-5" styleVariation />
 </FigureExample>
 
 </Section>

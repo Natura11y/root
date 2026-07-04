@@ -1,0 +1,26 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+---
+
+<div class="flex-row gap-2 justify-content-center font-size-lg" style={exampleStyle}>
+  <button class="button button--icon-over-text" type="button">
+    <span class="button__icon">
+      <span class="icon icon-home" aria-hidden="true"></span>
+    </span>
+    <span class="button__text">Home</span>
+  </button>
+
+  <button class="button button--icon-over-text" type="button">
+    <span class="button__icon theme-primary border-radius-circle">
+      <span class="icon icon-print" aria-hidden="true"></span>
+    </span>
+    <span class="button__text">Print</span>
+  </button>
+
+  <button class="button button--icon-over-text" type="button">
+    <span class="button__icon border-radius-circle text-color-link">
+      <span class="icon icon-settings" aria-hidden="true"></span>
+    </span>
+    <span class="button__text text-color-link">Settings</span>
+  </button>
+</div>

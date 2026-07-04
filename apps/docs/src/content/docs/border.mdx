@@ -12,9 +12,9 @@ relatedPages:
   - Customization
 ---
 
-import BorderColor from '../../components/examples/border/BorderColor.astro';
-import BorderDirectional from '../../components/examples/border/BorderDirectional.astro';
-import BorderRadius from '../../components/examples/border/BorderRadius.astro';
+import Color from '../../components/examples/border/Color.astro';
+import Directional from '../../components/examples/border/Directional.astro';
+import Radius from '../../components/examples/border/Radius.astro';
 
 <Section id="introduction">
 
@@ -58,7 +58,7 @@ Add a border to all sides or a specific side of an element with Natura11y's bord
   <div class="border-left--md">...</div>
   `}
 >
-  <BorderDirectional />
+  <Directional />
 </FigureExample>
 
 </Section>
@@ -85,7 +85,7 @@ Specify a border color to a bordered element with the border color utilities (Fi
   <div class="border border-color-canvas">...</div>
   `}
 >
-  <BorderColor />
+  <Color />
 </FigureExample>
 
 <TextBlock>
@@ -103,7 +103,7 @@ Border color utilities do not have breakpoint modifiers. Directional border colo
   <div class="border border-left-color-canvas">...</div>
   `}
 >
-  <BorderColor borderType="direction" />
+  <Color borderType="direction" />
 </FigureExample>
 
 <TextBlock>
@@ -177,7 +177,7 @@ Add a border radius to any element with Natura11y's border radius utilities. Bor
   <div class="border-radius-top-1--md">...</div>
   `}
 >
-  <BorderRadius />
+  <Radius />
 </FigureExample>
 
 </Section>

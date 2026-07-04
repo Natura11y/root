@@ -13,7 +13,7 @@ relatedPages:
   - Tab
 ---
 
-import AccordionExample from '../../components/examples/accordion/AccordionExample';
+import Accordion from '../../components/examples/accordion/Accordion';
 
 <Section id="introduction">
 
@@ -92,7 +92,7 @@ The following is a basic accordion component. All accordion panels are closed by
   </div>
   `}
 >
-  <AccordionExample client:load idPrefix="accordion-default-" />
+  <Accordion client:load idPrefix="accordion-default-" />
 </FigureExample>
 
 <TableLineDescBlock targetFigure="1">
@@ -181,7 +181,7 @@ Accordion buttons can be wrapped in heading elements to support screen reader he
 </div>
   `}
 >
-  <AccordionExample client:load idPrefix="accordion-headings-" headingLevel={3} />
+  <Accordion client:load idPrefix="accordion-headings-" headingLevel={3} />
 </FigureExample>
 
 <TableLineDescBlock targetFigure="2">
@@ -242,7 +242,7 @@ You may want one accordion topic to be open when the page loads.
   </div>
   `}
 >
-  <AccordionExample client:load idPrefix="accordion-open-" defaultOpen="danaus-plexippus" />
+  <Accordion client:load idPrefix="accordion-open-" defaultOpen="danaus-plexippus" />
 </FigureExample>
 
 <TableLineDescBlock targetFigure="3">
@@ -291,7 +291,7 @@ Add a `<span>` with the `.text` class inside the button to underline the label w
   </button>
   `}
 >
-  <AccordionExample client:load idPrefix="accordion-text-" defaultOpen="danaus-plexippus" />
+  <Accordion client:load idPrefix="accordion-text-" defaultOpen="danaus-plexippus" />
 </FigureExample>
 
 </Section>
