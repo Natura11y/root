@@ -86,6 +86,9 @@ const iconGridStyle = [
       </ul>
 
       <div class="container narrow text-align-center" data-icon-no-results hidden>
+        <pre class="h2 code-font" aria-hidden="true">
+          <code data-icon-no-results-art></code>
+        </pre>
         <p class="h6">
           No results found for '<span data-icon-search-term></span>'
         </p>
@@ -104,12 +107,41 @@ const iconGridStyle = [
     const searchInput = document.querySelector<HTMLInputElement>('[data-icon-search]');
     const iconItems = Array.from(document.querySelectorAll<HTMLElement>('[data-icon-item]'));
     const noResults = document.querySelector<HTMLElement>('[data-icon-no-results]');
+    const noResultsArt = document.querySelector<HTMLElement>('[data-icon-no-results-art]');
     const searchTerm = document.querySelector<HTMLElement>('[data-icon-search-term]');
     const searchStatus = document.querySelector<HTMLElement>('[data-icon-search-status]');
+    const noResultsArtwork = [
+      `.__.
+{O,o}
+/)__)
+" "`,
+      `/\\_/\\
+( o.o )
+>^_^<`,
+      `><(((º>
+'''`,
+      ` (\\(\\
+  ( -.-)
+o_(")(")`,
+      `/\\_/\\
+(°ᴥ°)
+/  \\`,
+    ];
+    let lastNoResultsQuery = '';
 
     if (!searchInput || iconItems.length === 0) {
       return;
     }
+
+    const setNoResultsArtwork = (query: string) => {
+      if (!noResultsArt || query === lastNoResultsQuery) {
+        return;
+      }
+
+      const randomIndex = Math.floor(Math.random() * noResultsArtwork.length);
+      noResultsArt.textContent = noResultsArtwork[randomIndex] ?? noResultsArtwork[0];
+      lastNoResultsQuery = query;
+    };
 
     const filterIcons = () => {
       const query = searchInput.value.trim().toLowerCase();
@@ -128,6 +160,12 @@ const iconGridStyle = [
 
       if (noResults) {
         noResults.hidden = visibleCount > 0;
+      }
+
+      if (visibleCount === 0) {
+        setNoResultsArtwork(query);
+      } else {
+        lastNoResultsQuery = '';
       }
 
       if (searchTerm) {
