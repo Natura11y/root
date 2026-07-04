@@ -1,0 +1,43 @@
+---
+import './code-block.scss';
+
+interface Props {
+  preID?: string | null;
+  highlightedLines?: string | null;
+  codeToolbar?: boolean;
+  codeLanguage?: string;
+  codeExample?: string | null;
+  code?: string | null;
+  downloadUrl?: string | null;
+}
+
+const {
+  preID = null,
+  highlightedLines = null,
+  codeToolbar = true,
+  codeLanguage = 'html',
+  codeExample = null,
+  code = null,
+  downloadUrl = null,
+} = Astro.props;
+
+const codeText = codeExample ?? code;
+const language = codeLanguage.toLowerCase();
+---
+
+<div class="example__code">
+  {codeText ? (
+    <pre
+      id={preID ?? undefined}
+      class:list={[
+        `language-${language}`,
+        codeToolbar === false && 'hide-toolbar',
+      ]}
+      data-line={highlightedLines || undefined}
+      data-src={downloadUrl || undefined}
+      data-download-link={downloadUrl ? true : undefined}
+    ><code class={`language-${language}`}>{codeText}</code></pre>
+  ) : (
+    <p>No code provided.</p>
+  )}
+</div>

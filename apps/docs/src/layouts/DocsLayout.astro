@@ -1,6 +1,7 @@
 ---
 import { Picture } from 'astro:assets';
 import type { ImageMetadata, MarkdownHeading } from 'astro';
+import PrismLoader from '../components/docs/CodeBlock/PrismLoader.astro';
 import OnThisPage from '../components/docs/OnThisPage.astro';
 import BaseLayout from './BaseLayout.astro';
 
@@ -101,4 +102,6 @@ const bannerAlt = frontmatter.bannerAlt ?? '';
       <slot />
     </div>
   </div>
+
+  <PrismLoader />
 </BaseLayout>

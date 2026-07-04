@@ -1,5 +1,5 @@
 ---
-import CodeBlock from './CodeBlock/CodeBlock.astro';
+import CodeBlockShiki from './CodeBlockShiki/CodeBlockShiki.astro';
 
 interface Props {
   figureNumber?: string | number;
@@ -38,6 +38,7 @@ const figureId = figureNumber ? `figcaption_${figureNumber}` : undefined;
   <figure
     class:list={[
       'example',
+      'example--shiki',
       figureWidth,
       'margin-x-auto',
       'border-radius-2',
@@ -53,7 +54,7 @@ const figureId = figureNumber ? `figcaption_${figureNumber}` : undefined;
           </div>
         </div>
 
-        <CodeBlock
+        <CodeBlockShiki
           preID={figureNumber ? `code_${figureNumber}` : null}
           highlightedLines={highlightedLines}
           codeToolbar={codeToolbar}
@@ -64,7 +65,7 @@ const figureId = figureNumber ? `figcaption_${figureNumber}` : undefined;
         />
       </div>
     ) : (
-      <CodeBlock
+      <CodeBlockShiki
         preID={figureNumber ? `code_${figureNumber}` : null}
         highlightedLines={highlightedLines}
         codeToolbar={codeToolbar}

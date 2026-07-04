@@ -1,0 +1,117 @@
+---
+import { codeToHtml } from 'shiki';
+import type { ShikiTransformer } from 'shiki';
+import './code-block-shiki.scss';
+
+interface Props {
+  preID?: string | null;
+  highlightedLines?: string | null;
+  codeToolbar?: boolean;
+  codeLanguage?: string;
+  codeExample?: string | null;
+  code?: string | null;
+  downloadUrl?: string | null;
+}
+
+const {
+  preID = null,
+  highlightedLines = null,
+  codeToolbar = true,
+  codeLanguage = 'html',
+  codeExample = null,
+  code = null,
+  downloadUrl = null,
+} = Astro.props;
+
+const codeText = codeExample ?? code;
+const language = codeLanguage.toLowerCase();
+const highlightedLinesValue = highlightedLines == null ? null : String(highlightedLines);
+
+const parseHighlightedLines = (value: string | null) => {
+  const lines = new Set<number>();
+
+  if (!value) {
+    return lines;
+  }
+
+  value.split(',').forEach((part) => {
+    const [startValue, endValue] = part.split('-').map((item) => Number.parseInt(item.trim(), 10));
+
+    if (Number.isNaN(startValue)) {
+      return;
+    }
+
+    const end = endValue === undefined || Number.isNaN(endValue) ? startValue : endValue;
+
+    for (let line = startValue; line <= end; line += 1) {
+      lines.add(line);
+    }
+  });
+
+  return lines;
+};
+
+const highlightedLineNumbers = parseHighlightedLines(highlightedLinesValue);
+const shikiTransformers: ShikiTransformer[] = [
+{
+  name: 'natura11y-pre-attributes',
+  pre(node) {
+    const className = node.properties?.class;
+    const classes = Array.isArray(className)
+      ? className
+      : typeof className === 'string'
+        ? className.split(/\s+/u).filter(Boolean)
+        : [];
+
+    node.properties = {
+      ...node.properties,
+      ...(preID ? { id: preID } : {}),
+      ...(highlightedLines ? { 'data-line': highlightedLines } : {}),
+      ...(downloadUrl ? { 'data-src': downloadUrl, 'data-download-link': true } : {}),
+      class: [
+        ...classes,
+        'astro-code',
+        'shiki-code',
+        codeToolbar === false ? 'hide-toolbar' : null,
+      ].filter(Boolean),
+    };
+
+    return node;
+  },
+},
+{
+  name: 'natura11y-highlight-lines',
+  postprocess(html: string) {
+    let lineNumber = 0;
+
+    return html.replace(/<span class="line"/gu, (match) => {
+      lineNumber += 1;
+
+      return highlightedLineNumbers.has(lineNumber)
+        ? `<span class="line shiki-line-highlight" data-line-number="${lineNumber}"`
+        : match;
+    });
+  },
+},
+];
+
+const highlightedCode = codeText
+  ? await codeToHtml(codeText, {
+      lang: language,
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark',
+      },
+      defaultColor: 'light',
+      transformers: shikiTransformers,
+    })
+  : null;
+---
+
+<div class="example__code example__code--shiki">
+  {highlightedCode ? (
+    <Fragment set:html={highlightedCode} />
+  ) : (
+    <p>No code provided.</p>
+  )}
+</div>

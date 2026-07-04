@@ -14,6 +14,8 @@ relatedPages:
   - Figma
 ---
 
+import { quickStartCdnHtml } from '../mdxVars';
+
 <Section id="introduction">
 
 <TextBlock>
@@ -26,7 +28,7 @@ The Natura11y ecosystem includes:
 
 </TextBlock>
 
-<ul className="grid gap-2">
+<ul className="container narrow margin-y-4 grid gap-2">
   <li className="card subtle-fill-1">
     <div className="card__body">
       <h3>Figma UI Kit</h3>
@@ -101,7 +103,7 @@ Key features of Natura11y's CSS include:
 
 </TextBlock>
 
-<ul className="grid gap-2">
+<ul className="container narrow margin-y-4 grid gap-2">
   <li className="card subtle-fill-1">
     <div className="card__body">
       <h3>CSS Variables</h3>
@@ -161,13 +163,53 @@ Key features of Natura11y's CSS include:
 
 ## Quick Start with CDN
 
-Start using Natura11y by creating an HTML document with the required CDN links. The original Gatsby documentation includes a full annotated figure for this step.
+Start using Natura11y by creating an HTML document with the code in Figure 1. This code includes the CDN links needed to access Natura11y's styles, JavaScript, and icons.
 
 </TextBlock>
 
-<div className="subtle-fill-1 border-radius-2 padding-3">
-  <p className="margin-y-0">{'[Placeholder: convert the CDN quick-start code figure into an Astro-native shared snippet once we decide how versioned CDN URLs should be managed.]'}</p>
-</div>
+<FigureExample
+  figureNumber="1"
+  figureWidth="medium--lg"
+  highlightedLines="2,9,12,25"
+  codeExample={quickStartCdnHtml}
+/>
+
+<ShikiFigureExample
+  figureNumber="1b"
+  figureWidth="medium--lg"
+  highlightedLines="2,9,12,25"
+  codeExample={quickStartCdnHtml}
+/>
+
+<TableLineDescBlock targetFigure="1">
+
+<TableLineDescRow lines="2">
+
+The `lang="en"` attribute on the HTML tag sets the default language to English.
+
+The `dir="ltr"` attribute sets the default text direction to left to right.
+
+</TableLineDescRow>
+
+<TableLineDescRow lines="9">
+
+CDN stylesheet link to <a href="/icons/">Natura11y Icons</a>, the open-source icon library.
+
+</TableLineDescRow>
+
+<TableLineDescRow lines="12">
+
+CDN link to the latest stable version of the core stylesheet.
+
+</TableLineDescRow>
+
+<TableLineDescRow lines="25">
+
+CDN link to the latest stable core JavaScript file.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
 
 <TextBlock>
 

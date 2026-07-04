@@ -1,0 +1,52 @@
+<script is:inline>
+  window.Prism = window.Prism || {};
+  window.Prism.manual = true;
+</script>
+
+<script is:inline src="/prismjs/prism.js"></script>
+<script is:inline src="/prismjs/plugins/normalize-whitespace/prism-normalize-whitespace.js"></script>
+<script is:inline src="/prismjs/plugins/line-highlight/prism-line-highlight.js"></script>
+<script is:inline src="/prismjs/plugins/toolbar/prism-toolbar.js"></script>
+<script is:inline src="/prismjs/plugins/show-language/prism-show-language.js"></script>
+<script is:inline src="/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.js"></script>
+<script is:inline src="/prismjs/plugins/download-button/prism-download-button.js"></script>
+
+<script is:inline>
+  (() => {
+    const highlightCodeBlocks = () => {
+      if (window.Prism) {
+        window.Prism.highlightAll();
+      }
+    };
+
+    const handleCopy = (event) => {
+      const target = event.target;
+
+      if (!(target instanceof Element) || !target.closest('pre code')) {
+        return;
+      }
+
+      const selection = window.getSelection()?.toString();
+
+      if (!selection) {
+        return;
+      }
+
+      event.preventDefault();
+
+      const cleanText = selection
+        .replace(/👉\s/gu, '')
+        .replace(/\s👈/gu, '');
+
+      event.clipboardData?.setData('text/plain', cleanText);
+    };
+
+    document.addEventListener('copy', handleCopy);
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', highlightCodeBlocks, { once: true });
+    } else {
+      highlightCodeBlocks();
+    }
+  })();
+</script>

@@ -133,9 +133,7 @@ a[data-logo='brand']:is(:focus, :hover) .a11y {
 
 .docs-layout__body {
   grid-area: body;
-  margin-inline: auto;
-  max-width: var(--narrow-width);
-  padding: var(--spacer-5) var(--container-padding-x);
+  padding-block: var(--spacer-5);
 }
 
 .docs-section:first-child {

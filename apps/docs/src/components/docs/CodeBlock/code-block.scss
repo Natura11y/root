@@ -1,0 +1,434 @@
+/*
+
+In this file:
+
+// A. Variables
+// B. Example Selectors
+// C. Code Block Selectors
+// D. Inline Code Elements
+// E. Tokens
+// F. Line Highlight
+// G. Line Numbers
+// H. Line Highlight
+// I. Code Toolbar
+
+*/
+
+@use '@natura11y/core/src/scss/assistive' as *;
+
+//////////////////////////////////////////////
+// A. Variables
+//////////////////////////////////////////////
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+:root {
+	--code-example-line-height: 1.65;
+
+	--code-default-text-color: currentColor;
+
+	--code-background-color: #fff;
+
+	--code-line-highlight-tint: hsla(250, 15%, 70%, 0.15);
+
+	// Natural Palette
+
+	--code-cool-gray: #437f8a;
+	--code-salmon: hsl(335, 70%, 50%);
+	--code-seaweed: hsl(143, 79%, 29%);
+	--code-walnut: hsla(15, 25%, 40%, 1);
+	--code-aquamarine: hsl(200, 80%, 35%);
+	--code-pumpkin: hsla(20, 80%, 50%, 1);
+}
+
+@mixin dark-colors() {
+	--box-shadow-hsl: 0 0% 0%;
+	--code-background-color: hsla(0, 0%, 100%, 0.03);
+	--code-line-highlight-tint: hsla(215, 0%, 75%, 0.1);
+
+	--code-cool-gray: hsl(200, 25%, 50%);
+	--code-salmon: hsl(344, 85%, 65%);
+	--code-seaweed: #22c473;
+	--code-walnut: hsla(15, 25%, 55%, 1);
+	--code-aquamarine: hsla(190, 90%, 55%, 1);
+	--code-pumpkin: hsla(20, 80%, 65%, 1);
+}
+
+:root.theme-dark {
+    @include dark-colors();
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not(.theme-canvas) {
+        @include dark-colors();
+    }
+}
+
+//////////////////////////////////////////////
+// B. Example Selectors
+//////////////////////////////////////////////
+
+.example figcaption.example__caption {
+	padding: var(--spacer-2);
+
+	margin: unset;
+
+	border-top-width: var(--border-width);
+	border-top-style: var(--border-style);
+}
+
+[class*='language-']:is(code, pre) {
+	color: var(--code-default-text-color);
+
+	font-size: var(--font-size-md);
+
+	font-family: var(--code-font-family);
+	line-height: var(--code-example-line-height);
+	
+	text-align: start;
+	
+	white-space: pre;
+
+	word-spacing: normal;
+	word-break: normal;
+	word-wrap: normal;
+
+	tab-size: 4;
+
+	hyphens: none;
+}
+
+//////////////////////////////////////////////
+// C. Code Block Selectors
+//////////////////////////////////////////////
+
+pre[class*='language-'] {
+	max-width: 100%;
+
+	overflow-x: scroll;
+
+	padding: var(--spacer-4) var(--spacer-3);
+
+	&[data-line] {
+		position: relative;
+
+		padding-inline: var(--spacer-4);
+	}
+	
+	// Fix for responsive width bug
+	
+	code {
+		background-color: transparent;
+		border-radius: 0;
+		display: block;
+		max-width: 1em;
+		padding: 0;
+	}
+
+	&:focus-visible {
+		@extend %focus-visible;
+	}
+}
+
+//////////////////////////////////////////////
+// D. Inline Code Elements
+//////////////////////////////////////////////
+li > code,
+p > code {
+	--code-padding-x: 0.35em;
+	--code-padding-y: 0.125em;
+
+	--code-color: currentColor;
+
+	position: relative;
+
+	display: inline-block;
+
+	font-family: var(--code-font-family);
+	font-size: 0.8em;
+	line-height: 1.4;
+	
+	white-space: normal;
+
+	padding: var(--code-padding-y) var(--code-padding-x);
+	
+	color: var(--code-color);
+
+	&::before,
+	&::after {
+		content: '';
+		position: absolute;
+
+		pointer-events: none;
+	}
+
+	&::before {
+		inset: 0;
+
+		background: currentColor;
+		
+		opacity: 0.0875;
+	}
+
+	&::after {
+		inset-inline-start: 0;
+		inset-inline-end: 0;
+		inset-block-end: 0;
+
+		background: currentColor;
+		
+		opacity: 0.25;
+		height: var(--border-width);
+	}
+}
+
+//////////////////////////////////////////////
+// E. Tokens
+//////////////////////////////////////////////
+
+.token {
+	position: relative;
+	z-index: 10;
+}
+ 
+.example__code,
+.example figcaption.example__caption {
+	background-color: var(--code-background-color);
+}
+
+.token.punctuation {
+	color: var(--code-cool-gray);
+}
+
+.token:is(
+	.comment,
+	.block-comment,
+	.prolog,
+	.doctype,
+	.cdata
+) {
+	color: var(--code-cool-gray);
+}
+
+.token:is(
+	.property,
+	.tag,
+	.boolean,
+	.number,
+	.function-name,
+	.constant,
+	.symbol,
+	.deleted	
+) {
+	color: var(--code-salmon);
+}
+
+.token:is(
+	.selector,
+	.attr-name,
+	.string,
+	.char,
+	.function,
+	.builtin,
+	.inserted 
+) {
+	color: var(--code-seaweed);
+}
+
+.token:is(
+	.operator,
+	.token.entity,
+	.token.url,
+	.token.variable 		
+) {
+	color: var(--code-walnut);
+}
+
+.token:is(
+	.atrule,
+	.attr-value,
+	.keyword,
+	.class-name 
+) {
+	color: var(--code-aquamarine);
+}
+
+.token.regex,
+.token.important {
+	color: var(--code-pumpkin);
+}
+
+.language-css .token.string,
+.style .token.string {
+	color: var(--code-walnut)
+}
+
+.token.important,
+.token.bold {
+	font-weight: bold;
+}
+
+.token.italic {
+	font-style: italic;
+}
+
+.token.entity {
+	cursor: help;
+}
+
+//////////////////////////////////////////////
+// F. Line Highlight
+//////////////////////////////////////////////
+
+.line-highlight {
+	position: absolute;
+	inset-inline-start: 0;
+
+	border-left: var(--border-width) solid var(--primary);
+
+	z-index: 1;
+
+	margin-top: var(--spacer-4); /* Same as Prism padding-top */
+
+	background: linear-gradient(
+		to right,
+		var(--code-line-highlight-tint),
+		hsla(0, 0%, 100%, 0)
+	);
+
+	background-size: 400px 100%;
+    background-repeat: no-repeat;
+
+	pointer-events: none;
+	user-select: none;
+
+	line-height: var(--code-example-line-height);
+
+	white-space: pre;
+}
+
+.line-highlight::before,
+.line-highlight[data-end]::after {
+	content: attr(data-start);
+
+	position: absolute;
+	inset-inline-start: 0.5em;
+
+	font-size: var(--font-size-md);
+	font-weight: bold;
+	
+	color: var(--primary);
+}
+
+.line-highlight[data-end]:after {
+	content: attr(data-end);
+	bottom: 0;
+}
+
+.temporary.line-highlight {
+	--code-line-highlight-tint: hsla(170, 50%, 50%, 0.15);
+
+	scroll-margin-block-start: var(--spacer-2);
+}
+
+//////////////////////////////////////////////
+// G. Line Numbers
+//////////////////////////////////////////////
+
+pre[id].linkable-line-numbers span.line-numbers-rows {
+	pointer-events: all;
+	background-color: red !important;
+}
+
+pre[id].linkable-line-numbers span.line-numbers-rows > span:before {
+	cursor: pointer;
+}
+
+pre[id].linkable-line-numbers span.line-numbers-rows > span:hover:before {
+	background-color: rgba(128, 128, 128, 0.2);
+}
+
+pre[class*='language-'].line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+}
+
+pre[class*='language-'].line-numbers > code {
+	position: relative;
+	white-space: inherit;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+	font-size: 100%;
+	left: -3.8em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+
+	letter-spacing: -1px;
+	border-right: 1px solid #999;
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	
+	user-select: none;
+}
+
+.line-numbers-rows > span {
+	display: block;
+	counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+	content: counter(linenumber);
+	color: #999;
+	display: block;
+	padding-right: 0.8em;
+	text-align: right;
+}
+
+.token.keyword.keyword-return,
+.token.keyword.keyword-if {
+	background-color: #f92672;
+}
+
+//////////////////////////////////////////////
+// I. Code Toolbar
+//////////////////////////////////////////////
+
+div.code-toolbar {
+	display: flex;
+	flex-flow: column-reverse;
+}
+
+div.code-toolbar > .toolbar {
+	display: flex;
+	justify-content: flex-end;
+	gap: 1em;
+
+	padding: var(--spacer-2);
+
+	border-bottom: var(--border-width) var(--border-style) var(--border-color);
+}
+
+div.code-toolbar > .toolbar a,
+div.code-toolbar > .toolbar button {
+	font-weight: bold;
+
+	color: var(--primary);
+}
+
+.toolbar-item {
+	font-size: var(--font-size-md);
+
+	&:first-child {
+		margin-inline-end: auto;
+	}
+}
+
+pre.hide-toolbar + div.toolbar {
+	display: none;
+}

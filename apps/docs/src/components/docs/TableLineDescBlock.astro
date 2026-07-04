@@ -6,9 +6,9 @@ interface Props {
 const { targetFigure } = Astro.props;
 ---
 
-<div class="table-line-desc margin-y-4 border border-radius-2">
+<figure class="table-line-desc container narrow margin-y-4 border border-radius-2">
   <h2 class="h5 padding-2 border-bottom">Figure {targetFigure} Notes</h2>
   <div>
     <slot />
   </div>
-</div>
+</figure>
