@@ -1,6 +1,7 @@
 ---
 import { Picture } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
+import type { ImageMetadata, MarkdownHeading } from 'astro';
+import OnThisPage from '../components/docs/OnThisPage.astro';
 import BaseLayout from './BaseLayout.astro';
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
     };
   }>;
   currentSlug?: string;
+  headings?: MarkdownHeading[];
   frontmatter?: {
     title?: string;
     description?: string;
@@ -22,7 +24,7 @@ interface Props {
   };
 }
 
-const { docs = [], currentSlug = '', frontmatter = {} } = Astro.props;
+const { docs = [], currentSlug = '', headings = [], frontmatter = {} } = Astro.props;
 const title = frontmatter.title ?? 'Natura11y Astro Docs Spike';
 const sortedDocs = [...docs].sort((a, b) => a.data.title.localeCompare(b.data.title));
 const bannerImage = frontmatter.bannerImage;
@@ -33,7 +35,7 @@ const bannerAlt = frontmatter.bannerAlt ?? '';
 
   <div class="docs-layout theme-canvas">
     
-    <aside class="docs-layout__nav border-right">
+    <aside class="docs-layout__nav">
 
       {sortedDocs.length > 0 && (
         <nav aria-label="Documentation">
@@ -89,12 +91,11 @@ const bannerAlt = frontmatter.bannerAlt ?? '';
       <div class="backdrop__cover">
         <div class="container narrow">
           <h1 class="banner-headline text-shadow">{title}</h1>
-          {frontmatter.description && (
-            <p class="font-size-md text-shadow margin-top-2">{frontmatter.description}</p>
-          )}
         </div>
       </div>
     </header>
+
+    <OnThisPage headings={headings} />
 
     <div class="docs-layout__body">
       <slot />

@@ -1,0 +1,33 @@
+---
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+  headings?: MarkdownHeading[];
+}
+
+const { headings = [] } = Astro.props;
+const sectionHeadings = headings.filter((heading) => heading.depth === 2);
+---
+
+{sectionHeadings.length > 0 && (
+  <div class="docs-layout__toc">
+
+    <aside class="container narrow position-sticky-top font-size-sm">
+      <strong class="display-block opacity-70 margin-bottom-2">
+        On this page:
+      </strong>
+
+      <nav id="table-of-contents" aria-label="Table of contents">
+        <ul class="nav">
+          {sectionHeadings.map((heading) => (
+            <li>
+              <a href={`#${heading.slug}`}>{heading.text}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      
+    </aside>
+
+  </div>
+)}

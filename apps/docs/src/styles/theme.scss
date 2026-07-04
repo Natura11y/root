@@ -35,6 +35,7 @@
     monospace;
 
   --docs-nav-width: 18rem;
+  --docs-toc-width: 300px;
 }
 
 .aspect-ratio-banner {
@@ -104,6 +105,7 @@ a[data-logo='brand']:is(:focus, :hover) .a11y {
 }
 
 .docs-layout__nav {
+  grid-area: nav;
   padding: var(--spacer-3) var(--container-padding-x);
 }
 
@@ -114,9 +116,23 @@ a[data-logo='brand']:is(:focus, :hover) .a11y {
 
 .docs-layout__banner {
   --backdrop-fixed-height: min(420px, 55dvh);
+  grid-area: banner;
+}
+
+.docs-layout__banner .backdrop__cover > * {
+  @media (min-width: 1700px) {
+    padding-inline-end: var(--docs-toc-width);
+  }
+}
+
+.docs-layout__toc {
+  border-block-end: var(--border-width) var(--border-style) var(--border-color);
+  grid-area: toc;
+  padding-block: var(--spacer-4);
 }
 
 .docs-layout__body {
+  grid-area: body;
   margin-inline: auto;
   max-width: var(--narrow-width);
   padding: var(--spacer-5) var(--container-padding-x);
@@ -181,27 +197,34 @@ mark {
   }
 }
 
-@include breakpoint.breakpoint-up(lg) {
+@include breakpoint.breakpoint-up(xl) {
   .docs-layout {
     display: grid;
     grid-template-areas:
       'nav banner'
+      'nav toc'
       'nav body';
     grid-template-columns: var(--docs-nav-width) minmax(0, 1fr);
   }
 
   .docs-layout__nav {
-    grid-area: nav;
+    border-inline-end: var(--border-width) var(--border-style) var(--border-color);
     min-block-size: 100dvh;
     position: sticky;
     inset-block-start: 0;
   }
+}
 
-  .docs-layout__banner {
-    grid-area: banner;
+@media (min-width: 1700px) {
+  .docs-layout {
+    grid-template-areas:
+      'nav banner banner'
+      'nav body toc';
+    grid-template-columns: var(--docs-nav-width) minmax(0, 1fr) var(--docs-toc-width);
   }
 
-  .docs-layout__body {
-    grid-area: body;
+  .docs-layout__toc {
+    border-block-end: unset;
+    border-inline-start: var(--border-width) var(--border-style) var(--border-color);
   }
 }

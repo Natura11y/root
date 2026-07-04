@@ -20,10 +20,10 @@ export async function getStaticPaths() {
 
 const { doc } = Astro.props;
 const docs = await getCollection('docs');
-const { Content } = await render(doc);
+const { Content, headings } = await render(doc);
 ---
 
-<DocsLayout docs={docs} currentSlug={doc.data.slug} frontmatter={doc.data}>
+<DocsLayout docs={docs} currentSlug={doc.data.slug} frontmatter={doc.data} headings={headings}>
   <Content
     components={{
       AccessibilitySpotlight,
