@@ -1,0 +1,27 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+import Table from './Table';
+
+type TableVariant =
+  | 'basic'
+  | 'edge'
+  | 'striped'
+  | 'divider'
+  | 'scroll'
+  | 'stack';
+
+interface Props {
+  variant?: TableVariant;
+}
+
+const { variant = 'basic' } = Astro.props;
+const shouldHydrate = variant === 'scroll';
+---
+
+<div class="container narrow medium--lg" style={exampleStyle}>
+  {shouldHydrate ? (
+    <Table client:load variant={variant} />
+  ) : (
+    <Table variant={variant} />
+  )}
+</div>
