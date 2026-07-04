@@ -1,5 +1,8 @@
 ---
+import { Code } from 'astro-expressive-code/components';
 import './code-block.scss';
+
+type MarkerLineOrRange = number | { range: string };
 
 interface Props {
   preID?: string | null;
@@ -18,26 +21,119 @@ const {
   codeLanguage = 'html',
   codeExample = null,
   code = null,
-  downloadUrl = null,
 } = Astro.props;
 
 const codeText = codeExample ?? code;
 const language = codeLanguage.toLowerCase();
+const highlightedLinesValue = highlightedLines == null ? null : String(highlightedLines);
+const languageLabels: Record<string, string> = {
+  bash: 'Shell',
+  css: 'CSS',
+  html: 'HTML',
+  javascript: 'JavaScript',
+  js: 'JavaScript',
+  json: 'JSON',
+  jsx: 'JSX',
+  markup: 'HTML',
+  scss: 'SCSS',
+  shell: 'Shell',
+  ts: 'TypeScript',
+  tsx: 'TSX',
+  typescript: 'TypeScript',
+};
+const languageLabel = languageLabels[language] ?? language.toUpperCase();
+
+const parseLineMarkers = (value: string | null) => {
+  if (!value) {
+    return undefined;
+  }
+
+  const markers = value
+    .split(',')
+    .map((part) => {
+      const range = part.trim().replace(/\s+/gu, '');
+
+      if (!range) {
+        return null;
+      }
+
+      if (range.includes('-')) {
+        return { range };
+      }
+
+      const lineNumber = Number.parseInt(range, 10);
+      return Number.isNaN(lineNumber) ? null : lineNumber;
+    })
+    .filter((marker): marker is MarkerLineOrRange => marker !== null);
+
+  return markers.length ? markers : undefined;
+};
+
+const markers = parseLineMarkers(highlightedLinesValue);
 ---
 
-<div class="example__code">
+<div
+  class="example__code example__code--expressive-code"
+  data-code-id={preID ?? undefined}
+  data-line-anchors={highlightedLinesValue ?? undefined}
+>
   {codeText ? (
-    <pre
-      id={preID ?? undefined}
-      class:list={[
-        `language-${language}`,
-        codeToolbar === false && 'hide-toolbar',
-      ]}
-      data-line={highlightedLines || undefined}
-      data-src={downloadUrl || undefined}
-      data-download-link={downloadUrl ? true : undefined}
-    ><code class={`language-${language}`}>{codeText}</code></pre>
+    <Code
+      code={codeText}
+      lang={language}
+      title={codeToolbar ? languageLabel : undefined}
+      frame={codeToolbar ? 'code' : 'none'}
+      mark={markers}
+    />
   ) : (
     <p>No code provided.</p>
   )}
 </div>
+
+<script>
+  const setupKey = '__natura11yCodeLineAnchors';
+
+  if (!Reflect.get(window, setupKey)) {
+    Reflect.set(window, setupKey, true);
+
+    const getAnchorRanges = (value) => {
+      return value
+        .split(',')
+        .map((part) => part.trim().replace(/\s+/gu, ''))
+        .filter(Boolean)
+        .map((range) => {
+          const start = Number.parseInt(range.split('-')[0] ?? '', 10);
+          return Number.isNaN(start) ? null : { start, range };
+        })
+        .filter(Boolean);
+    };
+
+    const applyLineAnchors = () => {
+      document.querySelectorAll('[data-code-id][data-line-anchors]').forEach((codeBlock) => {
+        const codeId = codeBlock.getAttribute('data-code-id');
+        const lineAnchors = codeBlock.getAttribute('data-line-anchors');
+
+        if (!codeId || !lineAnchors) {
+          return;
+        }
+
+        const lines = codeBlock.querySelectorAll('.ec-line');
+        const ranges = getAnchorRanges(lineAnchors);
+
+        ranges.forEach(({ start, range }) => {
+          const line = lines[start - 1];
+
+          if (line instanceof HTMLElement) {
+            line.id = `${codeId}.${range}`;
+          }
+        });
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', applyLineAnchors, { once: true });
+    } else {
+      applyLineAnchors();
+    }
+  }
+</script>
