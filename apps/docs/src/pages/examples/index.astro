@@ -1,0 +1,32 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ResourceCard from '../../components/ui/ResourceCard/ResourceCard.astro';
+import { examples } from '../../data/examples';
+
+const title = 'Examples • Natura11y Inclusive Framework';
+const description = 'Natura11y examples are fully styled, opinionated designs built with the framework. Browse them for layout inspiration, visual direction, and real-world ideas for your next project.';
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="container narrow text-align-center margin-y-5">
+    <h1>Examples</h1>
+    <p>
+      Examples show what's possible with Natura11y. They're directional comps, not fully built out, just enough to spark ideas and point you in a direction.
+    </p>
+  </section>
+
+  <section class="container wide margin-y-5 text-align-center">
+    <div class="grid grid--column-2--md grid--column-3--lg gap-3">
+      {examples.map((example) => (
+        <ResourceCard
+          title={example.title}
+          description={example.description}
+          image={example.image}
+          primaryUrl={example.previewUrl}
+          primaryLabel="Preview in Browser"
+          secondaryUrl={example.codeUrl}
+        />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
