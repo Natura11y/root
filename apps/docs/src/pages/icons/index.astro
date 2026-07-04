@@ -1,0 +1,85 @@
+---
+import { natura11yIcons } from '@natura11y/icons/src/data/icons.mjs';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const title = 'Icons • Natura11y Inclusive Framework';
+const description =
+  "Discover Natura11y's open source icon library. Browse the current icon set and use the same icon metadata that powers the package.";
+
+const icons = [...natura11yIcons].sort((a, b) => a.icon.localeCompare(b.icon));
+---
+
+<BaseLayout title={title} description={description}>
+
+  <header class="container narrow margin-y-5 text-align-center">
+    <p class="text-color-link font-weight-bold margin-bottom-1">Icons</p>
+    <h1>Natura11y Has Its Own Icon Library</h1>
+    <p>
+      Natura11y icons are free for personal and commercial use. This page is
+      generated from icon metadata owned by the icon package.
+    </p>
+  </header>
+
+  <section class="container wide margin-y-5" aria-labelledby="icon-library-heading">
+    <div class="display-flex justify-content-between align-items-center gap-2 flex-wrap margin-bottom-3">
+      <h2 class="h3 margin-y-0" id="icon-library-heading">Current Icons</h2>
+      <p class="font-size-sm margin-y-0 opacity-70">{icons.length} icons</p>
+    </div>
+
+    <ul class="icon-library" aria-label="Natura11y icons">
+      {icons.map((icon) => (
+        <li class="icon-library__item">
+          <span class="icon-library__preview" aria-hidden="true">
+            <span class={`icon icon-${icon.className}`}></span>
+          </span>
+          <span class="icon-library__name">{icon.icon}</span>
+          <code>{`.icon-${icon.className}`}</code>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .icon-library {
+    --icon-size: 2.25rem;
+
+    display: grid;
+    gap: var(--spacer-2);
+    grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .icon-library__item {
+    align-items: center;
+    background-color: var(--subtle-fill-1);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacer-1);
+    min-block-size: 9rem;
+    padding: var(--spacer-2);
+    text-align: center;
+  }
+
+  .icon-library__preview {
+    align-items: center;
+    block-size: 3.5rem;
+    display: inline-flex;
+    justify-content: center;
+  }
+
+  .icon-library__name {
+    font-weight: var(--font-weight-bold);
+    line-height: var(--header-line-height);
+  }
+
+  .icon-library code {
+    max-inline-size: 100%;
+    overflow-wrap: anywhere;
+  }
+</style>

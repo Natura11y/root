@@ -6,6 +6,7 @@
   "files": [
     "dist",
     "optimized-svg",
+    "src/data",
     "README.md"
   ],
   "devDependencies": {
