@@ -100,6 +100,23 @@ a[data-logo='brand']:is(:focus, :hover) .a11y {
   position: relative;
 }
 
+.theme-picker__dropdown {
+  position: absolute;
+  inset-block-start: 100%;
+  inset-inline-end: 0;
+  width: max-content;
+
+  font-size: var(--font-size-sm);
+}
+
+.theme-picker__dropdown [data-theme-option] {
+  white-space: nowrap;
+}
+
+.theme-picker__dropdown [aria-checked='true'] .nav__text {
+  text-decoration: underline;
+}
+
 .docs-layout {
   min-block-size: 100dvh;
 }
@@ -163,10 +180,6 @@ a[data-logo='brand']:is(:focus, :hover) .a11y {
   color: inherit;
   display: block;
   padding: 0;
-}
-
-.table-line-desc__row:last-child {
-  border-block-end: 0;
 }
 
 .example-tabs {

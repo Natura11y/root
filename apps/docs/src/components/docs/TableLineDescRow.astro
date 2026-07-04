@@ -1,12 +1,29 @@
 ---
 interface Props {
   lines?: string;
+  targetFigure?: string | number;
 }
 
-const { lines } = Astro.props;
+const { lines, targetFigure } = Astro.props;
+const lineAnchor = lines && targetFigure ? `#code_${targetFigure}.${lines}` : null;
 ---
 
-<div class="table-line-desc__row padding-2 border-bottom">
-  {lines && <p class="font-size-sm margin-bottom-1"><strong>Lines {lines}</strong></p>}
-  <slot />
-</div>
+<tr>
+  <td>
+    {lineAnchor ? (
+      <a
+        href={lineAnchor}
+        data-line-anchor
+        title="Jump to code line"
+        aria-label={`Jump to code line ${lines}`}
+      >
+        {lines}
+      </a>
+    ) : (
+      lines
+    )}
+  </td>
+  <td>
+    <slot />
+  </td>
+</tr>

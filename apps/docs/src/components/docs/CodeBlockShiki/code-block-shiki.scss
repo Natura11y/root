@@ -6,6 +6,46 @@
 	--code-line-highlight-tint: hsla(250, 15%, 70%, 0.15);
 
 	background-color: var(--code-background-color);
+
+	.code-toolbar {
+		display: flex;
+		flex-flow: column-reverse;
+	}
+
+	.toolbar {
+		display: flex;
+		justify-content: flex-end;
+		gap: 1em;
+
+		padding: var(--spacer-2);
+
+		border-bottom: var(--border-width) var(--border-style) var(--border-color);
+	}
+
+	.toolbar-item {
+		font-size: var(--font-size-md);
+
+		&:first-child {
+			margin-inline-end: auto;
+		}
+	}
+
+	.toolbar a,
+	.toolbar button {
+		font-weight: bold;
+
+		color: var(--primary);
+	}
+
+	.toolbar button {
+		appearance: none;
+
+		border: 0;
+		background: transparent;
+		cursor: pointer;
+		font: inherit;
+		padding: 0;
+	}
 }
 
 @mixin dark-colors() {
@@ -15,6 +55,12 @@
 
 .theme-dark .example__code--shiki {
 	@include dark-colors();
+}
+
+@media (prefers-color-scheme: dark) {
+	.theme-canvas--prefers .example__code--shiki {
+		@include dark-colors();
+	}
 }
 
 pre.astro-code {
@@ -54,6 +100,7 @@ pre.astro-code {
 
 	.shiki-line-highlight {
 		position: relative;
+		scroll-margin-block-start: var(--spacer-2);
 
 		margin-inline: calc(var(--spacer-4) * -1);
 		padding-inline: var(--spacer-4);
@@ -97,4 +144,15 @@ pre.astro-code {
 	font-style: var(--shiki-dark-font-style) !important;
 	font-weight: var(--shiki-dark-font-weight) !important;
 	text-decoration: var(--shiki-dark-text-decoration) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+	.theme-canvas--prefers .astro-code,
+	.theme-canvas--prefers .astro-code span {
+		color: var(--shiki-dark) !important;
+		background-color: var(--shiki-dark-bg) !important;
+		font-style: var(--shiki-dark-font-style) !important;
+		font-weight: var(--shiki-dark-font-weight) !important;
+		text-decoration: var(--shiki-dark-text-decoration) !important;
+	}
 }

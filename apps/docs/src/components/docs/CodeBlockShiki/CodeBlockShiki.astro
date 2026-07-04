@@ -26,6 +26,22 @@ const {
 const codeText = codeExample ?? code;
 const language = codeLanguage.toLowerCase();
 const highlightedLinesValue = highlightedLines == null ? null : String(highlightedLines);
+const languageLabels: Record<string, string> = {
+  bash: 'Shell',
+  css: 'CSS',
+  html: 'HTML',
+  javascript: 'JavaScript',
+  js: 'JavaScript',
+  json: 'JSON',
+  jsx: 'JSX',
+  markup: 'HTML',
+  scss: 'SCSS',
+  shell: 'Shell',
+  ts: 'TypeScript',
+  tsx: 'TSX',
+  typescript: 'TypeScript',
+};
+const languageLabel = languageLabels[language] ?? language.toUpperCase();
 
 const parseHighlightedLines = (value: string | null) => {
   const lines = new Set<number>();
@@ -51,7 +67,29 @@ const parseHighlightedLines = (value: string | null) => {
   return lines;
 };
 
+const parseLineAnchors = (value: string | null) => {
+  const anchors = new Map<number, string>();
+
+  if (!value || !preID) {
+    return anchors;
+  }
+
+  value.split(',').forEach((part) => {
+    const range = part.trim().replace(/\s+/gu, '');
+    const [startValue] = range.split('-').map((item) => Number.parseInt(item, 10));
+
+    if (!range || Number.isNaN(startValue)) {
+      return;
+    }
+
+    anchors.set(startValue, `${preID}.${range}`);
+  });
+
+  return anchors;
+};
+
 const highlightedLineNumbers = parseHighlightedLines(highlightedLinesValue);
+const lineAnchors = parseLineAnchors(highlightedLinesValue);
 const shikiTransformers: ShikiTransformer[] = [
 {
   name: 'natura11y-pre-attributes',
@@ -86,10 +124,12 @@ const shikiTransformers: ShikiTransformer[] = [
 
     return html.replace(/<span class="line"/gu, (match) => {
       lineNumber += 1;
+      const lineAnchor = lineAnchors.get(lineNumber);
+      const lineAnchorAttribute = lineAnchor ? ` id="${lineAnchor}"` : '';
 
       return highlightedLineNumbers.has(lineNumber)
-        ? `<span class="line shiki-line-highlight" data-line-number="${lineNumber}"`
-        : match;
+        ? `<span class="line shiki-line-highlight"${lineAnchorAttribute} data-line-number="${lineNumber}"`
+        : match.replace('<span class="line"', `<span class="line"${lineAnchorAttribute}`);
     });
   },
 },
@@ -110,8 +150,125 @@ const highlightedCode = codeText
 
 <div class="example__code example__code--shiki">
   {highlightedCode ? (
-    <Fragment set:html={highlightedCode} />
+    codeToolbar ? (
+      <div class="code-toolbar">
+        <Fragment set:html={highlightedCode} />
+
+        <div class="toolbar">
+          <div class="toolbar-item">
+            <span>{languageLabel}</span>
+          </div>
+
+          <div class="toolbar-item">
+            <button class="copy-to-clipboard-button" type="button" data-shiki-copy data-copy-state="copy">
+              <span>Copy</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    ) : (
+      <Fragment set:html={highlightedCode} />
+    )
   ) : (
     <p>No code provided.</p>
   )}
 </div>
+
+<script>
+  const setupKey = '__natura11yShikiCopy';
+
+  if (!Reflect.get(window, setupKey)) {
+    Reflect.set(window, setupKey, true);
+
+    const labels = {
+      copy: 'Copy',
+      success: 'Copied!',
+      error: 'Press Ctrl+C to copy',
+    };
+
+    const getCodeText = (toolbar) => {
+      const lines = toolbar.querySelectorAll('code .line');
+
+      if (lines.length) {
+        return Array.from(lines)
+          .map((line) => line.textContent ?? '')
+          .join('\n');
+      }
+
+      return toolbar.querySelector('code')?.textContent ?? '';
+    };
+
+    const setButtonState = (button, state) => {
+      const label = button.querySelector('span');
+      button.dataset.copyState = state;
+
+      if (label) {
+        label.textContent = labels[state];
+      }
+    };
+
+    const fallbackCopy = (text) => {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.setAttribute('readonly', '');
+      textarea.style.position = 'fixed';
+      textarea.style.insetBlockStart = '0';
+      textarea.style.insetInlineStart = '0';
+      textarea.style.opacity = '0';
+
+      document.body.appendChild(textarea);
+      textarea.select();
+
+      const copied = document.execCommand('copy');
+      document.body.removeChild(textarea);
+
+      return copied;
+    };
+
+    document.addEventListener('click', async (event) => {
+      const target = event.target;
+
+      if (!(target instanceof Element)) {
+        return;
+      }
+
+      const button = target.closest('[data-shiki-copy]');
+
+      if (!(button instanceof HTMLButtonElement)) {
+        return;
+      }
+
+      const toolbar = button.closest('.code-toolbar');
+      const codeText = toolbar ? getCodeText(toolbar) : '';
+
+      if (!codeText) {
+        setButtonState(button, 'error');
+        window.setTimeout(() => setButtonState(button, 'copy'), 5000);
+        return;
+      }
+
+      try {
+        let copied = false;
+
+        if (navigator.clipboard) {
+          try {
+            await navigator.clipboard.writeText(codeText);
+            copied = true;
+          } catch {
+            copied = false;
+          }
+        }
+
+        if (!copied && !fallbackCopy(codeText)) {
+          throw new Error('Copy command failed.');
+        }
+
+        setButtonState(button, 'success');
+      } catch {
+        setButtonState(button, 'error');
+      }
+
+      window.setTimeout(() => setButtonState(button, 'copy'), 5000);
+    });
+  }
+</script>

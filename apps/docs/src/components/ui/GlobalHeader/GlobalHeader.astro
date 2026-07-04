@@ -102,12 +102,34 @@ const isCurrentPage = (item: (typeof navItems)[number]) => pathname === item.hre
     <button
       class="button button--icon-only"
       aria-label="Theme"
-      aria-disabled="true"
       title="Theme"
+      data-toggle="dropdown"
+      aria-controls="global-theme-menu"
+      aria-expanded="false"
       type="button"
     >
       <span class="icon icon-mode-light-dark" aria-hidden="true"></span>
     </button>
+    <ul class="dropdown__menu theme-picker__dropdown nav nav--divider box-shadow-1" id="global-theme-menu" role="menu">
+      <li>
+        <button type="button" data-theme-option="light" role="menuitemradio" aria-checked="false">
+          <span class="icon icon-sun" aria-hidden="true"></span>
+          <span class="nav__text">Canvas (default)</span>
+        </button>
+      </li>
+      <li>
+        <button type="button" data-theme-option="dark" role="menuitemradio" aria-checked="false">
+          <span class="icon icon-moon" aria-hidden="true"></span>
+          <span class="nav__text">Dark Mode</span>
+        </button>
+      </li>
+      <li>
+        <button type="button" data-theme-option="os" role="menuitemradio" aria-checked="false">
+          <span class="icon icon-mode-light-dark" aria-hidden="true"></span>
+          <span class="nav__text">Prefers</span>
+        </button>
+      </li>
+    </ul>
   </div>
 </header>
 
@@ -122,9 +144,91 @@ const isCurrentPage = (item: (typeof navItems)[number]) => pathname === item.hre
     new MainMenu().init();
   };
 
+  type ThemeOption = 'light' | 'dark' | 'os';
+
+  const storageKey = 'preferred-theme';
+  const themeClasses = ['theme-canvas', 'theme-dark', 'theme-canvas--prefers'];
+  const themeClassMap: Record<ThemeOption, string> = {
+    light: 'theme-canvas',
+    dark: 'theme-dark',
+    os: 'theme-canvas--prefers',
+  };
+
+  const isThemeOption = (value: string | null): value is ThemeOption => (
+    value === 'light' || value === 'dark' || value === 'os'
+  );
+
+  const getStoredTheme = (): ThemeOption => {
+    try {
+      const storedTheme = window.localStorage.getItem(storageKey);
+      return isThemeOption(storedTheme) ? storedTheme : 'light';
+    } catch {
+      return 'light';
+    }
+  };
+
+  const applyTheme = (theme: ThemeOption) => {
+    const root = document.documentElement;
+
+    root.classList.remove(...themeClasses);
+    root.classList.add(themeClassMap[theme]);
+    root.dataset.theme = theme;
+  };
+
+  const updateThemePicker = (theme: ThemeOption) => {
+    document.querySelectorAll<HTMLButtonElement>('[data-theme-option]').forEach((button) => {
+      button.setAttribute('aria-checked', String(button.dataset.themeOption === theme));
+    });
+  };
+
+  const closeThemePicker = () => {
+    const themeMenu = document.getElementById('global-theme-menu');
+    const themeButton = document.querySelector<HTMLButtonElement>('[aria-controls="global-theme-menu"]');
+
+    themeMenu?.classList.remove('shown');
+    themeButton?.setAttribute('aria-expanded', 'false');
+  };
+
+  const initializeThemePicker = () => {
+    const currentTheme = isThemeOption(document.documentElement.dataset.theme)
+      ? document.documentElement.dataset.theme
+      : getStoredTheme();
+
+    updateThemePicker(currentTheme);
+
+    document.addEventListener('click', (event) => {
+      const target = event.target;
+
+      if (!(target instanceof Element)) {
+        return;
+      }
+
+      const themeButton = target.closest<HTMLButtonElement>('[data-theme-option]');
+      const selectedTheme = themeButton?.dataset.themeOption ?? null;
+
+      if (!themeButton || !isThemeOption(selectedTheme)) {
+        return;
+      }
+
+      try {
+        window.localStorage.setItem(storageKey, selectedTheme);
+      } catch {
+        // Ignore storage failures and still update the current page.
+      }
+
+      applyTheme(selectedTheme);
+      updateThemePicker(selectedTheme);
+      closeThemePicker();
+    });
+  };
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeGlobalHeader, { once: true });
+    document.addEventListener('DOMContentLoaded', () => {
+      initializeGlobalHeader();
+      initializeThemePicker();
+    }, { once: true });
   } else {
     initializeGlobalHeader();
+    initializeThemePicker();
   }
 </script>

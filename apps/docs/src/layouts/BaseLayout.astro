@@ -14,15 +14,46 @@ const { title, description } = Astro.props;
 
 <!doctype html>
 
-<html lang="en">
+<html class="theme-canvas" lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
+    <script is:inline>
+      (() => {
+        const storageKey = 'preferred-theme';
+        const themeClasses = ['theme-canvas', 'theme-dark', 'theme-canvas--prefers'];
+        const themeClassMap = {
+          light: 'theme-canvas',
+          dark: 'theme-dark',
+          os: 'theme-canvas--prefers',
+        };
+
+        const getStoredTheme = () => {
+          try {
+            const storedTheme = window.localStorage.getItem(storageKey);
+            return Object.hasOwn(themeClassMap, storedTheme) ? storedTheme : 'light';
+          } catch {
+            return 'light';
+          }
+        };
+
+        const applyTheme = (theme) => {
+          const root = document.documentElement;
+          const themeClass = themeClassMap[theme] || themeClassMap.light;
+
+          root.classList.remove(...themeClasses);
+          root.classList.add(themeClass);
+          root.dataset.theme = theme;
+        };
+
+        applyTheme(getStoredTheme());
+      })();
+    </script>
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
   </head>
   
-  <body class="theme-canvas">
+  <body>
     <div class="skip-links">
       <a href="#primary-content">Skip to content</a>
       <a href="#global-footer">Skip to footer</a>
