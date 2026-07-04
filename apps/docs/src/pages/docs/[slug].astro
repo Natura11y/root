@@ -1,13 +1,14 @@
 ---
 import { getCollection, render } from 'astro:content';
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import AccessibilitySpotlight from '../../components/docs/AccessibilitySpotlight.astro';
-import FigureExample from '../../components/docs/FigureExample.astro';
-import LinkOpenNew from '../../components/docs/LinkOpenNew.astro';
-import Section from '../../components/docs/Section.astro';
-import TableLineDescBlock from '../../components/docs/TableLineDescBlock.astro';
-import TableLineDescRow from '../../components/docs/TableLineDescRow.astro';
-import TextBlock from '../../components/docs/TextBlock.astro';
+import AccessibilitySpotlight from '../../components/ui/AccessibilitySpotlight/AccessibilitySpotlight.astro';
+import FigureExample from '../../components/ui/FigureExample/FigureExample.astro';
+import LinkOpenNew from '../../components/ui/LinkOpenNew.astro';
+import RelatedCustomProperties from '../../components/ui/tables/RelatedCustomProperties.astro';
+import Section from '../../components/ui/Section.astro';
+import TableLineDescBlock from '../../components/ui/tables/TableLineDescBlock.astro';
+import TableLineDescRow from '../../components/ui/tables/TableLineDescRow.astro';
+import TextBlock from '../../components/ui/TextBlock.astro';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -29,6 +30,7 @@ const { Content, headings } = await render(doc);
       AccessibilitySpotlight,
       FigureExample,
       LinkOpenNew,
+      RelatedCustomProperties,
       Section,
       TableLineDescBlock,
       TableLineDescRow,

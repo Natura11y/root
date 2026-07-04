@@ -31,13 +31,13 @@ The Natura11y accordion allows sections of content to expand and collapse while 
 
 All focusable elements in the accordion are included in the page *tab* sequence.
 
-Accordions have keyboard support including *Tab* and *up* and *down* arrows.
+Accordion buttons support keyboard interaction with *Tab*, *Space*, *Enter*, and the *up* and *down* arrow keys.
 
-When focused, accordion headers expand the panel with *space* or *enter* keys.
+When clicked or activated, accordion buttons update `aria-expanded` and toggle the related panel state.
 
-When clicked, accordion headers toggle the appropriate *aria-hidden* and *aria-expanded* attributes.
+Closed panels are made inert so hidden panel content is not included in the keyboard flow.
 
-Respects `prefers-reduced-motion` — transitions are disabled when this preference is active.
+Respects `prefers-reduced-motion`, so transitions are disabled when this preference is active.
 
 </AccessibilitySpotlight>
 
@@ -53,9 +53,9 @@ Respects `prefers-reduced-motion` — transitions are disabled when this prefere
 
 Each accordion item consists of:
 
-- A heading element
 - A button that controls expansion
 - A content panel
+- Optional heading markup when the accordion needs semantic heading navigation
 
 The following is a basic accordion component. All accordion panels are closed by default.
 
@@ -66,33 +66,33 @@ The following is a basic accordion component. All accordion panels are closed by
   lineAnnotations={[
     { range: '1' },
     { range: '2-9' },
-    { range: '11-21' },
+    { range: '11-20' },
   ]}
   code={`
-<div class="accordion">
-  <button
-    class="accordion__button h5"
-    id="acc-button-example-01"
-    data-accordion="button"
-    aria-controls="acc-panel-example-01"
-    aria-expanded="false">
+  <div class="accordion">
+    <button
+      class="accordion__button h5"
+      id="acc-button-example-01"
+      data-accordion="button"
+      aria-controls="acc-panel-example-01"
+      aria-expanded="false">
       Danaus Plexippus
-  </button>
+    </button>
 
-  <div
-    class="accordion__panel"
-    id="acc-panel-example-01"
-    data-accordion="panel"
-    aria-labelledby="acc-button-example-01"
-    role="region">
-    <div class="accordion__panel__content">
-      <p>The monarch butterfly or simply monarch is a milkweed butterfly...</p>
+    <div
+      class="accordion__panel"
+      id="acc-panel-example-01"
+      data-accordion="panel"
+      aria-labelledby="acc-button-example-01"
+      role="region">
+      <div class="accordion__panel__content">
+        <p>The monarch butterfly or simply monarch is a milkweed butterfly...</p>
+      </div>
     </div>
   </div>
-</div>
   `}
 >
-  <AccordionExample client:load />
+  <AccordionExample client:load idPrefix="accordion-default-" />
 </FigureExample>
 
 <TableLineDescBlock targetFigure="1">
@@ -101,7 +101,7 @@ The following is a basic accordion component. All accordion panels are closed by
 
 The parent `.accordion` class is required.
 
-This selector uses JavaScript to group a set of topics with one another.
+This selector uses JavaScript to group a set of accordion buttons and panels with one another.
 
 </TableLineDescRow>
 
@@ -109,17 +109,29 @@ This selector uses JavaScript to group a set of topics with one another.
 
 The child `.accordion__button` selector is required.
 
-The `data-accordion="button"` attribute is present on the accordion button for JavaScript purposes.
+The `id` attribute equals the value of the associated panel's `aria-labelledby` attribute.
 
-The `aria-controls` attribute equals its associated panel's `id` attribute.
+The `data-accordion="button"` attribute is used by the JavaScript behavior.
+
+The `aria-controls` attribute equals the associated panel's `id` attribute.
+
+The `aria-expanded="false"` attribute communicates that the associated panel is closed when the page loads.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="11-21">
+<TableLineDescRow targetFigure="1" lines="11-20">
 
 The child `.accordion__panel` selector is required.
 
-The `role="region"` attribute is present on the accordion panel for assistive technology.
+The `id` attribute equals the value of the associated button's `aria-controls` attribute.
+
+The `data-accordion="panel"` attribute is used by the JavaScript behavior.
+
+The `aria-labelledby` attribute equals the associated button's `id` attribute.
+
+The `role="region"` attribute identifies the panel as a region for assistive technology.
+
+The `.accordion__panel__content` selector holds the panel content. Its padding and opacity animate separately from the panel's grid transition.
 
 </TableLineDescRow>
 
@@ -135,13 +147,16 @@ The `role="region"` attribute is present on the accordion panel for assistive te
 
 ## Semantic Headers
 
-Accordion buttons can be wrapped in heading elements to support screen reader heading navigation. This follows the <LinkOpenNew LinkText="W3C APG accordion pattern" LinkUrl="https://www.w3.org/WAI/ARIA/apg/patterns/accordion/" />.
+Accordion buttons can be wrapped in heading elements to support screen reader heading navigation. This follows the <LinkOpenNew LinkText="W3C APG accordion pattern" LinkUrl="https://www.w3.org/WAI/ARIA/apg/patterns/accordion/" />. If an accordion group lives below a page's `<h2>`, wrap each button in an `<h3>`.
 
 </TextBlock>
 
 <FigureExample
   figureNumber="2"
-  highlightedLines="1"
+  lineAnnotations={[
+    { range: '1' },
+    { range: '2-9' },
+  ]}
   code={`
 <h3 data-accordion="heading">
   <button
@@ -150,12 +165,198 @@ Accordion buttons can be wrapped in heading elements to support screen reader he
     data-accordion="button"
     aria-controls="acc-panel-example-01"
     aria-expanded="false">
-      Danaus Plexippus
+    Danaus Plexippus
   </button>
 </h3>
+
+<div
+  class="accordion__panel"
+  id="acc-panel-example-01"
+  data-accordion="panel"
+  aria-labelledby="acc-button-example-01"
+  role="region">
+  <div class="accordion__panel__content">
+    ...
+  </div>
+</div>
   `}
 >
-  <AccordionExample client:load headingLevel={3} />
+  <AccordionExample client:load idPrefix="accordion-headings-" headingLevel={3} />
 </FigureExample>
+
+<TableLineDescBlock targetFigure="2">
+
+<TableLineDescRow targetFigure="2" lines="1">
+
+The `data-accordion="heading"` attribute is required on the heading wrapper. It resets the heading's visual styles so only the semantic heading role is preserved.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="2" lines="2-9">
+
+The `.accordion__button` markup is identical to the default pattern in Figure 1.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+</Section>
+
+---
+
+<Section id="open-by-default">
+
+<TextBlock>
+
+## Open by Default
+
+You may want one accordion topic to be open when the page loads.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="3"
+  lineAnnotations={[
+    { range: '6' },
+    { range: '11' },
+  ]}
+  code={`
+  <button
+    class="accordion__button h5"
+    id="acc-button-example-01"
+    data-accordion="button"
+    aria-controls="acc-panel-example-01"
+    aria-expanded="true">
+      Danaus Plexippus
+  </button>
+
+  <div
+    class="accordion__panel shown"
+    id="acc-panel-example-01"
+    data-accordion="panel"
+    aria-labelledby="acc-button-example-01"
+    role="region">
+    <div class="accordion__panel__content">
+      <p>The monarch butterfly or simply monarch is a milkweed butterfly...</p>
+    </div>
+  </div>
+  `}
+>
+  <AccordionExample client:load idPrefix="accordion-open-" defaultOpen="danaus-plexippus" />
+</FigureExample>
+
+<TableLineDescBlock targetFigure="3">
+
+<TableLineDescRow targetFigure="3" lines="6">
+
+On the `.accordion__button` selector, set the `aria-expanded` attribute to `"true"`.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="3" lines="11">
+
+On the related `.accordion__panel` selector, include the `.shown` class.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+</Section>
+
+---
+
+<Section id="active-text-underline">
+
+<TextBlock>
+
+## Active Text Underline
+
+Add a `<span>` with the `.text` class inside the button to underline the label when the panel is open. This gives users a second visual signal beyond color alone.
+
+</TextBlock>
+
+<FigureExample
+  figureNumber="4"
+  lineAnnotations={[
+    { range: '7' },
+  ]}
+  code={`
+  <button
+    class="accordion__button h5"
+    id="acc-button-example-01"
+    data-accordion="button"
+    aria-controls="acc-panel-example-01"
+    aria-expanded="false">
+    <span class="text">Danaus Plexippus</span>
+  </button>
+  `}
+>
+  <AccordionExample client:load idPrefix="accordion-text-" defaultOpen="danaus-plexippus" />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Accordion styles can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+  figureNumber="5"
+  properties={[
+    {
+      property: 'accordion-button-padding-x',
+      defaultValue: 'var(--container-padding-x)',
+      purpose: 'Left and right padding of the accordion button.',
+    },
+    {
+      property: 'accordion-button-padding-y',
+      defaultValue: '0.75em',
+      purpose: 'Top and bottom padding of the accordion button.',
+    },
+    {
+      property: 'accordion-panel-padding-x',
+      defaultValue: 'var(--accordion-button-padding-x)',
+      purpose: 'Left and right padding of the accordion panel content.',
+    },
+    {
+      property: 'accordion-panel-padding-y',
+      defaultValue: '1em',
+      purpose: 'Top and bottom padding of the accordion panel content.',
+    },
+    {
+      property: 'accordion-active-color',
+      defaultValue: 'currentColor',
+      purpose: 'Text color of the expanded accordion button.',
+    },
+    {
+      property: 'accordion-icon-closed',
+      defaultValue: '"\\f116"',
+      purpose: 'Icon shown on the accordion button when the panel is closed.',
+    },
+    {
+      property: 'accordion-icon-open',
+      defaultValue: '"\\f119"',
+      purpose: 'Icon shown on the accordion button when the panel is open.',
+    },
+    {
+      property: 'accordion-animation-duration',
+      defaultValue: '0.3s',
+      purpose: 'Duration of the accordion open and close transition.',
+    },
+    {
+      property: 'accordion-gap-size',
+      defaultValue: '0.2em',
+      purpose: 'Gap between accordion items.',
+    },
+  ]}
+/>
 
 </Section>

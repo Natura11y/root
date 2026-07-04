@@ -1,0 +1,63 @@
+---
+import FigureExample from '../FigureExample/FigureExample.astro';
+
+interface CustomProperty {
+  property: string;
+  defaultValue: string;
+  purpose: string;
+}
+
+interface Props {
+  figureNumber?: string | number | null;
+  properties: CustomProperty[];
+  showCode?: boolean;
+}
+
+const {
+  figureNumber = null,
+  properties = [],
+  showCode = true,
+} = Astro.props;
+
+const getPropertyName = (property: string) => (
+  property.startsWith('--') ? property : `--${property}`
+);
+
+const code = `:root {
+${properties
+  .map(({ property, defaultValue }) => `  ${getPropertyName(property)}: ${defaultValue};`)
+  .join('\n')}
+}`;
+---
+
+{showCode && properties.length > 0 && (
+  <FigureExample
+    figureNumber={figureNumber ?? undefined}
+    figureWidth="medium"
+    codeLanguage="css"
+    code={code}
+  />
+)}
+
+{properties.length > 0 && (
+  <figure class="container medium margin-y-4">
+    <table class="table table--edge">
+      <thead>
+        <tr>
+          <th scope="col">Custom property</th>
+          <th scope="col">Default</th>
+          <th scope="col">Purpose</th>
+        </tr>
+      </thead>
+      <tbody>
+        {properties.map(({ property, defaultValue, purpose }) => (
+          <tr>
+            <td><code>{getPropertyName(property)}</code></td>
+            <td><code>{defaultValue}</code></td>
+            <td>{purpose}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </figure>
+)}
