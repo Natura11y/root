@@ -1,0 +1,12 @@
+@use '@natura11y/core/src/scss/index';
+
+.docs-astro-shell {
+  min-block-size: 100dvh;
+}
+
+.docs-astro-shell code {
+  background-color: var(--subtle-fill-1);
+  border-radius: var(--border-radius-1);
+  font-size: 0.925em;
+  padding: 0.125em 0.25em;
+}

@@ -14,9 +14,13 @@
     "storybook": "storybook dev -p 6006 -c apps/storybook/.storybook",
     "build-storybook": "storybook build -c apps/storybook/.storybook",
     "build:core": "npm --workspace @natura11y/core run build",
-    "start:core": "npm --workspace @natura11y/core run start"
+    "start:core": "npm --workspace @natura11y/core run start",
+    "docs:astro": "astro dev --root apps/docs-astro --port 4321",
+    "build:docs-astro": "astro build --root apps/docs-astro"
   },
   "devDependencies": {
+    "@astrojs/mdx": "^7.0.2",
+    "@astrojs/react": "^6.0.1",
     "@chromatic-com/storybook": "^5.0.2",
     "@natura11y/core": "^5.1.1",
     "@natura11y/icons": "^2.1.0",
@@ -33,6 +37,7 @@
     "@types/react-dom": "^19.0.0",
     "@vitest/browser-playwright": "^4.1.0",
     "@vitest/coverage-v8": "^4.1.0",
+    "astro": "^7.0.6",
     "playwright": "^1.58.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
