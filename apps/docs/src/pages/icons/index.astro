@@ -4,82 +4,150 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const title = 'Icons • Natura11y Inclusive Framework';
 const description =
-  "Discover Natura11y's open source icon library. Browse the current icon set and use the same icon metadata that powers the package.";
+  "Discover Natura11y's beautiful, clean open source icons - free to use with no sign-ups required. Use them as is or customize with GitHub source files for a tailored web design experience.";
 
 const icons = [...natura11yIcons].sort((a, b) => a.icon.localeCompare(b.icon));
+const iconGridStyle = [
+  '--icon-size: 2.25em',
+  '--button-icon-only-size: 2.5em',
+  '--button-icon-over-text-width: 100%',
+  '--button-icon-over-text-font-size: 0.75em',
+].join('; ');
 ---
 
 <BaseLayout title={title} description={description}>
 
   <header class="container narrow margin-y-5 text-align-center">
-    <p class="text-color-link font-weight-bold margin-bottom-1">Icons</p>
     <h1>Natura11y Has Its Own Icon Library</h1>
+
     <p>
-      Natura11y icons are free for personal and commercial use. This page is
-      generated from icon metadata owned by the icon package.
+      Natura11y icons are free for both personal and commercial use. No email address or sign-up required.
     </p>
+
+    <a class="button font-size-md text-color-link" href="/docs/icon/">
+      <span class="text">Using the Icons</span>
+      <span class="icon icon-arrow-right" aria-hidden="true"></span>
+    </a>
   </header>
 
-  <section class="container wide margin-y-5" aria-labelledby="icon-library-heading">
-    <div class="display-flex justify-content-between align-items-center gap-2 flex-wrap margin-bottom-3">
-      <h2 class="h3 margin-y-0" id="icon-library-heading">Current Icons</h2>
-      <p class="font-size-sm margin-y-0 opacity-70">{icons.length} icons</p>
+  <section class="container wide margin-y-5" aria-label="Natura11y icon library">
+    <div class="form-entry form-entry--search">
+      <label class="form-entry__field">
+        <span class="form-entry__field__label screen-reader-only">Search Icons</span>
+        <span class="form-entry__field__input">
+          <span class="icon icon-search opacity-50" aria-hidden="true"></span>
+          <input
+            type="search"
+            id="icon-search"
+            name="icon-search"
+            placeholder="Search Icons"
+            aria-controls="natura11yIconGrid"
+            autocomplete="off"
+            data-icon-search
+          />
+          <button
+            class="button button--icon-only"
+            type="button"
+            data-search-clear
+            aria-label="Clear search"
+            aria-controls="icon-search"
+          >
+            <span class="icon icon-clear" aria-hidden="true"></span>
+          </button>
+        </span>
+      </label>
     </div>
 
-    <ul class="icon-library" aria-label="Natura11y icons">
-      {icons.map((icon) => (
-        <li class="icon-library__item">
-          <span class="icon-library__preview" aria-hidden="true">
-            <span class={`icon icon-${icon.className}`}></span>
-          </span>
-          <span class="icon-library__name">{icon.icon}</span>
-          <code>{`.icon-${icon.className}`}</code>
-        </li>
-      ))}
-    </ul>
+    <div class="text-align-center margin-y-4">
+      <p class="screen-reader-only" aria-live="polite" data-icon-search-status>
+        {icons.length} icons available.
+      </p>
+
+      <ul
+        class="grid grid--column-3 grid--column-4--md grid--column-8--lg gap-3"
+        id="natura11yIconGrid"
+        style={iconGridStyle}
+      >
+        {icons.map((icon) => (
+          <li
+            data-icon-item
+            data-icon-keywords={[icon.icon, icon.className, ...icon.tags].join(' ').toLowerCase()}
+          >
+            <span class="button button--icon-over-text">
+              <span class="button__icon width-100">
+                <span class={`icon icon-${icon.className}`} aria-hidden="true"></span>
+              </span>
+              <span class="button__text font-weight-normal opacity-80">
+                {icon.className}
+              </span>
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="container narrow text-align-center" data-icon-no-results hidden>
+        <p class="h6">
+          No results found for '<span data-icon-search-term></span>'
+        </p>
+      </div>
+    </div>
   </section>
 
 </BaseLayout>
 
-<style>
-  .icon-library {
-    --icon-size: 2.25rem;
+<script>
+  import { FormSearch } from '../../../../../packages/core/src/js/form';
 
-    display: grid;
-    gap: var(--spacer-2);
-    grid-template-columns: repeat(auto-fill, minmax(8.5rem, 1fr));
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+  const initializeIconSearch = () => {
+    new FormSearch().init();
 
-  .icon-library__item {
-    align-items: center;
-    background-color: var(--subtle-fill-1);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-2);
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacer-1);
-    min-block-size: 9rem;
-    padding: var(--spacer-2);
-    text-align: center;
-  }
+    const searchInput = document.querySelector<HTMLInputElement>('[data-icon-search]');
+    const iconItems = Array.from(document.querySelectorAll<HTMLElement>('[data-icon-item]'));
+    const noResults = document.querySelector<HTMLElement>('[data-icon-no-results]');
+    const searchTerm = document.querySelector<HTMLElement>('[data-icon-search-term]');
+    const searchStatus = document.querySelector<HTMLElement>('[data-icon-search-status]');
 
-  .icon-library__preview {
-    align-items: center;
-    block-size: 3.5rem;
-    display: inline-flex;
-    justify-content: center;
-  }
+    if (!searchInput || iconItems.length === 0) {
+      return;
+    }
 
-  .icon-library__name {
-    font-weight: var(--font-weight-bold);
-    line-height: var(--header-line-height);
-  }
+    const filterIcons = () => {
+      const query = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
 
-  .icon-library code {
-    max-inline-size: 100%;
-    overflow-wrap: anywhere;
+      iconItems.forEach((item) => {
+        const keywords = item.dataset.iconKeywords ?? '';
+        const isMatch = query === '' || keywords.includes(query);
+
+        item.hidden = !isMatch;
+
+        if (isMatch) {
+          visibleCount += 1;
+        }
+      });
+
+      if (noResults) {
+        noResults.hidden = visibleCount > 0;
+      }
+
+      if (searchTerm) {
+        searchTerm.textContent = query;
+      }
+
+      if (searchStatus) {
+        searchStatus.textContent = query
+          ? `${visibleCount} icons found for ${query}.`
+          : `${visibleCount} icons available.`;
+      }
+    };
+
+    searchInput.addEventListener('input', filterIcons);
+    filterIcons();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeIconSearch, { once: true });
+  } else {
+    initializeIconSearch();
   }
-</style>
+</script>
