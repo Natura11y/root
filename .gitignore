@@ -5,6 +5,7 @@ node_modules
 .vscode
 storybook-static
 apps/docs-astro/dist
+apps/docs-astro/.astro
 
 #Files
 naturally-logo.svg

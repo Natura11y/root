@@ -3,7 +3,8 @@ layout: ../layouts/DocsLayout.astro
 title: Natura11y Astro Docs Spike
 ---
 
-import { Accordion, AccordionItem, Button } from '@natura11y/react';
+import { Button } from '@natura11y/react';
+import AccordionProof from '../components/AccordionProof';
 
 <section className="container narrow padding-y-5">
   <p className="font-size-sm text-transform-uppercase font-weight-bold margin-bottom-2">
@@ -49,20 +50,6 @@ import { Accordion, AccordionItem, Button } from '@natura11y/react';
       same React source and then hydrates it for interaction.
     </p>
 
-    <Accordion client:load defaultOpen="one" headingLevel={3}>
-      <AccordionItem itemId="one" title="Same import shape">
-        <p>
-          The MDX import is still <code>@natura11y/react</code>, even though this
-          spike points it at the local working source.
-        </p>
-      </AccordionItem>
-
-      <AccordionItem itemId="two" title="Useful docs migration proof">
-        <p>
-          This would let the future Astro docs use real React components without
-          keeping Gatsby-style duplicate docs components alive.
-        </p>
-      </AccordionItem>
-    </Accordion>
+    <AccordionProof client:load />
   </div>
 </section>
