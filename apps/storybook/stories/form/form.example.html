@@ -1,20 +1,22 @@
 <form>
   <div class="form-entry">
-    <label class="form-entry__label" for="form-entry-html">Full name</label>
+    <label class="form-entry__field">
+      <span class="form-entry__field__label">
+        Full name
+      </span>
 
-    <div class="form-entry__field">
       <span class="form-entry__field__input">
         <input
           type="text"
           id="form-entry-html"
           name="fullName"
-          aria-describedby="form-entry-html-help"
+          aria-describedby="help-form-entry-html"
         />
       </span>
+    </label>
 
-      <div class="form-entry__field__message" id="form-entry-html-help">
-        Enter your first and last name.
-      </div>
-    </div>
+    <small class="form-entry__help" id="help-form-entry-html">
+      Enter your first and last name.
+    </small>
   </div>
 </form>

@@ -1,1 +1,10 @@
 @use '@natura11y/core/src/scss/index';
+
+#storybook-root,
+#storybook-root > [class*='theme-'] {
+  min-block-size: 100dvh;
+}
+
+#storybook-root > [class*='theme-'] > .storybook-canvas {
+  min-block-size: 100dvh;
+}

@@ -79,6 +79,60 @@ export const WithSplitLink: Story = {
   ),
 };
 
+export const MegaMenu: Story = {
+  name: 'Mega Menu',
+  args: {
+    buttonText: 'Components',
+    type: 'mega',
+    hover: true,
+  },
+  render: (args) => (
+    <ul className='nav nav--horizontal--lg border border-radius-2'>
+      <li>
+        <Dropdown {...args}>
+          <div className='grid grid--column-2 grid--column-4--lg gap-4 font-size-md'>
+            <nav>
+              <p><strong>Foundations</strong></p>
+              <ul className='nav'>
+                <li><a href='#'>Color</a></li>
+                <li><a href='#'>Typography</a></li>
+                <li><a href='#'>Spacing</a></li>
+              </ul>
+            </nav>
+
+            <nav>
+              <p><strong>Components</strong></p>
+              <ul className='nav'>
+                <li><a href='#'>Accordion</a></li>
+                <li><a href='#'>Button</a></li>
+                <li><a href='#'>Card</a></li>
+              </ul>
+            </nav>
+
+            <nav>
+              <p><strong>Navigation</strong></p>
+              <ul className='nav'>
+                <li><a href='#'>Dropdown</a></li>
+                <li><a href='#'>Main Menu</a></li>
+                <li><a href='#'>Pagination</a></li>
+              </ul>
+            </nav>
+
+            <nav>
+              <p><strong>Patterns</strong></p>
+              <ul className='nav'>
+                <li><a href='#'>Forms</a></li>
+                <li><a href='#'>Tables</a></li>
+                <li><a href='#'>Track</a></li>
+              </ul>
+            </nav>
+          </div>
+        </Dropdown>
+      </li>
+    </ul>
+  ),
+};
+
 export const HoverOpen: Story = {
   args: {
     buttonText: 'Hover me',
