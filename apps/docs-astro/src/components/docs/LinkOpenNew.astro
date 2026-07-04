@@ -1,0 +1,14 @@
+---
+interface Props {
+  href?: string;
+  LinkUrl?: string;
+  LinkText?: string;
+}
+
+const { href, LinkUrl, LinkText } = Astro.props;
+const resolvedHref = href ?? LinkUrl ?? '#';
+---
+
+<a href={resolvedHref} target="_blank" rel="noreferrer">
+  {LinkText}<slot />
+</a>

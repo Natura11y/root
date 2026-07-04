@@ -1,0 +1,24 @@
+---
+interface Props {
+  figureNumber?: string | number;
+  code?: string;
+  highlightedLines?: string;
+}
+
+const { figureNumber, code, highlightedLines } = Astro.props;
+---
+
+<figure class="figure-example margin-y-4 border border-radius-2 overflow-hidden">
+  <figcaption class="figure-example__caption padding-2 border-bottom">
+    <strong>Figure {figureNumber}</strong>
+    {highlightedLines && <span class="opacity-70"> Lines {highlightedLines}</span>}
+  </figcaption>
+
+  <div class="figure-example__visual padding-3">
+    <slot />
+  </div>
+
+  {code && (
+    <pre class="figure-example__code margin-0 padding-3"><code>{code.trim()}</code></pre>
+  )}
+</figure>

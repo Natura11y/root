@@ -1,0 +1,12 @@
+---
+interface Props {
+  lines?: string;
+}
+
+const { lines } = Astro.props;
+---
+
+<div class="table-line-desc__row padding-2 border-bottom">
+  {lines && <p class="font-size-sm margin-bottom-1"><strong>Lines {lines}</strong></p>}
+  <slot />
+</div>

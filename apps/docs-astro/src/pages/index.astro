@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import DocsLayout from '../layouts/DocsLayout.astro';
+
+const docs = await getCollection('docs');
+const firstDoc = docs.find((doc) => doc.data.slug === 'accordion') ?? docs[0];
+---
+
+<DocsLayout
+  docs={docs}
+  currentSlug=''
+  frontmatter={{
+    title: 'Natura11y Documentation',
+    description: 'A first Astro scaffold for the Natura11y docs.',
+  }}
+>
+  <section class="container narrow padding-y-5">
+    <h1 class="banner-headline">Natura11y Documentation</h1>
+    <p class="font-size-md">
+      This Astro app is the beginning of the real docs migration. It reads docs content
+      from an Astro content collection and imports examples from the monorepo source.
+    </p>
+
+    {firstDoc && (
+      <p>
+        <a class="button theme-primary" href={`/docs/${firstDoc.data.slug}/`}>
+          <span class="text">Open {firstDoc.data.title}</span>
+          <span class="icon icon-arrow-right" aria-hidden="true"></span>
+        </a>
+      </p>
+    )}
+  </section>
+</DocsLayout>
