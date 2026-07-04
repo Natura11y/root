@@ -1,0 +1,35 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
+const { src, alt, caption = null } = Astro.props;
+const figCaptionId = caption
+  ? `figcaption-${caption.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`
+  : undefined;
+---
+
+<figure
+  class="container narrow--md medium--xl margin-y-5"
+  aria-labelledby={figCaptionId}
+>
+  <div class="figure-image__media border-radius-2 box-shadow-2 overflow-hidden">
+    <img src={src} alt={alt} loading="lazy" decoding="async" />
+  </div>
+
+  {caption && (
+    <figcaption id={figCaptionId} class="text-align-center">
+      {caption}
+    </figcaption>
+  )}
+</figure>
+
+<style>
+  .figure-image__media img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+  }
+</style>

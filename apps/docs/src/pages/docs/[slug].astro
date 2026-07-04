@@ -2,7 +2,9 @@
 import { getCollection, render } from 'astro:content';
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import AccessibilitySpotlight from '../../components/ui/AccessibilitySpotlight/AccessibilitySpotlight.astro';
+import FeatureCard from '../../components/ui/FeatureCard/FeatureCard.astro';
 import FigureExample from '../../components/ui/FigureExample/FigureExample.astro';
+import FigureImage from '../../components/ui/FigureImage/FigureImage.astro';
 import LinkOpenNew from '../../components/ui/LinkOpenNew.astro';
 import RelatedCustomProperties from '../../components/ui/tables/RelatedCustomProperties.astro';
 import Section from '../../components/ui/Section.astro';
@@ -28,7 +30,9 @@ const { Content, headings } = await render(doc);
   <Content
     components={{
       AccessibilitySpotlight,
+      FeatureCard,
       FigureExample,
+      FigureImage,
       LinkOpenNew,
       RelatedCustomProperties,
       Section,

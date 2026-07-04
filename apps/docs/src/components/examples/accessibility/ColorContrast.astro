@@ -1,0 +1,25 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+---
+
+<div class="container medium" style={exampleStyle}>
+  <div class="grid grid--column-2 gap-2">
+    <img
+      src="/docs-assets/accessibility/color-contrast-fail.svg"
+      alt="Color contrast example showing 1.91 fail."
+    />
+
+    <img
+      src="/docs-assets/accessibility/color-contrast-pass.svg"
+      alt="Color contrast example showing 5.84 pass."
+    />
+  </div>
+</div>
+
+<style>
+  img {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+  }
+</style>

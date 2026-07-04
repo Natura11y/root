@@ -13,3 +13,193 @@ relatedPages:
   - "RTL"
   - "Get Started"
 ---
+
+import ColorContrast from '../../components/examples/accessibility/ColorContrast.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+## Go Beyond Compliance
+
+Natura11y takes the stress out of accessibility compliance by providing components that help you meet and surpass WCAG requirements. Our ready-to-use components make building accessible websites simple and straightforward, no matter your experience level.
+
+This page provides a bird's-eye view of Natura11y's accessibility features. Need more detailed guidance? Visit the <LinkOpenNew LinkUrl='https://www.w3.org/WAI/tips' LinkText='WAI guide' /> on accessibility basics.
+
+</TextBlock>
+
+</Section>
+
+<Section id="semantic-html">
+
+<TextBlock>
+
+## Semantic HTML
+
+Semantic HTML forms the bedrock of web accessibility by using the correct HTML elements for their intended purpose. Natura11y components are built with proper semantic markup—headings, lists, buttons, and form controls—that assistive technologies can easily interpret and navigate.
+
+This approach provides built-in keyboard accessibility, better performance, and improved SEO while making your code easier to maintain. Natura11y's utility classes complement this semantic foundation, ensuring you can style accessible HTML without compromising its meaning.
+
+</TextBlock>
+
+</Section>
+
+<Section id="color-contrast">
+
+<TextBlock>
+
+## Color Contrast
+
+Natura11y's dynamic <LinkOpenNew LinkUrl='/docs/color' LinkText='color system' /> takes the complexity out of maintaining proper contrast ratios by grouping colors into cohesive themes. Each theme provides coordinated colors for backgrounds, text, borders, and links, eliminating the guesswork of color combinations.
+
+When you apply a theme like [theme-dark] to a page, section, or card, all elements inside automatically get appropriate colors that maintain proper contrast. This includes form validation messages and complex layouts, preventing common problems like links that disappear on dark backgrounds or error messages that become unreadable when themes change.
+
+</TextBlock>
+
+<ColorContrast />
+
+<TextBlock>
+
+In the examples above, the dark text on green passes readability with a color contrast ratio of <em>5.84</em>, while the white text on green fails with a color contrast ratio of <em>1.91</em>.
+
+</TextBlock>
+
+</Section>
+
+<Section id="aria">
+
+<TextBlock>
+
+## ARIA
+
+Accessible Rich Internet Applications (<LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA' LinkText='WAI-ARIA' />) roles, states, and properties are present throughout Natura11y's components. Some are added with JavaScript, while others are present within the example markup. You'll need to add ARIA attributes yourself when creating custom interactions or when semantic HTML alone doesn't fully convey your component's purpose to assistive technologies.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    figureWidth="narrow"
+    codeToolbar={false}
+    codeExample={(`
+        <!-- Aria Role -->
+        <div class="alert" role="alert">
+            <!-- alert content -->
+        </div>
+
+        <!-- Aria State -->
+        <button aria-expanded="false">
+            Accordion Button
+        </button>
+
+        <!-- Aria Property -->
+        <div
+            class="modal__content"
+            aria-labelledby="modal-title">
+            <!-- modal content -->
+        </div>
+    `)}
+/>
+
+</Section>
+
+<Section id="focus-indication">
+
+<TextBlock>
+
+## Focus Indication
+
+Natura11y ensures focus indicators are always visible and properly positioned. Focus rings automatically adapt to theme colors—preventing common problems like blue focus rings disappearing on blue backgrounds. Focus rings are also positioned to avoid clipping from parent containers with overflow: hidden, a frequent issue in other frameworks.
+
+</TextBlock>
+
+<FigureImage
+    src="/docs-assets/accessibility/focus-indication.jpg"
+    alt="Buttons showing focus styles in light, primary, secondary, and dark themes."
+    caption="Depiction of focus styles across themes."
+/>
+
+<TextBlock>
+
+Beyond visual indicators, Natura11y components include proper focus management. When you close a modal or accordion, focus returns to the triggering element. Navigation components support arrow key movement, and interactive elements maintain logical tab order throughout.
+
+</TextBlock>
+
+</Section>
+
+<Section id="reduced-motion">
+
+<TextBlock>
+
+## Prefers Reduced Motion
+
+Motion and animation can cause discomfort or disorientation for people with vestibular disorders, epilepsy, or other motion sensitivities. The `prefers-reduced-motion` media query lets users signal through their operating system that they prefer less motion.
+
+Every Natura11y component that includes animation or transitions—accordions, alerts, carousels, collapse panels, flyouts, and form toggles—automatically disables those effects when this preference is active. No extra configuration required.
+
+<LinkOpenNew LinkUrl='https://www.w3.org/WAI/WCAG22/Techniques/css/C39' LinkText='Learn more about prefers-reduced-motion' />
+
+</TextBlock>
+
+</Section>
+
+<Section id="built-in-accessible-components">
+
+<TextBlock>
+
+## Built-in Accessible Components
+
+Most frameworks leave you searching for accessible third-party plugins that break your design system's consistency. Natura11y includes a complete library of accessible components out of the box—from complex interactions like modals and carousels to essential form controls and navigation patterns.
+
+Every component follows WCAG guidelines and integrates seamlessly with Natura11y's theme system, giving you consistent accessibility across your entire interface.
+
+<ul className="grid gap-2 margin-y-4">
+
+<FeatureCard
+    title='Carousel'
+>
+
+The [Track component](/docs/track) is an accessible carousel with arrow key navigation, ARIA live region announcements, and tab focus limited to visible panels only.
+
+</FeatureCard>
+
+<FeatureCard
+    title='Flyout'
+>
+
+The [Flyout](/docs/flyout) uses `role="dialog"` and `aria-modal`, traps focus inside when open, returns focus on close, and supports drill-down panel navigation with `inert` to hide inactive panels from assistive technology.
+
+</FeatureCard>
+
+<FeatureCard
+    title='Forms'
+>
+
+Complete [form](/docs/form) system with proper labeling, semantic fieldsets, accessible file uploads, and error handling.
+
+</FeatureCard>
+
+<FeatureCard
+    title='Lightbox'
+>
+
+[Lightbox](/docs/lightbox) includes focus trapping, keyboard controls, and seamless gallery support for accessible image and video viewing.
+
+</FeatureCard>
+
+<FeatureCard
+    title='Main Menu'
+>
+
+The [Main Menu](/docs/main-menu) collapses for mobile with `aria-expanded` and expands to full keyboard-navigable dropdowns and mega menus at desktop — one accessible component across both viewports.
+
+</FeatureCard>
+
+</ul>
+
+</TextBlock>
+
+</Section>

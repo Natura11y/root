@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-labelledby="title desc">
+  <title id="title">Color contrast example: 5.84 Pass</title>
+  <desc id="desc">Large Aa text with a passing contrast ratio label.</desc>
+  <rect width="400" height="300" fill="#1e2947"/>
+  <text x="200" y="155" fill="#f2849a" font-family="Arial, sans-serif" font-size="150" font-weight="700" text-anchor="middle" dominant-baseline="middle">Aa</text>
+  <text x="200" y="245" fill="#fff" font-family="Arial, sans-serif" font-size="34" font-weight="700" text-anchor="middle">5.84 (Pass)</text>
+</svg>
