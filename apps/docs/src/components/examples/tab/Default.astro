@@ -1,6 +1,5 @@
 ---
 import { exampleStyle } from '../shared/exampleStyles';
-import Tab from './Tab';
 
 interface Props {
   pill?: boolean;
@@ -13,8 +12,70 @@ const {
   breakpoint = 'md',
   navClass = null,
 } = Astro.props;
+
+const idSuffix = pill ? 'pill' : navClass ? 'generic' : 'example';
+const tabsClass = !pill && !navClass ? 'box-shadow-1' : null;
+const navClasses = navClass ?? [
+  'tabs-nav',
+  pill && 'tabs-nav--pill',
+  `tabs-nav--horizontal--${breakpoint}`,
+].filter(Boolean).join(' ');
+
+const tabItems = [
+  {
+    title: 'Mackerel',
+    content: `The mackerel tabby pattern gives slender vertical, gently curving stripes on the sides of the body. These stripes may be continuous or broken into bars and short segments/spots, especially on the flanks and stomach. Three or five vertical lines in an 'M' shape almost always appear on the forehead, along with dark lines from the corners of the eyes, one or more crossing each cheek, and of course many stripes and lines at various angles on the neck and shoulder area, on the flanks, and around the legs and tail. Mackerel tabbies are also called 'fishbone tabbies,' probably doubly named after the <a href="#1">mackerel</a> fish.`,
+  },
+  {
+    title: 'Classic',
+    content: `The classic tabby (also known as blotched or marbled tabby) has the 'M' pattern on the forehead but the body markings, rather than primarily thin stripes or spots, are thick curving bands in a whirled or swirled pattern with a distinctive mark on each side of the body resembling a bullseye. Classic tabby is a <a href="#1">recessive</a> trait. Classic tabbies are the most common type of tabby in much of the United Kingdom and the Middle East, among other places, but they are a far second in number to mackerel tabbies in most parts of the world.`,
+  },
+  {
+    title: 'Ticked',
+    content: `The ticked tabby pattern is due to even fields of <a href="#1">agouti</a> hairs, each with distinct bands of color, which break up the tabby patterning into a salt-and-pepper appearance that makes them look sand-like—thus there are few to no stripes or bands. Residual ghost striping and/or barring can often be seen on the lower legs, face, and belly and sometimes at the tail tip, as well as the standard 'M' and a long dark line running along the spine, primarily in ticked tabbies who also carry a mackerel or classic tabby allele. These types of cats come in many forms and colors.`,
+  },
+];
 ---
 
 <div style={exampleStyle}>
-  <Tab client:load pill={pill} breakpoint={breakpoint} navClass={navClass} />
+  <div class:list={['tabs', tabsClass]} role="tablist">
+    <ul class={navClasses}>
+      {tabItems.map((item, index) => {
+        const count = String(index + 1).padStart(2, '0');
+        const isActive = index === 0;
+
+        return (
+          <li>
+            <button
+              id={`tab-button-${idSuffix}-${count}`}
+              aria-controls={`tab-panel-${idSuffix}-${count}`}
+              aria-selected={isActive ? 'true' : 'false'}
+              role="tab"
+            >
+              {item.title}
+            </button>
+          </li>
+        );
+      })}
+    </ul>
+
+    {tabItems.map((item, index) => {
+      const count = String(index + 1).padStart(2, '0');
+      const isActive = index === 0;
+
+      return (
+        <div
+          class:list={['tabs__panel', isActive && 'shown']}
+          id={`tab-panel-${idSuffix}-${count}`}
+          aria-labelledby={`tab-button-${idSuffix}-${count}`}
+          aria-hidden={isActive ? 'false' : 'true'}
+          role="tabpanel"
+        >
+          <div class="container padding-y-4">
+            <p set:html={item.content} />
+          </div>
+        </div>
+      );
+    })}
+  </div>
 </div>

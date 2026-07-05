@@ -1,6 +1,13 @@
 ---
+import { Image } from 'astro:assets';
 import { exampleStyle } from '../shared/exampleStyles';
-import Track from './Track';
+import track01 from './images/track-01.jpg';
+import track02 from './images/track-02.jpg';
+import track03 from './images/track-03.jpg';
+import track04 from './images/track-04.jpg';
+import track05 from './images/track-05.jpg';
+import track06 from './images/track-06.jpg';
+import track07 from './images/track-07.jpg';
 
 interface Props {
   trackId?: string;
@@ -15,13 +22,160 @@ const {
   floatDirectionalButtons = false,
   wide = false,
 } = Astro.props;
+
+const panels = [
+  {
+    image: track01,
+    altText: 'Placeholder Image One',
+    imageCredit: 'Abhijit Sinha',
+    linkUrl: 'https://unsplash.com/@abhijit_sinha',
+  },
+  {
+    image: track02,
+    altText: 'Placeholder Image Two',
+    imageCredit: 'Getty Images',
+    linkUrl: 'https://unsplash.com/photos/a-lion-portrait-in-the-maasai-mara-africa-MinC4zW268E',
+  },
+  {
+    image: track03,
+    altText: 'Placeholder Image Three',
+    imageCredit: 'Getty Images',
+    linkUrl: 'https://unsplash.com/photos/cheetah-cubs-play-with-each-other-in-the-savannah-kenya-tanzania-africa-national-park-serengeti-maasai-mara-an-excellent-illustration-optyeeOoqkM',
+  },
+  {
+    image: track04,
+    altText: 'Placeholder Image Four',
+    imageCredit: 'Getty Images',
+    linkUrl: 'https://unsplash.com/photos/big-male-lion-with-cub-national-park-kenya-tanzania-masai-mara-serengeti-an-excellent-illustration-NPTL0JlyVHk',
+  },
+  {
+    image: track05,
+    altText: 'Placeholder Image Five',
+    imageCredit: 'Getty Images',
+    linkUrl: 'https://unsplash.com/photos/lioness-lying-on-a-big-tree-close-up-uganda-east-africa-an-excellent-illustration-vJwRjignzJI',
+  },
+  {
+    image: track06,
+    altText: 'Placeholder Image Six',
+    imageCredit: 'Getty Images',
+    linkUrl: 'https://unsplash.com/photos/leopard-in-the-afternoon-light-3A1pT3_cAXM',
+  },
+  {
+    image: track07,
+    altText: 'Placeholder Image Seven',
+    imageCredit: 'Zdenek Machacek',
+    linkUrl: 'https://unsplash.com/photos/a-group-of-cats-sitting-on-top-of-snow-covered-ground-eejn-j7etVo',
+  },
+];
 ---
 
 <div class:list={[wide && 'wide margin-x-auto']} style={exampleStyle}>
-  <Track
-    client:load
-    trackId={trackId}
-    utilities={utilities}
-    floatDirectionalButtons={floatDirectionalButtons}
-  />
+  <section
+    class:list={['track', utilities]}
+    aria-labelledby={`${trackId}-heading`}
+  >
+    <h3 id={`${trackId}-heading`} class="screen-reader-only">Featured Content</h3>
+
+    {floatDirectionalButtons ? (
+      <>
+        <div class="track__container">
+          <button
+            class="button button--icon-only track__prev"
+            type="button"
+            aria-label="Previous Slide"
+            data-track-prev
+          >
+            <span class="icon icon-arrow-left" aria-hidden="true"></span>
+          </button>
+
+          <ul class="track__panels gap-2">
+            {panels.map((panel) => (
+              <li class="track__panel">
+                <a
+                  class="backdrop"
+                  href={panel.linkUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div class="backdrop__media">
+                    <Image src={panel.image} alt={panel.altText} />
+                    <div class="backdrop__media__credit margin-1 position-bottom-left border-radius-1">
+                      <p>
+                        Photo by{' '}
+                        <span class="text-decoration-underline text-color-link">
+                          {panel.imageCredit}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+
+          <button
+            class="button button--icon-only track__next"
+            type="button"
+            aria-label="Next Slide"
+            data-track-next
+          >
+            <span class="icon icon-arrow-right" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <ul class="track__pagination" data-track-pagination></ul>
+      </>
+    ) : (
+      <>
+        <div class="track__container">
+          <ul class="track__panels gap-2">
+            {panels.map((panel) => (
+              <li class="track__panel">
+                <a
+                  class="backdrop"
+                  href={panel.linkUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <div class="backdrop__media">
+                    <Image src={panel.image} alt={panel.altText} />
+                    <div class="backdrop__media__credit margin-1 position-bottom-left border-radius-1">
+                      <p>
+                        Photo by{' '}
+                        <span class="text-decoration-underline text-color-link">
+                          {panel.imageCredit}
+                        </span>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="track__controls margin-y-3">
+          <button
+            class="button button--icon-only track__prev"
+            type="button"
+            aria-label="Previous Slide"
+            data-track-prev
+          >
+            <span class="icon icon-arrow-left" aria-hidden="true"></span>
+          </button>
+
+          <ul class="track__pagination" data-track-pagination></ul>
+
+          <button
+            class="button button--icon-only track__next"
+            type="button"
+            aria-label="Next Slide"
+            data-track-next
+          >
+            <span class="icon icon-arrow-right" aria-hidden="true"></span>
+          </button>
+        </div>
+      </>
+    )}
+  </section>
 </div>

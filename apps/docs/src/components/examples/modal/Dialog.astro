@@ -85,23 +85,3 @@ const contentId = `${id}-content`;
     </div>
   </div>
 </div>
-
-<script>
-  import Modal from '../../../../../../packages/core/src/js/modal';
-
-  const initializeModal = () => {
-    new Modal().init();
-  };
-
-  const setupKey = '__natura11yDocsModal';
-
-  if (!Reflect.get(window, setupKey)) {
-    Reflect.set(window, setupKey, true);
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initializeModal, { once: true });
-    } else {
-      initializeModal();
-    }
-  }
-</script>

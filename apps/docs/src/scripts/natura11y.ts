@@ -1,0 +1,32 @@
+import Accordion from '@natura11y-core-js/accordion';
+import AlertDismissable from '@natura11y-core-js/alert';
+import Backdrop from '@natura11y-core-js/backdrop';
+import Collapse from '@natura11y-core-js/collapse';
+import Dropdown from '@natura11y-core-js/dropdown';
+import Flyout from '@natura11y-core-js/flyout';
+import FormInput, { FormFileUpload, FormSearch, FormSubmission } from '@natura11y-core-js/form';
+import Lightbox from '@natura11y-core-js/lightbox';
+import MainMenu from '@natura11y-core-js/main-menu';
+import Modal from '@natura11y-core-js/modal';
+import Tab from '@natura11y-core-js/tab';
+import Table from '@natura11y-core-js/table';
+import Track from '@natura11y-core-js/track';
+
+document.addEventListener('DOMContentLoaded', () => {
+  new Accordion().init();
+  new AlertDismissable().init();
+  new Backdrop().init();
+  new Collapse().init();
+  new FormInput().init();
+  new FormSearch().init();
+  new FormSubmission().init();
+  new FormFileUpload().init();
+  new Lightbox().init();
+  new Flyout().init();
+  new Dropdown().init();
+  new Modal().init();
+  new MainMenu().init();
+  new Table().init();
+  new Tab().init();
+  new Track().init();
+});

@@ -110,16 +110,3 @@ const getAlertAttributes = (id: string, hasDesc: boolean) => ({
     </div>
   </div>
 )}
-
-{dismissable && (
-  <script>
-    import Alert from '../../../../../../packages/core/src/js/alert';
-
-    const setupKey = '__natura11yDocsAlert';
-
-    if (!Reflect.get(window, setupKey)) {
-      Reflect.set(window, setupKey, true);
-      new Alert().init();
-    }
-  </script>
-)}

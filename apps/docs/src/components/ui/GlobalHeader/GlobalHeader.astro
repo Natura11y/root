@@ -136,16 +136,6 @@ const isCurrentPage = (item: (typeof navItems)[number]) => pathname === item.hre
 </header>
 
 <script>
-  import Collapse from '../../../../../../packages/core/src/js/collapse';
-  import Dropdown from '../../../../../../packages/core/src/js/dropdown';
-  import MainMenu from '../../../../../../packages/core/src/js/main-menu';
-
-  const initializeGlobalHeader = () => {
-    new Collapse().init();
-    new Dropdown().init();
-    new MainMenu().init();
-  };
-
   type ThemeOption = 'light' | 'dark' | 'os';
 
   const storageKey = 'preferred-theme';
@@ -226,11 +216,9 @@ const isCurrentPage = (item: (typeof navItems)[number]) => pathname === item.hre
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-      initializeGlobalHeader();
       initializeThemePicker();
     }, { once: true });
   } else {
-    initializeGlobalHeader();
     initializeThemePicker();
   }
 </script>

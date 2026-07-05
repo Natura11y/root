@@ -47,14 +47,3 @@ const poster = await getImage({ src: posterImage, format: 'webp' });
     </div>
   </div>
 </div>
-
-<script>
-  import Backdrop from '../../../../../../packages/core/src/js/backdrop';
-
-  const setupKey = '__natura11yDocsBackdrop';
-
-  if (!Reflect.get(window, setupKey)) {
-    Reflect.set(window, setupKey, true);
-    new Backdrop().init();
-  }
-</script>

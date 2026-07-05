@@ -3,7 +3,8 @@
   "include": [".astro/types.d.ts", "**/*"],
   "exclude": ["dist"],
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "jsxImportSource": "react"
+    "paths": {
+      "@natura11y-core-js/*": ["../../packages/core/src/js/*"]
+    }
   }
 }

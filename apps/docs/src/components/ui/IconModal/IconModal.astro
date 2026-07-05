@@ -98,20 +98,6 @@ const getIconCodeExample = (className: string) => `<!-- Icon Examples -->
   </div>
 ))}
 
-<script>
-  import Modal from '../../../../../../packages/core/src/js/modal';
-
-  const initializeIconModals = () => {
-    new Modal().init();
-  };
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeIconModals, { once: true });
-  } else {
-    initializeIconModals();
-  }
-</script>
-
 <style>
   .icon-modal__preview {
     max-inline-size: 100%;

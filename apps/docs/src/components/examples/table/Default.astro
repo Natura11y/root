@@ -1,6 +1,5 @@
 ---
 import { exampleStyle } from '../shared/exampleStyles';
-import Table from './Table';
 
 type TableVariant =
   | 'basic'
@@ -15,13 +14,147 @@ interface Props {
 }
 
 const { variant = 'basic' } = Astro.props;
-const shouldHydrate = variant === 'scroll';
+
+const basicRows = [
+  { name: 'Giant’s Causeway', country: 'Northern Ireland' },
+  { name: "Fingal's Cave", country: 'Scotland' },
+  { name: 'Garni Gorge', country: 'Armenia' },
+  { name: 'Cape Raoul', country: 'Tasmania' },
+  { name: 'Svartifoss', country: 'Iceland' },
+];
+
+const responsiveRows = [
+  {
+    name: "Giant's Causeway",
+    country: 'Northern Ireland',
+    coordinates: "55°14'27″N 6°30'42″W",
+  },
+  {
+    name: "Fingal's Cave",
+    country: 'Scotland',
+    coordinates: "56°26'02″N 6°20'10″W",
+  },
+  {
+    name: 'Garni Gorge',
+    country: 'Armenia',
+    coordinates: "40°11'N 44°31'E",
+  },
+  {
+    name: 'Cape Raoul',
+    country: 'Tasmania',
+    coordinates: "43°12'04″S 147°45'48″E",
+  },
+  {
+    name: 'Svartifoss',
+    country: 'Iceland',
+    coordinates: '64.023°N 16.975°W',
+  },
+];
+
+const tableUtilities = {
+  basic: null,
+  edge: 'table--edge',
+  striped: 'table--striped',
+  divider: 'table--divider box-shadow-1',
+  scroll: null,
+  stack: 'table--stack--lg',
+}[variant];
 ---
 
 <div class="container narrow medium--lg" style={exampleStyle}>
-  {shouldHydrate ? (
-    <Table client:load variant={variant} />
+  {variant === 'scroll' ? (
+    <div class="table-scroll">
+      <small class="table-scroll__help">
+        Scroll to see whole table
+      </small>
+
+      <div class="table-scroll__container">
+        <table class="table">
+          <caption>
+            Places with columnar jointed volcanics
+          </caption>
+
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Country</th>
+              <th scope="col">Coordinates</th>
+              <th class="text-align-right" scope="col">
+                Map View
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {responsiveRows.map((row) => (
+              <tr>
+                <td>{row.name}</td>
+                <td>{row.country}</td>
+                <td>{row.coordinates}</td>
+                <td class="text-align-right">
+                  <a href="#1">Map View</a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  ) : variant === 'stack' ? (
+    <table class:list={['table', tableUtilities]}>
+      <caption>
+        Places with columnar jointed volcanics
+      </caption>
+
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Country</th>
+          <th scope="col">Coordinates</th>
+          <th class="text-align-right" scope="col">
+            Map View
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {responsiveRows.map((row) => (
+          <tr>
+            <td>{row.name}</td>
+            <td>{row.country}</td>
+            <td>{row.coordinates}</td>
+            <td class="text-align-right">
+              <a href="#1">Map View</a>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   ) : (
-    <Table variant={variant} />
+    <table class:list={['table', tableUtilities]}>
+      <caption class="screen-reader-only">
+        Places with columnar jointed volcanics
+      </caption>
+
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Country</th>
+          <th scope="col" class="text-align-right">Map View</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {basicRows.map((row) => (
+          <tr>
+            <td>{row.name}</td>
+            <td>{row.country}</td>
+            <td class="text-align-right">
+              <a href="#1">Map View</a>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   )}
 </div>

@@ -55,6 +55,22 @@
   --bevel-shadow-size: 0.1675rem;
 }
 
+html.has-overlay:has(.browser__mobile__content > .flyout-example > .flyout.shown),
+html.has-overlay:has(.browser__mobile__content > .flyout-example > .flyout.shown) > body {
+  position: static;
+  width: auto;
+}
+
+html.has-overlay:has(.browser__mobile__content > .flyout-example > .flyout.shown) {
+  display: block;
+  height: auto;
+  overflow: visible;
+
+  body {
+    top: auto;
+  }
+}
+
 .browser__mobile {
   --mobile-border-radius: 5.25rem;
   --mobile-edge-size: 0.95rem;
@@ -139,6 +155,35 @@
   flex: 1;
   flex-direction: column;
   overflow: hidden;
+}
+
+.browser__mobile__content > .flyout-example {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.browser__mobile__content > .flyout-example::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
+  visibility: hidden;
+  background-color: color-mix(in srgb, var(--background-color), black 50%);
+}
+
+.browser__mobile__content > .flyout-example:has(> .flyout.shown)::before {
+  visibility: visible;
+}
+
+.browser__mobile__content > .flyout-example > .container {
+  position: relative;
+  z-index: 0;
+}
+
+.browser__mobile__content > .flyout-example > .flyout {
+  z-index: 2;
+  background-color: transparent;
 }
 
 .browser__desktop {
