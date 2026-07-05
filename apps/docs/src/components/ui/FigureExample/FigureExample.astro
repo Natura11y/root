@@ -6,6 +6,8 @@ interface LineAnnotation {
   label?: string;
 }
 
+type InlineMarkerDefinition = string | RegExp;
+
 interface Props {
   figureNumber?: string | number;
   figureWidth?: string;
@@ -15,6 +17,7 @@ interface Props {
   codeExample?: string | null;
   code?: string | null;
   highlightedLines?: string | null;
+  markedText?: InlineMarkerDefinition | InlineMarkerDefinition[] | null;
   lineAnnotations?: LineAnnotation[];
   showLineNumbers?: boolean | null;
   hideFigCaption?: boolean;
@@ -30,6 +33,7 @@ const {
   codeExample = null,
   code = null,
   highlightedLines = null,
+  markedText = null,
   lineAnnotations = [],
   showLineNumbers = null,
   hideFigCaption = false,
@@ -65,6 +69,7 @@ const figureId = figureNumber ? `figcaption_${figureNumber}` : undefined;
         <CodeBlock
           preID={figureNumber ? `code_${figureNumber}` : null}
           highlightedLines={highlightedLines}
+          markedText={markedText}
           lineAnnotations={lineAnnotations}
           showLineNumbers={showLineNumbers}
           codeToolbar={codeToolbar}
@@ -78,6 +83,7 @@ const figureId = figureNumber ? `figcaption_${figureNumber}` : undefined;
       <CodeBlock
         preID={figureNumber ? `code_${figureNumber}` : null}
         highlightedLines={highlightedLines}
+        markedText={markedText}
         lineAnnotations={lineAnnotations}
         showLineNumbers={showLineNumbers}
         codeToolbar={codeToolbar}

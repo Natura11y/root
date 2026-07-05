@@ -172,31 +172,6 @@ a[data-logo='brand']:is(:focus, :hover) .a11y {
   margin-block-start: 0;
 }
 
-.docs-layout code {
-  background-color: var(--subtle-fill-1);
-  border-radius: var(--border-radius-1);
-  font-size: 0.925em;
-  padding: 0.125em 0.25em;
-}
-
-.figure-example__caption {
-  background-color: var(--subtle-fill-1);
-}
-
-.figure-example__code {
-  background-color: var(--dark);
-  color: var(--dark-text);
-  overflow: auto;
-}
-
-.figure-example__code code {
-  background-color: transparent;
-  border-radius: 0;
-  color: inherit;
-  display: block;
-  padding: 0;
-}
-
 .example-tabs {
   --secondary: #004857;
   --secondary-text: white;
@@ -204,23 +179,6 @@ a[data-logo='brand']:is(:focus, :hover) .a11y {
   --tab-nav-pill-active-background-color: var(--secondary);
 
   font-size: var(--font-size-md);
-}
-
-mark {
-  background-color: transparent;
-  color: var(--canvas);
-  position: relative;
-  z-index: 0;
-
-  &::before {
-    background-color: var(--primary);
-    border-radius: 0.125em;
-    content: '';
-    inset: 0 -0.125em;
-    opacity: 0.9;
-    position: absolute;
-    z-index: -1;
-  }
 }
 
 @include breakpoint.breakpoint-up(xl) {

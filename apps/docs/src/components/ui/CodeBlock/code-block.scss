@@ -1,3 +1,21 @@
+:root {
+  --code-background-color: var(--subtle-fill-1);
+  --code-inline-background-color: var(--code-background-color);
+  --code-marker-background-color: color-mix(in srgb, var(--primary) 12%, transparent);
+  --code-marker-border-color: color-mix(in srgb, var(--primary) 45%, transparent);
+  --code-line-marker-accent-width: 0;
+  --code-inline-marker-border-radius: var(--border-radius-1);
+  --code-inline-marker-border-width: var(--border-width);
+  --code-inline-marker-padding: 0.25em;
+}
+
+.docs-layout :is(p, li, td, th) > code {
+  background-color: var(--code-inline-background-color);
+  border-radius: var(--border-radius-1);
+  font-size: 0.925em;
+  padding: 0.125em 0.25em;
+}
+
 .example__code[data-line-anchors] .expressive-code .ec-line:not(.highlight) .gutter .ln {
   visibility: hidden;
 }
