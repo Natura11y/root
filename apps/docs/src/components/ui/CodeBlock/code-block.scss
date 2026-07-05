@@ -3,7 +3,7 @@
   --code-inline-background-color: var(--code-background-color);
   --code-marker-background-color: color-mix(in srgb, var(--primary) 12%, transparent);
   --code-marker-border-color: color-mix(in srgb, var(--primary) 45%, transparent);
-  --code-line-marker-accent-width: 0;
+  --code-line-marker-accent-width: var(--border-width);
   --code-inline-marker-border-radius: var(--border-radius-1);
   --code-inline-marker-border-width: var(--border-width);
   --code-inline-marker-padding: 0.25em;
