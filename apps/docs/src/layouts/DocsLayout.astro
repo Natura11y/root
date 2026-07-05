@@ -1,6 +1,8 @@
 ---
 import { Picture } from 'astro:assets';
+
 import type { ImageMetadata, MarkdownHeading } from 'astro';
+
 import OnThisPage from '../components/ui/OnThisPage.astro';
 import BaseLayout from './BaseLayout.astro';
 
@@ -69,11 +71,13 @@ const bannerAlt = frontmatter.bannerAlt ?? '';
           </div>
 
           <div class="position-relative collapse shown--lg" id="docs-sidebar">
+            
             <a class="focusable-only" href="#primary-content">
               Skip Navigation
             </a>
 
             <div class="padding-y-3">
+              
               {navGroups.length > 0 && (
                 <nav class="grid grid--divider gap-4" aria-label="Documentation">
                   {navGroups.map((group) => (
@@ -96,10 +100,15 @@ const bannerAlt = frontmatter.bannerAlt ?? '';
                   ))}
                 </nav>
               )}
+
             </div>
+          
           </div>
+        
         </div>
+      
       </div>
+    
     </aside>
 
     <header class="docs-layout__banner backdrop backdrop--fixed theme-dark aspect-ratio-banner">
