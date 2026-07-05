@@ -19,6 +19,7 @@ const {
 
 const navId = `${idPrefix}-menu`;
 const searchId = `${idPrefix}-search`;
+const searchInputId = `${searchId}-input`;
 const dropdownId = `${idPrefix}-dropdown`;
 const megaMenuId = `${idPrefix}-mega-menu`;
 const rootClass = `main-menu--${variant}--lg theme-canvas drop-shadow-1`;
@@ -73,7 +74,16 @@ const rootClass = `main-menu--${variant}--lg theme-canvas drop-shadow-1`;
               <label class="form-entry__field">
                 <span class="form-entry__field__label screen-reader-only">Search</span>
                 <span class="form-entry__field__input">
-                  <input type="search" name="global-search" />
+                  <input type="search" id={searchInputId} name="global-search" />
+                  <button
+                    class="button button--icon-only"
+                    type="button"
+                    data-search-clear
+                    aria-label="Clear search"
+                    aria-controls={searchInputId}
+                  >
+                    <span class="icon icon-clear" aria-hidden="true"></span>
+                  </button>
                   <button class="button theme-primary" type="submit">
                     Search
                   </button>
@@ -112,7 +122,16 @@ const rootClass = `main-menu--${variant}--lg theme-canvas drop-shadow-1`;
               <label class="form-entry__field">
                 <span class="form-entry__field__label screen-reader-only">Search</span>
                 <span class="form-entry__field__input">
-                  <input type="search" name="global-search" />
+                  <input type="search" id={searchInputId} name="global-search" />
+                  <button
+                    class="button button--icon-only"
+                    type="button"
+                    data-search-clear
+                    aria-label="Clear search"
+                    aria-controls={searchInputId}
+                  >
+                    <span class="icon icon-clear" aria-hidden="true"></span>
+                  </button>
                   <button class="button button--icon-only theme-primary" type="submit" aria-label="Search">
                     <span class="icon icon-search" aria-hidden="true"></span>
                   </button>

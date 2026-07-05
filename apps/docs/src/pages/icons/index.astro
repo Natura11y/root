@@ -33,7 +33,7 @@ const iconGridStyle = [
   </header>
 
   <section class="container wide margin-y-5" aria-label="Natura11y icon library">
-    <div class="form-entry form-entry--search">
+    <form class="form-entry form-entry--search" role="search" aria-label="Search icons" data-icon-search-form>
       <label class="form-entry__field">
         <span class="form-entry__field__label screen-reader-only">Search Icons</span>
         <span class="form-entry__field__input">
@@ -58,7 +58,7 @@ const iconGridStyle = [
           </button>
         </span>
       </label>
-    </div>
+    </form>
 
     <div class="text-align-center margin-y-4">
       <p class="screen-reader-only" aria-live="polite" data-icon-search-status>
@@ -111,11 +111,8 @@ const iconGridStyle = [
 </BaseLayout>
 
 <script>
-  import { FormSearch } from '../../../../../packages/core/src/js/form';
-
   const initializeIconSearch = () => {
-    new FormSearch().init();
-
+    const searchForm = document.querySelector<HTMLFormElement>('[data-icon-search-form]');
     const searchInput = document.querySelector<HTMLInputElement>('[data-icon-search]');
     const iconItems = Array.from(document.querySelectorAll<HTMLElement>('[data-icon-item]'));
     const noResults = document.querySelector<HTMLElement>('[data-icon-no-results]');
@@ -191,6 +188,9 @@ o_(")(")`,
       }
     };
 
+    searchForm?.addEventListener('submit', (event) => {
+      event.preventDefault();
+    });
     searchInput.addEventListener('input', filterIcons);
     filterIcons();
   };

@@ -1,5 +1,6 @@
 ---
 import '@natura11y-icons/natura11y-icons.css';
+import FormBehavior from '../components/ui/FormBehavior/FormBehavior.astro';
 import GlobalFooter from '../components/ui/GlobalFooter/GlobalFooter.astro';
 import GlobalHeader from '../components/ui/GlobalHeader/GlobalHeader.astro';
 import '../styles/global.scss';
@@ -64,6 +65,7 @@ const { title, description } = Astro.props;
       <slot />
     </main>
     <GlobalFooter />
+    <FormBehavior />
   </body>
 
 </html>

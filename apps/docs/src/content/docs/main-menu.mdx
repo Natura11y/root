@@ -66,8 +66,8 @@ The `.main-menu--bar--{bp}` selector places the main menu *inline* with the logo
         { range: '2-10' },
         { range: '12-44' },
         { range: '46-70' },
-        { range: '72-85' },
-        { range: '87-96' },
+        { range: '72-98' },
+        { range: '100-109' },
     ]}
     code={`<div class="main-menu--bar--lg">
   <div class="main-menu__logo">
@@ -143,7 +143,16 @@ The `.main-menu--bar--{bp}` selector places the main menu *inline* with the logo
       <label class="form-entry__field">
         <span class="form-entry__field__label screen-reader-only">Search</span>
         <span class="form-entry__field__input">
-          <input type="search" name="global-search">
+          <input type="search" id="global-search" name="global-search">
+          <button
+            class="button button--icon-only"
+            type="button"
+            data-search-clear
+            aria-label="Clear search"
+            aria-controls="global-search"
+          >
+            <span class="icon icon-clear" aria-hidden="true"></span>
+          </button>
           <button class="button theme-primary" type="submit">Search</button>
         </span>
       </label>
@@ -204,7 +213,7 @@ Learn about <a href="/docs/collapse/">collapse</a>.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="72-85">
+<TableLineDescRow targetFigure="1" lines="72-98">
 
 The `.main-menu__search` selector is optional.
 
@@ -216,7 +225,7 @@ Learn about <a href="/docs/form/#form-entries">form entries</a>.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="87-96">
+<TableLineDescRow targetFigure="1" lines="100-109">
 
 The `.main-menu__actions` selector is optional.
 
