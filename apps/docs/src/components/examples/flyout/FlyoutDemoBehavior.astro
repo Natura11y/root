@@ -1,0 +1,134 @@
+<script>
+  const setupFlyoutDemo = (demo: HTMLElement) => {
+    if (demo.dataset.flyoutDemoReady === 'true') {
+      return;
+    }
+
+    demo.dataset.flyoutDemoReady = 'true';
+
+    const overlay = demo.querySelector<HTMLElement>('[data-flyout-demo-overlay]');
+    const openButton = demo.querySelector<HTMLButtonElement>('[data-flyout-demo-open]');
+    const closeButton = demo.querySelector<HTMLButtonElement>('[data-flyout-demo-close]');
+    const backButton = demo.querySelector<HTMLButtonElement>('[data-flyout-demo-back]');
+    const panels = [...demo.querySelectorAll<HTMLElement>('[data-flyout-demo-panel]')];
+    const panelHistory: HTMLElement[] = [];
+
+    const setOpen = (isOpen: boolean, moveFocus = false) => {
+      overlay?.classList.toggle('is-open', isOpen);
+      overlay?.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+      openButton?.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
+      if (isOpen) {
+        resetPanels();
+
+        if (moveFocus) {
+          closeButton?.focus({ preventScroll: true });
+        }
+      } else if (moveFocus) {
+        openButton?.focus({ preventScroll: true });
+      }
+    };
+
+    const setActivePanel = (targetPanel: HTMLElement, animate = false) => {
+      panels.forEach((panel) => {
+        const isActive = panel === targetPanel;
+
+        panel.classList.toggle('is-active', isActive);
+
+        if (isActive) {
+          panel.removeAttribute('inert');
+
+          if (animate) {
+            panel.setAttribute('data-entering', '');
+            panel.addEventListener(
+              'animationend',
+              () => panel.removeAttribute('data-entering'),
+              { once: true },
+            );
+          }
+        } else {
+          panel.setAttribute('inert', '');
+        }
+      });
+    };
+
+    const resetPanels = () => {
+      panelHistory.length = 0;
+
+      if (panels[0]) {
+        setActivePanel(panels[0]);
+      }
+
+      backButton?.setAttribute('hidden', '');
+    };
+
+    const getActivePanel = () => (
+      panels.find((panel) => panel.classList.contains('is-active')) ?? panels[0]
+    );
+
+    demo.addEventListener('click', (event) => {
+      const target = event.target;
+
+      if (!(target instanceof Element)) {
+        return;
+      }
+
+      if (target.closest('[data-flyout-demo-open]')) {
+        setOpen(true, true);
+        return;
+      }
+
+      if (target.closest('[data-flyout-demo-close]')) {
+        setOpen(false, true);
+        return;
+      }
+
+      const nextButton = target.closest('[data-flyout-demo-next]');
+
+      if (nextButton) {
+        const targetId = nextButton.getAttribute('aria-controls');
+        const targetPanel = targetId
+          ? demo.querySelector<HTMLElement>(`#${CSS.escape(targetId)}`)
+          : null;
+        const activePanel = getActivePanel();
+
+        if (targetPanel && activePanel) {
+          panelHistory.push(activePanel);
+          setActivePanel(targetPanel, true);
+          backButton?.removeAttribute('hidden');
+          backButton?.focus({ preventScroll: true });
+        }
+
+        return;
+      }
+
+      if (target.closest('[data-flyout-demo-back]')) {
+        const previousPanel = panelHistory.pop();
+
+        if (previousPanel) {
+          setActivePanel(previousPanel, true);
+        }
+
+        if (panelHistory.length === 0) {
+          backButton?.setAttribute('hidden', '');
+          closeButton?.focus({ preventScroll: true });
+        }
+      }
+    });
+
+    resetPanels();
+    setOpen(overlay?.classList.contains('is-open') ?? false);
+  };
+
+  const setupFlyoutDemos = () => {
+    document
+      .querySelectorAll<HTMLElement>('[data-flyout-demo]')
+      .forEach(setupFlyoutDemo);
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupFlyoutDemos, { once: true });
+  } else {
+    setupFlyoutDemos();
+  }
+</script>

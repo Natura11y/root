@@ -1,5 +1,8 @@
 ---
 import Brand from '../main-menu/Brand.astro';
+import FlyoutDemoBehavior from './FlyoutDemoBehavior.astro';
+
+import './flyout-demo.scss';
 
 interface Props {
   id?: string;
@@ -10,42 +13,47 @@ const {
 } = Astro.props;
 ---
 
-<div class="flyout-example">
-  <div class="container width-100 padding-y-2 box-shadow-1">
+<div class="flyout-demo" data-flyout-demo>
+
+  <div class="flyout-demo__page container width-100 padding-y-2 box-shadow-1">
+
     <div class="justify-content-between align-items-center display-flex">
+
       <a href="#1" title="Home" data-logo="brand">
         <Brand />
       </a>
 
       <button
         class="button button--icon-only font-size-md"
-        data-open="flyout"
+        data-flyout-demo-open
         aria-controls={id}
         aria-label="Open Menu"
+        aria-expanded="true"
         type="button"
       >
         <span class="icon icon-menu" aria-hidden="true"></span>
       </button>
+
     </div>
+
   </div>
 
   <div
-    class="flyout shown"
+    class="flyout-demo__overlay is-open"
     id={id}
+    data-flyout-demo-overlay
     aria-hidden="false"
-    style="position: absolute; inset: 0;"
   >
     <div
-      class="flyout__content"
+      class="flyout-demo__content"
       role="dialog"
       aria-modal="true"
       aria-label="Main Menu"
-      style="height: 100%;"
     >
-      <div class="flyout__header">
+      <div class="flyout-demo__header">
         <button
           class="button button--icon-only font-size-md"
-          data-flyout-close
+          data-flyout-demo-close
           aria-label="Close Menu"
           type="button"
         >
@@ -53,7 +61,7 @@ const {
         </button>
       </div>
 
-      <nav class="flyout__body" aria-label="Main Menu Navigation">
+      <nav class="flyout-demo__body" aria-label="Main Menu Navigation">
         <ul class="nav nav--divider">
           <li><a href="#1">Home</a></li>
           <li><a href="#1">Trails</a></li>
@@ -66,3 +74,5 @@ const {
     </div>
   </div>
 </div>
+
+<FlyoutDemoBehavior />

@@ -1,5 +1,7 @@
 ---
 import Brand from '../main-menu/Brand.astro';
+import FlyoutDemoBehavior from './FlyoutDemoBehavior.astro';
+import './flyout-demo.scss';
 
 interface Props {
   id?: string;
@@ -10,8 +12,8 @@ const {
 } = Astro.props;
 ---
 
-<div class="flyout-example">
-  <div class="container width-100 padding-y-2 box-shadow-1">
+<div class="flyout-demo" data-flyout-demo>
+  <div class="flyout-demo__page container width-100 padding-y-2 box-shadow-1">
     <div class="justify-content-between align-items-center display-flex">
       <a href="#1" title="Home" data-logo="brand">
         <Brand />
@@ -19,9 +21,10 @@ const {
 
       <button
         class="button button--icon-only font-size-md"
-        data-open="flyout"
+        data-flyout-demo-open
         aria-controls={id}
         aria-label="Open Menu"
+        aria-expanded="true"
         type="button"
       >
         <span class="icon icon-menu" aria-hidden="true"></span>
@@ -30,22 +33,21 @@ const {
   </div>
 
   <div
-    class="flyout shown"
+    class="flyout-demo__overlay is-open"
     id={id}
+    data-flyout-demo-overlay
     aria-hidden="false"
-    style="position: absolute; inset: 0;"
   >
     <div
-      class="flyout__content"
+      class="flyout-demo__content"
       role="dialog"
       aria-modal="true"
       aria-label="Main Menu"
-      style="height: 100%;"
     >
-      <div class="flyout__header">
+      <div class="flyout-demo__header">
         <button
           class="button button--icon-only font-size-md"
-          data-flyout-back
+          data-flyout-demo-back
           aria-label="Back"
           type="button"
           hidden
@@ -55,7 +57,7 @@ const {
 
         <button
           class="button button--icon-only font-size-md"
-          data-flyout-close
+          data-flyout-demo-close
           aria-label="Close Menu"
           type="button"
         >
@@ -63,18 +65,18 @@ const {
         </button>
       </div>
 
-      <nav class="flyout__body" aria-label="Main Menu Navigation">
-        <div class="flyout__panels">
-          <div class="flyout__panel">
+      <nav class="flyout-demo__body" aria-label="Main Menu Navigation">
+        <div class="flyout-demo__panels">
+          <div class="flyout-demo__panel is-active" data-flyout-demo-panel>
             <ul class="nav nav--divider">
               <li>
-                <button data-flyout-next aria-controls={`${id}-panel-wildlife`} type="button">
+                <button data-flyout-demo-next aria-controls={`${id}-panel-wildlife`} type="button">
                   Wildlife
                   <span class="icon icon-arrow-right" aria-hidden="true"></span>
                 </button>
               </li>
               <li>
-                <button data-flyout-next aria-controls={`${id}-panel-trails`} type="button">
+                <button data-flyout-demo-next aria-controls={`${id}-panel-trails`} type="button">
                   Trails
                   <span class="icon icon-arrow-right" aria-hidden="true"></span>
                 </button>
@@ -85,25 +87,25 @@ const {
             </ul>
           </div>
 
-          <div class="flyout__panel" id={`${id}-panel-wildlife`}>
-            <div class="flyout__panel-title">
+          <div class="flyout-demo__panel" id={`${id}-panel-wildlife`} data-flyout-demo-panel inert>
+            <div class="flyout-demo__panel-title">
               <p>Wildlife</p>
             </div>
             <ul class="nav nav--divider">
               <li>
-                <button data-flyout-next aria-controls={`${id}-panel-birds`} type="button">
+                <button data-flyout-demo-next aria-controls={`${id}-panel-birds`} type="button">
                   Birds
                   <span class="icon icon-arrow-right" aria-hidden="true"></span>
                 </button>
               </li>
               <li>
-                <button data-flyout-next aria-controls={`${id}-panel-mammals`} type="button">
+                <button data-flyout-demo-next aria-controls={`${id}-panel-mammals`} type="button">
                   Mammals
                   <span class="icon icon-arrow-right" aria-hidden="true"></span>
                 </button>
               </li>
               <li>
-                <button data-flyout-next aria-controls={`${id}-panel-reptiles`} type="button">
+                <button data-flyout-demo-next aria-controls={`${id}-panel-reptiles`} type="button">
                   Reptiles
                   <span class="icon icon-arrow-right" aria-hidden="true"></span>
                 </button>
@@ -112,8 +114,8 @@ const {
             </ul>
           </div>
 
-          <div class="flyout__panel" id={`${id}-panel-trails`}>
-            <div class="flyout__panel-title">
+          <div class="flyout-demo__panel" id={`${id}-panel-trails`} data-flyout-demo-panel inert>
+            <div class="flyout-demo__panel-title">
               <p>Trails</p>
             </div>
             <ul class="nav nav--divider">
@@ -124,8 +126,8 @@ const {
             </ul>
           </div>
 
-          <div class="flyout__panel" id={`${id}-panel-birds`}>
-            <div class="flyout__panel-title">
+          <div class="flyout-demo__panel" id={`${id}-panel-birds`} data-flyout-demo-panel inert>
+            <div class="flyout-demo__panel-title">
               <p>Birds</p>
             </div>
             <ul class="nav nav--divider">
@@ -136,8 +138,8 @@ const {
             </ul>
           </div>
 
-          <div class="flyout__panel" id={`${id}-panel-mammals`}>
-            <div class="flyout__panel-title">
+          <div class="flyout-demo__panel" id={`${id}-panel-mammals`} data-flyout-demo-panel inert>
+            <div class="flyout-demo__panel-title">
               <p>Mammals</p>
             </div>
             <ul class="nav nav--divider">
@@ -148,8 +150,8 @@ const {
             </ul>
           </div>
 
-          <div class="flyout__panel" id={`${id}-panel-reptiles`}>
-            <div class="flyout__panel-title">
+          <div class="flyout-demo__panel" id={`${id}-panel-reptiles`} data-flyout-demo-panel inert>
+            <div class="flyout-demo__panel-title">
               <p>Reptiles</p>
             </div>
             <ul class="nav nav--divider">
@@ -164,3 +166,5 @@ const {
     </div>
   </div>
 </div>
+
+<FlyoutDemoBehavior />

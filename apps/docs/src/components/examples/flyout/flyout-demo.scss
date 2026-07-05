@@ -1,0 +1,130 @@
+.flyout-demo {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background-color: var(--background-color);
+}
+
+.flyout-demo__page {
+  position: relative;
+  z-index: 0;
+}
+
+.flyout-demo__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-end;
+  visibility: hidden;
+  background-color: hsl(0 0% 0% / 0.5);
+  opacity: 0;
+  transition:
+    opacity 0.3s ease-in-out,
+    visibility 0s 0.3s;
+}
+
+.flyout-demo__overlay.is-open {
+  visibility: visible;
+  opacity: 1;
+  transition:
+    opacity 0.3s ease-in-out,
+    visibility 0s;
+}
+
+.flyout-demo__content {
+  display: flex;
+  flex-direction: column;
+  width: var(--flyout-width);
+  height: 100%;
+  overflow-x: hidden;
+  background-color: var(--background-color);
+  box-shadow: -0.25rem 0 1rem hsl(var(--box-shadow-hsl) / var(--box-shadow-base-opacity));
+  transform: translateX(var(--flyout-width));
+  transition: transform 0.3s ease-in-out;
+}
+
+.flyout-demo__overlay.is-open .flyout-demo__content {
+  transform: translateX(0);
+}
+
+.flyout-demo__header {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding-block: var(--main-menu-padding-y);
+  padding-inline: var(--main-menu-padding-x);
+  border-block-end: var(--border-width) var(--border-style) var(--border-color);
+  font-size: var(--font-size-md);
+}
+
+.flyout-demo__header [data-flyout-demo-close] {
+  margin-inline-start: auto;
+}
+
+.flyout-demo__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.flyout-demo__panels {
+  position: relative;
+  height: 100%;
+}
+
+.flyout-demo__panel {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  visibility: hidden;
+  background-color: var(--background-color);
+}
+
+.flyout-demo__panel.is-active {
+  z-index: 1;
+  visibility: visible;
+}
+
+.flyout-demo__panel[data-entering] {
+  animation: flyout-demo-panel-enter 0.25s ease-out;
+}
+
+.flyout-demo__panel-title {
+  padding-block: 0.25em;
+  padding-inline: var(--main-menu-padding-x);
+  background-color: var(--subtle-fill-1);
+  font-weight: var(--font-weight-bold);
+  opacity: 0.8;
+}
+
+.flyout-demo__body [data-flyout-demo-next] {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flyout-demo :is(a, button) {
+  user-select: none;
+}
+
+@keyframes flyout-demo-panel-enter {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flyout-demo__overlay,
+  .flyout-demo__content {
+    transition: none;
+  }
+
+  .flyout-demo__panel[data-entering] {
+    animation: none;
+  }
+}

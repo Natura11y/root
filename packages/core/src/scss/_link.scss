@@ -50,7 +50,7 @@ In this file:
     // Link with Icon
 
     .link {
-        font-weight: var(--button-font-weight);
+        font-weight: var(--font-weight-medium);
         
         &:not([class*="text-color-"]) {
             color: var(--link-color);
@@ -62,7 +62,6 @@ In this file:
                 text-decoration: underline;
             }
         }
-
     }
 
     // :has() Selectors
@@ -73,7 +72,7 @@ In this file:
         display: inline-flex;
         align-items: center;
 
-        gap: 0.5em;
+        gap: 0.25em;
 
         &:hover,
         &:focus {
