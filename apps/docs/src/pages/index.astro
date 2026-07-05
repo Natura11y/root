@@ -1,5 +1,16 @@
 ---
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import bannerIntroduction from '../assets/home/banner-introduction.jpg';
+import accessibilityFeature from '../content/docs/banner/accessibility.jpg';
+import colorFeature from '../content/docs/banner/color.jpg';
+import customizationFeature from '../content/docs/banner/customization.jpg';
+import figmaFeature from '../content/docs/banner/figma.jpg';
+import iconFeature from '../content/docs/banner/icon.jpg';
+import navigationFeature from '../content/docs/banner/navigation.jpg';
+import reactFeature from '../content/docs/banner/react.jpg';
+import rtlFeature from '../content/docs/banner/rtl.jpg';
+import typographyFeature from '../content/docs/banner/typography.jpg';
 
 const title = 'Natura11y Inclusive Framework';
 const description =
@@ -10,7 +21,7 @@ const features = [
     headline: 'Accessibility',
     description:
       'Build websites everyone can use. Natura11y comes packed with accessibility features right out of the box.',
-    image: '/docs-assets/banner/accessibility.jpg',
+    image: accessibilityFeature,
     altText: 'A giraffe reaching for a leaf',
     href: '/docs/accessibility/',
   },
@@ -18,7 +29,7 @@ const features = [
     headline: 'Customizable CDN',
     description:
       "Customize styles with simple CSS variables using Natura11y's CDN. Skip the Sass compilers and get straight to building.",
-    image: '/docs-assets/banner/customization.jpg',
+    image: customizationFeature,
     altText: 'Close up of a beautiful chameleon',
     href: '/docs/customization/',
   },
@@ -26,7 +37,7 @@ const features = [
     headline: 'Dynamic Color System',
     description:
       'Beyond Dark Mode: Apply color themes to entire pages or components, even at specific breakpoints.',
-    image: '/docs-assets/banner/color.jpg',
+    image: colorFeature,
     altText: 'Yellow, blue, red, and green bird in close-up photograph',
     href: '/docs/color/',
   },
@@ -34,7 +45,7 @@ const features = [
     headline: 'Figma UI Kit',
     description:
       "Natura11y's free Figma UI Kit is perfect for design exploration or building a complete design system from the ground up.",
-    image: '/docs-assets/banner/figma.jpg',
+    image: figmaFeature,
     altText: 'A plate of figs on a tablecloth',
     href: '/docs/figma/',
   },
@@ -42,7 +53,7 @@ const features = [
     headline: 'Navigation',
     description:
       'Build responsive navigation systems with ready-made headers, menus, dropdowns, and breadcrumbs.',
-    image: '/docs-assets/banner/navigation.jpg',
+    image: navigationFeature,
     altText: 'A flock of snow geese flying in the sky',
     href: '/docs/navigation/',
   },
@@ -50,7 +61,7 @@ const features = [
     headline: 'Open Source Icon Library',
     description:
       'Access 100+ open-source icons, or build your own custom icon font, all without creating an account or paying a dime.',
-    image: '/docs-assets/banner/icon.jpg',
+    image: iconFeature,
     altText: 'A silhouette of a parrot on bare branches',
     href: '/icons/',
   },
@@ -58,7 +69,7 @@ const features = [
     headline: 'React Starter Components',
     description:
       "Jumpstart your next React project with Naturally's starter components. Use exact same CSS as Naturally's HTML components.",
-    image: '/docs-assets/banner/react.jpg',
+    image: reactFeature,
     altText: 'Two great black-backed gulls on a rocky beach',
     href: '/docs/react/',
   },
@@ -66,7 +77,7 @@ const features = [
     headline: 'RTL Support',
     description:
       'Create layouts that flow naturally in any reading direction. Natura11y ships with full right-to-left language support.',
-    image: '/docs-assets/banner/rtl.jpg',
+    image: rtlFeature,
     altText: 'A crab on a rock in Cuba',
     href: '/docs/rtl/',
   },
@@ -74,7 +85,7 @@ const features = [
     headline: 'Typography',
     description:
       'Naturally makes typography effortless. Two variables control your entire scale and adapt seamlessly across breakpoints.',
-    image: '/docs-assets/banner/typography.jpg',
+    image: typographyFeature,
     altText: 'Dead trees in the Namib Desert',
     href: '/docs/typography/',
   },
@@ -85,10 +96,13 @@ const features = [
 
   <section class="backdrop theme-dark backdrop--stack--lg">
     <div class="backdrop__media">
-      <img
+      <Image
         class="opacity-40"
-        src="/docs-assets/home/banner-introduction.jpg"
+        src={bannerIntroduction}
         alt="A hummingbird pollinating a flower"
+        widths={[640, 960, 1280, 1600, 2000]}
+        sizes="100vw"
+        priority
       />
       <div class="backdrop__media__credit margin-1">
         <p>
@@ -155,7 +169,13 @@ const features = [
           {features.map((feature) => (
             <a class="card subtle-fill-1 border-radius-2 text-decoration-none" href={feature.href}>
               <div class="card__media border-radius-2">
-                <img class="home-card-image" src={feature.image} alt={feature.altText} />
+                <Image
+                  class="home-card-image"
+                  src={feature.image}
+                  alt={feature.altText}
+                  widths={[320, 480, 640, 768, 960]}
+                  sizes="(min-width: 992px) 30vw, 100vw"
+                />
               </div>
 
               <div class="card__body">
