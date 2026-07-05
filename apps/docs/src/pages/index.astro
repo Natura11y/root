@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+
 import BaseLayout from '../layouts/BaseLayout.astro';
 import bannerIntroduction from '../assets/home/banner-introduction.jpg';
 import accessibilityFeature from '../content/docs/banner/accessibility.jpg';
@@ -95,7 +96,9 @@ const features = [
 <BaseLayout title={title} description={description}>
 
   <section class="backdrop theme-dark backdrop--stack--lg">
+
     <div class="backdrop__media">
+
       <Image
         class="opacity-40"
         src={bannerIntroduction}
@@ -104,6 +107,7 @@ const features = [
         sizes="100vw"
         priority
       />
+
       <div class="backdrop__media__credit margin-1">
         <p>
           <em>
@@ -120,6 +124,7 @@ const features = [
           </em>
         </p>
       </div>
+    
     </div>
 
     <div class="backdrop__cover">

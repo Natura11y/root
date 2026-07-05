@@ -112,13 +112,17 @@ const bannerAlt = frontmatter.bannerAlt ?? '';
     </aside>
 
     <header class="docs-layout__banner backdrop backdrop--fixed theme-dark aspect-ratio-banner">
+      
       {bannerImage && (
         <div class="backdrop__media">
+          
           <Picture
             class="opacity-40"
             src={bannerImage}
             formats={['avif', 'webp']}
             alt={bannerAlt}
+            layout="full-width"
+            priority
           />
 
           {frontmatter.bannerCreditName && (
