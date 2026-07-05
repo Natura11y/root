@@ -122,7 +122,6 @@ export default class FormInput extends FormBase {
 
     if (isRequired) {
       formEntryInput.setAttribute('required', 'true');
-      formEntryInput.setAttribute('aria-required', 'true');
     }
 
     // Add dynamic validation on input event (removes error class when user types)

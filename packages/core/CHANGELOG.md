@@ -16,6 +16,9 @@ All notable changes to this project will be documented in this file.
 #### Modal
 - Add the missing `--modal-padding` default so the modal container padding and content max-height calculation resolve without requiring a spacing utility.
 
+#### Form
+- Stop adding unsupported `aria-required` attributes to native form controls at runtime; required fields continue to receive the native `required` attribute from `.form-entry[data-required]`.
+
 #### Link
 - Remove the legacy `.link-expanded` utility and stop extending it inside split dropdown links.
 
