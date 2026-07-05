@@ -57,8 +57,8 @@ Each alert should include an icon to help convey its meaning. Use icons from the
   figureNumber="1"
   lineAnnotations={[
     { range: '1-5' },
-    { range: '6-11' },
-    { range: '13-18' },
+    { range: '7-12' },
+    { range: '14-19' },
   ]}
   code={`
   <div
@@ -66,6 +66,7 @@ Each alert should include an icon to help convey its meaning. Use icons from the
     aria-labelledby="alert-confirm-label"
     aria-describedby="alert-confirm-description"
     role="alert">
+
     <div class="alert__title h5">
       <span class="icon icon-confirm" aria-hidden="true"></span>
       <span class="alert__title__text" id="alert-confirm-label">
@@ -79,6 +80,7 @@ Each alert should include an icon to help convey its meaning. Use icons from the
         <a href="#1">homepage</a>.
       </p>
     </div>
+  
   </div>
   `}
 >
@@ -264,6 +266,7 @@ For additional alert styles, you can exclude the `.alert--confirm` or `.alert--w
     aria-labelledby="alert-mail-label"
     aria-describedby="alert-mail-description"
     role="alert">
+
     <div class="alert__title h5">
       <span class="icon icon-mail" aria-hidden="true"></span>
       <span class="alert__title__text" id="alert-mail-label">
@@ -277,6 +280,7 @@ For additional alert styles, you can exclude the `.alert--confirm` or `.alert--w
         <a href="#1">your account dashboard</a>.
       </p>
     </div>
+    
   </div>
   `}
 >

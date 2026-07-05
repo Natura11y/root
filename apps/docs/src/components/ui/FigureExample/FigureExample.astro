@@ -12,32 +12,28 @@ interface Props {
   figureNumber?: string | number;
   figureWidth?: string;
   visualExampleClass?: string | null;
-  codeToolbar?: boolean;
+  showCodeFrame?: boolean;
   codeLanguage?: string;
-  codeExample?: string | null;
   code?: string | null;
   highlightedLines?: string | null;
   markedText?: InlineMarkerDefinition | InlineMarkerDefinition[] | null;
   lineAnnotations?: LineAnnotation[];
   showLineNumbers?: boolean | null;
   hideFigCaption?: boolean;
-  downloadUrl?: string | null;
 }
 
 const {
   figureNumber = null,
   figureWidth = 'medium--lg',
   visualExampleClass = null,
-  codeToolbar = true,
+  showCodeFrame = true,
   codeLanguage = 'html',
-  codeExample = null,
   code = null,
   highlightedLines = null,
   markedText = null,
   lineAnnotations = [],
   showLineNumbers = null,
   hideFigCaption = false,
-  downloadUrl = null,
 } = Astro.props;
 
 const hasVisualExample = Astro.slots.has('default');
@@ -60,7 +56,6 @@ const figureId = figureNumber ? `figcaption_${figureNumber}` : undefined;
   >
     {hasVisualExample ? (
       <div class="example__visual overflow-hidden">
-      
         <div class:list={['padding-y-5', visualExampleClass]}>
           <div class="container narrow">
             <slot />
@@ -68,30 +63,26 @@ const figureId = figureNumber ? `figcaption_${figureNumber}` : undefined;
         </div>
 
         <CodeBlock
-          preID={figureNumber ? `code_${figureNumber}` : null}
+          codeId={figureNumber ? `code_${figureNumber}` : null}
           highlightedLines={highlightedLines}
           markedText={markedText}
           lineAnnotations={lineAnnotations}
           showLineNumbers={showLineNumbers}
-          codeToolbar={codeToolbar}
+          showCodeFrame={showCodeFrame}
           codeLanguage={codeLanguage}
-          codeExample={codeExample}
           code={code}
-          downloadUrl={downloadUrl}
         />
       </div>
     ) : (
       <CodeBlock
-        preID={figureNumber ? `code_${figureNumber}` : null}
+        codeId={figureNumber ? `code_${figureNumber}` : null}
         highlightedLines={highlightedLines}
         markedText={markedText}
         lineAnnotations={lineAnnotations}
         showLineNumbers={showLineNumbers}
-        codeToolbar={codeToolbar}
+        showCodeFrame={showCodeFrame}
         codeLanguage={codeLanguage}
-        codeExample={codeExample}
         code={code}
-        downloadUrl={downloadUrl}
       />
     )}
 

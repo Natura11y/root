@@ -11,31 +11,28 @@ interface LineAnnotation {
 }
 
 interface Props {
-  preID?: string | null;
+  codeId?: string | null;
   highlightedLines?: string | null;
   lineAnnotations?: LineAnnotation[];
   showLineNumbers?: boolean | null;
-  codeToolbar?: boolean;
+  showCodeFrame?: boolean;
   codeLanguage?: string;
-  codeExample?: string | null;
   code?: string | null;
-  downloadUrl?: string | null;
   markedText?: InlineMarkerDefinition | InlineMarkerDefinition[] | null;
 }
 
 const {
-  preID = null,
+  codeId = null,
   highlightedLines = null,
   lineAnnotations = [],
   showLineNumbers = null,
-  codeToolbar = true,
+  showCodeFrame = true,
   codeLanguage = 'html',
-  codeExample = null,
   code = null,
   markedText = null,
 } = Astro.props;
 
-const codeText = codeExample ?? code;
+const codeText = code;
 const language = codeLanguage.toLowerCase();
 const annotationLinesValue = lineAnnotations.length
   ? lineAnnotations.map((annotation) => annotation.range).join(',')
@@ -101,15 +98,15 @@ const shouldShowLineNumbers = showLineNumbers ?? lineAnnotations.length > 0;
 
 <div
   class="example__code example__code--expressive-code"
-  data-code-id={preID ?? undefined}
+  data-code-id={codeId ?? undefined}
   data-line-anchors={highlightedLinesValue ?? undefined}
 >
   {codeText ? (
     <Code
       code={codeText}
       lang={language}
-      title={codeToolbar ? languageLabel : undefined}
-      frame={codeToolbar ? 'code' : 'none'}
+      title={showCodeFrame ? languageLabel : undefined}
+      frame={showCodeFrame ? 'code' : 'none'}
       mark={markDefinitions.length ? markDefinitions : undefined}
       showLineNumbers={shouldShowLineNumbers}
     />

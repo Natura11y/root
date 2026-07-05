@@ -161,27 +161,29 @@ Accordion buttons can be wrapped in heading elements to support screen reader he
   ]}
   markedText={'data-accordion="panel"'}
   code={`
-<h3 data-accordion="heading">
-  <button
-    class="accordion__button h5"
-    id="acc-button-example-01"
-    data-accordion="button"
-    aria-controls="acc-panel-example-01"
-    aria-expanded="false">
-    Danaus Plexippus
-  </button>
-</h3>
+  <h3 data-accordion="heading">
 
-<div
-  class="accordion__panel"
-  id="acc-panel-example-01"
-  data-accordion="panel"
-  aria-labelledby="acc-button-example-01"
-  role="region">
-  <div class="accordion__panel__content">
-    ...
+    <button
+      class="accordion__button h5"
+      id="acc-button-example-01"
+      data-accordion="button"
+      aria-controls="acc-panel-example-01"
+      aria-expanded="false">
+      Danaus Plexippus
+    </button>
+  
+  </h3>
+
+  <div
+    class="accordion__panel"
+    id="acc-panel-example-01"
+    data-accordion="panel"
+    aria-labelledby="acc-button-example-01"
+    role="region">
+    <div class="accordion__panel__content">
+      ...
+    </div>
   </div>
-</div>
   `}
 >
   <Accordion idPrefix="accordion-headings-" headingLevel={3} />
@@ -290,7 +292,7 @@ Add a `<span>` with the `.text` class inside the button to underline the label w
     data-accordion="button"
     aria-controls="acc-panel-example-01"
     aria-expanded="false">
-    <span class="text">Danaus Plexippus</span>
+      <span class="text">Danaus Plexippus</span>
   </button>
   `}
 >
