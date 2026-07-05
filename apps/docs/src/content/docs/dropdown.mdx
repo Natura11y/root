@@ -14,3 +14,367 @@ relatedPages:
   - "Navigation"
   - "Button"
 ---
+
+import Browser from '../../components/ui/Browser/Browser.astro';
+import MainMenu from '../../components/examples/main-menu/MainMenu.astro';
+import Stack from '../../components/examples/backdrop/Stack.astro';
+import DropdownSetup from '../../components/examples/dropdown/DropdownSetup.astro';
+import Dropdowns from '../../components/examples/dropdown/Dropdowns.astro';
+import DropdownIndicator from '../../components/examples/dropdown/DropdownIndicator.astro';
+
+<DropdownSetup />
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+Natura11y provides three dropdown patterns for navigation: a standard **button dropdown**, a **dropdown link split** for top-level page access with sub-navigation, and a **mega menu** for rich multi-column panels.
+
+</TextBlock>
+
+<AccessibilitySpotlight>
+
+All dropdown triggers require `aria-controls` referencing the dropdown panel ID and `aria-expanded` to communicate open and closed state to assistive technology.
+
+Arrow keys move focus between items inside an open dropdown. Pressing Escape closes the dropdown and returns focus to the trigger.
+
+Opening a dropdown automatically closes any other open dropdown on the page.
+
+Learn more about <a href="https://www.w3.org/TR/WCAG21/#content-on-hover-or-focus" target="_blank">visible hover and focus</a>.
+
+</AccessibilitySpotlight>
+
+</Section>
+
+---
+
+<Section id="dropdown">
+
+<TextBlock>
+
+## Dropdown behavior
+
+Include dropdown items within `.nav` and `.nav--divider` selectors, as well as within the `.main-menu__nav` selector inside the *main menu* component.
+
+Natura11y provides two types of dropdown functionality:
+
+- **Click dropdowns** (default): Activated by clicking the dropdown button
+- **Hover dropdowns**: Activated by hovering on desktop or clicking on mobile/tablet
+
+To create a dropdown, add the `.dropdown` class and `data-toggle="dropdown"` attribute to a `<button>`. Add a sibling `<ul>` with the `.dropdown__menu` class. For hover functionality, add `data-hover="true"` to the button.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    highlightedLines="5-12,29-37"
+    code={`
+        <ul class="nav nav--horizontal">
+
+            <li>
+
+                <button
+                    class="dropdown"
+                    data-toggle="dropdown"
+                    aria-controls="click-menu-id"
+                    aria-expanded="false"
+                >
+                    Click Dropdown
+                </button>
+
+                <ul class="dropdown__menu" id="click-menu-id">
+                    <li>
+                        <a href="#1">Link</a>
+                    </li>
+                    <li>
+                        <a href="#1">Link</a>
+                    </li>
+                    <li>
+                        <a href="#1">Link</a>
+                    </li>
+                </ul>
+
+            </li>
+            <li>
+
+                <button
+                    class="dropdown"
+                    data-toggle="dropdown"
+                    data-hover="true"
+                    aria-controls="hover-menu-id"
+                    aria-expanded="false"
+                >
+                    Hover Dropdown
+                </button>
+
+                <ul class="dropdown__menu" id="hover-menu-id">
+                    <li>
+                        <a href="#1">Link</a>
+                    </li>
+                    <li>
+                        <a href="#1">Link</a>
+                    </li>
+                    <li>
+                        <a href="#1">Link</a>
+                    </li>
+                </ul>
+
+            </li>
+
+        </ul>
+    `}
+>
+    <Dropdowns utilities="nav--horizontal" />
+</FigureExample>
+
+<TableLineDescBlock targetFigure="1">
+
+<TableLineDescRow targetFigure="1" lines="5-12">
+
+The first dropdown uses the default click behavior.
+
+The `data-toggle="dropdown"` attribute is required, along with `aria-controls` referencing the dropdown menu ID.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="29-37">
+
+The second dropdown includes the `data-hover="true"` attribute.
+
+This enables hover functionality on desktop devices with fine pointer control, while maintaining click functionality on mobile devices.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+<TextBlock>
+
+Dropdowns work as you might expect within vertical navigation:
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    code={`
+        <ul class="nav nav--divider">
+            ...
+        </ul>
+    `}
+>
+    <Dropdowns />
+</FigureExample>
+
+<TextBlock>
+
+### Custom Indicator Icon
+
+By default, the `.dropdown` button uses a **CSS border caret** as its direction indicator—no icon font required. To use an icon font character instead, add a `data-indicator` attribute with the glyph character or HTML entity (e.g. `data-indicator="&#xf10e;"`).
+
+To replace the default CSS caret with a Natura11y icon, add `data-indicator` to the button with the icon's Unicode value. This requires the Natura11y icon font.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="3"
+    highlightedLines="4"
+    code={`
+        <button
+            class="dropdown"
+            data-toggle="dropdown"
+            data-indicator="&#xf10e;"
+            aria-controls="menu-id"
+            aria-expanded="false"
+        >
+            Dropdown
+        </button>
+    `}
+>
+    <DropdownIndicator />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="dropdown-link-split">
+
+<TextBlock>
+
+## Dropdown Link Split
+
+The `.dropdown-link-split` selector combines a direct link to a top-level page with a dropdown button for accessing sub-pages. This pattern provides better accessibility and user experience by offering multiple interaction methods:
+
+- **Link access**: Click or tap the link text to go directly to the main page
+- **Desktop dropdown**: Hover over the entire component to reveal sub-pages
+- **Mobile dropdown**: Tap the dropdown button to access sub-pages
+- **Keyboard navigation**: Tab to the dropdown button independently from the link
+
+To create this pattern, include both an `<a>` tag and a `<button>` with the `data-toggle="dropdown"` attribute within a `.dropdown-link-split` wrapper (Figure 4, line 4). This approach is particularly useful for main navigation where you want to provide direct access to category pages while also offering sub-navigation options.
+
+</TextBlock>
+
+<Browser exampleName="Dropdown Link Split Example" utilities="wide">
+    <MainMenu idPrefix="dropdown-link-split-example" variant="stack" hasLinkSplit={true} />
+    <Stack />
+</Browser>
+
+<FigureExample
+    figureNumber="4"
+    highlightedLines="4,6-8,10-14"
+    code={`
+        <ul class="nav nav--horizontal">
+
+            <li>
+                <div class="dropdown-link-split">
+
+                    <a href="#1" class="text">
+                        Link
+                    </a>
+
+                    <button
+                        data-toggle="dropdown"
+                        aria-controls="docs-dropdown"
+                        aria-expanded="false">
+                    </button>
+
+                </div>
+            </li>
+
+                <!-- Drop down or mega menu here -->
+
+        </ul>
+    `}
+/>
+
+<TableLineDescBlock targetFigure="4">
+
+<TableLineDescRow targetFigure="4" lines="4">
+
+The `.dropdown-link-split` wrapper class is required.
+
+It contains both the main link and the dropdown button, providing the dual functionality of the component.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="4" lines="6-8">
+
+The `<a>` tag within the wrapper is required.
+
+This provides the direct link functionality, allowing users to navigate directly to the top-level page.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="4" lines="10-14">
+
+The `<button>` with `data-toggle="dropdown"` attribute is required.
+
+The `aria-controls` attribute should reference the ID of the associated dropdown menu. This button provides access to the sub-navigation dropdown.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+<TextBlock>
+
+The `.dropdown-link-split` functionality remains the same as standard dropdowns, supporting both keyboard navigation and screen readers.
+
+Inside `.nav--divider` and `.main-menu__nav` on mobile, the component renders as a split row: the `.text` link spans the full width, and the toggle button becomes a square tap target beside it using `var(--subtle-fill-1)` as its background. At desktop breakpoints, the layout resets to the standard inline appearance.
+
+This pattern also works with mega menus — simply replace the `.dropdown__menu` list with a `.mega-menu--{bp}` element for larger, multi-column dropdown content.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="mega-menu">
+
+<TextBlock>
+
+## Mega Menu
+
+The mega menu replaces a standard `.dropdown__menu` list with a `<div>` using the `.mega-menu--{bp}` class. This allows any content—grids, grouped links, images—inside the dropdown panel.
+
+</TextBlock>
+
+<Browser exampleName="Mega Menu Example" utilities="wide">
+    <MainMenu idPrefix="mega-menu-example" variant="stack" hasMegaMenu={true} />
+    <Stack />
+</Browser>
+
+<FigureExample
+    figureNumber="5"
+    highlightedLines="5-13,15"
+    code={`
+        <ul class="nav nav--horizontal">
+
+            <li>
+
+                <button
+                    class="dropdown"
+                    data-toggle="dropdown"
+                    data-hover="true"
+                    aria-controls="mega-id"
+                    aria-expanded="false"
+                >
+                    Label
+                </button>
+
+                <div class="mega-menu--lg" id="mega-id">
+
+                    <div class="grid grid--column-4--lg gap-4">
+
+                        <nav>
+                            <p><strong>Column One</strong></p>
+                            <ul class="nav">
+                                <li><a href="#1">Link</a></li>
+                                <li><a href="#1">Link</a></li>
+                                <li><a href="#1">Link</a></li>
+                            </ul>
+                        </nav>
+
+                        <nav>
+                            <p><strong>Column Two</strong></p>
+                            <ul class="nav">
+                                <li><a href="#1">Link</a></li>
+                                <li><a href="#1">Link</a></li>
+                                <li><a href="#1">Link</a></li>
+                            </ul>
+                        </nav>
+
+                    </div>
+
+                </div>
+
+            </li>
+
+        </ul>
+    `}
+/>
+
+<TableLineDescBlock targetFigure="5">
+
+<TableLineDescRow targetFigure="5" lines="15">
+
+The `.mega-menu--{bp}` class replaces `.dropdown__menu`.
+
+It is a `<div>` rather than a `<ul>`, which allows any content inside — grids, grouped links, images, and more. The `{bp}` modifier sets the breakpoint at which the mega menu layout is applied.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="5" lines="5-13">
+
+The same trigger pattern as a standard dropdown applies.
+
+Include `data-toggle="dropdown"`, `aria-controls` referencing the mega menu ID, and `aria-expanded="false"`. Add `data-hover="true"` to enable hover behavior on desktop.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+</Section>

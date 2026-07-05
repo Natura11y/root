@@ -1,0 +1,62 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+import Field from './Field.astro';
+import RequiredIndicator from './RequiredIndicator.astro';
+---
+
+<div style={exampleStyle}>
+  <form data-validate novalidate>
+    <RequiredIndicator />
+
+    <Field
+      labelText="Name"
+      required
+      helpText="Enter your first and last name"
+      dataErrorMessage="Name is required!"
+      entryId="name"
+      entryName="name"
+    />
+
+    <Field
+      labelText="Email"
+      required
+      helpText="Example: janeDoe@email.com"
+      dataErrorMessage="Email is required!"
+      entryType="email"
+      entryId="email"
+      entryName="email"
+    />
+
+    <Field
+      labelText="Phone"
+      required
+      helpText="Enter a valid phone number"
+      dataErrorMessage="Phone is required!"
+      entryType="tel"
+      entryId="phone"
+      entryName="phone"
+    />
+
+    <Field
+      labelText="Leave a short message"
+      required
+      dataErrorMessage="Message is required!"
+      entryType="textarea"
+      entryId="message"
+      entryName="message"
+    />
+
+    <Field
+      labelText="Contact Preference"
+      entryType="groupRadio"
+      required
+      dataErrorMessage="Contact preference is required!"
+      entryId="contact-preference"
+      entryName="contactPreference"
+    />
+
+    <button class="button theme-primary width-100 border-radius-pill margin-y-4" type="submit">
+      Send
+    </button>
+  </form>
+</div>

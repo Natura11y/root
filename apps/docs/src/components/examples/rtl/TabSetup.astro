@@ -1,0 +1,17 @@
+<script>
+  import Tab from '../../../../../../packages/core/src/js/tab';
+
+  const setupKey = '__natura11yDocsRtlTabs';
+
+  const setupTabs = () => {
+    if (Reflect.get(window, setupKey)) return;
+    Reflect.set(window, setupKey, true);
+    new Tab().init();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupTabs, { once: true });
+  } else {
+    setupTabs();
+  }
+</script>

@@ -1,0 +1,15 @@
+---
+import GridItem from './GridItem.astro';
+import { exampleStyle } from '../shared/exampleStyles';
+---
+
+<div style={exampleStyle}>
+  <div class="grid grid--column-4">
+    <GridItem label="01" itemClass="grid__colspan-3" />
+    <GridItem label="02" />
+    <GridItem label="03" />
+    <GridItem label="04" />
+    <GridItem label="05" />
+    <GridItem label="06" />
+  </div>
+</div>

@@ -1,0 +1,28 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+---
+
+<div class="display-flex aspect-ratio-3x2 border" style={exampleStyle}>
+  <nav class="width-100 padding-4 align-self-start">
+    <ul class="nav nav--divider border nav--horizontal--sm justify-content-center">
+      <li>
+        <button
+          class="dropdown"
+          data-toggle="dropdown"
+          data-indicator="&#xf10e;"
+          aria-controls="custom-indicator-menu"
+          aria-expanded="false"
+          type="button"
+        >
+          <span class="text">Dropdown</span>
+        </button>
+
+        <ul class="dropdown__menu" id="custom-indicator-menu">
+          <li><a href="#1">Link 1</a></li>
+          <li><a href="#1">Link 2</a></li>
+          <li><a href="#1">Link 3</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>

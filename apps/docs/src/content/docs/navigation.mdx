@@ -14,3 +14,237 @@ relatedPages:
   - "Dropdown"
   - "Flyout"
 ---
+
+import GenericNavigation from '../../components/examples/navigation/GenericNavigation.astro';
+import Justification from '../../components/examples/navigation/Justification.astro';
+import IconsInNav from '../../components/examples/navigation/IconsInNav.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+Natura11y offers an assortment of responsive navigation and menu choices.
+
+</TextBlock>
+
+<AccessibilitySpotlight>
+
+All navigation components provide visible hover and focus states for all actionable items.
+
+Learn more about <a href="https://www.w3.org/TR/WCAG21/#content-on-hover-or-focus" target="_blank">visible hover and focus</a>
+
+</AccessibilitySpotlight>
+
+</Section>
+
+---
+
+<Section id="generic-navigation">
+
+<TextBlock>
+
+## Generic Navigation
+
+Create a simple vertical navigation with the `.nav` component class added to a `<ul>` tag (Figure 1).
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    code={`
+        <ul class="nav">
+            <li>
+                <a href="#1">Link</a>
+            </li>
+            <li>
+                <a href="#1">Link</a>
+            </li>
+            <li>
+                <a href="#1">Link</a>
+            </li>
+        </ul>
+    `}
+>
+    <GenericNavigation />
+</FigureExample>
+
+<TextBlock>
+
+For a horizontal menu, apply the `.nav--horizontal` modifier class (Figure 2).
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    code={`
+        <ul class="nav nav--horizontal">
+            <li>
+                <a href="#1">Link</a>
+            </li>
+            <li>
+                <a href="#1">Link</a>
+            </li>
+            <li>
+                <a href="#1">Link</a>
+            </li>
+        </ul>
+    `}
+>
+    <GenericNavigation navClasses="nav--horizontal" />
+</FigureExample>
+
+<TextBlock>
+
+### Breakpoint Modifiers
+
+The `.nav--horizontal` modifier accepts breakpoint modifiers.
+
+With the HTML in Figure 3, the nav starts in the *vertical* direction. It then changes to the *horizontal* direction at the large breakpoint.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="3"
+    code={`
+        <ul class="nav nav--horizontal--lg">
+            ...
+        </ul>
+    `}
+>
+    <GenericNavigation navClasses="nav--horizontal--lg" />
+</FigureExample>
+
+<TextBlock>
+
+### Justification
+
+Use the flex <a href="/docs/flex/#justify-content-utilites">justify content utilities</a> for centered or right-justified navigation (Figure 4).
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="4"
+    code={`
+        <ul class="nav nav--horizontal justify-content-center">
+            ...
+        </ul>
+
+        <ul class="nav nav--horizontal justify-content-end">
+            ...
+        </ul>
+    `}
+>
+    <Justification />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="bordered-navigation">
+
+<TextBlock>
+
+## Bordered Navigation
+
+Add the `.nav--divider` modifier class to a `.nav` selector for a vertical, bordered navigation (Figure 5).
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="5"
+    code={`
+        <ul class="nav nav--divider">
+            ...
+        </ul>
+    `}
+>
+    <GenericNavigation navClasses="nav--divider" />
+</FigureExample>
+
+<TextBlock>
+
+Include the aformentioned `.nav--horizontal` and `.nav--horizontal--{bp}` modifier classes to `.nav-divider` selectors. This produces a horizontal (and responsive) bordered menu (Figure 6).
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="6"
+    code={`
+        <ul class="nav nav--divider nav--horizontal">
+            ...
+        </ul>
+    `}
+>
+    <GenericNavigation navClasses="nav--divider nav--horizontal" />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="icons-in-navigation">
+
+<TextBlock>
+
+## Icons in Navigation
+
+Icons are supported within any `.nav` — no modifier class required. Icon styles apply automatically.
+
+Nav items with icons (`<a>` or `<button>`) require two child selectors. The first child is a `<span>` with its combined <a href="/icons/">icon</a> classes. The second child is a `<span>` with a `.nav__text` class, which holds the item's text. The `.nav__text` selector is the target for underlining on `:hover` and `:focus` states, and provides spacing between the icon and text. See Figure 7.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="7"
+    code={`
+        <ul class="nav" role="menu">
+            <li>
+                <a href="#1">
+                    <span class="icon icon-home"></span>
+                    <span class="nav__text">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="#1">
+                    <span class="icon icon-calendar"></span>
+                    <span class="nav__text">Calendar</span>
+                </a>
+            </li>
+            <li>
+                <a href="#1">
+                    <span class="icon icon-bell"></span>
+                    <span class="nav__text">Notifications</span>
+                </a>
+            </li>
+        </ul>
+
+        <ul class="nav nav--divider" role="menu">
+            ...
+        </ul>
+    `}
+>
+    <IconsInNav />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="dropdowns">
+
+<TextBlock>
+
+## Dropdown Items
+
+Include dropdown items within `.nav` and `.nav--divider` selectors, as well as within the `.main-menu__nav` selector inside the *main menu* component.
+
+Learn about <a href="/docs/dropdown/">dropdowns, link–dropdown combos, and mega menus</a>.
+
+</TextBlock>
+
+</Section>

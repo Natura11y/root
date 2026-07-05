@@ -1,0 +1,21 @@
+---
+interface Props {
+  iconName?: string;
+}
+
+const { iconName = 'arrow-left' } = Astro.props;
+const iconTitle = iconName
+  .replace(/-/g, ' ')
+  .split(' ')
+  .map((word) => `${word.charAt(0).toUpperCase()}${word.slice(1)}`)
+  .join(' ');
+---
+
+<li class="flex-row align-items-center overflow-hidden border">
+  <div class="padding-2 border-right">
+    <span class:list={['icon', `icon-${iconName}`]} style="--icon-size: 1.75em;" aria-hidden="true"></span>
+  </div>
+  <div class="padding-2">
+    <p class="font-size-md">{iconTitle}</p>
+  </div>
+</li>

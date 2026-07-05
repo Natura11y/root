@@ -1,0 +1,12 @@
+---
+import GridItem from './GridItem.astro';
+import { exampleStyle } from '../shared/exampleStyles';
+---
+
+<div style={exampleStyle}>
+  <div class="grid-sidebars">
+    <GridItem label="Sidebar" itemClass="grid-sidebar__minor-start" />
+    <GridItem label="Content" itemClass="grid-sidebar__major" />
+    <GridItem label="Sidebar" itemClass="grid-sidebar__minor-end" />
+  </div>
+</div>

@@ -1,0 +1,12 @@
+---
+import GridItem from './GridItem.astro';
+import { exampleStyle } from '../shared/exampleStyles';
+---
+
+<div style={exampleStyle}>
+  <div class="grid grid--column-3" style="gap: 0;">
+    <GridItem label="01" itemClass="order-3--lg" />
+    <GridItem label="02" />
+    <GridItem label="03" />
+  </div>
+</div>

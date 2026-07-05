@@ -1,0 +1,56 @@
+---
+import { Image } from 'astro:assets';
+import { exampleStyle } from '../shared/exampleStyles';
+import gradientImage from './images/gradient-mask-themes.jpg';
+
+const themes = ['primary', 'secondary'];
+---
+
+<div class="tabs" role="tablist" style={exampleStyle}>
+  <div class="narrow margin-bottom-4">
+    <ul class="tabs-nav tabs-nav--pill tabs-nav--horizontal example-tabs">
+      {themes.map((theme, index) => (
+        <li>
+          <button
+            id={`gradient-theme-${theme}-button`}
+            aria-controls={`gradient-theme-${theme}-panel`}
+            aria-selected={index === 0 ? 'true' : 'false'}
+            role="tab"
+            type="button"
+          >
+            {theme.charAt(0).toUpperCase() + theme.slice(1)}
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  {themes.map((theme, index) => (
+    <div
+      class:list={['tabs__panel', index === 0 && 'shown']}
+      id={`gradient-theme-${theme}-panel`}
+      aria-labelledby={`gradient-theme-${theme}-button`}
+      aria-hidden={index === 0 ? 'false' : 'true'}
+      role="tabpanel"
+    >
+      <div class={`backdrop border-radius-2 text-align-center theme-${theme}`}>
+        <div class="backdrop__media">
+          <Image
+            class="opacity-80 gradient-mask-bottom"
+            src={gradientImage}
+            alt={`Gradient veneer effect with ${theme} theme`}
+            layout="full-width"
+          />
+        </div>
+
+        <div class="backdrop__cover justify-content-end">
+          <div class="padding-2 font-size-md">
+            <p>
+              <strong>{`.theme-${theme}`}</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>

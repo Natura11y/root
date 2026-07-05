@@ -7,12 +7,14 @@ interface Props {
   idPrefix?: string;
   variant?: 'bar' | 'stack';
   hasMegaMenu?: boolean;
+  hasLinkSplit?: boolean;
 }
 
 const {
   idPrefix = 'main-menu-example',
   variant = 'bar',
   hasMegaMenu = false,
+  hasLinkSplit = false,
 } = Astro.props;
 
 const navId = `${idPrefix}-menu`;
@@ -32,7 +34,12 @@ const rootClass = `main-menu--${variant}--lg theme-canvas drop-shadow-1`;
       {variant === 'bar' ? (
         <>
           <nav class="main-menu__nav" id={navId} aria-label="Main Menu">
-            <NavItems dropdownId={dropdownId} megaMenuId={megaMenuId} hasMegaMenu={hasMegaMenu} />
+            <NavItems
+              dropdownId={dropdownId}
+              megaMenuId={megaMenuId}
+              hasMegaMenu={hasMegaMenu}
+              hasLinkSplit={hasLinkSplit}
+            />
           </nav>
 
           <div class="main-menu__toggle">
@@ -125,7 +132,12 @@ const rootClass = `main-menu--${variant}--lg theme-canvas drop-shadow-1`;
           </div>
 
           <nav class="main-menu__nav" id={navId} aria-label="Main Menu">
-            <NavItems dropdownId={dropdownId} megaMenuId={megaMenuId} hasMegaMenu={hasMegaMenu} />
+            <NavItems
+              dropdownId={dropdownId}
+              megaMenuId={megaMenuId}
+              hasMegaMenu={hasMegaMenu}
+              hasLinkSplit={hasLinkSplit}
+            />
           </nav>
         </>
       )}

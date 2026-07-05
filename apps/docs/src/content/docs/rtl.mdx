@@ -7,9 +7,136 @@ bannerCreditName: Chandler Cruttenden
 bannerCreditUrl: https://unsplash.com/@chanphoto
 bannerImage: ./banner/rtl.jpg
 bannerAlt: Cool Image
-description: 
+description:
     Add right-to-left (RTL) language support with HTML attributes, CSS logical properties, and icon flipping. Includes Arabic language examples.
 relatedPages:
   - "Get Started"
   - "Accessibility"
 ---
+
+import Browser from '../../components/ui/Browser/Browser.astro';
+import RTLExample from '../../components/examples/rtl/Example.astro';
+import FlippingIcons from '../../components/examples/rtl/FlippingIcons.astro';
+import CSSLogicalProperties from '../../components/examples/rtl/CSSLogicalProperties.astro';
+import RtlTabSetup from '../../components/examples/rtl/TabSetup.astro';
+
+<RtlTabSetup />
+
+<Section id="introduction">
+
+<TextBlock>
+
+## Include the Millions Who Read From Right to Left
+
+Natura11y includes <a href="https://developer.mozilla.org/en-US/docs/Glossary/Localization" target="_blank">localization</a> support for the 12 right-to-left (RTL) languages around the world:
+
+- Arabic
+- Aramaic
+- Azeri
+- Divehi
+- Fula
+- Hebrew
+- Kurdish
+- N'Ko
+- Persian
+- Rohingya
+- Syriac
+- Urdu
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="direction-and-language-html-attributes">
+
+<TextBlock>
+
+##  Direction and Language HTML Attributes
+
+Two key HTML attributes affect the localization of an document: direction (`dir`) and language (`lang`). Both attributes should be present on the `<html>` tag.
+
+The `dir` attribute declares the default text direction. A value of `ltr` sets a *left to right* text direction. While a value of `rtl` sets a *right to left* text direction.
+
+The `lang` attribute sets the document's default language. A value of `en` sets the language to *English*.
+
+A document written in Arabic, for example, requires both `dir="rtl"` and a `lang="ar"` attributes (Figure 1, line 3).
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    figureWidth="narrow"
+    highlightedLines="3"
+    codeToolbar={false}
+    code={`
+        <!DOCTYPE html>
+
+        <html dir="rtl" lang="ar">
+
+            <head>
+                ...
+            </head>
+
+            <body>
+                ...
+            </body>
+
+        </html>
+    `}
+/>
+
+</Section>
+
+---
+
+<Section id="css-logical-properties">
+
+<TextBlock>
+
+## CSS Logical Properties
+
+Natura11y declares all *text alignment*, *margin*, *padding*, *position*, and *border* styles using <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties" target="_blank">CSS Logical Properties</a>.
+
+With the aformentioned `dir="rtl"` attribute present on the `html` tag, all left and right directional styles flip automatically.
+
+</TextBlock>
+
+<CSSLogicalProperties />
+
+</Section>
+
+---
+
+<Section id="flipping-icons">
+
+<TextBlock>
+
+## Flipping Icons
+
+Natura11y's directional icons flip horizontally when the `dir="rtl"` attribute is present. Consider the following directional icons:
+
+</TextBlock>
+
+<FlippingIcons />
+
+</Section>
+
+---
+
+<Section id="arabic-example">
+
+<TextBlock>
+
+## Arabic Example
+
+The example below illustrates how an Arabic page flows within the Natura11y Framework:
+
+</TextBlock>
+
+<Browser exampleName="RTL Example" utilities="wide">
+    <RTLExample />
+</Browser>
+
+</Section>

@@ -1,0 +1,16 @@
+---
+interface Props {
+  text?: string;
+}
+
+const {
+  text = 'Required fields indicated with',
+} = Astro.props;
+---
+
+<p class="required-indicator" aria-hidden="true">
+  <span class="required-indicator__text">
+    {text}
+  </span>
+  <span class="icon icon-asterisk"></span>
+</p>

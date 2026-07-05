@@ -1,0 +1,20 @@
+<script>
+  import Flyout from '../../../../../../packages/core/src/js/flyout';
+
+  const setupKey = '__natura11yDocsFlyout';
+
+  const setupFlyout = () => {
+    if (Reflect.get(window, setupKey)) {
+      return;
+    }
+
+    Reflect.set(window, setupKey, true);
+    new Flyout().init();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupFlyout, { once: true });
+  } else {
+    setupFlyout();
+  }
+</script>

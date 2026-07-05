@@ -1,0 +1,23 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+
+interface Props {
+  navClasses?: string | null;
+}
+
+const { navClasses = null } = Astro.props;
+---
+
+<div style={exampleStyle}>
+  <ul class:list={['nav', navClasses]}>
+    <li>
+      <a href="#1">Link</a>
+    </li>
+    <li>
+      <a href="#1">Link</a>
+    </li>
+    <li>
+      <a href="#1">Link</a>
+    </li>
+  </ul>
+</div>

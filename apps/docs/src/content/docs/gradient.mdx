@@ -13,3 +13,149 @@ relatedPages:
   - "Backdrop"
   - "Color"
 ---
+
+import GradientMaskDirection from '../../components/examples/gradient/Directional.astro';
+import GradientMaskVignette from '../../components/examples/gradient/Vignette.astro';
+import GradientMaskThemes from '../../components/examples/gradient/Themes.astro';
+import GradientTabSetup from '../../components/examples/gradient/TabSetup.astro';
+
+<GradientTabSetup />
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+Natura11y gradient masks are subtle design elements that enhance the visual harmony between elements.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="directional-gradients">
+
+<TextBlock>
+
+## Directional Gradients
+
+Use the `.gradient-mask-{x}` utility class to add a gradient mask in a specific direction. Replace ***x*** with *top*, *right*, *bottom*, or *left* to set the gradient direction (see Figure 1).
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    code={`
+        <!-- Directional Gradients -->
+        <div class="gradient-mask-top">...</div>
+        <div class="gradient-mask-right">...</div>
+        <div class="gradient-mask-bottom">...</div>
+        <div class="gradient-mask-left">...</div>
+
+        <!-- With breakpoint modifier -->
+        <div class="gradient-mask-top--lg">...</div>
+    `}
+>
+    <GradientMaskDirection />
+</FigureExample>
+
+<TextBlock>
+
+Gradient Masks allow the underlying background color blend through the image, enhancing the visual harmony between elements.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    code={`
+        <div class="backdrop theme-primary">
+
+            <div class="backdrop__media">
+                <img
+                    class="gradient-mask-bottom"
+                    src="./path/to/image.jpg" alt="Placeholder"
+                />
+            </div>
+
+            <div class="backdrop__cover">
+                <!-- ... -->
+            </div>
+
+        </div>
+    `}
+>
+    <GradientMaskThemes />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="vignette-gradients">
+
+<TextBlock>
+
+## Vignette Gradients
+
+Use the `.gradient-mask-vignette` utility class to add a vignette effect to an element (see Figure 3).
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="3"
+    code={`
+        <!-- Vignette Gradient -->
+        <div class="gradient-mask-vignette">...</div>
+
+        <!-- With breakpoint modifier -->
+        <div class="gradient-mask-vignette--lg">...</div>
+    `}
+>
+    <GradientMaskVignette />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Gradient styles can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+    figureNumber="4"
+    properties={[
+        {
+            property: 'gradient-direction-start',
+            defaultValue: 'clamp(25%, 50%, 75%)',
+            purpose: 'Starting point for directional gradient mask fade.',
+        },
+        {
+            property: 'gradient-vignette-start',
+            defaultValue: '75%',
+            purpose: 'Outer fade starting point for vignette gradient masks.',
+        },
+        {
+            property: 'gradient-vignette-center',
+            defaultValue: '50%',
+            purpose: 'Center area size before the vignette fade begins.',
+        },
+        {
+            property: 'gradient-mask-opacity',
+            defaultValue: '1',
+            purpose: 'Opacity value used by gradient mask color stops.',
+        },
+    ]}
+/>
+
+</Section>

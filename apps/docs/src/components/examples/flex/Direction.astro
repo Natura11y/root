@@ -1,0 +1,30 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+import FlexItem from './FlexItem.astro';
+---
+
+<div class="grid gap-3 font-size-md" style={exampleStyle}>
+  <div class="flex-row subtle-fill-1">
+    <FlexItem label="1" />
+    <FlexItem label="2" />
+    <FlexItem label="3" />
+  </div>
+
+  <div class="flex-row-reverse subtle-fill-1">
+    <FlexItem label="1" />
+    <FlexItem label="2" />
+    <FlexItem label="3" />
+  </div>
+
+  <div class="flex-column subtle-fill-1">
+    <FlexItem label="1" />
+    <FlexItem label="2" />
+    <FlexItem label="3" />
+  </div>
+
+  <div class="flex-column-reverse subtle-fill-1">
+    <FlexItem label="1" />
+    <FlexItem label="2" />
+    <FlexItem label="3" />
+  </div>
+</div>

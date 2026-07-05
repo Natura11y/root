@@ -1,0 +1,14 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+import Field from './Field.astro';
+---
+
+<div style={exampleStyle}>
+  <Field
+    entryType="fileUpload"
+    labelText="Upload a Single File"
+    helpText="Form entry help text"
+    entryId="file-upload-example"
+    entryName="fileUploadExample"
+  />
+</div>

@@ -14,3 +14,317 @@ relatedPages:
   - "Navigation"
   - "Accessibility"
 ---
+
+import Browser from '../../components/ui/Browser/Browser.astro';
+import FlyoutExample from '../../components/examples/flyout/Default.astro';
+import FlyoutDrillDown from '../../components/examples/flyout/DrillDown.astro';
+import FlyoutSetup from '../../components/examples/flyout/FlyoutSetup.astro';
+
+<FlyoutSetup />
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+The flyout is a full-height overlay panel that slides in from the side. A trigger button placed anywhere on the page opens it; a close button inside the panel dismisses it.
+
+The flyout body accepts any content — navigation, a shopping cart, filters, and more. For multi-level navigation, it also supports a drill-down panel system that lets users move deeper into a hierarchy and back out again.
+
+</TextBlock>
+
+<AccessibilitySpotlight>
+
+The flyout menu uses `role="dialog"` and `aria-modal="true"` on the content element, with `aria-label` as its accessible name.
+
+Focus moves into the flyout menu content when it opens. The *Escape* key closes the menu and returns focus to the trigger element.
+
+When the trigger element is hidden (e.g. the viewport resizes past a breakpoint), the menu closes automatically.
+
+Respects `prefers-reduced-motion` — slide-in and panel animations are disabled when this preference is active.
+
+</AccessibilitySpotlight>
+
+</Section>
+
+---
+
+<Section id="the-flyout">
+
+<TextBlock>
+
+## The Flyout
+
+The flyout is made up of two parts: a ***trigger*** placed anywhere on the page, and the ***flyout panel*** itself. The trigger uses `data-open="flyout"` and `aria-controls` to reference the flyout by `id`.
+
+Figure 1 shows the complete HTML, including the trigger button and all required selectors.
+
+</TextBlock>
+
+<Browser
+    viewportType="mobile"
+    exampleName="Flyout Menu Example"
+    theme="theme-light"
+>
+    <FlyoutExample id="flyout-menu-example" />
+</Browser>
+
+<FigureExample
+    figureNumber="1"
+    lineAnnotations={[
+        { range: '3-10' },
+        { range: '14-18' },
+        { range: '20-26' },
+        { range: '28-37' },
+        { range: '39-48' },
+    ]}
+    code={`
+        <!-- Trigger button -->
+
+        <button
+            class="button button--icon-only"
+            data-open="flyout"
+            aria-controls="flyout-menu"
+            aria-label="Open Menu"
+        >
+            <span class="icon icon-menu" aria-hidden="true"></span>
+        </button>
+
+        <!-- Flyout menu -->
+
+        <div
+            class="flyout"
+            id="flyout-menu"
+            aria-hidden="true"
+        >
+
+            <div
+                class="flyout__content"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Main Menu"
+            >
+
+                <div class="flyout__header">
+                    <button
+                        class="button button--icon-only font-size-md"
+                        data-flyout-close
+                        aria-label="Close Menu"
+                    >
+                        <span class="icon icon-close" aria-hidden="true"></span>
+                    </button>
+                </div>
+
+                <nav class="flyout__body" aria-label="Main Menu Navigation">
+                    <ul class="nav nav--divider">
+                        <li><a href="#1">Home</a></li>
+                        <li><a href="#1">Trails</a></li>
+                        <li><a href="#1">Wildlife</a></li>
+                        <li><a href="#1">Events</a></li>
+                        <li><a href="#1">About</a></li>
+                        <li><a href="#1">Contact</a></li>
+                    </ul>
+                </nav>
+
+            </div>
+        </div>
+    `}
+/>
+
+<TableLineDescBlock targetFigure="1">
+
+<TableLineDescRow targetFigure="1" lines="3-10">
+
+A button with `data-open="flyout"` opens the flyout menu.
+
+The `aria-controls` attribute equals the `id` of the associated `.flyout` element.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="14-18">
+
+The `.flyout` selector is required. It acts as the full-screen backdrop.
+
+`aria-hidden="true"` is present by default. It becomes `aria-hidden="false"` when the menu opens.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="20-26">
+
+The `.flyout__content` selector is required. It holds all menu content and slides in from the side.
+
+`role="dialog"` and `aria-modal="true"` are required for assistive technology.
+
+`aria-label` provides the accessible name for the dialog.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="28-37">
+
+The `.flyout__header` selector is required.
+
+The button with `data-flyout-close` closes the menu. Place it inside `.flyout__header`.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="39-48">
+
+The `.flyout__body` selector is required. It scrolls vertically when content exceeds the viewport height.
+
+Place any content here — navigation, a shopping cart, filters, or anything that suits an off-canvas panel.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+</Section>
+
+---
+
+<Section id="drill-down-navigation">
+
+<TextBlock>
+
+## Drill-Down Navigation
+
+For multi-level navigation, place panels inside `.flyout__panels`. Each `.flyout__panel` holds one level of navigation. Buttons with `data-flyout-next` drill forward into sub-panels. A back button appears in the header once the user navigates deeper.
+
+The optional `.flyout__panel-title` selector labels the current sub-panel to help orient the user.
+
+</TextBlock>
+
+<Browser
+    viewportType="mobile"
+    exampleName="Flyout Menu Drill-Down Example"
+    theme="theme-light"
+>
+    <FlyoutDrillDown id="flyout-drill-down-example" />
+</Browser>
+
+<FigureExample
+    figureNumber="2"
+    lineAnnotations={[
+        { range: '3-11' },
+        { range: '15' },
+        { range: '18-36' },
+        { range: '39-49' },
+    ]}
+    code={`
+        <div class="flyout__header">
+            <button
+                class="button button--icon-only font-size-md"
+                data-flyout-back
+                aria-label="Back"
+                type="button"
+                hidden
+            >
+                <span class="icon icon-arrow-left" aria-hidden="true"></span>
+            </button>
+        </div>
+
+        <nav class="flyout__body" aria-label="Main Menu Navigation">
+
+            <div class="flyout__panels">
+
+                <!-- Panel 0: Root (active) -->
+                <div class="flyout__panel">
+                    <ul class="nav nav--divider">
+                        <li>
+                            <button data-flyout-next aria-controls="panel-wildlife">
+                                Wildlife
+                                <span class="icon icon-arrow-right" aria-hidden="true"></span>
+                            </button>
+                        </li>
+                        <li>
+                            <button data-flyout-next aria-controls="panel-trails">
+                                Trails
+                                <span class="icon icon-arrow-right" aria-hidden="true"></span>
+                            </button>
+                        </li>
+                        <li><a href="#1">Events</a></li>
+                        <li><a href="#1">About</a></li>
+                        <li><a href="#1">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Panel 1: Wildlife -->
+                <div class="flyout__panel" id="panel-wildlife">
+                    <div class="flyout__panel-title">
+                        <p>Wildlife</p>
+                    </div>
+                    <ul class="nav nav--divider">
+                        <li><a href="#1">Birds</a></li>
+                        <li><a href="#1">Mammals</a></li>
+                        <li><a href="#1">Reptiles</a></li>
+                        <li><a href="#1">All Wildlife</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </nav>
+    `}
+/>
+
+<TableLineDescBlock targetFigure="2">
+
+<TableLineDescRow targetFigure="2" lines="3-11">
+
+The button with `data-flyout-back` is hidden by default. JavaScript reveals it after the user drills into a sub-panel.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="2" lines="15">
+
+The `.flyout__panels` selector is required for drill-down navigation. It wraps all panels and positions them as a stack.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="2" lines="18-36">
+
+Each `.flyout__panel` holds one level of navigation. The first panel is active by default. Buttons with `data-flyout-next` and `aria-controls` navigate forward to the target sub-panel. The arrow icon is a visual affordance indicating the button drills deeper.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="2" lines="39-49">
+
+Sub-panels follow the same `.flyout__panel` pattern. The `.flyout__panel-title` wraps a `<p>` to label the current sub-panel context for the user. JavaScript automatically applies `inert` to inactive panels, hiding them from the tab order.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Flyout styles can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+    figureNumber="3"
+    properties={[
+        {
+            property: 'flyout-width',
+            defaultValue: 'min(360px, 85dvw)',
+            purpose: 'Width of the flyout content panel.',
+        },
+        {
+            property: 'flyout-z-index',
+            defaultValue: '10000',
+            purpose: 'Stacking order of the flyout overlay.',
+        },
+    ]}
+/>
+
+</Section>

@@ -1,0 +1,108 @@
+---
+import { Image } from 'astro:assets';
+import { exampleStyle } from '../shared/exampleStyles';
+import Brand from '../main-menu/Brand.astro';
+import backdropImage from './images/rtl-backdrop-01.jpg';
+---
+
+<div class="overflow-hidden arabic-font theme-light" dir="rtl" lang="ar" style={exampleStyle}>
+  <div class="main-menu--bar--lg box-shadow-1">
+    <div class="main-menu__logo">
+      <a href="#1" title="Home" data-logo="brand">
+        <Brand />
+      </a>
+    </div>
+
+    <nav class="main-menu__nav" id="rtl-main-menu" aria-label="Main Menu">
+      <ul>
+        <li><a href="#1">وصلة</a></li>
+        <li><a href="#1">وصلة</a></li>
+        <li><a href="#1">وصلة</a></li>
+      </ul>
+    </nav>
+
+    <div class="main-menu__toggle">
+      <button
+        class="button button--icon-only"
+        aria-label="Menu"
+        data-toggle="collapse"
+        aria-controls="rtl-main-menu"
+        type="button"
+      >
+        <span class="icon icon-menu" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <div class="main-menu__actions">
+      <button class="button button--icon-only" aria-label="Language" type="button">
+        <span class="icon icon-language" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <nav class="container padding-y-1 theme-dark" aria-label="Breadcrumb">
+    <ul class="breadcrumb">
+      <li>
+        <a class="button button--icon-only" href="#1" aria-label="Home">
+          <span class="icon icon-home" aria-hidden="true"></span>
+        </a>
+      </li>
+      <li><a href="#1">معلومات عنا</a></li>
+      <li class="text-color-secondary">خدمات</li>
+    </ul>
+  </nav>
+
+  <div class="backdrop backdrop--fixed theme-dark" style="--backdrop-fixed-height: 600px;">
+    <div class="backdrop__media gradient-mask-left">
+      <Image class="opacity-50" src={backdropImage} alt="" layout="full-width" />
+      <div class="backdrop__media__credit display-none">
+        <p>الصورة من تصوير <a href="#1">Jane Doe</a>, Unsplash</p>
+      </div>
+    </div>
+
+    <div class="backdrop__cover">
+      <div class="padding-x-3 margin-y-4 width-50--lg">
+        <div class="text-shadow margin-bottom-4">
+          <h1>حول سلطعون الناسك</h1>
+          <p class="font-size-lg">
+            هناك أكثر من 800 نوع من السرطانات الناسك ، ومعظمها له بطن غير متماثل مخفي بغطاء محكم.
+          </p>
+        </div>
+
+        <a class="button theme-secondary box-shadow-1 font-size-sm" href="#1">
+          <span class="text">المزيد على ويكيبيديا</span>
+          <span class="icon icon-arrow-right" aria-hidden="true"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <article class="article article--column-2">
+    <aside class="article__sidebar">
+      <nav>
+        <ul class="nav nav--divider position-sticky-top margin-y-3">
+          <li><a href="#1">وصلة</a></li>
+          <li><a href="#1">الوصف البيولوجي</a></li>
+          <li><a href="#1">التنمية والتكاثر</a></li>
+          <li><a href="#1">تصنيف</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <div class="article__body border-left">
+      <div class="container narrow margin-y-4">
+        <h2>الوصف البيولوجي</h2>
+
+        <p>
+          تمتلك معظم الأنواع بطونًا طويلة منحنية حلزونيًا ، وهي ناعمة ، على عكس البطون الصلبة المتكلسة التي تظهر في القشريات ذات الصلة.
+        </p>
+
+        <h2>بيئة السرطان الناسك</h2>
+
+        <p>
+          يمكن تقسيم السرطانات الناسك إلى مجموعتين، بحرية وبرية، ولكل منها متطلبات بيئية مختلفة.
+        </p>
+      </div>
+    </div>
+  </article>
+</div>

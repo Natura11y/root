@@ -1,0 +1,177 @@
+---
+interface Props {
+  labelText?: string;
+  labelVisible?: boolean;
+  labelFloat?: boolean;
+  helpText?: string | null;
+  required?: boolean;
+  showError?: boolean;
+  entryType?: string;
+  entryId?: string;
+  entryName?: string;
+  ariaDescribedBy?: string | null;
+  dataErrorMessage?: string | null;
+  utilities?: string | null;
+}
+
+const {
+  labelText = 'Form Entry Label',
+  labelVisible = true,
+  labelFloat = false,
+  helpText = null,
+  required = false,
+  showError = false,
+  entryType = 'text',
+  entryId = `${entryType}-example`,
+  entryName = `${entryType}Example`,
+  ariaDescribedBy = null,
+  dataErrorMessage = null,
+  utilities = null,
+} = Astro.props;
+
+const isGroup = entryType === 'groupCheck' || entryType === 'groupRadio';
+const isOption = entryType === 'singleCheck' || entryType === 'singleCheckSwitch';
+const isFileUpload = entryType === 'fileUpload';
+const isSelect = entryType === 'select';
+const isTextarea = entryType === 'textarea';
+const helpId = ariaDescribedBy ?? `help-${entryId}`;
+const labelId = `${entryId}-label`;
+const fieldInputClass = isSelect ? 'form-entry__field__select' : 'form-entry__field__input';
+const optionWrapperClass = entryType === 'groupRadio' ? 'form-entry__option__radio' : 'form-entry__option__check';
+const inputType = ['email', 'password', 'tel', 'url'].includes(entryType) ? entryType : 'text';
+const options = ['Option One', 'Option Two', 'Option Three'];
+---
+
+<div
+  class:list={['form-entry', showError && 'is-invalid', utilities]}
+  data-required={required ? 'true' : undefined}
+  data-error-message={dataErrorMessage ?? undefined}
+>
+  {isGroup ? (
+    <fieldset class="form-entry__field">
+      <legend class="form-entry__field__label">
+        {labelText}
+      </legend>
+
+      <div class="form-entry__option">
+        {options.map((option, index) => (
+          <div class={optionWrapperClass}>
+            <label>
+              <input
+                type={entryType === 'groupRadio' ? 'radio' : 'checkbox'}
+                name={entryName}
+                id={`${entryId}-${index + 1}`}
+                value={`option${index + 1}`}
+              />
+              <span class="option__label">
+                {option}
+              </span>
+            </label>
+          </div>
+        ))}
+      </div>
+    </fieldset>
+  ) : isOption ? (
+    <div class="form-entry__field">
+      <span class="form-entry__field__label" id={labelId}>
+        {labelText}
+      </span>
+
+      <div class="form-entry__option">
+        <div class={entryType === 'singleCheckSwitch' ? 'form-entry__option__switch' : 'form-entry__option__check'}>
+          <label aria-labelledby={labelId}>
+            <input
+              type="checkbox"
+              name={entryName}
+              id={entryId}
+              value="option"
+            />
+            {entryType === 'singleCheckSwitch' && <span class="switch__slider"></span>}
+            <span class="option__label">
+              {entryType === 'singleCheckSwitch' ? 'Receive Notifications' : 'Option'}
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  ) : isFileUpload ? (
+    <div class="form-entry__field">
+      <span class:list={['form-entry__field__label', !labelVisible && 'screen-reader-only']}>
+        {labelText}
+      </span>
+
+      <div class={fieldInputClass}>
+        <label class="file-upload">
+          <span class="file-upload__drop">
+            <span class="file-upload__drop__text">Drag and Drop</span>
+          </span>
+
+          <input
+            class="file-upload__input"
+            type="file"
+            name={entryName}
+            id={entryId}
+            accept="image/*"
+          />
+
+          <span class="button button--outline file-upload__button">
+            <span class="icon icon-upload" aria-hidden="true"></span>
+            <span class="text">Browse for a File</span>
+          </span>
+        </label>
+      </div>
+    </div>
+  ) : (
+    <label class:list={['form-entry__field', labelFloat && 'form-entry__field--float']}>
+      <span class:list={['form-entry__field__label', !labelVisible && 'screen-reader-only']}>
+        {labelText}
+      </span>
+
+      {showError && (
+        <small class="form-entry__feedback">
+          <span class="icon icon-warn" aria-hidden="true"></span>
+          <span class="message">
+            <strong>Custom Error Message</strong> {helpText}
+          </span>
+        </small>
+      )}
+
+      <span class={fieldInputClass}>
+        {isSelect ? (
+          <select
+            id={entryId}
+            name={entryName}
+            aria-describedby={helpText ? helpId : undefined}
+          >
+            <option value="">Select</option>
+            {options.map((option) => (
+              <option value={option}>{option}</option>
+            ))}
+            <option value="Option Four">Option Four</option>
+            <option value="Option Five">Option Five</option>
+          </select>
+        ) : isTextarea ? (
+          <textarea
+            rows="8"
+            name={entryName}
+            id={entryId}
+            aria-describedby={helpText ? helpId : undefined}
+          ></textarea>
+        ) : (
+          <input
+            type={inputType}
+            name={entryName}
+            id={entryId}
+            aria-describedby={helpText ? helpId : undefined}
+          />
+        )}
+      </span>
+    </label>
+  )}
+
+  {helpText && (
+    <small class="form-entry__help" id={helpId}>
+      {helpText}
+    </small>
+  )}
+</div>

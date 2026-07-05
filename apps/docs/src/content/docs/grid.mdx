@@ -7,9 +7,622 @@ bannerCreditName: Phoenix Han
 bannerCreditUrl: https://unsplash.com/@phienix_han
 bannerImage: ./banner/grid.jpg
 bannerAlt: Pineapple fruit lot
-description: 
+description:
     Build responsive CSS grid layouts with column spans, row spans, and grid gaps. Includes breakpoint modifiers and grid alignment utilities.
 relatedPages:
   - "Backdrop"
   - "Article"
 ---
+
+import GridOverview from '../../components/examples/grid/Overview.astro';
+import GridStack from '../../components/examples/grid/Stack.astro';
+import GridColumnWidth from '../../components/examples/grid/ColumnWidth.astro';
+import GridColumnSpan from '../../components/examples/grid/ColumnSpan.astro';
+import GridRowSpan from '../../components/examples/grid/RowSpan.astro';
+import GridColumnWidthBreakpoints from '../../components/examples/grid/ColumnWidthBreakpoints.astro';
+import GridDividers from '../../components/examples/grid/Dividers.astro';
+import Gap from '../../components/examples/spacing/Gap.astro';
+import Order from '../../components/examples/grid/Order.astro';
+import OrderBreakpoints from '../../components/examples/grid/OrderBreakpoints.astro';
+import GridSidebarLeft from '../../components/examples/grid/SidebarLeft.astro';
+import GridSidebarRight from '../../components/examples/grid/SidebarRight.astro';
+import GridSidebars from '../../components/examples/grid/Sidebars.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+Create functional and responsive layouts easily using Natura11y's CSS Grid component.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="css-grid">
+
+<TextBlock>
+
+## CSS Grid
+
+Natura11y's CSS Grid component offers essential layout options through utility classes.
+
+</TextBlock>
+
+<GridOverview />
+
+<TextBlock>
+
+CSS grid layouts have limitless possibilities, and Natura11y only covers the essentials. You can and *should* write custom CSS grid layouts alongside Natura11y's styles.
+
+Let's look at the `.grid` component beginning with Figure 1.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    lineAnnotations={[
+        { range: '1' },
+        { range: '3-13' },
+    ]}
+    code={`
+        <div class="grid">
+
+            <div>
+                <p>01</p>
+            </div>
+
+            <div>
+                <p>02</p>
+            </div>
+
+            <div>
+                <p>03</p>
+            </div>
+
+        </div>
+    `}
+>
+    <GridStack />
+</FigureExample>
+
+<TableLineDescBlock targetFigure="1">
+
+<TableLineDescRow targetFigure="1" lines="1">
+
+The parent `.grid` selector is required.
+
+It applies the css grid specification.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="3-13">
+
+All direct children of the `.grid` selector are automatically grid items.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+<TextBlock>
+
+### Grid Columns
+
+To create columns within a `.grid` selector, use the `.grid--column-{x}` modifier, where ***x*** represents the number of columns (from 1 to 12).
+
+For example, in Figure 2, the `.grid--column-3` class creates a three-column grid.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    highlightedLines="1"
+    code={`
+        <div class="grid grid--column-3">
+            ...
+        </div>
+    `}
+>
+    <GridColumnWidth />
+</FigureExample>
+
+<TextBlock>
+
+### Column Span
+
+Grid items can span multiple columns within their parent `.grid--column-{x}` selector. Use the `.grid__colspan-{x}` modifier to specify the number of columns the item should span (from 2 to 12).
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="3"
+    highlightedLines="3"
+    code={`
+        <div class="grid grid--column-4">
+
+            <div class="grid__colspan-3">
+                <p>01</p>
+            </div>
+
+            ...
+
+        </div>
+    `}
+>
+    <GridColumnSpan />
+</FigureExample>
+
+<TextBlock>
+
+### Grid Rows
+
+Rows in the grid component are automatically created. Grid items can span up to 6 rows by using the `.grid__rowspan-{x}` modifier, where ***x*** represents the number of rows (from 2 to 6). See Figure 4, line 3.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="4"
+    highlightedLines="3"
+    code={`
+        <div class="grid grid--column-2">
+
+            <div class="grid__rowspan-2">
+                <p>01</p>
+            </div>
+
+            ...
+
+        </div>
+    `}
+>
+    <GridRowSpan />
+</FigureExample>
+
+<TextBlock>
+
+### Breakpoint Modifiers
+
+All column and row utilities in `.grid` support breakpoint modifiers.
+
+For responsive layouts, add a breakpoint modifier (e.g., `.grid--column-{x}--{y}`) where ***x*** is the column count and ***y*** is the desired breakpoint.
+
+For instance, to create a three-column layout at the medium breakpoint, use `.grid--column-3--md` (Figure 5, line 1).
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="5"
+    highlightedLines="1"
+    code={`
+        <div class="grid grid--column-3--md">
+            ...
+        </div>
+    `}
+>
+    <GridColumnWidthBreakpoints />
+</FigureExample>
+
+<TextBlock>
+
+### Grid Divider Modifier
+
+You can add horizontal and vertical borders between grid cells by applying the `.grid--divider` modifier class to `.grid` selectors.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="6"
+    highlightedLines="1"
+    code={`
+        <div class="grid grid--divider grid--column-3">
+            ...
+        </div>
+    `}
+>
+    <GridDividers />
+</FigureExample>
+
+<TextBlock>
+
+You can specify which axis (*x* or *y*) has continuous lines. Chain `--fill-x` or `--fill-y` modifiers to `.grid--divider`. With `.grid--divider--fill-x` present on the example in Figure 7, the horizontal lines run through.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="7"
+    highlightedLines="1"
+    code={`
+        <div class="grid grid--divider--fill-x grid--column-3">
+            ...
+        </div>
+    `}
+>
+    <GridDividers gridDividerClass="grid--divider--fill-x" />
+</FigureExample>
+
+<TextBlock>
+
+With `.grid--divider--fill-y` present on the example in Figure 8, the vertical lines run through.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="8"
+    highlightedLines="1"
+    code={`
+        <div class="grid grid--divider--fill-y grid--column-3">
+            ...
+        </div>
+    `}
+>
+    <GridDividers gridDividerClass="grid--divider--fill-y" />
+</FigureExample>
+
+<TextBlock>
+
+The `.grid--divider` modifier class adds borders using pseudo-elements on each of its direct children or *cells*. For this reason, when its child has `overflow: hidden;` CSS property applied, such as with <a href="/docs/backdrop/">backdrops</a>, for example, that child's border would not appear.
+
+To remedy this, simply nest each child of `.grid--divider` in a containing element. You could use a `<ul>` tag with `<li>` children, as shown in Figure 9:
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="9"
+    code={`
+        <ul class="grid grid--divider--fill-x grid--column-3">
+
+            <li>
+                <div class="backdrop">
+                    <!-- ... -->
+                </div>
+            </li>
+
+            <li>
+                <div class="backdrop">
+                <!-- ... -->
+                </div>
+            </li>
+
+            <li>
+                <div class="backdrop">
+                <!-- ... -->
+                </div>
+            </li>
+
+        </ul>
+    `}
+/>
+
+</Section>
+
+---
+
+<Section id="gap-utilities">
+
+<TextBlock>
+
+## Gap Utilities
+
+Apply Natura11y's <a href="/docs/spacing/#gap-utilities">gap utilities</a> to `.grid` selectors to add space between grid items.
+
+</TextBlock>
+
+<div class="container narrow">
+    <Gap />
+</div>
+
+</Section>
+
+---
+
+<Section id="order-utilities">
+
+<TextBlock>
+
+## Order Utilities
+
+Change the layout <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/order" target="_blank">order</a> of grid items.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="10"
+    code={`
+        <div class="grid grid--column-3--md theme-light border font-size-md text-align-center">
+
+            <div class="padding-2 border order-3">
+                <p>01</p>
+            </div>
+            <div class="padding-2 border">
+                <p>02</p>
+            </div>
+            <div class="padding-2 border">
+                <p>03</p>
+            </div>
+
+        </div>
+
+        <!-- All order utilities: -->
+
+        <div class="order-1">...</div>
+        <div class="order-2">...</div>
+        <div class="order-3">...</div>
+        <div class="order-4">...</div>
+        <div class="order-5">...</div>
+        <div class="order-6">...</div>
+        <div class="order-7">...</div>
+        <div class="order-8">...</div>
+        <div class="order-9">...</div>
+        <div class="order-10">...</div>
+        <div class="order-11">...</div>
+        <div class="order-12">...</div>
+    `}
+>
+    <Order />
+</FigureExample>
+
+<TextBlock>
+
+### Breakpoint Modifiers
+
+Order utilities accept <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a>.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="11"
+    code={`
+        <!-- With breakpoint modifier -->
+
+        <div class="order-3--lg">...</div>
+    `}
+>
+    <OrderBreakpoints />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="sidebar-layouts">
+
+<TextBlock>
+
+## Sidebar Layouts
+
+The sidebar layout components provide fixed-width sidebar columns. Columns stack vertically on mobile and shift into a side-by-side layout at the responsive breakpoint. The sidebar width is controlled by the `--grid-sidebar-width` CSS custom property (default: `300px`).
+
+### Left Sidebar
+
+Use `.grid-sidebar--left` to place a fixed-width sidebar on the left with the main content occupying the remaining space.
+
+</TextBlock>
+
+<div class="container wide">
+    <GridSidebarLeft />
+</div>
+
+<FigureExample
+    figureNumber="12"
+    lineAnnotations={[
+        { range: '1' },
+        { range: '3' },
+        { range: '7' },
+    ]}
+    code={`
+        <div class="grid-sidebar--left">
+
+            <div class="grid-sidebar__minor">
+                ...
+            </div>
+
+            <div class="grid-sidebar__major">
+                ...
+            </div>
+
+        </div>
+    `}
+/>
+
+<TableLineDescBlock targetFigure="12">
+
+<TableLineDescRow targetFigure="12" lines="1">
+
+`.grid-sidebar--left` positions the sidebar on the left at the `lg` breakpoint. On smaller viewports, the sidebar stacks above the main content.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="12" lines="3">
+
+`.grid-sidebar__minor` assigns this element to the sidebar column.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="12" lines="7">
+
+`.grid-sidebar__major` assigns this element to the main content column.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+<TextBlock>
+
+### Right Sidebar
+
+Use `.grid-sidebar--right` to place the sidebar on the right side instead.
+
+</TextBlock>
+
+<div class="container wide">
+    <GridSidebarRight />
+</div>
+
+<FigureExample
+    figureNumber="13"
+    lineAnnotations={[
+        { range: '1' },
+        { range: '3' },
+        { range: '7' },
+    ]}
+    code={`
+        <div class="grid-sidebar--right">
+
+            <div class="grid-sidebar__minor">
+                ...
+            </div>
+
+            <div class="grid-sidebar__major">
+                ...
+            </div>
+
+        </div>
+    `}
+/>
+
+<TableLineDescBlock targetFigure="13">
+
+<TableLineDescRow targetFigure="13" lines="1">
+
+`.grid-sidebar--right` positions the sidebar on the right at the `lg` breakpoint. On smaller viewports, the sidebar stacks above the main content.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="13" lines="3">
+
+`.grid-sidebar__minor` assigns this element to the sidebar column.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="13" lines="7">
+
+`.grid-sidebar__major` assigns this element to the main content column.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+<TextBlock>
+
+### Sidebars on both sides
+
+For a three-column layout with sidebars on both sides, use `.grid-sidebars`. The layout switches to three columns at the extra-large (`xl`) breakpoint.
+
+</TextBlock>
+
+<div class="container wide">
+    <GridSidebars />
+</div>
+
+<FigureExample
+    figureNumber="14"
+    lineAnnotations={[
+        { range: '1' },
+        { range: '3' },
+        { range: '7' },
+        { range: '11' },
+    ]}
+    code={`
+        <div class="grid-sidebars">
+
+            <div class="grid-sidebar__minor-start">
+                ...
+            </div>
+
+            <div class="grid-sidebar__major">
+                ...
+            </div>
+
+            <div class="grid-sidebar__minor-end">
+                ...
+            </div>
+
+        </div>
+    `}
+/>
+
+<TableLineDescBlock targetFigure="14">
+
+<TableLineDescRow targetFigure="14" lines="1">
+
+`.grid-sidebars` creates a three-column layout at the `xl` breakpoint. On smaller viewports, all three areas stack vertically.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="14" lines="3">
+
+`.grid-sidebar__minor-start` assigns this element to the left sidebar column.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="14" lines="7">
+
+`.grid-sidebar__major` assigns this element to the main content column.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="14" lines="11">
+
+`.grid-sidebar__minor-end` assigns this element to the right sidebar column.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
+
+<TextBlock>
+
+Sidebar layouts are compatible with <a href="#css-grid">grid divider modifiers</a> for column borders and <a href="#gap-utilities">gap utilities</a> for spacing between areas.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Grid styles can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+    figureNumber="15"
+    properties={[
+        {
+            property: 'grid-divider-gap',
+            defaultValue: 'var(--spacer-3)',
+            purpose: 'Gap between grid cells when using grid divider modifiers.',
+        },
+        {
+            property: 'grid-divider-border-width',
+            defaultValue: 'var(--border-width)',
+            purpose: 'Border width used by grid divider pseudo-elements.',
+        },
+        {
+            property: 'grid-divider-border-x-color',
+            defaultValue: 'var(--canvas-border)',
+            purpose: 'Color of horizontal grid divider lines.',
+        },
+        {
+            property: 'grid-divider-border-y-color',
+            defaultValue: 'var(--canvas-border)',
+            purpose: 'Color of vertical grid divider lines.',
+        },
+        {
+            property: 'grid-sidebar-width',
+            defaultValue: '300px',
+            purpose: 'Fixed width of sidebar columns in grid sidebar layouts.',
+        },
+    ]}
+/>
+
+</Section>

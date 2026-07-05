@@ -1,0 +1,33 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+import FlexItem from './FlexItem.astro';
+
+const utilities = [
+  'align-content-start',
+  'align-content-end',
+  'align-content-center',
+  'align-content-between',
+  'align-content-around',
+  'align-content-evenly',
+  'align-content-stretch',
+];
+---
+
+<div class="grid gap-3 font-size-md" style={exampleStyle}>
+  {utilities.map((utility) => (
+    <div
+      class:list={['flex-row justify-content-center subtle-fill-1', utility]}
+      style="height: 240px;"
+    >
+      <FlexItem label="Item 1" />
+      <FlexItem label="Item 2" />
+      <FlexItem label="Item 3" />
+      <FlexItem label="Item 4" />
+      <FlexItem label="Item 5" />
+      <FlexItem label="Item 6" />
+      <FlexItem label="Item 7" />
+      <FlexItem label="Item 8" />
+      <FlexItem label="Item 9" />
+    </div>
+  ))}
+</div>

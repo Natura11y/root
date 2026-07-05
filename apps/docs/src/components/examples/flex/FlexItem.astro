@@ -1,0 +1,15 @@
+---
+interface Props {
+  label?: string;
+  itemClass?: string | null;
+}
+
+const {
+  label = 'Flex Item',
+  itemClass = null,
+} = Astro.props;
+---
+
+<div class:list={[itemClass, 'padding-x-3 padding-y-2 theme-canvas border text-align-center']}>
+  <p>{label}</p>
+</div>

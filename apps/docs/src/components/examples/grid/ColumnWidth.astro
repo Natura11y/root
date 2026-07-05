@@ -1,0 +1,14 @@
+---
+import GridItem from './GridItem.astro';
+import { exampleStyle } from '../shared/exampleStyles';
+
+const items = ['01', '02', '03', '04', '05', '06'];
+---
+
+<div style={exampleStyle}>
+  <div class="grid grid--column-3">
+    {items.map((item) => (
+      <GridItem label={item} />
+    ))}
+  </div>
+</div>

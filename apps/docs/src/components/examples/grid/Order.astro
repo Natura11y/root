@@ -1,0 +1,21 @@
+---
+import GridItem from './GridItem.astro';
+import { exampleStyle } from '../shared/exampleStyles';
+---
+
+<div style={exampleStyle}>
+  <div class="grid gap-3">
+    <div>
+      <p class="font-size-md margin-bottom-2">
+        The <code>.grid</code> selector with <code>.order-3</code> applied to
+        the first item:
+      </p>
+
+      <div class="grid grid--column-3" style="gap: 0;">
+        <GridItem label="01" itemClass="order-3" />
+        <GridItem label="02" />
+        <GridItem label="03" />
+      </div>
+    </div>
+  </div>
+</div>

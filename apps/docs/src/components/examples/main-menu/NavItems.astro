@@ -5,18 +5,45 @@ interface Props {
   dropdownId: string;
   megaMenuId: string;
   hasMegaMenu?: boolean;
+  hasLinkSplit?: boolean;
 }
 
 const {
   dropdownId,
   megaMenuId,
   hasMegaMenu = false,
+  hasLinkSplit = false,
 } = Astro.props;
 ---
 
 <ul>
   <li>
-    {hasMegaMenu ? (
+    {hasLinkSplit ? (
+      <>
+        <div class="dropdown-link-split">
+          <a class="text" href="#1">Link</a>
+          <button
+            data-toggle="dropdown"
+            aria-controls={dropdownId}
+            aria-expanded="false"
+            type="button"
+          >
+            <span class="screen-reader-only">Open submenu</span>
+          </button>
+        </div>
+        <ul class="dropdown__menu box-shadow-1--lg" id={dropdownId}>
+          <li>
+            <a href="#1">Link 1</a>
+          </li>
+          <li>
+            <a href="#1">Link 2</a>
+          </li>
+          <li>
+            <a href="#1">Link 3</a>
+          </li>
+        </ul>
+      </>
+    ) : hasMegaMenu ? (
       <>
         <button
           class="dropdown"

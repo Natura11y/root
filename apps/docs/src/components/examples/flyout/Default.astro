@@ -1,0 +1,68 @@
+---
+import Brand from '../main-menu/Brand.astro';
+
+interface Props {
+  id?: string;
+}
+
+const {
+  id = 'flyout-menu-example',
+} = Astro.props;
+---
+
+<div class="flyout-example">
+  <div class="container width-100 padding-y-2 box-shadow-1">
+    <div class="justify-content-between align-items-center display-flex">
+      <a href="#1" title="Home" data-logo="brand">
+        <Brand />
+      </a>
+
+      <button
+        class="button button--icon-only font-size-md"
+        data-open="flyout"
+        aria-controls={id}
+        aria-label="Open Menu"
+        type="button"
+      >
+        <span class="icon icon-menu" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <div
+    class="flyout shown"
+    id={id}
+    aria-hidden="false"
+    style="position: absolute; inset: 0;"
+  >
+    <div
+      class="flyout__content"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Main Menu"
+      style="height: 100%;"
+    >
+      <div class="flyout__header">
+        <button
+          class="button button--icon-only font-size-md"
+          data-flyout-close
+          aria-label="Close Menu"
+          type="button"
+        >
+          <span class="icon icon-close" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <nav class="flyout__body" aria-label="Main Menu Navigation">
+        <ul class="nav nav--divider">
+          <li><a href="#1">Home</a></li>
+          <li><a href="#1">Trails</a></li>
+          <li><a href="#1">Wildlife</a></li>
+          <li><a href="#1">Events</a></li>
+          <li><a href="#1">About</a></li>
+          <li><a href="#1">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

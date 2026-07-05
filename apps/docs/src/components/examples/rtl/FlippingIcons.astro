@@ -1,0 +1,51 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+import IconRow from './IconRow.astro';
+
+const directions = [
+  { id: 'ltr', label: 'Left to Right' },
+  { id: 'rtl', label: 'Right to Left' },
+];
+
+const icons = ['arrow-left', 'double-chevron-left', 'checkbox-checked', 'confirm'];
+---
+
+<div class="tabs" role="tablist">
+  <div class="container narrow margin-bottom-4">
+    <ul class="tabs-nav tabs-nav--pill tabs-nav--horizontal example-tabs">
+      {directions.map(({ id, label }, index) => (
+        <li>
+          <button
+            id={`flipping-icons-${id}-button`}
+            aria-controls={`flipping-icons-${id}-panel`}
+            aria-selected={index === 0 ? 'true' : 'false'}
+            role="tab"
+            type="button"
+          >
+            {label}
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div style={exampleStyle}>
+    {directions.map(({ id }, index) => (
+      <div
+        class:list={['tabs__panel', index === 0 && 'shown']}
+        id={`flipping-icons-${id}-panel`}
+        aria-labelledby={`flipping-icons-${id}-button`}
+        aria-hidden={index === 0 ? 'false' : 'true'}
+        role="tabpanel"
+      >
+        <div class="container narrow" dir={id}>
+          <ul class="grid gap-2 text-align-center">
+            {icons.map((icon) => (
+              <IconRow iconName={icon} />
+            ))}
+          </ul>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

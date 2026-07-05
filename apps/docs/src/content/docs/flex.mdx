@@ -7,9 +7,274 @@ bannerCreditName: Zdeněk Macháček
 bannerCreditUrl: https://unsplash.com/@zmachacek
 bannerImage: ./banner/flex.jpg
 bannerAlt: Green frog on tree branch
-description: 
+description:
     Learn about Natura11y's flexbox utilities including direction, grow, shrink, justify content, and align content with visual examples and code snippets.
 relatedPages:
   - "Display"
   - "Grid"
 ---
+
+import Direction from '../../components/examples/flex/Direction.astro';
+import DirectionBreakpointModifier from '../../components/examples/flex/DirectionBreakpointModifier.astro';
+import Grow from '../../components/examples/flex/Grow.astro';
+import Shrink from '../../components/examples/flex/Shrink.astro';
+import JustifyContent from '../../components/examples/flex/JustifyContent.astro';
+import JustifyContentBreakpointModifier from '../../components/examples/flex/JustifyContentBreakpointModifier.astro';
+import AlignContent from '../../components/examples/flex/AlignContent.astro';
+import AlignContentBreakpointModifier from '../../components/examples/flex/AlignContentBreakpointModifier.astro';
+
+<Section id="introduction">
+
+<h2 className="screen-reader-only">
+    Introduction
+</h2>
+
+<TextBlock>
+
+Natura11y's <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox' LinkText='flexbox' /> utilities provide options for creating one-dimensional layouts. Some flexbox utilities deal with horizontal and vertical alignment. These utilities work alongside the <a href="/docs/navigation">navigation</a>, <a href="/docs/grid">grid</a>, and <a href="/docs/backdrop">backdrop</a> components.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="flex-direction-utilities">
+
+<TextBlock>
+
+## Flex Direction Utilities
+
+The <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction' LinkText='flex direction' /> utilities (Figure 1) create the flex container. They define the main axis: *row* or *column*, along with direction: *normal* or *reverse*. Further, they set the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap">flex-wrap</a> property to *wrap*.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="1"
+    code={`
+        <div class="flex-row">...</div>
+        <div class="flex-row-reverse">...</div>
+        <div class="flex-column">...</div>
+        <div class="flex-column-reverse">...</div>
+    `}
+>
+    <Direction />
+</FigureExample>
+
+<TextBlock>
+
+Need a flex row that doesn't wrap? Replace `.flex-row` with `.display-flex` (from the <a href="/docs/display/">display utilities</a>).
+
+</TextBlock>
+
+<TextBlock>
+
+### Breakpoint Modifiers
+
+Flex direction utilities accept <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a>.
+
+With the HTML in Figure 2, the flex container starts with the *column* direction. It then changes to the *row* direction at the large breakpoint.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    code={`
+        <!-- With breakpoint modifiers -->
+
+        <div class="flex-column flex-row--lg">...</div>
+    `}
+>
+    <DirectionBreakpointModifier />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="flex-grow-utilities">
+
+<TextBlock>
+
+## Flex Grow Utilities
+
+The <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/flex-grow' LinkText='Flex grow' /> utilities set the grow factor of a flex item along the flex container's main axis. The default grow value of a flex item is *0*.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="3"
+    code={`
+        <div class="flex-grow-1">...</div>
+        <div class="flex-grow-0">...</div>
+    `}
+/>
+
+<TextBlock>
+
+With `.flex-grow-1`, applied to a flex item, it will grow to fill any available space.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="4"
+    code={`
+        <div class="display-flex subtle-fill-1">
+            <div class="padding-x-3 padding-y-2 border flex-grow-1">
+                <p>Flex Item</p>
+            </div>
+            <div class="padding-x-3 padding-y-2 border">
+                <p>Flex Item</p>
+            </div>
+        </div>
+    `}
+>
+    <Grow />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="flex-shrink-utilities">
+
+<TextBlock>
+
+## Flex Shrink Utilities
+
+The <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/flex-shrink' LinkText='Flex shrink' /> utilities set whether a flex item is allowed to shrink along the flex container's main axis.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="5"
+    code={`
+        <div class="flex-shrink-0">...</div>
+        <div class="flex-shrink-1">...</div>
+    `}
+/>
+
+<TextBlock>
+
+With a flex shrink value of *0*, a flex item will not shrink as it's flex container gets smaller. With a shrink value of *1*, the flex item will shrink, but no smaller than it’s content.
+
+With the examples below, `.flex-shrink-1` applied to the first flex item allows it to shrink along it's main axis.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="6"
+    code={`
+        <div class="display-flex">
+            <div class="padding-x-3 padding-y-2 border flex-shrink-1">
+                <p>Flex Shrink</p>
+            </div>
+            <div class="padding-x-3 width-100 padding-y-2 border">
+                <p>2</p>
+            </div>
+        </div>
+    `}
+>
+    <Shrink />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="justify-content-utilites">
+
+<TextBlock>
+
+## Justify Content Utilites
+
+The <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content' LinkText='justify content' /> utilites (Figure 3) align items along the main-axis of their flex container.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="7"
+    code={`
+        <div class="flex-row justify-content-start">...</div>
+        <div class="flex-row justify-content-end">...</div>
+        <div class="flex-row justify-content-center">...</div>
+        <div class="flex-row justify-content-between">...</div>
+        <div class="flex-row justify-content-around">...</div>
+        <div class="flex-row justify-content-evenly">...</div>
+    `}
+>
+    <JustifyContent />
+</FigureExample>
+
+<TextBlock>
+
+### Breakpoint Modifiers
+
+Justify content utilities accept <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a>.
+
+With the HTML in Figure 8, the flex container changes it's justification to *end* at the large breakpoint.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="8"
+    code={`
+        <!-- With breakpoint modifiers -->
+
+        <div class="flex-row justify-content-end--lg">...</div>
+    `}
+>
+    <JustifyContentBreakpointModifier />
+</FigureExample>
+
+</Section>
+
+---
+
+<Section id="align-content-utilites">
+
+<TextBlock>
+
+## Align Content Utilites
+
+The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/align-content">align content</a> utilites distribute the space between and around items along the flex container's cross-axis.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="9"
+    code={`
+        <div class="flex-row align-content-start">...</div>
+        <div class="flex-row align-content-end">...</div>
+        <div class="flex-row align-content-center">...</div>
+        <div class="flex-row align-content-between">...</div>
+        <div class="flex-row align-content-around">...</div>
+        <div class="flex-row align-content-evenly">...</div>
+        <div class="flex-row align-content-stretch">...</div>
+    `}
+>
+    <AlignContent />
+</FigureExample>
+
+<TextBlock>
+
+### Breakpoint Modifiers
+
+Align content utilities accept <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a>.
+
+With the HTML in Figure 10, the flex container starts its alignment with *start* then changes to *end* at the large breakpoint.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="10"
+    code={`
+        <!-- With breakpoint modifiers -->
+
+        <div class="flex-row align-content-end--lg">...</div>
+    `}
+>
+    <AlignContentBreakpointModifier />
+</FigureExample>
+
+</Section>

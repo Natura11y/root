@@ -13,3 +13,89 @@ relatedPages:
   - "Get Started"
   - "Accessibility"
 ---
+
+import { cdnCSS } from '../mdxVars.js';
+
+<Section id="introduction">
+
+<TextBlock>
+
+## Distinguish yourself without starting from scratch
+
+There are several ways to customize Natura11y. You can use the CDN Stylesheet to redefine styles, which we'll cover in the next section. Alternatively, you can set up a modern <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/development_environment' LinkText='development environment' />.
+
+Setting up a development environment typically involves installing necessary tools like Node.js, a package manager (such as npm or yarn), and setting up Webpack to bundle your code. This approach gives you full control over the build process, allowing for advanced customizations and optimizations.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="customizable-cdn">
+
+<TextBlock>
+
+## Customizable CDN
+
+The <a href="/docs/get-started/#quick-start-with-cdn">Quick Start</a> guide shows how to include the framework's core stylesheet via CDN. Natura11y's CSS uses <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties' LinkText='CSS variables' />, making customization easy.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    figureWidth="medium--lg"
+    highlightedLines="2"
+    code={`
+        <!-- Natura11y Stylesheet -->
+        <link rel="stylesheet" href="${cdnCSS}" />
+    `}
+/>
+
+<TextBlock>
+
+CSS variables can be updated dynamically, allowing you to declare new values from **natura11y.css** at any point after including the stylesheet.
+
+You can declare new CSS variable values in a few ways:
+
+- **Add a style tag in the header**: Ideal for prototyping and experimenting.
+- **Create a second stylesheet**: Preferred for maintaining organization.
+- **Use JavaScript**: Redeclare values programmatically for dynamic customization.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="reference-guide-css-variables">
+
+<TextBlock>
+
+## Reference Guide: CSS Variables
+
+All CSS Variables in Natura11y are **scoped** to `:root` (document). Document scoped variables use the `:root` pseudo selector, making them available throughout the entire page (Figure 5). This means that once you define a CSS variable under `:root`, it can be accessed and used anywhere in the document, ensuring consistent styling across all elements on the page.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="5"
+    figureWidth="narrow"
+    codeLanguage="scss"
+    code={`
+        /* Scoped to the root */
+
+        :root {
+            --primary: #0080f8;
+        }
+    `}
+/>
+
+<div className="container narrow margin-y-4">
+    <a className="button theme-primary" href="/docs/accessibility/">
+        <span className="text">Accessibility</span>
+        <span className="icon icon-arrow-right" aria-hidden="true"></span>
+    </a>
+</div>
+
+</Section>

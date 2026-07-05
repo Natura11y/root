@@ -1,0 +1,33 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+
+const items = [
+  { icon: 'home', label: 'Home' },
+  { icon: 'calendar', label: 'Calendar' },
+  { icon: 'bell', label: 'Notifications' },
+];
+---
+
+<div class="grid gap-3" style={exampleStyle}>
+  <ul class="nav nav--horizontal justify-content-center">
+    {items.map(({ icon, label }) => (
+      <li>
+        <a href="#1">
+          <span class:list={['icon', `icon-${icon}`]} aria-hidden="true"></span>
+          <span class="nav__text">{label}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <ul class="nav nav--divider border">
+    {items.map(({ icon, label }) => (
+      <li>
+        <a href="#1">
+          <span class:list={['icon', `icon-${icon}`]} aria-hidden="true"></span>
+          <span class="nav__text">{label}</span>
+        </a>
+      </li>
+    ))}
+  </ul>
+</div>

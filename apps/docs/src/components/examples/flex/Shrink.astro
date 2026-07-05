@@ -1,0 +1,9 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+import FlexItem from './FlexItem.astro';
+---
+
+<div class="display-flex subtle-fill-1 font-size-md" style={exampleStyle}>
+  <FlexItem label="Flex Item (Shrink)" itemClass="flex-shrink-1" />
+  <FlexItem itemClass="width-100" />
+</div>

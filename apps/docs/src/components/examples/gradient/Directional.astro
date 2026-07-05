@@ -1,0 +1,74 @@
+---
+import { Image } from 'astro:assets';
+import { exampleStyle } from '../shared/exampleStyles';
+import gradientImage from './images/gradient-mask-directions.jpg';
+
+const directions = ['top', 'right', 'bottom', 'left'];
+---
+
+<div class="tabs" role="tablist" style={exampleStyle}>
+  <ul class="tabs-nav tabs-nav--pill tabs-nav--horizontal example-tabs margin-bottom-4">
+    {directions.map((direction, index) => (
+      <li>
+        <button
+          id={`gradient-direction-${direction}-button`}
+          aria-controls={`gradient-direction-${direction}-panel`}
+          aria-selected={index === 0 ? 'true' : 'false'}
+          role="tab"
+          type="button"
+        >
+          {direction.charAt(0).toUpperCase() + direction.slice(1)}
+        </button>
+      </li>
+    ))}
+  </ul>
+
+  {directions.map((direction, index) => (
+    <div
+      class:list={['tabs__panel', index === 0 && 'shown']}
+      id={`gradient-direction-${direction}-panel`}
+      aria-labelledby={`gradient-direction-${direction}-button`}
+      aria-hidden={index === 0 ? 'false' : 'true'}
+      role="tabpanel"
+    >
+      <div class="backdrop border-radius-2">
+        <div class="backdrop__media">
+          <Image
+            class={`gradient-mask-${direction}`}
+            src={gradientImage}
+            alt="Landscape with hoodoos under a starry sky with gradient veneer effect"
+            layout="full-width"
+          />
+        </div>
+
+        <div class:list={['backdrop__cover gv-dir', `gv-dir--${direction}`]}>
+          <div class="padding-2 font-size-md">
+            <p>
+              <strong>{`.gradient-mask-${direction}`}</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  [class*="gv-dir"] {
+    justify-content: start;
+    text-align: center;
+  }
+
+  .gv-dir--right {
+    writing-mode: vertical-rl;
+    place-content: start center;
+  }
+
+  .gv-dir--bottom {
+    justify-content: end;
+  }
+
+  .gv-dir--left {
+    writing-mode: vertical-lr;
+  }
+</style>

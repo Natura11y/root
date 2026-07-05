@@ -1,0 +1,15 @@
+---
+interface Props {
+  label?: string;
+  itemClass?: string;
+}
+
+const {
+  label = 'Cell',
+  itemClass = '',
+} = Astro.props;
+---
+
+<div class:list={['theme-light padding-2 border font-size-md text-align-center', itemClass]}>
+  <p>{label}</p>
+</div>

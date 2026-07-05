@@ -1,0 +1,23 @@
+<script>
+  import FormInput, { FormFileUpload, FormSearch, FormSubmission } from '../../../../../../packages/core/src/js/form';
+
+  const setupKey = '__natura11yDocsForm';
+
+  const setupForms = () => {
+    if (Reflect.get(window, setupKey)) {
+      return;
+    }
+
+    Reflect.set(window, setupKey, true);
+    new FormInput().init();
+    new FormSearch().init();
+    new FormSubmission().init();
+    new FormFileUpload().init();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupForms, { once: true });
+  } else {
+    setupForms();
+  }
+</script>

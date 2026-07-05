@@ -1,0 +1,50 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+import Field from './Field.astro';
+---
+
+<div style={exampleStyle}>
+  <div class="grid grid--column-2--md gap-2">
+    <Field
+      labelText="Username"
+      labelFloat
+      required
+      dataErrorMessage="Username is required!"
+      entryId="account-username"
+      entryName="accountUsername"
+    />
+
+    <Field
+      labelText="Password"
+      labelFloat
+      required
+      dataErrorMessage="Password is required!"
+      entryType="password"
+      entryId="account-password"
+      entryName="accountPassword"
+    />
+
+    <Field
+      labelText="Email"
+      labelFloat
+      required
+      dataErrorMessage="Email is required!"
+      entryType="email"
+      entryId="account-email"
+      entryName="accountEmail"
+      utilities="grid__colspan-2--md"
+    />
+
+    <hr class="grid__colspan-2--md" />
+
+    <button class="button theme-primary width-100 border-radius-pill" type="submit">
+      Sign In
+    </button>
+
+    <div class="sign-up display-flex justify-content-end align-items-center">
+      <a class="text-color-link" href="#1">
+        Sign Up
+      </a>
+    </div>
+  </div>
+</div>

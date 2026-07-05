@@ -1,0 +1,65 @@
+---
+import { Image } from 'astro:assets';
+import { exampleStyle } from '../shared/exampleStyles';
+import hermitCrabImage from './images/rtl-css-logical-properties.jpg';
+
+const directions = [
+  {
+    id: 'ltr',
+    label: 'Left to Right',
+    title: 'Did you know?',
+    body: 'The association between hermit crabs and their shelters has significantly influenced their biology.',
+  },
+  {
+    id: 'rtl',
+    label: 'Right to Left',
+    title: 'هل كنت تعلم؟',
+    body: 'أثرت العلاقة بين السرطانات الناسك وملاجئها بشكل كبير على بيولوجيتها.',
+  },
+];
+---
+
+<div class="tabs" role="tablist">
+  <div class="container narrow margin-bottom-4">
+    <ul class="tabs-nav tabs-nav--pill tabs-nav--horizontal example-tabs">
+      {directions.map(({ id, label }, index) => (
+        <li>
+          <button
+            id={`logical-properties-${id}-button`}
+            aria-controls={`logical-properties-${id}-panel`}
+            aria-selected={index === 0 ? 'true' : 'false'}
+            role="tab"
+            type="button"
+          >
+            {label}
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div style={exampleStyle}>
+    {directions.map(({ id, title, body }, index) => (
+      <div
+        class:list={['tabs__panel', index === 0 && 'shown']}
+        id={`logical-properties-${id}-panel`}
+        aria-labelledby={`logical-properties-${id}-button`}
+        aria-hidden={index === 0 ? 'false' : 'true'}
+        role="tabpanel"
+      >
+        <div class:list={['container narrow', id === 'rtl' && 'arabic-font']} dir={id}>
+          <div class="display-flex align-items-center border">
+            <div class="padding-2 border-right flex-shrink-0">
+              <Image src={hermitCrabImage} alt="" width={200} height={200} />
+            </div>
+
+            <div class="padding-2">
+              <p class="h6 margin-bottom-1">{title}</p>
+              <p>{body}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

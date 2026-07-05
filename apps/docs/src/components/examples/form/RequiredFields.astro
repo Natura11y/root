@@ -1,0 +1,38 @@
+---
+import { exampleStyle } from '../shared/exampleStyles';
+---
+
+<div style={exampleStyle}>
+  <div
+    class="form-entry is-invalid"
+    data-required="true"
+    data-error-message="Error description"
+  >
+    <label class="form-entry__field">
+      <span class="form-entry__field__label">
+        Form Entry Label
+      </span>
+
+      <small class="form-entry__feedback">
+        <span class="icon icon-warn" aria-hidden="true"></span>
+        <span class="message">
+          <strong>Your email is required!</strong>
+          Example: janeDoe@email.com
+        </span>
+      </small>
+
+      <span class="form-entry__field__input">
+        <input
+          type="email"
+          name="textInputExample"
+          id="required-field-example"
+          aria-describedby="help-required-field-example"
+        />
+      </span>
+    </label>
+
+    <small class="form-entry__help" id="help-required-field-example">
+      Form entry help text
+    </small>
+  </div>
+</div>
