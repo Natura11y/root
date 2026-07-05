@@ -60,6 +60,7 @@ const figureId = figureNumber ? `figcaption_${figureNumber}` : undefined;
   >
     {hasVisualExample ? (
       <div class="example__visual overflow-hidden">
+      
         <div class:list={['padding-y-5', visualExampleClass]}>
           <div class="container narrow">
             <slot />
@@ -95,9 +96,10 @@ const figureId = figureNumber ? `figcaption_${figureNumber}` : undefined;
     )}
 
     {figureNumber !== null && !hideFigCaption && (
-      <figcaption id={figureId} class="example__caption">
+      <figcaption id={figureId} class="container margin-bottom-2 example__caption">
         Figure {figureNumber}
       </figcaption>
     )}
   </figure>
+
 </div>
