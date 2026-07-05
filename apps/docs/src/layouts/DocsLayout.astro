@@ -132,10 +132,15 @@ const bannerAlt = frontmatter.bannerAlt ?? '';
       )}
 
       <div class="backdrop__cover">
-        <div class="container narrow">
-          <h1 class="banner-headline text-shadow">{title}</h1>
+
+        <div>
+          <div class="container narrow">
+            <h1 class="banner-headline text-shadow">{title}</h1>
+          </div>
         </div>
+      
       </div>
+    
     </header>
 
     <OnThisPage headings={headings} />
@@ -143,5 +148,7 @@ const bannerAlt = frontmatter.bannerAlt ?? '';
     <div class="docs-layout__body">
       <slot />
     </div>
+
   </div>
+
 </BaseLayout>
