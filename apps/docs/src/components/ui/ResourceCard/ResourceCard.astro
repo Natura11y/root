@@ -1,11 +1,14 @@
 ---
 import { Image } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
+import type { LocalImageProps } from 'astro:assets';
+
+type ResourceImage = LocalImageProps['src'];
 
 interface Props {
   title: string;
   description: string;
-  image: ImageMetadata;
+  image: ResourceImage;
+  imageLoading?: 'eager' | 'lazy';
   primaryUrl: string;
   primaryLabel: string;
   secondaryUrl: string;
@@ -16,6 +19,7 @@ const {
   title,
   description,
   image,
+  imageLoading = 'lazy',
   primaryUrl,
   primaryLabel,
   secondaryUrl,
@@ -30,7 +34,12 @@ const {
     target="_blank"
     rel="noopener noreferrer"
   >
-    <Image class="border-radius-2" src={image} alt={title} />
+    <Image
+      class="border-radius-2"
+      src={image}
+      alt={title}
+      loading={imageLoading}
+    />
   </a>
 
   <div class="card__body">

@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+
 import ResourceCard from '../../components/ui/ResourceCard/ResourceCard.astro';
+
 import { examples } from '../../data/examples';
 
 const title = 'Examples • Natura11y Inclusive Framework';
@@ -8,6 +10,7 @@ const description = 'Natura11y examples are fully styled, opinionated designs bu
 ---
 
 <BaseLayout title={title} description={description}>
+  
   <section class="container narrow text-align-center margin-y-5">
     <h1>Examples</h1>
     <p>
@@ -22,6 +25,7 @@ const description = 'Natura11y examples are fully styled, opinionated designs bu
           title={example.title}
           description={example.description}
           image={example.image}
+          imageLoading="eager"
           primaryUrl={example.previewUrl}
           primaryLabel="Preview in Browser"
           secondaryUrl={example.codeUrl}

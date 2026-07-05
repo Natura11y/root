@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+
 import ResourceCard from '../../components/ui/ResourceCard/ResourceCard.astro';
+
 import { templates } from '../../data/templates';
 
 const title = 'Templates • Natura11y Inclusive Framework';
@@ -8,6 +10,7 @@ const description = 'Natura11y HTML templates give you the right page structure 
 ---
 
 <BaseLayout title={title} description={description}>
+
   <section class="container narrow text-align-center margin-y-5">
     <h1>Templates</h1>
     <p>
@@ -16,17 +19,21 @@ const description = 'Natura11y HTML templates give you the right page structure 
   </section>
 
   <section class="container wide margin-y-5 text-align-center">
+
     <div class="grid grid--column-3--lg gap-3">
       {templates.map((template) => (
         <ResourceCard
           title={template.title}
           description={template.description}
           image={template.image}
+          imageLoading="eager"
           primaryUrl={template.previewUrl}
           primaryLabel="Preview Template"
           secondaryUrl={template.codeUrl}
         />
       ))}
     </div>
+
   </section>
+
 </BaseLayout>
