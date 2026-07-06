@@ -8,10 +8,17 @@ export default class Alert {
     event.preventDefault();
     const alert = event.target.closest('.alert');
     if (alert) {
-      alert.classList.add('dismissed');
-      alert.addEventListener('animationend', () => {
+      const removeAlert = () => {
         alert.remove();
-      });
+      };
+
+      alert.classList.add('dismissed');
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        removeAlert();
+      } else {
+        alert.addEventListener('animationend', removeAlert, { once: true });
+      }
     }
   };
 

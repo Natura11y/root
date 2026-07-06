@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaAlert from '@core-js/alert';
 import Alert from '@lib/components/alert';
@@ -6,6 +7,40 @@ import alertMarkup from './alert.example.html?raw';
 
 const initializeAlert = () => {
   new VanillaAlert().init();
+};
+
+const alertReactCode = `<Alert title="Success">
+  <p>Your changes have been saved successfully.</p>
+</Alert>`;
+
+const alertWarningCode = `<Alert success={false} title="Warning">
+  <p>Please review the form before submitting.</p>
+</Alert>`;
+
+const alertWithIconCode = `<Alert title="Notice" iconHandle="info">
+  <p>This page has been updated with new content.</p>
+</Alert>`;
+
+const alertDismissableCode = `const [isShown, setIsShown] = useState(true);
+
+{isShown && (
+  <Alert title="Dismissable Alert" onClose={() => setIsShown(false)}>
+    <p>Click the close button to dismiss this alert.</p>
+  </Alert>
+)}`;
+
+const alertInverseCode = `<Alert title="Inverse Alert" inverse>
+  <p>This is an inverse style alert.</p>
+</Alert>`;
+
+const DismissableAlertExample = () => {
+  const [isShown, setIsShown] = useState(true);
+
+  return isShown ? (
+    <Alert title='Dismissable Alert' onClose={() => setIsShown(false)}>
+      <p>Click the close button to dismiss this alert.</p>
+    </Alert>
+  ) : null;
 };
 
 const meta: Meta<typeof Alert> = {
@@ -26,9 +61,13 @@ const meta: Meta<typeof Alert> = {
 export default meta;
 type Story = StoryObj<typeof Alert>;
 
-export const HTML: Story = {
+export const DefaultHtml: Story = {
+  name: 'Default (HTML)',
   parameters: {
     docs: {
+      description: {
+        story: 'The vanilla HTML pattern uses Natura11y core markup and JavaScript behavior.',
+      },
       source: {
         code: alertMarkup.trim(),
         language: 'html',
@@ -50,6 +89,18 @@ export const React: Story = {
     title: 'Success',
     children: <p>Your changes have been saved successfully.</p>,
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'The React component renders the same alert pattern with a React-friendly API.',
+      },
+      source: {
+        code: alertReactCode,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const Warning: Story = {
@@ -57,6 +108,18 @@ export const Warning: Story = {
     success: false,
     title: 'Warning',
     children: <p>Please review the form before submitting.</p>,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use the warning style for messages that need attention before someone continues.',
+      },
+      source: {
+        code: alertWarningCode,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
   },
 };
 
@@ -66,14 +129,34 @@ export const WithIcon: Story = {
     iconHandle: 'info',
     children: <p>This page has been updated with new content.</p>,
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use `iconHandle` when the alert needs a different icon from the default confirm or warn icon.',
+      },
+      source: {
+        code: alertWithIconCode,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const Dismissable: Story = {
-  args: {
-    title: 'Dismissable Alert',
-    children: <p>Click the close button to dismiss this alert.</p>,
-    onClose: () => {},
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use `onClose` when an alert can be dismissed and the parent should remove it from the page.',
+      },
+      source: {
+        code: alertDismissableCode,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
   },
+  render: () => <DismissableAlertExample />,
 };
 
 export const Inverse: Story = {
@@ -81,5 +164,17 @@ export const Inverse: Story = {
     title: 'Inverse Alert',
     inverse: true,
     children: <p>This is an inverse style alert.</p>,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use the inverse style when the alert needs stronger visual emphasis.',
+      },
+      source: {
+        code: alertInverseCode,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
   },
 };

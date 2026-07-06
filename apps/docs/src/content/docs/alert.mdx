@@ -33,7 +33,7 @@ Do not rely on color alone to convey meaning. Include a visual icon for those wh
 
 Use an appropriate <LinkOpenNew LinkUrl="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/alert_role" LinkText="alert role" /> for assistive technology.
 
-Respects `prefers-reduced-motion`, so the dismiss animation is disabled when this preference is active.
+When visitors prefer less motion, dismissable alerts close without the fade animation.
 
 </AccessibilitySpotlight>
 
@@ -47,7 +47,7 @@ Respects `prefers-reduced-motion`, so the dismiss animation is disabled when thi
 
 ## Confirm and Warn
 
-Natura11y provides two types of alerts: **Confirm** in *green* and **Warn** in *red*.
+Natura11y provides two feedback alert styles: **Confirm** and **Warn**.
 
 Each alert should include an icon to help convey its meaning. Use icons from the <a href="/icons/">Natura11y Icons</a> library.
 
@@ -87,31 +87,31 @@ Each alert should include an icon to help convey its meaning. Use icons from the
 
 <TableLineDescRow targetFigure="1" lines="1-5">
 
-The parent `.alert` class is required.
+Use `.alert` on the wrapper.
 
-The `.alert--{x}` class sets the alert's color, where *x* can be *confirm* or *warn*.
+Add `.alert--confirm` or `.alert--warn` to choose the alert style.
 
-The `aria-labelledby` attribute should match the alert title's `id`.
+The `aria-labelledby` value points to the alert title.
 
-The `aria-describedby` attribute should match the alert description's `id`.
+The `aria-describedby` value points to the alert description when one is present.
 
-Include `role="alert"` for urgent information.
-
-</TableLineDescRow>
-
-<TableLineDescRow targetFigure="1" lines="6-11">
-
-The `.alert__title` class is required. It contains the alert's title and icon.
-
-The `.alert__title__text` class holds the alert title text and must match the `aria-labelledby` attribute.
+Use `role="alert"` when the message should be announced right away.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="13-18">
+<TableLineDescRow targetFigure="1" lines="7-12">
 
-The `.alert__description` class is optional. It contains the alert description and should match the `aria-describedby` attribute.
+The `.alert__title` class groups the icon and title text.
 
-All links (`<a>` tags) within the `<p>` tags will automatically inherit the alert's text color.
+The title text has an `id` so `aria-labelledby` can point to it.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="1" lines="14-19">
+
+The `.alert__description` class is optional. When it is included, its `id` should match `aria-describedby`.
+
+Links inside an alert automatically inherit the alert's text color.
 
 </TableLineDescRow>
 
@@ -155,13 +155,16 @@ You can create a title-only alert by omitting the `.alert__description` element 
   <div
     class="alert alert--confirm--inverse"
     aria-labelledby="alert-title-only-label"
-    role="alert">
+    role="alert"
+  >
+
     <div class="alert__title h5">
       <span class="icon icon-confirm" aria-hidden="true"></span>
       <span class="alert__title__text" id="alert-title-only-label">
         Alert Confirm
       </span>
     </div>
+
   </div>
   `}
 >
@@ -223,15 +226,15 @@ Add `aria-live="assertive"` and `aria-atomic="true"` to the `.alert` element its
 
 <TableLineDescRow targetFigure="4" lines="3-4">
 
-Add `aria-live="assertive"` and `aria-atomic="true"` directly on the `.alert` element for dismissable alerts. This tells assistive technology to announce changes when the alert is removed.
+Add `aria-live="assertive"` and `aria-atomic="true"` to dismissable alerts so screen readers can announce alert changes.
 
 </TableLineDescRow>
 
 <TableLineDescRow targetFigure="4" lines="8-14">
 
-The `data-alert-close` attribute on the button is required. The Natura11y JavaScript uses this attribute, not a class, to handle the dismiss behavior.
+The close button needs `data-alert-close`. Natura11y JavaScript uses this attribute to dismiss the alert.
 
-The close button must be the **first child** of `.alert`, placed before `.alert__title`.
+Place the close button before `.alert__title` so it appears in the close button area of the alert layout.
 
 </TableLineDescRow>
 

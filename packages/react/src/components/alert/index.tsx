@@ -36,7 +36,12 @@ const Alert = ({
     const el = internalRef.current;
     if (!el) return;
     el.classList.add('dismissed');
-    el.addEventListener('animationend', onClose as EventListener, { once: true });
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      onClose?.();
+    } else {
+      el.addEventListener('animationend', onClose as EventListener, { once: true });
+    }
   };
 
   return (

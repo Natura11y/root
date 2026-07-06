@@ -6,6 +6,7 @@ interface Props {
 
 const { lines, targetFigure } = Astro.props;
 const lineAnchor = lines && targetFigure ? `#code_${targetFigure}.${lines}` : null;
+const lineLabel = lines?.includes('-') ? `code lines ${lines}` : `code line ${lines}`;
 ---
 
 <tr>
@@ -14,8 +15,8 @@ const lineAnchor = lines && targetFigure ? `#code_${targetFigure}.${lines}` : nu
       <a
         href={lineAnchor}
         data-line-anchor
-        title="Jump to code line"
-        aria-label={`Jump to code line ${lines}`}
+        title={`Jump to ${lineLabel}`}
+        aria-label={`Jump to ${lineLabel}`}
       >
         {lines}
       </a>
