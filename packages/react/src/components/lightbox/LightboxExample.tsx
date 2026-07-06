@@ -46,16 +46,16 @@ const LightboxExample = () => {
 
   return (
     <div className='container narrow grid gap-4'>
-      <LightboxButton {...imageMedia1}>
+      <LightboxButton {...imageMedia1} lbIndex={0}>
         <img src='https://placehold.co/1500x750' alt='Placeholder' />
       </LightboxButton>
-      <LightboxButton {...imageMedia2}>
+      <LightboxButton {...imageMedia2} lbIndex={1}>
         <img src='https://placehold.co/1500x750' alt='Placeholder' />
       </LightboxButton>
-      <LightboxButton {...youtubeMedia}>
+      <LightboxButton {...youtubeMedia} lbIndex={2}>
         Open YouTube Video
       </LightboxButton>
-      <LightboxButton {...vimeoMedia}>
+      <LightboxButton {...vimeoMedia} lbIndex={3}>
         Open Vimeo Video
       </LightboxButton>
     </div>

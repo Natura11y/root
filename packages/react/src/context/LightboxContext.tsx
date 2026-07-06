@@ -22,7 +22,7 @@ export interface LightboxContextValue {
   mediaArray: MediaItem[];
   addToMediaArray: (media: MediaItem) => void;
   lightboxData: LightboxData;
-  handleLightboxOpen: (lbType: string, lbSrc: string, lbCaption: string) => void;
+  handleLightboxOpen: (lbType: string, lbSrc: string, lbCaption: string, currentLB?: number) => void;
   handleLightboxClose: () => void;
   handleNextPrevious: (dir: number) => void;
   handleCloseOutside: (event: React.MouseEvent) => void;
@@ -58,17 +58,23 @@ export const LightboxProvider = ({ children }: { children: ReactNode }) => {
     setMediaArray((prevArray) => [...prevArray, media]);
   };
 
-  const updateLightboxState = (lbType: string, lbSrc: string, lbCaption: string, isOpen: boolean) => {
-    setLightboxData(prevState => ({ ...prevState, isOpen, lbType, lbSrc, lbCaption }));
+  const updateLightboxState = (
+    lbType: string,
+    lbSrc: string,
+    lbCaption: string,
+    isOpen: boolean,
+    currentLB = lightboxData.currentLB
+  ) => {
+    setLightboxData(prevState => ({ ...prevState, isOpen, lbType, lbSrc, lbCaption, currentLB }));
   };
 
   const updateCurrentLB = (newIndex: number) => {
     setLightboxData(prevState => ({ ...prevState, currentLB: newIndex }));
   };
 
-  const handleLightboxOpen = (lbType: string, lbSrc: string, lbCaption: string) => {
+  const handleLightboxOpen = (lbType: string, lbSrc: string, lbCaption: string, currentLB = 0) => {
     lastFocusedRef.current = document.activeElement as HTMLElement;
-    updateLightboxState(lbType, lbSrc, lbCaption, true);
+    updateLightboxState(lbType, lbSrc, lbCaption, true, currentLB);
   };
 
   const handleLightboxClose = () => {
