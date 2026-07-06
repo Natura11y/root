@@ -243,6 +243,8 @@ a[data-logo='brand']:is(:focus, :hover) .a11y {
 }
 
 .docs-layout__toc {
+  --position-sticky-offset: var(--spacer-2);
+
   border-block-end: var(--border-width) var(--border-style) var(--border-color);
   grid-area: toc;
   padding-block: var(--spacer-4);
