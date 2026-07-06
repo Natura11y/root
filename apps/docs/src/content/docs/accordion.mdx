@@ -29,13 +29,11 @@ The Natura11y accordion allows sections of content to expand and collapse while 
 
 <AccessibilitySpotlight>
 
-All focusable elements in the accordion are included in the page <kbd>Tab</kbd> sequence.
+Keyboard users can move through accordion buttons and visible panel content in a logical order.
 
 Accordion buttons support keyboard interaction with <kbd>Tab</kbd>, <kbd>Space</kbd>, <kbd>Enter</kbd>, <kbd>Up Arrow</kbd>, and <kbd>Down Arrow</kbd>.
 
 When clicked or activated, accordion buttons update `aria-expanded` and toggle the related panel state.
-
-Closed panels are made inert so hidden panel content is not included in the keyboard flow.
 
 Respects `prefers-reduced-motion`, so transitions are disabled when this preference is active.
 
