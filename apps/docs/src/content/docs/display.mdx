@@ -8,12 +8,11 @@ bannerCreditUrl: https://unsplash.com/@juliancs
 bannerImage: ./banner/display.jpg
 bannerAlt: shallow focus photo of blue and green peacock
 description:
-    Control element display types (block, inline, flex, grid) with responsive breakpoint modifiers. Includes hide/show utilities for different screen sizes.
+    Control an element's display value with block, inline, flex, grid, and responsive display utilities.
 relatedPages:
   - "Flex"
   - "Grid"
 ---
-
 <Section id="introduction">
 
 <h2 className="screen-reader-only">
@@ -52,6 +51,7 @@ Natura11y provides the following display utilities:
         <div class="display-grid">...</div>
         <div class="display-inline-grid">...</div>
         <div class="display-none">...</div>
+        <div class="display-initial">...</div>
     `}
 />
 
@@ -66,10 +66,11 @@ Display utilities accept <a href="/docs/breakpoint/#breakpoint-modifiers">breakp
 <FigureExample
     figureNumber="2"
     figureWidth="medium"
+    markedText="display-block--lg"
     code={`
         <!-- With breakpoint modifier -->
 
-        <div class="display-none display-block--lg 👈">...</div>
+        <div class="display-none display-block--lg">...</div>
     `}
 />
 

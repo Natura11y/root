@@ -1,0 +1,35 @@
+<div class="grid grid--column-2 gap-3">
+  <button
+    class="button width-100 theme-primary"
+    data-toggle="collapse"
+    aria-controls="collapse-target-one-story"
+    aria-expanded="false"
+    data-target-close="collapse-target-two-story"
+    type="button"
+  >
+    Button 1
+  </button>
+
+  <button
+    class="button width-100 theme-primary"
+    data-toggle="collapse"
+    aria-controls="collapse-target-two-story"
+    aria-expanded="false"
+    data-target-close="collapse-target-one-story"
+    type="button"
+  >
+    Button 2
+  </button>
+</div>
+
+<div class="collapse margin-y-3" id="collapse-target-one-story">
+  <div class="border padding-4">
+    <p>Target 1</p>
+  </div>
+</div>
+
+<div class="collapse margin-y-3" id="collapse-target-two-story">
+  <div class="border padding-4">
+    <p>Target 2</p>
+  </div>
+</div>

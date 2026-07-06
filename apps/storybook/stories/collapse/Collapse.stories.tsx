@@ -5,6 +5,7 @@ import Collapse from '@lib/components/collapse';
 import Button from '@lib/components/button';
 import VanillaExample from '../../utils/VanillaExample';
 import collapseMarkup from './collapse.example.html?raw';
+import collapseCloseTargetMarkup from './collapse-close-target.example.html?raw';
 
 const initializeCollapse = () => {
   new VanillaCollapse().init();
@@ -74,34 +75,22 @@ export const React: Story = {
   },
 };
 
-export const FocusFirst: Story = {
-  render: () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const buttonRef = useRef<HTMLButtonElement>(null);
-
-    const closePanel = () => {
-      setIsOpen(false);
-      buttonRef.current?.focus();
-    };
-
-    return (
-      <div>
-        <Button
-          title={isOpen ? 'Hide' : 'Show'}
-          onClick={() => setIsOpen(!isOpen)}
-          attributes={{
-            ref: buttonRef,
-            'aria-controls': 'collapse-react-focus',
-            'aria-expanded': isOpen,
-          }}
-        />
-        <Collapse id='collapse-react-focus' isOpen={isOpen} onClose={closePanel} focusFirst>
-          <div className='padding-3 border'>
-            <p>When opened, focus moves to the first focusable element inside.</p>
-            <a href='#'>Focusable link</a>
-          </div>
-        </Collapse>
-      </div>
-    );
+export const CloseTargetHtml: Story = {
+  name: 'Close Target (HTML)',
+  parameters: {
+    docs: {
+      source: {
+        code: collapseCloseTargetMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
   },
+  render: () => (
+    <VanillaExample
+      html={collapseCloseTargetMarkup}
+      initialize={initializeCollapse}
+      initializeOnceKey='collapse'
+    />
+  ),
 };

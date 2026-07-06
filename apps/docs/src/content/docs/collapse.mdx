@@ -52,7 +52,7 @@ The collapse mechanism establishes a relationship between a button and its targe
 
 <FigureExample
   figureNumber="1"
-  highlightedLines="3-6,11,12-26"
+  highlightedLines="3-6,11-27"
   code={`
   <button
     class="button width-100 theme-primary"
@@ -98,17 +98,9 @@ The `aria-expanded="false"` attribute communicates the initial collapsed state.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="11">
+<TableLineDescRow targetFigure="1" lines="11-27">
 
-The `.collapse` class is required. It initially hides the target selector.
-
-The `id` attribute equals the value of its associated button's `aria-controls` attribute.
-
-</TableLineDescRow>
-
-<TableLineDescRow targetFigure="1" lines="12-26">
-
-Place padding and borders on a child inside `.collapse`. This keeps the collapsing element's height animation predictable.
+The `.collapse` class is required. It initially hides the target selector, and its `id` attribute must match the trigger button's `aria-controls` value. Place padding and borders on a child inside `.collapse` so the height animation stays predictable.
 
 </TableLineDescRow>
 
@@ -126,11 +118,13 @@ Place padding and borders on a child inside `.collapse`. This keeps the collapsi
 
 To close a selector while opening another, add the `data-target-close` attribute to a button. The value should equal the target selector's `id` attribute.
 
+In Figure 2, each button's `data-target-close` value matches the other button's target panel `id`, so opening one panel closes the neighboring panel.
+
 </TextBlock>
 
 <FigureExample
   figureNumber="2"
-  highlightedLines="7,18"
+  markedText={['data-target-close="target-id-2"', 'data-target-close="target-id-1"']}
   code={`
   <div class="grid grid--column-2 gap-3">
     <button
@@ -171,16 +165,6 @@ To close a selector while opening another, add the `data-target-close` attribute
 >
   <CloseTarget />
 </FigureExample>
-
-<TableLineDescBlock targetFigure="2">
-
-<TableLineDescRow targetFigure="2" lines="7,18">
-
-Use `data-target-close` to close another collapse panel when this trigger opens.
-
-</TableLineDescRow>
-
-</TableLineDescBlock>
 
 </Section>
 

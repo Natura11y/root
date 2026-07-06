@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import VanillaExample from '../../utils/VanillaExample';
 import markup from './display.example.html?raw';
 
 const meta = {
@@ -17,7 +16,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const HTML: Story = {
+export const Default: Story = {
   parameters: {
     docs: {
       source: {
@@ -27,5 +26,5 @@ export const HTML: Story = {
       },
     },
   },
-  render: () => <VanillaExample html={markup} />,
+  render: () => null,
 };
