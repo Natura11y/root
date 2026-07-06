@@ -8,7 +8,7 @@ const meta = {
     docs: {
       codePanel: true,
       description: {
-        component: 'Breakpoint modifiers apply many Natura11y utilities at responsive viewport sizes.',
+        component: 'Breakpoint modifiers apply many Natura11y utilities at a viewport size and above.',
       },
     },
   },
@@ -17,7 +17,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const HTML: Story = {
+export const Default: Story = {
   parameters: {
     docs: {
       source: {

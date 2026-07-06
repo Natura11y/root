@@ -16,7 +16,8 @@ const meta: Meta<typeof Breadcrumb> = {
 export default meta;
 type Story = StoryObj<typeof Breadcrumb>;
 
-export const HTML: Story = {
+export const DefaultHtml: Story = {
+  name: 'Default (HTML)',
   parameters: {
     docs: {
       source: {
@@ -32,18 +33,10 @@ export const HTML: Story = {
 export const React: Story = {
   args: {
     items: [
-      { label: 'Home', href: '#' },
-      { label: 'Components', href: '#' },
-      { label: 'Breadcrumb' },
-    ],
-  },
-};
-
-export const TwoLevels: Story = {
-  args: {
-    items: [
-      { label: 'Home', href: '#' },
-      { label: 'Breadcrumb' },
+      { label: 'Home', href: '#1' },
+      { label: 'Recipes', href: '#1' },
+      { label: 'Baking', href: '#1' },
+      { label: 'Focaccia' },
     ],
   },
 };

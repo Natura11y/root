@@ -6,17 +6,9 @@ const BreadcrumbExamples = () => (
         <Breadcrumb
             items={[
                 { label: 'Home', href: '#1' },
-                { label: 'Recipes', href: '#2' },
-                { label: 'Baking', href: '#3' },
+                { label: 'Recipes', href: '#1' },
+                { label: 'Baking', href: '#1' },
                 { label: 'Focaccia' },
-            ]}
-        />
-
-        <Breadcrumb
-            items={[
-                { label: 'Home', href: '#1' },
-                { label: 'Components', href: '#2' },
-                { label: 'Breadcrumb' },
             ]}
         />
 
