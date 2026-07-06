@@ -8,7 +8,7 @@ const meta = {
     docs: {
       codePanel: true,
       description: {
-        component: 'Link utilities make non-paragraph links and icon links consistent.',
+        component: 'Link utilities make standalone links and icon links consistent.',
       },
     },
   },
@@ -17,7 +17,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const HTML: Story = {
+export const Default: Story = {
+  name: 'Default',
   parameters: {
     docs: {
       source: {

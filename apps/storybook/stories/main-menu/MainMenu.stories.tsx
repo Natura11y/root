@@ -8,7 +8,8 @@ import Dropdown from '@lib/components/dropdown';
 import FormEntrySearch from '@lib/components/form/FormEntrySearch';
 import ButtonIconOnly from '@lib/components/button/ButtonIconOnly';
 import VanillaExample from '../../utils/VanillaExample';
-import mainMenuMarkup from './main-menu.example.html?raw';
+import mainMenuBarMarkup from './main-menu.example.html?raw';
+import mainMenuStackMarkup from './main-menu-stack.example.html?raw';
 
 const initializeMainMenu = () => {
   new VanillaCollapse().init();
@@ -17,7 +18,7 @@ const initializeMainMenu = () => {
 };
 
 const logo = (
-  <a href='/' title='Home' data-logo='brand'>
+  <a href='#1' title='Home' data-logo='brand'>
     <Brand />
   </a>
 );
@@ -68,7 +69,7 @@ const meta = {
     variant: 'bar',
     breakpoint: 'lg',
     navAriaLabel: 'Main Menu',
-    utilities: 'box-shadow-1',
+    utilities: 'theme-canvas drop-shadow-1',
   },
   argTypes: {
     variant: { control: 'radio', options: ['bar', 'stack'] },
@@ -92,46 +93,58 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const HTML: Story = {
+const renderMainMenuHtml = (html: string, key: string) => (
+  <VanillaExample
+    html={html}
+    initialize={initializeMainMenu}
+    initializeOnceKey={key}
+  />
+);
+
+export const BarHtml: Story = {
+  name: 'Bar (HTML)',
   parameters: {
     docs: {
       source: {
-        code: mainMenuMarkup.trim(),
+        code: mainMenuBarMarkup.trim(),
         language: 'html',
         type: 'code',
       },
     },
   },
-  render: () => (
-    <VanillaExample
-      html={mainMenuMarkup}
-      initialize={initializeMainMenu}
-      initializeOnceKey='main-menu'
-    />
-  ),
+  render: () => renderMainMenuHtml(mainMenuBarMarkup, 'main-menu-bar'),
 };
 
-export const React: Story = {
+export const BarReact: Story = {
+  name: 'Bar (React)',
   args: {
     logo,
     search: barSearch,
+    actions,
     children: navItems,
   },
 };
 
-export const Stack: Story = {
+export const StackHtml: Story = {
+  name: 'Stack (HTML)',
+  parameters: {
+    docs: {
+      source: {
+        code: mainMenuStackMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => renderMainMenuHtml(mainMenuStackMarkup, 'main-menu-stack'),
+};
+
+export const StackReact: Story = {
+  name: 'Stack (React)',
   args: {
     variant: 'stack',
     logo,
     search: stackSearch,
-    children: navItems,
-  },
-};
-
-export const WithActions: Story = {
-  args: {
-    logo,
-    search: barSearch,
     actions,
     children: navItems,
   },

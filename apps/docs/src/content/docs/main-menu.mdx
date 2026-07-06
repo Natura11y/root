@@ -59,105 +59,109 @@ The `.main-menu--bar--{bp}` selector places the main menu *inline* with the logo
 </Browser>
 
 <FigureExample
-    figureNumber="1"
-    figureWidth="wide"
-    highlightedLines="1,2-10,12-44,46-70,72-98,100-109"
-    code={`<div class="main-menu--bar--lg">
-  <div class="main-menu__logo">
-    <a href="#1" title="Home" data-logo="brand">
-      <!-- Placeholder logo, replace the following <svg> with your own -->
-      <svg xmlns="http://www.w3.org/2000/svg" width="126" height="34" viewBox="0 0 126 34" aria-hidden="true">
-        ...
-      </svg>
-    </a>
-  </div>
+  figureNumber="1"
+  figureWidth="wide"
+  highlightedLines="1,2-9,11-43,45-68,70-89,91-95"
+  code={`
+  <div class="main-menu--bar--lg">
 
-  <nav class="main-menu__nav" id="main-menu" aria-label="Main Menu">
-    <ul>
-      <li>
-        <button
-          class="dropdown"
-          data-toggle="dropdown"
-          aria-controls="menu-1"
-          aria-expanded="false"
-          data-hover="true"
-          type="button"
-        >
-          <span class="text">Dropdown</span>
-        </button>
-        <ul class="dropdown__menu box-shadow-1--lg" id="menu-1">
-          <li>
-            <a href="#1">Link</a>
-          </li>
-          <li>
-            <a href="#1">Link</a>
-          </li>
-          <li>
-            <a href="#1">Link</a>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <a href="#1">Link</a>
-      </li>
-      <li>
-        <a href="#1">Link</a>
-      </li>
-    </ul>
-  </nav>
-
-  <div class="main-menu__toggle">
-    <button
-      class="button button--icon-only"
-      aria-label="Search"
-      data-toggle="collapse"
-      aria-controls="search"
-      data-target-close="main-menu"
-      aria-expanded="false"
-      type="button"
-    >
-      <span class="icon icon-search" aria-hidden="true"></span>
-    </button>
-    <button
-      class="button button--icon-only"
-      aria-label="Menu"
-      data-toggle="collapse"
-      aria-controls="main-menu"
-      data-target-close="search"
-      aria-expanded="false"
-      type="button"
-    >
-      <span class="icon icon-menu" aria-hidden="true"></span>
-    </button>
-  </div>
-
-  <form class="main-menu__search" id="search" role="search" data-focus-first>
-    <div class="form-entry form-entry--search" aria-label="Search">
-      <label class="form-entry__field">
-        <span class="form-entry__field__label screen-reader-only">Search</span>
-        <span class="form-entry__field__input">
-          <input type="search" id="global-search" name="global-search">
-          <button
-            class="button button--icon-only"
-            type="button"
-            data-search-clear
-            aria-label="Clear search"
-            aria-controls="global-search"
-          >
-            <span class="icon icon-clear" aria-hidden="true"></span>
-          </button>
-          <button class="button theme-primary" type="submit">Search</button>
-        </span>
-      </label>
+    <div class="main-menu__logo">
+      <a href="#1" title="Home" data-logo="brand">
+        <!-- Placeholder logo, replace the following <svg> with your own -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="126" height="34" viewBox="0 0 126 34" aria-hidden="true">
+          ...
+        </svg>
+      </a>
     </div>
-  </form>
 
-  <div class="main-menu__actions">
-    <button class="button button--icon-only" aria-label="Language" type="button">
-      <span class="icon icon-language" aria-hidden="true"></span>
-    </button>
+    <nav class="main-menu__nav" id="main-menu" aria-label="Main Menu">
+      <ul>
+        <li>
+          <button
+            class="dropdown"
+            data-toggle="dropdown"
+            aria-controls="menu-1"
+            aria-expanded="false"
+            data-hover="true"
+            type="button"
+          >
+            <span class="text">Dropdown</span>
+          </button>
+          <ul class="dropdown__menu box-shadow-1--lg" id="menu-1">
+            <li>
+              <a href="#1">Link</a>
+            </li>
+            <li>
+              <a href="#1">Link</a>
+            </li>
+            <li>
+              <a href="#1">Link</a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <a href="#1">Link</a>
+        </li>
+        <li>
+          <a href="#1">Link</a>
+        </li>
+      </ul>
+    </nav>
+
+    <div class="main-menu__toggle">
+      <button
+        class="button button--icon-only"
+        aria-label="Search"
+        data-toggle="collapse"
+        aria-controls="search"
+        data-target-close="main-menu"
+        aria-expanded="false"
+        type="button"
+      >
+        <span class="icon icon-search" aria-hidden="true"></span>
+      </button>
+      <button
+        class="button button--icon-only"
+        aria-label="Menu"
+        data-toggle="collapse"
+        aria-controls="main-menu"
+        data-target-close="search"
+        aria-expanded="false"
+        type="button"
+      >
+        <span class="icon icon-menu" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <form class="main-menu__search" id="search" role="search" data-focus-first>
+      <div class="form-entry form-entry--search" aria-label="Search">
+        <label class="form-entry__field">
+          <span class="form-entry__field__label screen-reader-only">Search</span>
+          <span class="form-entry__field__input">
+            <input type="search" id="global-search" name="global-search">
+            <button
+              class="button button--icon-only"
+              type="button"
+              data-search-clear
+              aria-label="Clear search"
+              aria-controls="global-search"
+            >
+              <span class="icon icon-clear" aria-hidden="true"></span>
+            </button>
+            <button class="button theme-primary" type="submit">Search</button>
+          </span>
+        </label>
+      </div>
+    </form>
+
+    <div class="main-menu__actions">
+      <button class="button button--icon-only" aria-label="Language" type="button">
+        <span class="icon icon-language" aria-hidden="true"></span>
+      </button>
+    </div>
+
   </div>
-</div>`}
+  `}
 />
 
 <TableLineDescBlock targetFigure="1">
@@ -170,7 +174,7 @@ It accepts two modifiers: the variant (*bar* or *stack*) and the responsive brea
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="2-10">
+<TableLineDescRow targetFigure="1" lines="2-9">
 
 The `.main-menu__logo` selector is required.
 
@@ -180,7 +184,7 @@ When using a single-color `<svg>` for the logo, the `data-logo="brand"` attribut
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="12-44">
+<TableLineDescRow targetFigure="1" lines="11-43">
 
 The `.main-menu__nav` selector is required.
 
@@ -192,7 +196,7 @@ Learn about <a href="/docs/dropdown/">dropdowns</a>.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="46-70">
+<TableLineDescRow targetFigure="1" lines="45-68">
 
 The `.main-menu__toggle` selector is required.
 
@@ -206,7 +210,7 @@ Learn about <a href="/docs/collapse/">collapse</a>.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="72-98">
+<TableLineDescRow targetFigure="1" lines="70-89">
 
 The `.main-menu__search` selector is optional.
 
@@ -218,7 +222,7 @@ Learn about <a href="/docs/form/#form-entries">form entries</a>.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="100-109">
+<TableLineDescRow targetFigure="1" lines="91-95">
 
 The `.main-menu__actions` selector is optional.
 

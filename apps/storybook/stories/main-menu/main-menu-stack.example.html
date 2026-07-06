@@ -1,4 +1,4 @@
-<div class="main-menu--bar--lg theme-canvas drop-shadow-1">
+<div class="main-menu--stack--lg theme-canvas drop-shadow-1">
   <div class="main-menu__logo">
     <a href="#1" title="Home" data-logo="brand">
       <svg xmlns="http://www.w3.org/2000/svg" width="126" height="34" viewBox="0 0 126 34" aria-hidden="true">
@@ -12,48 +12,12 @@
     </a>
   </div>
 
-  <nav class="main-menu__nav" id="main-menu-bar-html-nav" aria-label="Main Menu">
-    <ul>
-      <li>
-        <button
-          class="dropdown"
-          data-toggle="dropdown"
-          aria-controls="main-menu-bar-html-dropdown"
-          aria-expanded="false"
-          data-hover="true"
-          type="button"
-        >
-          <span class="text">Dropdown</span>
-        </button>
-        <ul class="dropdown__menu box-shadow-1--lg" id="main-menu-bar-html-dropdown">
-          <li><a href="#1">Link</a></li>
-          <li><a href="#1">Link</a></li>
-          <li><a href="#1">Link</a></li>
-        </ul>
-      </li>
-      <li><a href="#1">Link</a></li>
-      <li><a href="#1">Link</a></li>
-    </ul>
-  </nav>
-
   <div class="main-menu__toggle">
-    <button
-      class="button button--icon-only"
-      aria-label="Search"
-      data-toggle="collapse"
-      aria-controls="main-menu-bar-html-search"
-      data-target-close="main-menu-bar-html-nav"
-      aria-expanded="false"
-      type="button"
-    >
-      <span class="icon icon-search" aria-hidden="true"></span>
-    </button>
     <button
       class="button button--icon-only"
       aria-label="Menu"
       data-toggle="collapse"
-      aria-controls="main-menu-bar-html-nav"
-      data-target-close="main-menu-bar-html-search"
+      aria-controls="main-menu-stack-html-nav"
       aria-expanded="false"
       type="button"
     >
@@ -61,22 +25,24 @@
     </button>
   </div>
 
-  <form class="main-menu__search" id="main-menu-bar-html-search" role="search" data-focus-first>
+  <form class="main-menu__search" id="main-menu-stack-html-search" role="search" data-focus-first>
     <div class="form-entry form-entry--search" aria-label="Search">
       <label class="form-entry__field">
         <span class="form-entry__field__label screen-reader-only">Search</span>
         <span class="form-entry__field__input">
-          <input type="search" id="main-menu-bar-html-search-input" name="global-search" />
+          <input type="search" id="main-menu-stack-html-search-input" name="global-search" />
           <button
             class="button button--icon-only"
             type="button"
             data-search-clear
             aria-label="Clear search"
-            aria-controls="main-menu-bar-html-search-input"
+            aria-controls="main-menu-stack-html-search-input"
           >
             <span class="icon icon-clear" aria-hidden="true"></span>
           </button>
-          <button class="button theme-primary" type="submit">Search</button>
+          <button class="button button--icon-only theme-primary" type="submit" aria-label="Search">
+            <span class="icon icon-search" aria-hidden="true"></span>
+          </button>
         </span>
       </label>
     </div>
@@ -91,4 +57,28 @@
       <span class="icon icon-language" aria-hidden="true"></span>
     </button>
   </div>
+
+  <nav class="main-menu__nav" id="main-menu-stack-html-nav" aria-label="Main Menu">
+    <ul>
+      <li>
+        <button
+          class="dropdown"
+          data-toggle="dropdown"
+          aria-controls="main-menu-stack-html-dropdown"
+          aria-expanded="false"
+          data-hover="true"
+          type="button"
+        >
+          <span class="text">Dropdown</span>
+        </button>
+        <ul class="dropdown__menu box-shadow-1--lg" id="main-menu-stack-html-dropdown">
+          <li><a href="#1">Link</a></li>
+          <li><a href="#1">Link</a></li>
+          <li><a href="#1">Link</a></li>
+        </ul>
+      </li>
+      <li><a href="#1">Link</a></li>
+      <li><a href="#1">Link</a></li>
+    </ul>
+  </nav>
 </div>
