@@ -8,7 +8,7 @@ bannerCreditUrl: https://unsplash.com/@davidclode
 bannerImage: ./banner/color.jpg
 bannerAlt: Yellow, blue, red, and green bird in close-up photograph
 description:
-    Apply theme colors, contrast ratios, and dark mode support. Includes color utilities, accessibility compliance, and OS preference detection.
+    Apply theme colors, color utilities, and color-scheme-aware canvas themes.
 relatedPages:
   - "Customization"
   - "Accessibility"
@@ -34,7 +34,7 @@ import TextUtilities from '../../components/examples/color/TextUtilities.astro';
 
 <TextBlock>
 
-Natura11y's dynamic color system makes it easy to maintain consistent colors across your design. You can easily create and apply color themes for entire pages, such as *dark mode*. Themes can also be applied to specific sections or individual components like cards or buttons.
+Natura11y's color system makes it easier to keep color relationships consistent. Theme classes can be applied to full pages, sections, or individual components like cards and buttons.
 
 </TextBlock>
 
@@ -66,7 +66,7 @@ Your principal theme colors include ***Primary***, ***Secondary***, ***Dark***, 
 
 These five colors produce utility classes for <a href="#theme-color-utilities">theme colors</a>, <a href="#background-color-utilities">background colors</a>, <a href="#text-color-utilities">text colors</a>, and <a href="/docs/border/#border-color-utilities">border colors</a>.
 
-Natura11y treats ***canvas*** (white) as a color, which serves as the default theme. Natura11y's CSS file applies the *canvas* theme (and its <a href="#correlated-colors">correlated colors</a>) to the <code>&lt;body&gt;</code> selector.
+Natura11y treats ***canvas*** as a color, which serves as the default theme. The framework applies the canvas theme and its <a href="#correlated-colors">correlated colors</a> to the page by default.
 
 </TextBlock>
 
@@ -109,7 +109,7 @@ Figure 1 (below) depicts the CSS variable declared for the ***primary*** theme o
 
 <TextBlock>
 
-For a descriptive list of all colors available, jump over to the <a href="/docs/customization/#cp_color" target="blank">css variable reference guide</a>.
+For a descriptive list of all colors available, jump over to the <a href="/docs/customization/#cp_color" target="_blank">CSS variable reference guide</a>.
 
 </TextBlock>
 
@@ -151,16 +151,16 @@ You may apply theme colors to any containing block-level element within the DOM.
 
 <TextBlock>
 
-In Figure 3 (below), on line 1, notice the `.theme-primary` utility present. No other element within the card needs color specified. Each theme color utility applies its <a href="#correlated-colors">correlated colors</a> to all descendants.
+In Figure 3, notice the `.theme-primary` utility. No other element within the card needs its color specified. Each theme color utility applies its <a href="#correlated-colors">correlated colors</a> to descendants.
 
 </TextBlock>
 
 <FigureExample
     figureNumber="3"
     figureWidth="medium"
-    highlightedLines="1"
+    markedText="theme-primary"
     code={`
-        <div class="card 👉 theme-primary border-radius-2">
+        <div class="card theme-primary border-radius-2">
 
             <div class="card__head border-bottom">
                 <p>
@@ -206,15 +206,15 @@ Refer to Figure 1 (above), on line 9. The correlated link color (e.g. <code>--pr
 
 <TextBlock>
 
-Beyond generic links, a <a href="#text-color-utilities">text color utility</a> named <code>.text-color-link</code> is available. With the following example, <code>.text-color-link</code> (Figure 4, Line 5) colors the buttons within the same selector *blue*.
+Beyond generic links, a <a href="#text-color-utilities">text color utility</a> named <code>.text-color-link</code> is available. Figure 4 uses <code>.text-color-link</code> to color the buttons with the current theme's link color.
 
 </TextBlock>
 
 <FigureExample
     figureNumber="4"
-    highlightedLines="1"
+    markedText="text-color-link"
     code={`
-        <div class="display-flex gap-2 justify-content-center 👉 text-color-link">
+        <div class="display-flex gap-2 justify-content-center text-color-link">
 
             <a class="button button--outline" href="#1">
                 Sign In
@@ -264,16 +264,15 @@ You can nest theme color utilities throughout the DOM.
 
 ### Breakpoint Specific
 
-Apply a theme color at a specific breakpoint. Chain a breakpoint modifier (e.g. `--lg` for a *large* breakpoint) to a the color utility. In the following example, `.theme-primary--lg` is present on the parent selector of our nav (Figure 5, line 1).
+Apply a theme color at a specific breakpoint. Chain a breakpoint modifier, such as `--lg` for the large breakpoint, to the color utility. Figure 5 applies `.theme-primary--lg` to the parent of the navigation.
 
 </TextBlock>
 
 <FigureExample
     figureNumber="5"
-    highlightedLines="1"
-    visualExampleClass="theme-primary--lg"
+    markedText="theme-primary--lg"
     code={`
-        <div class="theme-primary--lg">
+        <div class="theme-primary--lg padding-3">
 
             <ul class="nav nav--divider nav--horizontal border border-radius-2">
                 <li>
@@ -295,7 +294,7 @@ Apply a theme color at a specific breakpoint. Chain a breakpoint modifier (e.g. 
 
 <TextBlock>
 
-On smaller viewports The above example uses the default ***canvas*** theme. It instead used the ***primary*** theme when the viewport reaches the large breakpoint. Scale your browser horizontally to see this change occur.
+On smaller viewports, the example uses the default ***canvas*** theme. It switches to the ***primary*** theme when the viewport reaches the large breakpoint. Scale your browser horizontally to see this change occur.
 
 </TextBlock>
 
@@ -309,7 +308,7 @@ On smaller viewports The above example uses the default ***canvas*** theme. It i
 
 ## Prefers Color Scheme
 
-Natura11y's `.theme-canvas` utility offers a special `--prefers` modifier class. With `.theme-canvas--prefers` present on the `<body>` tag for example, a light or dark color theme is used depending on the operating system's settings.
+Natura11y's `.theme-canvas` utility offers a special `--prefers` modifier class. Use `.theme-canvas--prefers` when a canvas surface should use the dark theme values when the operating system prefers a dark color scheme.
 
 </TextBlock>
 
@@ -330,12 +329,13 @@ The `.subtle-fill-1` and `.subtle-fill-2` classes add light background tints to 
 - `.subtle-fill-1` applies a background color that is 5% of the current text color.
 - `.subtle-fill-2` applies a background color that is 10% of the current text color.
 
-In the card examples below, we apply a subtle fill to the action buttons within the `.card__footer` class using these new variations.
+In the card examples below, we apply a subtle fill to the card footer with these variations.
 
 </TextBlock>
 
 <FigureExample
-    figureNumber="3"
+    figureNumber="6"
+    markedText="subtle-fill-1"
     code={`
         <div class="card theme-dark">
 
@@ -343,7 +343,7 @@ In the card examples below, we apply a subtle fill to the action buttons within 
                 <!-- ... -->
             </div>
 
-            <div class="card__foot 👉 subtle-fill-1">
+            <div class="card__foot subtle-fill-1">
                 <!-- ... -->
             </div>
 
@@ -355,7 +355,7 @@ In the card examples below, we apply a subtle fill to the action buttons within 
 
 <TextBlock>
 
-Notice how the subtle fills appear differently depending on the theme: darker in the *white theme* and lighter in the *dark theme* cards.
+Notice how subtle fills appear differently depending on the theme: darker on the canvas theme and lighter on the dark theme.
 
 </TextBlock>
 
@@ -369,12 +369,12 @@ Notice how the subtle fills appear differently depending on the theme: darker in
 
 ## Background Color Utilities
 
-Need to apply only a background color? Our background color utilities (shown in Figure 6) apply a background color to its selector.
+Need to apply only a background color? The background color utilities shown in Figure 7 apply a background color to an element.
 
 </TextBlock>
 
 <FigureExample
-    figureNumber="6"
+    figureNumber="7"
     code={`
         <div class="background-color-primary">...</div>
         <div class="background-color-secondary">...</div>
@@ -396,18 +396,17 @@ Need to apply only a background color? Our background color utilities (shown in 
 
 ## Text Color Utilities
 
-Natura11y's text color utilities are useful for applying text color specificly to certain selectors.
+Natura11y's text color utilities apply a text color to specific elements.
 
-Consider the following example in Figure 7. With our primary theme applied to the containing element (line 1), `.text-color-secondary` is present on the third button selector.
+Figure 8 applies the primary theme to a containing element. The third button uses `.text-color-secondary`, which overrides the inherited theme text color.
 
 </TextBlock>
 
 <FigureExample
-    figureNumber="7"
-    highlightedLines="1,15"
-    visualExampleClass="theme-primary"
+    figureNumber="8"
+    markedText={['theme-primary', 'text-color-secondary']}
     code={`
-        <div class="theme-light">
+        <div class="theme-primary padding-4">
 
             <ul class="nav nav--horizontal justify-content-center">
                 <li>
@@ -435,14 +434,14 @@ Consider the following example in Figure 7. With our primary theme applied to th
 
 <TextBlock>
 
-Keep in mind that text color utilities take priority over color applied with theme color utilies. This, of course allows for even more variations within your themes.
+Text color utilities take priority over color applied by theme color utilities.
 
-Available text color utilities shown in figure 8:
+Available text color utilities are shown in Figure 9:
 
 </TextBlock>
 
 <FigureExample
-    figureNumber="8"
+    figureNumber="9"
     figureWidth="narrow"
     code={`
         <div class="text-color-primary">...</div>
@@ -469,7 +468,7 @@ Color styles can be customized by redefining the related CSS custom properties.
 </TextBlock>
 
 <RelatedCustomProperties
-    figureNumber="9"
+    figureNumber="10"
     properties={[
         {
             property: 'primary',

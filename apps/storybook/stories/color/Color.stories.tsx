@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaExample from '../../utils/VanillaExample';
-import nestedMarkup from './color-nested.example.html?raw';
 import prefersMarkup from './color-prefers.example.html?raw';
 import responsiveMarkup from './color-responsive.example.html?raw';
 import themeMarkup from './color-theme.example.html?raw';
@@ -22,8 +21,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-const htmlStory = (markup: string, name?: string): Story => ({
-  name,
+const htmlStory = (markup: string): Story => ({
   parameters: {
     docs: {
       source: {
@@ -36,12 +34,22 @@ const htmlStory = (markup: string, name?: string): Story => ({
   render: () => <VanillaExample html={markup} />,
 });
 
-export const HTML = htmlStory(themeMarkup);
+export const ThemesHtml: Story = {
+  ...htmlStory(themeMarkup),
+  name: 'Themes (HTML)',
+};
 
-export const Utilities = htmlStory(utilitiesMarkup);
+export const Responsive: Story = {
+  ...htmlStory(responsiveMarkup),
+  name: 'Responsive Themes',
+};
 
-export const NestedThemes = htmlStory(nestedMarkup, 'Nested Themes');
+export const Prefers: Story = {
+  ...htmlStory(prefersMarkup),
+  name: 'Prefers Color Scheme',
+};
 
-export const Responsive = htmlStory(responsiveMarkup);
-
-export const Prefers = htmlStory(prefersMarkup);
+export const Utilities: Story = {
+  ...htmlStory(utilitiesMarkup),
+  name: 'Color Utilities',
+};
