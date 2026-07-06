@@ -101,15 +101,34 @@ const shouldShowLineNumbers = showLineNumbers ?? lineAnnotations.length > 0;
   data-code-id={codeId ?? undefined}
   data-line-anchors={highlightedLinesValue ?? undefined}
 >
+  {codeText && showCodeFrame && (
+    <div class="example__code__header">
+      <span class="example__code__language">{languageLabel}</span>
+
+      <button
+        class="button example__code__copy"
+        type="button"
+        data-code-copy
+      >
+        Copy
+      </button>
+    </div>
+  )}
+
   {codeText ? (
-    <Code
-      code={codeText}
-      lang={language}
-      title={showCodeFrame ? languageLabel : undefined}
-      frame={showCodeFrame ? 'code' : 'none'}
-      mark={markDefinitions.length ? markDefinitions : undefined}
-      showLineNumbers={shouldShowLineNumbers}
-    />
+    <>
+      <Code
+        code={codeText}
+        lang={language}
+        frame="none"
+        mark={markDefinitions.length ? markDefinitions : undefined}
+        showLineNumbers={shouldShowLineNumbers}
+      />
+
+      {showCodeFrame && (
+        <template data-code-source>{codeText}</template>
+      )}
+    </>
   ) : (
     <p>No code provided.</p>
   )}
@@ -165,5 +184,78 @@ const shouldShowLineNumbers = showLineNumbers ?? lineAnnotations.length > 0;
     } else {
       applyLineAnchors();
     }
+  }
+</script>
+
+<script>
+  const copySetupKey = '__natura11yCodeCopy';
+
+  if (!Reflect.get(window, copySetupKey)) {
+    Reflect.set(window, copySetupKey, true);
+
+    const copyWithFallback = (value: string): boolean => {
+      const field = document.createElement('textarea');
+      field.value = value;
+      field.setAttribute('readonly', '');
+      field.style.position = 'fixed';
+      field.style.insetBlockStart = '0';
+      field.style.insetInlineStart = '-9999px';
+
+      document.body.append(field);
+      field.select();
+
+      let didCopy = false;
+
+      try {
+        didCopy = document.execCommand('copy');
+      } finally {
+        field.remove();
+      }
+
+      return didCopy;
+    };
+
+    const setCopyButtonText = (button: HTMLButtonElement, value: string): void => {
+      button.textContent = value;
+      button.setAttribute('aria-label', value === 'Copied' ? 'Code copied' : 'Copy code');
+    };
+
+    document.addEventListener('click', async (event) => {
+      const target = event.target;
+
+      if (!(target instanceof Element)) {
+        return;
+      }
+
+      const button = target.closest('[data-code-copy]');
+
+      if (!(button instanceof HTMLButtonElement)) {
+        return;
+      }
+
+      const codeBlock = button.closest('.example__code');
+      const source = codeBlock?.querySelector('[data-code-source]');
+
+      if (!(source instanceof HTMLTemplateElement)) {
+        return;
+      }
+
+      const code = source.content.textContent ?? '';
+      let didCopy = false;
+
+      try {
+        await navigator.clipboard.writeText(code);
+        didCopy = true;
+      } catch {
+        didCopy = copyWithFallback(code);
+      }
+
+      if (!didCopy) {
+        return;
+      }
+
+      setCopyButtonText(button, 'Copied');
+      window.setTimeout(() => setCopyButtonText(button, 'Copy'), 1500);
+    });
   }
 </script>

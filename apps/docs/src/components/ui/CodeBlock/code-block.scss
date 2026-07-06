@@ -1,5 +1,6 @@
 :root {
   --code-background-color: var(--subtle-fill-1);
+  --code-header-border-color: var(--border-color);
   --code-inline-background-color: var(--code-background-color);
   --code-marker-background-color: color-mix(in srgb, var(--primary) 12%, transparent);
   --code-marker-border-color: color-mix(in srgb, var(--primary) 45%, transparent);
@@ -7,6 +8,39 @@
   --code-inline-marker-border-radius: var(--border-radius-1);
   --code-inline-marker-border-width: var(--border-width);
   --code-inline-marker-padding: 0.25em;
+}
+
+.example__code {
+  background-color: var(--code-background-color);
+}
+
+.example__code__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacer-2);
+
+  border-block-end: var(--border-width) var(--border-style) var(--code-header-border-color);
+
+  padding: var(--spacer-2) var(--spacer-3);
+}
+
+.example__code__language {
+  font-size: var(--font-size-sm);
+  font-weight: var(--body-font-weight-bold);
+  text-transform: uppercase;
+}
+
+.example__code__copy {
+  --button-padding-x: var(--spacer-2);
+  --button-padding-y: calc(var(--spacer-1) * 0.5);
+  --button-target-size: auto;
+
+  font-size: var(--font-size-sm);
+}
+
+.example__code .expressive-code .copy {
+  display: none;
 }
 
 .docs-layout :is(p, li, td, th) > code {

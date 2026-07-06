@@ -16,6 +16,8 @@ relatedPages:
   - "Customization"
 ---
 
+import CodeBlock from '../../components/ui/CodeBlock/CodeBlock.astro';
+
 <Section id="introduction">
 
 <TextBlock>
@@ -76,13 +78,15 @@ Bootstrap's theming is largely compile-time. You override Sass variables, rebuil
 
 Natura11y's theming works at runtime through CSS Custom Property inheritance. Add `theme-dark` to a section and every element inside — headings, body text, borders, links, buttons — adapts to that context automatically. Add `theme-primary` to a card and only that card changes. The cascade handles it.
 
-```html
+<CodeBlock
+  code={`
 <!-- The entire section adapts. No per-element classes needed. -->
 <section class="theme-dark padding-4">
     <h2>This heading is already the right color.</h2>
     <p>So is this paragraph, and every link and button inside.</p>
 </section>
-```
+`}
+/>
 
 This also means dark mode is a single variable swap — not a second stylesheet, not a utility prefix on every element.
 

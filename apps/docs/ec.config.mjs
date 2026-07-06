@@ -3,6 +3,9 @@ import { pluginLineNumbers } from '@expressive-code/plugin-line-numbers';
 
 export default defineEcConfig({
   plugins: [pluginLineNumbers()],
+  frames: {
+    showCopyToClipboardButton: false,
+  },
   themes: ['github-light', 'github-dark'],
   defaultProps: {
     showLineNumbers: false,
@@ -10,7 +13,7 @@ export default defineEcConfig({
   styleOverrides: {
     borderRadius: '0',
     borderWidth: '0',
-    codeBackground: 'var(--code-background-color)',
+    codeBackground: 'transparent',
     codeFontSize: 'var(--font-size-md)',
     gutterBorderWidth: 'var(--code-line-marker-accent-width)',
     textMarkers: {
@@ -22,7 +25,7 @@ export default defineEcConfig({
       markBorderColor: 'var(--code-marker-border-color)',
     },
     frames: {
-      editorBackground: 'var(--code-background-color)',
+      editorBackground: 'transparent',
       editorTabBarBackground: 'transparent',
       editorTabBarBorderBottomColor: 'transparent',
       editorActiveTabBackground: 'var(--code-background-color)',
