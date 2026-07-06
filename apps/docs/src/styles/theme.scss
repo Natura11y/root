@@ -253,6 +253,11 @@ a[data-logo='brand']:is(:focus, :hover) .a11y {
   padding-block: var(--spacer-5);
 }
 
+.docs-section,
+.docs-layout__body :where(h2, h3, h4, h5, h6)[id] {
+  scroll-margin-block-start: var(--spacer-4);
+}
+
 .docs-section:first-child {
   margin-block-start: 0;
 }

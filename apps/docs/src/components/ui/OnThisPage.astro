@@ -1,15 +1,16 @@
 ---
-import type { MarkdownHeading } from 'astro';
-
 interface Props {
-  headings?: MarkdownHeading[];
+  sections?: Array<{
+    id: string;
+    text: string;
+    depth: number;
+  }>;
 }
 
-const { headings = [] } = Astro.props;
-const sectionHeadings = headings.filter((heading) => heading.depth === 2);
+const { sections = [] } = Astro.props;
 ---
 
-{sectionHeadings.length > 0 && (
+{sections.length > 0 && (
   <div class="docs-layout__toc">
 
     <aside class="container narrow position-sticky-top font-size-sm">
@@ -19,9 +20,11 @@ const sectionHeadings = headings.filter((heading) => heading.depth === 2);
 
       <nav id="table-of-contents" aria-label="Table of contents">
         <ul class="nav">
-          {sectionHeadings.map((heading) => (
+          {sections.map((section) => (
             <li>
-              <a href={`#${heading.slug}`}>{heading.text}</a>
+              <a href={`#${section.id}`}>
+                {section.id === 'introduction' ? 'Introduction' : section.text}
+              </a>
             </li>
           ))}
         </ul>

@@ -1,7 +1,7 @@
 ---
 import { Picture } from 'astro:assets';
 
-import type { ImageMetadata, MarkdownHeading } from 'astro';
+import type { ImageMetadata } from 'astro';
 
 import OnThisPage from '../components/ui/OnThisPage.astro';
 import BaseLayout from './BaseLayout.astro';
@@ -17,7 +17,6 @@ interface Props {
     };
   }>;
   currentSlug?: string;
-  headings?: MarkdownHeading[];
   frontmatter?: {
     title?: string;
     description?: string;
@@ -26,9 +25,14 @@ interface Props {
     bannerCreditName?: string;
     bannerCreditUrl?: string;
   };
+  tocSections?: Array<{
+    id: string;
+    text: string;
+    depth: number;
+  }>;
 }
 
-const { docs = [], currentSlug = '', headings = [], frontmatter = {} } = Astro.props;
+const { docs = [], currentSlug = '', frontmatter = {}, tocSections = [] } = Astro.props;
 const title = frontmatter.title ?? 'Natura11y Astro Docs Spike';
 const visibleDocs = docs.filter((doc) => doc.data.draft !== true);
 const introductionDocs = visibleDocs
@@ -156,7 +160,7 @@ const bannerAlt = frontmatter.bannerAlt ?? '';
     
     </header>
 
-    <OnThisPage headings={headings} />
+    <OnThisPage sections={tocSections} />
 
     <div class="docs-layout__body">
       <slot />
