@@ -8,7 +8,7 @@ bannerCreditUrl: https://unsplash.com/@markbasarabvisuals
 bannerImage: ./banner/container.jpg
 bannerAlt: Mountain alps near river and tree
 description:
-    Control container widths, padding, and responsive layouts. Includes breakpoint modifiers and width variations for different screen sizes.
+    Control container padding, readable widths, and responsive layout widths.
 relatedPages:
   - "Customization"
 ---
@@ -40,7 +40,7 @@ Manage the padding and widths of the containing elements that make up your layou
 
 ## The Container Utility
 
-The container utility (`.container`) applies consistent padding on the left and right sides of its selector. A container without a <a href="#width-variations">width variation utility</a> span the full width of its parent.
+The container utility (`.container`) applies consistent left and right padding. A container without a <a href="#width-variations">width variation utility</a> spans the full width of its parent.
 
 </TextBlock>
 
@@ -49,6 +49,7 @@ The container utility (`.container`) applies consistent padding on the left and 
 <FigureExample
     figureNumber="1"
     figureWidth="medium"
+    markedText="container"
     code={`
         <div class="container">...</div>
     `}
@@ -75,6 +76,7 @@ Consider the HTML in Figure 2. The element has no padding below the large breakp
 <FigureExample
     figureNumber="2"
     figureWidth="medium"
+    markedText="container--lg"
     code={`
         <div class="container--lg">...</div>
     `}
@@ -90,9 +92,9 @@ Consider the HTML in Figure 2. The element has no padding below the large breakp
 
 ## Width Variations
 
-Width variation utilities come in three sizes: ***narrow***, ***medium***, and ***wide*** (Figure 2). Apply them to containers or use them independently.
+Width variation utilities come in three sizes: ***narrow***, ***medium***, and ***wide*** (Figure 3). Apply them to containers or use them independently.
 
-When present on `.container` selectors, width variation utilities (e.g. `narrow`) center horizontally within their parent.
+When present on `.container` elements, width variation utilities (e.g. `narrow`) center horizontally within their parent.
 
 </TextBlock>
 
@@ -101,10 +103,11 @@ When present on `.container` selectors, width variation utilities (e.g. `narrow`
 <FigureExample
     figureNumber="3"
     figureWidth="medium"
+    markedText={['narrow', 'medium', 'wide']}
     code={`
-        <div class="container 👉 narrow">...</div>
-        <div class="container 👉 medium">...</div>
-        <div class="container 👉 wide">...</div>
+        <div class="container narrow">...</div>
+        <div class="container medium">...</div>
+        <div class="container wide">...</div>
     `}
 />
 
@@ -123,10 +126,11 @@ Consider the HTML in Figure 4. The container starts at the **narrow** width. It 
 <FigureExample
     figureNumber="4"
     figureWidth="medium"
+    markedText={['narrow', 'medium--lg', 'wide--xl']}
     code={`
         <!-- With breakpoint modifiers -->
 
-        <div class="container narrow 👉 medium--lg 👉 wide--xl">...</div>
+        <div class="container narrow medium--lg wide--xl">...</div>
     `}
 />
 
@@ -150,17 +154,17 @@ Container styles can be customized by redefining the related CSS custom properti
         {
             property: 'container-padding-x',
             defaultValue: 'var(--container-padding-x-sm)',
-            purpose: 'Default left and right padding of the container component.',
+            purpose: 'Default left and right padding of the container utility.',
         },
         {
             property: 'container-padding-x-sm',
             defaultValue: 'var(--spacer-2)',
-            purpose: 'Left and right padding of the container component on smaller (mobile) viewports.',
+            purpose: 'Left and right padding of the container utility on smaller viewports.',
         },
         {
             property: 'container-padding-x-lg',
             defaultValue: 'var(--spacer-3)',
-            purpose: 'Left and right padding of the container component on larger (desktop) viewports.',
+            purpose: 'Left and right padding of the container utility on larger viewports.',
         },
         {
             property: 'narrow-width',

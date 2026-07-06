@@ -1,13 +1,33 @@
-<div class="grid gap-3">
-  <div class="container narrow">
-    <div class="theme-primary border-radius-2 padding-3">Container narrow</div>
+<div class="grid gap-3" style="--border-color: currentColor;">
+  <div>
+    <div class="container">
+      <div class="border subtle-fill-1 border-radius-2 padding-3">Default container</div>
+    </div>
   </div>
 
-  <div class="container medium">
-    <div class="theme-secondary border-radius-2 padding-3">Container medium</div>
+  <div>
+    <div class="container narrow">
+      <div class="border subtle-fill-1 border-radius-2 padding-3">Narrow width</div>
+    </div>
   </div>
 
-  <div class="container wide">
-    <div class="theme-dark border-radius-2 padding-3">Container wide</div>
+  <div>
+    <div class="container medium">
+      <div class="border subtle-fill-1 border-radius-2 padding-3">Medium width</div>
+    </div>
+  </div>
+
+  <div>
+    <div class="container wide">
+      <div class="border subtle-fill-1 border-radius-2 padding-3">Wide width</div>
+    </div>
+  </div>
+
+  <div>
+    <div class="container narrow medium--lg wide--xl">
+      <div class="border subtle-fill-1 border-radius-2 padding-3">
+        Narrow, then medium at large, then wide at extra large
+      </div>
+    </div>
   </div>
 </div>

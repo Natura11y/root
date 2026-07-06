@@ -26,22 +26,36 @@
                     </h1>
                 </header>
                 
-                <div>
+                <div class="grid gap-3" style="--border-color: currentColor;">
 
-                    <div class="container--sm narrow--sm border  padding-y-2 font-size-md margin-y-4">
-                        <p>Container (narrow)</p>
+                    <div class="container">
+                        <div class="border subtle-fill-1 border-radius-2 padding-3">
+                            Default container
+                        </div>
                     </div>
 
-                    <div class="container medium--sm border  padding-y-2 font-size-md margin-y-4">
-                        <p>Container (medium)</p>
+                    <div class="container narrow">
+                        <div class="border subtle-fill-1 border-radius-2 padding-3">
+                            Narrow width
+                        </div>
                     </div>
 
-                    <div class="container wide--sm border  padding-y-2 font-size-md margin-y-4">
-                        <p>Container (wide)</p>
+                    <div class="container medium">
+                        <div class="border subtle-fill-1 border-radius-2 padding-3">
+                            Medium width
+                        </div>
                     </div>
 
-                    <div class="container border  padding-y-2 font-size-md margin-y-4">
-                        <p>Container (wide)</p>
+                    <div class="container wide">
+                        <div class="border subtle-fill-1 border-radius-2 padding-3">
+                            Wide width
+                        </div>
+                    </div>
+
+                    <div class="container narrow medium--lg wide--xl">
+                        <div class="border subtle-fill-1 border-radius-2 padding-3">
+                            Narrow, then medium at large, then wide at extra large
+                        </div>
                     </div>
 
                 </div>
