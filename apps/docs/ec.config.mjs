@@ -14,6 +14,7 @@ export default defineEcConfig({
     borderRadius: '0',
     borderWidth: '0',
     codeBackground: 'transparent',
+    codeFontFamily: 'var(--code-font-family)',
     codeFontSize: 'var(--font-size-md)',
     codeLineHeight: 'var(--code-line-height)',
     codePaddingBlock: 'var(--code-padding-block)',

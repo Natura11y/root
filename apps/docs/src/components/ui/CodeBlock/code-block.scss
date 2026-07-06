@@ -29,8 +29,8 @@ In this file:
     --code-line-marker-border-width: calc(var(--border-width) * 3);
 
     --code-inline-marker-border-radius: var(--border-radius-1);
-    --code-inline-marker-border-width: var(--border-width);
-    --code-inline-marker-padding: 0.25em;
+    --code-inline-marker-border-width: calc(var(--border-width) * 2);
+    --code-inline-marker-padding: 30px 0.25em;
 }
 
 //////////////////////////////////////////////
