@@ -1,6 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { CSSProperties } from 'react';
 import VanillaExample from '../../utils/VanillaExample';
 import markup from './z-index.example.html?raw';
+
+const exampleStyle = {
+  '--primary': '#440381',
+  '--secondary': '#ffcc66',
+  '--dark': '#161124',
+  '--light': '#f2edeb',
+  '--canvas': '#ffffff',
+  '--primary-text': 'white',
+  '--secondary-text': 'var(--dark)',
+  '--body-font-family': 'Source Sans Pro',
+  '--body-line-height': '1.5',
+  fontFamily: 'var(--body-font-family)',
+  lineHeight: 'var(--body-line-height)',
+} as CSSProperties;
 
 const meta = {
   title: 'Z-index',
@@ -17,7 +32,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const HTML: Story = {
+export const Default: Story = {
   parameters: {
     docs: {
       source: {
@@ -27,5 +42,9 @@ export const HTML: Story = {
       },
     },
   },
-  render: () => <VanillaExample html={markup} />,
+  render: () => (
+    <div style={exampleStyle}>
+      <VanillaExample html={markup} />
+    </div>
+  ),
 };

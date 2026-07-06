@@ -7,8 +7,8 @@ bannerCreditName: Vincent van Zalinge
 bannerCreditUrl: https://unsplash.com/@vincentvanzalinge
 bannerImage: ./banner/z-index.jpg
 bannerAlt: Close-up of two zebras
-description: 
-    Control element stacking order with z-index utilities. Includes layering values, responsive z-index controls, and common stacking patterns.
+description:
+    Control element stacking order with z-index utilities. Includes predictable layering values and common stacking patterns.
 relatedPages:
   - "Layer"
   - "Position"
@@ -38,12 +38,12 @@ Use Natura11y's utilities to change the <LinkOpenNew LinkUrl='https://developer.
 
 ## Z-index Utilities
 
-Natura11y provides the following z-index utilities. The z-index property only works with positioned elements, so these utilities also apply `position: relative;` to the element.
+Natura11y provides the following z-index utilities. Each utility sets a stacking value and adds `position: relative` unless the element already has a position utility.
 
 </TextBlock>
 
 <FigureExample
-    figureNumber="3"
+    figureNumber="1"
     figureWidth="medium"
     code={`
         <div class="z-index-100">...</div>
