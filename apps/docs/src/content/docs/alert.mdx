@@ -55,11 +55,7 @@ Each alert should include an icon to help convey its meaning. Use icons from the
 
 <FigureExample
   figureNumber="1"
-  lineAnnotations={[
-    { range: '1-5' },
-    { range: '7-12' },
-    { range: '14-19' },
-  ]}
+  highlightedLines="1-5,7-12,14-19"
   code={`
   <div
     class="alert alert--confirm"
@@ -190,10 +186,7 @@ Add `aria-live="assertive"` and `aria-atomic="true"` to the `.alert` element its
 
 <FigureExample
   figureNumber="4"
-  lineAnnotations={[
-    { range: '3-4' },
-    { range: '8-14' },
-  ]}
+  highlightedLines="3-4,8-14"
   code={`
   <div
     class="alert alert--confirm"

@@ -93,7 +93,7 @@ const markDefinitions: MarkerDefinition[] = [
   ...lineHighlightDefinitions,
   ...inlineMarkDefinitions,
 ];
-const shouldShowLineNumbers = showLineNumbers ?? lineAnnotations.length > 0;
+const shouldShowLineNumbers = showLineNumbers ?? Boolean(highlightedLinesValue);
 ---
 
 <div

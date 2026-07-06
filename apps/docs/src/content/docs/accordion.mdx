@@ -63,11 +63,7 @@ The following is a basic accordion component. All accordion panels are closed by
 
 <FigureExample
   figureNumber="1"
-  lineAnnotations={[
-    { range: '1' },
-    { range: '3-10' },
-    { range: '12-21' },
-  ]}
+  highlightedLines="1,3-10,12-21"
   code={`
   <div class="accordion">
 
@@ -87,14 +83,14 @@ The following is a basic accordion component. All accordion panels are closed by
       aria-labelledby="acc-button-example-01"
       role="region">
       <div class="accordion__panel__content">
-        <p>The monarch butterfly or simply monarch is a milkweed butterfly...</p>
+        <p>...</p>
       </div>
     </div>
 
   </div>
   `}
 >
-<Accordion idPrefix="accordion-default-" />
+  <Accordion idPrefix="accordion-default-" />
 </FigureExample>
 
 <TableLineDescBlock targetFigure="1">
@@ -107,7 +103,7 @@ This selector uses JavaScript to group a set of accordion buttons and panels wit
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="2-9">
+<TableLineDescRow targetFigure="1" lines="3-10">
 
 The child `.accordion__button` selector is required.
 
@@ -121,7 +117,7 @@ The `aria-expanded="false"` attribute communicates that the associated panel is 
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="11-20">
+<TableLineDescRow targetFigure="1" lines="12-21">
 
 The child `.accordion__panel` selector is required.
 
@@ -155,10 +151,7 @@ Accordion buttons can be wrapped in heading elements to support screen reader he
 
 <FigureExample
   figureNumber="2"
-  lineAnnotations={[
-    { range: '1' },
-    { range: '2-9' },
-  ]}
+  highlightedLines="1,2-9"
   markedText={'data-accordion="panel"'}
   code={`
   <h3 data-accordion="heading">
@@ -221,10 +214,7 @@ You may want one accordion topic to be open when the page loads.
 
 <FigureExample
   figureNumber="3"
-  lineAnnotations={[
-    { range: '6' },
-    { range: '11' },
-  ]}
+  highlightedLines="6,11"
   code={`
   <button
     class="accordion__button h5"
@@ -282,9 +272,7 @@ Add a `<span>` with the `.text` class inside the button to underline the label w
 
 <FigureExample
   figureNumber="4"
-  lineAnnotations={[
-    { range: '7' },
-  ]}
+  highlightedLines="7"
   code={`
   <button
     class="accordion__button h5"
