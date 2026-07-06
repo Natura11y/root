@@ -8,7 +8,7 @@ bannerCreditUrl: https://unsplash.com/@juliancs
 bannerImage: ./banner/layer.jpg
 bannerAlt: Close-up of a blue and green peacock with a shallow focus.
 description: 
-    Learn how Natura11y uses the @layer CSS rule to make styling easier. By organizing styles into base, component, and utility layers, Natura11y creates a modular and predictable CSS environment without conflicts. Enhance your web development process with cascade layers that simplify specificity and customization.
+    Learn how Natura11y uses CSS cascade layers to keep base styles, component styles, and utilities in a predictable order.
 relatedPages:
   - "Get Started"
   - "Accessibility"
@@ -22,7 +22,7 @@ relatedPages:
 
 <TextBlock>
 
-Natura11y uses the `@layer` CSS <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/@layer' LinkText='at-rule' />. This helps organize styles into layers, making it easier to manage, customize, and ensure consistency in your designs.
+Natura11y uses the `@layer` CSS <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/@layer' LinkText='at-rule' /> to organize framework styles by purpose.
 
 </TextBlock>
 
@@ -36,20 +36,20 @@ Natura11y uses the `@layer` CSS <LinkOpenNew LinkUrl='https://developer.mozilla.
 
 ## Cascade Layers
 
-Natura11y includes three main layers: ***base***, ***component***, and ***utility***. These layers, as shown in Figure 1, are defined in the `_layer.scss` <LinkOpenNew LinkUrl='https://github.com/cavidano/natura11y/blob/v2/src/scss/_layer.scss' LinkText='SASS partial' />.
+Natura11y includes three cascade layers: ***base***, ***component***, and ***utility***. These layers are declared first so every partial follows the same cascade order.
 
 </TextBlock>
 
 <FigureExample
-    figureNumber="1"
-    figureWidth="narrow"
-    codeLanguage="css"
-    showCodeFrame={false}
-    code={`
-        /* Natura11y's CSS Layer Declaration */
+  figureNumber="1"
+  figureWidth="narrow"
+  codeLanguage="css"
+  showCodeFrame={false}
+  code={`
+  /* Natura11y's CSS Layer Declaration */
 
-        @layer base, component, utility;
-    `}
+  @layer base, component, utility;
+  `}
 />
 
 </Section>
@@ -62,29 +62,37 @@ Natura11y includes three main layers: ***base***, ***component***, and ***utilit
 
 ## The Base Layer
 
-The `base` layer includes all basic selectors, such as `html`, `body`, and `p` tags. It also contains targeted CSS resets where needed. Instead of using a global CSS reset, Natura11y applies specific resets in its SASS partial to ensure styles are consistent and predictable.
+The `base` layer contains element selectors and targeted resets. Figure 2 shows a shortened example from the framework's base styles.
 
 </TextBlock>
 
 <FigureExample
-    figureNumber="2"
-    figureWidth="narrow"
-    codeLanguage="css"
-    showCodeFrame={false}
-    code={`
-        /* Base Layer Styles */
+  figureNumber="2"
+  figureWidth="narrow"
+  codeLanguage="css"
+  showCodeFrame={false}
+  code={`
+  /* Base Layer Styles */
 
-        html, body {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  @layer base {
 
-        p {
-            margin: 0;
-            padding: 0;
-        }
-    `}
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: var(--html-scroll-behavior);
+    }
+
+    body {
+      min-width: var(--body-min-width);
+      max-width: var(--body-max-width);
+    }
+    
+  }
+  `}
 />
 
 </Section>
@@ -97,27 +105,30 @@ The `base` layer includes all basic selectors, such as `html`, `body`, and `p` t
 
 ## The Component Layer
 
-The `component` layer holds specific styles for UI components like buttons, cards, and navigation bars. By keeping component styles in their own layer, Natura11y makes it easier to maintain and override these styles without affecting the base layer.
+The `component` layer contains class-based component styles. Figure 3 shows a shortened button example.
 
 </TextBlock>
 
 <FigureExample
-    figureNumber="3"
-    figureWidth="narrow"
-    codeLanguage="css"
-    showCodeFrame={false}
-    code={`
-        /* Component Layer Styles */
+  figureNumber="3"
+  figureWidth="narrow"
+  codeLanguage="css"
+  showCodeFrame={false}
+  code={`
+  /* Component Layer Styles */
 
-        .button {
-            padding: 10px 20px;
-            border-radius: 5px;
-        }
+  @layer component {
+    
+    .button {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
 
-        .card {
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        }
-    `}
+      border-radius: var(--button-border-radius);
+    }
+  
+  }
+  `}
 />
 
 </Section>
@@ -130,26 +141,30 @@ The `component` layer holds specific styles for UI components like buttons, card
 
 ## The Utility Layer
 
-The `utility` layer includes small, reusable styles that can be applied to any element, such as margin helpers, text alignment, and display properties. These utilities are designed to be used in combination with the base and component layers to build out your design system.
+The `utility` layer contains reusable classes that can be added to any element. Figure 4 shows shortened display and border-radius examples.
 
 </TextBlock>
 
 <FigureExample
-    figureNumber="4"
-    figureWidth="narrow"
-    codeLanguage="css"
-    showCodeFrame={false}
-    code={`
-        /* Utility Layer Styles */
+  figureNumber="4"
+  figureWidth="narrow"
+  codeLanguage="css"
+  showCodeFrame={false}
+  code={`
+  /* Utility Layer Styles */
 
-        .mt-1 {
-            margin-top: 10px;
-        }
+  @layer utility {
 
-        .text-center {
-            text-align: center;
-        }
-    `}
+    .display-flex {
+      display: flex;
+    }
+
+    .border-radius-2 {
+      border-radius: var(--border-radius-2);
+    }
+  
+  }
+  `}
 />
 
 </Section>

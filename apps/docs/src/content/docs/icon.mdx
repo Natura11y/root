@@ -8,7 +8,7 @@ bannerCreditUrl: https://unsplash.com/@zmachacek
 bannerImage: ./banner/icon.jpg
 bannerAlt: Silhouette of a bird resting on a branch
 description: 
-    Natura11y's comprehensive icon library is tailored for seamless design integration. Beyond its native icons, it also supports Font Awesome, offering flexibility and variety in iconography choices for your projects.
+    Use Natura11y's optional icon library, or bring your own icon system while keeping the same icon sizing and alignment patterns.
 relatedPages:
   - "Button"
   - "Figma"
@@ -26,7 +26,7 @@ import NativeIcons from '../../components/examples/icon/NativeIcons.astro';
 
 <TextBlock>
 
-Natura11y has its own <a href="/icons">icon library</a>. It also supports <a href="#using-font-awesome">Font Awesome</a> if that's what you prefer. If you do use Natura11y's icons, you can add your own custom icons to the library.
+Natura11y has its own optional <a href="/icons">icon library</a>. The core framework handles icon sizing and alignment, while the icon font provides the actual glyphs.
 
 </TextBlock>
 
@@ -38,20 +38,21 @@ Natura11y has its own <a href="/icons">icon library</a>. It also supports <a hre
 
 <TextBlock>
 
-## Icon Font CDN
+## Natura11y Icons
 
-Place the Natura11y icon font `<link>` tag in the `<head>` of your document. Add icons to your markup with `<span>` or `<i>` tags. The first .icon class is used for general styling. The second `.icon-{x}` class specifies which icon to use. Here *x* equals the icon name (Figure 1).
+Place the Natura11y icon font `<link>` tag in the `<head>` of your document. Add icons with a `<span>`. The `.icon` class applies the shared icon styling. The `.icon-{name}` class chooses the icon glyph.
 
 </TextBlock>
 
 <FigureExample
     figureNumber="1"
+    markedText={['icon', 'icon-home', 'aria-hidden="true"']}
     code={`
         <!-- Natura11y Icon CSS -->
         <link href="${cdnIcons}" rel="stylesheet" />
 
-        <!-- Icon HTML: your choice of <span> or <i> tags -->
-        <span class="icon icon-home 👈"></span>
+        <!-- Icon HTML -->
+        <span class="icon icon-home" aria-hidden="true"></span>
     `}
 >
     <NativeIcons />
@@ -67,9 +68,9 @@ Place the Natura11y icon font `<link>` tag in the `<head>` of your document. Add
 
 ## Adding Custom Icons
 
-Add to Natura11y's icon library (for Use with your own projects). OR completely create your own custom icon font.
+Add icons to Natura11y's icon library for your own projects, or use the icon package as a starting point for a custom icon font.
 
-Head over to <LinkOpenNew LinkUrl='https://github.com/cavidano/natura11y-icons' LinkText="Naturally's icon repo" /> Naturally's icon repo to get started.
+Head over to <LinkOpenNew LinkUrl='https://github.com/cavidano/natura11y-icons' LinkText="Natura11y's icon repo" /> to get started.
 
 </TextBlock>
 
@@ -83,7 +84,7 @@ Head over to <LinkOpenNew LinkUrl='https://github.com/cavidano/natura11y-icons' 
 
 ## Using Font Awesome
 
-You don't have to use Natura11y's icons. Since version 2, Naturally fully supports <LinkOpenNew LinkUrl='https://fontawesome.com' LinkText='Font Awesome' />.
+You don't have to use Natura11y's icons. Natura11y's base icon styling also supports <LinkOpenNew LinkUrl='https://fontawesome.com' LinkText='Font Awesome' /> icon classes.
 
 ### Step 1: Include your Font Awesome kit and markup
 
@@ -94,12 +95,13 @@ If you don't already have one, create your Font Awesome kit and place the `<scri
 <FigureExample
     figureNumber="2"
     figureWidth="medium"
+    markedText={['fas', 'fa-frog']}
     code={`
         <!-- Font Awesome Icon Kit -->
         <script src="https://kit.fontawesome.com/your_kit_id.js" crossorigin="anonymous"></script>
 
         <!-- Font Awesome Icon HTML -->
-        <span class="fas fa-frog 👈"></span>
+        <span class="fas fa-frog" aria-hidden="true"></span>
     `}
 />
 
@@ -107,18 +109,19 @@ If you don't already have one, create your Font Awesome kit and place the `<scri
 
 ### Step 2: Update CSS pseudo-elements unicodes
 
-Naturally uses CSS pseudo-elements for certain elements in <a href="/docs/form/">forms</a>. If you're using Font Awesome on a page with form elements, you'll need to update the following custom properties. These properties set each unicode value for basic form elements such as input radios and checkboxes.
+Natura11y uses icon unicode values for some <a href="/docs/form/">form</a> controls. If you're using Font Awesome with those form patterns, update the related custom properties.
 
 </TextBlock>
 
 <FigureExample
-    figureNumber="4"
+    figureNumber="3"
     figureWidth="narrow"
     codeLanguage="css"
     code={`
         :root {
             --icon-required: "\\f14a";
             --icon-checkbox-unchecked: "\\f10d";
+            --icon-checkbox-checked: "\\f10c";
             --icon-radio-unchecked: "\\f138";
             --icon-radio-checked: "\\f137";
         }

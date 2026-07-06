@@ -25,28 +25,44 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const HTML: Story = {
+const icons = [...natura11yIcons].sort((a, b) => a.icon.localeCompare(b.icon));
+
+const sourceParameters = (markup: string) => ({
+  docs: {
+    source: {
+      code: markup.trim(),
+      language: 'html',
+      type: 'code',
+    },
+  },
+});
+
+export const DefaultHtml: Story = {
+  name: 'Default (HTML)',
+  parameters: sourceParameters(iconMarkup),
+  render: () => <VanillaExample html={iconMarkup} />,
+};
+
+export const DefaultReact: Story = {
+  name: 'Default (React)',
   parameters: {
     docs: {
       source: {
-        code: iconMarkup.trim(),
-        language: 'html',
+        code: `<Icon iconHandle="home" utilities="font-size-lg" />`,
+        language: 'tsx',
         type: 'code',
       },
     },
   },
-  render: () => <VanillaExample html={iconMarkup} />,
 };
 
-export const React: Story = {};
-
-export const IconSet: Story = {
-  name: 'Icon Set',
+export const IconLibrary: Story = {
+  name: 'Icon Library',
   render: () => (
     <div className='grid grid--column-3 grid--column-4--md grid--column-8--lg gap-3'>
-      {natura11yIcons.map((icon) => (
-        <div key={icon.className} className='display-flex flex-direction-column align-items-center gap-1 padding-2 border-radius subtle-fill-1 text-align-center'>
-          <Icon iconHandle={icon.className} utilities='font-size-lg' />
+      {icons.map((icon) => (
+        <div key={icon.className} className='display-flex flex-direction-column align-items-center gap-1 padding-2 subtle-fill-1 border text-align-center'>
+          <span className={`icon icon-${icon.className} font-size-lg`} aria-hidden='true' />
           <span className='font-size-sm font-weight-bold'>{icon.icon}</span>
           <code className='font-size-sm'>{`.icon-${icon.className}`}</code>
         </div>
