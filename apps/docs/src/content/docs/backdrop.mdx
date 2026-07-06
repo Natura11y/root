@@ -26,13 +26,13 @@ import Stack from '../../components/examples/backdrop/Stack.astro';
 
 <TextBlock>
 
-Backdrops provide a simple way to place a translucent image behind contextual content. Backdrops offer two style variants: <a href="#image-proportional">Image Proportional</a> and <a href="#fixed-height">Fixed Height</a>.
+Backdrops provide a simple way to place translucent media behind contextual content. Backdrops offer two style variants: <a href="#image-proportional">Image Proportional</a> and <a href="#fixed-height">Fixed Height</a>.
 
 </TextBlock>
 
 <AccessibilitySpotlight>
 
-Backdrops remove the need for using CSS background images. Feature images exist within the HTML, so screen readers can read the text of the image's *alt* attribute.
+Backdrops remove the need for CSS background images. Meaningful images can use helpful *alt* text, and decorative images can use empty *alt* text.
 
 Video backdrops respect users' reduced motion settings. This ensures a smoother, more comfortable experience for those who have opted for less motion on their devices.
 
@@ -117,7 +117,7 @@ The `.backdrop__cover` class is required. It holds the backdrop's contextual con
 
 The size of this backdrop (proportional width and height) is determined by the size of its feature image.
 
-The translucent effect of the backdrop is achieved with additional utility classes. Our <a href="/docs/color/#theme-color-utilities">theme color utilities</a> (e.g., `.theme-dark`) set the background and text color. The <a href="/docs/opacities">opacity utility class</a> (e.g., `.opacity-30`) applied to the backdrop's feature image allows the background color to show through.
+The translucent effect of the backdrop is achieved with additional utility classes. Our <a href="/docs/color/#theme-color-utilities">theme color utilities</a> (e.g., `.theme-dark`) set the background and text color. The <a href="/docs/opacity/#opacity-utilities">opacity utility class</a> (e.g., `.opacity-40`) applied to the backdrop's feature image allows the background color to show through.
 
 </TextBlock>
 
@@ -135,7 +135,7 @@ When using image size proportional backdrops for featured content (like the full
 
 To adjust for small screens, add a *stack breakpoint modifier* (e.g., `.backdrop--stack--{x}`) to the `.backdrop` class. Where ***x*** is the desired breakpoint (e.g., *lg* for large). The backdrop's image is placed above the content vertically until the viewport reaches the specified breakpoint.
 
-Resize your browser window to see this in action. Notice the image is at full opacity because <a href="/docs/opacity#opacity-utilities">opacity utilities</a> have their own breakpoint modifiers. Adding `.opacity-40--lg` to the `.backdrop__media` class gives that image a specified opacity (40%) at the large (lg) breakpoint.
+Resize your browser window to see this in action. Notice the image is at full opacity because <a href="/docs/opacity/#opacity-utilities">opacity utilities</a> have their own breakpoint modifiers. Adding `.opacity-40--lg` to the image or its wrapper gives that image a specified opacity (40%) at the large (lg) breakpoint.
 
 Figure 2 below provides the code used to create the backdrop above. Refer specifically to line 1, where the `.backdrop--stack--lg` breakpoint modifier is present.
 
@@ -205,7 +205,7 @@ All of this together makes it easy to create responsive backdrops with different
 
 ## Fixed Height
 
-Fixed Height backdrops maintain their height across different viewport sizes. They adjust to the height of their inner content.
+Fixed Height backdrops use a minimum height and stretch when their inner content needs more room.
 
 For a fixed height backdrop, add the `.backdrop--fixed` class to the `.backdrop` element.
 
@@ -348,13 +348,13 @@ Below is an example of a Backdrop with a video as the feature media, including a
 
 <TextBlock>
 
-To ensure the video respects users' preferences regarding reduced motion, you can include an optional control element using the `.backdrop__media__control` selector. This control allows users to pause the video if they prefer to limit motion effects. The button inside `.backdrop__media__control` must have the `data-check-reduced-motion` attribute, which automatically pauses the video and displays the poster image first for users who have enabled the "reduce motion" setting in their system preferences.
+To ensure the video respects users' preferences regarding reduced motion, you can include an optional control element using the `.backdrop__media__control` selector. This control allows users to pause the video if they prefer to limit motion effects. The button inside `.backdrop__media__control` must have the `data-check-reduced-motion` attribute, which automatically pauses the video for users who have enabled the "reduce motion" setting in their system preferences.
 
 </TextBlock>
 
 <FigureExample
   figureNumber="4"
-  highlightedLines="5-11,13-22"
+  highlightedLines="5-14,16-25"
   code={`
   <div class="backdrop backdrop--stack--lg" id="introduction">
 
@@ -363,7 +363,10 @@ To ensure the video respects users' preferences regarding reduced motion, you ca
       <div class="backdrop__media__control margin-y-2 container">
         <button
           class="button button--icon-only font-size-md border-radius-circle"
-          data-check-reduced-motion>
+          aria-label="Pause video"
+          aria-pressed="true"
+          data-check-reduced-motion
+          type="button">
           <span class="icon icon-pause" aria-hidden="true"></span>
         </button>
       </div>
@@ -404,17 +407,17 @@ To ensure the video respects users' preferences regarding reduced motion, you ca
 
 <TableLineDescBlock targetFigure="4">
 
-<TableLineDescRow targetFigure="4" lines="5-11">
+<TableLineDescRow targetFigure="4" lines="5-14">
 
-The `.backdrop__media__control` class is optional and provides an accessible control for pausing the video.
+The `.backdrop__media__control` class is optional. It positions the video control.
 
-The `data-check-reduced-motion` attribute on the button supports users with reduced motion preferences.
+The button has a label, a pressed state, and the `data-check-reduced-motion` attribute so Natura11y can pause the video when a user prefers reduced motion.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="4" lines="13-22">
+<TableLineDescRow targetFigure="4" lines="16-25">
 
-The `video` element serves as the backdrop media. It includes the `autoplay`, `muted`, and `loop` attributes to ensure the video plays automatically and continuously.
+The `video` element is the backdrop media. It includes the `autoplay`, `muted`, and `loop` attributes so the video can play automatically by default.
 
 </TableLineDescRow>
 
