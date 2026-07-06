@@ -21,7 +21,7 @@ export const GET: APIRoute = async ({ params }) => {
   }
 
   const svgPath = fileURLToPath(
-    new URL(`../../../../../../packages/icons/optimized-svg/${name}.svg`, import.meta.url)
+    new URL(`../../../../../packages/icons/optimized-svg/${name}.svg`, import.meta.url)
   );
   const svg = await readFile(svgPath, 'utf8');
 

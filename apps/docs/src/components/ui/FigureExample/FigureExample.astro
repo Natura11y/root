@@ -41,7 +41,7 @@ const figureId = figureNumber ? `figcaption_${figureNumber}` : undefined;
 ---
 
 <div
-  class="container margin-y-5"
+  class="container--md margin-y-5"
   aria-labelledby={figureId}
 >
   <figure
@@ -50,8 +50,7 @@ const figureId = figureNumber ? `figcaption_${figureNumber}` : undefined;
       'example--code',
       figureWidth,
       'margin-x-auto',
-      'border-radius-2',
-      'box-shadow-2',
+      'box-shadow-3',
     ]}
   >
     {hasVisualExample ? (
@@ -87,7 +86,10 @@ const figureId = figureNumber ? `figcaption_${figureNumber}` : undefined;
     )}
 
     {figureNumber !== null && !hideFigCaption && (
-      <figcaption id={figureId} class="container margin-bottom-2 example__caption">
+      <figcaption
+        class="example__caption container border-top subtle-fill-1 padding-y-2 margin-top-0"
+        id={figureId}
+      >
         Figure {figureNumber}
       </figcaption>
     )}
