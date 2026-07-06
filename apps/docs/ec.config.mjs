@@ -15,9 +15,10 @@ export default defineEcConfig({
     borderWidth: '0',
     codeBackground: 'transparent',
     codeFontSize: 'var(--font-size-md)',
+    codeLineHeight: 'var(--code-line-height)',
     codePaddingInline: 'var(--container-padding-x)',
-    gutterForeground: '#00aaffa6',
-    gutterHighlightForeground: '#ffffffb3',
+    gutterForeground: 'var(--code-gutter-foreground-color)',
+    gutterHighlightForeground: 'var(--code-gutter-highlight-foreground-color)',
     gutterBorderWidth: '0',
     textMarkers: {
       lineMarkerAccentWidth: '0',

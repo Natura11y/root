@@ -1,54 +1,118 @@
+/*
+
+In this file:
+
+// A. Variables
+// B. Component
+// C. Base Styles
+
+*/
+
+//////////////////////////////////////////////
+// A. Variables
+//////////////////////////////////////////////
+
 :root {
-  --code-background-color: var(--subtle-fill-1);
-  --code-header-border-color: var(--border-color);
-  --code-inline-background-color: var(--code-background-color);
-  --code-marker-background-color: color-mix(in srgb, var(--primary) 12%, transparent);
-  --code-marker-border-color: color-mix(in srgb, var(--primary) 45%, transparent);
-  --code-line-marker-accent-width: var(--border-width);
-  --code-inline-marker-border-radius: var(--border-radius-1);
-  --code-inline-marker-border-width: var(--border-width);
-  --code-inline-marker-padding: 0.25em;
+    --code-background-color: var(--subtle-fill-1);
+
+    --code-gutter-foreground-color: var(--border-color);
+    --code-gutter-highlight-foreground-color: currentColor;
+
+    --code-header-border-color: var(--border-color);
+
+    --code-inline-background-color: var(--code-background-color);
+
+    --code-line-height: 1.75;
+
+    --code-marker-background-color: color-mix(in srgb, var(--primary) 8%, transparent);
+    --code-marker-border-color: color-mix(in srgb, var(--primary) 45%, transparent);
+
+    --code-line-marker-border-color: var(--code-marker-border-color);
+    --code-line-marker-border-width: calc(var(--border-width) * 3);
+
+    --code-inline-marker-border-radius: var(--border-radius-1);
+    --code-inline-marker-border-width: var(--border-width);
+    --code-inline-marker-padding: 0.25em;
 }
 
-.example__code {
-  background-color: var(--code-background-color);
-}
+//////////////////////////////////////////////
+// B. Component
+//////////////////////////////////////////////
 
-.example__code__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--spacer-2);
-  font-size: var(--font-size-sm);
+@layer component {
 
-  border-block-end: var(--border-width) var(--border-style) var(--code-header-border-color);
+    .example__code {
+        background-color: var(--code-background-color);
+    }
 
-  padding: var(--spacer-2) var(--spacer-3);
-}
+    .example__code__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--spacer-2);
 
-.example__code__language {
-  font-weight: var(--body-font-weight-bold);
-  text-transform: uppercase;
-}
+        border-block-end: var(--border-width) var(--border-style) var(--code-header-border-color);
 
-.example__code__copy {
-  --button-target-size: auto;
+        padding: var(--spacer-2) var(--spacer-3);
 
-  font-size: var(--font-size-sm);
-}
+        font-size: var(--font-size-sm);
+    }
 
-.example__code .expressive-code .copy {
-  display: none;
-}
+    .example__code__language {
+        font-weight: var(--body-font-weight-bold);
+        text-transform: uppercase;
+    }
 
-// Temporary gutter padding experiment.
-.example__code .expressive-code .gutter .ln {
-  padding-inline-start: var(--container-padding-x);
-}
+    .example__code__copy {
+        --button-target-size: auto;
 
-.docs-layout :is(p, li, td, th) > code {
-  background-color: var(--code-inline-background-color);
-  border-radius: var(--border-radius-1);
-  font-size: 0.925em;
-  padding: 0.125em 0.25em;
-}
+        font-size: var(--font-size-sm);
+    }
+
+    .example__code .expressive-code .copy {
+        display: none;
+    }
+
+    .example__code .expressive-code .ec-line.mark {
+        position: relative;
+
+        &::before {
+            content: "";
+
+            position: absolute;
+            inset-block: 0;
+            inset-inline-start: 0;
+
+            pointer-events: none;
+
+            width: var(--code-line-marker-border-width);
+
+            background-color: var(--code-line-marker-border-color);
+        }
+    }
+
+    // Align Expressive Code's line-number gutter with the code inset.
+
+    .example__code .expressive-code .gutter .ln {
+        padding-inline-start: var(--container-padding-x);
+    }
+
+} // end @layer
+
+//////////////////////////////////////////////
+// C. Base Styles
+//////////////////////////////////////////////
+
+@layer base {
+
+    .docs-layout :is(p, li, td, th) > code {
+        background-color: var(--code-inline-background-color);
+
+        border-radius: var(--border-radius-1);
+
+        padding: 0.125em 0.25em;
+
+        font-size: 0.925em;
+    }
+
+} // end @layer
