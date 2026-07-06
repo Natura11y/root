@@ -5,6 +5,7 @@ import { useMergedRefs } from '../../hooks/useMergedRefs';
 
 interface CollapseProps {
   ref?: Ref<HTMLDivElement>;
+  id?: string | null;
   isOpen?: boolean;
   onClose?: (() => void) | null;
   focusFirst?: boolean;
@@ -14,6 +15,7 @@ interface CollapseProps {
 
 const Collapse = ({
   ref,
+  id = null,
   isOpen = false,
   onClose = null,
   focusFirst = false,
@@ -75,6 +77,7 @@ const Collapse = ({
   return (
     <div
       ref={mergedRef}
+      id={id ?? undefined}
       className={classNames('collapse', utilities)}
       data-state={isOpen ? 'open' : 'closed'}
       inert={!isOpen ? true : undefined}

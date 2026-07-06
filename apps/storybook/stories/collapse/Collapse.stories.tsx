@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaCollapse from '@core-js/collapse';
 import Collapse from '@lib/components/collapse';
@@ -23,7 +23,8 @@ const meta: Meta<typeof Collapse> = {
 export default meta;
 type Story = StoryObj<typeof Collapse>;
 
-export const HTML: Story = {
+export const DefaultHtml: Story = {
+  name: 'Default (HTML)',
   parameters: {
     docs: {
       source: {
@@ -45,10 +46,25 @@ export const HTML: Story = {
 export const React: Story = {
   render: () => {
     const [isOpen, setIsOpen] = useState(false);
+    const buttonRef = useRef<HTMLButtonElement>(null);
+
+    const closePanel = () => {
+      setIsOpen(false);
+      buttonRef.current?.focus();
+    };
+
     return (
       <div>
-        <Button title={isOpen ? 'Hide' : 'Show'} onClick={() => setIsOpen(!isOpen)} />
-        <Collapse isOpen={isOpen}>
+        <Button
+          title={isOpen ? 'Hide' : 'Show'}
+          onClick={() => setIsOpen(!isOpen)}
+          attributes={{
+            ref: buttonRef,
+            'aria-controls': 'collapse-react',
+            'aria-expanded': isOpen,
+          }}
+        />
+        <Collapse id='collapse-react' isOpen={isOpen} onClose={closePanel}>
           <div className='padding-3 border'>
             <p>This content collapses and expands. Never put padding directly on the Collapse element — always on a child inside.</p>
           </div>
@@ -61,10 +77,25 @@ export const React: Story = {
 export const FocusFirst: Story = {
   render: () => {
     const [isOpen, setIsOpen] = useState(false);
+    const buttonRef = useRef<HTMLButtonElement>(null);
+
+    const closePanel = () => {
+      setIsOpen(false);
+      buttonRef.current?.focus();
+    };
+
     return (
       <div>
-        <Button title={isOpen ? 'Hide' : 'Show'} onClick={() => setIsOpen(!isOpen)} />
-        <Collapse isOpen={isOpen} focusFirst>
+        <Button
+          title={isOpen ? 'Hide' : 'Show'}
+          onClick={() => setIsOpen(!isOpen)}
+          attributes={{
+            ref: buttonRef,
+            'aria-controls': 'collapse-react-focus',
+            'aria-expanded': isOpen,
+          }}
+        />
+        <Collapse id='collapse-react-focus' isOpen={isOpen} onClose={closePanel} focusFirst>
           <div className='padding-3 border'>
             <p>When opened, focus moves to the first focusable element inside.</p>
             <a href='#'>Focusable link</a>

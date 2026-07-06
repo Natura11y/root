@@ -31,25 +31,31 @@
                     <button
                         class="button width-100 theme-primary"
                         data-toggle="collapse"
-                        aria-controls="target-id">
+                        aria-controls="target-id"
+                        aria-expanded="false"
+                        type="button">
                             Navigation
                     </button>
 
                     <div
-                        class="collapse border margin-y-3"
+                        class="collapse margin-y-3"
                         id="target-id"
                     >
-                        <ul class="nav nav--divider" role="navigation">
-                            <li>
-                                <a href="#1">Link</a>
-                            </li>
-                            <li>
-                                <a href="#1">Link</a>
-                            </li>
-                            <li>
-                                <a href="#1">Link</a>
-                            </li>
-                        </ul>
+                        <div class="border padding-3">
+                            <nav aria-label="Example navigation">
+                                <ul class="nav nav--divider">
+                                    <li>
+                                        <a href="#1">Link</a>
+                                    </li>
+                                    <li>
+                                        <a href="#1">Link</a>
+                                    </li>
+                                    <li>
+                                        <a href="#1">Link</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
 
                 </div>
