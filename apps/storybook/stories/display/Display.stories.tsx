@@ -26,5 +26,5 @@ export const Default: Story = {
       },
     },
   },
-  render: () => null,
+  render: () => <></>,
 };

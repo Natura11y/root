@@ -26,7 +26,8 @@ const meta: Meta<typeof Dropdown> = {
 export default meta;
 type Story = StoryObj<typeof Dropdown>;
 
-export const HTML: Story = {
+export const DefaultHtml: Story = {
+  name: 'Default (HTML)',
   parameters: {
     docs: {
       source: {
@@ -45,22 +46,26 @@ export const HTML: Story = {
   ),
 };
 
-export const React: Story = {
+export const DefaultReact: Story = {
+  name: 'Default (React)',
   args: {
     buttonText: 'Options',
   },
   render: (args) => (
-    <Dropdown {...args}>
-      <ul>
-        <li><a href='#'>Profile</a></li>
-        <li><a href='#'>Settings</a></li>
-        <li><a href='#'>Sign out</a></li>
-      </ul>
-    </Dropdown>
+    <ul className='nav nav--divider border nav--horizontal--lg'>
+      <li>
+        <Dropdown {...args}>
+          <li><a href='#'>Profile</a></li>
+          <li><a href='#'>Settings</a></li>
+          <li><a href='#'>Sign out</a></li>
+        </Dropdown>
+      </li>
+    </ul>
   ),
 };
 
-export const WithSplitLink: Story = {
+export const LinkSplit: Story = {
+  name: 'Link Split (React)',
   args: {
     buttonText: 'Components',
     linkSplit: true,
@@ -68,19 +73,21 @@ export const WithSplitLink: Story = {
     linkText: 'Components',
   },
   render: (args) => (
-    <Dropdown {...args}>
-      <ul>
-        <li><a href='#'>Accordion</a></li>
-        <li><a href='#'>Button</a></li>
-        <li><a href='#'>Card</a></li>
-        <li><a href='#'>Modal</a></li>
-      </ul>
-    </Dropdown>
+    <ul className='nav nav--divider border nav--horizontal--lg'>
+      <li>
+        <Dropdown {...args}>
+          <li><a href='#'>Accordion</a></li>
+          <li><a href='#'>Button</a></li>
+          <li><a href='#'>Card</a></li>
+          <li><a href='#'>Modal</a></li>
+        </Dropdown>
+      </li>
+    </ul>
   ),
 };
 
 export const MegaMenu: Story = {
-  name: 'Mega Menu',
+  name: 'Mega Menu (React)',
   args: {
     buttonText: 'Components',
     type: 'mega',
@@ -133,18 +140,21 @@ export const MegaMenu: Story = {
   ),
 };
 
-export const HoverOpen: Story = {
+export const Hover: Story = {
+  name: 'Hover (React)',
   args: {
-    buttonText: 'Hover me',
+    buttonText: 'Hover Dropdown',
     hover: true,
   },
   render: (args) => (
-    <Dropdown {...args}>
-      <ul>
-        <li><a href='#'>Item one</a></li>
-        <li><a href='#'>Item two</a></li>
-        <li><a href='#'>Item three</a></li>
-      </ul>
-    </Dropdown>
+    <ul className='nav nav--divider border nav--horizontal--lg'>
+      <li>
+        <Dropdown {...args}>
+          <li><a href='#'>Item one</a></li>
+          <li><a href='#'>Item two</a></li>
+          <li><a href='#'>Item three</a></li>
+        </Dropdown>
+      </li>
+    </ul>
   ),
 };

@@ -35,9 +35,9 @@ Natura11y provides three dropdown patterns for navigation: a standard **button d
 
 <AccessibilitySpotlight>
 
-All dropdown triggers require `aria-controls` referencing the dropdown panel ID and `aria-expanded` to communicate open and closed state to assistive technology.
+All dropdown triggers require `aria-controls` referencing the dropdown panel `id` and `aria-expanded` to communicate open and closed state to assistive technology.
 
-<kbd>Arrow</kbd> keys move focus between items inside an open dropdown. Pressing <kbd>Escape</kbd> closes the dropdown and returns focus to the trigger.
+Pressing <kbd>Escape</kbd> closes an open dropdown and returns focus to the trigger.
 
 Opening a dropdown automatically closes any other open dropdown on the page.
 
@@ -68,9 +68,9 @@ To create a dropdown, add the `.dropdown` class and `data-toggle="dropdown"` att
 
 <FigureExample
     figureNumber="1"
-    highlightedLines="5-12,29-37"
+    highlightedLines="5-15,32-43"
     code={`
-        <ul class="nav nav--horizontal">
+        <ul class="nav nav--divider border nav--horizontal">
 
             <li>
 
@@ -79,8 +79,11 @@ To create a dropdown, add the `.dropdown` class and `data-toggle="dropdown"` att
                     data-toggle="dropdown"
                     aria-controls="click-menu-id"
                     aria-expanded="false"
+                    type="button"
                 >
-                    Click Dropdown
+                    <span class="text">
+                        Click Dropdown
+                    </span>
                 </button>
 
                 <ul class="dropdown__menu" id="click-menu-id">
@@ -104,8 +107,11 @@ To create a dropdown, add the `.dropdown` class and `data-toggle="dropdown"` att
                     data-hover="true"
                     aria-controls="hover-menu-id"
                     aria-expanded="false"
+                    type="button"
                 >
-                    Hover Dropdown
+                    <span class="text">
+                        Hover Dropdown
+                    </span>
                 </button>
 
                 <ul class="dropdown__menu" id="hover-menu-id">
@@ -130,7 +136,7 @@ To create a dropdown, add the `.dropdown` class and `data-toggle="dropdown"` att
 
 <TableLineDescBlock targetFigure="1">
 
-<TableLineDescRow targetFigure="1" lines="5-12">
+<TableLineDescRow targetFigure="1" lines="5-15">
 
 The first dropdown uses the default click behavior.
 
@@ -138,7 +144,7 @@ The `data-toggle="dropdown"` attribute is required, along with `aria-controls` r
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="29-37">
+<TableLineDescRow targetFigure="1" lines="32-43">
 
 The second dropdown includes the `data-hover="true"` attribute.
 
@@ -177,7 +183,7 @@ To replace the default CSS caret with a Natura11y icon, add `data-indicator` to 
 
 <FigureExample
     figureNumber="3"
-    highlightedLines="4"
+    markedText={`data-indicator="&#xf10e;"`}
     code={`
         <button
             class="dropdown"
@@ -185,8 +191,11 @@ To replace the default CSS caret with a Natura11y icon, add `data-indicator` to 
             data-indicator="&#xf10e;"
             aria-controls="menu-id"
             aria-expanded="false"
+            type="button"
         >
-            Dropdown
+            <span class="text">
+                Dropdown
+            </span>
         </button>
     `}
 >
@@ -210,7 +219,9 @@ The `.dropdown-link-split` selector combines a direct link to a top-level page w
 - **Mobile dropdown**: Tap the dropdown button to access sub-pages
 - **Keyboard navigation**: <kbd>Tab</kbd> to the dropdown button independently from the link
 
-To create this pattern, include both an `<a>` tag and a `<button>` with the `data-toggle="dropdown"` attribute within a `.dropdown-link-split` wrapper (Figure 4, line 4). This approach is particularly useful for main navigation where you want to provide direct access to category pages while also offering sub-navigation options.
+To create this pattern, include both an `<a>` tag and a `<button>` with the `data-toggle="dropdown"` attribute within a `.dropdown-link-split` wrapper (Figure 4, line 4). Place the related dropdown or mega menu inside the same `<li>`.
+
+This approach is particularly useful for main navigation where you want to provide direct access to category pages while also offering sub-navigation options.
 
 </TextBlock>
 
@@ -221,7 +232,7 @@ To create this pattern, include both an `<a>` tag and a `<button>` with the `dat
 
 <FigureExample
     figureNumber="4"
-    highlightedLines="4,6-8,10-14"
+    highlightedLines="4,6-8,10-15"
     code={`
         <ul class="nav nav--horizontal">
 
@@ -235,13 +246,22 @@ To create this pattern, include both an `<a>` tag and a `<button>` with the `dat
                     <button
                         data-toggle="dropdown"
                         aria-controls="docs-dropdown"
-                        aria-expanded="false">
+                        aria-expanded="false"
+                        type="button">
                     </button>
 
                 </div>
-            </li>
 
-                <!-- Drop down or mega menu here -->
+                <ul class="dropdown__menu" id="docs-dropdown">
+                    <li>
+                        <a href="#1">Link</a>
+                    </li>
+                    <li>
+                        <a href="#1">Link</a>
+                    </li>
+                </ul>
+
+            </li>
 
         </ul>
     `}
@@ -265,7 +285,7 @@ This provides the direct link functionality, allowing users to navigate directly
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="4" lines="10-14">
+<TableLineDescRow targetFigure="4" lines="10-15">
 
 The `<button>` with `data-toggle="dropdown"` attribute is required.
 
@@ -306,7 +326,7 @@ The mega menu replaces a standard `.dropdown__menu` list with a `<div>` using th
 
 <FigureExample
     figureNumber="5"
-    highlightedLines="5-13,15"
+    highlightedLines="5-16,18"
     code={`
         <ul class="nav nav--horizontal">
 
@@ -318,8 +338,11 @@ The mega menu replaces a standard `.dropdown__menu` list with a `<div>` using th
                     data-hover="true"
                     aria-controls="mega-id"
                     aria-expanded="false"
+                    type="button"
                 >
-                    Label
+                    <span class="text">
+                        Label
+                    </span>
                 </button>
 
                 <div class="mega-menu--lg" id="mega-id">
@@ -356,7 +379,7 @@ The mega menu replaces a standard `.dropdown__menu` list with a `<div>` using th
 
 <TableLineDescBlock targetFigure="5">
 
-<TableLineDescRow targetFigure="5" lines="15">
+<TableLineDescRow targetFigure="5" lines="18">
 
 The `.mega-menu--{bp}` class replaces `.dropdown__menu`.
 
@@ -364,7 +387,7 @@ It is a `<div>` rather than a `<ul>`, which allows any content inside — grids,
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="5" lines="5-13">
+<TableLineDescRow targetFigure="5" lines="5-16">
 
 The same trigger pattern as a standard dropdown applies.
 

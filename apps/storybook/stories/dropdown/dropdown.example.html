@@ -1,17 +1,56 @@
-<ul class="nav nav--divider border nav--horizontal--lg">
+<ul class="nav nav--divider border nav--horizontal">
   <li>
     <button
       class="dropdown"
       data-toggle="dropdown"
-      aria-controls="dropdown-html"
+      aria-controls="click-menu-id"
+      aria-expanded="false"
+      aria-haspopup="true"
+      type="button"
     >
-      <span class="text">Options</span>
+      <span class="text">
+        Click Dropdown
+      </span>
     </button>
 
-    <ul class="dropdown__menu box-shadow-1--lg" id="dropdown-html">
-      <li><a href="#1">Profile</a></li>
-      <li><a href="#1">Settings</a></li>
-      <li><a href="#1">Sign out</a></li>
+    <ul class="dropdown__menu" id="click-menu-id">
+      <li>
+        <a href="#1">Link</a>
+      </li>
+      <li>
+        <a href="#1">Link</a>
+      </li>
+      <li>
+        <a href="#1">Link</a>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    <button
+      class="dropdown"
+      data-toggle="dropdown"
+      data-hover="true"
+      aria-controls="hover-menu-id"
+      aria-expanded="false"
+      aria-haspopup="true"
+      type="button"
+    >
+      <span class="text">
+        Hover Dropdown
+      </span>
+    </button>
+
+    <ul class="dropdown__menu" id="hover-menu-id">
+      <li>
+        <a href="#1">Link</a>
+      </li>
+      <li>
+        <a href="#1">Link</a>
+      </li>
+      <li>
+        <a href="#1">Link</a>
+      </li>
     </ul>
   </li>
 </ul>

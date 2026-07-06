@@ -245,7 +245,9 @@ const Dropdown = ({
           onClick={handleClick}
           onKeyDown={handleButtonKeyDown}
         >
-          {buttonText ?? (type === 'dropdown' ? 'Dropdown' : 'Mega Menu')}
+          <span className='text'>
+            {buttonText ?? (type === 'dropdown' ? 'Dropdown' : 'Mega Menu')}
+          </span>
         </button>
       )}
 
