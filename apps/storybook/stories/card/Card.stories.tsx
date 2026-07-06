@@ -4,15 +4,23 @@ import VanillaExample from '../../utils/VanillaExample';
 import { storyMedia } from '../media';
 import cardMarkup from './card.example.html?raw';
 
-const CardFooter = () => (
+interface CardFooterProps {
+  secondaryLabel?: string;
+  primaryLabel?: string;
+}
+
+const CardFooter = ({
+  secondaryLabel = 'Secondary Action',
+  primaryLabel = 'Primary Action',
+}: CardFooterProps = {}) => (
   <Card.Foot utilities='border-top font-size-md text-color-link'>
     <ul className='nav nav--horizontal justify-content-between'>
       <li>
-        <a href='#1'>Search Images</a>
+        <a href='#1'>{secondaryLabel}</a>
       </li>
       <li>
         <a className='button button--outline' href='#1'>
-          Visit Wikipedia
+          <span className='text'>{primaryLabel}</span>
         </a>
       </li>
     </ul>
@@ -50,7 +58,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const HTML: Story = {
+export const DefaultHtml: Story = {
+  name: 'Default (HTML)',
   parameters: {
     docs: {
       source: {
@@ -109,7 +118,7 @@ export const WithMedia: Story = {
           </li>
         </ul>
       </Card.Body>
-      <CardFooter />
+      <CardFooter secondaryLabel='Search Images' primaryLabel='Visit Wikipedia' />
     </Card>
   ),
 };
@@ -173,7 +182,7 @@ export const Horizontal: Story = {
           by several common names.
         </p>
       </Card.Body>
-      <CardFooter />
+      <CardFooter secondaryLabel='Search Images' primaryLabel='Visit Wikipedia' />
     </Card>
   ),
 };
