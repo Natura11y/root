@@ -18,9 +18,9 @@ export default defineEcConfig({
     codePaddingInline: 'var(--container-padding-x)',
     gutterForeground: '#00aaffa6',
     gutterHighlightForeground: '#ffffffb3',
-    gutterBorderWidth: 'var(--code-line-marker-accent-width)',
+    gutterBorderWidth: '0',
     textMarkers: {
-      lineMarkerAccentWidth: 'var(--code-line-marker-accent-width)',
+      lineMarkerAccentWidth: '0',
       inlineMarkerBorderRadius: 'var(--code-inline-marker-border-radius)',
       inlineMarkerBorderWidth: 'var(--code-inline-marker-border-width)',
       inlineMarkerPadding: 'var(--code-inline-marker-padding)',

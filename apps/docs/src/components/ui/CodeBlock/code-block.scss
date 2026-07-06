@@ -19,6 +19,7 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--spacer-2);
+  font-size: var(--font-size-sm);
 
   border-block-end: var(--border-width) var(--border-style) var(--code-header-border-color);
 
@@ -26,14 +27,11 @@
 }
 
 .example__code__language {
-  font-size: var(--font-size-sm);
   font-weight: var(--body-font-weight-bold);
   text-transform: uppercase;
 }
 
 .example__code__copy {
-  --button-padding-x: var(--spacer-2);
-  --button-padding-y: calc(var(--spacer-1) * 0.5);
   --button-target-size: auto;
 
   font-size: var(--font-size-sm);
@@ -41,6 +39,11 @@
 
 .example__code .expressive-code .copy {
   display: none;
+}
+
+// Temporary gutter padding experiment.
+.example__code .expressive-code .gutter .ln {
+  padding-inline-start: var(--container-padding-x);
 }
 
 .docs-layout :is(p, li, td, th) > code {

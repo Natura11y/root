@@ -189,6 +189,7 @@ const shouldShowLineNumbers = showLineNumbers ?? lineAnnotations.length > 0;
 
 <script>
   const copySetupKey = '__natura11yCodeCopy';
+  const copyFeedbackDuration = 4000;
 
   if (!Reflect.get(window, copySetupKey)) {
     Reflect.set(window, copySetupKey, true);
@@ -255,7 +256,7 @@ const shouldShowLineNumbers = showLineNumbers ?? lineAnnotations.length > 0;
       }
 
       setCopyButtonText(button, 'Copied');
-      window.setTimeout(() => setCopyButtonText(button, 'Copy'), 1500);
+      window.setTimeout(() => setCopyButtonText(button, 'Copy'), copyFeedbackDuration);
     });
   }
 </script>
