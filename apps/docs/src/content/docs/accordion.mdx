@@ -29,9 +29,9 @@ The Natura11y accordion allows sections of content to expand and collapse while 
 
 <AccessibilitySpotlight>
 
-All focusable elements in the accordion are included in the page *tab* sequence.
+All focusable elements in the accordion are included in the page <kbd>Tab</kbd> sequence.
 
-Accordion buttons support keyboard interaction with *Tab*, *Space*, *Enter*, and the *up* and *down* arrow keys.
+Accordion buttons support keyboard interaction with <kbd>Tab</kbd>, <kbd>Space</kbd>, <kbd>Enter</kbd>, <kbd>Up Arrow</kbd>, and <kbd>Down Arrow</kbd>.
 
 When clicked or activated, accordion buttons update `aria-expanded` and toggle the related panel state.
 
@@ -63,7 +63,7 @@ The following is a basic accordion component. All accordion panels are closed by
 
 <FigureExample
   figureNumber="1"
-  highlightedLines="1,3-10,12-21"
+  highlightedLines="1,3-9,12-21"
   code={`
   <div class="accordion">
 
@@ -151,7 +151,7 @@ Accordion buttons can be wrapped in heading elements to support screen reader he
 
 <FigureExample
   figureNumber="2"
-  highlightedLines="1,2-9"
+  highlightedLines="1,3-10"
   markedText={'data-accordion="panel"'}
   code={`
   <h3 data-accordion="heading">

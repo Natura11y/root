@@ -60,6 +60,13 @@ In this file:
   --modal-overlay-opacity: 0.5;
   --button-target-size: 2.75em;
 
+  --kbd-background-color: var(--subtle-fill-1);
+  --kbd-border-color: var(--border-color);
+  --kbd-border-radius: var(--border-radius-1);
+  --kbd-box-shadow: inset 0 -0.125em 0 var(--subtle-fill-2);
+  --kbd-padding-x: 0.375em;
+  --kbd-padding-y: 0.125em;
+
   --code-font-family:
     'JetBrains Mono',
     ui-monospace,
@@ -95,18 +102,25 @@ In this file:
   }
 
   kbd {
-    background-color: #eee;
-    border: 1px solid #b4b4b4;
-    border-radius: 3px;
-    box-shadow:
-      0 1px 1px rgb(0 0 0 / 20%),
-      0 2px 0 0 rgb(255 255 255 / 70%) inset;
+    background-color: var(--kbd-background-color);
+
+    border-color: var(--kbd-border-color);
+    border-radius: var(--kbd-border-radius);
+    border-style: var(--border-style);
+    border-width: var(--border-width);
+
+    box-shadow: var(--kbd-box-shadow);
+
     color: currentColor;
+
     display: inline-block;
+
+    padding: var(--kbd-padding-y) var(--kbd-padding-x);
+
+    font-family: var(--code-font-family);
     font-size: 0.85em;
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     line-height: 1;
-    padding: 2px 4px;
     white-space: nowrap;
   }
 

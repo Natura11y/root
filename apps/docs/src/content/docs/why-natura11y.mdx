@@ -142,7 +142,7 @@ Natura11y uses CSS Logical Properties throughout — `padding-inline`, `margin-b
 Accessibility in Natura11y is not a layer applied after components are built — it is how components are built.
 
 - Focus traps in modals and flyouts use the `inert` attribute, the modern standard that actually removes elements from the accessibility tree rather than just hiding them visually
-- The collapse and accordion patterns manage `aria-expanded`, focus return on close, and Escape key behavior in a single, consistent implementation
+- The collapse and accordion patterns manage `aria-expanded`, focus return on close, and <kbd>Escape</kbd> key behavior in a single, consistent implementation
 - `[aria-current="page"]` drives pagination active state — the semantic attribute does the work instead of a visual-only class
 - Flyout menus use proper `role="dialog"`, `aria-modal`, and distinct `aria-label` values on the dialog and the navigation inside it — a distinction most implementations miss
 - Screen reader utilities — `.screen-reader-only`, `.focusable-only`, `.skip-links` — are first-class, not optional add-ons
@@ -183,7 +183,7 @@ Most frameworks stop at buttons, forms, and modals. Natura11y ships the componen
 
 **Backdrop** — Full-bleed hero layouts with image and video backgrounds, built-in overlay support, responsive stacking. Almost no framework provides this.
 
-**Lightbox** — A production-ready, accessible lightbox with gallery support, keyboard navigation (arrow keys, Escape to close), and focus management. Essentially no major framework ships this.
+**Lightbox** — A production-ready, accessible lightbox with gallery support, keyboard navigation (<kbd>Arrow</kbd> keys, <kbd>Escape</kbd> to close), and focus management. Essentially no major framework ships this.
 
 **Flyout with drill-down navigation** — A mobile flyout menu that supports nested panel navigation, `inert`-based panel management, and a `ResizeObserver` that automatically closes it when the viewport changes. This is the component developers dread building.
 
