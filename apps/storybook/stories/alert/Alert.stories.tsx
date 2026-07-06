@@ -17,10 +17,6 @@ const alertWarningCode = `<Alert success={false} title="Warning">
   <p>Please review the form before submitting.</p>
 </Alert>`;
 
-const alertWithIconCode = `<Alert title="Notice" iconHandle="info">
-  <p>This page has been updated with new content.</p>
-</Alert>`;
-
 const alertDismissableCode = `const [isShown, setIsShown] = useState(true);
 
 {isShown && (
@@ -116,26 +112,6 @@ export const Warning: Story = {
       },
       source: {
         code: alertWarningCode,
-        language: 'tsx',
-        type: 'code',
-      },
-    },
-  },
-};
-
-export const WithIcon: Story = {
-  args: {
-    title: 'Notice',
-    iconHandle: 'info',
-    children: <p>This page has been updated with new content.</p>,
-  },
-  parameters: {
-    docs: {
-      description: {
-        story: 'Use `iconHandle` when the alert needs a different icon from the default confirm or warn icon.',
-      },
-      source: {
-        code: alertWithIconCode,
         language: 'tsx',
         type: 'code',
       },
