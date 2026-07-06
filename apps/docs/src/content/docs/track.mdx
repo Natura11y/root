@@ -7,8 +7,8 @@ bannerCreditName: Nicole Geri
 bannerCreditUrl: https://unsplash.com/@nicolegeri
 bannerImage: ./banner/track.jpg
 bannerAlt: Brown and green plant in close up photography
-description: 
-    Build accessible carousels with navigation controls, touch support, and keyboard accessibility. Includes auto-play options and responsive layouts.
+description:
+    Build accessible carousels with navigation controls, touch support, keyboard support, and responsive layouts.
 relatedPages:
   - "Backdrop"
   - "Grid"
@@ -30,11 +30,11 @@ Introducing **Track**, Naturally's accessible carousel component. It gives you f
 
 <AccessibilitySpotlight>
 
-<kbd>Tab</kbd> navigation highlights only visible, interactive elements, ensuring smooth navigation for keyboard users.
+<kbd>Tab</kbd> navigation moves through the carousel controls and visible panel content.
 
-Users can move between slides using the <kbd>Left Arrow</kbd> and <kbd>Right Arrow</kbd> keys when focused on the "previous" or "next" buttons. This keeps navigation inside the carousel.
+Users can move between pages with the <kbd>Left Arrow</kbd> and <kbd>Right Arrow</kbd> keys when focus is on the previous or next button.
 
-The carousel uses ARIA live regions to announce the current page. This keeps screen reader users updated on page changes in real-time.
+The carousel uses a live region to announce the current page after navigation.
 
 Respects `prefers-reduced-motion` — smooth scrolling between panels is disabled when this preference is active.
 
@@ -44,7 +44,7 @@ Respects `prefers-reduced-motion` — smooth scrolling between panels is disable
 
 <FigureExample
     figureNumber="1"
-    highlightedLines="2,3,6,8,10-24,28,30-35,37,39-44"
+    highlightedLines="2-3,6,8,10-24,28,30-35,37,39-44"
     code={`
         <section
             class="track"
@@ -111,7 +111,7 @@ The `aria-labelledby` attribute is **recommended**. It links the carousel to its
 
 <TableLineDescRow targetFigure="1" lines="6">
 
-Use the `h3` element with the `.screen-reader-only` class to provide a title for screen readers.
+Add a heading for the carousel. Use `.screen-reader-only` when the heading should be available to screen readers without appearing visually.
 
 </TableLineDescRow>
 
@@ -124,6 +124,8 @@ The `.track__container` class is ***required***. It contains the carousel panels
 <TableLineDescRow targetFigure="1" lines="10-24">
 
 The `.track__panels` class is ***required***. This `<ul>` holds the carousel's panels.
+
+Each panel uses the `.track__panel` class.
 
 The `.gap-2` utility class is optional and adds space between the panels.
 
@@ -173,9 +175,9 @@ The `aria-label` attribute is **recommended** to support screen readers.
 
 ## Responsive Columns
 
-To change the number of visible panels per page, add `track--column-{x}` to the `.track` selector. Replace `{x}` with the number of columns (from 1 to 8) you want.
+To change the number of visible panels per page, add `track--column-{x}` to the `.track` element. Replace `{x}` with the number of columns (from 1 to 8) you want.
 
-To adjust for specific breakpoints, add a <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifier</a> (e.g., `track--column-3--lg`) displays 3 columns on large screens.
+To adjust for specific breakpoints, add a <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifier</a>. For example, `track--column-3--lg` displays three columns on large screens.
 
 </TextBlock>
 
@@ -188,8 +190,9 @@ To adjust for specific breakpoints, add a <a href="/docs/breakpoint/#breakpoint-
 <FigureExample
     figureNumber="2"
     figureWidth="narrow"
+    markedText="track--column-3--lg"
     code={`
-        <div class="track 👉 track--column-3--lg">
+        <div class="track track--column-3--lg">
             ...
         </div>
     `}
@@ -209,7 +212,7 @@ Panel peeking reveals a sliver of the next and previous panels, giving users a v
 
 Like responsive columns, peeking supports breakpoint modifiers. Use `track--peeking--{bp}` to enable peeking only at a specific breakpoint and above. This lets you combine a single-column, no-peeking layout on mobile with a multi-column peeking layout on larger screens.
 
-The example below is a single panel with no peeking on small screens, then switches to three columns with peeking at the large breakpoint.
+The example below is a single panel with no peeking on small screens, then switches to two columns with peeking at the extra-large breakpoint.
 
 </TextBlock>
 
@@ -223,8 +226,9 @@ The example below is a single panel with no peeking on small screens, then switc
 <FigureExample
     figureNumber="3"
     figureWidth="narrow"
+    markedText={['track--column-2--xl', 'track--peeking--xl']}
     code={`
-        <div class="track 👉 track--column-2--xl track--peeking--xl">
+        <div class="track track--column-2--xl track--peeking--xl">
             ...
         </div>
     `}
