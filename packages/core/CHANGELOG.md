@@ -19,6 +19,9 @@ All notable changes to this project will be documented in this file.
 #### Form
 - Stop adding unsupported `aria-required` attributes to native form controls at runtime; required fields continue to receive the native `required` attribute from `.form-entry[data-required]`.
 
+#### Dropdown
+- Allow standalone hover dropdowns to initialize without requiring a mega menu or main menu in the DOM.
+
 #### Link
 - Remove the legacy `.link-expanded` utility and stop extending it inside split dropdown links.
 

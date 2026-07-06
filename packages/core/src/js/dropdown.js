@@ -307,6 +307,9 @@ export default class Dropdown {
     // Responsive hover logic
     const setupResponsiveHover = () => {
 
+      const hoverDropdownAtBreakpoint = document.querySelector('[data-toggle="dropdown"][data-hover="true"]') &&
+        getCurrentBreakpoint().isDesktop;
+
       // Check if any mega menu is at its required breakpoint
       const megaMenuAtBreakpoint = Array.from(document.querySelectorAll('[class*="mega-menu--"]')).some(menu =>
         this.#isAtBreakpoint(menu)
@@ -317,7 +320,7 @@ export default class Dropdown {
       const mainMenuBpClass = mainMenuEl && [...mainMenuEl.classList].find(cls => cls.startsWith('main-menu--'));
       const mainMenuAtBreakpoint = mainMenuBpClass ? this.#isBreakpointAtLeast(mainMenuBpClass.split('--').pop()) : false;
 
-      const shouldEnableHover = megaMenuAtBreakpoint || mainMenuAtBreakpoint;
+      const shouldEnableHover = hoverDropdownAtBreakpoint || megaMenuAtBreakpoint || mainMenuAtBreakpoint;
 
       if (
         window.matchMedia &&
