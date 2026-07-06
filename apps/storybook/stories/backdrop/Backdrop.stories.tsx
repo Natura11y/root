@@ -4,6 +4,8 @@ import Button from '@lib/components/button';
 import VanillaExample from '../../utils/VanillaExample';
 import { storyMedia } from '../media';
 import backdropMarkup from './backdrop.example.html?raw';
+import backdropStackMarkup from './backdrop-stack.example.html?raw';
+import backdropFixedMarkup from './backdrop-fixed.example.html?raw';
 
 const meta = {
   title: 'Backdrop',
@@ -35,6 +37,12 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof BackdropVideo>;
 
+const renderBackdropExample = (markup: string) => (
+  <div className='wide margin-x-auto'>
+    <VanillaExample html={markup} />
+  </div>
+);
+
 export const DefaultHtml: Story = {
   name: 'Default (HTML)',
   parameters: {
@@ -46,14 +54,39 @@ export const DefaultHtml: Story = {
       },
     },
   },
-  render: () => (
-    <div className='wide margin-x-auto'>
-      <VanillaExample html={backdropMarkup} />
-    </div>
-  ),
+  render: () => renderBackdropExample(backdropMarkup),
 };
 
-export const React: Story = {
+export const StackHtml: Story = {
+  name: 'Stack (HTML)',
+  parameters: {
+    docs: {
+      source: {
+        code: backdropStackMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => renderBackdropExample(backdropStackMarkup),
+};
+
+export const FixedHeightHtml: Story = {
+  name: 'Fixed Height (HTML)',
+  parameters: {
+    docs: {
+      source: {
+        code: backdropFixedMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => renderBackdropExample(backdropFixedMarkup),
+};
+
+export const VideoReact: Story = {
+  name: 'Video (React)',
   render: (args) => (
     <div className='wide margin-x-auto'>
       <BackdropVideo {...args}>
