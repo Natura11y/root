@@ -7,7 +7,7 @@ bannerCreditName: Karl Anderson
 bannerCreditUrl: https://unsplash.com/@karlkiwi90
 bannerImage: ./banner/button.jpg
 bannerAlt: Brown mushrooms on ground
-description: Style buttons with colors, sizes, icons, and outline variants. Includes accessibility features, loading states, and button groups.
+description: Style links and buttons with color, sizing, icons, outlines, and layout variants.
 relatedPages:
   - Color
   - Icon
@@ -56,7 +56,7 @@ To use buttons in Natura11y, add `.button` to an `<a>` or `<button>` element. Bu
 
 <FigureExample
   figureNumber="1"
-  highlightedLines="2,7,12"
+  highlightedLines="2,7,13"
   code={`
   <!-- Link styled as a button -->
   <a class="button" href="#1">
@@ -85,7 +85,7 @@ The `.button` class is required on the `<a>` or `<button>` element.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="12">
+<TableLineDescRow targetFigure="1" lines="13">
 
 Optionally wrap the button text in `<span class="text">` to add a visible underline when the button is hovered or focused.
 
@@ -109,7 +109,7 @@ Add color to a `.button` selector with <a href="/docs/color/#theme-colors">theme
 
 <FigureExample
   figureNumber="2"
-  highlightedLines="1,5,9"
+  markedText={['theme-primary', 'theme-secondary', 'theme-dark']}
   code={`
   <a class="button theme-primary" href="#1">
     Primary
@@ -143,7 +143,7 @@ For buttons that span the width of their parent, add the `.width-100` utility. D
 
 <FigureExample
   figureNumber="3"
-  highlightedLines="1"
+  markedText="width-100"
   code={`
   <a class="button theme-primary width-100" href="#1">
     Button
@@ -169,7 +169,7 @@ Create a button with an outline instead of a fill. Add `.button--outline` to the
 
 <FigureExample
   figureNumber="4"
-  highlightedLines="1,5"
+  markedText="button--outline"
   code={`
   <a class="button button--outline" href="#1">
     Button
@@ -199,13 +199,13 @@ Globally, all `.button` selectors have a border radius set with `--button-border
 
 <FigureExample
   figureNumber="5"
-  highlightedLines="1,5"
+  markedText={['border-radius-0', 'border-radius-pill']}
   code={`
-  <a class="button theme-primary border-radius-0 width-100" href="#1">
+  <a class="button theme-primary border-radius-0" href="#1">
     Button
   </a>
 
-  <a class="button theme-secondary border-radius-pill width-100" href="#1">
+  <a class="button theme-secondary border-radius-pill" href="#1">
     Button
   </a>
   `}
@@ -229,7 +229,7 @@ Buttons inherit font size. Padding uses relative units, so resizing a parent wit
 
 <FigureExample
   figureNumber="6"
-  highlightedLines="1"
+  markedText="font-size-sm"
   code={`
   <ul class="nav nav--horizontal font-size-sm">
     <li>
@@ -263,7 +263,7 @@ To include an icon in a button, add an icon element as a child of `.button`. Ico
 
 <FigureExample
   figureNumber="7"
-  highlightedLines="2,7"
+  highlightedLines="2,8"
   code={`
   <a class="button theme-primary" href="#1">
     <span class="icon icon-edit" aria-hidden="true"></span>
@@ -271,8 +271,8 @@ To include an icon in a button, add an icon element as a child of `.button`. Ico
   </a>
 
   <a class="button button--outline" href="#1">
-    <span class="icon icon-delete" aria-hidden="true"></span>
     <span class="text">Delete</span>
+    <span class="icon icon-delete" aria-hidden="true"></span>
   </a>
   `}
 >
@@ -295,7 +295,7 @@ Create a button where the text and icon sit on opposing sides. Add `.button--dis
 
 <FigureExample
   figureNumber="8"
-  highlightedLines="1"
+  markedText="button--disperse"
   code={`
   <a class="button button--disperse text-color-link" href="#1">
     <span class="text">Button</span>
@@ -322,7 +322,7 @@ For icon-only buttons, apply `.button--icon-only` to the `.button` selector. Ico
 
 <FigureExample
   figureNumber="9"
-  highlightedLines="1,4"
+  markedText={['button--icon-only', 'aria-label', 'aria-hidden="true"']}
   code={`
   <a class="button button--icon-only" href="#1" aria-label="Home">
     <span class="icon icon-home" aria-hidden="true"></span>
@@ -352,25 +352,43 @@ Position a prominent icon over smaller text with `.button--icon-over-text`. The 
 
 <FigureExample
   figureNumber="10"
-  highlightedLines="1,2,5,9,12"
+  highlightedLines="1,3-5,7"
   code={`
   <button class="button button--icon-over-text" type="button">
+
     <span class="button__icon">
       <span class="icon icon-home" aria-hidden="true"></span>
     </span>
-    <span class="button__text">Home</span>
-  </button>
 
-  <button class="button button--icon-over-text" type="button">
-    <span class="button__icon theme-primary border-radius-circle">
-      <span class="icon icon-print" aria-hidden="true"></span>
-    </span>
-    <span class="button__text">Print</span>
+    <span class="button__text">Home</span>
+
   </button>
   `}
 >
   <IconOverText />
 </FigureExample>
+
+<TableLineDescBlock targetFigure="10">
+
+<TableLineDescRow targetFigure="10" lines="1">
+
+Add `.button--icon-over-text` to the button element.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="10" lines="3-5">
+
+Use `.button__icon` for the icon area. Theme and border radius utilities can be added here.
+
+</TableLineDescRow>
+
+<TableLineDescRow targetFigure="10" lines="7">
+
+Use `.button__text` for the text below the icon.
+
+</TableLineDescRow>
+
+</TableLineDescBlock>
 
 </Section>
 

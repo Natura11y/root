@@ -20,9 +20,9 @@ const ButtonExamples = () => {
 			<section className='margin-y-4'>
 				<h2 className='h4 margin-bottom-2'>Icon-Only Buttons</h2>
 				<div className='display-flex gap-1'>
-					<ButtonIconOnly iconHandle='home' />
-					<ButtonIconOnly iconHandle='settings' utilities='theme-primary' />
-					<ButtonIconOnly iconHandle='bell' outline={true} />
+					<ButtonIconOnly iconHandle='home' ariaLabel='Home' />
+					<ButtonIconOnly iconHandle='settings' ariaLabel='Settings' utilities='theme-primary' />
+					<ButtonIconOnly iconHandle='bell' ariaLabel='Notifications' outline={true} />
 				</div>
 			</section>
 

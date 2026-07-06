@@ -9,21 +9,6 @@ const buttonReactCode = `<Button
   tag="button"
   buttonType="button"
   title="Button"
-/>
-
-<Button
-  tag="button"
-  buttonType="button"
-  title="Edit"
-  iconStartHandle="edit"
-/>
-
-<Button
-  tag="a"
-  title="Learn more"
-  linkUrl="#"
-  iconEndHandle="arrow-right"
-  utilities="button--disperse"
 />`;
 
 const meta = {
@@ -71,7 +56,8 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const HTML: Story = {
+export const DefaultHtml: Story = {
+  name: 'Default (HTML)',
   parameters: {
     docs: {
       source: {
