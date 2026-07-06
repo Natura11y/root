@@ -1,12 +1,47 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import VanillaCollapse from '@core-js/collapse';
 import VanillaDropdown from '@core-js/dropdown';
+import VanillaMainMenu from '@core-js/main-menu';
 import Dropdown from '@lib/components/dropdown';
+import MainMenu from '@lib/components/main-menu';
+import Brand from '@lib/components/main-menu/Brand';
+import ButtonIconOnly from '@lib/components/button/ButtonIconOnly';
+import FormEntrySearch from '@lib/components/form/FormEntrySearch';
 import VanillaExample from '../../utils/VanillaExample';
 import dropdownMarkup from './dropdown.example.html?raw';
+import megaMenuMarkup from './mega-menu.example.html?raw';
 
 const initializeDropdown = () => {
   new VanillaDropdown().init();
 };
+
+const initializeMegaMenu = () => {
+  new VanillaCollapse().init();
+  new VanillaDropdown().init();
+  new VanillaMainMenu().init();
+};
+
+const megaMenuLogo = (
+  <a href='#1' title='Home' data-logo='brand'>
+    <Brand />
+  </a>
+);
+
+const megaMenuSearch = (
+  <FormEntrySearch
+    id='dropdown-mega-menu-react-search'
+    name='globalSearch'
+    leadingIcon={false}
+    submitButton='icon'
+  />
+);
+
+const megaMenuActions = (
+  <ButtonIconOnly
+    iconHandle='language'
+    ariaLabel='Language'
+  />
+);
 
 const meta: Meta<typeof Dropdown> = {
   title: 'Dropdown',
@@ -86,7 +121,27 @@ export const LinkSplit: Story = {
   ),
 };
 
-export const MegaMenu: Story = {
+export const MegaMenuHtml: Story = {
+  name: 'Mega Menu (HTML)',
+  parameters: {
+    docs: {
+      source: {
+        code: megaMenuMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => (
+    <VanillaExample
+      html={megaMenuMarkup}
+      initialize={initializeMegaMenu}
+      initializeOnceKey='mega-menu'
+    />
+  ),
+};
+
+export const MegaMenuReact: Story = {
   name: 'Mega Menu (React)',
   args: {
     buttonText: 'Components',
@@ -94,7 +149,14 @@ export const MegaMenu: Story = {
     hover: true,
   },
   render: (args) => (
-    <ul className='nav nav--horizontal--lg border border-radius-2'>
+    <MainMenu
+      variant='stack'
+      breakpoint='lg'
+      logo={megaMenuLogo}
+      search={megaMenuSearch}
+      actions={megaMenuActions}
+      utilities='theme-canvas drop-shadow-1'
+    >
       <li>
         <Dropdown {...args}>
           <div className='grid grid--column-2 grid--column-4--lg gap-4 font-size-md'>
@@ -136,7 +198,9 @@ export const MegaMenu: Story = {
           </div>
         </Dropdown>
       </li>
-    </ul>
+      <li><a href='#'>Examples</a></li>
+      <li><a href='#'>Guides</a></li>
+    </MainMenu>
   ),
 };
 

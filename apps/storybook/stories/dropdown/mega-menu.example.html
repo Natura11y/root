@@ -1,0 +1,125 @@
+<div class="main-menu--stack--lg theme-canvas drop-shadow-1">
+  <div class="main-menu__logo">
+    <a href="#1" title="Home" data-logo="brand">
+      <svg xmlns="http://www.w3.org/2000/svg" width="126" height="34" viewBox="0 0 126 34" aria-hidden="true">
+        <g>
+          <polygon points="8 25 8 1 0 1 0 33 3 33 8 33 16 33 16 25 8 25" />
+          <path d="M35,0A17,17,0,1,0,52,17,17,17,0,0,0,35,0Zm0,26a9,9,0,1,1,9-9A9,9,0,0,1,35,26Z" />
+          <path d="M109,0a17,17,0,1,0,17,17A17,17,0,0,0,109,0Zm0,26a9,9,0,1,1,9-9A9,9,0,0,1,109,26Z" />
+          <path d="M88.95,16H72v6h7.4824a9,9,0,1,1,0-10H88.25A17.0052,17.0052,0,1,0,89,17C89,16.6624,88.9689,16.3327,88.95,16Z" />
+        </g>
+      </svg>
+    </a>
+  </div>
+
+  <div class="main-menu__toggle">
+    <button
+      class="button button--icon-only"
+      aria-label="Menu"
+      data-toggle="collapse"
+      aria-controls="mega-menu-html-nav"
+      aria-expanded="false"
+      type="button"
+    >
+      <span class="icon icon-menu" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <form class="main-menu__search" id="mega-menu-html-search" role="search" data-focus-first>
+    <div class="form-entry form-entry--search" aria-label="Search">
+      <label class="form-entry__field">
+        <span class="form-entry__field__label screen-reader-only">Search</span>
+        <span class="form-entry__field__input">
+          <input type="search" id="mega-menu-html-search-input" name="global-search" />
+          <button
+            class="button button--icon-only"
+            type="button"
+            data-search-clear
+            aria-label="Clear search"
+            aria-controls="mega-menu-html-search-input"
+          >
+            <span class="icon icon-clear" aria-hidden="true"></span>
+          </button>
+          <button class="button button--icon-only theme-primary" type="submit" aria-label="Search">
+            <span class="icon icon-search" aria-hidden="true"></span>
+          </button>
+        </span>
+      </label>
+    </div>
+  </form>
+
+  <div class="main-menu__actions">
+    <button
+      class="button button--icon-only"
+      aria-label="Language"
+      type="button"
+    >
+      <span class="icon icon-language" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <nav class="main-menu__nav" id="mega-menu-html-nav" aria-label="Main Menu">
+    <ul>
+      <li>
+        <button
+          class="dropdown"
+          data-toggle="dropdown"
+          data-hover="true"
+          aria-controls="mega-menu-html-panel"
+          aria-expanded="false"
+          aria-haspopup="true"
+          type="button"
+        >
+          <span class="text">
+            Components
+          </span>
+        </button>
+
+        <div
+          class="mega-menu--lg box-shadow-1--lg padding-4"
+          id="mega-menu-html-panel"
+        >
+          <div class="grid grid--column-2 grid--column-4--lg gap-4 font-size-md">
+            <nav>
+              <p><strong>Foundations</strong></p>
+              <ul class="nav">
+                <li><a href="#1">Color</a></li>
+                <li><a href="#1">Typography</a></li>
+                <li><a href="#1">Spacing</a></li>
+              </ul>
+            </nav>
+
+            <nav>
+              <p><strong>Components</strong></p>
+              <ul class="nav">
+                <li><a href="#1">Accordion</a></li>
+                <li><a href="#1">Button</a></li>
+                <li><a href="#1">Card</a></li>
+              </ul>
+            </nav>
+
+            <nav>
+              <p><strong>Navigation</strong></p>
+              <ul class="nav">
+                <li><a href="#1">Dropdown</a></li>
+                <li><a href="#1">Main Menu</a></li>
+                <li><a href="#1">Pagination</a></li>
+              </ul>
+            </nav>
+
+            <nav>
+              <p><strong>Patterns</strong></p>
+              <ul class="nav">
+                <li><a href="#1">Forms</a></li>
+                <li><a href="#1">Tables</a></li>
+                <li><a href="#1">Track</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </li>
+      <li><a href="#1">Examples</a></li>
+      <li><a href="#1">Guides</a></li>
+    </ul>
+  </nav>
+</div>
