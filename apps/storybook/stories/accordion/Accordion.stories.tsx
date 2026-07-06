@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaAccordion from '@core-js/accordion';
 import Accordion from '@lib/components/accordion';
@@ -128,6 +128,34 @@ const accordionReactCode = `<Accordion>
   </Accordion.Item>
 </Accordion>`;
 
+const accordionOpenByDefaultCode = `<Accordion defaultOpen="danaus-plexippus">
+  <Accordion.Item itemId="danaus-plexippus" title="Danaus Plexippus">
+    <p>...</p>
+  </Accordion.Item>
+
+  <Accordion.Item itemId="papilio-polyxenes" title="Papilio Polyxenes">
+    <p>...</p>
+  </Accordion.Item>
+</Accordion>`;
+
+const accordionWithHeadingsCode = `<Accordion headingLevel={3}>
+  <Accordion.Item itemId="danaus-plexippus" title="Danaus Plexippus">
+    <p>...</p>
+  </Accordion.Item>
+</Accordion>`;
+
+const accordionControlledCode = `const [openItem, setOpenItem] = useState<string | null>('danaus-plexippus');
+
+<Accordion open={openItem} onOpenChange={setOpenItem}>
+  <Accordion.Item itemId="danaus-plexippus" title="Danaus Plexippus">
+    <p>...</p>
+  </Accordion.Item>
+
+  <Accordion.Item itemId="papilio-polyxenes" title="Papilio Polyxenes">
+    <p>...</p>
+  </Accordion.Item>
+</Accordion>`;
+
 const VanillaAccordionExample = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -144,6 +172,16 @@ const VanillaAccordionExample = () => {
   }, []);
 
   return <div ref={containerRef} />;
+};
+
+const ControlledAccordionExample = () => {
+  const [openItem, setOpenItem] = useState<string | null>('danaus-plexippus');
+
+  return (
+    <Accordion open={openItem} onOpenChange={setOpenItem}>
+      {renderItems()}
+    </Accordion>
+  );
 };
 
 const meta = {
@@ -218,9 +256,13 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const HTML: Story = {
+export const DefaultHtml: Story = {
+  name: 'Default (HTML)',
   parameters: {
     docs: {
+      description: {
+        story: 'The vanilla HTML pattern uses Natura11y core markup and JavaScript behavior.',
+      },
       source: {
         code: accordionMarkup,
         language: 'html',
@@ -234,6 +276,9 @@ export const HTML: Story = {
 export const React: Story = {
   parameters: {
     docs: {
+      description: {
+        story: 'The React component renders the same accordion item set with a React-friendly API.',
+      },
       source: {
         code: accordionReactCode,
         language: 'tsx',
@@ -247,10 +292,50 @@ export const OpenByDefault: Story = {
   args: {
     defaultOpen: 'danaus-plexippus',
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use `defaultOpen` when one accordion item should be expanded on first render.',
+      },
+      source: {
+        code: accordionOpenByDefaultCode,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
 };
 
 export const WithHeadings: Story = {
   args: {
     headingLevel: 3,
   },
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use `headingLevel` when accordion buttons should participate in the page heading outline.',
+      },
+      source: {
+        code: accordionWithHeadingsCode,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
+};
+
+export const Controlled: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Use `open` and `onOpenChange` when parent state owns which item is expanded.',
+      },
+      source: {
+        code: accordionControlledCode,
+        language: 'tsx',
+        type: 'code',
+      },
+    },
+  },
+  render: () => <ControlledAccordionExample />,
 };
