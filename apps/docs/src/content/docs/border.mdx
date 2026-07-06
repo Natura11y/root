@@ -22,7 +22,7 @@ import Radius from '../../components/examples/border/Radius.astro';
 
 <TextBlock>
 
-Maintain the <LinkOpenNew LinkUrl="https://developer.mozilla.org/en-US/docs/Web/CSS/border" LinkText="border" /> and <LinkOpenNew LinkUrl="https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius" LinkText="border radius" /> styles globally and on specific selectors.
+Use <LinkOpenNew LinkUrl="https://developer.mozilla.org/en-US/docs/Web/CSS/border" LinkText="border" /> and <LinkOpenNew LinkUrl="https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius" LinkText="border radius" /> utilities to add outlines, side borders, rounded corners, and theme-aware border colors.
 
 </TextBlock>
 
@@ -48,6 +48,8 @@ Add a border to all sides or a specific side of an element with Natura11y's bord
   <div class="border-right">...</div>
   <div class="border-bottom">...</div>
   <div class="border-left">...</div>
+  <div class="border-y">...</div>
+  <div class="border-x">...</div>
 
   <!-- Breakpoint Specific (e.g., medium breakpoint) -->
 
@@ -56,6 +58,8 @@ Add a border to all sides or a specific side of an element with Natura11y's bord
   <div class="border-right--md">...</div>
   <div class="border-bottom--md">...</div>
   <div class="border-left--md">...</div>
+  <div class="border-y--md">...</div>
+  <div class="border-x--md">...</div>
   `}
 >
   <Directional />
@@ -122,7 +126,7 @@ These examples may not be necessary often, but they are available if needed.
 
 ## Border Radius Utilities
 
-Add a border radius to any element with Natura11y's border radius utilities. Border radius utilities are available in three sizes. Include a <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifier</a> to apply a border-radius at a specific breakpoint (Figure 4).
+Add a border radius to any element with Natura11y's border radius utilities. Use the numbered radius scale, pill and circle radius utilities, or directional radius utilities. Include a <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifier</a> to apply a border radius at a specific breakpoint (Figure 4).
 
 </TextBlock>
 
@@ -131,9 +135,12 @@ Add a border radius to any element with Natura11y's border radius utilities. Bor
   code={`
   <!-- Border Radius Sizes -->
 
+  <div class="border-radius-0">...</div>
   <div class="border-radius-1">...</div>
   <div class="border-radius-2">...</div>
   <div class="border-radius-3">...</div>
+  <div class="border-radius-pill">...</div>
+  <div class="border-radius-circle">...</div>
 
   <!-- Border Radius Directional (Sides) -->
 
@@ -206,6 +213,11 @@ Border styles can be customized by redefining the related CSS custom properties.
       property: 'border-style',
       defaultValue: 'solid',
       purpose: 'Style used by border utilities.',
+    },
+    {
+      property: 'border-color',
+      defaultValue: 'inherit',
+      purpose: 'Color used by border utilities unless a theme or border color utility overrides it.',
     },
     {
       property: 'border-radius-base',

@@ -70,6 +70,7 @@ In this file:
         &:hover,
         &:focus {
             opacity: var(--_badge-opacity-hover);
+            text-decoration: underline;
         }
     }
 
@@ -81,8 +82,19 @@ In this file:
 
         gap: 0.5em;
 
+        text-decoration: none;
+
+        &:hover,
+        &:focus {
+            > :is(.text, [class*="__text"]) {
+                text-decoration: underline;
+            }
+        }
+
         .badge {
             margin-block: calc(var(--badge-padding-y) * -1);
+
+            text-decoration: none;
         }
     }
 

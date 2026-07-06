@@ -2,6 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import Badge from '@lib/components/badge';
 import VanillaExample from '../../utils/VanillaExample';
 import badgeMarkup from './badge.example.html?raw';
+import badgeInContextMarkup from './badge-in-context.example.html?raw';
+import badgeWithIconMarkup from './badge-with-icon.example.html?raw';
 
 const meta: Meta<typeof Badge> = {
   title: 'Badge',
@@ -12,6 +14,7 @@ const meta: Meta<typeof Badge> = {
       options: ['span', 'a', 'button'],
     },
     iconHandle: { control: 'text' },
+    utilities: { control: 'text' },
   },
   parameters: {
     docs: {
@@ -23,7 +26,8 @@ const meta: Meta<typeof Badge> = {
 export default meta;
 type Story = StoryObj<typeof Badge>;
 
-export const HTML: Story = {
+export const DefaultHtml: Story = {
+  name: 'Default (HTML)',
   parameters: {
     docs: {
       source: {
@@ -38,31 +42,68 @@ export const HTML: Story = {
 
 export const React: Story = {
   args: {
-    children: 'New',
+    children: 'Default',
   },
 };
 
-export const WithIcon: Story = {
+export const WithIconHtml: Story = {
+  name: 'With Icon (HTML)',
+  parameters: {
+    docs: {
+      source: {
+        code: badgeWithIconMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => <VanillaExample html={badgeWithIconMarkup} />,
+};
+
+export const WithIconReact: Story = {
+  name: 'With Icon (React)',
   args: {
-    iconHandle: 'confirm',
-    children: 'Verified',
+    iconHandle: 'bell',
+    children: 'Alerts',
   },
 };
 
-export const AsLink: Story = {
-  args: {
-    tag: 'a',
-    children: 'View more',
+export const InContextHtml: Story = {
+  name: 'In Context (HTML)',
+  parameters: {
+    docs: {
+      source: {
+        code: badgeInContextMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
   },
+  render: () => <VanillaExample html={badgeInContextMarkup} />,
 };
 
-export const Group: Story = {
+export const InContextReact: Story = {
+  name: 'In Context (React)',
   render: () => (
-    <div className='flex-row gap-2'>
-      <Badge>New</Badge>
-      <Badge utilities='text-color-primary'>Featured</Badge>
-      <Badge utilities='text-color-green'>Active</Badge>
-      <Badge utilities='text-color-red'>Deprecated</Badge>
-    </div>
+    <ul className='nav nav--divider' style={{ maxWidth: '240px' }}>
+      <li>
+        <a href='#1'>Home</a>
+      </li>
+      <li>
+        <a href='#1'>
+          <span className='text'>Inbox</span>
+          <Badge utilities='theme-primary'>4</Badge>
+        </a>
+      </li>
+      <li>
+        <a href='#1'>
+          <span className='text'>Notifications</span>
+          <Badge utilities='theme-secondary'>12</Badge>
+        </a>
+      </li>
+      <li>
+        <a href='#1'>Archive</a>
+      </li>
+    </ul>
   ),
 };

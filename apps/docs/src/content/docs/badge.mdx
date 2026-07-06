@@ -49,6 +49,7 @@ Add `.badge` to any inline element. Without a theme class, the background is a s
 
 <FigureExample
   figureNumber="1"
+  highlightedLines="1,2-4"
   code={`
   <span class="badge">Default</span>
   <span class="badge theme-primary">Primary</span>
@@ -67,7 +68,7 @@ Without a theme class, the badge background is a 10% `color-mix` tint of the cur
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="2,3,4">
+<TableLineDescRow targetFigure="1" lines="2-4">
 
 Add any `theme-*` class to apply a solid background color.
 
@@ -101,7 +102,7 @@ Place an icon inside the badge. The padding and gap adjust automatically via `:h
     <span class="icon icon-bell" aria-hidden="true"></span>
     Alerts
   </span>
-  <span class="badge theme-dark">
+  <span class="badge theme-secondary">
     <span class="icon icon-bell" aria-hidden="true"></span>
     Alerts
   </span>
@@ -120,13 +121,13 @@ Place an icon inside the badge. The padding and gap adjust automatically via `:h
 
 ## Badge in context
 
-Place a `.badge` inside an `<a>` or `<button>` to display a count or status inline. The parent becomes a flex container automatically, and the badge uses a negative `margin-block` to stay within the parent's natural line height.
+Place a `.badge` inside an `<a>` or `<button>` to display a count or status inline. Wrap the link text in `.text` so hover and focus underline the label, not the badge.
 
 </TextBlock>
 
 <FigureExample
   figureNumber="3"
-  highlightedLines="6,7,11,12"
+  highlightedLines="6-9,12-15"
   code={`
   <ul class="nav nav--divider">
     <li>
@@ -134,14 +135,14 @@ Place a `.badge` inside an `<a>` or `<button>` to display a count or status inli
     </li>
     <li>
       <a href="#1">
-        Inbox
+        <span class="text">Inbox</span>
         <span class="badge theme-primary">4</span>
       </a>
     </li>
     <li>
       <a href="#1">
-        Notifications
-        <span class="badge theme-dark">12</span>
+        <span class="text">Notifications</span>
+        <span class="badge theme-secondary">12</span>
       </a>
     </li>
     <li>
