@@ -33,6 +33,7 @@ export const useFlyoutContext = () => {
 // ─── Flyout ───────────────────────────────────────────────────────────────────
 
 interface FlyoutProps {
+  id?: string | null;
   isOpen?: boolean;
   onClose?: (() => void) | null;
   label?: string;
@@ -42,6 +43,7 @@ interface FlyoutProps {
 }
 
 const Flyout = ({
+  id = null,
   isOpen = false,
   onClose = null,
   label = 'Main Menu',
@@ -150,6 +152,7 @@ const Flyout = ({
   return (
     <FlyoutContext.Provider value={{ navigateTo }}>
       <div
+        id={id ?? undefined}
         className={containerClasses}
         data-state={isOpen ? 'open' : 'closed'}
         aria-hidden={!isOpen}

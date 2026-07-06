@@ -1,0 +1,89 @@
+<button
+  class="button"
+  data-open="flyout"
+  aria-controls="flyout-drill-down-html"
+>
+  <span class="icon icon-menu" aria-hidden="true"></span>
+  Flyout Menu
+</button>
+
+<div
+  class="flyout"
+  id="flyout-drill-down-html"
+  aria-hidden="true"
+>
+  <div
+    class="flyout__content"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Main Menu"
+  >
+    <div class="flyout__header">
+      <button
+        class="button button--icon-only font-size-md"
+        data-flyout-back
+        aria-label="Back"
+        type="button"
+        hidden
+      >
+        <span class="icon icon-arrow-left" aria-hidden="true"></span>
+      </button>
+
+      <button
+        class="button button--icon-only font-size-md"
+        data-flyout-close
+        aria-label="Close Menu"
+      >
+        <span class="icon icon-close" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <nav class="flyout__body" aria-label="Main Menu Navigation">
+      <div class="flyout__panels">
+        <div class="flyout__panel">
+          <ul class="nav nav--divider">
+            <li>
+              <button data-flyout-next aria-controls="flyout-panel-wildlife">
+                Wildlife
+                <span class="icon icon-arrow-right" aria-hidden="true"></span>
+              </button>
+            </li>
+            <li>
+              <button data-flyout-next aria-controls="flyout-panel-trails">
+                Trails
+                <span class="icon icon-arrow-right" aria-hidden="true"></span>
+              </button>
+            </li>
+            <li><a href="#1">Events</a></li>
+            <li><a href="#1">About</a></li>
+            <li><a href="#1">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="flyout__panel" id="flyout-panel-wildlife">
+          <div class="flyout__panel-title">
+            <p>Wildlife</p>
+          </div>
+          <ul class="nav nav--divider">
+            <li><a href="#1">Birds</a></li>
+            <li><a href="#1">Mammals</a></li>
+            <li><a href="#1">Reptiles</a></li>
+            <li><a href="#1">All Wildlife</a></li>
+          </ul>
+        </div>
+
+        <div class="flyout__panel" id="flyout-panel-trails">
+          <div class="flyout__panel-title">
+            <p>Trails</p>
+          </div>
+          <ul class="nav nav--divider">
+            <li><a href="#1">Easy</a></li>
+            <li><a href="#1">Moderate</a></li>
+            <li><a href="#1">Strenuous</a></li>
+            <li><a href="#1">All Trails</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>

@@ -8,7 +8,7 @@ bannerCreditUrl: https://unsplash.com/@fiveamstories
 bannerImage: ./banner/gradient.jpg
 bannerAlt: A foggy view of mountains, creating a calm, muted landscape.
 description: 
-    Create gradient overlays and masks for images and backgrounds. Includes directional gradients, vignette effects, and theme-based gradient utilities.
+    Create gradient masks for images and visual backgrounds. Includes directional fades, vignette effects, and examples that blend media into theme colors.
 relatedPages:
   - "Backdrop"
   - "Color"
@@ -26,7 +26,7 @@ import GradientMaskThemes from '../../components/examples/gradient/Themes.astro'
 
 <TextBlock>
 
-Natura11y gradient masks are subtle design elements that enhance the visual harmony between elements.
+Natura11y gradient masks fade media and visual layers into the surrounding surface.
 
 </TextBlock>
 
@@ -40,12 +40,13 @@ Natura11y gradient masks are subtle design elements that enhance the visual harm
 
 ## Directional Gradients
 
-Use the `.gradient-mask-{x}` utility class to add a gradient mask in a specific direction. Replace ***x*** with *top*, *right*, *bottom*, or *left* to set the gradient direction (see Figure 1).
+Use `.gradient-mask-{x}` to fade a visual layer toward a specific edge. Replace ***x*** with *top*, *right*, *bottom*, or *left* to set the mask direction.
 
 </TextBlock>
 
 <FigureExample
     figureNumber="1"
+    markedText={['gradient-mask-top', 'gradient-mask-right', 'gradient-mask-bottom', 'gradient-mask-left', 'gradient-mask-top--lg']}
     code={`
         <!-- Directional Gradients -->
         <div class="gradient-mask-top">...</div>
@@ -62,12 +63,13 @@ Use the `.gradient-mask-{x}` utility class to add a gradient mask in a specific 
 
 <TextBlock>
 
-Gradient Masks allow the underlying background color blend through the image, enhancing the visual harmony between elements.
+Gradient masks let the underlying theme color blend through the image.
 
 </TextBlock>
 
 <FigureExample
     figureNumber="2"
+    markedText={['theme-primary', 'gradient-mask-bottom']}
     code={`
         <div class="backdrop theme-primary">
 
@@ -98,12 +100,13 @@ Gradient Masks allow the underlying background color blend through the image, en
 
 ## Vignette Gradients
 
-Use the `.gradient-mask-vignette` utility class to add a vignette effect to an element (see Figure 3).
+Use `.gradient-mask-vignette` to fade the outside edges of a visual layer.
 
 </TextBlock>
 
 <FigureExample
     figureNumber="3"
+    markedText={['gradient-mask-vignette', 'gradient-mask-vignette--lg']}
     code={`
         <!-- Vignette Gradient -->
         <div class="gradient-mask-vignette">...</div>

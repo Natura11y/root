@@ -5,6 +5,7 @@ import Flyout from '@lib/components/flyout';
 import Button from '@lib/components/button';
 import VanillaExample from '../../utils/VanillaExample';
 import flyoutMarkup from './flyout.example.html?raw';
+import flyoutDrillDownMarkup from './flyout-drill-down.example.html?raw';
 
 const initializeFlyout = () => {
   new VanillaFlyout().init();
@@ -23,7 +24,8 @@ const meta: Meta<typeof Flyout> = {
 export default meta;
 type Story = StoryObj<typeof Flyout>;
 
-export const HTML: Story = {
+export const DefaultHtml: Story = {
+  name: 'Default (HTML)',
   parameters: {
     docs: {
       source: {
@@ -42,7 +44,8 @@ export const HTML: Story = {
   ),
 };
 
-export const React: Story = {
+export const DefaultReact: Story = {
+  name: 'Default (React)',
   render: () => {
     const [isOpen, setIsOpen] = useState(false);
     return (
@@ -51,9 +54,9 @@ export const React: Story = {
           title='Flyout Menu'
           iconStartHandle='menu'
           onClick={() => setIsOpen(true)}
-          attributes={{ 'aria-expanded': isOpen }}
+          attributes={{ 'aria-controls': 'flyout-react', 'aria-expanded': isOpen }}
         />
-        <Flyout isOpen={isOpen} onClose={() => setIsOpen(false)} label='Menu'>
+        <Flyout id='flyout-react' isOpen={isOpen} onClose={() => setIsOpen(false)} label='Menu'>
           <ul className='nav nav--divider'>
             <li><a href='#'>Home</a></li>
             <li><a href='#'>Trails</a></li>
@@ -68,18 +71,39 @@ export const React: Story = {
   },
 };
 
-export const WithDrillDown: Story = {
+export const DrillDownHtml: Story = {
+  name: 'Drill Down (HTML)',
+  parameters: {
+    docs: {
+      source: {
+        code: flyoutDrillDownMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => (
+    <VanillaExample
+      html={flyoutDrillDownMarkup}
+      initialize={initializeFlyout}
+      initializeOnceKey='flyout'
+    />
+  ),
+};
+
+export const DrillDownReact: Story = {
+  name: 'Drill Down (React)',
   render: () => {
     const [isOpen, setIsOpen] = useState(false);
     return (
       <>
         <Button
-          title='Flyout Menu with Drill Down'
+          title='Flyout Menu'
           iconStartHandle='menu'
           onClick={() => setIsOpen(true)}
-          attributes={{ 'aria-expanded': isOpen }}
+          attributes={{ 'aria-controls': 'flyout-drill-down-react', 'aria-expanded': isOpen }}
         />
-        <Flyout isOpen={isOpen} onClose={() => setIsOpen(false)} label='Main Menu'>
+        <Flyout id='flyout-drill-down-react' isOpen={isOpen} onClose={() => setIsOpen(false)} label='Main Menu'>
           <Flyout.Panel>
             {({ navigateTo }) => (
               <ul className='nav nav--divider'>

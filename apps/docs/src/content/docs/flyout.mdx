@@ -71,7 +71,7 @@ Figure 1 shows the complete HTML, including the trigger button and all required 
 
 <FigureExample
     figureNumber="1"
-    highlightedLines="3-10,14-18,20-26,28-37,39-48"
+    highlightedLines="3-10,14-18,20-25,27-35,37-46"
     code={`
         <!-- Trigger button -->
 
@@ -143,7 +143,7 @@ The `.flyout` selector is required. It acts as the full-screen backdrop.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="20-26">
+<TableLineDescRow targetFigure="1" lines="20-25">
 
 The `.flyout__content` selector is required. It holds all menu content and slides in from the side.
 
@@ -153,7 +153,7 @@ The `.flyout__content` selector is required. It holds all menu content and slide
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="28-37">
+<TableLineDescRow targetFigure="1" lines="27-35">
 
 The `.flyout__header` selector is required.
 
@@ -161,7 +161,7 @@ The button with `data-flyout-close` closes the menu. Place it inside `.flyout__h
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="39-48">
+<TableLineDescRow targetFigure="1" lines="37-46">
 
 The `.flyout__body` selector is required. It scrolls vertically when content exceeds the viewport height.
 
@@ -197,7 +197,7 @@ The optional `.flyout__panel-title` selector labels the current sub-panel to hel
 
 <FigureExample
     figureNumber="2"
-    highlightedLines="3-11,15,18-36,39-49"
+    highlightedLines="2-10,15,18-36,39-49"
     code={`
         <div class="flyout__header">
             <button
@@ -257,7 +257,7 @@ The optional `.flyout__panel-title` selector labels the current sub-panel to hel
 
 <TableLineDescBlock targetFigure="2">
 
-<TableLineDescRow targetFigure="2" lines="3-11">
+<TableLineDescRow targetFigure="2" lines="2-10">
 
 The button with `data-flyout-back` is hidden by default. JavaScript reveals it after the user drills into a sub-panel.
 
@@ -277,7 +277,7 @@ Each `.flyout__panel` holds one level of navigation. The first panel is active b
 
 <TableLineDescRow targetFigure="2" lines="39-49">
 
-Sub-panels follow the same `.flyout__panel` pattern. The `.flyout__panel-title` wraps a `<p>` to label the current sub-panel context for the user. JavaScript automatically applies `inert` to inactive panels, hiding them from the <kbd>Tab</kbd> order.
+Sub-panels follow the same `.flyout__panel` pattern. The `.flyout__panel-title` wraps a `<p>` to label the current sub-panel context for the user. JavaScript keeps inactive panels out of keyboard focus.
 
 </TableLineDescRow>
 

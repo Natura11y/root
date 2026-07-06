@@ -45,7 +45,7 @@ Natura11y's <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Learn
 
 ## Flex Direction Utilities
 
-The <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction' LinkText='flex direction' /> utilities (Figure 1) create the flex container. They define the main axis: *row* or *column*, along with direction: *normal* or *reverse*. Further, they set the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap">flex-wrap</a> property to *wrap*.
+The <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/flex-direction' LinkText='flex direction' /> utilities (Figure 1) create the flex container. They define the main axis: *row* or *column*, along with direction: *normal* or *reverse*. They also set the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/flex-wrap">flex-wrap</a> property to *wrap*.
 
 </TextBlock>
 
@@ -63,7 +63,7 @@ The <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/flex-
 
 <TextBlock>
 
-Need a flex row that doesn't wrap? Replace `.flex-row` with `.display-flex` (from the <a href="/docs/display/">display utilities</a>).
+Need a flex row that doesn't wrap? Add `.flex-no-wrap` to the flex container.
 
 </TextBlock>
 
@@ -156,9 +156,9 @@ The <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/flex-
 
 <TextBlock>
 
-With a flex shrink value of *0*, a flex item will not shrink as it's flex container gets smaller. With a shrink value of *1*, the flex item will shrink, but no smaller than it’s content.
+With a flex shrink value of *0*, a flex item will not shrink as its flex container gets smaller. With a shrink value of *1*, the flex item will shrink, but no smaller than its content.
 
-With the examples below, `.flex-shrink-1` applied to the first flex item allows it to shrink along it's main axis.
+With the examples below, `.flex-shrink-1` applied to the first flex item allows it to shrink along its main axis.
 
 </TextBlock>
 
@@ -182,13 +182,13 @@ With the examples below, `.flex-shrink-1` applied to the first flex item allows 
 
 ---
 
-<Section id="justify-content-utilites">
+<Section id="justify-content-utilities">
 
 <TextBlock>
 
-## Justify Content Utilites
+## Justify Content Utilities
 
-The <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content' LinkText='justify content' /> utilites (Figure 3) align items along the main-axis of their flex container.
+The <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/justify-content' LinkText='justify content' /> utilities (Figure 7) align items along the main axis of their flex container.
 
 </TextBlock>
 
@@ -212,7 +212,7 @@ The <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/justi
 
 Justify content utilities accept <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a>.
 
-With the HTML in Figure 8, the flex container changes it's justification to *end* at the large breakpoint.
+With the HTML in Figure 8, the flex container changes its justification to *end* at the large breakpoint.
 
 </TextBlock>
 
@@ -231,13 +231,13 @@ With the HTML in Figure 8, the flex container changes it's justification to *end
 
 ---
 
-<Section id="align-content-utilites">
+<Section id="align-content-utilities">
 
 <TextBlock>
 
-## Align Content Utilites
+## Align Content Utilities
 
-The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/align-content">align content</a> utilites distribute the space between and around items along the flex container's cross-axis.
+The <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/align-content">align content</a> utilities distribute the space between and around items along the flex container's cross axis.
 
 </TextBlock>
 

@@ -19,6 +19,9 @@ All notable changes to this project will be documented in this file.
 #### Form
 - Stop adding unsupported `aria-required` attributes to native form controls at runtime; required fields continue to receive the native `required` attribute from `.form-entry[data-required]`.
 
+#### Flex
+- Fix `.flex-wrap` so it sets `flex-wrap: wrap` instead of duplicating `.flex-no-wrap`.
+
 #### Dropdown
 - Allow standalone hover dropdowns to initialize without requiring a mega menu or main menu in the DOM.
 
