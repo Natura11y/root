@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import Pagination from '@lib/components/pagination';
 import VanillaExample from '../../utils/VanillaExample';
 import paginationMarkup from './pagination.example.html?raw';
+import visibleLabelsMarkup from './pagination-visible-labels.example.html?raw';
 
 const meta: Meta<typeof Pagination> = {
   title: 'Pagination',
@@ -16,42 +17,61 @@ const meta: Meta<typeof Pagination> = {
 export default meta;
 type Story = StoryObj<typeof Pagination>;
 
-export const HTML: Story = {
+const truncatedItems = [
+  { iconHandle: 'arrow-left', ariaLabel: 'Previous page', href: '#prev' },
+  { label: '1', href: '#1' },
+  { label: '2', href: '#2' },
+  { label: '3', href: '#3', current: true },
+  { label: '4', href: '#4' },
+  { ellipsis: true },
+  { label: '9', href: '#9' },
+  { iconHandle: 'arrow-right', ariaLabel: 'Next page', href: '#next' },
+];
+
+const visibleLabelItems = [
+  { iconHandle: 'arrow-left', label: 'Previous', href: '#prev' },
+  { label: '1', href: '#1' },
+  { label: '2', href: '#2' },
+  { label: '3', href: '#3', current: true },
+  { label: '4', href: '#4' },
+  { ellipsis: true },
+  { label: '9', href: '#9' },
+  { iconHandle: 'arrow-right', iconPosition: 'end' as const, label: 'Next', href: '#next' },
+];
+
+const createHtmlStory = (markup: string): Story => ({
   parameters: {
     docs: {
       source: {
-        code: paginationMarkup.trim(),
+        code: markup.trim(),
         language: 'html',
         type: 'code',
       },
     },
   },
-  render: () => <VanillaExample html={paginationMarkup} />,
+  render: () => <VanillaExample html={markup} />,
+});
+
+export const DefaultHtml: Story = {
+  name: 'Default (HTML)',
+  ...createHtmlStory(paginationMarkup),
 };
 
-export const React: Story = {
+export const DefaultReact: Story = {
+  name: 'Default (React)',
   args: {
-    items: [
-      { iconHandle: 'arrow-left', ariaLabel: 'Previous page', href: '#' },
-      { label: '1', href: '#', ariaLabel: 'Page 1' },
-      { label: '2', href: '#', ariaLabel: 'Page 2', current: true },
-      { label: '3', href: '#', ariaLabel: 'Page 3' },
-      { iconHandle: 'arrow-right', ariaLabel: 'Next page', href: '#' },
-    ],
+    items: truncatedItems,
   },
 };
 
-export const WithEllipsis: Story = {
+export const VisibleLabelsHtml: Story = {
+  name: 'Visible Labels (HTML)',
+  ...createHtmlStory(visibleLabelsMarkup),
+};
+
+export const VisibleLabelsReact: Story = {
+  name: 'Visible Labels (React)',
   args: {
-    items: [
-      { iconHandle: 'arrow-left', ariaLabel: 'Previous page', href: '#' },
-      { label: '1', href: '#', ariaLabel: 'Page 1' },
-      { label: '2', href: '#', ariaLabel: 'Page 2' },
-      { ellipsis: true },
-      { label: '8', href: '#', ariaLabel: 'Page 8' },
-      { label: '9', href: '#', ariaLabel: 'Page 9', current: true },
-      { label: '10', href: '#', ariaLabel: 'Page 10' },
-      { iconHandle: 'arrow-right', ariaLabel: 'Next page', href: '#' },
-    ],
+    items: visibleLabelItems,
   },
 };

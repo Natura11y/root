@@ -8,6 +8,7 @@ interface PaginationItem {
   current?: boolean;
   ariaLabel?: string;
   iconHandle?: string;
+  iconPosition?: 'start' | 'end';
   linkTag?: ElementType;
   linkProps?: Record<string, unknown>;
 }
@@ -37,6 +38,12 @@ const Pagination = ({
         }
 
         const LinkTag = item.linkTag ?? linkTag;
+        const icon = item.iconHandle ? (
+          <span className={`icon icon-${item.iconHandle}`} aria-hidden='true' />
+        ) : null;
+        const label = item.label ? (
+          <span className='text'>{item.label}</span>
+        ) : null;
 
         return (
           <li key={index}>
@@ -46,12 +53,8 @@ const Pagination = ({
               {...(item.ariaLabel && { 'aria-label': item.ariaLabel })}
               {...item.linkProps}
             >
-              {item.iconHandle && (
-                <span className={`icon icon-${item.iconHandle}`} aria-hidden='true' />
-              )}
-              {item.label && (
-                <span className='text'>{item.label}</span>
-              )}
+              {item.iconPosition === 'end' ? label : icon}
+              {item.iconPosition === 'end' ? icon : label}
             </LinkTag>
           </li>
         );

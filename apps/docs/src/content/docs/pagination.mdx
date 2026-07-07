@@ -16,6 +16,7 @@ relatedPages:
 ---
 
 import Truncated from '../../components/examples/pagination/Truncated.astro';
+import VisibleLabels from '../../components/examples/pagination/VisibleLabels.astro';
 
 <Section id="introduction">
 
@@ -51,45 +52,49 @@ Add `aria-hidden="true"` to truncation items so screen readers skip them.
 
 ## Pagination
 
-Add `.pagination` to a `<ul>` element wrapped in a `<nav>`. Each `<li>` contains an `<a>` or `<button>`. Use `icon-more-horizontal` inside a `<li>` to indicate skipped pages. See Figure 1.
+Add `.pagination` to a `<ul>` element wrapped in a `<nav>`. Page links and previous/next controls use an `<a>` or `<button>` inside each `<li>`. Use `icon-more-horizontal` inside a plain `<li>` to indicate skipped pages. See Figure 1.
 
 </TextBlock>
 
 <FigureExample
     figureNumber="1"
-    highlightedLines="1,2,3-7,15,20-22,26-30"
-    code={`<nav aria-label="Pagination">
-  <ul class="pagination">
-    <li>
-      <a href="#prev" aria-label="Previous page">
-        <span class="icon icon-arrow-left" aria-hidden="true"></span>
-      </a>
-    </li>
-    <li>
-      <a href="#1">1</a>
-    </li>
-    <li>
-      <a href="#2">2</a>
-    </li>
-    <li>
-      <a href="#3" aria-current="page">3</a>
-    </li>
-    <li>
-      <a href="#4">4</a>
-    </li>
-    <li aria-hidden="true">
-      <span class="icon icon-more-horizontal" aria-hidden="true"></span>
-    </li>
-    <li>
-      <a href="#9">9</a>
-    </li>
-    <li>
-      <a href="#next" aria-label="Next page">
-        <span class="icon icon-arrow-right" aria-hidden="true"></span>
-      </a>
-    </li>
-  </ul>
-</nav>`}
+    highlightedLines="1,3,4-8,16,21-23,27-31"
+    code={`
+    <nav aria-label="Pagination">
+
+      <ul class="pagination">
+        <li>
+          <a href="#prev" aria-label="Previous page">
+            <span class="icon icon-arrow-left" aria-hidden="true"></span>
+          </a>
+        </li>
+        <li>
+          <a href="#1">1</a>
+        </li>
+        <li>
+          <a href="#2">2</a>
+        </li>
+        <li>
+          <a href="#3" aria-current="page">3</a>
+        </li>
+        <li>
+          <a href="#4">4</a>
+        </li>
+        <li aria-hidden="true">
+          <span class="icon icon-more-horizontal" aria-hidden="true"></span>
+        </li>
+        <li>
+          <a href="#9">9</a>
+        </li>
+        <li>
+          <a href="#next" aria-label="Next page">
+            <span class="icon icon-arrow-right" aria-hidden="true"></span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+  `}
 >
     <Truncated />
 </FigureExample>
@@ -102,31 +107,96 @@ The `<nav>` element with `aria-label` is required. It identifies the pagination 
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="2">
+<TableLineDescRow targetFigure="1" lines="3">
 
 The `.pagination` class on the `<ul>` element provides the bordered bar layout, item sizing, and dividers between items.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="3-7,26-30">
+<TableLineDescRow targetFigure="1" lines="4-8">
 
-Previous and next links are placed first and last in the list. `aria-label` is required when the link contains only an icon. Optionally include `<span class="text">Previous</span>` alongside the icon for a visible label — in that case, `aria-label` is not needed.
+Previous links are placed first in the list. `aria-label` is required when the link contains only an icon.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="15">
+<TableLineDescRow targetFigure="1" lines="16">
 
 Add `aria-current="page"` to the active page link. Omit the previous link when on the first page and the next link when on the last.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="20-22">
+<TableLineDescRow targetFigure="1" lines="21-23">
 
 The truncation item indicates skipped pages. Place `icon-more-horizontal` directly inside the `<li>` with no `<a>` or `<button>` wrapper — it is purely visual. Add `aria-hidden="true"` to the `<li>` so screen readers skip it. Repeat wherever pages are omitted.
 
 </TableLineDescRow>
 
+<TableLineDescRow targetFigure="1" lines="27-31">
+
+Next links are placed last in the list. `aria-label` is required when the link contains only an icon.
+
+</TableLineDescRow>
+
 </TableLineDescBlock>
+
+</Section>
+
+---
+
+<Section id="visible-labels">
+
+<TextBlock>
+
+## Visible Previous and Next Labels
+
+When previous and next links include visible text, the text provides the accessible name. In that case, `aria-label` is not needed.
+
+</TextBlock>
+
+<FigureExample
+    figureNumber="2"
+    markedText={['<span class="text">Previous</span>', '<span class="text">Next</span>']}
+    code={`
+    <nav aria-label="Pagination">
+
+      <ul class="pagination">
+        <li>
+          <a href="#prev">
+            <span class="icon icon-arrow-left" aria-hidden="true"></span>
+            <span class="text">Previous</span>
+          </a>
+        </li>
+        <li>
+          <a href="#1">1</a>
+        </li>
+        <li>
+          <a href="#2">2</a>
+        </li>
+        <li>
+          <a href="#3" aria-current="page">3</a>
+        </li>
+        <li>
+          <a href="#4">4</a>
+        </li>
+        <li aria-hidden="true">
+          <span class="icon icon-more-horizontal" aria-hidden="true"></span>
+        </li>
+        <li>
+          <a href="#9">9</a>
+        </li>
+        <li>
+          <a href="#next">
+            <span class="text">Next</span>
+            <span class="icon icon-arrow-right" aria-hidden="true"></span>
+          </a>
+        </li>
+      </ul>
+
+    </nav>
+  `}
+>
+    <VisibleLabels />
+</FigureExample>
 
 </Section>
 
@@ -143,7 +213,7 @@ Pagination styles can be customized by redefining the related CSS custom propert
 </TextBlock>
 
 <RelatedCustomProperties
-    figureNumber="2"
+    figureNumber="3"
     properties={[
         {
             property: 'pagination-font-size',
