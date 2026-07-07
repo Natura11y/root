@@ -12,8 +12,8 @@ const positions = [
 <div style={exampleStyle}>
   <div class="grid gap-3 font-size-md">
     {positions.map((position) => (
-      <div class="position-relative subtle-fill-1" style="height: 240px;">
-        <div class={`${position} padding-x-3 padding-y-2 theme-canvas border`}>
+      <div class="position-relative border" style="height: 240px;">
+        <div class={`${position} padding-x-3 padding-y-2 subtle-fill-1`}>
           <p>
             <code>{`.${position}`}</code>
           </p>

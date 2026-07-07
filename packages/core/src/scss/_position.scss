@@ -56,7 +56,7 @@ $positions: static, relative, absolute, fixed;
                 inset-block-start: 0;
                 inset-inline-end: 0;
                 inset-block-end: unset;
-                inset-block-start: unset;
+                inset-inline-start: unset;
             }
 
             .position-bottom-right#{$mod} {
@@ -69,7 +69,7 @@ $positions: static, relative, absolute, fixed;
 
             .position-bottom-left#{$mod} {
                 position: absolute;
-                inset-inline-start: unset;
+                inset-block-start: unset;
                 inset-inline-end: unset;
                 inset-block-end: 0;
                 inset-inline-start: 0;
