@@ -47,6 +47,7 @@ const getVisibleSections = (sections: DocSection[]) => (
     role="dialog"
     aria-modal="true"
   >
+  
     <header class="modal__content__head border-bottom">
       <div>
         <h2 class="h5" id={`${modalId}-title`}>
@@ -171,21 +172,21 @@ const getVisibleSections = (sections: DocSection[]) => (
   const initializeDocsSearch = () => {
     const roots = Array.from(document.querySelectorAll<HTMLElement>('[data-doc-search-root]'));
     const noResultsArtwork = [
-      `.__.
+     `.__.
       {O,o}
       /)__)
       " "`,
-      `/\\_/\\
-( o.o )
->^_^<`,
+     `/\\_/\\
+      ( o.o )
+      >^_^<`,
       `><(((º>
-'''`,
+         '''`,
       ` (\\(\\
-  ( -.-)
-o_(")(")`,
-`/\\_/\\
-(°ᴥ°)
-/  \\`,
+        ( -.-)
+      o_(")(")`,
+      `/\\_/\\
+        (°ᴥ°)
+        /  \\`,
     ];
 
     const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
