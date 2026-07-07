@@ -3,14 +3,27 @@ import { exampleStyle } from '../shared/exampleStyles';
 ---
 
 <div style={exampleStyle}>
-  <div
-    class="subtle-fill-1 font-size-md text-align-center"
-    style="height: 240px;"
-  >
-    <div class="padding-1 subtle-fill-1 border width-50 height-100 flex-column justify-content-center margin-x-auto">
-      <p>
-        <code>.height-100</code>
-      </p>
+  <div class="grid grid--column-2--md gap-3 font-size-md text-align-center">
+    <div
+      class="subtle-fill-1"
+      style="height: 240px;"
+    >
+      <div class="padding-1 subtle-fill-1 border width-75 height-100 flex-column justify-content-center margin-x-auto">
+        <p>
+          <code>.height-100</code>
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="subtle-fill-1"
+      style="height: 240px;"
+    >
+      <div class="padding-1 subtle-fill-1 border width-75 min-height-100 flex-column justify-content-center margin-x-auto">
+        <p>
+          <code>.min-height-100</code>
+        </p>
+      </div>
     </div>
   </div>
 </div>

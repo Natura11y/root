@@ -8,7 +8,7 @@ bannerCreditUrl: https://unsplash.com/@larryli
 bannerImage: ./banner/sizing.jpg
 bannerAlt: Five elephants on brown grass
 description: 
-    Set element widths and heights with percentage-based utilities. Includes responsive sizing, min/max dimensions, and flexible height controls.
+    Set element widths, heights, and minimum heights with responsive sizing utilities.
 relatedPages:
   - "Container"
   - "Grid"
@@ -23,7 +23,7 @@ import Width from '../../components/examples/sizing/Width.astro';
 
 <TextBlock>
 
-Set specific <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/width' LinkText='width' /> and <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/height' LinkText='height' /> values to an element.
+Set specific <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/width' LinkText='width' />, <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/height' LinkText='height' />, and minimum height values to an element.
 
 </TextBlock>
 
@@ -37,7 +37,7 @@ Set specific <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/
 
 ## Width Utilities
 
-Natura11y provides the following width utilities. Number values represent a percentage. For example, the <code>.width-50</code> utility makes its selector 50% of its parent.
+Natura11y provides the following width utilities. Number values represent a percentage. For example, the <code>.width-50</code> utility makes its selector 50% of its parent. The <code>.width-100vw</code> and <code>.width-auto</code> utilities provide viewport-width and automatic width options.
 
 </TextBlock>
 
@@ -56,6 +56,7 @@ Natura11y provides the following width utilities. Number values represent a perc
         <div class="width-80">...</div>
         <div class="width-90">...</div>
         <div class="width-100">...</div>
+        <div class="width-100vw">...</div>
         <div class="width-auto">...</div>
     `}
 >
@@ -72,10 +73,11 @@ Width Utilities accept <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoi
 
 <FigureExample
     figureNumber="2"
+    markedText="width-75--lg"
     code={`
         <!-- With breakpoint modifier -->
 
-        <div class="width-75--lg 👈">...</div>
+        <div class="width-75--lg">...</div>
     `}
 />
 
@@ -89,7 +91,7 @@ Width Utilities accept <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoi
 
 ## Height Utilities
 
-Natura11y provides only two height utilities:
+Natura11y provides height and minimum height utilities for full-height elements:
 
 </TextBlock>
 
@@ -97,9 +99,11 @@ Natura11y provides only two height utilities:
     figureNumber="3"
     code={`
         <div class="height-100">...</div>
+        <div class="min-height-100">...</div>
 
         <!-- 100% height of viewport -->
         <div class="height-100vh">...</div>
+        <div class="min-height-100vh">...</div>
     `}
 >
     <Height />
@@ -109,17 +113,20 @@ Natura11y provides only two height utilities:
 
 ### Breakpoint Modifiers
 
-Height utilities accept <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a>.
+Height and minimum height utilities accept <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a>.
 
 </TextBlock>
 
 <FigureExample
     figureNumber="4"
+    markedText={['height-100--lg', 'min-height-100--lg', 'height-100vh--lg', 'min-height-100vh--lg']}
     code={`
         <!-- With breakpoint modifier -->
 
         <div class="height-100--lg">...</div>
+        <div class="min-height-100--lg">...</div>
         <div class="height-100vh--lg">...</div>
+        <div class="min-height-100vh--lg">...</div>
     `}
 />
 
