@@ -8,7 +8,7 @@ bannerCreditUrl: https://unsplash.com/@rachyhannahphoto
 bannerImage: ./banner/modal.jpg
 bannerAlt: Brown meerkat photo
 description: 
-    Create accessible modal dialogs with keyboard navigation, focus management, and ARIA roles. Includes backdrop clicks and escape key handling.
+    Create accessible modal dialogs with keyboard navigation, focus management, ARIA roles, optional backdrop clicks, and escape key handling.
 relatedPages:
   - "Lightbox"
   - "Accessibility"
@@ -56,61 +56,67 @@ Use the button below to launch the modal component with default behavior. Modals
 
 <FigureExample
     figureNumber="1"
-    highlightedLines="2-9,13-17,18-23,24-31,33-35,37-48"
-    code={`<!-- Modal button -->
-<button
-  class="button theme-primary"
-  data-modal="open"
-  aria-controls="modal-example-01"
-  type="button"
->
-  Open Modal
-</button>
+    highlightedLines="3-10,14-18,19-24,25-32,34-36,38-47"
+    code={`
+    <!-- Modal button -->
 
-<!-- Modal dialog -->
-<div
-  class="modal"
-  id="modal-example-01"
-  aria-hidden="true"
->
+    <button
+      class="button theme-primary"
+      data-modal="open"
+      aria-controls="modal-example-01"
+      type="button"
+    >
+      Open Modal
+    </button>
+
+  <!-- Modal dialog -->
+
   <div
-    class="modal__content narrow border-radius-2 box-shadow-3"
-    aria-labelledby="modal-example-01-title"
-    role="dialog"
-    aria-modal="true"
+    class="modal"
+    id="modal-example-01"
+    aria-hidden="true"
   >
-    <header class="modal__content__head border-bottom">
-      <h2 class="h6" id="modal-example-01-title">
-        Modal Title One
-      </h2>
-      <button class="button button--icon-only" data-modal-close type="button">
-        <span class="icon icon-close" aria-hidden="true"></span>
-      </button>
-    </header>
+    <div
+      class="modal__content narrow border-radius-2 box-shadow-3"
+      aria-labelledby="modal-example-01-title"
+      role="dialog"
+      aria-modal="true"
+    >
+      <header class="modal__content__head border-bottom">
+        <h2 class="h6" id="modal-example-01-title">
+          Modal Title One
+        </h2>
+        <button class="button button--icon-only" data-modal-close type="button">
+          <span class="icon icon-close" aria-hidden="true"></span>
+        </button>
+      </header>
 
-    <main class="modal__content__body" id="modal-example-01-content">
-      <p>...</p>
-    </main>
+      <main class="modal__content__body" id="modal-example-01-content">
+        <p>...</p>
+      </main>
 
-    <footer class="modal__content__foot border-top text-color-link">
-      <ul class="nav nav--horizontal justify-content-between">
-        <li>
-          <a href="#1">Secondary Action</a>
-        </li>
-        <li>
-          <a class="button border-radius-pill" href="#1">Primary Action</a>
-        </li>
-      </ul>
-    </footer>
+      <footer class="modal__content__foot border-top text-color-link">
+        <ul class="nav nav--horizontal justify-content-between">
+          <li>
+            <a href="#1">Secondary Action</a>
+          </li>
+          <li>
+            <a class="button border-radius-pill" href="#1">Primary Action</a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+
   </div>
-</div>`}
+  `}
 >
     <Dialog id="modal-example-01" />
 </FigureExample>
 
 <TableLineDescBlock targetFigure="1">
 
-<TableLineDescRow targetFigure="1" lines="2-9">
+<TableLineDescRow targetFigure="1" lines="3-10">
 
 A button with the `data-modal="open"` attribute is required.
 
@@ -118,7 +124,7 @@ The `aria-controls` attribute equals its associated modal's `id` attribute.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="13-17">
+<TableLineDescRow targetFigure="1" lines="14-18">
 
 The `.modal` selector is required.
 
@@ -126,7 +132,7 @@ The `id` attribute equals the value of its associated button's `aria-controls` a
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="18-23">
+<TableLineDescRow targetFigure="1" lines="19-24">
 
 The `.modal__content` selector is required.
 
@@ -138,13 +144,13 @@ The `.border-radius-2` utility is optional.
 
 The `.box-shadow-3` utility is optional.
 
-The `aria-labelledby` attribute is recommended for assistive technology.
+Use `role="dialog"`, `aria-modal="true"`, and `aria-labelledby` so assistive technology treats the content as a named modal dialog.
 
 The `aria-labelledby` attribute equals its associated header's `id` attribute. This header is present within `.modal__content__head`.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="24-31">
+<TableLineDescRow targetFigure="1" lines="25-32">
 
 The `.modal__content__head` selector is required.
 
@@ -156,7 +162,7 @@ The `.button` selector with the `data-modal-close` attribute closes the modal.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="33-35">
+<TableLineDescRow targetFigure="1" lines="34-36">
 
 The `.modal__content__body` selector is required.
 
@@ -164,7 +170,7 @@ It holds the modal's main content.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="37-48">
+<TableLineDescRow targetFigure="1" lines="38-47">
 
 The `.modal__content__foot` selector is not required.
 
@@ -191,11 +197,13 @@ If you wish for the entire modal to scroll, add the `.modal--scroll-all` modifie
 </TextBlock>
 
 <FigureExample
-    figureNumber="2"
-    highlightedLines="1"
-    code={`<div class="modal modal--scroll-all" id="...">
-  ...
-</div>`}
+  figureNumber="2"
+  highlightedLines="1"
+  code={`
+  <div class="modal modal--scroll-all" id="...">
+    ...
+  </div>
+  `}
 >
     <Dialog
         id="modal-example-scroll-all"

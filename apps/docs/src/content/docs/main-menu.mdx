@@ -61,7 +61,7 @@ The `.main-menu--bar--{bp}` selector places the main menu *inline* with the logo
 <FigureExample
   figureNumber="1"
   figureWidth="wide"
-  highlightedLines="1,2-9,11-43,45-68,70-89,91-95"
+  highlightedLines="1,3-10,12-44,46-69,71-90,92-96"
   code={`
   <div class="main-menu--bar--lg">
 
@@ -174,7 +174,7 @@ It accepts two modifiers: the variant (*bar* or *stack*) and the responsive brea
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="2-9">
+<TableLineDescRow targetFigure="1" lines="3-10">
 
 The `.main-menu__logo` selector is required.
 
@@ -184,7 +184,7 @@ When using a single-color `<svg>` for the logo, the `data-logo="brand"` attribut
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="11-43">
+<TableLineDescRow targetFigure="1" lines="12-44">
 
 The `.main-menu__nav` selector is required.
 
@@ -196,7 +196,7 @@ Learn about <a href="/docs/dropdown/">dropdowns</a>.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="45-68">
+<TableLineDescRow targetFigure="1" lines="46-69">
 
 The `.main-menu__toggle` selector is required.
 
@@ -210,7 +210,7 @@ Learn about <a href="/docs/collapse/">collapse</a>.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="70-89">
+<TableLineDescRow targetFigure="1" lines="71-90">
 
 The `.main-menu__search` selector is optional.
 
@@ -222,7 +222,7 @@ Learn about <a href="/docs/form/#form-entries">form entries</a>.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="1" lines="91-95">
+<TableLineDescRow targetFigure="1" lines="92-96">
 
 The `.main-menu__actions` selector is optional.
 
@@ -261,41 +261,44 @@ Both variants use the same HTML markup and child selectors. The only differences
 </Browser>
 
 <FigureExample
-    figureNumber="2"
-    figureWidth="wide"
-    highlightedLines="1,29-31"
-    code={`<div class="main-menu--stack--lg">
-  <div class="main-menu__logo">
-    <a href="#1" title="Home" data-logo="brand">
-      <!-- SVG logo -->
-    </a>
+  figureNumber="2"
+  figureWidth="wide"
+  highlightedLines="1,30-32"
+  code={`
+  <div class="main-menu--stack--lg">
+
+    <div class="main-menu__logo">
+      <a href="#1" title="Home" data-logo="brand">
+        <!-- SVG logo -->
+      </a>
+    </div>
+
+    <div class="main-menu__toggle">
+      <button
+        class="button button--icon-only"
+        aria-label="Menu"
+        data-toggle="collapse"
+        aria-controls="main-menu"
+        aria-expanded="false"
+        type="button"
+      >
+        <span class="icon icon-menu" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <form class="main-menu__search" role="search">
+      <!-- Search field -->
+    </form>
+
+    <div class="main-menu__actions">
+      <!-- Action buttons -->
+    </div>
+
+    <nav class="main-menu__nav" id="main-menu" aria-label="Main Menu">
+      <!-- Navigation links -->
+    </nav>
   </div>
-
-  <div class="main-menu__toggle">
-    <button
-      class="button button--icon-only"
-      aria-label="Menu"
-      data-toggle="collapse"
-      aria-controls="main-menu"
-      aria-expanded="false"
-      type="button"
-    >
-      <span class="icon icon-menu" aria-hidden="true"></span>
-    </button>
-  </div>
-
-  <form class="main-menu__search" role="search">
-    <!-- Search field -->
-  </form>
-
-  <div class="main-menu__actions">
-    <!-- Action buttons -->
-  </div>
-
-  <nav class="main-menu__nav" id="main-menu" aria-label="Main Menu">
-    <!-- Navigation links -->
-  </nav>
-</div>`}
+  `}
 />
 
 <TableLineDescBlock targetFigure="2">
@@ -306,7 +309,7 @@ The `.main-menu--stack--{bp}` selector is the only required change from the bar 
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="2" lines="29-31">
+<TableLineDescRow targetFigure="2" lines="30-32">
 
 In the stack variant, the `.main-menu__nav` `<nav>` is placed *last* in source order.
 

@@ -1,6 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaExample from '../../utils/VanillaExample';
-import markup from './navigation.example.html?raw';
+import defaultMarkup from './navigation-default.example.html?raw';
+import horizontalMarkup from './navigation-horizontal.example.html?raw';
+import justificationMarkup from './navigation-justification.example.html?raw';
+import dividerMarkup from './navigation-divider.example.html?raw';
+import iconsMarkup from './navigation-icons.example.html?raw';
 
 const meta = {
   title: 'Navigation',
@@ -17,7 +21,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const HTML: Story = {
+const createNavigationStory = (markup: string): Story => ({
   parameters: {
     docs: {
       source: {
@@ -28,4 +32,17 @@ export const HTML: Story = {
     },
   },
   render: () => <VanillaExample html={markup} />,
+});
+
+export const Default: Story = createNavigationStory(defaultMarkup);
+
+export const Horizontal: Story = createNavigationStory(horizontalMarkup);
+
+export const Justification: Story = createNavigationStory(justificationMarkup);
+
+export const Divider: Story = createNavigationStory(dividerMarkup);
+
+export const IconsInNav: Story = {
+  name: 'Icons in Nav',
+  ...createNavigationStory(iconsMarkup),
 };

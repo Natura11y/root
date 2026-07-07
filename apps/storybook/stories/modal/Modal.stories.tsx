@@ -27,7 +27,8 @@ const meta: Meta<typeof Modal> = {
 export default meta;
 type Story = StoryObj<typeof Modal>;
 
-export const HTML: Story = {
+export const DefaultHtml: Story = {
+  name: 'Default (HTML)',
   parameters: {
     docs: {
       source: {
@@ -46,14 +47,20 @@ export const HTML: Story = {
   ),
 };
 
-export const React: Story = {
+export const DefaultReact: Story = {
+  name: 'Default (React)',
   render: () => {
     const [isOpen, setIsOpen] = useState(false);
     return (
       <>
         <Button title='Open Modal' onClick={() => setIsOpen(true)} />
-        <Modal isOpen={isOpen} title='Modal Title' onClose={() => setIsOpen(false)}>
-          <p>Modal body content goes here. The focus is trapped inside while open.</p>
+        <Modal
+          isOpen={isOpen}
+          title='Modal Title'
+          onClose={() => setIsOpen(false)}
+          modalContentUtilities='narrow'
+        >
+          <p>Modal body content goes here.</p>
         </Modal>
       </>
     );
@@ -61,6 +68,7 @@ export const React: Story = {
 };
 
 export const WithFooter: Story = {
+  name: 'With Footer (React)',
   render: () => {
     const [isOpen, setIsOpen] = useState(false);
     return (
@@ -70,6 +78,7 @@ export const WithFooter: Story = {
           isOpen={isOpen}
           title='Confirm Action'
           onClose={() => setIsOpen(false)}
+          modalContentUtilities='narrow'
           footerContent={
             <div className='flex-row gap-2'>
               <Button title='Confirm' onClick={() => setIsOpen(false)} />
@@ -84,7 +93,37 @@ export const WithFooter: Story = {
   },
 };
 
+export const ScrollAll: Story = {
+  name: 'Scroll All (React)',
+  render: () => {
+    const [isOpen, setIsOpen] = useState(false);
+    return (
+      <>
+        <Button title='Open Modal' onClick={() => setIsOpen(true)} />
+        <Modal
+          isOpen={isOpen}
+          title='Scrollable Modal'
+          onClose={() => setIsOpen(false)}
+          scrollAll
+          modalContentUtilities='narrow'
+        >
+          <p>
+            Long modal content can use the scroll-all modifier when the entire modal should scroll in the viewport.
+          </p>
+          <p>
+            This is useful when the header, body, and footer should move together instead of keeping the scroll area inside the modal body.
+          </p>
+          <p>
+            Add enough content to test the viewport behavior at smaller screen sizes.
+          </p>
+        </Modal>
+      </>
+    );
+  },
+};
+
 export const CloseOutside: Story = {
+  name: 'Close Outside (React)',
   render: () => {
     const [isOpen, setIsOpen] = useState(false);
     return (
@@ -95,6 +134,7 @@ export const CloseOutside: Story = {
           title='Click Outside to Close'
           onClose={() => setIsOpen(false)}
           closeOutside
+          modalContentUtilities='narrow'
         >
           <p>Click anywhere outside the modal to close it.</p>
         </Modal>

@@ -16,7 +16,39 @@ const meta: Meta<typeof NestedNav> = {
 export default meta;
 type Story = StoryObj<typeof NestedNav>;
 
-export const HTML: Story = {
+const items = [
+  { label: 'Overview', href: '#1' },
+  {
+    label: 'American Robin',
+    href: '#1',
+    linkProps: { 'aria-current': 'true' },
+    children: [
+      { label: 'Nesting', href: '#1', current: true },
+      { label: 'Diet', href: '#1' },
+      { label: 'Migration', href: '#1' },
+    ],
+  },
+  {
+    label: 'Eastern Bluebird',
+    href: '#1',
+    children: [
+      {
+        label: 'Identification',
+        href: '#1',
+        children: [
+          { label: 'Plumage', href: '#1' },
+          { label: 'Song', href: '#1' },
+        ],
+      },
+      { label: 'Habitat', href: '#1' },
+    ],
+  },
+  { label: 'Conservation', href: '#1' },
+  { label: 'Resources', href: '#1' },
+];
+
+export const DefaultHtml: Story = {
+  name: 'Default (HTML)',
   parameters: {
     docs: {
       source: {
@@ -29,27 +61,10 @@ export const HTML: Story = {
   render: () => <VanillaExample html={nestedNavMarkup} />,
 };
 
-export const React: Story = {
+export const DefaultReact: Story = {
+  name: 'Default (React)',
   args: {
-    items: [
-      { label: 'Home', href: '#', current: true },
-      {
-        label: 'Components',
-        href: '#',
-        children: [
-          { label: 'Accordion', href: '#' },
-          { label: 'Button', href: '#' },
-          {
-            label: 'Form',
-            href: '#',
-            children: [
-              { label: 'Input', href: '#' },
-              { label: 'Select', href: '#' },
-            ],
-          },
-        ],
-      },
-      { label: 'About', href: '#' },
-    ],
+    ariaLabel: 'Field Guide Navigation',
+    items: items,
   },
 };

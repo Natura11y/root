@@ -80,6 +80,7 @@ For a horizontal menu, apply the `.nav--horizontal` modifier class (Figure 2).
 
 <FigureExample
     figureNumber="2"
+    markedText="nav--horizontal"
     code={`
         <ul class="nav nav--horizontal">
             <li>
@@ -109,6 +110,7 @@ With the HTML in Figure 3, the nav starts in the *vertical* direction. It then c
 
 <FigureExample
     figureNumber="3"
+    markedText="nav--horizontal--lg"
     code={`
         <ul class="nav nav--horizontal--lg">
             ...
@@ -128,6 +130,7 @@ Use the flex <a href="/docs/flex/#justify-content-utilities">justify content uti
 
 <FigureExample
     figureNumber="4"
+    markedText={['justify-content-center', 'justify-content-end']}
     code={`
         <ul class="nav nav--horizontal justify-content-center">
             ...
@@ -157,6 +160,7 @@ Add the `.nav--divider` modifier class to a `.nav` selector for a vertical, bord
 
 <FigureExample
     figureNumber="5"
+    markedText="nav--divider"
     code={`
         <ul class="nav nav--divider">
             ...
@@ -168,12 +172,13 @@ Add the `.nav--divider` modifier class to a `.nav` selector for a vertical, bord
 
 <TextBlock>
 
-Include the aformentioned `.nav--horizontal` and `.nav--horizontal--{bp}` modifier classes to `.nav-divider` selectors. This produces a horizontal (and responsive) bordered menu (Figure 6).
+Include the aforementioned `.nav--horizontal` and `.nav--horizontal--{bp}` modifier classes to `.nav--divider` selectors. This produces a horizontal (and responsive) bordered menu (Figure 6).
 
 </TextBlock>
 
 <FigureExample
     figureNumber="6"
+    markedText={['nav--divider', 'nav--horizontal']}
     code={`
         <ul class="nav nav--divider nav--horizontal">
             ...
@@ -202,28 +207,28 @@ Nav items with icons (`<a>` or `<button>`) require two child selectors. The firs
 <FigureExample
     figureNumber="7"
     code={`
-        <ul class="nav" role="menu">
+        <ul class="nav">
             <li>
                 <a href="#1">
-                    <span class="icon icon-home"></span>
+                    <span class="icon icon-home" aria-hidden="true"></span>
                     <span class="nav__text">Home</span>
                 </a>
             </li>
             <li>
                 <a href="#1">
-                    <span class="icon icon-calendar"></span>
+                    <span class="icon icon-calendar" aria-hidden="true"></span>
                     <span class="nav__text">Calendar</span>
                 </a>
             </li>
             <li>
                 <a href="#1">
-                    <span class="icon icon-bell"></span>
+                    <span class="icon icon-bell" aria-hidden="true"></span>
                     <span class="nav__text">Notifications</span>
                 </a>
             </li>
         </ul>
 
-        <ul class="nav nav--divider" role="menu">
+        <ul class="nav nav--divider">
             ...
         </ul>
     `}

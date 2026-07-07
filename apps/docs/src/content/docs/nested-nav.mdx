@@ -15,7 +15,6 @@ relatedPages:
   - "Main Menu"
 ---
 
-import ActiveStates from '../../components/examples/nested-nav/ActiveStates.astro';
 import Default from '../../components/examples/nested-nav/Default.astro';
 
 <Section id="introduction">
@@ -26,9 +25,7 @@ import Default from '../../components/examples/nested-nav/Default.astro';
 
 <TextBlock>
 
-The nested navigation component provides a structured, multi-level sidebar navigation. It supports up to three levels of hierarchy — with indentation and font size communicating depth, and a visual indicator bar marking the active L1 item.
-
-No JavaScript is required. The component is pure CSS.
+The nested navigation component provides a structured, multi-level sidebar navigation. It supports up to three levels of hierarchy, with indentation and font size communicating depth.
 
 </TextBlock>
 
@@ -36,7 +33,7 @@ No JavaScript is required. The component is pure CSS.
 
 Wrap the nested nav in a `<nav>` element with a descriptive `aria-label` to identify it as a navigation landmark.
 
-Add `aria-current="page"` to the link that represents the current page. The active indicator bar responds to any `[aria-current]` value, so `aria-current="true"` can mark a parent section as active when a child page is selected.
+Use `aria-current="true"` on a parent section when a deeper page is selected, and `aria-current="page"` on the link that represents the current page.
 
 </AccessibilitySpotlight>
 
@@ -50,110 +47,66 @@ Add `aria-current="page"` to the link that represents the current page. The acti
 
 ## Nested Navigation
 
-Add `.nested-nav` to a `<ul>` element (Figure 1).
+Add `.nested-nav` to a `<ul>` element. In Figure 1, the level-one link marks the active section, and the nested link marks the current page.
 
 </TextBlock>
 
 <FigureExample
-    figureNumber="1"
-    highlightedLines="1,2,7"
-    code={`<nav aria-label="Field Guide Navigation">
-  <ul class="nested-nav">
-    <li>
-      <a href="#">Overview</a>
-    </li>
-    <li>
-      <a href="#" aria-current="page">American Robin</a>
-      <ul>
-        <li>
-          <a href="#">Nesting</a>
-        </li>
-        <li>
-          <a href="#">Diet</a>
-        </li>
-        <li>
-          <a href="#">Migration</a>
-        </li>
-      </ul>
-    </li>
-    <li>
-      <a href="#">Conservation</a>
-    </li>
-  </ul>
-</nav>`}
->
-    <Default />
-</FigureExample>
+  figureNumber="1"
+  markedText={['nested-nav', 'aria-current="true"', 'aria-current="page"']}
+  code={`
+  <nav>
 
-<TableLineDescBlock targetFigure="1">
-
-<TableLineDescRow targetFigure="1" lines="1">
-
-The `<nav>` element with `aria-label` identifies this as a navigation landmark for assistive technology. Use a label that distinguishes it from other navigation regions on the page, such as `"Section Navigation"`.
-
-</TableLineDescRow>
-
-<TableLineDescRow targetFigure="1" lines="2">
-
-Add `.nested-nav` to any `<ul>` element to apply the nested navigation styles.
-
-</TableLineDescRow>
-
-<TableLineDescRow targetFigure="1" lines="7">
-
-Add `aria-current="page"` to the link representing the current page. This drives the active indicator bar at level 1, and semantically communicates location to assistive technology at any level.
-
-</TableLineDescRow>
-
-</TableLineDescBlock>
-
-</Section>
-
----
-
-<Section id="active-states">
-
-<TextBlock>
-
-## Active States
-
-When a sub-item is the current page, mark the L1 parent with `aria-current="true"` to activate the indicator bar on the section — and mark the active sub-item with `aria-current="page"` (Figure 2).
-
-</TextBlock>
-
-<FigureExample
-    figureNumber="2"
-    code={`<ul class="nested-nav">
-  <li>
-    <a href="#">Overview</a>
-  </li>
-  <li>
-    <a href="#" aria-current="true">American Robin</a>
-    <ul>
+    <ul class="nested-nav">
       <li>
-        <a href="#" aria-current="page">Nesting</a>
+        <a href="#">Overview</a>
       </li>
       <li>
-        <a href="#">Diet</a>
+        <a href="#" aria-current="true">American Robin</a>
+        <ul>
+          <li>
+            <a href="#" aria-current="page">Nesting</a>
+          </li>
+          <li>
+            <a href="#">Diet</a>
+          </li>
+          <li>
+            <a href="#">Migration</a>
+          </li>
+        </ul>
       </li>
       <li>
-        <a href="#">Migration</a>
+        <a href="#">Eastern Bluebird</a>
+        <ul>
+          <li>
+            <a href="#">Identification</a>
+            <ul>
+              <li>
+                <a href="#">Plumage</a>
+              </li>
+              <li>
+                <a href="#">Song</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">Habitat</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">Conservation</a>
+      </li>
+      <li>
+        <a href="#">Resources</a>
       </li>
     </ul>
-  </li>
-  <li>
-    <a href="#">Conservation</a>
-  </li>
-</ul>`}
+    
+  </nav>
+  `}
 >
-    <ActiveStates />
+  <Default />
 </FigureExample>
-
-<TextBlock>
-
-The active indicator bar only appears on level-1 items. It responds to any `[aria-current]` value on the L1 link, and to `[aria-selected="true"]` — giving you flexibility in how you communicate hierarchy to assistive technology.
-
-</TextBlock>
 
 </Section>
 
@@ -170,39 +123,39 @@ Nested navigation styles can be customized by redefining the related CSS custom 
 </TextBlock>
 
 <RelatedCustomProperties
-    figureNumber="3"
-    properties={[
-        {
-            property: 'nav-nested-padding-x',
-            defaultValue: 'var(--nav-divider-padding-x)',
-            purpose: 'Horizontal padding for navigation links at all levels. Level 2 and 3 multiply this value to create indentation.',
-        },
-        {
-            property: 'nav-nested-padding-y',
-            defaultValue: '0.5em',
-            purpose: 'Vertical padding for navigation links.',
-        },
-        {
-            property: 'nav-nested-parent-font-size',
-            defaultValue: 'var(--font-size-md)',
-            purpose: 'Font size for level-1 navigation links.',
-        },
-        {
-            property: 'nav-nested-child-font-size',
-            defaultValue: 'var(--font-size-sm)',
-            purpose: 'Font size for level-2 and level-3 navigation links.',
-        },
-        {
-            property: 'nav-nested-indicator-width',
-            defaultValue: '3px',
-            purpose: 'Width of the active indicator bar on level-1 items.',
-        },
-        {
-            property: 'nav-nested-indicator-color',
-            defaultValue: 'currentColor',
-            purpose: 'Color of the active indicator bar. Defaults to currentColor. Override with a color token such as var(--color-primary).',
-        },
-    ]}
+  figureNumber="2"
+  properties={[
+    {
+      property: 'nav-nested-padding-x',
+      defaultValue: 'var(--nav-divider-padding-x)',
+      purpose: 'Horizontal padding for navigation links at all levels. Level 2 and 3 multiply this value to create indentation.',
+    },
+    {
+      property: 'nav-nested-padding-y',
+      defaultValue: '0.5em',
+      purpose: 'Vertical padding for navigation links.',
+    },
+    {
+      property: 'nav-nested-parent-font-size',
+      defaultValue: 'var(--font-size-md)',
+      purpose: 'Font size for level-1 navigation links.',
+    },
+    {
+      property: 'nav-nested-child-font-size',
+      defaultValue: 'var(--font-size-sm)',
+      purpose: 'Font size for level-2 and level-3 navigation links.',
+    },
+    {
+      property: 'nav-nested-indicator-width',
+      defaultValue: '3px',
+      purpose: 'Width of the active indicator bar on level-1 items.',
+    },
+    {
+      property: 'nav-nested-indicator-color',
+      defaultValue: 'currentColor',
+      purpose: 'Color of the active indicator bar. Defaults to currentColor. Override with a color token such as var(--color-primary).',
+    },
+  ]}
 />
 
 </Section>

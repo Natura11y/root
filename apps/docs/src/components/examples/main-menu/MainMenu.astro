@@ -25,7 +25,8 @@ const megaMenuId = `${idPrefix}-mega-menu`;
 const rootClass = `main-menu--${variant}--lg theme-canvas drop-shadow-1`;
 ---
 
-<div class={rootClass} style={exampleStyle}>
+<div style={exampleStyle}>
+    <div class={rootClass}>
       <div class="main-menu__logo">
         <a href="#1" title="Home" data-logo="brand">
           <Brand />
@@ -160,4 +161,7 @@ const rootClass = `main-menu--${variant}--lg theme-canvas drop-shadow-1`;
           </nav>
         </>
       )}
+    </div>
+
+    <div class="subtle-fill-1" style="aspect-ratio: 2 / 1;" aria-hidden="true"></div>
 </div>

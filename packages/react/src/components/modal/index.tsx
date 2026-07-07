@@ -71,6 +71,7 @@ const Modal = ({
           <ButtonIconOnly
             buttonType='button'
             iconHandle='close'
+            ariaLabel='Close Modal Window'
             utilities='font-size-md'
             onClick={onClose ?? undefined}
           />

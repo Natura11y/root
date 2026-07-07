@@ -5,12 +5,13 @@ const opacities = [10, 20, 30, 40, 50, 60, 70, 80, 90];
 ---
 
 <div style={exampleStyle}>
+
   <div class="grid grid--column-3 gap-2">
     {opacities.map((opacity) => (
       <div class="position-relative overflow-hidden">
         <div class={`aspect-ratio-16x9 theme-primary opacity-${opacity}`}></div>
         <div class="position-bottom-left flex-row justify-content-center">
-          <div class="padding-1 box-shadow-1 border-radius-top-2 theme-canvas text-align-center font-size-sm">
+          <div class="padding-1 box-shadow-1 border-radius-top-2 theme- text-align-center font-size-sm">
             <p>
               <code>{`.opacity-${opacity}`}</code>
             </p>
@@ -19,4 +20,5 @@ const opacities = [10, 20, 30, 40, 50, 60, 70, 80, 90];
       </div>
     ))}
   </div>
+  
 </div>

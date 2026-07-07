@@ -58,13 +58,24 @@ const NestedNav = ({
   ariaLabel = null,
   linkTag = 'a',
   utilities = null,
-}: NestedNavProps) => (
-  <ul
-    className={classNames('nested-nav', utilities)}
-    {...(ariaLabel && { 'aria-label': ariaLabel })}
-  >
-    <NavItems items={items} linkTag={linkTag} />
-  </ul>
-);
+}: NestedNavProps) => {
+  const list = (
+    <ul
+      className={classNames('nested-nav', utilities)}
+    >
+      <NavItems items={items} linkTag={linkTag} />
+    </ul>
+  );
+
+  if (ariaLabel) {
+    return (
+      <nav aria-label={ariaLabel}>
+        {list}
+      </nav>
+    );
+  }
+
+  return list;
+};
 
 export default NestedNav;
