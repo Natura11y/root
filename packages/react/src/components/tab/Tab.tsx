@@ -17,6 +17,7 @@ const Tab = ({ title, children }: TabProps) => {
       id={`${idPrefix}-panel-${slug}`}
       data-state={isActive ? 'active' : 'inactive'}
       aria-labelledby={`${idPrefix}-btn-${slug}`}
+      aria-hidden={!isActive}
       role='tabpanel'
       inert={!isActive ? true : undefined}
     >

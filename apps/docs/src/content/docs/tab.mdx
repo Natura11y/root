@@ -8,7 +8,7 @@ bannerCreditUrl: https://unsplash.com/@ejleusink
 bannerImage: ./banner/tab.jpg
 bannerAlt: Silver tabby cat
 description:
-    Build accessible tabbed interfaces with keyboard navigation and ARIA support. Includes styled and generic tab variants with custom styling options.
+    Build accessible tabbed interfaces with keyboard navigation and ARIA support. Includes classic, pill, and generic tab variants.
 relatedPages:
   - "Navigation"
   - "Accordion"
@@ -23,19 +23,19 @@ import TabExample from '../../components/examples/tab/Default.astro';
 
 <TextBlock>
 
-The tabs component provides a keyboard-friendly tabbed interface with flexible styling options. You can choose between **classic**, **pill**, or **generic** tabs you can customize to fit your needs.
+The tab component provides a keyboard-friendly interface for switching between related panels. You can choose between **classic**, **pill**, or **generic** tabs.
 
 </TextBlock>
 
 <AccessibilitySpotlight>
 
-All focusable elements in tabs are included in the page <kbd>Tab</kbd> sequence.
+The selected tab button stays in the page <kbd>Tab</kbd> sequence.
 
-Tabs have keyboard support including <kbd>Tab</kbd>, <kbd>Left Arrow</kbd>, <kbd>Right Arrow</kbd>, <kbd>Home</kbd>, and <kbd>End</kbd>.
+Arrow keys, <kbd>Home</kbd>, and <kbd>End</kbd> move focus between tab buttons.
 
-When focused, tab buttons expand the panel with <kbd>Space</kbd> or <kbd>Enter</kbd> keys.
+When focused, tab buttons show their panel with <kbd>Space</kbd> or <kbd>Enter</kbd>.
 
-When clicked, tab buttons toggle the appropriate *aria-hidden* and *aria-selected* attributes.
+When activated, tab buttons update the selected tab and visible panel.
 
 </AccessibilitySpotlight>
 
@@ -57,73 +57,74 @@ To use the classic tab style, apply the `.tabs-nav` class. You can add the optio
     figureNumber="1"
     highlightedLines="1,3-30,32-42"
     code={`
-        <div class="tabs box-shadow-1" role="tablist">
+    <div class="tabs box-shadow-1" role="tablist">
 
-            <ul class="tabs-nav tabs-nav--horizontal--md">
-                <li>
-                    <button
-                        id="tab-button-example-01"
-                        aria-controls="tab-panel-example-01"
-                        aria-selected="true"
-                        role="tab">
-                            Mackerel
-                    </button>
-                </li>
-                <li>
-                    <button
-                        id="tab-button-example-02"
-                        aria-controls="tab-panel-example-02"
-                        aria-selected="false"
-                        role="tab">
-                            Classic
-                    </button>
-                </li>
-                <li>
-                    <button id="tab-button-example-03"
-                        aria-controls="tab-panel-example-03"
-                        aria-selected="false"
-                        role="tab">
-                            Ticked
-                    </button>
-                </li>
-            </ul>
+        <ul class="tabs-nav tabs-nav--horizontal--md">
+            <li>
+                <button
+                    id="tab-button-example-01"
+                    aria-controls="tab-panel-example-01"
+                    aria-selected="true"
+                    role="tab">
+                        Mackerel
+                </button>
+            </li>
+            <li>
+                <button
+                    id="tab-button-example-02"
+                    aria-controls="tab-panel-example-02"
+                    aria-selected="false"
+                    role="tab">
+                        Classic
+                </button>
+            </li>
+            <li>
+                <button id="tab-button-example-03"
+                    aria-controls="tab-panel-example-03"
+                    aria-selected="false"
+                    role="tab">
+                        Ticked
+                </button>
+            </li>
+        </ul>
 
-            <div
-                class="tabs__panel shown"
-                id="tab-panel-example-01"
-                aria-labelledby="tab-button-example-01"
-                role="tabpanel">
-                <div class="container padding-y-4">
-                    <p>
-                        The mackerel tabby pattern gives slender vertical, gently curving stripes on the sides of the body. These stripes may be continuous or broken into bars and short segments/spots, especially on the flanks and stomach. Three or five vertical lines in an 'M' shape almost always appear on the forehead, along with dark lines from the corners of the eyes, one or more crossing each cheek, and of course many stripes and lines at various angles on the neck and shoulder area, on the flanks, and around the legs and tail. Mackerel tabbies are also called 'fishbone tabbies,' probably doubly named after the mackerel fish.
-                    </p>
-                </div>
-            </div>
-
-            <div
-                class="tabs__panel"
-                id="tab-panel-example-02"
-                aria-labelledby="tab-button-example-02"
-                role="tabpanel">
-                <div class="container padding-y-4">
-                    <p>
-                        The classic tabby (also known as blotched or marbled tabby) has the 'M' pattern on the forehead but the body markings, rather than primarily thin stripes or spots, are thick curving bands in a whirled or swirled pattern with a distinctive mark on each side of the body resembling a bullseye. Classic tabby is a recessive trait. Classic tabbies are the most common type of tabby in much of the United Kingdom and the Middle East, among other places, but they are a far second in number to mackerel tabbies in most parts of the world.
-                    </p>
-                </div>
-            </div>
-
-            <div
-                class="tabs__panel"
-                id="tab-panel-example-03"
-                aria-labelledby="tab-button-example-03"
-                role="tabpanel">
-                <div class="container padding-y-4">
-                    <p>
-                        The ticked tabby pattern is due to even fields of agouti hairs, each with distinct bands of color, which break up the tabby patterning into a salt-and-pepper appearance that makes them look sand-like—thus there are few to no stripes or bands. Residual ghost striping and/or barring can often be seen on the lower legs, face, and belly and sometimes at the tail tip, as well as the standard 'M' and a long dark line running along the spine, primarily in ticked tabbies who also carry a mackerel or classic tabby allele. These types of cats come in many forms and colors.
-                    </p>
-                </div>
+        <div
+            class="tabs__panel shown"
+            id="tab-panel-example-01"
+            aria-labelledby="tab-button-example-01"
+            role="tabpanel">
+            <div class="container padding-y-4">
+                <p>
+                    The mackerel tabby pattern gives slender vertical, gently curving stripes on the sides of the body. These stripes may be continuous or broken into bars and short segments/spots, especially on the flanks and stomach. Three or five vertical lines in an 'M' shape almost always appear on the forehead, along with dark lines from the corners of the eyes, one or more crossing each cheek, and of course many stripes and lines at various angles on the neck and shoulder area, on the flanks, and around the legs and tail. Mackerel tabbies are also called 'fishbone tabbies,' probably doubly named after the <a href="#1">mackerel</a> fish.
+                </p>
             </div>
         </div>
+
+        <div
+            class="tabs__panel"
+            id="tab-panel-example-02"
+            aria-labelledby="tab-button-example-02"
+            role="tabpanel">
+            <div class="container padding-y-4">
+                <p>
+                    The classic tabby (also known as blotched or marbled tabby) has the 'M' pattern on the forehead but the body markings, rather than primarily thin stripes or spots, are thick curving bands in a whirled or swirled pattern with a distinctive mark on each side of the body resembling a bullseye. Classic tabby is a <a href="#1">recessive</a> trait. Classic tabbies are the most common type of tabby in much of the United Kingdom and the Middle East, among other places, but they are a far second in number to mackerel tabbies in most parts of the world.
+                </p>
+            </div>
+        </div>
+
+        <div
+            class="tabs__panel"
+            id="tab-panel-example-03"
+            aria-labelledby="tab-button-example-03"
+            role="tabpanel">
+            <div class="container padding-y-4">
+                <p>
+                    The ticked tabby pattern is due to even fields of <a href="#1">agouti</a> hairs, each with distinct bands of color, which break up the tabby patterning into a salt-and-pepper appearance that makes them look sand-like—thus there are few to no stripes or bands. Residual ghost striping and/or barring can often be seen on the lower legs, face, and belly and sometimes at the tail tip, as well as the standard 'M' and a long dark line running along the spine, primarily in ticked tabbies who also carry a mackerel or classic tabby allele. These types of cats come in many forms and colors.
+                </p>
+            </div>
+        </div>
+
+    </div>
     `}
 >
     <TabExample />
@@ -151,7 +152,7 @@ The `aria-controls` attribute equals its associated panel's `id` attribute.
 
 The `role="tab"` attribute is present on the tab button for assistive technology.
 
-The `aria-selected="true"` attribute is present on the button where its associated tab panel should be open when the page loads.
+The first tab button starts with `aria-selected="true"`. The script initializes the first tab and updates this attribute when tabs change.
 
 </TableLineDescRow>
 
@@ -164,6 +165,8 @@ The `id` attribute equals the value of its associated button's `aria-controls` a
 The `aria-labelledby` attribute equals the value of its associated button's `id` attribute.
 
 The `role="tabpanel"` attribute is present on the tab panel for assistive technology.
+
+The starting panel uses the `.shown` class. The script updates this class when tabs change.
 
 </TableLineDescRow>
 
@@ -185,16 +188,16 @@ For pill-style tabs, use the `.tabs-nav--pill` modifier along with `.tabs-nav`. 
 
 <FigureExample
     figureNumber="2"
-    highlightedLines="3-5"
+    markedText="tabs-nav--pill"
     code={`
-        <div class="tabs" role="tablist">
+    <div class="tabs" role="tablist">
 
-            <ul class="tabs-nav 👉 tabs-nav--pill tabs-nav--horizontal--md">
-                <!-- Tab buttons -->
-            </ul>
+        <ul class="tabs-nav tabs-nav--pill tabs-nav--horizontal--md">
+            <!-- Tab buttons -->
+        </ul>
 
-             <!-- Tab panels -->
-        </div>
+        <!-- Tab panels -->
+    </div>
     `}
 >
     <TabExample pill />
@@ -218,16 +221,16 @@ The example below replaces `.tabs-nav` with <a href="/docs/navigation/">navigati
 
 <FigureExample
     figureNumber="3"
-    highlightedLines="3-5"
+    markedText="nav nav--horizontal--md"
     code={`
-        <div class="tabs" role="tablist">
+    <div class="tabs" role="tablist">
 
-            <ul class="nav nav--horizontal--md">
-                <!-- Tab buttons -->
-            </ul>
+        <ul class="nav nav--horizontal--md">
+            <!-- Tab buttons -->
+        </ul>
 
-             <!-- Tab panels -->
-        </div>
+        <!-- Tab panels -->
+    </div>
     `}
 >
     <TabExample navClass="container nav nav--horizontal--md" />

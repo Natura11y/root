@@ -69,6 +69,7 @@ const Tabs = ({
                   id={`${idPrefix}-btn-${slug}`}
                   aria-controls={`${idPrefix}-panel-${slug}`}
                   aria-selected={isActive}
+                  tabIndex={isActive ? 0 : -1}
                   onClick={() => handleTabClick(title)}
                   role='tab'
                 >
