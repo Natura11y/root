@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaTable from '@core-js/table';
 import Table from '@lib/components/table';
 import TableScroll from '@lib/components/table/TableScroll';
-import { tableData } from '@lib/components/table/tableData';
 import VanillaExample from '../../utils/VanillaExample';
 import tableMarkup from './table.example.html?raw';
 
@@ -38,7 +37,23 @@ const rows = [
   { name: 'Svartifoss', country: 'Iceland', map: <a href='#1'>Map View</a> },
 ];
 
-export const HTML: Story = {
+const responsiveHeaders = ['Name', 'Country', 'Coordinates', 'Map View'];
+const responsiveRows = [
+  { name: "Giant's Causeway", country: 'Northern Ireland', coordinates: "55°14'27″N 6°30'42″W", map: <a href='#1'>Map View</a> },
+  { name: "Fingal's Cave", country: 'Scotland', coordinates: "56°26'02″N 6°20'10″W", map: <a href='#1'>Map View</a> },
+  { name: 'Garni Gorge', country: 'Armenia', coordinates: "40°11'N 44°31'E", map: <a href='#1'>Map View</a> },
+  { name: 'Cape Raoul', country: 'Tasmania', coordinates: "43°12'04″S 147°45'48″E", map: <a href='#1'>Map View</a> },
+  { name: 'Svartifoss', country: 'Iceland', coordinates: '64.023°N 16.975°W', map: <a href='#1'>Map View</a> },
+];
+
+const responsiveTableArgs = {
+  caption: 'Places with columnar jointed volcanics',
+  headers: responsiveHeaders,
+  rows: responsiveRows,
+};
+
+export const DefaultHtml: Story = {
+  name: 'Default (HTML)',
   parameters: {
     docs: {
       source: {
@@ -53,7 +68,8 @@ export const HTML: Story = {
   ),
 };
 
-export const React: Story = {
+export const DefaultReact: Story = {
+  name: 'Default (React)',
   args: {
     caption: 'Places with columnar jointed volcanics',
     headers,
@@ -94,12 +110,12 @@ export const ScrollingTables: Story = {
       <Table {...args} />
     </TableScroll>
   ),
-  args: tableData,
+  args: responsiveTableArgs,
 };
 
 export const StackingColumns: Story = {
   args: {
-    ...tableData,
+    ...responsiveTableArgs,
     stack: 'lg',
   },
 };

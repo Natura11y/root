@@ -81,27 +81,27 @@ Accessible Rich Internet Applications (<LinkOpenNew LinkUrl='https://developer.m
 </TextBlock>
 
 <FigureExample
-    figureNumber="1"
-    figureWidth="narrow"
-    showCodeFrame={false}
-    code={(`
-        <!-- Aria Role -->
-        <div class="alert" role="alert">
-            <!-- alert content -->
-        </div>
+	figureNumber="1"
+	figureWidth="narrow"
+	showCodeFrame={false}
+	code={(`
+	<!-- Aria Role -->
+	<div class="alert" role="alert">
+			<!-- alert content -->
+	</div>
 
-        <!-- Aria State -->
-        <button aria-expanded="false">
-            Accordion Button
-        </button>
+	<!-- Aria State -->
+	<button aria-expanded="false">
+			Accordion Button
+	</button>
 
-        <!-- Aria Property -->
-        <div
-            class="modal__content"
-            aria-labelledby="modal-title">
-            <!-- modal content -->
-        </div>
-    `)}
+	<!-- Aria Property -->
+	<div
+			class="modal__content"
+			aria-labelledby="modal-title">
+			<!-- modal content -->
+	</div>
+	`)}
 />
 
 </Section>
@@ -117,9 +117,9 @@ Natura11y ensures focus indicators are always visible and properly positioned. F
 </TextBlock>
 
 <FigureImage
-    src="/docs-assets/accessibility/focus-indication.jpg"
-    alt="Buttons showing focus styles in light, primary, secondary, and dark themes."
-    caption="Depiction of focus styles across themes."
+	src="/docs-assets/accessibility/focus-indication.jpg"
+	alt="Buttons showing focus styles in light, primary, secondary, and dark themes."
+	caption="Depiction of focus styles across themes."
 />
 
 <TextBlock>
@@ -159,7 +159,7 @@ Every component follows WCAG guidelines and integrates seamlessly with Natura11y
 <ul className="grid gap-2 margin-y-4">
 
 <FeatureCard
-    title='Carousel'
+  title='Carousel'
 >
 
 The [Track component](/docs/track) is an accessible carousel with <kbd>Arrow</kbd> key navigation, ARIA live region announcements, and <kbd>Tab</kbd> focus limited to visible panels only.
@@ -167,7 +167,7 @@ The [Track component](/docs/track) is an accessible carousel with <kbd>Arrow</kb
 </FeatureCard>
 
 <FeatureCard
-    title='Flyout'
+  title='Flyout'
 >
 
 The [Flyout](/docs/flyout) uses `role="dialog"` and `aria-modal`, traps focus inside when open, returns focus on close, and supports drill-down panel navigation with `inert` to hide inactive panels from assistive technology.
@@ -175,7 +175,7 @@ The [Flyout](/docs/flyout) uses `role="dialog"` and `aria-modal`, traps focus in
 </FeatureCard>
 
 <FeatureCard
-    title='Forms'
+  title='Forms'
 >
 
 Complete [form](/docs/form) system with proper labeling, semantic fieldsets, accessible file uploads, and error handling.
@@ -183,7 +183,7 @@ Complete [form](/docs/form) system with proper labeling, semantic fieldsets, acc
 </FeatureCard>
 
 <FeatureCard
-    title='Lightbox'
+  title='Lightbox'
 >
 
 [Lightbox](/docs/lightbox) includes focus trapping, keyboard controls, and seamless gallery support for accessible image and video viewing.
@@ -191,7 +191,7 @@ Complete [form](/docs/form) system with proper labeling, semantic fieldsets, acc
 </FeatureCard>
 
 <FeatureCard
-    title='Main Menu'
+  title='Main Menu'
 >
 
 The [Main Menu](/docs/main-menu) collapses for mobile with `aria-expanded` and expands to full keyboard-navigable dropdowns and mega menus at desktop — one accessible component across both viewports.

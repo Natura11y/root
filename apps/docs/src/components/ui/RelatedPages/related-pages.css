@@ -1,0 +1,11 @@
+.related-pages-grid {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacer-2);
+  flex-wrap: wrap;
+}
+
+.related-pages-card {
+  flex: 0 0 400px;
+  max-width: 100%;
+}

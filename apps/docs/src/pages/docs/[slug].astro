@@ -7,6 +7,7 @@ import FeatureCard from '../../components/ui/FeatureCard/FeatureCard.astro';
 import FigureExample from '../../components/ui/FigureExample/FigureExample.astro';
 import FigureImage from '../../components/ui/FigureImage/FigureImage.astro';
 import LinkOpenNew from '../../components/ui/LinkOpenNew.astro';
+import RelatedPages from '../../components/ui/RelatedPages/RelatedPages.astro';
 import RelatedCustomProperties from '../../components/ui/tables/RelatedCustomProperties.astro';
 import Section from '../../components/ui/Section.astro';
 import TableLineDescBlock from '../../components/ui/tables/TableLineDescBlock.astro';
@@ -25,6 +26,10 @@ export async function getStaticPaths() {
 const { doc } = Astro.props;
 const docs = await getCollection('docs');
 const { Content } = await render(doc);
+type DocsEntry = (typeof docs)[number];
+const relatedPages = (doc.data.relatedPages ?? [])
+  .map((title) => docs.find((page) => page.data.title === title))
+  .filter((page): page is DocsEntry => Boolean(page));
 
 const toPlainText = (value: string) => value
   .replace(/<[^>]+>/g, ' ')
@@ -82,4 +87,6 @@ const tocSections = [...doc.body.matchAll(/<Section\s+[^>]*id=["']([^"']+)["'][^
       TextBlock,
     }}
   />
+
+  <RelatedPages pages={relatedPages} />
 </DocsLayout>

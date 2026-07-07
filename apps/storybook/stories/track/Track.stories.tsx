@@ -132,7 +132,8 @@ export const DefaultHtml: Story = {
   ),
 };
 
-export const React: Story = {
+export const DefaultReact: Story = {
+  name: 'Default (React)',
   args: {
     trackId: 'track-default',
   },

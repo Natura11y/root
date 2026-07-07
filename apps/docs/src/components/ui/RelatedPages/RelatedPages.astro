@@ -1,0 +1,52 @@
+---
+import { Picture } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import './related-pages.css';
+
+interface Props {
+  pages?: CollectionEntry<'docs'>[];
+}
+
+const { pages = [] } = Astro.props;
+const visiblePages = pages.filter((page) => page.data.draft !== true);
+---
+
+{visiblePages.length > 0 && (
+  <section class="padding-y-5 border-top text-align-center" aria-labelledby="related-pages-heading">
+    
+    <div class="container wide">
+      
+      <h2 class="h4 margin-bottom-4" id="related-pages-heading">
+        Read Next
+      </h2>
+
+      <div class="related-pages-grid">
+        {visiblePages.map((page) => (
+          <a
+            class="related-pages-card backdrop border-radius-2"
+            href={`/docs/${page.data.slug}/`}
+          >
+            {page.data.bannerImage && (
+              <div class="backdrop__media">
+                <Picture
+                  class="opacity-40"
+                  src={page.data.bannerImage}
+                  formats={['avif', 'webp']}
+                  alt=""
+                  layout="full-width"
+                  loading="lazy"
+                />
+              </div>
+            )}
+
+            <div class="backdrop__cover">
+              <div class="container text-align-center">
+                <h3 class="h5 text-shadow">{page.data.title}</h3>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

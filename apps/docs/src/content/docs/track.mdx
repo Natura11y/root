@@ -46,54 +46,54 @@ Respects `prefers-reduced-motion` — smooth scrolling between panels is disable
     figureNumber="1"
     highlightedLines="2-3,6,8,10-24,28,30-35,37,39-44"
     code={`
-        <section
-            class="track"
-            aria-labelledby="carousel-heading"
-        >
+  <section
+    class="track"
+    aria-labelledby="carousel-heading"
+  >
 
-            <h3 id="carousel-heading" class="screen-reader-only">Section Title</h3>
+    <h3 id="carousel-heading" class="screen-reader-only">Section Title</h3>
 
-            <div class="track__container">
+    <div class="track__container">
 
-                <ul class="track__panels gap-2">
+      <ul class="track__panels gap-2">
 
-                    <li class="track__panel">
-                        <img src="https://placehold.co/1500x750?text=One" alt="Placeholder" />
-                    </li>
-                    <li class="track__panel">
-                        <img src="https://placehold.co/1500x750?text=Two" alt="Placeholder" />
-                    </li>
-                    <li class="track__panel">
-                        <img src="https://placehold.co/1500x750?text=Three" alt="Placeholder" />
-                    </li>
+        <li class="track__panel">
+          <img src="https://placehold.co/1500x750?text=One" alt="Placeholder" />
+        </li>
+        <li class="track__panel">
+          <img src="https://placehold.co/1500x750?text=Two" alt="Placeholder" />
+        </li>
+        <li class="track__panel">
+          <img src="https://placehold.co/1500x750?text=Three" alt="Placeholder" />
+        </li>
 
-                    <!-- Add more panels as needed -->
+        <!-- Add more panels as needed -->
 
-                </ul>
+      </ul>
 
-            </div>
+    </div>
 
-            <div class="track__controls margin-y-3">
+    <div class="track__controls margin-y-3">
 
-                <button
-                    class="track__prev button button--icon-only"
-                    data-track-prev
-                    aria-label="Previous Slide">
-                    <span class="icon icon-arrow-left" aria-hidden="true"></span>
-                </button>
+      <button
+        class="track__prev button button--icon-only"
+        data-track-prev
+        aria-label="Previous Slide">
+        <span class="icon icon-arrow-left" aria-hidden="true"></span>
+      </button>
 
-                <ul class="track__pagination" data-track-pagination></ul>
+      <ul class="track__pagination" data-track-pagination></ul>
 
-                <button
-                    class="track__next button button--icon-only"
-                    data-track-next
-                    aria-label="Next Slide">
-                    <span class="icon icon-arrow-right" aria-hidden="true"></span>
-                </button>
+      <button
+        class="track__next button button--icon-only"
+        data-track-next
+        aria-label="Next Slide">
+        <span class="icon icon-arrow-right" aria-hidden="true"></span>
+      </button>
 
-            </div>
+    </div>
 
-        </section>
+  </section>
     `}
 >
     <TrackExample trackId="track-docs-default" />
@@ -192,9 +192,9 @@ To adjust for specific breakpoints, add a <a href="/docs/breakpoint/#breakpoint-
     figureWidth="narrow"
     markedText="track--column-3--lg"
     code={`
-        <div class="track track--column-3--lg">
-            ...
-        </div>
+  <div class="track track--column-3--lg">
+    ...
+  </div>
     `}
 />
 
@@ -228,9 +228,9 @@ The example below is a single panel with no peeking on small screens, then switc
     figureWidth="narrow"
     markedText={['track--column-2--xl', 'track--peeking--xl']}
     code={`
-        <div class="track track--column-2--xl track--peeking--xl">
-            ...
-        </div>
+  <div class="track track--column-2--xl track--peeking--xl">
+    ...
+  </div>
     `}
 />
 
