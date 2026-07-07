@@ -16,7 +16,8 @@
     "build:core": "npm --workspace @natura11y/core run build",
     "start:core": "npm --workspace @natura11y/core run start",
     "docs": "cd apps/docs && astro dev --port 4321",
-    "build:docs": "cd apps/docs && astro build"
+    "build:docs": "cd apps/docs && astro build",
+    "preview:docs": "cd apps/docs && astro preview"
   },
   "devDependencies": {
     "@astrojs/mdx": "^7.0.2",
