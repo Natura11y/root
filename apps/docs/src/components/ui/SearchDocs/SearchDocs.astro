@@ -41,7 +41,7 @@ const getVisibleSections = (sections: DocSection[]) => (
   data-modal-close-outside="true"
 >
   <div
-    class="modal__content wide border-radius-2 box-shadow-3 align-content-stretch"
+    class="modal__content wide border-radius-2 box-shadow-3 height-100vh"
     aria-labelledby={`${modalId}-title`}
     aria-describedby={`${modalId}-description`}
     role="dialog"
@@ -63,7 +63,7 @@ const getVisibleSections = (sections: DocSection[]) => (
       </button>
     </header>
 
-    <main class="modal__content__body docs-search" data-doc-search-root>
+    <main class="modal__content__body docs-search flex-grow-1" data-doc-search-root>
       <form class="form-entry form-entry--search" role="search" aria-label="Search docs" data-doc-search-form>
         <label class="form-entry__field">
           <span class="form-entry__field__label screen-reader-only">Search Docs</span>
@@ -135,15 +135,6 @@ const getVisibleSections = (sections: DocSection[]) => (
                 <div class="card__body padding-0">
                   <nav aria-label={`${doc.data.title} sections`}>
                     <ul class="nav nav--divider font-size-md">
-                      <li>
-                        <a
-                          href={`/docs/${doc.data.slug}/#introduction`}
-                          data-doc-search-close
-                          data-doc-search-label
-                        >
-                          Introduction
-                        </a>
-                      </li>
                       {visibleSections.map((section) => (
                         <li>
                           <a
@@ -181,9 +172,9 @@ const getVisibleSections = (sections: DocSection[]) => (
     const roots = Array.from(document.querySelectorAll<HTMLElement>('[data-doc-search-root]'));
     const noResultsArtwork = [
       `.__.
-{O,o}
-/)__)
-" "`,
+      {O,o}
+      /)__)
+      " "`,
       `/\\_/\\
 ( o.o )
 >^_^<`,
@@ -192,7 +183,7 @@ const getVisibleSections = (sections: DocSection[]) => (
       ` (\\(\\
   ( -.-)
 o_(")(")`,
-      `/\\_/\\
+`/\\_/\\
 (°ᴥ°)
 /  \\`,
     ];
