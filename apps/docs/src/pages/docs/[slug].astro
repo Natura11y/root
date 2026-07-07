@@ -13,6 +13,7 @@ import Section from '../../components/ui/Section.astro';
 import TableLineDescBlock from '../../components/ui/tables/TableLineDescBlock.astro';
 import TableLineDescRow from '../../components/ui/tables/TableLineDescRow.astro';
 import TextBlock from '../../components/ui/TextBlock.astro';
+import { getDocSections } from '../../utilities/docSections';
 
 export async function getStaticPaths() {
   const docs = await getCollection('docs');
@@ -30,47 +31,18 @@ type DocsEntry = (typeof docs)[number];
 const relatedPages = (doc.data.relatedPages ?? [])
   .map((title) => docs.find((page) => page.data.title === title))
   .filter((page): page is DocsEntry => Boolean(page));
-
-const toPlainText = (value: string) => value
-  .replace(/<[^>]+>/g, ' ')
-  .replace(/[`*_~]/g, '')
-  .replace(/\s+/g, ' ')
-  .trim();
-
-const tocSections = [...doc.body.matchAll(/<Section\s+[^>]*id=["']([^"']+)["'][^>]*>([\s\S]*?)<\/Section>/g)]
-  .map((section) => {
-    const [, id, body] = section;
-    const markdownHeading = body.match(/^(#{2,6})\s+(.+)$/m);
-    const htmlHeading = body.match(/<h([2-6])[^>]*>([\s\S]*?)<\/h\1>/i);
-
-    if (markdownHeading) {
-      return {
-        id,
-        text: toPlainText(markdownHeading[2]),
-        depth: markdownHeading[1].length,
-      };
-    }
-
-    if (htmlHeading) {
-      return {
-        id,
-        text: toPlainText(htmlHeading[2]),
-        depth: Number(htmlHeading[1]),
-      };
-    }
-
-    return {
-      id,
-      text: 'Untitled Section',
-      depth: 2,
-    };
-  });
+const tocSections = getDocSections(doc.body);
+const searchPages = docs.map((doc) => ({
+  doc,
+  sections: getDocSections(doc.body),
+}));
 ---
 
 <DocsLayout
   docs={docs}
   currentSlug={doc.data.slug}
   frontmatter={doc.data}
+  searchPages={searchPages}
   tocSections={tocSections}
 >
   <Content

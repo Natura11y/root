@@ -2,20 +2,20 @@
 import { Picture } from 'astro:assets';
 
 import type { ImageMetadata } from 'astro';
+import type { CollectionEntry } from 'astro:content';
 
 import OnThisPage from '../components/ui/OnThisPage.astro';
+import SearchDocs from '../components/ui/SearchDocs/SearchDocs.astro';
 import BaseLayout from './BaseLayout.astro';
+import type { DocSection } from '../utilities/docSections';
+
+interface SearchPage {
+  doc: CollectionEntry<'docs'>;
+  sections: DocSection[];
+}
 
 interface Props {
-  docs?: Array<{
-    data: {
-      title: string;
-      slug: string;
-      category?: string;
-      navOrder?: number;
-      draft?: boolean;
-    };
-  }>;
+  docs?: CollectionEntry<'docs'>[];
   currentSlug?: string;
   frontmatter?: {
     title?: string;
@@ -30,9 +30,10 @@ interface Props {
     text: string;
     depth: number;
   }>;
+  searchPages?: SearchPage[];
 }
 
-const { docs = [], currentSlug = '', frontmatter = {}, tocSections = [] } = Astro.props;
+const { docs = [], currentSlug = '', frontmatter = {}, searchPages = [], tocSections = [] } = Astro.props;
 const title = frontmatter.title ?? 'Natura11y Astro Docs Spike';
 const visibleDocs = docs.filter((doc) => doc.data.draft !== true);
 const introductionDocs = visibleDocs
@@ -56,6 +57,8 @@ const bannerAlt = frontmatter.bannerAlt ?? '';
           <div class="grid gap-2">
             <button
               class="button font-size-md button--disperse button--outline text-color-link font-size-sm--lg"
+              data-modal="open"
+              aria-controls="docs-search-modal"
               type="button"
             >
               <span class="text">Search Docs</span>
@@ -165,6 +168,8 @@ const bannerAlt = frontmatter.bannerAlt ?? '';
     <div class="docs-layout__body">
       <slot />
     </div>
+
+    <SearchDocs pages={searchPages} />
 
   </div>
 

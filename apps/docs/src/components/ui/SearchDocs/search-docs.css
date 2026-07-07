@@ -1,0 +1,24 @@
+
+.docs-search mark {
+    position: relative;
+
+    color: var(--canvas);
+    
+    background-color: transparent;
+    
+    z-index: 0;
+
+    &::before {
+        position: absolute;
+        content: "";
+        inset: 0 -0.125em;
+
+        background-color: var(--primary);
+        
+        opacity: 0.9;
+        
+        z-index: -1;
+        
+        border-radius: 0.125em;
+    }
+}
