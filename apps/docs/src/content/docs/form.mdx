@@ -73,36 +73,36 @@ In Figure 1, the `.form-entry` selector contains an `<input>` field with the `ty
 </TextBlock>
 
 <FigureExample
-    figureNumber="1"
-    highlightedLines="1,3-18,20-22"
-    code={`
-        <div class="form-entry">
+	figureNumber="1"
+	highlightedLines="1,3-18,20-22"
+	code={`
+	<div class="form-entry">
 
-            <label class="form-entry__field">
+			<label class="form-entry__field">
 
-                <span class="form-entry__field__label">
-                    Form Entry Label
-                </span>
+					<span class="form-entry__field__label">
+							Form Entry Label
+					</span>
 
-                <span class="form-entry__field__input">
-                    <input
-                        type="text"
-                        name="textInputExample"
-                        id="text-input-example"
-                        aria-describedby="help-text-input-example"
-                    />
-                </span>
+					<span class="form-entry__field__input">
+							<input
+									type="text"
+									name="textInputExample"
+									id="text-input-example"
+									aria-describedby="help-text-input-example"
+							/>
+					</span>
 
-            </label>
+			</label>
 
-            <small class="form-entry__help" id="help-text-input-example">
-                Form entry help text
-            </small>
+			<small class="form-entry__help" id="help-text-input-example">
+					Form entry help text
+			</small>
 
-        </div>
-    `}
+	</div>
+	`}
 >
-    <FormEntry />
+  <FormEntry />
 </FigureExample>
 
 <TableLineDescBlock targetFigure="1">
@@ -162,43 +162,43 @@ The label can be visually hidden with `.screen-reader-only` — a visible label 
 </TextBlock>
 
 <FigureExample
-    figureNumber="2"
-    highlightedLines="1,10,16-23,25-27"
-    code={`
-        <div class="form-entry form-entry--search">
+	figureNumber="2"
+	highlightedLines="1,10,16-23,25-27"
+	code={`
+	<div class="form-entry form-entry--search">
 
-            <label class="form-entry__field">
+			<label class="form-entry__field">
 
-                <span class="form-entry__field__label screen-reader-only">
-                    Search
-                </span>
+					<span class="form-entry__field__label screen-reader-only">
+							Search
+					</span>
 
-                <span class="form-entry__field__input">
-                    <span class="icon icon-search opacity-50" aria-hidden="true"></span>
-                    <input
-                        type="search"
-                        id="search-example"
-                        name="searchExample"
-                    />
+					<span class="form-entry__field__input">
+							<span class="icon icon-search opacity-50" aria-hidden="true"></span>
+							<input
+									type="search"
+									id="search-example"
+									name="searchExample"
+							/>
 
-                    <button
-                        type="button"
-                        class="button button--icon-only"
-                        data-search-clear
-                        aria-label="Clear search"
-                        aria-controls="search-example">
-                            <span class="icon icon-clear" aria-hidden="true"></span>
-                    </button>
+							<button
+									type="button"
+									class="button button--icon-only"
+									data-search-clear
+									aria-label="Clear search"
+									aria-controls="search-example">
+											<span class="icon icon-clear" aria-hidden="true"></span>
+							</button>
 
-                    <button type="submit" class="button theme-primary">
-                        Search
-                    </button>
-                </span>
+							<button type="submit" class="button theme-primary">
+									Search
+							</button>
+					</span>
 
-            </label>
+			</label>
 
-        </div>
-    `}
+	</div>
+	`}
 >
     <FormEntrySearch />
 </FigureExample>
@@ -260,35 +260,41 @@ With the example in Figure 3, the same `.form-entry` container holds a `<select>
 </TextBlock>
 
 <FigureExample
-    figureNumber="3"
-    highlightedLines="5-7,9-21"
-    code={`
-        <div class="form-entry">
-            <label class="form-entry__field">
-                <span class="form-entry__field__label">
-                    Form Entry Label
-                </span>
-                <span class="form-entry__field__select">
-                    <select
-                        id="select-example"
-                        name="selectExample"
-                        aria-describedby="help-select-example">
-                            <option value="">Select</option>
-                            <option value="Option One">Option One</option>
-                            <option value="Option Two">Option Two</option>
-                            <option value="Option Three">Option Three</option>
-                            <option value="Option Four">Option Four</option>
-                            <option value="Option Five">Option Five</option>
-                    </select>
-                </span>
-            </label>
-            <small class="form-entry__help" id="help-select-example">
-                Form entry help text
-            </small>
-        </div>
-    `}
+	figureNumber="3"
+	highlightedLines="5-7,9-21"
+	code={`
+	<div class="form-entry">
+
+			<label class="form-entry__field">
+					
+					<span class="form-entry__field__label">
+							Form Entry Label
+					</span>
+					
+					<span class="form-entry__field__select">
+							<select
+									id="select-example"
+									name="selectExample"
+									aria-describedby="help-select-example">
+											<option value="">Select</option>
+											<option value="Option One">Option One</option>
+											<option value="Option Two">Option Two</option>
+											<option value="Option Three">Option Three</option>
+											<option value="Option Four">Option Four</option>
+											<option value="Option Five">Option Five</option>
+							</select>
+					</span>
+			
+			</label>
+			
+			<small class="form-entry__help" id="help-select-example">
+					Form entry help text
+			</small>
+
+	</div>
+	`}
 >
-    <FormSelect />
+  <FormSelect />
 </FigureExample>
 
 <TableLineDescBlock targetFigure="3">
@@ -328,30 +334,36 @@ Following the previous example's pattern, Figure 4 shows the `.form-entry` paren
 </TextBlock>
 
 <FigureExample
-    figureNumber="4"
-    highlightedLines="5-7,9-16"
-    code={`
-        <div class="form-entry">
-            <label class="form-entry__field">
-                <span class="form-entry__field__label">
-                    Form Entry Label
-                </span>
-                <span class="form-entry__field__input">
-                    <textarea
-                        rows="8"
-                        name="textAreaExample"
-                        id="text-area-example"
-                        aria-describedby="help-textarea-example"
-                    ></textarea>
-                </span>
-            </label>
-            <small class="form-entry__help" id="help-textarea-example">
-                Form entry help text
-            </small>
-        </div>
-    `}
+	figureNumber="4"
+	highlightedLines="5-7,9-16"
+	code={`
+	<div class="form-entry">
+
+			<label class="form-entry__field">
+					
+					<span class="form-entry__field__label">
+							Form Entry Label
+					</span>
+					
+					<span class="form-entry__field__input">
+							<textarea
+									rows="8"
+									name="textAreaExample"
+									id="text-area-example"
+									aria-describedby="help-textarea-example"
+							></textarea>
+					</span>
+			
+			</label>
+			
+			<small class="form-entry__help" id="help-textarea-example">
+					Form entry help text
+			</small>
+	
+	</div>
+	`}
 >
-    <FormTextArea />
+  <FormTextArea />
 </FigureExample>
 
 <TableLineDescBlock targetFigure="4">
@@ -387,45 +399,45 @@ Natura11y offers a simple file upload component, as shown in Figure 5 below.
 </TextBlock>
 
 <FigureExample
-    figureNumber="5"
-    highlightedLines="11,13-15,17-22,24-27"
-    code={`
-        <div class="form-entry">
+	figureNumber="5"
+	highlightedLines="11,13-15,17-22,24-27"
+	code={`
+	<div class="form-entry">
 
-            <div class="form-entry__field">
+			<div class="form-entry__field">
 
-                <span class="form-entry__field__label">
-                    Upload a Single File
-                </span>
+					<span class="form-entry__field__label">
+							Upload a Single File
+					</span>
 
-                <div class="form-entry__field__input">
+					<div class="form-entry__field__input">
 
-                    <label class="file-upload">
-                        <span class="file-upload__drop">
-                            <span class="file-upload__drop__text">Drag and Drop</span>
-                        </span>
+							<label class="file-upload">
+									<span class="file-upload__drop">
+											<span class="file-upload__drop__text">Drag and Drop</span>
+									</span>
 
-                        <input class="file-upload__input" type="file" name="fileUploadExample" id="file-upload-example" accept="image/*">
+									<input class="file-upload__input" type="file" name="fileUploadExample" id="file-upload-example" accept="image/*">
 
-                        <span class="button button--outline file-upload__button">
-                            <span class="icon icon-upload" aria-hidden="true"></span>
-                            <span class="text">Browse for a File</span>
-                        </span>
+									<span class="button button--outline file-upload__button">
+											<span class="icon icon-upload" aria-hidden="true"></span>
+											<span class="text">Browse for a File</span>
+									</span>
 
-                    </label>
+							</label>
 
-                </div>
+					</div>
 
-            </div>
+			</div>
 
-            <small class="form-entry__help" id="help-file-upload-example">
-                Form entry help text
-            </small>
+			<small class="form-entry__help" id="help-file-upload-example">
+					Form entry help text
+			</small>
 
-        </div>
-    `}
+	</div>
+	`}
 >
-    <FileUpload />
+  <FileUpload />
 </FigureExample>
 
 </Section>
@@ -445,57 +457,62 @@ Figure 6 provides the markup required to create a checkbox group.
 </TextBlock>
 
 <FigureExample
-    figureNumber="6"
-    highlightedLines="9,11,18-20"
-    code={`
-        <div class="form-entry">
-            <fieldset class="form-entry__field">
-                <legend class="form-entry__field__label">
-                    Form Entry Label
-                </legend>
-                <div class="form-entry__option">
-                    <div class="form-entry__option__check">
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="checkboxGroupExample"
-                                id="check-option-one"
-                                value="optionOne">
-                                <span class="option__label">
-                                    Option One
-                                </span>
-                        </label>
-                    </div>
-                    <div class="form-entry__option__check">
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="checkboxGroupExample"
-                                id="check-option-two"
-                                value="optionTwo">
-                                <span class="option__label">
-                                    Option Two
-                                </span>
-                        </label>
-                    </div>
-                    <div class="form-entry__option__check">
-                        <label>
-                            <input
-                                type="checkbox"
-                                name="checkboxGroupExample"
-                                id="check-option-three"
-                                value="optionThree">
-                                <span class="option__label">
-                                    Option Three
-                                </span>
-                        </label>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-    `}
+	figureNumber="6"
+	highlightedLines="9,11,18-20"
+	code={`
+	<div class="form-entry">
+
+			<fieldset class="form-entry__field">
+					
+					<legend class="form-entry__field__label">
+							Form Entry Label
+					</legend>
+					
+					<div class="form-entry__option">
+						<div class="form-entry__option__check">
+								<label>
+										<input
+												type="checkbox"
+												name="checkboxGroupExample"
+												id="check-option-one"
+												value="optionOne">
+												<span class="option__label">
+														Option One
+												</span>
+								</label>
+						</div>
+						<div class="form-entry__option__check">
+							<label>
+									<input
+											type="checkbox"
+											name="checkboxGroupExample"
+											id="check-option-two"
+											value="optionTwo">
+											<span class="option__label">
+													Option Two
+											</span>
+							</label>
+						</div>
+						<div class="form-entry__option__check">
+								<label>
+										<input
+												type="checkbox"
+												name="checkboxGroupExample"
+												id="check-option-three"
+												value="optionThree">
+												<span class="option__label">
+														Option Three
+												</span>
+								</label>
+						</div>
+					</div>
+			
+			</fieldset>
+	
+	</div>
+	`}
 >
-    <CheckboxGroup />
+  <CheckboxGroup />
 </FigureExample>
 
 <TableLineDescBlock targetFigure="6">
@@ -537,31 +554,36 @@ For a single checkbox, do not use a `<fieldset>` and `<legend>`. Instead, provid
 </TextBlock>
 
 <FigureExample
-    figureNumber="7"
-    highlightedLines="5,13"
-    code={`
-        <div class="form-entry">
-            <div class="form-entry__field">
-                <span class="form-entry__field__label" id="single-option-label">
-                    Form Entry Label
-                </span>
-                <div class="form-entry__option">
-                    <div class="form-entry__option__check">
-                        <label aria-labelledby="single-option-label">
-                            <input
-                                type="checkbox"
-                                name="singleOption"
-                                id="single-option"
-                                value="option">
-                                <span class="option__label">
-                                    Option
-                                </span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `}
+	figureNumber="7"
+	highlightedLines="5,13"
+	code={`
+	<div class="form-entry">
+
+			<div class="form-entry__field">
+
+					<span class="form-entry__field__label" id="single-option-label">
+							Form Entry Label
+					</span>
+					
+					<div class="form-entry__option">
+							<div class="form-entry__option__check">
+									<label aria-labelledby="single-option-label">
+											<input
+													type="checkbox"
+													name="singleOption"
+													id="single-option"
+													value="option">
+													<span class="option__label">
+															Option
+													</span>
+									</label>
+							</div>
+					</div>
+			
+			</div>
+	
+	</div>
+	`}
 >
     <SingleCheckbox />
 </FigureExample>
@@ -577,34 +599,39 @@ First, change the `.form-entry__option__check` to `.form-entry__option__switch` 
 </TextBlock>
 
 <FigureExample
-    figureNumber="8"
-    highlightedLines="11,19"
-    code={`
-        <div class="form-entry">
-            <div class="form-entry__field">
-                <span class="form-entry__field__label" id="switch-option-label">
-                    Form Entry Label
-                </span>
-                <div class="form-entry__option">
-                    <div class="form-entry__option__switch">
-                        <label aria-labelledby="switch-option-label">
-                            <input
-                                type="checkbox"
-                                name="singleOption"
-                                id="switch-option"
-                                value="option">
-                                <span class="switch__slider"></span>
-                                <span class="option__label">
-                                    Receive Notifications
-                                </span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `}
+	figureNumber="8"
+	highlightedLines="11,19"
+	code={`
+	<div class="form-entry">
+
+			<div class="form-entry__field">
+
+					<span class="form-entry__field__label" id="switch-option-label">
+							Form Entry Label
+					</span>
+					
+					<div class="form-entry__option">
+							<div class="form-entry__option__switch">
+									<label aria-labelledby="switch-option-label">
+											<input
+													type="checkbox"
+													name="singleOption"
+													id="switch-option"
+													value="option">
+													<span class="switch__slider"></span>
+													<span class="option__label">
+															Receive Notifications
+													</span>
+									</label>
+							</div>
+					</div>
+			
+			</div>
+	
+	</div>
+	`}
 >
-    <CheckboxSwitch />
+  <CheckboxSwitch />
 </FigureExample>
 
 </Section>
@@ -622,57 +649,62 @@ Like checkboxes, radio groups use semantic `<fieldset>` and `<legend>` tags.
 </TextBlock>
 
 <FigureExample
-    figureNumber="9"
-    highlightedLines="9,11,18-20"
-    code={`
-        <div class="form-entry">
-            <fieldset class="form-entry__field">
-                <legend class="form-entry__field__label">
-                    Form Entry Label
-                </legend>
-                <div class="form-entry__option">
-                    <div class="form-entry__option__radio">
-                        <label>
-                            <input
-                                type="radio"
-                                name="radioGroupExample"
-                                id="radio-option-one"
-                                value="optionOne">
-                                <span class="option__label">
-                                    Option One
-                                </span>
-                        </label>
-                    </div>
-                    <div class="form-entry__option__radio">
-                        <label>
-                            <input
-                                type="radio"
-                                name="radioGroupExample"
-                                id="radio-option-two"
-                                value="optionTwo">
-                                <span class="option__label">
-                                    Option Two
-                                </span>
-                        </label>
-                    </div>
-                    <div class="form-entry__option__radio">
-                        <label>
-                            <input
-                                type="radio"
-                                name="radioGroupExample"
-                                id="radio-option-three"
-                                value="optionThree">
-                                <span class="option__label">
-                                    Option Three
-                                </span>
-                        </label>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-    `}
+	figureNumber="9"
+	highlightedLines="9,11,18-20"
+	code={`
+	<div class="form-entry">
+
+			<fieldset class="form-entry__field">
+					
+					<legend class="form-entry__field__label">
+							Form Entry Label
+					</legend>
+					
+					<div class="form-entry__option">
+						<div class="form-entry__option__radio">
+							<label>
+									<input
+											type="radio"
+											name="radioGroupExample"
+											id="radio-option-one"
+											value="optionOne">
+											<span class="option__label">
+													Option One
+											</span>
+							</label>
+						</div>
+						<div class="form-entry__option__radio">
+							<label>
+									<input
+											type="radio"
+											name="radioGroupExample"
+											id="radio-option-two"
+											value="optionTwo">
+											<span class="option__label">
+													Option Two
+											</span>
+							</label>
+						</div>
+						<div class="form-entry__option__radio">
+							<label>
+									<input
+											type="radio"
+											name="radioGroupExample"
+											id="radio-option-three"
+											value="optionThree">
+											<span class="option__label">
+													Option Three
+											</span>
+							</label>
+						</div>
+					</div>
+			
+			</fieldset>
+	
+	</div>
+	`}
 >
-    <RadioGroup />
+  <RadioGroup />
 </FigureExample>
 
 <TableLineDescBlock targetFigure="9">
@@ -720,18 +752,18 @@ Natura11y makes it easy to mark required fields. Add `data-required="true"` to t
 </TextBlock>
 
 <FigureExample
-    figureNumber="10"
-    highlightedLines="3-4"
-    code={`
-        <div
-            class="form-entry"
-            data-required="true"
-            data-error-message="Custom error message">
-            <div class="form-entry__field">
-                ...
-            </div>
-        </div>
-    `}
+	figureNumber="10"
+	highlightedLines="3-4"
+	code={`
+	<div
+			class="form-entry"
+			data-required="true"
+			data-error-message="Custom error message">
+			<div class="form-entry__field">
+					...
+			</div>
+	</div>
+	`}
 >
     <RequiredFields />
 </FigureExample>
@@ -759,30 +791,30 @@ Natura11y provides superficial client-side form validation. Include the `novalid
 </TextBlock>
 
 <FigureExample
-    figureNumber="11"
-    code={`
-        <form data-validate novalidate>
+	figureNumber="11"
+	code={`
+	<form data-validate novalidate>
 
-            <div
-                class="form-entry"
-                data-required="true"
-                data-error-message="Username is required!">
+			<div
+					class="form-entry"
+					data-required="true"
+					data-error-message="Username is required!">
 
-                <label class="form-entry__field form-entry__field--float">
-                    <span class="form-entry__field__label">
-                        Username
-                    </span>
-                    <span class="form-entry__field__input">
-                        <input type="text" id="account-username" name="accountUsername">
-                    </span>
-                </label>
+					<label class="form-entry__field form-entry__field--float">
+							<span class="form-entry__field__label">
+									Username
+							</span>
+							<span class="form-entry__field__input">
+									<input type="text" id="account-username" name="accountUsername">
+							</span>
+					</label>
 
-            </div>
+			</div>
 
-        </form>
-    `}
+	</form>
+	`}
 >
-    <FormValidation />
+  <FormValidation />
 </FigureExample>
 
 </Section>
@@ -800,25 +832,25 @@ For short forms (such as a sign in form) floating labels would be fine to use. A
 </TextBlock>
 
 <FigureExample
-    figureNumber="12"
-    highlightedLines="6"
-    code={`
-        <div
-            class="form-entry"
-            data-required="true"
-            data-error-message="Username is required!">
-            <label class="form-entry__field form-entry__field--float">
-                <span class="form-entry__field__label">
-                    Username
-                </span>
-                <span class="form-entry__field__input">
-                    <input type="text" id="account-username" name="accountUsername">
-                </span>
-            </label>
-        </div>
-    `}
+	figureNumber="12"
+	highlightedLines="6"
+	code={`
+		<div
+				class="form-entry"
+				data-required="true"
+				data-error-message="Username is required!">
+				<label class="form-entry__field form-entry__field--float">
+						<span class="form-entry__field__label">
+								Username
+						</span>
+						<span class="form-entry__field__input">
+								<input type="text" id="account-username" name="accountUsername">
+						</span>
+				</label>
+		</div>
+	`}
 >
-    <FloatingLabels />
+  <FloatingLabels />
 </FigureExample>
 
 </Section>
@@ -836,74 +868,74 @@ Form styles can be customized by redefining the related CSS custom properties.
 </TextBlock>
 
 <RelatedCustomProperties
-    figureNumber="13"
-    properties={[
-        {
-            property: 'form-entry-padding-x',
-            defaultValue: '1em',
-            purpose: 'Left and right padding inside form entry controls.',
-        },
-        {
-            property: 'form-entry-padding-y',
-            defaultValue: 'var(--button-padding-y)',
-            purpose: 'Top and bottom padding inside form entry controls.',
-        },
-        {
-            property: 'form-entry-target-size',
-            defaultValue: 'var(--button-target-size)',
-            purpose: 'Minimum target size for form entry controls.',
-        },
-        {
-            property: 'form-entry-border-width',
-            defaultValue: 'var(--border-width)',
-            purpose: 'Border width of form entry inputs, selects, and textareas.',
-        },
-        {
-            property: 'form-entry-border-color',
-            defaultValue: 'currentColor',
-            purpose: 'Border color of form entry inputs, selects, and textareas.',
-        },
-        {
-            property: 'form-entry-border-radius',
-            defaultValue: 'var(--border-radius-1)',
-            purpose: 'Border radius of form entry inputs, selects, textareas, option groups, and file upload controls.',
-        },
-        {
-            property: 'form-entry-option-group-border-color',
-            defaultValue: 'var(--form-entry-border-color)',
-            purpose: 'Border color used for checkbox and radio option groups.',
-        },
-        {
-            property: 'icon-required',
-            defaultValue: '"\\f14a"',
-            purpose: 'Icon unicode used for required field indicators.',
-        },
-        {
-            property: 'icon-checkbox-unchecked',
-            defaultValue: '"\\f10d"',
-            purpose: 'Icon unicode used for unchecked checkboxes.',
-        },
-        {
-            property: 'icon-checkbox-checked',
-            defaultValue: '"\\f10c"',
-            purpose: 'Icon unicode used for checked checkboxes.',
-        },
-        {
-            property: 'icon-radio-unchecked',
-            defaultValue: '"\\f138"',
-            purpose: 'Icon unicode used for unchecked radios.',
-        },
-        {
-            property: 'icon-radio-checked',
-            defaultValue: '"\\f137"',
-            purpose: 'Icon unicode used for checked radios.',
-        },
-        {
-            property: 'icon-disabled',
-            defaultValue: '"\\f115"',
-            purpose: 'Icon unicode used for disabled checkbox and radio options.',
-        },
-    ]}
+	figureNumber="13"
+	properties={[
+			{
+					property: 'form-entry-padding-x',
+					defaultValue: '1em',
+					purpose: 'Left and right padding inside form entry controls.',
+			},
+			{
+					property: 'form-entry-padding-y',
+					defaultValue: 'var(--button-padding-y)',
+					purpose: 'Top and bottom padding inside form entry controls.',
+			},
+			{
+					property: 'form-entry-target-size',
+					defaultValue: 'var(--button-target-size)',
+					purpose: 'Minimum target size for form entry controls.',
+			},
+			{
+					property: 'form-entry-border-width',
+					defaultValue: 'var(--border-width)',
+					purpose: 'Border width of form entry inputs, selects, and textareas.',
+			},
+			{
+					property: 'form-entry-border-color',
+					defaultValue: 'currentColor',
+					purpose: 'Border color of form entry inputs, selects, and textareas.',
+			},
+			{
+					property: 'form-entry-border-radius',
+					defaultValue: 'var(--border-radius-1)',
+					purpose: 'Border radius of form entry inputs, selects, textareas, option groups, and file upload controls.',
+			},
+			{
+					property: 'form-entry-option-group-border-color',
+					defaultValue: 'var(--form-entry-border-color)',
+					purpose: 'Border color used for checkbox and radio option groups.',
+			},
+			{
+					property: 'icon-required',
+					defaultValue: '"\\f14a"',
+					purpose: 'Icon unicode used for required field indicators.',
+			},
+			{
+					property: 'icon-checkbox-unchecked',
+					defaultValue: '"\\f10d"',
+					purpose: 'Icon unicode used for unchecked checkboxes.',
+			},
+			{
+					property: 'icon-checkbox-checked',
+					defaultValue: '"\\f10c"',
+					purpose: 'Icon unicode used for checked checkboxes.',
+			},
+			{
+					property: 'icon-radio-unchecked',
+					defaultValue: '"\\f138"',
+					purpose: 'Icon unicode used for unchecked radios.',
+			},
+			{
+					property: 'icon-radio-checked',
+					defaultValue: '"\\f137"',
+					purpose: 'Icon unicode used for checked radios.',
+			},
+			{
+					property: 'icon-disabled',
+					defaultValue: '"\\f115"',
+					purpose: 'Icon unicode used for disabled checkbox and radio options.',
+			},
+	]}
 />
 
 </Section>

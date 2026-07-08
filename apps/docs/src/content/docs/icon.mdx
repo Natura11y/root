@@ -17,6 +17,11 @@ relatedPages:
 
 import { cdnIcons } from '../mdxVars.js';
 import NativeIcons from '../../components/examples/icon/NativeIcons.astro';
+import iconProcessOne from '../../components/examples/figma/images/adding-icons-01.jpg';
+import iconProcessTwo from '../../components/examples/figma/images/adding-icons-02.jpg';
+import iconProcessThree from '../../components/examples/figma/images/adding-icons-03.jpg';
+import iconProcessFour from '../../components/examples/figma/images/adding-icons-04.jpg';
+import iconProcessFive from '../../components/examples/figma/images/adding-icons-05.jpg';
 
 <Section id="introduction">
 
@@ -77,6 +82,112 @@ Head over to <LinkOpenNew LinkUrl='https://github.com/cavidano/natura11y-icons' 
 </Section>
 
 ---
+
+
+<Section id="managing-icons-with-figma">
+
+<TextBlock>
+
+## A Guide to Managing Icons within Figma
+
+Once you open the Figma UI Kit, you'll notice that the icons are organized into a component library (within the ***Guide*** page). This allows you to easily update icons across your design system. It also makes it possible to export icons as SVGs, which can be used to generate your own icon font.
+
+In this way, you can manage your icons both within Figma and on the front-end. This ensures that your icons are consistent and maintainable across your design system.
+
+</TextBlock>
+
+<TextBlock>
+
+### Step 1: Design the icon
+
+You can create the icon directly in Figma. With the existing Natura11y icons, the original vector layers have been preserved within each component.
+
+ The final icon should fit within a 24x24 pixel square, with a pixel or two of breathing room around the edges.
+
+</TextBlock>
+
+<FigureImage
+    src={iconProcessOne.src}
+    alt="A depiction of the icon design process in Figma."
+    caption="A depiction of the icon design process in Figma."
+/>
+
+<TextBlock>
+
+### Step 2: Create the icon component
+
+Once you've designed the icon, it's time to create the icon component. Each component has a frame which contains the flattened vector icon layer. The frame is sized to 24x24 pixels, and named according to the icon's handle (or suffix). In a later step, this frame exports an SVG from Figma. With the example below, the frame is named ***accessibility***.
+
+The icon component contains a group called ***Artwork***. It holds the icon's original layered shapes. The Artwork group should be used as reference or for modifications, otherwise it should remain hidden within the icon component.
+
+</TextBlock>
+
+<FigureImage
+    src={iconProcessTwo.src}
+    alt="An example of the icon component layers in Figma."
+    caption="An example of the icon component layers in Figma."
+/>
+
+<TextBlock>
+
+### Step 3: Modify the fill rule
+
+This step is only required for icons that contain a hole or multiple paths. For example, the ***accessibility*** icon contains two separate paths: one for the head, and one for the body. To ensure that the paths are maintained as expected when the icon is exported as an SVG, you must modify the fill rule from ***Even-Odd*** to ***Non-Zero***.
+
+Thankfully, <LinkOpenNew LinkUrl='https://www.figma.com/@evan' LinkText='Evan Wallace' /> has made a Figma plugin called <LinkOpenNew LinkUrl='https://www.figma.com/community/plugin/771155994770327940/fill-rule-editor' LinkText='Fill Rule Editor' /> that makes it easy to do this.
+
+</TextBlock>
+
+<FigureImage
+    src={iconProcessThree.src}
+    alt="Screenshot of the Fill Rule Editor plugin for Figma."
+    caption="Screenshot of the Fill Rule Editor plugin for Figma."
+/>
+
+<TextBlock>
+
+### Step 4: Export the icon as an SVG
+
+Now that the icon is ready, install the <LinkOpenNew LinkUrl='https://www.figma.com/community/plugin/814345141907543603/svg-export' LinkText='SVG Export' /> plugin for Figma. This plugin, created by <LinkOpenNew LinkUrl='https://www.figma.com/@hamish' LinkText='Hamish' /> allows you to customize the export settings for each icon. Aim to remove any unnecessary attributes and keep the SVG as clean as possible. For example, you should remove any *fill* or *stroke* declarations. Ultimately, you want the export to only contain the parent SVG tag and paths that make up the icon.
+
+The SVG Export plugin allows you to preview the code and visual icon before exporting. This helps to ensure the icon is clean and ready to use. Once you're satisfied with the SVG, export it to your local machine.
+
+</TextBlock>
+
+<FigureImage
+    src={iconProcessFour.src}
+    alt="Screenshot of the SVG Export plugin for Figma."
+    caption="Screenshot of the SVG Export plugin for Figma."
+/>
+
+<TextBlock>
+
+### Step 5: Generate the icon font
+
+The <LinkOpenNew LinkUrl='https://github.com/cavidano/natura11y-icons' LinkText='Natura11y Icons GitHub repo' /> contains a folder called ***original-svg***. This is where you should save the SVG file. It should be named according to the icon's handle (or suffix). With the example below, the SVG is named ***accessibility.svg***.
+
+</TextBlock>
+
+<FigureImage
+    src={iconProcessFive.src}
+    alt="Natura11y leverages Fantasticon to create the icon font."
+    caption="Natura11y leverages Fantasticon to create the icon font."
+/>
+
+<TextBlock>
+
+The `README.md` file in the ***natura11y-icons*** repository contains instructions on generating the icon font. Don't worry, it's easy! Now you can use your custom icon font within the Natura11y framework and maintain it directly in Figma.
+
+</TextBlock>
+
+<div className="container narrow margin-y-4">
+    <a className="button theme-primary" href="/docs/icon/">
+        <span className="text">Using the Icons</span>
+        <span className="icon icon-arrow-right" aria-hidden="true"></span>
+    </a>
+</div>
+
+</Section>
 
 <Section id="using-font-awesome">
 
