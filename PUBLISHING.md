@@ -1,11 +1,12 @@
 # Publishing
 
-This repository is the private source monorepo for Natura11y.
+This repository is the private root source for the Natura11y ecosystem.
 
 ## Source Of Truth
 
-- `Natura11y/natura11y` is the private monorepo source.
+- `Natura11y/root` is the private source of truth.
 - Public packages and public documentation are distribution surfaces, not separate sources of truth.
+- The old `natura11y` npm package remains available as the legacy package line.
 - The old `cavidano/natura11y` repository is legacy/public reference until we decide whether to archive it or replace it with a public pointer.
 
 ## Public Distribution
@@ -15,6 +16,8 @@ Publish public code through npm packages:
 - `@natura11y/core`
 - `@natura11y/react`
 - `@natura11y/icons`
+
+The old unscoped `natura11y` npm package should not receive new framework feature releases. New framework releases start with `@natura11y/core`.
 
 The docs site can be deployed publicly from the built Astro output. The docs source stays in this private monorepo.
 
@@ -47,7 +50,7 @@ Use the active local folder:
 Its `origin` remote should point to:
 
 ```txt
-https://github.com/Natura11y/natura11y.git
+https://github.com/Natura11y/root.git
 ```
 
 The legacy local folder, if present, is only for old public repo reference:
