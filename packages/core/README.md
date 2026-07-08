@@ -1,5 +1,3 @@
-<img src="./naturally-logo.svg" alt="Logo for Natura11y Inclusive Framework" />
-
 # Natura11y Inclusive Framework
 
 Natura11y is an open-source front-end toolkit for building modern websites. It's easy to use for developers at different skill levels.
@@ -49,9 +47,5 @@ When creating a new branch, please follow the naming conventions above. This hel
 ---
 
 ## Thanks
-
-<a href="https://www.browserstack.com/">
-  <img src="https://live.browserstack.com/images/opensource/browserstack-logo.svg" alt="BrowserStack" width="192" height="42">
-</a>
 
 Many thanks to [BrowserStack](https://www.browserstack.com/) for the ability to test Natura11y in different browsers.

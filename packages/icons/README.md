@@ -1,5 +1,3 @@
-<img src="./naturally-logo.svg" alt="Logo for Natura11y Inclusive Framework" />
-
 # Natura11y Icons
 
 Make your own icon font or expand on Naturally's open source [icon library](https://www.example.com).
