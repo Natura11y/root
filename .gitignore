@@ -8,6 +8,7 @@ apps/docs/dist
 apps/docs/.astro
 
 #Files
+.DS_Store
 naturally-logo.svg
 dist/html/examples/butterfly-migration-center/
 
