@@ -48,6 +48,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const HTML: Story = {
+  name: 'Default (HTML)',
   parameters: {
     docs: {
       source: {
@@ -63,6 +64,7 @@ export const HTML: Story = {
 };
 
 export const React: Story = {
+  name: 'Default (React)',
   args: {
     labelText: 'Full name',
     helpText: 'Enter your first and last name.',

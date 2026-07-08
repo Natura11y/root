@@ -46,7 +46,7 @@ Form elements include a consistent visible focus for keyboard users.
 
 Include accessible field labels <a href="https://www.w3.org/WAI/tutorials/forms/labels/#associating-labels-implicitly" target="_blank">implicitly</a> or <a href="https://www.w3.org/WAI/tutorials/forms/labels/#associating-labels-explicitly" target="_blank">explicitly</a>—it's up to you.
 
-Intuitively mark *required* fields. When doing so, Natura11y adds *required* and *data-required* attributes automatically.
+Intuitively mark *required* fields with `data-required="true"`. Natura11y's JavaScript adds the `required` attribute to the field automatically.
 
 Checkbox and radio groups use semantic *fieldset* and *legend* tags.
 
@@ -163,7 +163,7 @@ The label can be visually hidden with `.screen-reader-only` — a visible label 
 
 <FigureExample
 	figureNumber="2"
-	highlightedLines="1,10,16-23,25-27"
+	highlightedLines="1,10,17-24,26-28"
 	code={`
 	<div class="form-entry form-entry--search">
 
@@ -219,7 +219,7 @@ The leading icon is optional. When present, the input's `padding-inline-start` i
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="2" lines="16-23">
+<TableLineDescRow targetFigure="2" lines="17-24">
 
 The `[data-search-clear]` button is required. Natura11y's JavaScript hides it by default and shows it only when the field has a value.
 
@@ -227,7 +227,7 @@ The `aria-controls` attribute must equal the `id` of the associated `<input>`.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="2" lines="25-27">
+<TableLineDescRow targetFigure="2" lines="26-28">
 
 The submit button is optional. Use `type="submit"` when the search field is inside a `<form>` element.
 
@@ -303,7 +303,7 @@ With the example in Figure 3, the same `.form-entry` container holds a `<select>
 
 The `.form-entry__field__label` grandchild selector is required.
 
-The `for` attribute equals its associated `<select>` tags `id`.
+The label is associated implicitly because the `<label>` element wraps the `<select>` element.
 
 </TableLineDescRow>
 
@@ -313,7 +313,7 @@ The `.form-entry__field__select` grandchild selector is required.
 
 It holds the actual `<select>` tag.
 
-The `<select>` tag's `id` equals its associated `for` attribute.
+The `<select>` tag's `id` can be used by help text, validation, and custom scripting.
 
 </TableLineDescRow>
 
@@ -400,7 +400,7 @@ Natura11y offers a simple file upload component, as shown in Figure 5 below.
 
 <FigureExample
 	figureNumber="5"
-	highlightedLines="11,13-15,17-22,24-27"
+	highlightedLines="11,13,16,18-21"
 	code={`
 	<div class="form-entry">
 
@@ -458,7 +458,7 @@ Figure 6 provides the markup required to create a checkbox group.
 
 <FigureExample
 	figureNumber="6"
-	highlightedLines="9,11,18-20"
+	highlightedLines="9,10,17-19"
 	code={`
 	<div class="form-entry">
 
@@ -525,7 +525,7 @@ It holds the options markup for the `<fieldset>`.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="6" lines="11">
+<TableLineDescRow targetFigure="6" lines="10">
 
 The `.form-entry__option__check` grandchild selector is required.
 
@@ -535,7 +535,7 @@ The `.form-entry__option__check` selector is repeatable for multiple options.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="6" lines="18-20">
+<TableLineDescRow targetFigure="6" lines="17-19">
 
 The `.option__label` child selector is required.
 
@@ -549,13 +549,13 @@ It holds the actual text label for the checkbox.
 
 ### Single Checkbox
 
-For a single checkbox, do not use a `<fieldset>` and `<legend>`. Instead, provide an id on the `.form-entry__field__label` selector (Figure 7, line 5). Then associate it with `aria-labelledby` placed on the surrounding `<label>` tag (Figure 7, line 13).
+For a single checkbox, do not use a `<fieldset>` and `<legend>`. Instead, provide an id on the `.form-entry__field__label` selector (Figure 7, line 5). Then associate it with `aria-labelledby` placed on the surrounding `<label>` tag (Figure 7, line 11).
 
 </TextBlock>
 
 <FigureExample
 	figureNumber="7"
-	highlightedLines="5,13"
+	highlightedLines="5,11"
 	code={`
 	<div class="form-entry">
 
@@ -594,13 +594,13 @@ For a single checkbox, do not use a `<fieldset>` and `<legend>`. Instead, provid
 
 Checkboxes can transform into switches with just a couple of of changes to the markup.
 
-First, change the `.form-entry__option__check` to `.form-entry__option__switch` (Figure 8, line 11). Then, above the switch label, add an empty `<span>` with a `.switch__slider` class (Figure 8, line 19).
+First, change `.form-entry__option__check` to `.form-entry__option__switch` (Figure 8, line 10). Then, above the option label, add an empty `<span>` with the `.switch__slider` class (Figure 8, line 17).
 
 </TextBlock>
 
 <FigureExample
 	figureNumber="8"
-	highlightedLines="11,19"
+	highlightedLines="10,17"
 	code={`
 	<div class="form-entry">
 
@@ -650,7 +650,7 @@ Like checkboxes, radio groups use semantic `<fieldset>` and `<legend>` tags.
 
 <FigureExample
 	figureNumber="9"
-	highlightedLines="9,11,18-20"
+	highlightedLines="9,10,17-19"
 	code={`
 	<div class="form-entry">
 
@@ -717,7 +717,7 @@ It holds each `.form-entry__option__radio` grandchild selector.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="9" lines="11">
+<TableLineDescRow targetFigure="9" lines="10">
 
 The `.form-entry__option__radio` grandchild selector is required.
 
@@ -727,7 +727,7 @@ The `.form-entry__option__radio` selector is repeatable for multiple options.
 
 </TableLineDescRow>
 
-<TableLineDescRow targetFigure="9" lines="18-20">
+<TableLineDescRow targetFigure="9" lines="17-19">
 
 The `.option__label` child selector is required.
 
@@ -770,7 +770,7 @@ Natura11y makes it easy to mark required fields. Add `data-required="true"` to t
 
 <TextBlock>
 
-The two data attributes mentioned above are shown in Figure 10, lines 3 and 4. When present on the `.form-entry` selector, Naturally's Javascript adds the necessary `required` and `data-required` attributes to the form entry's child `&lt;input&gt;` element automatically.
+The two data attributes mentioned above are shown in Figure 10, lines 3 and 4. When `data-required="true"` is present on the `.form-entry` selector, Natura11y's JavaScript adds the `required` attribute to the form entry's child field automatically.
 
 With the previous example, notice the red asterisk placed *before* the label. This too, is added automatically to required fields (via Natura11y's CSS file). The asterisk has become the standard identifier for required fields.
 
@@ -792,6 +792,7 @@ Natura11y provides superficial client-side form validation. Include the `novalid
 
 <FigureExample
 	figureNumber="11"
+	markedText={['data-validate', 'novalidate']}
 	code={`
 	<form data-validate novalidate>
 
@@ -827,13 +828,13 @@ Natura11y provides superficial client-side form validation. Include the `novalid
 
 ## Floating Labels
 
-For short forms (such as a sign in form) floating labels would be fine to use. Add the `.form-entry__field--float` modifier class to the `.form-entry__field` selector (see Figure 12, line 6).
+For short forms (such as a sign in form) floating labels would be fine to use. Add the `.form-entry__field--float` modifier class to the `.form-entry__field` selector (see Figure 12, line 5).
 
 </TextBlock>
 
 <FigureExample
 	figureNumber="12"
-	highlightedLines="6"
+	markedText="form-entry__field--float"
 	code={`
 		<div
 				class="form-entry"

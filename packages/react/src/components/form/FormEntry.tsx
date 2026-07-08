@@ -50,8 +50,12 @@ const FormEntry = ({
   const helpId = ariaDescribedBy ?? `help-${resolvedId}`;
 
   const isGroup = entryType === 'groupRadio' || entryType === 'groupCheck';
-  const FieldTag: ElementType = isGroup ? 'fieldset' : 'label';
+  const isOption = entryType === 'singleCheck' || entryType === 'singleCheckSwitch';
+  const isFileUpload = entryType === 'fileUpload';
+  const FieldTag: ElementType = isGroup ? 'fieldset' : isOption || isFileUpload ? 'div' : 'label';
   const LabelTag: ElementType = isGroup ? 'legend' : 'span';
+  const ControlTag: ElementType = isGroup || isOption || isFileUpload ? 'div' : 'span';
+  const labelId = isOption ? `${resolvedId}-label` : undefined;
 
   const handleFocus = () => setIsFocused(true);
 
@@ -108,7 +112,7 @@ const FormEntry = ({
             onFocus={handleFocus}
             onBlur={handleBlur}
           >
-            <option>Select</option>
+            <option value=''>Select</option>
             <option value='Option One'>Option One</option>
             <option value='Option Two'>Option Two</option>
             <option value='Option Three'>Option Three</option>
@@ -118,7 +122,7 @@ const FormEntry = ({
         );
 
       case 'groupRadio': {
-        const radioOptions = ['Option One', 'Option Two', 'Option Three', 'Option Four'];
+        const radioOptions = ['Option One', 'Option Two', 'Option Three'];
         return (
           <>
             {radioOptions.map((radio, index) => (
@@ -143,7 +147,7 @@ const FormEntry = ({
       }
 
       case 'groupCheck': {
-        const checkOptions = ['Option One', 'Option Two', 'Option Three', 'Option Four'];
+        const checkOptions = ['Option One', 'Option Two', 'Option Three'];
         return (
           <>
             {checkOptions.map((check, index) => (
@@ -168,7 +172,7 @@ const FormEntry = ({
       case 'singleCheck':
         return (
           <div className='form-entry__option__check'>
-            <label>
+            <label aria-labelledby={labelId}>
               <input
                 type='checkbox'
                 name={entryName ?? resolvedId}
@@ -184,25 +188,25 @@ const FormEntry = ({
 
       case 'singleCheckSwitch':
         return (
-          <div className='form-entry__option__check'>
-            <div className='form-entry__option__switch'>
-              <label>
-                <input
-                  type='checkbox'
-                  name={entryName ?? resolvedId}
-                  id={resolvedId}
-                  value='option'
-                />
-                <span className='switch__slider' />
-                <span className='option__label'>Recieve Notifications</span>
-              </label>
-            </div>
+          <div className='form-entry__option__switch'>
+            <label aria-labelledby={labelId}>
+              <input
+                type='checkbox'
+                name={entryName ?? resolvedId}
+                id={resolvedId}
+                value='option'
+                onFocus={handleFocus}
+                onBlur={handleBlur}
+              />
+              <span className='switch__slider' />
+              <span className='option__label'>Receive Notifications</span>
+            </label>
           </div>
         );
 
       case 'fileUpload':
         return (
-          <span className='file-upload'>
+          <label className='file-upload'>
             <span className='file-upload__drop'>
               <span className='file-upload__drop__text'>Drag and Drop</span>
             </span>
@@ -214,10 +218,10 @@ const FormEntry = ({
               accept='image/*'
             />
             <span className='button button--outline file-upload__button'>
-              <span className='icon icon-upload' />
+              <span className='icon icon-upload' aria-hidden='true' />
               <span className='text'>Browse for a File</span>
             </span>
-          </span>
+          </label>
         );
 
       default:
@@ -226,9 +230,9 @@ const FormEntry = ({
   };
 
   return (
-    <div ref={ref} className={classNames('form-entry', { 'is-invalid': showError, 'has-value': hasValue, 'is-focused': isFocused && !isGroup }, utilities)} data-required={required}>
+    <div ref={ref} className={classNames('form-entry', { 'is-invalid': showError, 'has-value': hasValue, 'is-focused': isFocused && !isGroup }, utilities)} data-required={required ? 'true' : undefined}>
       <FieldTag className={classNames('form-entry__field', { 'form-entry__field--float': labelFloat })}>
-        <LabelTag className={classNames('form-entry__field__label', { 'screen-reader-only': !labelVisible })}>
+        <LabelTag id={labelId} className={classNames('form-entry__field__label', { 'screen-reader-only': !labelVisible })}>
           {labelText}
         </LabelTag>
 
@@ -241,13 +245,13 @@ const FormEntry = ({
           </small>
         )}
 
-        <span className={classNames({
+        <ControlTag className={classNames({
           'form-entry__field__input': ['email', 'password', 'search', 'text', 'tel', 'textarea', 'url', 'fileUpload'].includes(entryType),
           'form-entry__field__select': entryType === 'select',
           'form-entry__option': ['groupRadio', 'groupCheck', 'singleCheck', 'singleCheckSwitch'].includes(entryType),
         })}>
           {renderField()}
-        </span>
+        </ControlTag>
       </FieldTag>
 
       {helpText && (
