@@ -10,3 +10,9 @@ apps/docs/.astro
 #Files
 naturally-logo.svg
 dist/html/examples/butterfly-migration-center/
+
+# Local media assets
+*.mp4
+*.mov
+*.webm
+*.m4v
