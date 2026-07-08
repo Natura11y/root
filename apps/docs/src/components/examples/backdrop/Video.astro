@@ -1,9 +1,9 @@
 ---
 import { exampleStyle } from '../shared/exampleStyles';
 import { getImage } from 'astro:assets';
-import videoSrc from './images/BackdropVideo.mp4?url';
 import posterImage from './images/BackdropVideo.jpg';
 
+const videoSrc = '/docs-assets/video/BackdropVideo.mp4';
 const poster = await getImage({ src: posterImage, format: 'webp' });
 ---
 

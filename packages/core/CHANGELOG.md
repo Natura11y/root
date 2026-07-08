@@ -4,9 +4,9 @@ All notable changes to this project will be documented in this file.
 
 ---
 
-## Unreleased
+## [5.2.0] — 2026-07-08
 
-### Pending Bug Fixes
+### Bug Fixes
 
 #### Images
 - Update `.backdrop__media` media sizing to include `picture` elements alongside `img` and `video`, preserving aspect ratios for optimized image output.

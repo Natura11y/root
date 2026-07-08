@@ -9,7 +9,7 @@ apps/docs/.astro
 
 #Files
 .DS_Store
-naturally-logo.svg
+/naturally-logo.svg
 dist/html/examples/butterfly-migration-center/
 
 # Local media assets
