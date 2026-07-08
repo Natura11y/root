@@ -1,0 +1,397 @@
+---
+import Browser from '../Browser/Browser.astro';
+import CodeBlock from '../CodeBlock/CodeBlock.astro';
+import { exampleStyle } from '../../examples/shared/exampleStyles';
+import './type-scale.scss';
+
+const defaultBaseFontSize = 16;
+const defaultTypeScale = 1.2;
+
+const baseFontSizeOptions = [
+  { value: 14, label: '14px' },
+  { value: 16, label: '16px' },
+  { value: 18, label: '18px' },
+  { value: 20, label: '20px' },
+];
+
+const typeScaleOptions = [
+  { value: 1.125, label: '1.125 - Major Second' },
+  { value: 1.2, label: '1.2 - Minor Third' },
+  { value: 1.25, label: '1.25 - Major Third' },
+  { value: 1.333, label: '1.333 - Perfect Fourth' },
+];
+
+const pxToRem = (value: number) => `${(value / 16).toFixed(2)}rem`;
+const pxValue = (value: number) => `${Math.round(value)}px`;
+
+const getScaleValues = (baseFontSize: number, typeScale: number): Record<string, number> => {
+  const fontSizeSm = baseFontSize;
+  const fontSizeMd = fontSizeSm * typeScale;
+  const fontSizeRg = fontSizeMd * typeScale;
+  const fontSizeLg = fontSizeRg * typeScale;
+  const fontSizeXl = fontSizeLg * typeScale;
+
+  const h6FontSize = fontSizeRg;
+  const h5FontSize = h6FontSize * typeScale;
+  const h4FontSize = h5FontSize * typeScale;
+  const h3FontSize = h4FontSize * typeScale;
+  const h2FontSize = h3FontSize * typeScale;
+  const h1FontSize = h2FontSize * typeScale;
+  const bannerHeadlineFontSize = h1FontSize * typeScale;
+
+  return {
+    'banner-headline': bannerHeadlineFontSize,
+    h1: h1FontSize,
+    h2: h2FontSize,
+    h3: h3FontSize,
+    h4: h4FontSize,
+    h5: h5FontSize,
+    h6: h6FontSize,
+    'font-size-xl': fontSizeXl,
+    'font-size-lg': fontSizeLg,
+    'font-size-rg': fontSizeRg,
+    'font-size-md': fontSizeMd,
+    'font-size-sm': fontSizeSm,
+  };
+};
+
+const scaleValues = getScaleValues(defaultBaseFontSize, defaultTypeScale);
+const typeScaleStyle = `
+${exampleStyle}
+--base-font-size: ${defaultBaseFontSize}px;
+--type-scale: ${defaultTypeScale};
+`;
+
+const headingRows = [
+  { key: 'banner-headline', label: 'Banner Headline', className: 'banner-headline' },
+  { key: 'h1', label: 'Header 1', className: 'h1' },
+  { key: 'h2', label: 'Header 2', className: 'h2' },
+  { key: 'h3', label: 'Header 3', className: 'h3' },
+  { key: 'h4', label: 'Header 4', className: 'h4' },
+  { key: 'h5', label: 'Header 5', className: 'h5' },
+  { key: 'h6', label: 'Header 6', className: 'h6' },
+];
+
+const bodyRows = [
+  { key: 'font-size-xl', label: 'Extra Large', className: 'font-size-xl' },
+  { key: 'font-size-lg', label: 'Large', className: 'font-size-lg' },
+  { key: 'font-size-rg', label: 'Regular (body)', className: 'font-size-rg' },
+  { key: 'font-size-md', label: 'Medium', className: 'font-size-md' },
+  { key: 'font-size-sm', label: 'Small', className: 'font-size-sm' },
+];
+
+const formatCodePreview = (baseFontSize: number, typeScale: number) => (
+  `--base-font-size: ${pxToRem(baseFontSize)};\n--type-scale: ${typeScale};`
+);
+---
+
+<div class="type-scale" data-type-scale style="--grid-sidebar-width: 400px;">
+  <div class="grid-sidebar--left">
+    <aside class="grid-sidebar__minor border-right--lg">
+      <div class="container narrow position-sticky-top--lg padding-y-4 font-size-md">
+        <div class="grid grid--divider gap-4">
+          <article>
+            <p>
+              Natura11y makes managing font sizes easy. With just two properties, <em>base font size</em> and <em>type scale</em>, you can scale font sizes consistently across pages or breakpoints.
+            </p>
+          </article>
+
+          <form class="grid gap-3 font-size-sm" data-type-scale-controls>
+            <div class="form-entry">
+              <label class="form-entry__field" for="type-scale-base-font-size">
+                <span class="form-entry__field__label">Base Font Size</span>
+                <span class="form-entry__field__select">
+                  <select
+                    id="type-scale-base-font-size"
+                    name="base-font-size"
+                    data-type-scale-base
+                  >
+                    {baseFontSizeOptions.map((option) => (
+                      <option value={option.value} selected={option.value === defaultBaseFontSize}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </span>
+              </label>
+            </div>
+
+            <div class="form-entry">
+              <label class="form-entry__field" for="type-scale-ratio">
+                <span class="form-entry__field__label">Type Scale</span>
+                <span class="form-entry__field__select">
+                  <select
+                    id="type-scale-ratio"
+                    name="type-scale"
+                    data-type-scale-ratio
+                  >
+                    {typeScaleOptions.map((option) => (
+                      <option value={option.value} selected={option.value === defaultTypeScale}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                </span>
+              </label>
+            </div>
+          </form>
+
+          <CodeBlock
+            codeId="type-scale-code-preview"
+            codeLanguage="scss"
+            showCodeFrame={false}
+            code={formatCodePreview(defaultBaseFontSize, defaultTypeScale)}
+          />
+
+          <div>
+            <a class="button theme-primary" href="/docs/typography/">
+              <span class="text">Typography Docs</span>
+              <span class="icon icon-arrow-right" aria-hidden="true"></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="grid-sidebar__major">
+      <section class="container wide grid gap-4 padding-y-5">
+        <h2 class="screen-reader-only">Type Scale Specimens</h2>
+
+        <table
+          class="table type-scale__table type-scale__example box-shadow-2 border-radius-2"
+          style={typeScaleStyle}
+          aria-live="polite"
+          data-type-scale-example
+        >
+          <thead>
+            <tr>
+              <th>Heading</th>
+              <th>Pixels</th>
+              <th>REM</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {headingRows.map((row) => (
+              <tr>
+                <td>
+                  <div class="type-scale__specimen">
+                    <p class={row.className}>{row.label}</p>
+                  </div>
+                </td>
+                <td class="type-scale__value" data-type-scale-value={row.key} data-type-scale-unit="px">
+                  {pxValue(scaleValues[row.key])}
+                </td>
+                <td class="type-scale__value" data-type-scale-value={row.key} data-type-scale-unit="rem">
+                  {pxToRem(scaleValues[row.key])}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        <table
+          class="table type-scale__table type-scale__example box-shadow-2 border-radius-2"
+          style={typeScaleStyle}
+          aria-live="polite"
+          data-type-scale-example
+        >
+          <thead>
+            <tr>
+              <th>Body</th>
+              <th>Pixels</th>
+              <th>REM</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {bodyRows.map((row) => (
+              <tr>
+                <td>
+                  <div class="type-scale__specimen">
+                    <p class={row.className}>{row.label}</p>
+                  </div>
+                </td>
+                <td class="type-scale__value" data-type-scale-value={row.key} data-type-scale-unit="px">
+                  {pxValue(scaleValues[row.key])}
+                </td>
+                <td class="type-scale__value" data-type-scale-value={row.key} data-type-scale-unit="rem">
+                  {pxToRem(scaleValues[row.key])}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+
+      <hr />
+
+      <section>
+        <h2 class="screen-reader-only">Example Article</h2>
+
+        <Browser exampleName="Example - Sample Article" utilities="wide">
+          <article
+            class="type-scale__article type-scale__example"
+            style={typeScaleStyle}
+            data-type-scale-example
+          >
+            <header class="border-bottom padding-y-5">
+              <div class="container medium">
+                <p class="banner-headline">Western Namibia</p>
+              </div>
+            </header>
+
+            <div class="container medium margin-y-4">
+              <p class="h2">Namib-Naukluft National Park</p>
+
+              <p class="font-size-rg">
+                The <strong>Namib-Naukluft Park</strong> is a national park in western Namibia situated between the coast of the Atlantic Ocean and the edge of the Great Escarpment.
+              </p>
+
+              <p class="font-size-rg">
+                It encompasses part of the Namib Desert, the Naukluft mountain range, and the lagoon at Sandwich Harbour.
+              </p>
+
+              <p class="h3">Location and Description</p>
+
+              <p class="font-size-rg">
+                With an overall area of 49,768 km, the Namib-Naukluft National Park was once the largest game park in Africa and the fourth largest in the world.
+              </p>
+
+              <blockquote class="blockquote">
+                <p class="font-size-lg">
+                  <em>Namib</em> means <em>open space</em>, and the Namib Desert gave its name to Namibia.
+                </p>
+              </blockquote>
+
+              <p class="h4">Wildlife</p>
+
+              <p class="font-size-rg">
+                A surprising collection of creatures survives in the hyper-arid region, including reptiles, insects, and desert-adapted mammals.
+              </p>
+            </div>
+          </article>
+        </Browser>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+  const initializeTypeScales = () => {
+    const pxToRem = (value: number) => `${(value / 16).toFixed(2)}rem`;
+    const pxValue = (value: number) => `${Math.round(value)}px`;
+    const splitCodeValue = (value: string) => {
+      const [whole, ...rest] = value.split('.');
+
+      return {
+        whole,
+        fraction: rest.length ? `.${rest.join('.')}` : '',
+      };
+    };
+    const updateCodeDeclaration = (line: HTMLElement, property: string, value: string) => {
+      const tokens = line.querySelectorAll<HTMLSpanElement>('span');
+
+      if (tokens.length < 4) {
+        line.textContent = `${property}: ${value};`;
+        return;
+      }
+
+      const { whole, fraction } = splitCodeValue(value);
+
+      tokens[0].textContent = property;
+      tokens[1].textContent = `: ${whole}`;
+      tokens[2].textContent = fraction;
+      tokens[3].textContent = ';';
+    };
+    const getScaleValues = (baseFontSize: number, typeScale: number): Record<string, number> => {
+      const fontSizeSm = baseFontSize;
+      const fontSizeMd = fontSizeSm * typeScale;
+      const fontSizeRg = fontSizeMd * typeScale;
+      const fontSizeLg = fontSizeRg * typeScale;
+      const fontSizeXl = fontSizeLg * typeScale;
+
+      const h6FontSize = fontSizeRg;
+      const h5FontSize = h6FontSize * typeScale;
+      const h4FontSize = h5FontSize * typeScale;
+      const h3FontSize = h4FontSize * typeScale;
+      const h2FontSize = h3FontSize * typeScale;
+      const h1FontSize = h2FontSize * typeScale;
+
+      return {
+        'banner-headline': h1FontSize * typeScale,
+        h1: h1FontSize,
+        h2: h2FontSize,
+        h3: h3FontSize,
+        h4: h4FontSize,
+        h5: h5FontSize,
+        h6: h6FontSize,
+        'font-size-xl': fontSizeXl,
+        'font-size-lg': fontSizeLg,
+        'font-size-rg': fontSizeRg,
+        'font-size-md': fontSizeMd,
+        'font-size-sm': fontSizeSm,
+      };
+    };
+
+    const updateTypeScale = (typeScaleRoot: HTMLElement) => {
+      const baseFontSizeSelect = typeScaleRoot.querySelector<HTMLSelectElement>('[data-type-scale-base]');
+      const typeScaleSelect = typeScaleRoot.querySelector<HTMLSelectElement>('[data-type-scale-ratio]');
+
+      if (!baseFontSizeSelect || !typeScaleSelect) {
+        return;
+      }
+
+      const baseFontSize = Number(baseFontSizeSelect.value);
+      const typeScale = Number(typeScaleSelect.value);
+      const scaleValues = getScaleValues(baseFontSize, typeScale);
+
+      typeScaleRoot.querySelectorAll<HTMLElement>('[data-type-scale-example]').forEach((example) => {
+        example.style.setProperty('--base-font-size', `${baseFontSize}px`);
+        example.style.setProperty('--type-scale', String(typeScale));
+      });
+
+      typeScaleRoot.querySelectorAll<HTMLElement>('[data-type-scale-value]').forEach((valueElement) => {
+        const property = valueElement.dataset.typeScaleValue;
+        const unit = valueElement.dataset.typeScaleUnit;
+        const value = property ? scaleValues[property] : null;
+
+        if (!value) {
+          return;
+        }
+
+        valueElement.textContent = unit === 'rem' ? pxToRem(value) : pxValue(value);
+      });
+
+      const codePreview = typeScaleRoot.querySelector<HTMLElement>('[data-code-id="type-scale-code-preview"] code');
+
+      if (codePreview) {
+        const codeLines = codePreview.querySelectorAll<HTMLElement>('.ec-line .code');
+
+        if (codeLines[0]) {
+          updateCodeDeclaration(codeLines[0], '--base-font-size', pxToRem(baseFontSize));
+        }
+
+        if (codeLines[1]) {
+          updateCodeDeclaration(codeLines[1], '--type-scale', String(typeScale));
+        }
+      }
+    };
+
+    document.querySelectorAll<HTMLElement>('[data-type-scale]').forEach((typeScaleRoot) => {
+      typeScaleRoot.addEventListener('change', (event) => {
+        if (event.target instanceof HTMLSelectElement) {
+          updateTypeScale(typeScaleRoot);
+        }
+      });
+
+      updateTypeScale(typeScaleRoot);
+    });
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeTypeScales, { once: true });
+  } else {
+    initializeTypeScales();
+  }
+</script>

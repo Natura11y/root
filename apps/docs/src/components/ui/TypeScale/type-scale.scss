@@ -1,0 +1,57 @@
+.type-scale__table {
+  table-layout: fixed;
+}
+
+.type-scale__table tr {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) repeat(2, minmax(4.5rem, 7.5rem));
+}
+
+.type-scale__table :where(th, td):not(:first-child) {
+  text-align: center;
+}
+
+.type-scale__table :where(td) {
+  vertical-align: middle;
+}
+
+.type-scale__specimen {
+  overflow-x: auto;
+  white-space: nowrap;
+  mask-image: linear-gradient(to right, black 75%, transparent);
+}
+
+.type-scale__specimen > * {
+  margin-block: 0;
+}
+
+.type-scale__value {
+  font-family: var(--code-font-family);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+}
+
+.type-scale__article {
+  min-block-size: 100%;
+}
+
+.type-scale__example {
+  --font-size-sm: var(--base-font-size);
+  --font-size-md: calc(var(--font-size-sm) * var(--type-scale));
+  --font-size-rg: calc(var(--font-size-md) * var(--type-scale));
+  --font-size-lg: calc(var(--font-size-rg) * var(--type-scale));
+  --font-size-xl: calc(var(--font-size-lg) * var(--type-scale));
+  --h6-font-size: var(--font-size-rg);
+  --h5-font-size: calc(var(--h6-font-size) * var(--type-scale));
+  --h4-font-size: calc(var(--h5-font-size) * var(--type-scale));
+  --h3-font-size: calc(var(--h4-font-size) * var(--type-scale));
+  --h2-font-size: calc(var(--h3-font-size) * var(--type-scale));
+  --h1-font-size: calc(var(--h2-font-size) * var(--type-scale));
+  --banner-headline-font-size: calc(var(--h1-font-size) * var(--type-scale));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .type-scale__example * {
+    transition: font-size 0.3s ease;
+  }
+}

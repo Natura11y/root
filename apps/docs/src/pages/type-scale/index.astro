@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TypeScale from '../../components/ui/TypeScale/TypeScale.astro';
+
+const title = "Type Scale Visualizer • Natura11y Inclusive Framework";
+const description = "Test Natura11y's base font size and type scale custom properties with a live typography preview.";
+---
+
+<BaseLayout title={title} description={description}>
+  <header class="padding-y-4 subtle-fill-1 text-color-primary">
+    <div class="container narrow">
+      <h1>Type Scale Visualizer</h1>
+    </div>
+  </header>
+
+  <TypeScale />
+</BaseLayout>
