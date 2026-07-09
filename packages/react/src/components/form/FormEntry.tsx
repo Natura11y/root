@@ -1,4 +1,4 @@
-import { useState, useId, type Ref, type ChangeEvent, type FocusEvent, type ElementType } from 'react';
+import { useState, useId, type Ref, type ReactNode, type ChangeEvent, type FocusEvent, type ElementType } from 'react';
 import classNames from 'classnames';
 
 type EntryType =
@@ -9,6 +9,11 @@ type EntryType =
 
 type ChangeHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
 
+interface FormOption {
+  label: string;
+  value: string;
+}
+
 interface FormEntryProps {
   ref?: Ref<HTMLDivElement>;
   labelText?: string;
@@ -17,12 +22,24 @@ interface FormEntryProps {
   helpText?: string | null;
   required?: boolean;
   showError?: boolean;
+  errorTitle?: string;
+  errorMessage?: ReactNode;
   entryType?: EntryType;
   entryId?: string | null;
   entryName?: string | null;
+  value?: string;
+  defaultValue?: string;
+  placeholder?: string | null;
+  rows?: number;
+  options?: FormOption[];
+  emptyOptionLabel?: string;
+  optionLabel?: string;
   onChange?: ChangeHandler | null;
   ariaDescribedBy?: string | null;
   buttonLabel?: string | null;
+  fileAccept?: string;
+  fileDropText?: string;
+  fileButtonText?: string;
   utilities?: string | null;
 }
 
@@ -34,12 +51,24 @@ const FormEntry = ({
   helpText = null,
   required = false,
   showError = false,
+  errorTitle = 'Error',
+  errorMessage = null,
   entryType = 'text',
   entryId = null,
   entryName = null,
+  value,
+  defaultValue,
+  placeholder = null,
+  rows = 8,
+  options = [],
+  emptyOptionLabel = 'Select',
+  optionLabel = 'Option',
   onChange = null,
   ariaDescribedBy = null,
   buttonLabel = null,
+  fileAccept = 'image/*',
+  fileDropText = 'Drag and Drop',
+  fileButtonText = 'Browse for a File',
   utilities = null,
 }: FormEntryProps) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -48,6 +77,11 @@ const FormEntry = ({
   const generatedId = useId();
   const resolvedId = entryId ?? generatedId;
   const helpId = ariaDescribedBy ?? `help-${resolvedId}`;
+  const feedbackId = `feedback-${resolvedId}`;
+  const describedBy = [
+    helpText ? helpId : null,
+    showError ? feedbackId : null,
+  ].filter(Boolean).join(' ') || undefined;
 
   const isGroup = entryType === 'groupRadio' || entryType === 'groupCheck';
   const isOption = entryType === 'singleCheck' || entryType === 'singleCheckSwitch';
@@ -57,11 +91,41 @@ const FormEntry = ({
   const ControlTag: ElementType = isGroup || isOption || isFileUpload ? 'div' : 'span';
   const labelId = isOption ? `${resolvedId}-label` : undefined;
 
+  const targetHasValue = (target: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement) => (
+    'checked' in target && target.type === 'checkbox' ? target.checked : target.value !== ''
+  );
+
   const handleFocus = () => setIsFocused(true);
 
   const handleBlur = (e: FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setIsFocused(false);
-    setHasValue(e.target.value !== '');
+    setHasValue(targetHasValue(e.target));
+  };
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setHasValue(targetHasValue(e.target));
+    onChange?.(e);
+  };
+
+  const valueProps = value !== undefined
+    ? { value }
+    : defaultValue !== undefined
+      ? { defaultValue }
+      : {};
+
+  const resolvedOptions = options.length > 0 ? options : [
+    { label: 'Option One', value: 'option-1' },
+    { label: 'Option Two', value: 'option-2' },
+    { label: 'Option Three', value: 'option-3' },
+  ];
+
+  const errorDescription = errorMessage ?? helpText;
+  const isChecked = (optionValue: string) => value !== undefined ? value === optionValue : undefined;
+  const isOptionChecked = value !== undefined ? value === 'true' : undefined;
+
+  const optionId = (optionValue: string, index: number) => {
+    const safeValue = optionValue.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    return `${resolvedId}-${safeValue || index}`;
   };
 
   const renderField = () => {
@@ -78,14 +142,16 @@ const FormEntry = ({
               type={entryType}
               name={entryName ?? resolvedId}
               id={resolvedId}
-              aria-describedby={helpId}
-              onChange={onChange ?? undefined}
+              aria-describedby={describedBy}
+              placeholder={placeholder ?? undefined}
+              onChange={handleChange}
               onFocus={handleFocus}
               onBlur={handleBlur}
               required={required}
+              {...valueProps}
             />
             {buttonLabel && (
-              <button className='button'>{buttonLabel}</button>
+              <button type='submit' className='button'>{buttonLabel}</button>
             )}
           </>
         );
@@ -93,13 +159,16 @@ const FormEntry = ({
       case 'textarea':
         return (
           <textarea
-            rows={8}
+            rows={rows}
             name={entryName ?? resolvedId}
             id={resolvedId}
-            aria-describedby={helpId}
-            onChange={onChange ?? undefined}
+            aria-describedby={describedBy}
+            placeholder={placeholder ?? undefined}
+            onChange={handleChange}
             onFocus={handleFocus}
             onBlur={handleBlur}
+            required={required}
+            {...valueProps}
           />
         );
 
@@ -108,37 +177,38 @@ const FormEntry = ({
           <select
             id={resolvedId}
             name={entryName ?? resolvedId}
-            aria-describedby={helpId}
+            aria-describedby={describedBy}
             onFocus={handleFocus}
             onBlur={handleBlur}
+            onChange={handleChange}
+            required={required}
+            {...valueProps}
           >
-            <option value=''>Select</option>
-            <option value='Option One'>Option One</option>
-            <option value='Option Two'>Option Two</option>
-            <option value='Option Three'>Option Three</option>
-            <option value='Option Four'>Option Four</option>
-            <option value='Option Five'>Option Five</option>
+            <option value=''>{emptyOptionLabel}</option>
+            {resolvedOptions.map((option) => (
+              <option value={option.value} key={option.value}>{option.label}</option>
+            ))}
           </select>
         );
 
       case 'groupRadio': {
-        const radioOptions = ['Option One', 'Option Two', 'Option Three'];
         return (
           <>
-            {radioOptions.map((radio, index) => (
-              <div className='form-entry__option__radio' key={index}>
+            {resolvedOptions.map((option, index) => (
+              <div className='form-entry__option__radio' key={option.value}>
                 <label>
                   <input
                     required={index === 0 && required}
                     type='radio'
                     name={entryName ?? resolvedId}
-                    id={`${resolvedId}-radio-${index}`}
+                    id={optionId(option.value, index)}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
-                    value={`option-${index}`}
-                    onChange={onChange ?? undefined}
+                    value={option.value}
+                    checked={isChecked(option.value)}
+                    onChange={handleChange}
                   />
-                  <span className='option__label'>{radio}</span>
+                  <span className='option__label'>{option.label}</span>
                 </label>
               </div>
             ))}
@@ -147,21 +217,21 @@ const FormEntry = ({
       }
 
       case 'groupCheck': {
-        const checkOptions = ['Option One', 'Option Two', 'Option Three'];
         return (
           <>
-            {checkOptions.map((check, index) => (
-              <div className='form-entry__option__check' key={index}>
+            {resolvedOptions.map((option, index) => (
+              <div className='form-entry__option__check' key={option.value}>
                 <label>
                   <input
                     type='checkbox'
                     name={entryName ?? resolvedId}
-                    id={`${resolvedId}-check-${index}`}
-                    value={`option-${index}`}
+                    id={optionId(option.value, index)}
+                    value={option.value}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
+                    onChange={handleChange}
                   />
-                  <span className='option__label'>{check}</span>
+                  <span className='option__label'>{option.label}</span>
                 </label>
               </div>
             ))}
@@ -177,11 +247,13 @@ const FormEntry = ({
                 type='checkbox'
                 name={entryName ?? resolvedId}
                 id={resolvedId}
-                value='option'
+                value='true'
+                checked={isOptionChecked}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
+                onChange={handleChange}
               />
-              <span className='option__label'>Option</span>
+              <span className='option__label'>{optionLabel}</span>
             </label>
           </div>
         );
@@ -194,12 +266,14 @@ const FormEntry = ({
                 type='checkbox'
                 name={entryName ?? resolvedId}
                 id={resolvedId}
-                value='option'
+                value='true'
+                checked={isOptionChecked}
                 onFocus={handleFocus}
                 onBlur={handleBlur}
+                onChange={handleChange}
               />
               <span className='switch__slider' />
-              <span className='option__label'>Receive Notifications</span>
+              <span className='option__label'>{optionLabel}</span>
             </label>
           </div>
         );
@@ -208,18 +282,19 @@ const FormEntry = ({
         return (
           <label className='file-upload'>
             <span className='file-upload__drop'>
-              <span className='file-upload__drop__text'>Drag and Drop</span>
+              <span className='file-upload__drop__text'>{fileDropText}</span>
             </span>
             <input
               className='file-upload__input'
               type='file'
               name={entryName ?? resolvedId}
               id={resolvedId}
-              accept='image/*'
+              accept={fileAccept}
+              onChange={handleChange}
             />
             <span className='button button--outline file-upload__button'>
               <span className='icon icon-upload' aria-hidden='true' />
-              <span className='text'>Browse for a File</span>
+              <span className='text'>{fileButtonText}</span>
             </span>
           </label>
         );
@@ -237,10 +312,10 @@ const FormEntry = ({
         </LabelTag>
 
         {showError && (
-          <small className='form-entry__feedback'>
+          <small className='form-entry__feedback' id={feedbackId}>
             <span className='icon icon-warn' aria-hidden='true' />
             <span className='message'>
-              <strong>Custom Error Message</strong> {helpText}
+              <strong>{errorTitle}</strong>{errorDescription ? <> {errorDescription}</> : null}
             </span>
           </small>
         )}
