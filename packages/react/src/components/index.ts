@@ -7,7 +7,7 @@ export { default as Breadcrumb } from './breadcrumb';
 
 export { default as Card, CardHead, CardBody, CardFoot, CardMedia } from './card';
 
-export { default as BackdropVideo } from './backdrop';
+export { default as BackdropVideo, Backdrop } from './backdrop';
 
 export { default as Collapse } from './collapse';
 

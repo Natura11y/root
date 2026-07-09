@@ -3,8 +3,9 @@ import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts'
 import path from 'path'
 
-export default defineConfig(({ command }) => {
-  const isPackageBuild = command === 'build'
+export default defineConfig(({ command, mode }) => {
+  const isDemoBuild = mode === 'demo'
+  const isPackageBuild = command === 'build' && !isDemoBuild
 
   return {
     resolve: {
@@ -33,6 +34,11 @@ export default defineConfig(({ command }) => {
             '.js': 'jsx'
           }
         }
+      }
+    }),
+    ...(isDemoBuild && {
+      build: {
+        outDir: 'demo-dist'
       }
     }),
     ...(isPackageBuild && {

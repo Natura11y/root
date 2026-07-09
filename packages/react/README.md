@@ -1,20 +1,20 @@
-# Natura11y React Components
+# Natura11y React
 
-Natura11y's prebuilt React 19 components make starting a React project a breeze. Combine the ease of styling with Natura11y and React's efficient, component-based development experience.
+React components for the Natura11y Design Ecosystem.
 
-Natura11y is an open-source front-end toolkit for building modern websites.
+Natura11y React provides reusable React 19 components that pair with `@natura11y/core` styles and utilities.
 
-[https://gonatura11y.com](https://gonatura11y.com)
+[https://gonatura11y.com/docs/react/](https://gonatura11y.com/docs/react/)
 
 ---
 
-## Quick Start
+## Install
 
 ```bash
 npm install @natura11y/react
 ```
 
-`@natura11y/core` is installed automatically as a dependency. Use it for Natura11y styles:
+`@natura11y/core` is installed automatically as a dependency. Import its styles from your app entry point or Sass bundle:
 
 ```scss
 @use '@natura11y/core/scss';
@@ -22,9 +22,7 @@ npm install @natura11y/react
 
 ---
 
-## Using Components
-
-Components are exported from `@natura11y/react`. Here's a quick example:
+## Usage
 
 ```jsx
 import { Alert, Button } from '@natura11y/react';
@@ -32,7 +30,7 @@ import { Alert, Button } from '@natura11y/react';
 function App() {
   return (
     <Alert
-      success={true}
+      success
       title="Success!"
       onClose={() => console.log('closed')}
     >
@@ -42,57 +40,60 @@ function App() {
 }
 ```
 
----
+Hooks are available from the `hooks` export:
 
-## Available Components
-
-- **Accordion** - Collapsible content sections with keyboard navigation
-- **Alert** - Success/warning notifications with dismissible option
-- **Backdrop Video** - Video backdrop with reduced-motion-aware playback controls
-- **Badge** - Small status and metadata labels
-- **Breadcrumb** - Hierarchical page-location links
-- **Button** - Standard buttons, icon buttons, and icon-over-text buttons
-- **Card** - Structured content containers using Natura11y card markup
-- **Collapse** - Controlled collapsible regions
-- **Dropdown** - Dropdown and mega menu behavior
-- **Flyout** - Slide-out panels with focus management
-- **Form** - Form inputs with validation and accessible labels
-- **Icon** - SVG icon component using Natura11y icons
-- **Lightbox** - Image/video lightbox with gallery navigation
-- **Main Menu** - Responsive menu shell with dropdown/search/action regions
-- **Modal** - Dialog overlays with focus trap
-- **Nested Nav** - Nested navigation lists
-- **Pagination** - Pagination links and controls
-- **Tabs** - Tabbed interfaces with pill style option
-- **Table** - Responsive data tables with scroll functionality
-- **Track** - Carousel/slider component with pagination
+```jsx
+import { useFocusTrap } from '@natura11y/react/hooks';
+```
 
 ---
 
-## Features
+## Components
 
-✅ **Uses Natura11y v5.1.1** - Latest framework with all improvements
-✅ **Shared Sass/CSS** - Uses `@natura11y/core` as the customization source
-✅ **Shared Utilities** - Uses Natura11y's JavaScript utilities where React components need behavior
-✅ **Fully Accessible** - WCAG compliant with proper ARIA attributes
-✅ **React 19 Only** - Built with hooks and ref-as-prop component APIs
-✅ **Fast Development** - Powered by Vite for instant HMR
+- Accordion
+- Alert
+- Backdrop Video
+- Badge
+- Breadcrumb
+- Button
+- Card
+- Collapse
+- Dropdown
+- Flyout
+- Form
+- Icon
+- Lightbox
+- Main Menu
+- Modal
+- Nested Nav
+- Pagination
+- Tabs
+- Table
+- Track
 
 ---
 
-## Development Scripts
+## Package Notes
 
-**`npm run build`** - Build for production to `dist/` folder
-
-**`npm run dev`** - Start the Vite demo app (http://localhost:3000)
-
-**`npm run preview`** - Preview production build locally
+- Built for React 19.
+- Uses `@natura11y/core@^5.2.0` for shared styles and JavaScript utilities.
+- Ships ES modules, CommonJS bundles, and TypeScript declarations.
+- Intended to be published as `@natura11y/react` under the Natura11y npm organization.
 
 ---
 
-### Related:
+## Development
 
-- [Repo: Natura11y Inclusive Framework](https://github.com/cavidano/natura11y)
-- [NPM: Natura11y Icons](https://www.npmjs.com/package/@natura11y/icons)
-- [Docs: Natura11y Docs](https://gonatura11y.com)
+```bash
+npm run typecheck
+npm run build
+npm pack --dry-run
+```
+
 ---
+
+## Related
+
+- [Natura11y Docs](https://gonatura11y.com)
+- [Natura11y Core on GitHub](https://github.com/Natura11y/core)
+- [Natura11y on npm](https://www.npmjs.com/org/natura11y)

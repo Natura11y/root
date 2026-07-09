@@ -8,6 +8,8 @@
   "scripts": {
     "build": "npm run build --workspaces --if-present",
     "build:react": "npm --workspace @natura11y/react run build",
+    "build:react-demo": "npm --workspace @natura11y/react run build:demo",
+    "react-demo": "npm --workspace @natura11y/react run dev",
     "build:icons": "npm --workspace @natura11y/icons run build:icons",
     "typecheck:react": "npm --workspace @natura11y/react run typecheck",
     "typecheck:storybook": "tsc -p tsconfig.storybook.json --noEmit",

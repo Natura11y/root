@@ -6,6 +6,7 @@ node_modules
 storybook-static
 apps/docs/dist
 apps/docs/.astro
+packages/react/demo-dist
 
 #Files
 .DS_Store
