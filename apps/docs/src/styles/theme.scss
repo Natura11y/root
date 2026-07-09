@@ -84,6 +84,7 @@ In this file:
 
 @include breakpoint.breakpoint-down(md) {
   :root {
+  // --base-font-size: 0.9rem;
     --type-scale: 1.1375;
   }
 }
