@@ -5,6 +5,7 @@ interface CardProps {
   tag?: ElementType;
   horizontal?: boolean;
   utilities?: string | null;
+  attributes?: Record<string, unknown>;
   children?: ReactNode;
 }
 
@@ -17,9 +18,10 @@ const Card = ({
   tag: Tag = 'div',
   horizontal = false,
   utilities = null,
+  attributes = {},
   children,
 }: CardProps) => (
-  <Tag className={classNames('card', { 'card--horizontal': horizontal }, utilities)}>
+  <Tag className={classNames('card', { 'card--horizontal': horizontal }, utilities)} {...attributes}>
     {children}
   </Tag>
 );

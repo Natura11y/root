@@ -13,6 +13,8 @@ interface FormEntrySearchProps {
   leadingIcon?: boolean;
   submitButton?: 'text' | 'icon' | null;
   submitLabel?: string;
+  fieldInputUtilities?: string | null;
+  submitButtonUtilities?: string | null;
   onSearch?: ((value: string) => void) | null;
   onSubmit?: (() => void) | null;
   onClear?: (() => void) | null;
@@ -30,6 +32,8 @@ const FormEntrySearch = ({
   leadingIcon = true,
   submitButton = null,
   submitLabel = 'Search',
+  fieldInputUtilities = null,
+  submitButtonUtilities = null,
   onSearch = null,
   onSubmit = null,
   onClear = null,
@@ -69,7 +73,7 @@ const FormEntrySearch = ({
         <span className={classNames('form-entry__field__label', { 'screen-reader-only': !labelVisible })}>
           {labelText}
         </span>
-        <span className='form-entry__field__input'>
+        <span className={classNames('form-entry__field__input', fieldInputUtilities)}>
           {leadingIcon && (
             <span className='icon icon-search opacity-50' aria-hidden='true' />
           )}
@@ -98,13 +102,13 @@ const FormEntrySearch = ({
           </button>
 
           {submitButton === 'text' && (
-            <button type='submit' className='button theme-primary' onClick={onSubmit ?? undefined}>
+            <button type='submit' className={classNames('button', submitButtonUtilities ?? 'theme-primary')} onClick={onSubmit ?? undefined}>
               {submitLabel}
             </button>
           )}
 
           {submitButton === 'icon' && (
-            <button type='submit' className='button button--icon-only theme-primary' aria-label={submitLabel} onClick={onSubmit ?? undefined}>
+            <button type='submit' className={classNames('button button--icon-only', submitButtonUtilities ?? 'theme-primary')} aria-label={submitLabel} onClick={onSubmit ?? undefined}>
               <span className='icon icon-search' aria-hidden='true' />
             </button>
           )}

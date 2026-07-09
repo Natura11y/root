@@ -3,16 +3,19 @@ import './style.css';
 
 import { useEffect, useState } from 'react';
 import {
+  Accordion,
   Alert,
+  Badge,
+  Backdrop,
   Brand,
+  Breadcrumb,
   Button,
   ButtonIconOnly,
-  Backdrop,
-  BackdropVideo,
   Card,
   CardBody,
+  CardFoot,
+  CardMedia,
   Collapse,
-  Dropdown,
   Form,
   FormEntry,
   FormEntrySearch,
@@ -21,30 +24,8 @@ import {
   NestedNav,
   Pagination,
   RequiredIndicator,
+  Track,
 } from '@lib/components';
-
-const assets = {
-  video: new URL('../../core/dist/html/examples/peak-performance-page/images/BackdropVideo.mp4', import.meta.url).href,
-  featuredPrimary: new URL('../../core/dist/html/examples/peak-performance-page/images/kalen-emsley-Bkci_8qcdvQ-unsplash.jpg', import.meta.url).href,
-  featuredSecondary: new URL('../../core/dist/html/examples/peak-performance-page/images/tomasz-smal-HJNQCoXVkU-unsplash.jpg', import.meta.url).href,
-  featuredTertiary: new URL('../../core/dist/html/examples/peak-performance-page/images/tono-graphy-k7SElGCAmgc-unsplash.jpg', import.meta.url).href,
-  alpineTrails: new URL('../../core/dist/html/examples/peak-performance-page/images/mujo-hasanovic-kgoOGADs6c8-unsplash.jpg', import.meta.url).href,
-  forestValleys: new URL('../../core/dist/html/examples/peak-performance-page/images/alessio-soggetti-umnkKO0xgco-unsplash.jpg', import.meta.url).href,
-  snowPeaks: new URL('../../core/dist/html/examples/peak-performance-page/images/saira-ahmed-nLdTtHGZ25E-unsplash.jpg', import.meta.url).href,
-  volcanicRidges: new URL('../../core/dist/html/examples/peak-performance-page/images/till-rottmann-xhDQ2qkDuaE-unsplash.jpg', import.meta.url).href,
-  wildPlaces: new URL('../../core/dist/html/examples/peak-performance-page/images/christian-joudrey-mWRR1xj95hg-unsplash.jpg', import.meta.url).href,
-  northernRange: new URL('../../core/dist/html/examples/peak-performance-page/images/jerry-zhang-ePpaQC2c1xA-unsplash.jpg', import.meta.url).href,
-  alpineLakes: new URL('../../core/dist/html/examples/peak-performance-page/images/alin-andersen-f0SgAs27BYI-unsplash.jpg', import.meta.url).href,
-  mountainRivers: new URL('../../core/dist/html/examples/peak-performance-page/images/deogyeon-hwang-zBLoozHjHwY-unsplash.jpg', import.meta.url).href,
-  highCountry: new URL('../../core/dist/html/examples/peak-performance-page/images/thomas-henke-mWk5pbVELDU-unsplash.jpg', import.meta.url).href,
-  wildlife: new URL('../../core/dist/html/examples/peak-performance-page/images/rutger-heijmerikx-iQiFZ_MnzKo-unsplash.jpg', import.meta.url).href,
-  autumn: new URL('../../core/dist/html/examples/peak-performance-page/images/kurt-liebhaeuser-CcWSIocNThA-unsplash.jpg', import.meta.url).href,
-};
-
-const externalLinkProps = {
-  target: '_blank',
-  rel: 'noreferrer',
-};
 
 const scrollToTop = (event) => {
   event.preventDefault();
@@ -55,15 +36,17 @@ const scrollToTop = (event) => {
 };
 
 const templateRoutes = [
+  { path: '/templates/landing', label: 'Landing' },
   { path: '/templates/form', label: 'Form' },
   { path: '/templates/search-results', label: 'Search Results' },
   { path: '/templates/full-width', label: 'Full Width' },
   { path: '/templates/two-column', label: 'Two Column' },
   { path: '/templates/three-column', label: 'Three Column' },
-  { path: '/templates/landing', label: 'Landing' },
 ];
 
 const templateRouteAliases = {
+  '/': '/templates/landing',
+  '/templates': '/templates/landing',
   '/contact': '/templates/form',
   '/nutrition': '/templates/form',
 };
@@ -72,12 +55,7 @@ const templateRoutePaths = new Set(templateRoutes.map(({ path }) => path));
 
 const resolveRoutePath = (path) => {
   const canonicalPath = templateRouteAliases[path] ?? path;
-
-  if (canonicalPath === '/' || canonicalPath === '/templates' || templateRoutePaths.has(canonicalPath)) {
-    return canonicalPath;
-  }
-
-  return '/';
+  return templateRoutePaths.has(canonicalPath) ? canonicalPath : '/templates/landing';
 };
 
 const getRoutePath = () => resolveRoutePath(window.location.pathname);
@@ -103,6 +81,10 @@ const getSearchQueryFromSearch = (search) => {
   return params.has('q') ? params.get('q') ?? '' : 'Lorem ipsum';
 };
 
+const placeholderImage = ({ width = 800, height = 500, text = 'Placeholder' }) => (
+  `https://placehold.co/${width}x${height}/4b5563/6b7280?text=${encodeURIComponent(text)}&font=oswald`
+);
+
 const RouteLink = ({ href, currentPath, onNavigate, children, ...props }) => (
   <a
     href={href}
@@ -117,170 +99,24 @@ const RouteLink = ({ href, currentPath, onNavigate, children, ...props }) => (
   </a>
 );
 
-const featuredCards = [
-  {
-    href: 'https://unsplash.com/@kalenemsley',
-    image: assets.featuredPrimary,
-    title: 'Vast valleys and forested peaks shape unforgettable journeys',
-    credit: 'Kalen Emsley',
-    action: 'Explore the Region',
-    primary: true,
-  },
-  {
-    href: 'https://unsplash.com/@apphex',
-    image: assets.featuredSecondary,
-    title: 'High mountain passes reveal breathtaking views',
-    credit: 'Tomasz Smal',
-    action: 'Scenic Routes',
-  },
-  {
-    href: 'https://unsplash.com/@tonography',
-    image: assets.featuredTertiary,
-    title: 'Golden light transforms rugged peaks at sunset',
-    credit: 'Tono Graphy',
-    action: 'Photography Guide',
-  },
+const loremParagraphs = [
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+  'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+  'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.',
+  'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
+  'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam.',
 ];
 
-const landscapeCards = [
-  {
-    href: 'https://unsplash.com/@mujoh',
-    image: assets.alpineTrails,
-    title: 'Alpine Trails',
-    credit: 'Mujo Hasanovic',
-    text: 'Winding paths lead through dramatic mountain scenery and open alpine meadows.',
-    action: 'Trail Guide',
-  },
-  {
-    href: 'https://unsplash.com/@asoggetti',
-    image: assets.forestValleys,
-    title: 'Forest Valleys',
-    credit: 'Alessio Soggetti',
-    text: 'Dense evergreen forests shelter rivers, wildlife, and peaceful backcountry routes.',
-    action: 'Explore Valleys',
-  },
-  {
-    href: 'https://unsplash.com/@sairaa',
-    image: assets.snowPeaks,
-    title: 'Snow-Capped Peaks',
-    credit: 'saira ahmed',
-    text: 'Towering summits create some of the most iconic landscapes in the world.',
-    action: 'Mountain Views',
-  },
-  {
-    href: 'https://unsplash.com/@till2',
-    image: assets.volcanicRidges,
-    title: 'Volcanic Ridges',
-    credit: 'Till Rottmann',
-    text: 'Ancient volcanic formations shape rugged terrain and dramatic skylines.',
-    action: 'Learn More',
-  },
+const articleSections = [
+  ['Heading 2', `${loremParagraphs[0]} ${loremParagraphs[1]} ${loremParagraphs[2]} ${loremParagraphs[3]} ${loremParagraphs[4]}`, loremParagraphs[5]],
+  ['Heading 2', `${loremParagraphs[0]} ${loremParagraphs[1]} ${loremParagraphs[2]} ${loremParagraphs[3]} ${loremParagraphs[4]}`, loremParagraphs[6]],
+  ['Heading 3', `${loremParagraphs[0]} ${loremParagraphs[1]} ${loremParagraphs[2]} ${loremParagraphs[3]} ${loremParagraphs[4]}`, loremParagraphs[5]],
+  ['Heading 4', `${loremParagraphs[0]} ${loremParagraphs[1]} ${loremParagraphs[2]} ${loremParagraphs[3]} ${loremParagraphs[4]}`, loremParagraphs[6]],
+  ['Heading 5', `${loremParagraphs[0]} ${loremParagraphs[1]} ${loremParagraphs[2]} ${loremParagraphs[3]} ${loremParagraphs[4]}`, loremParagraphs[5]],
+  ['Heading 6', `${loremParagraphs[0]} ${loremParagraphs[1]} ${loremParagraphs[2]} ${loremParagraphs[3]} ${loremParagraphs[4]}`, loremParagraphs[6]],
 ];
-
-const storyLinks = [
-  {
-    href: 'https://unsplash.com/@z734923105',
-    image: assets.northernRange,
-    title: 'The Northern Range',
-    credit: 'Jerry Zhang',
-  },
-  {
-    href: 'https://unsplash.com/@onixion',
-    image: assets.alpineLakes,
-    title: 'Above the Alpine Lakes',
-    credit: 'Alin Andersen',
-  },
-  {
-    href: 'https://unsplash.com/@lalalife',
-    image: assets.mountainRivers,
-    title: 'Mountain Rivers',
-    credit: 'Deogyeon Hwang',
-  },
-  {
-    href: 'https://unsplash.com/@weinraum',
-    image: assets.highCountry,
-    title: 'High Country Trails',
-    credit: 'thomas henke',
-  },
-  {
-    href: 'https://unsplash.com/@heijmerikx',
-    image: assets.wildlife,
-    title: 'Wildlife at Dusk',
-    credit: 'Rutger Heijmerikx',
-  },
-  {
-    href: 'https://unsplash.com/@kurti',
-    image: assets.autumn,
-    title: 'Autumn in the Backcountry',
-    credit: 'Kurt Liebhaeuser',
-  },
-];
-
-const footerNav = [
-  ['Training', ['Workout Plans', 'Contact', 'Recovery', 'Technique', 'Coaching']],
-  ['Gear', ['Footwear', 'Apparel', 'Equipment', 'Accessories', 'Sale']],
-  ['Company', ['About Us', 'Careers', 'Press', 'Contact', 'Blog']],
-];
-
-const subjectOptions = [
-  { label: 'General Inquiry', value: 'general' },
-  { label: 'Technical Support', value: 'support' },
-  { label: 'Billing Question', value: 'billing' },
-  { label: 'Feedback', value: 'feedback' },
-  { label: 'Other', value: 'other' },
-];
-
-const contactMethodOptions = [
-  { label: 'Email', value: 'email' },
-  { label: 'Phone', value: 'phone' },
-  { label: 'Either', value: 'either' },
-];
-
-const topicOptions = [
-  { label: 'Products & Services', value: 'products' },
-  { label: 'Events & Webinars', value: 'events' },
-  { label: 'News & Updates', value: 'updates' },
-  { label: 'Resources & Guides', value: 'resources' },
-];
-
-const initialContactForm = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  phone: '',
-  subject: '',
-  message: '',
-  contactMethod: 'email',
-  topics: [],
-  newsletter: false,
-};
-
-const validateContactForm = (formData) => {
-  const errors = {};
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  if (!formData.firstName.trim()) {
-    errors.firstName = 'Enter your first name.';
-  }
-
-  if (!formData.lastName.trim()) {
-    errors.lastName = 'Enter your last name.';
-  }
-
-  if (!emailPattern.test(formData.email)) {
-    errors.email = 'Enter a valid email address.';
-  }
-
-  if (!formData.subject) {
-    errors.subject = 'Select a subject.';
-  }
-
-  if (!formData.message.trim()) {
-    errors.message = 'Enter a message.';
-  }
-
-  return errors;
-};
 
 const searchFilters = [
   { label: 'Omnis', value: 'all' },
@@ -294,59 +130,59 @@ const searchResults = [
   {
     category: 'Aliquet',
     title: 'Lorem ipsum dolor sit amet consectetur',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    description: loremParagraphs[0],
   },
   {
     category: 'Aliquet',
     title: 'Consectetur adipiscing elit sed do eiusmod',
-    description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+    description: loremParagraphs[1],
   },
   {
     category: 'Viverra',
     title: 'Ut enim ad minim veniam quis nostrud',
-    description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+    description: loremParagraphs[2],
   },
   {
     category: 'Aliquet',
     title: 'Excepteur sint occaecat cupidatat non proident',
-    description: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos.',
+    description: loremParagraphs[5],
   },
   {
     category: 'Aliquet',
     title: 'Sunt in culpa qui officia deserunt mollit',
-    description: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit.',
+    description: loremParagraphs[6],
   },
   {
     category: 'Ornare',
     title: 'Duis aute irure dolor in reprehenderit',
-    description: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam.',
+    description: loremParagraphs[4],
   },
   {
     category: 'Viverra',
     title: 'Voluptate velit esse cillum dolore',
-    description: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.',
+    description: loremParagraphs[2],
   },
   {
     category: 'Morbi',
     title: 'Fugiat nulla pariatur laborum perspiciatis',
-    description: 'Nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat.',
+    description: loremParagraphs[6],
   },
   {
     category: 'Aliquet',
     title: 'Nemo enim ipsam voluptatem quia',
-    description: 'Temporibus autem quibusdam et aut officiis debitis rerum necessitatibus saepe eveniet.',
+    description: loremParagraphs[5],
   },
   {
     category: 'Aliquet',
     title: 'Itaque earum rerum hic tenetur sapiente',
-    description: 'Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.',
+    description: loremParagraphs[4],
   },
 ];
 
 const latestCards = [
   ['Technology', 'Enim Ad Minim Veniam Quis Nostrud Elit'],
   ['Design', 'Consectetur Adipiscing Elit Sed Do Eiusmod'],
-  ['Culture', 'Aliquip Ex Ea Commodo Consequat'],
+  ['Culture', 'Ut Labore Et Dolore Magna Aliqua Ut Enim'],
 ];
 
 const starterStats = [
@@ -356,11 +192,18 @@ const starterStats = [
   ['24/7', 'Service Availability'],
 ];
 
-const loremParagraphs = [
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-  'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
-  'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos.',
+const trackPanels = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'].map((label) => ({
+  linkUrl: '#1',
+  imageUrl: placeholderImage({ width: 1500, height: 750, text: label }),
+  altText: 'Placeholder',
+  buttonText: 'Button Label',
+}));
+
+const faqItems = [
+  ['faq-1', 'Who is eligible to use this program?', 'Eligibility is open to all residents and organizations operating within the jurisdiction. Specific requirements may vary by program type. Review the eligibility guidelines or contact your local office for more information.'],
+  ['faq-2', 'How long does the application process take?', 'Most applications are processed within 5-7 business days. Complex requests or those requiring additional documentation may take up to 30 days. You will receive a status update at each stage of the review process.'],
+  ['faq-3', 'What documents do I need to submit?', 'Required documents vary by request type. Generally, you will need a valid government-issued ID, proof of address, and any program-specific forms. A full checklist is available on the application page.'],
+  ['faq-4', 'How can I check the status of my submission?', 'Log in to your account at any time to view the current status of your application. You will also receive email notifications at key milestones. If you need assistance, contact our support team.'],
 ];
 
 const templateSidebarItems = [
@@ -394,6 +237,53 @@ const templateSidebarItems = [
   { label: 'Section Five', href: '#1' },
 ];
 
+const initialContactForm = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  subject: '',
+  message: '',
+  contactMethod: 'email',
+  topics: [],
+  newsletter: false,
+};
+
+const subjectOptions = [
+  { value: 'general', label: 'General Inquiry' },
+  { value: 'support', label: 'Support' },
+  { value: 'partnership', label: 'Partnership' },
+  { value: 'feedback', label: 'Feedback' },
+];
+
+const contactMethodOptions = [
+  { value: 'email', label: 'Email' },
+  { value: 'phone', label: 'Phone' },
+  { value: 'either', label: 'Either is fine' },
+];
+
+const topicOptions = [
+  { value: 'events', label: 'Events' },
+  { value: 'programs', label: 'Programs' },
+  { value: 'volunteering', label: 'Volunteering' },
+];
+
+const validateContactForm = (formData) => {
+  const errors = {};
+
+  if (!formData.firstName.trim()) errors.firstName = 'Enter your first name.';
+  if (!formData.lastName.trim()) errors.lastName = 'Enter your last name.';
+  if (!formData.email.trim()) {
+    errors.email = 'Enter your email address.';
+  } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
+    errors.email = 'Enter a valid email address.';
+  }
+  if (!formData.subject) errors.subject = 'Select a subject.';
+  if (!formData.message.trim()) errors.message = 'Enter a message.';
+
+  return errors;
+};
+
 const Logo = ({ currentPath, onNavigate }) => (
   <RouteLink href="/" currentPath={currentPath} onNavigate={onNavigate} title="Home" data-logo="brand">
     <Brand />
@@ -412,36 +302,6 @@ const TemplateNavItems = ({ currentPath, onNavigate }) => (
   </>
 );
 
-const Header = ({ currentPath, onNavigate }) => (
-  <header className="margin-x-auto wide">
-    <MainMenu
-      navId="main-menu"
-      logo={<Logo currentPath={currentPath} onNavigate={onNavigate} />}
-      actions={
-        <ButtonIconOnly
-          iconHandle="language"
-          ariaLabel="Language"
-        />
-      }
-    >
-      <li>
-        <Dropdown buttonText="Training" dropdownId="dropdown-1" utilities="box-shadow-1--lg">
-          <li><a href="#1">Strength</a></li>
-          <li><a href="#1">Endurance</a></li>
-          <li><a href="#1">Recovery</a></li>
-        </Dropdown>
-      </li>
-      <li>
-        <Dropdown buttonText="Templates" dropdownId="templates-menu" utilities="box-shadow-1--lg">
-          <TemplateNavItems currentPath={currentPath} onNavigate={onNavigate} />
-        </Dropdown>
-      </li>
-      <li><a href="#1">Athletes</a></li>
-      <li><a href="#1">Gear</a></li>
-    </MainMenu>
-  </header>
-);
-
 const TemplateHeader = ({ currentPath, onNavigate }) => {
   const [menuSearchQuery, setMenuSearchQuery] = useState('');
 
@@ -453,7 +313,7 @@ const TemplateHeader = ({ currentPath, onNavigate }) => {
   return (
     <header className="margin-x-auto wide--lg">
       <MainMenu
-        navId="template-main-menu"
+        navId="main-menu"
         searchId="main-menu-search"
         searchFormProps={{
           'aria-label': 'Search templates',
@@ -483,7 +343,7 @@ const TemplateFooter = () => (
     <h2 className="screen-reader-only">Page Footer</h2>
 
     <div className="container narrow wide--lg padding-y-4 font-size-md">
-      <div className="grid grid--column-2--md grid--column-4--lg gap-4">
+      <div className="grid grid--column-2 grid--column-4--lg gap-4">
         <div>
           <div className="margin-bottom-3">
             <a href="/" title="Home" data-logo="brand">
@@ -499,23 +359,16 @@ const TemplateFooter = () => (
           </address>
         </div>
 
-        <nav aria-label="Section One">
-          <p><strong>Section One</strong></p>
-          <ul className="nav">
-            {['Link One', 'Link Two', 'Link Three', 'Link Four'].map((label) => (
-              <li key={label}><a href="#1">{label}</a></li>
-            ))}
-          </ul>
-        </nav>
-
-        <nav aria-label="Section Two">
-          <p><strong>Section Two</strong></p>
-          <ul className="nav">
-            {['Link One', 'Link Two', 'Link Three', 'Link Four'].map((label) => (
-              <li key={label}><a href="#1">{label}</a></li>
-            ))}
-          </ul>
-        </nav>
+        {['Section One', 'Section Two'].map((section) => (
+          <nav aria-label={section} key={section}>
+            <p><strong>{section}</strong></p>
+            <ul className="nav">
+              {['Link One', 'Link Two', 'Link Three', 'Link Four'].map((label) => (
+                <li key={label}><a href="#1">{label}</a></li>
+              ))}
+            </ul>
+          </nav>
+        ))}
 
         <nav aria-label="Social Media">
           <p><strong>Follow Us</strong></p>
@@ -536,10 +389,14 @@ const TemplateFooter = () => (
       <div className="flex-row justify-content-between align-items-center">
         <span>&copy; 2026 Your Company Name. All rights reserved.</span>
 
-        <a href="#" className="button button--outline button--has-icon" onClick={scrollToTop}>
-          <Icon iconHandle="arrow-up" />
-          <span className="button__text">Back to Top</span>
-        </a>
+        <Button
+          tag="a"
+          linkUrl="#"
+          title="Back to Top"
+          outline
+          iconStartHandle="arrow-up"
+          attributes={{ onClick: scrollToTop }}
+        />
       </div>
     </div>
   </footer>
@@ -548,60 +405,53 @@ const TemplateFooter = () => (
 const TemplateBreadcrumb = () => (
   <div className="border-bottom display-none display-block--lg">
     <div className="container wide padding-y-2">
-      <nav aria-label="Breadcrumb">
-        <ul className="breadcrumb">
-          <li><a href="#1">Grandparent</a></li>
-          <li><a href="#1">Parent</a></li>
-          <li aria-current="page">Child Page</li>
-        </ul>
-      </nav>
+      <Breadcrumb
+        items={[
+          { label: 'Grandparent', href: '#1' },
+          { label: 'Parent', href: '#1' },
+          { label: 'Child Page' },
+        ]}
+      />
     </div>
   </div>
 );
 
-const TemplateMediaPlaceholder = ({ label }) => (
-  <div className="template-media-placeholder opacity-30 gradient-mask-left" aria-hidden="true">
-    <span>{label}</span>
-  </div>
-);
+const PageBanner = ({ label, aspectRatioClass = 'aspect-ratio-3x1--lg' }) => (
+  <Backdrop
+    tag="header"
+    imageSrc={placeholderImage({ width: 1500, height: 500, text: label })}
+    imageUtilities="opacity-30 gradient-mask-left"
+    utilities={`${aspectRatioClass} theme-dark`}
+  >
+    <TemplateBreadcrumb />
 
-const TemplateBanner = ({ title = 'Page Title', label = 'Template' }) => (
-  <header className="backdrop backdrop--fixed aspect-ratio-3x1--lg theme-dark">
-    <div className="backdrop__media">
-      <TemplateMediaPlaceholder label={label} />
-    </div>
-
-    <div className="backdrop__cover">
-      <TemplateBreadcrumb />
-      <div className="margin-y-auto">
-        <div className="container wide">
-          <h1 className="banner-headline">{title}</h1>
-        </div>
+    <div className="margin-y-auto">
+      <div className="container wide">
+        <h1 className="banner-headline">Page Title</h1>
       </div>
     </div>
-  </header>
+  </Backdrop>
 );
 
 const TemplateArticleContent = () => (
   <div className="medium margin-x-auto">
     <h2 className="h1">Introduction</h2>
-    <p className="font-size-lg">{loremParagraphs[0]} {loremParagraphs[1]}</p>
+    <p className="font-size-lg">
+      {loremParagraphs[0]} {loremParagraphs[1]}
+    </p>
 
     <div className="narrow">
-      <h2>Heading 2</h2>
-      <p>{loremParagraphs[1]} {loremParagraphs[2]}</p>
-      <p>{loremParagraphs[3]} {loremParagraphs[0]}</p>
+      {articleSections.slice(0, 4).map(([heading, firstParagraph, secondParagraph], index) => {
+        const Heading = heading.toLowerCase().replace(' ', '');
 
-      <h2>Heading 2</h2>
-      <p>{loremParagraphs[0]} {loremParagraphs[2]}</p>
-      <p>{loremParagraphs[3]} {loremParagraphs[1]}</p>
-
-      <h3>Heading 3</h3>
-      <p>{loremParagraphs[2]} {loremParagraphs[0]}</p>
-      <p>{loremParagraphs[3]} {loremParagraphs[1]}</p>
-
-      <h4>Heading 4</h4>
-      <p>{loremParagraphs[0]} {loremParagraphs[1]}</p>
+        return (
+          <section key={`${heading}-${index}`}>
+            <Heading>{heading}</Heading>
+            <p>{firstParagraph}</p>
+            <p>{secondParagraph}</p>
+          </section>
+        );
+      })}
     </div>
   </div>
 );
@@ -611,16 +461,13 @@ const TemplateSidebarNav = () => {
 
   return (
     <div className="margin-x-auto">
-      <button
-        className="sidebar-toggle button button--disperse display-none--lg"
-        type="button"
-        aria-controls="sidebar-nav"
-        aria-expanded={isSidebarOpen}
+      <Button
+        title="Navigation"
+        utilities="sidebar-toggle button--disperse display-none--lg"
+        iconEndHandle="chevron-down"
         onClick={() => setIsSidebarOpen((isOpen) => !isOpen)}
-      >
-        Navigation
-        <Icon iconHandle="chevron-down" />
-      </button>
+        attributes={{ 'aria-controls': 'sidebar-nav', 'aria-expanded': isSidebarOpen }}
+      />
 
       <Collapse id="sidebar-nav" isOpen={isSidebarOpen} showAt="lg">
         <NestedNav
@@ -644,190 +491,6 @@ const OnThisPage = () => (
       </ul>
     </nav>
   </div>
-);
-
-const Hero = () => (
-  <BackdropVideo
-    tag="section"
-    id="introduction"
-    videoSrc={assets.video}
-    utilities="theme-dark"
-    mediaUtilities="gradient-mask-bottom"
-    videoUtilities="opacity-40"
-    controlUtilities="margin-2"
-    controlButtonUtilities="font-size-md border-radius-circle"
-    credit={
-      <div className="backdrop__media__credit margin-1">
-        <p>
-          Photo by <a href="https://unsplash.com/@jonnyjames2" {...externalLinkProps}>Jonny James</a> on Unsplash
-        </p>
-      </div>
-    }
-  >
-    <div className="container narrow--sm medium--lg text-align-center margin-y-6">
-      <h1 className="banner-headline text-shadow margin-bottom-4">
-        Endless mountain landscapes waiting beyond the horizon
-      </h1>
-
-      <div className="narrow margin-x-auto">
-        <div className="grid grid--column-2--md gap-3">
-          <Button tag="a" linkUrl="#1" title="Plan Your Visit" utilities="theme-primary box-shadow-1" />
-          <Button tag="a" linkUrl="#1" title="View Destinations" utilities="theme-secondary box-shadow-1" />
-        </div>
-      </div>
-    </div>
-  </BackdropVideo>
-);
-
-const FeaturedCard = ({ href, image, title, credit, action, primary = false }) => (
-  <Backdrop
-    tag="a"
-    href={href}
-    {...externalLinkProps}
-    imageSrc={image}
-    imageAlt="Placeholder"
-    utilities="theme-dark"
-    mediaUtilities="gradient-mask-bottom"
-    imageUtilities={primary ? 'opacity-40' : 'opacity-50'}
-    coverUtilities={`justify-content-end${primary ? '' : ' text-shadow'}`}
-  >
-    <div className={primary ? 'container width-100 margin-y-3' : 'container narrow margin-y-3'}>
-      <div className="narrow">
-        <div className={primary ? 'text-shadow margin-bottom-3' : undefined}>
-          <h2 className={primary ? undefined : 'h4'}>{title}</h2>
-          <p className="font-size-sm opacity-80">
-            Photo by <span className="text-decoration-underline">{credit}</span>
-          </p>
-        </div>
-
-        <span className={primary ? 'button button--has-icon theme-secondary font-size-md' : 'link text-color-secondary font-size-md'}>
-          <span className="text">{action}</span>
-          <Icon iconHandle="chevron-right" />
-        </span>
-      </div>
-    </div>
-  </Backdrop>
-);
-
-const Featured = () => (
-  <section className="container medium wide--xl margin-y-6" id="featured">
-    <div className="grid grid--features">
-      {featuredCards.map((card) => (
-        <FeaturedCard key={card.title} {...card} />
-      ))}
-    </div>
-  </section>
-);
-
-const LandscapeCard = ({ href, image, title, credit, text, action }) => (
-  <Backdrop
-    tag="a"
-    href={href}
-    {...externalLinkProps}
-    imageSrc={image}
-    imageAlt="Placeholder"
-    utilities="box-shadow-3"
-    mediaUtilities="gradient-mask-bottom"
-    imageUtilities="opacity-50"
-    coverUtilities="justify-content-end text-shadow"
-  >
-    <div className="container wide margin-y-3">
-      <div className="narrow">
-        <div className="text-shadow margin-bottom-1">
-          <h2 className="h5">{title}</h2>
-          <p className="font-size-sm opacity-80">
-            Photo by <span className="text-decoration-underline">{credit}</span>
-          </p>
-          <p>{text}</p>
-        </div>
-
-        <span className="link text-color-secondary font-size-md">
-          <span className="text">{action}</span>
-          <Icon iconHandle="arrow-right" />
-        </span>
-      </div>
-    </div>
-  </Backdrop>
-);
-
-const Landscapes = () => (
-  <section className="theme-dark">
-    <div className="container medium wide--xl padding-y-6">
-      <header className="narrow text-align-center margin-x-auto">
-        <h2>Explore Landscapes That Inspire Adventure</h2>
-        <p>
-          From towering summits to quiet forest trails, every landscape offers a different way to experience the outdoors.
-        </p>
-      </header>
-
-      <div className="grid grid--column-2--lg grid--column-4--xl gap-3 margin-y-5">
-        {landscapeCards.map((card) => (
-          <LandscapeCard key={card.title} {...card} />
-        ))}
-      </div>
-
-      <div className="narrow text-align-center margin-x-auto">
-        <a className="button button--has-icon theme-secondary" href="#1">
-          <span className="button__text">View All Destinations</span>
-          <Icon iconHandle="chevron-right" />
-        </a>
-      </div>
-    </div>
-  </section>
-);
-
-const WildPlaces = () => (
-  <section className="container wide margin-y-6">
-    <div className="grid grid--column-2--md gap-4 align-items-center">
-      <div className="position-relative">
-        <img src={assets.wildPlaces} alt="Placeholder" />
-
-        <div className="position-bottom-right theme-dark padding-x-2 padding-y-1 font-size-sm">
-          Photo by <a className="link-expanded" href="https://unsplash.com/@cjoudrey" {...externalLinkProps}>Christian Joudrey</a>
-        </div>
-      </div>
-
-      <div className="narrow">
-        <h2 className="h3">The Beauty of Wild Places</h2>
-        <p>
-          Towering cliffs, winding rivers, and quiet forests offer endless opportunities to explore nature at your own pace.
-        </p>
-
-        <a className="button button--has-icon theme-secondary" href="#1">
-          <span className="button__text">Start Exploring</span>
-          <Icon iconHandle="chevron-right" />
-        </a>
-      </div>
-    </div>
-  </section>
-);
-
-const Stories = () => (
-  <section className="theme-light">
-    <div className="container medium wide--xl padding-y-5">
-      <header className="narrow text-align-center margin-x-auto">
-        <h2>Stories from the Mountains</h2>
-        <p>
-          Travel notes, outdoor guides, and photography stories inspired by wild landscapes.
-        </p>
-      </header>
-
-      <div className="grid grid--column-3--xl gap-2 margin-y-5">
-        {storyLinks.map(({ href, image, title, credit }) => (
-          <a className="thumb-button no-hover-focus" href={href} key={title} {...externalLinkProps}>
-            <p>
-              <span className="thumb-button__text">{title}</span>
-              <span className="thumb-button__credit">
-                Photo by <span className="text-decoration-underline">{credit}</span>
-              </span>
-            </p>
-
-            <img className="thumb-button__image" src={image} alt="Placeholder" />
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
 );
 
 const ContactForm = () => {
@@ -885,9 +548,7 @@ const ContactForm = () => {
 
       {Object.keys(errors).length > 0 && (
         <Alert success={false} title="Review the form" utilities="margin-bottom-3">
-          <p>
-            A few required details need attention before this can be submitted.
-          </p>
+          <p>A few required details need attention before this can be submitted.</p>
         </Alert>
       )}
 
@@ -999,33 +660,21 @@ const ContactForm = () => {
       />
 
       <div className="margin-top-4">
-        <button className="button theme-dark" type="submit">
-          <span className="text">Send Message</span>
-          <Icon iconHandle="send" />
-        </button>
+        <Button
+          buttonType="submit"
+          title="Send Message"
+          utilities="theme-dark"
+          iconEndHandle="send"
+        />
       </div>
     </Form>
   );
 };
 
-const ContactPage = () => (
+const FormTemplatePage = () => (
   <main id="main-content">
     <header className="theme-light">
-      <div className="border-bottom display-none display-block--lg">
-        <div className="container wide padding-y-2">
-          <nav aria-label="Breadcrumb">
-            <ul className="breadcrumb">
-              <li>
-                <a href="#1">Grandparent</a>
-              </li>
-              <li>
-                <a href="#1">Parent</a>
-              </li>
-              <li aria-current="page">Child Page</li>
-            </ul>
-          </nav>
-        </div>
-      </div>
+      <TemplateBreadcrumb />
 
       <div className="container wide padding-y-5">
         <h1 className="banner-headline">Contact Us</h1>
@@ -1061,10 +710,13 @@ const ContactPage = () => (
                   </p>
                 </address>
 
-                <a className="button text-color-link font-size-md" href="tel:+12025550100">
-                  <Icon iconHandle="call" />
-                  <span className="text">(202) 555-0100</span>
-                </a>
+                <Button
+                  tag="a"
+                  linkUrl="tel:+12025550100"
+                  title="(202) 555-0100"
+                  iconStartHandle="call"
+                  utilities="text-color-link font-size-md"
+                />
               </div>
 
               <div>
@@ -1093,36 +745,45 @@ const ContactPage = () => (
   </main>
 );
 
-const TemplateIndexPage = ({ currentPath, onNavigate }) => (
-  <main id="main-content">
-    <header className="theme-light">
-      <div className="container wide padding-y-5">
-        <h1 className="banner-headline">React Templates</h1>
-        <p className="font-size-lg narrow">
-          Starter templates rebuilt with Natura11y React components where React behavior belongs.
-        </p>
-      </div>
-    </header>
+const SearchFilters = ({ activeFilter, filterCount, onFilterChange }) => {
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
-    <div className="container wide--lg margin-y-5">
-      <div className="grid grid--column-2--md grid--column-3--xl gap-3">
-        {templateRoutes.map((route) => (
-          <Card tag="article" utilities="subtle-fill-1" key={route.path}>
-            <CardBody>
-              <h2 className="h4">{route.label}</h2>
-              <p>
-                Recreates the Core {route.label.toLowerCase()} template as a React starter route.
-              </p>
-              <RouteLink href={route.path} currentPath={currentPath} onNavigate={onNavigate} className="button theme-dark">
-                View Template
-              </RouteLink>
-            </CardBody>
-          </Card>
-        ))}
-      </div>
+  return (
+    <div className="margin-x-auto">
+      <Button
+        title="Filter Results"
+        utilities="sidebar-toggle button--disperse display-none--lg"
+        iconEndHandle="chevron-down"
+        onClick={() => setIsFilterOpen((isOpen) => !isOpen)}
+        attributes={{ 'aria-controls': 'search-filters', 'aria-expanded': isFilterOpen }}
+      />
+
+      <Collapse id="search-filters" isOpen={isFilterOpen} showAt="lg">
+        <nav className="padding-3 padding-0--lg" aria-label="Filter by type">
+          <p className="display-none display-block--lg"><strong>Filter Results</strong></p>
+
+          <ul className="nav gap-3">
+            {searchFilters.map((filter) => (
+              <li key={filter.value}>
+                <a
+                  href="#1"
+                  aria-current={activeFilter === filter.value ? 'true' : undefined}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    onFilterChange(filter.value);
+                  }}
+                >
+                  {filter.label}
+                  <Badge>{filterCount(filter.value)}</Badge>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </Collapse>
     </div>
-  </main>
-);
+  );
+};
 
 const SearchResultsTemplatePage = ({ currentSearch, onNavigate }) => {
   const searchQuery = getSearchQueryFromSearch(currentSearch);
@@ -1167,6 +828,11 @@ const SearchResultsTemplatePage = ({ currentSearch, onNavigate }) => {
     onNavigate(getSearchResultsUrl(''));
   };
 
+  const handleFilterChange = (value) => {
+    setActiveFilter(value);
+    setPage(1);
+  };
+
   const resultStart = filteredResults.length > 0 ? 1 : 0;
   const resultEnd = filteredResults.length;
 
@@ -1179,23 +845,20 @@ const SearchResultsTemplatePage = ({ currentSearch, onNavigate }) => {
           </h1>
 
           <div className="margin-top-3">
-            <form className={`form-entry form-entry--search${draftQuery ? ' has-value' : ''}`} role="search" aria-label="Refine search" onSubmit={handleSubmit}>
-              <div className="form-entry__field">
-                <span className="form-entry__field__input border-radius-pill">
-                  <input
-                    type="search"
-                    name="search"
-                    aria-label="Search"
-                    id="search-results-input"
-                    value={draftQuery}
-                    onChange={(event) => setDraftQuery(event.target.value)}
-                  />
-                  <button type="button" className="button button--icon-only" aria-label="Clear search" aria-controls="search-results-input" onClick={handleClear}>
-                    <Icon iconHandle="clear" />
-                  </button>
-                  <button className="button theme-dark" type="submit">Search</button>
-                </span>
-              </div>
+            <form role="search" aria-label="Refine search" onSubmit={handleSubmit}>
+              <FormEntrySearch
+                key={query}
+                id="search-results-input"
+                name="search"
+                labelText="Search"
+                defaultValue={draftQuery}
+                leadingIcon={false}
+                submitButton="text"
+                fieldInputUtilities="border-radius-pill"
+                submitButtonUtilities="theme-dark"
+                onSearch={setDraftQuery}
+                onClear={handleClear}
+              />
             </form>
           </div>
         </div>
@@ -1204,37 +867,11 @@ const SearchResultsTemplatePage = ({ currentSearch, onNavigate }) => {
       <div className="container wide--lg margin-y-5">
         <div className="grid-sidebar--left gap-5">
           <aside className="grid-sidebar__minor" aria-label="Filter Results">
-            <div className="margin-x-auto">
-              <button className="sidebar-toggle button button--disperse display-none--lg" type="button" aria-controls="search-filters" aria-expanded="false">
-                Filter Results
-                <Icon iconHandle="chevron-down" />
-              </button>
-
-              <div className="collapse shown--lg" id="search-filters">
-                <nav className="padding-3 padding-0--lg" aria-label="Filter by type">
-                  <p className="display-none display-block--lg"><strong>Filter Results</strong></p>
-
-                  <ul className="nav gap-3">
-                    {searchFilters.map((filter) => (
-                      <li key={filter.value}>
-                        <a
-                          href="#1"
-                          aria-current={activeFilter === filter.value ? 'true' : undefined}
-                          onClick={(event) => {
-                            event.preventDefault();
-                            setActiveFilter(filter.value);
-                            setPage(1);
-                          }}
-                        >
-                          {filter.label}
-                          <span className="badge">{filterCount(filter.value)}</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-              </div>
-            </div>
+            <SearchFilters
+              activeFilter={activeFilter}
+              filterCount={filterCount}
+              onFilterChange={handleFilterChange}
+            />
           </aside>
 
           <div className="grid-sidebar__major">
@@ -1247,7 +884,7 @@ const SearchResultsTemplatePage = ({ currentSearch, onNavigate }) => {
                 {filteredResults.map((result) => (
                   <li key={`${result.category}-${result.title}`}>
                     <p className="margin-bottom-2">
-                      <span className="badge">{result.category}</span>
+                      <Badge>{result.category}</Badge>
                     </p>
                     <h2 className="h5 margin-bottom-1">
                       <a className="link" href="#1">{result.title}</a>
@@ -1287,23 +924,32 @@ const SearchResultsTemplatePage = ({ currentSearch, onNavigate }) => {
 
 const FullWidthTemplatePage = () => (
   <main id="main-content">
-    <TemplateBanner label="Full Width" />
+    <PageBanner label="Full Width" aspectRatioClass="aspect-ratio-3x1" />
 
     <div className="container--lg wide--lg margin-y-5">
       <h2 className="h1">Introduction</h2>
-      <p className="font-size-lg">{loremParagraphs[0]} {loremParagraphs[1]}</p>
-      <h2>Heading 2</h2>
-      <p>{loremParagraphs[1]} {loremParagraphs[2]} {loremParagraphs[3]}</p>
-      <p>{loremParagraphs[3]} {loremParagraphs[0]}</p>
-      <h2>Heading 2</h2>
-      <p>{loremParagraphs[0]} {loremParagraphs[2]} {loremParagraphs[1]}</p>
+      <p className="font-size-lg">
+        {loremParagraphs[0]} {loremParagraphs[1]}
+      </p>
+
+      {articleSections.map(([heading, firstParagraph, secondParagraph], index) => {
+        const Heading = heading.toLowerCase().replace(' ', '');
+
+        return (
+          <section key={`${heading}-${index}`}>
+            <Heading>{heading}</Heading>
+            <p>{firstParagraph}</p>
+            <p>{secondParagraph}</p>
+          </section>
+        );
+      })}
     </div>
   </main>
 );
 
 const TwoColumnTemplatePage = () => (
   <main id="main-content">
-    <TemplateBanner label="Two Column" />
+    <PageBanner label="Two Column" />
 
     <div className="container wide--lg margin-y-5">
       <div className="grid-sidebar--left gap-5">
@@ -1321,7 +967,7 @@ const TwoColumnTemplatePage = () => (
 
 const ThreeColumnTemplatePage = () => (
   <main id="main-content">
-    <TemplateBanner label="Three Column" />
+    <PageBanner label="Three Column" />
 
     <div className="container wide--lg margin-y-5">
       <div className="grid-sidebars gap-5">
@@ -1341,30 +987,50 @@ const ThreeColumnTemplatePage = () => (
   </main>
 );
 
+const LatestCard = ({ badge, title }) => (
+  <Card tag="a" utilities="theme- border-radius-2 drop-shadow-2" attributes={{ href: '#1' }}>
+    <CardMedia utilities="backdrop theme-dark">
+      <Backdrop
+        imageSrc={placeholderImage({ width: 800, height: 400, text: 'Feature Image' })}
+        utilities="theme-dark"
+        coverUtilities="justify-content-end container"
+      >
+        <Badge utilities="margin-y-3">{badge}</Badge>
+      </Backdrop>
+    </CardMedia>
+    <CardBody>
+      <h3 className="h4">{title}</h3>
+      <p>{loremParagraphs[0]}</p>
+    </CardBody>
+    <CardFoot>
+      <Icon iconHandle="arrow-right" />
+    </CardFoot>
+  </Card>
+);
+
 const LandingTemplatePage = () => (
   <main id="main-content">
-    <div className="backdrop backdrop--stack--lg theme-dark">
-      <div className="backdrop__media">
-        <TemplateMediaPlaceholder label="Landing" />
-      </div>
-
-      <div className="backdrop__cover">
-        <div className="margin-y-6">
-          <div className="container wide--lg">
-            <div className="narrow--lg">
-              <h1 className="banner-headline text-shadow">Page Headline</h1>
-              <p className="font-size-lg text-shadow">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
-              </p>
-              <div className="flex-row gap-3 margin-top-4">
-                <a href="#1" className="button theme-canvas">Get Started</a>
-                <a href="#1" className="button button--outline">Learn More</a>
-              </div>
+    <Backdrop
+      imageSrc={placeholderImage({ width: 2000, height: 1000, text: 'Landing' })}
+      stack="lg"
+      utilities="theme-dark"
+      imageUtilities="opacity-30 gradient-mask-bottom"
+    >
+      <div className="margin-y-6">
+        <div className="container wide--lg">
+          <div className="narrow--lg">
+            <h1 className="banner-headline text-shadow">Page Headline</h1>
+            <p className="font-size-lg text-shadow">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+            </p>
+            <div className="flex-row gap-3 margin-top-4">
+              <Button tag="a" linkUrl="#1" title="Get Started" utilities="theme-canvas" />
+              <Button tag="a" linkUrl="#1" title="Learn More" outline />
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </Backdrop>
 
     <section className="theme-light padding-y-4" aria-labelledby="stats-heading">
       <h2 className="screen-reader-only" id="stats-heading">Program Statistics</h2>
@@ -1385,23 +1051,7 @@ const LandingTemplatePage = () => (
         <h2 className="text-align-center margin-bottom-4" id="features-heading">The Latest</h2>
         <div className="grid grid--column-3--md gap-4">
           {latestCards.map(([badge, title]) => (
-            <a className="card theme- border-radius-2 drop-shadow-2" href="#1" key={title}>
-              <div className="card__media backdrop theme-dark">
-                <div className="backdrop__media">
-                  <TemplateMediaPlaceholder label="Feature" />
-                </div>
-                <div className="backdrop__cover justify-content-end container">
-                  <span className="badge margin-y-3">{badge}</span>
-                </div>
-              </div>
-              <CardBody>
-                <h3 className="h4">{title}</h3>
-                <p>{loremParagraphs[0]}</p>
-              </CardBody>
-              <div className="card__foot">
-                <Icon iconHandle="arrow-right" />
-              </div>
-            </a>
+            <LatestCard badge={badge} title={title} key={title} />
           ))}
         </div>
       </div>
@@ -1409,116 +1059,88 @@ const LandingTemplatePage = () => (
 
     <section className="theme-light padding-y-5" aria-labelledby="section-dark-heading">
       <div className="container wide">
-        <div className="grid grid--column-2--md gap-5 align-items-center">
-          <div>
+        <div className="grid grid--column-2--lg gap-5 align-items-center">
+          <div className="narrow">
             <h2 id="section-dark-heading">Section Heading</h2>
-            <p>{loremParagraphs[0]} {loremParagraphs[1]}</p>
-            <a href="#1" className="button">Learn More</a>
+            <p>{loremParagraphs[1]} {loremParagraphs[2]}</p>
+            <Button tag="a" linkUrl="#1" title="Learn More" />
           </div>
-          <div className="template-section-placeholder" aria-hidden="true">Starter Content</div>
+          <div>
+            <img src={placeholderImage({ width: 800, height: 500, text: 'Section Image' })} alt="" />
+          </div>
         </div>
       </div>
     </section>
 
-    <section className="backdrop theme-dark" aria-labelledby="cta-heading">
-      <div className="backdrop__media">
-        <TemplateMediaPlaceholder label="CTA" />
-      </div>
-      <div className="backdrop__cover">
-        <div className="container narrow text-align-center margin-y-5">
-          <h2 id="cta-heading">Ready to Get Started?</h2>
-          <a href="#1" className="button theme-canvas">Get Started Today</a>
+    <section className="padding-y-5" aria-labelledby="section-light-heading">
+      <div className="container wide">
+        <div className="grid grid--column-2--lg gap-5 align-items-center">
+          <div>
+            <img src={placeholderImage({ width: 800, height: 500, text: 'Section Image' })} alt="" />
+          </div>
+          <div>
+            <h2 id="section-light-heading">Section Heading</h2>
+            <p>{loremParagraphs[1]} {loremParagraphs[2]}</p>
+            <Button tag="a" linkUrl="#1" title="Learn More" />
+          </div>
         </div>
       </div>
     </section>
+
+    <section className="theme-light padding-y-5">
+      <div className="wide--lg margin-x-auto">
+        <Track
+          ariaLabel="Recent news"
+          panels={trackPanels}
+          utilities="track--peeking--xl track--peeking-edge--xl track--column-2--xl"
+        />
+      </div>
+    </section>
+
+    <section className="padding-y-5" aria-labelledby="faq-heading">
+      <div className="container medium">
+        <h2 className="margin-bottom-4 text-align-center" id="faq-heading">Frequently Asked Questions</h2>
+        <Accordion>
+          {faqItems.map(([itemId, title, text]) => (
+            <Accordion.Item itemId={itemId} title={title} key={itemId}>
+              <p>{text}</p>
+            </Accordion.Item>
+          ))}
+        </Accordion>
+      </div>
+    </section>
+
+    <Backdrop
+      tag="section"
+      imageSrc={placeholderImage({ width: 1500, height: 500, text: 'Call to action' })}
+      imageUtilities="opacity-30"
+      utilities="theme-dark"
+      attributes={{ 'aria-labelledby': 'cta-heading' }}
+    >
+      <div className="margin-y-5 text-align-center">
+        <div className="container narrow">
+          <h2 id="cta-heading">Ready to Get Started?</h2>
+          <p className="font-size-lg">Join us and start building something great today.</p>
+          <Button tag="a" linkUrl="#1" title="Get Started Today" utilities="theme-canvas" />
+        </div>
+      </div>
+    </Backdrop>
   </main>
 );
 
 const templatePageMap = {
-  '/templates': TemplateIndexPage,
-  '/templates/form': ContactPage,
+  '/templates/landing': LandingTemplatePage,
+  '/templates/form': FormTemplatePage,
   '/templates/search-results': SearchResultsTemplatePage,
   '/templates/full-width': FullWidthTemplatePage,
   '/templates/two-column': TwoColumnTemplatePage,
   '/templates/three-column': ThreeColumnTemplatePage,
-  '/templates/landing': LandingTemplatePage,
 };
-
-const HomePage = () => (
-  <main id="main">
-    <Hero />
-    <Featured />
-    <Landscapes />
-    <WildPlaces />
-    <Stories />
-  </main>
-);
-
-const FooterNav = ({ title, links }) => (
-  <nav>
-    <p className="h6 margin-bottom-2">{title}</p>
-    <ul className="nav">
-      {links.map((link) => (
-        <li key={link}>
-          <a href="#1">{link}</a>
-        </li>
-      ))}
-    </ul>
-  </nav>
-);
-
-const Footer = ({ currentPath, onNavigate }) => (
-  <footer className="font-size-md" id="global-footer">
-    <h2 className="screen-reader-only">Page Footer</h2>
-
-    <div className="container narrow wide--lg padding-y-4">
-      <div className="grid grid--column-2 grid--column-4--lg gap-4">
-        {footerNav.map(([title, links]) => (
-          <FooterNav key={title} title={title} links={links} />
-        ))}
-
-        <div>
-          <Logo currentPath={currentPath} onNavigate={onNavigate} />
-
-          <p>
-            Journeys begin with landscapes that invite exploration and wonder.
-          </p>
-
-          <ul className="nav nav--horizontal font-size-sm">
-            <li>
-              <ButtonIconOnly tag="a" linkUrl="#1" iconHandle="facebook" ariaLabel="Facebook" utilities="theme-dark border-radius-circle" />
-            </li>
-            <li>
-              <ButtonIconOnly tag="a" linkUrl="#1" iconHandle="bluesky" ariaLabel="Bluesky" utilities="theme-dark border-radius-circle" />
-            </li>
-            <li>
-              <ButtonIconOnly tag="a" linkUrl="#1" iconHandle="instagram" ariaLabel="Instagram" utilities="theme-dark border-radius-circle" />
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <hr />
-
-    <div className="container narrow wide--lg padding-y-2 font-size-sm">
-      <div className="display-flex justify-content-between">
-        <span>&copy; Copyright 2024. All rights reserved.</span>
-
-        <a className="link" href="#" onClick={scrollToTop}>
-          <Icon iconHandle="arrow-up" />
-          <span className="text">Back to Top</span>
-        </a>
-      </div>
-    </div>
-  </footer>
-);
 
 const App = () => {
   const [currentPath, setCurrentPath] = useState(getRoutePath);
   const [currentSearch, setCurrentSearch] = useState(() => window.location.search);
-  const TemplatePage = templatePageMap[currentPath] ?? null;
-  const isTemplateRoute = TemplatePage !== null;
+  const TemplatePage = templatePageMap[currentPath] ?? LandingTemplatePage;
 
   const navigate = (target) => {
     const nextRoute = getNavigationTarget(target);
@@ -1545,27 +1167,13 @@ const App = () => {
   return (
     <>
       <div className="skip-links">
-        <a href={isTemplateRoute ? '#main-content' : '#main'}>Jump to main content</a>
+        <a href="#main-content">Jump to main content</a>
         <a href="#global-footer">Jump to website footer</a>
       </div>
 
-      {isTemplateRoute ? (
-        <TemplateHeader currentPath={currentPath} onNavigate={navigate} />
-      ) : (
-        <Header currentPath={currentPath} onNavigate={navigate} />
-      )}
-
-      {TemplatePage ? (
-        <TemplatePage currentPath={currentPath} currentSearch={currentSearch} onNavigate={navigate} />
-      ) : (
-        <HomePage />
-      )}
-
-      {isTemplateRoute ? (
-        <TemplateFooter />
-      ) : (
-        <Footer currentPath={currentPath} onNavigate={navigate} />
-      )}
+      <TemplateHeader currentPath={currentPath} onNavigate={navigate} />
+      <TemplatePage currentPath={currentPath} currentSearch={currentSearch} onNavigate={navigate} />
+      <TemplateFooter />
     </>
   );
 };

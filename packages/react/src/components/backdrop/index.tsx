@@ -36,6 +36,7 @@ interface BackdropProps {
   imageUtilities?: string | null;
   coverUtilities?: string | null;
   credit?: ReactNode;
+  attributes?: Record<string, unknown>;
   children?: ReactNode;
 }
 
@@ -72,6 +73,7 @@ const Backdrop = ({
   imageUtilities = null,
   coverUtilities = null,
   credit = null,
+  attributes = {},
   children,
 }: BackdropProps) => {
   const containerRef = useRef<HTMLElement>(null);
@@ -86,6 +88,7 @@ const Backdrop = ({
       rel={rel}
       className={getBackdropClasses(fixedHeight, stack, utilities)}
       style={getBackdropStyle(fixedHeight)}
+      {...attributes}
     >
       <div className={classNames('backdrop__media', mediaUtilities)}>
         <img className={classNames(imageUtilities)} src={imageSrc} alt={imageAlt} />
