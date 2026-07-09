@@ -1,31 +1,43 @@
 # Natura11y Icons
 
-Make your own icon font or expand on Naturally's open source [icon library](https://www.example.com).
+Use Natura11y's open source icon font, or use this package as the starting point for your own icon library.
 
 ---
 
-## Steps to make icons
+## CDN
 
-1. Save your SVGs to `./original-svg` dir
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@natura11y/icons@2.2.0/dist/natura11y-icons.min.css">
+```
 
-2. Install svgo globally: `npm install -g svgo`
+---
 
-3. Install fantasticon globally: `npm install -g fantasticon`
+## Build Icons
 
-4. Run saved icons through svgo: `svgo -f ./original-svg -o ./optimized-svg`
+1. Save your SVGs to `./original-svg`.
 
-5. Run fantasticon `fantasticon ./optimized-svg -o ./dist`
+2. Install package dependencies:
+
+```bash
+npm install
+```
+
+3. Optimize SVGs, build the icon font, and write the minified CDN stylesheet:
+
+```bash
+npm run build:icons
+```
 
 ---
 
 ## The icon font
 
-The above steps generate an icon font stylesheet. If you wish, you can customize the this stylesheet using `.fantasticonrc.js`.
+The build generates `dist/natura11y-icons.css`, `dist/natura11y-icons.min.css`, font files, a sprite, and icon metadata. You can customize the generated icon font with `.fantasticonrc.js`.
 
 ---
 
 Related:
 
-- [Repo: Natura11y Inclusive Framework](https://github.com/cavidano/natura11y)
-- [Repo: Natura11y React Components](https://github.com/cavidano/natura11y-react)
+- [NPM: @natura11y/icons](https://www.npmjs.com/package/@natura11y/icons)
+- [Repo: Natura11y Core](https://github.com/Natura11y/core)
 - [Docs: Natura11y Docs](https://gonatura11y.com)

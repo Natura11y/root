@@ -11,19 +11,22 @@ module.exports = {
       name: 'preset-default',
       params: {
         overrides: {
-          removeAttrs: {
-            attrs: [
-              'data-name',
-              'fill',
-              'clip-rule'
-            ]
-          },
           removeUnknownsAndDefaults: {
             keepRoleAttr: true
           },
           removeViewBox: false,
           sortAttrs: true
         }
+      }
+    },
+    {
+      name: 'removeAttrs',
+      params: {
+        attrs: [
+          'data-name',
+          'fill',
+          'clip-rule'
+        ]
       }
     },
     // Add cleanupListOfValues as a separate plugin

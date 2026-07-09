@@ -93,6 +93,6 @@ function App() {
 ### Related:
 
 - [Repo: Natura11y Inclusive Framework](https://github.com/cavidano/natura11y)
-- [Repo: Natura11y Icons](https://github.com/cavidano/natura11y-icons)
+- [NPM: Natura11y Icons](https://www.npmjs.com/package/@natura11y/icons)
 - [Docs: Natura11y Docs](https://gonatura11y.com)
 ---
