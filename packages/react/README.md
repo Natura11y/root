@@ -10,17 +10,19 @@ Natura11y React provides reusable React 19 components that pair with `@natura11y
 
 ## Install
 
-Use Natura11y React in an existing React 19 app. If you are starting a new app, create the app with your preferred React framework or Vite setup first, then add Natura11y.
+Use Natura11y React in an existing React 19 app. If you are starting a new app, create the app with a React framework first, then add Natura11y. Vite, Parcel, and similar build tools are still useful when you intentionally build a React app from scratch.
 
 Once the package is published to npm:
 
 ```bash
-npm install @natura11y/react react react-dom
+npm install @natura11y/react
 ```
+
+React and React DOM are peer dependencies. Your app should provide React 19.
 
 `@natura11y/core` is installed automatically as a dependency. Import the core styles once from your app entry point:
 
-```jsx
+```ts
 import '@natura11y/core/css';
 ```
 
@@ -32,9 +34,21 @@ Or load the Sass source from your Sass bundle:
 
 ---
 
+## TypeScript
+
+Natura11y React ships TypeScript declarations with the package.
+
+Production React frameworks usually configure TypeScript, JSX, and DOM types for you. If you are adding TypeScript to an existing React app, install React's type definitions:
+
+```bash
+npm install --save-dev @types/react @types/react-dom
+```
+
+---
+
 ## Usage
 
-```jsx
+```tsx
 import { Alert, Button } from '@natura11y/react';
 
 function App() {
@@ -86,7 +100,8 @@ import { useFocusTrap } from '@natura11y/react/hooks';
 ## Package Notes
 
 - Built for React 19.
-- Designed to be added to an existing React app, not to scaffold an app.
+- Framework-agnostic: works with React apps that can import package CSS and render client components.
+- Designed to be added to an existing React app, not to scaffold or choose the app framework.
 - Uses `@natura11y/core@^5.2.0` for shared styles and JavaScript utilities.
 - Ships ES modules, CommonJS bundles, and TypeScript declarations.
 - Intended to be published as `@natura11y/react` under the Natura11y npm organization.

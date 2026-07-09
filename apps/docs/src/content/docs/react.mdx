@@ -76,23 +76,33 @@ Jumpstart your next web project with Natura11y's prebuilt React components.
 
 ## Getting Started
 
-Natura11y's React package is being prepared for release as `@natura11y/react`. It is meant to be added to an existing React 19 app. Start with your app framework or Vite setup, then add Natura11y.
+Natura11y's React package is being prepared for release as `@natura11y/react`. It is meant to be added to an existing React 19 app.
+
+If you are creating a new React app, start with a React framework first. That can still be a client-rendered, single-page, or statically generated site. Vite and similar build tools are best reserved for projects where you intentionally want to assemble the app foundation yourself.
 
 The npm install path will be:
 
 ```bash
-npm install @natura11y/react react react-dom
+npm install @natura11y/react
 ```
+
+React and React DOM are peer dependencies. Your app should provide React 19.
 
 Import the core stylesheet once in your app entry point:
 
-```jsx
+```ts
 import '@natura11y/core/css';
+```
+
+TypeScript declarations ship with the React package. Production React frameworks usually configure TypeScript, JSX, and DOM types for you. If you are adding TypeScript to an existing React app, install React's type definitions:
+
+```bash
+npm install --save-dev @types/react @types/react-dom
 ```
 
 Then import the React components you need:
 
-```jsx
+```tsx
 import { Alert, Button } from '@natura11y/react';
 ```
 
