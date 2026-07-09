@@ -75,6 +75,32 @@ export const React: Story = {
   },
 };
 
+export const ResponsiveReact: Story = {
+  name: 'Responsive (React)',
+  render: () => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+      <div>
+        <Button
+          title={isOpen ? 'Hide' : 'Show'}
+          utilities='button--disperse display-none--lg'
+          onClick={() => setIsOpen(!isOpen)}
+          attributes={{
+            'aria-controls': 'collapse-responsive-react',
+            'aria-expanded': isOpen,
+          }}
+        />
+        <Collapse id='collapse-responsive-react' isOpen={isOpen} showAt='lg'>
+          <div className='padding-3 border'>
+            <p>This content is toggled on small screens and remains visible from the lg breakpoint up.</p>
+          </div>
+        </Collapse>
+      </div>
+    );
+  },
+};
+
 export const CloseTargetHtml: Story = {
   name: 'Close Target (HTML)',
   parameters: {

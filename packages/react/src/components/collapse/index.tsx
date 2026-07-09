@@ -1,12 +1,23 @@
-import { useRef, useEffect, type Ref, type ReactNode } from 'react';
+import { useRef, useEffect, useState, type Ref, type ReactNode } from 'react';
 import classNames from 'classnames';
 import { getFocusableElements } from '@natura11y/core/utilities/focus';
 import { useMergedRefs } from '../../hooks/useMergedRefs';
+
+type ShowAtBreakpoint = 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+
+const showAtQueries: Record<ShowAtBreakpoint, string> = {
+  sm: '(min-width: 576px)',
+  md: '(min-width: 768px)',
+  lg: '(min-width: 992px)',
+  xl: '(min-width: 1200px)',
+  xxl: '(min-width: 1440px)',
+};
 
 interface CollapseProps {
   ref?: Ref<HTMLDivElement>;
   id?: string | null;
   isOpen?: boolean;
+  showAt?: ShowAtBreakpoint | null;
   onClose?: (() => void) | null;
   focusFirst?: boolean;
   utilities?: string | null;
@@ -17,6 +28,7 @@ const Collapse = ({
   ref,
   id = null,
   isOpen = false,
+  showAt = null,
   onClose = null,
   focusFirst = false,
   utilities = null,
@@ -24,6 +36,23 @@ const Collapse = ({
 }: CollapseProps) => {
   const internalRef = useRef<HTMLDivElement>(null);
   const mergedRef = useMergedRefs(internalRef, ref);
+  const [isShownAtBreakpoint, setIsShownAtBreakpoint] = useState(false);
+  const isVisible = isOpen || isShownAtBreakpoint;
+
+  useEffect(() => {
+    if (!showAt || typeof window === 'undefined') {
+      setIsShownAtBreakpoint(false);
+      return;
+    }
+
+    const mediaQuery = window.matchMedia(showAtQueries[showAt]);
+    const handleChange = () => setIsShownAtBreakpoint(mediaQuery.matches);
+
+    handleChange();
+    mediaQuery.addEventListener('change', handleChange);
+
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, [showAt]);
 
   useEffect(() => {
     const el = internalRef.current;
@@ -78,10 +107,10 @@ const Collapse = ({
     <div
       ref={mergedRef}
       id={id ?? undefined}
-      className={classNames('collapse', utilities)}
-      data-state={isOpen ? 'open' : 'closed'}
-      inert={!isOpen ? true : undefined}
-      aria-hidden={!isOpen}
+      className={classNames('collapse', showAt && `shown--${showAt}`, utilities)}
+      data-state={isVisible ? 'open' : 'closed'}
+      inert={!isVisible ? true : undefined}
+      aria-hidden={!isVisible}
     >
       {children}
     </div>

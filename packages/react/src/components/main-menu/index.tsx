@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, useId, type ReactNode, type RefObject } from 'react';
+import { useState, useRef, useEffect, useCallback, useId, type ComponentPropsWithoutRef, type ReactNode, type RefObject } from 'react';
 import classNames from 'classnames';
 import { getFocusableElements } from '@natura11y/core/utilities/focus';
 import { useLinearKeyNav } from '../../hooks/useLinearKeyNav';
@@ -71,6 +71,7 @@ interface MainMenuProps {
   breakpoint?: string;
   logo?: ReactNode;
   search?: ReactNode;
+  searchFormProps?: ComponentPropsWithoutRef<'form'>;
   actions?: ReactNode;
   navAriaLabel?: string;
   navId?: string | null;
@@ -84,6 +85,7 @@ const MainMenu = ({
   breakpoint = 'lg',
   logo = null,
   search = null,
+  searchFormProps = {},
   actions = null,
   navAriaLabel = 'Main Menu',
   navId: navIdProp = null,
@@ -160,6 +162,8 @@ const MainMenu = ({
     utilities
   );
 
+  const { className: searchFormClassName, ...restSearchFormProps } = searchFormProps;
+
   const logoArea = logo ? (
     <div className="main-menu__logo">{logo}</div>
   ) : null;
@@ -203,8 +207,9 @@ const MainMenu = ({
 
   const searchArea = search ? (
     <form
+      {...restSearchFormProps}
       ref={searchFormRef}
-      className="main-menu__search"
+      className={classNames('main-menu__search', searchFormClassName)}
       id={searchId}
       role="search"
     >

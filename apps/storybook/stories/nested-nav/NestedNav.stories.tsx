@@ -21,9 +21,9 @@ const items = [
   {
     label: 'American Robin',
     href: '#1',
-    linkProps: { 'aria-current': 'true' },
+    current: 'true',
     children: [
-      { label: 'Nesting', href: '#1', current: true },
+      { label: 'Nesting', href: '#1', current: 'page' },
       { label: 'Diet', href: '#1' },
       { label: 'Migration', href: '#1' },
     ],

@@ -11,11 +11,15 @@ import {
   BackdropVideo,
   Card,
   CardBody,
+  Collapse,
   Dropdown,
   Form,
   FormEntry,
+  FormEntrySearch,
   Icon,
   MainMenu,
+  NestedNav,
+  Pagination,
   RequiredIndicator,
 } from '@lib/components';
 
@@ -50,15 +54,59 @@ const scrollToTop = (event) => {
   });
 };
 
-const getRoutePath = () => {
-  const path = window.location.pathname;
-  return path === '/contact' || path === '/nutrition' ? '/contact' : '/';
+const templateRoutes = [
+  { path: '/templates/form', label: 'Form' },
+  { path: '/templates/search-results', label: 'Search Results' },
+  { path: '/templates/full-width', label: 'Full Width' },
+  { path: '/templates/two-column', label: 'Two Column' },
+  { path: '/templates/three-column', label: 'Three Column' },
+  { path: '/templates/landing', label: 'Landing' },
+];
+
+const templateRouteAliases = {
+  '/contact': '/templates/form',
+  '/nutrition': '/templates/form',
+};
+
+const templateRoutePaths = new Set(templateRoutes.map(({ path }) => path));
+
+const resolveRoutePath = (path) => {
+  const canonicalPath = templateRouteAliases[path] ?? path;
+
+  if (canonicalPath === '/' || canonicalPath === '/templates' || templateRoutePaths.has(canonicalPath)) {
+    return canonicalPath;
+  }
+
+  return '/';
+};
+
+const getRoutePath = () => resolveRoutePath(window.location.pathname);
+
+const getNavigationTarget = (target) => {
+  const targetUrl = new URL(target, window.location.origin);
+  const path = resolveRoutePath(targetUrl.pathname);
+
+  return {
+    path,
+    search: targetUrl.search,
+    url: `${path}${targetUrl.search}`,
+  };
+};
+
+const getSearchResultsUrl = (value) => {
+  const query = value.trim();
+  return `/templates/search-results?q=${encodeURIComponent(query)}`;
+};
+
+const getSearchQueryFromSearch = (search) => {
+  const params = new URLSearchParams(search);
+  return params.has('q') ? params.get('q') ?? '' : 'Lorem ipsum';
 };
 
 const RouteLink = ({ href, currentPath, onNavigate, children, ...props }) => (
   <a
     href={href}
-    aria-current={currentPath === href ? 'page' : undefined}
+    aria-current={currentPath === getNavigationTarget(href).path ? 'page' : undefined}
     onClick={(event) => {
       event.preventDefault();
       onNavigate(href);
@@ -169,7 +217,7 @@ const storyLinks = [
 ];
 
 const footerNav = [
-  ['Training', ['Workout Plans', 'Nutrition', 'Recovery', 'Technique', 'Coaching']],
+  ['Training', ['Workout Plans', 'Contact', 'Recovery', 'Technique', 'Coaching']],
   ['Gear', ['Footwear', 'Apparel', 'Equipment', 'Accessories', 'Sale']],
   ['Company', ['About Us', 'Careers', 'Press', 'Contact', 'Blog']],
 ];
@@ -234,10 +282,134 @@ const validateContactForm = (formData) => {
   return errors;
 };
 
+const searchFilters = [
+  { label: 'Omnis', value: 'all' },
+  { label: 'Aliquet', value: 'Aliquet' },
+  { label: 'Viverra', value: 'Viverra' },
+  { label: 'Ornare', value: 'Ornare' },
+  { label: 'Morbi', value: 'Morbi' },
+];
+
+const searchResults = [
+  {
+    category: 'Aliquet',
+    title: 'Lorem ipsum dolor sit amet consectetur',
+    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  },
+  {
+    category: 'Aliquet',
+    title: 'Consectetur adipiscing elit sed do eiusmod',
+    description: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  },
+  {
+    category: 'Viverra',
+    title: 'Ut enim ad minim veniam quis nostrud',
+    description: 'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+  },
+  {
+    category: 'Aliquet',
+    title: 'Excepteur sint occaecat cupidatat non proident',
+    description: 'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos.',
+  },
+  {
+    category: 'Aliquet',
+    title: 'Sunt in culpa qui officia deserunt mollit',
+    description: 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet consectetur adipisci velit.',
+  },
+  {
+    category: 'Ornare',
+    title: 'Duis aute irure dolor in reprehenderit',
+    description: 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam.',
+  },
+  {
+    category: 'Viverra',
+    title: 'Voluptate velit esse cillum dolore',
+    description: 'At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.',
+  },
+  {
+    category: 'Morbi',
+    title: 'Fugiat nulla pariatur laborum perspiciatis',
+    description: 'Nam libero tempore cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat.',
+  },
+  {
+    category: 'Aliquet',
+    title: 'Nemo enim ipsam voluptatem quia',
+    description: 'Temporibus autem quibusdam et aut officiis debitis rerum necessitatibus saepe eveniet.',
+  },
+  {
+    category: 'Aliquet',
+    title: 'Itaque earum rerum hic tenetur sapiente',
+    description: 'Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.',
+  },
+];
+
+const latestCards = [
+  ['Technology', 'Enim Ad Minim Veniam Quis Nostrud Elit'],
+  ['Design', 'Consectetur Adipiscing Elit Sed Do Eiusmod'],
+  ['Culture', 'Aliquip Ex Ea Commodo Consequat'],
+];
+
+const starterStats = [
+  ['50', 'States & Territories'],
+  ['300M+', 'People Served'],
+  ['10,000+', 'Registered Agencies'],
+  ['24/7', 'Service Availability'],
+];
+
+const loremParagraphs = [
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+  'Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos.',
+];
+
+const templateSidebarItems = [
+  { label: 'Section One', href: '#1' },
+  {
+    label: 'Section Two',
+    href: '#1',
+    current: 'true',
+    children: [
+      { label: 'Item One', href: '#1' },
+      { label: 'Item Two', href: '#1', current: 'page' },
+      { label: 'Item Three', href: '#1' },
+    ],
+  },
+  {
+    label: 'Section Three',
+    href: '#1',
+    children: [
+      {
+        label: 'Item One',
+        href: '#1',
+        children: [
+          { label: 'Sub-item One', href: '#1' },
+          { label: 'Sub-item Two', href: '#1' },
+        ],
+      },
+      { label: 'Item Two', href: '#1' },
+    ],
+  },
+  { label: 'Section Four', href: '#1' },
+  { label: 'Section Five', href: '#1' },
+];
+
 const Logo = ({ currentPath, onNavigate }) => (
   <RouteLink href="/" currentPath={currentPath} onNavigate={onNavigate} title="Home" data-logo="brand">
     <Brand />
   </RouteLink>
+);
+
+const TemplateNavItems = ({ currentPath, onNavigate }) => (
+  <>
+    {templateRoutes.map((route) => (
+      <li key={route.path}>
+        <RouteLink href={route.path} currentPath={currentPath} onNavigate={onNavigate}>
+          {route.label}
+        </RouteLink>
+      </li>
+    ))}
+  </>
 );
 
 const Header = ({ currentPath, onNavigate }) => (
@@ -260,14 +432,218 @@ const Header = ({ currentPath, onNavigate }) => (
         </Dropdown>
       </li>
       <li>
-        <RouteLink href="/contact" currentPath={currentPath} onNavigate={onNavigate}>
-          Contact
-        </RouteLink>
+        <Dropdown buttonText="Templates" dropdownId="templates-menu" utilities="box-shadow-1--lg">
+          <TemplateNavItems currentPath={currentPath} onNavigate={onNavigate} />
+        </Dropdown>
       </li>
       <li><a href="#1">Athletes</a></li>
       <li><a href="#1">Gear</a></li>
     </MainMenu>
   </header>
+);
+
+const TemplateHeader = ({ currentPath, onNavigate }) => {
+  const [menuSearchQuery, setMenuSearchQuery] = useState('');
+
+  const handleMenuSearchSubmit = (event) => {
+    event.preventDefault();
+    onNavigate(getSearchResultsUrl(menuSearchQuery));
+  };
+
+  return (
+    <header className="margin-x-auto wide--lg">
+      <MainMenu
+        navId="template-main-menu"
+        searchId="main-menu-search"
+        searchFormProps={{
+          'aria-label': 'Search templates',
+          onSubmit: handleMenuSearchSubmit,
+        }}
+        search={
+          <FormEntrySearch
+            id="main-menu-search-input"
+            name="search"
+            labelText="Search"
+            submitButton="text"
+            leadingIcon={false}
+            onSearch={setMenuSearchQuery}
+            onClear={() => setMenuSearchQuery('')}
+          />
+        }
+        logo={<Logo currentPath={currentPath} onNavigate={onNavigate} />}
+      >
+        <TemplateNavItems currentPath={currentPath} onNavigate={onNavigate} />
+      </MainMenu>
+    </header>
+  );
+};
+
+const TemplateFooter = () => (
+  <footer className="subtle-fill-1" id="global-footer">
+    <h2 className="screen-reader-only">Page Footer</h2>
+
+    <div className="container narrow wide--lg padding-y-4 font-size-md">
+      <div className="grid grid--column-2--md grid--column-4--lg gap-4">
+        <div>
+          <div className="margin-bottom-3">
+            <a href="/" title="Home" data-logo="brand">
+              <Brand />
+            </a>
+          </div>
+
+          <address>
+            <strong>Example Organization</strong><br />
+            123 Springwater Rd<br />
+            Anytown, ST 00000<br />
+            <a href="mailto:contact@example.org">contact@example.org</a>
+          </address>
+        </div>
+
+        <nav aria-label="Section One">
+          <p><strong>Section One</strong></p>
+          <ul className="nav">
+            {['Link One', 'Link Two', 'Link Three', 'Link Four'].map((label) => (
+              <li key={label}><a href="#1">{label}</a></li>
+            ))}
+          </ul>
+        </nav>
+
+        <nav aria-label="Section Two">
+          <p><strong>Section Two</strong></p>
+          <ul className="nav">
+            {['Link One', 'Link Two', 'Link Three', 'Link Four'].map((label) => (
+              <li key={label}><a href="#1">{label}</a></li>
+            ))}
+          </ul>
+        </nav>
+
+        <nav aria-label="Social Media">
+          <p><strong>Follow Us</strong></p>
+          <ul className="nav nav--horizontal gap-1">
+            {['facebook', 'instagram', 'linkedin', 'youtube'].map((icon) => (
+              <li key={icon}>
+                <ButtonIconOnly tag="a" linkUrl="#1" iconHandle={icon} ariaLabel={icon} />
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <hr />
+
+    <div className="container narrow wide--lg padding-y-2 font-size-sm">
+      <div className="flex-row justify-content-between align-items-center">
+        <span>&copy; 2026 Your Company Name. All rights reserved.</span>
+
+        <a href="#" className="button button--outline button--has-icon" onClick={scrollToTop}>
+          <Icon iconHandle="arrow-up" />
+          <span className="button__text">Back to Top</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+);
+
+const TemplateBreadcrumb = () => (
+  <div className="border-bottom display-none display-block--lg">
+    <div className="container wide padding-y-2">
+      <nav aria-label="Breadcrumb">
+        <ul className="breadcrumb">
+          <li><a href="#1">Grandparent</a></li>
+          <li><a href="#1">Parent</a></li>
+          <li aria-current="page">Child Page</li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+);
+
+const TemplateMediaPlaceholder = ({ label }) => (
+  <div className="template-media-placeholder opacity-30 gradient-mask-left" aria-hidden="true">
+    <span>{label}</span>
+  </div>
+);
+
+const TemplateBanner = ({ title = 'Page Title', label = 'Template' }) => (
+  <header className="backdrop backdrop--fixed aspect-ratio-3x1--lg theme-dark">
+    <div className="backdrop__media">
+      <TemplateMediaPlaceholder label={label} />
+    </div>
+
+    <div className="backdrop__cover">
+      <TemplateBreadcrumb />
+      <div className="margin-y-auto">
+        <div className="container wide">
+          <h1 className="banner-headline">{title}</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+);
+
+const TemplateArticleContent = () => (
+  <div className="medium margin-x-auto">
+    <h2 className="h1">Introduction</h2>
+    <p className="font-size-lg">{loremParagraphs[0]} {loremParagraphs[1]}</p>
+
+    <div className="narrow">
+      <h2>Heading 2</h2>
+      <p>{loremParagraphs[1]} {loremParagraphs[2]}</p>
+      <p>{loremParagraphs[3]} {loremParagraphs[0]}</p>
+
+      <h2>Heading 2</h2>
+      <p>{loremParagraphs[0]} {loremParagraphs[2]}</p>
+      <p>{loremParagraphs[3]} {loremParagraphs[1]}</p>
+
+      <h3>Heading 3</h3>
+      <p>{loremParagraphs[2]} {loremParagraphs[0]}</p>
+      <p>{loremParagraphs[3]} {loremParagraphs[1]}</p>
+
+      <h4>Heading 4</h4>
+      <p>{loremParagraphs[0]} {loremParagraphs[1]}</p>
+    </div>
+  </div>
+);
+
+const TemplateSidebarNav = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  return (
+    <div className="margin-x-auto">
+      <button
+        className="sidebar-toggle button button--disperse display-none--lg"
+        type="button"
+        aria-controls="sidebar-nav"
+        aria-expanded={isSidebarOpen}
+        onClick={() => setIsSidebarOpen((isOpen) => !isOpen)}
+      >
+        Navigation
+        <Icon iconHandle="chevron-down" />
+      </button>
+
+      <Collapse id="sidebar-nav" isOpen={isSidebarOpen} showAt="lg">
+        <NestedNav
+          ariaLabel="Section Navigation"
+          items={templateSidebarItems}
+          utilities="border-radius-2--lg box-shadow-2--lg"
+        />
+      </Collapse>
+    </div>
+  );
+};
+
+const OnThisPage = () => (
+  <div className="narrow margin-x-auto">
+    <nav aria-label="On This Page">
+      <h2 className="h6">On This Page:</h2>
+      <ul className="nav nav--divider font-size-sm">
+        {['Introduction', 'Heading 2', 'Heading 3', 'Heading 4'].map((label) => (
+          <li key={label}><a href="#1">{label}</a></li>
+        ))}
+      </ul>
+    </nav>
+  </div>
 );
 
 const Hero = () => (
@@ -633,7 +1009,7 @@ const ContactForm = () => {
 };
 
 const ContactPage = () => (
-  <main id="main">
+  <main id="main-content">
     <header className="theme-light">
       <div className="border-bottom display-none display-block--lg">
         <div className="container wide padding-y-2">
@@ -717,6 +1093,357 @@ const ContactPage = () => (
   </main>
 );
 
+const TemplateIndexPage = ({ currentPath, onNavigate }) => (
+  <main id="main-content">
+    <header className="theme-light">
+      <div className="container wide padding-y-5">
+        <h1 className="banner-headline">React Templates</h1>
+        <p className="font-size-lg narrow">
+          Starter templates rebuilt with Natura11y React components where React behavior belongs.
+        </p>
+      </div>
+    </header>
+
+    <div className="container wide--lg margin-y-5">
+      <div className="grid grid--column-2--md grid--column-3--xl gap-3">
+        {templateRoutes.map((route) => (
+          <Card tag="article" utilities="subtle-fill-1" key={route.path}>
+            <CardBody>
+              <h2 className="h4">{route.label}</h2>
+              <p>
+                Recreates the Core {route.label.toLowerCase()} template as a React starter route.
+              </p>
+              <RouteLink href={route.path} currentPath={currentPath} onNavigate={onNavigate} className="button theme-dark">
+                View Template
+              </RouteLink>
+            </CardBody>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </main>
+);
+
+const SearchResultsTemplatePage = ({ currentSearch, onNavigate }) => {
+  const searchQuery = getSearchQueryFromSearch(currentSearch);
+  const [query, setQuery] = useState(searchQuery);
+  const [draftQuery, setDraftQuery] = useState(searchQuery);
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    const nextQuery = getSearchQueryFromSearch(currentSearch);
+    setQuery(nextQuery);
+    setDraftQuery(nextQuery);
+    setPage(1);
+  }, [currentSearch]);
+
+  const normalizedQuery = query.trim().toLowerCase();
+  const filteredResults = searchResults.filter((result) => {
+    const matchesFilter = activeFilter === 'all' || result.category === activeFilter;
+    const matchesQuery = !normalizedQuery ||
+      `${result.title} ${result.description}`.toLowerCase().includes(normalizedQuery);
+    return matchesFilter && matchesQuery;
+  });
+
+  const filterCount = (value) => (
+    value === 'all'
+      ? searchResults.length
+      : searchResults.filter((result) => result.category === value).length
+  );
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const nextQuery = draftQuery.trim();
+    setQuery(nextQuery);
+    setPage(1);
+    onNavigate(getSearchResultsUrl(nextQuery));
+  };
+
+  const handleClear = () => {
+    setDraftQuery('');
+    setQuery('');
+    setPage(1);
+    onNavigate(getSearchResultsUrl(''));
+  };
+
+  const resultStart = filteredResults.length > 0 ? 1 : 0;
+  const resultEnd = filteredResults.length;
+
+  return (
+    <main id="main-content">
+      <div className="theme-light padding-y-5">
+        <div className="container wide--lg">
+          <h1 className="h2">
+            Search Results for <em>&ldquo;{query || 'All'}&rdquo;</em>
+          </h1>
+
+          <div className="margin-top-3">
+            <form className={`form-entry form-entry--search${draftQuery ? ' has-value' : ''}`} role="search" aria-label="Refine search" onSubmit={handleSubmit}>
+              <div className="form-entry__field">
+                <span className="form-entry__field__input border-radius-pill">
+                  <input
+                    type="search"
+                    name="search"
+                    aria-label="Search"
+                    id="search-results-input"
+                    value={draftQuery}
+                    onChange={(event) => setDraftQuery(event.target.value)}
+                  />
+                  <button type="button" className="button button--icon-only" aria-label="Clear search" aria-controls="search-results-input" onClick={handleClear}>
+                    <Icon iconHandle="clear" />
+                  </button>
+                  <button className="button theme-dark" type="submit">Search</button>
+                </span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div className="container wide--lg margin-y-5">
+        <div className="grid-sidebar--left gap-5">
+          <aside className="grid-sidebar__minor" aria-label="Filter Results">
+            <div className="margin-x-auto">
+              <button className="sidebar-toggle button button--disperse display-none--lg" type="button" aria-controls="search-filters" aria-expanded="false">
+                Filter Results
+                <Icon iconHandle="chevron-down" />
+              </button>
+
+              <div className="collapse shown--lg" id="search-filters">
+                <nav className="padding-3 padding-0--lg" aria-label="Filter by type">
+                  <p className="display-none display-block--lg"><strong>Filter Results</strong></p>
+
+                  <ul className="nav gap-3">
+                    {searchFilters.map((filter) => (
+                      <li key={filter.value}>
+                        <a
+                          href="#1"
+                          aria-current={activeFilter === filter.value ? 'true' : undefined}
+                          onClick={(event) => {
+                            event.preventDefault();
+                            setActiveFilter(filter.value);
+                            setPage(1);
+                          }}
+                        >
+                          {filter.label}
+                          <span className="badge">{filterCount(filter.value)}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </aside>
+
+          <div className="grid-sidebar__major">
+            <div className="medium margin-x-auto">
+              <p className="font-size-sm opacity-70">
+                Showing {resultStart}-{resultEnd} of {filteredResults.length} results
+              </p>
+
+              <ul className="grid grid--divider">
+                {filteredResults.map((result) => (
+                  <li key={`${result.category}-${result.title}`}>
+                    <p className="margin-bottom-2">
+                      <span className="badge">{result.category}</span>
+                    </p>
+                    <h2 className="h5 margin-bottom-1">
+                      <a className="link" href="#1">{result.title}</a>
+                    </h2>
+                    <p>{result.description}</p>
+                  </li>
+                ))}
+              </ul>
+
+              {filteredResults.length === 0 && (
+                <Alert success={false} title="No Results" utilities="margin-top-4">
+                  <p>Try another search term or filter.</p>
+                </Alert>
+              )}
+
+              <div className="margin-top-5">
+                <Pagination
+                  ariaLabel="Search Results Pages"
+                  items={[
+                    { iconHandle: 'arrow-left', ariaLabel: 'Previous page', href: '#1', linkProps: { onClick: (event) => { event.preventDefault(); setPage(Math.max(1, page - 1)); } } },
+                    { label: '1', href: '#1', current: page === 1, linkProps: { onClick: (event) => { event.preventDefault(); setPage(1); } } },
+                    { label: '2', href: '#1', current: page === 2, linkProps: { onClick: (event) => { event.preventDefault(); setPage(2); } } },
+                    { label: '3', href: '#1', current: page === 3, linkProps: { onClick: (event) => { event.preventDefault(); setPage(3); } } },
+                    { ellipsis: true },
+                    { label: '15', href: '#1', linkProps: { onClick: (event) => event.preventDefault() } },
+                    { iconHandle: 'arrow-right', ariaLabel: 'Next page', href: '#1', linkProps: { onClick: (event) => { event.preventDefault(); setPage(Math.min(3, page + 1)); } } },
+                  ]}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  );
+};
+
+const FullWidthTemplatePage = () => (
+  <main id="main-content">
+    <TemplateBanner label="Full Width" />
+
+    <div className="container--lg wide--lg margin-y-5">
+      <h2 className="h1">Introduction</h2>
+      <p className="font-size-lg">{loremParagraphs[0]} {loremParagraphs[1]}</p>
+      <h2>Heading 2</h2>
+      <p>{loremParagraphs[1]} {loremParagraphs[2]} {loremParagraphs[3]}</p>
+      <p>{loremParagraphs[3]} {loremParagraphs[0]}</p>
+      <h2>Heading 2</h2>
+      <p>{loremParagraphs[0]} {loremParagraphs[2]} {loremParagraphs[1]}</p>
+    </div>
+  </main>
+);
+
+const TwoColumnTemplatePage = () => (
+  <main id="main-content">
+    <TemplateBanner label="Two Column" />
+
+    <div className="container wide--lg margin-y-5">
+      <div className="grid-sidebar--left gap-5">
+        <aside className="grid-sidebar__minor" aria-label="Page Navigation">
+          <TemplateSidebarNav />
+        </aside>
+
+        <article className="grid-sidebar__major">
+          <TemplateArticleContent />
+        </article>
+      </div>
+    </div>
+  </main>
+);
+
+const ThreeColumnTemplatePage = () => (
+  <main id="main-content">
+    <TemplateBanner label="Three Column" />
+
+    <div className="container wide--lg margin-y-5">
+      <div className="grid-sidebars gap-5">
+        <aside className="grid-sidebar__minor-start" aria-label="Page Navigation">
+          <TemplateSidebarNav />
+        </aside>
+
+        <article className="grid-sidebars__major">
+          <TemplateArticleContent />
+        </article>
+
+        <aside className="grid-sidebars__minor-end display-none display-block--lg" aria-label="On This Page">
+          <OnThisPage />
+        </aside>
+      </div>
+    </div>
+  </main>
+);
+
+const LandingTemplatePage = () => (
+  <main id="main-content">
+    <div className="backdrop backdrop--stack--lg theme-dark">
+      <div className="backdrop__media">
+        <TemplateMediaPlaceholder label="Landing" />
+      </div>
+
+      <div className="backdrop__cover">
+        <div className="margin-y-6">
+          <div className="container wide--lg">
+            <div className="narrow--lg">
+              <h1 className="banner-headline text-shadow">Page Headline</h1>
+              <p className="font-size-lg text-shadow">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+              </p>
+              <div className="flex-row gap-3 margin-top-4">
+                <a href="#1" className="button theme-canvas">Get Started</a>
+                <a href="#1" className="button button--outline">Learn More</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section className="theme-light padding-y-4" aria-labelledby="stats-heading">
+      <h2 className="screen-reader-only" id="stats-heading">Program Statistics</h2>
+      <div className="container wide">
+        <div className="grid grid--column-2 grid--column-4--md gap-4 text-align-center">
+          {starterStats.map(([value, label]) => (
+            <div key={label}>
+              <p className="h1 margin-bottom-1">{value}</p>
+              <p className="font-size-md">{label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="features-heading">
+      <div className="container wide margin-y-5">
+        <h2 className="text-align-center margin-bottom-4" id="features-heading">The Latest</h2>
+        <div className="grid grid--column-3--md gap-4">
+          {latestCards.map(([badge, title]) => (
+            <a className="card theme- border-radius-2 drop-shadow-2" href="#1" key={title}>
+              <div className="card__media backdrop theme-dark">
+                <div className="backdrop__media">
+                  <TemplateMediaPlaceholder label="Feature" />
+                </div>
+                <div className="backdrop__cover justify-content-end container">
+                  <span className="badge margin-y-3">{badge}</span>
+                </div>
+              </div>
+              <CardBody>
+                <h3 className="h4">{title}</h3>
+                <p>{loremParagraphs[0]}</p>
+              </CardBody>
+              <div className="card__foot">
+                <Icon iconHandle="arrow-right" />
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section className="theme-light padding-y-5" aria-labelledby="section-dark-heading">
+      <div className="container wide">
+        <div className="grid grid--column-2--md gap-5 align-items-center">
+          <div>
+            <h2 id="section-dark-heading">Section Heading</h2>
+            <p>{loremParagraphs[0]} {loremParagraphs[1]}</p>
+            <a href="#1" className="button">Learn More</a>
+          </div>
+          <div className="template-section-placeholder" aria-hidden="true">Starter Content</div>
+        </div>
+      </div>
+    </section>
+
+    <section className="backdrop theme-dark" aria-labelledby="cta-heading">
+      <div className="backdrop__media">
+        <TemplateMediaPlaceholder label="CTA" />
+      </div>
+      <div className="backdrop__cover">
+        <div className="container narrow text-align-center margin-y-5">
+          <h2 id="cta-heading">Ready to Get Started?</h2>
+          <a href="#1" className="button theme-canvas">Get Started Today</a>
+        </div>
+      </div>
+    </section>
+  </main>
+);
+
+const templatePageMap = {
+  '/templates': TemplateIndexPage,
+  '/templates/form': ContactPage,
+  '/templates/search-results': SearchResultsTemplatePage,
+  '/templates/full-width': FullWidthTemplatePage,
+  '/templates/two-column': TwoColumnTemplatePage,
+  '/templates/three-column': ThreeColumnTemplatePage,
+  '/templates/landing': LandingTemplatePage,
+};
+
 const HomePage = () => (
   <main id="main">
     <Hero />
@@ -789,17 +1516,25 @@ const Footer = ({ currentPath, onNavigate }) => (
 
 const App = () => {
   const [currentPath, setCurrentPath] = useState(getRoutePath);
+  const [currentSearch, setCurrentSearch] = useState(() => window.location.search);
+  const TemplatePage = templatePageMap[currentPath] ?? null;
+  const isTemplateRoute = TemplatePage !== null;
 
-  const navigate = (path) => {
-    if (path === currentPath) return;
-    window.history.pushState({}, '', path);
-    setCurrentPath(path);
+  const navigate = (target) => {
+    const nextRoute = getNavigationTarget(target);
+
+    if (nextRoute.path === currentPath && nextRoute.search === currentSearch) return;
+
+    window.history.pushState({}, '', nextRoute.url);
+    setCurrentPath(nextRoute.path);
+    setCurrentSearch(nextRoute.search);
     window.scrollTo({ top: 0, behavior: 'auto' });
   };
 
   useEffect(() => {
     const handlePopState = () => {
       setCurrentPath(getRoutePath());
+      setCurrentSearch(window.location.search);
       window.scrollTo({ top: 0, behavior: 'auto' });
     };
 
@@ -810,19 +1545,27 @@ const App = () => {
   return (
     <>
       <div className="skip-links">
-        <a href="#main">Jump to main content</a>
+        <a href={isTemplateRoute ? '#main-content' : '#main'}>Jump to main content</a>
         <a href="#global-footer">Jump to website footer</a>
       </div>
 
-      <Header currentPath={currentPath} onNavigate={navigate} />
+      {isTemplateRoute ? (
+        <TemplateHeader currentPath={currentPath} onNavigate={navigate} />
+      ) : (
+        <Header currentPath={currentPath} onNavigate={navigate} />
+      )}
 
-      {currentPath === '/contact' ? (
-        <ContactPage />
+      {TemplatePage ? (
+        <TemplatePage currentPath={currentPath} currentSearch={currentSearch} onNavigate={navigate} />
       ) : (
         <HomePage />
       )}
 
-      <Footer currentPath={currentPath} onNavigate={navigate} />
+      {isTemplateRoute ? (
+        <TemplateFooter />
+      ) : (
+        <Footer currentPath={currentPath} onNavigate={navigate} />
+      )}
     </>
   );
 };

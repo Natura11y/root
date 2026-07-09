@@ -1,10 +1,12 @@
 import { type ElementType } from 'react';
 import classNames from 'classnames';
 
+type AriaCurrentValue = 'page' | 'step' | 'location' | 'date' | 'time' | 'true';
+
 interface NavItem {
   label: string;
   href?: string;
-  current?: boolean;
+  current?: boolean | AriaCurrentValue;
   linkTag?: ElementType;
   linkProps?: Record<string, unknown>;
   children?: NavItem[];
@@ -20,13 +22,13 @@ const NavItems = ({ items, linkTag, depth = 0 }: NavItemsProps) => (
   <>
     {items.map((item, index) => {
       const LinkTag = item.linkTag ?? linkTag;
-      const isCurrent = item.current ?? false;
+      const ariaCurrent = item.current === true ? 'page' : item.current || undefined;
 
       return (
         <li key={index}>
           <LinkTag
             href={item.href}
-            {...(isCurrent && { 'aria-current': 'page' })}
+            {...(ariaCurrent && { 'aria-current': ariaCurrent })}
             {...item.linkProps}
           >
             {item.label}
