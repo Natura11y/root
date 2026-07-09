@@ -104,7 +104,7 @@ export const DrillDownReact: Story = {
           attributes={{ 'aria-controls': 'flyout-drill-down-react', 'aria-expanded': isOpen }}
         />
         <Flyout id='flyout-drill-down-react' isOpen={isOpen} onClose={() => setIsOpen(false)} label='Main Menu'>
-          <Flyout.Panel>
+          <Flyout.Panel key='main'>
             {({ navigateTo }) => (
               <ul className='nav nav--divider'>
                 <li>
@@ -125,7 +125,7 @@ export const DrillDownReact: Story = {
               </ul>
             )}
           </Flyout.Panel>
-          <Flyout.Panel>
+          <Flyout.Panel key='wildlife'>
             {({ navigateTo }) => (
               <>
                 <div className='flyout__panel-title'><p>Wildlife</p></div>
@@ -147,7 +147,7 @@ export const DrillDownReact: Story = {
               </>
             )}
           </Flyout.Panel>
-          <Flyout.Panel>
+          <Flyout.Panel key='trails'>
             <div className='flyout__panel-title'><p>Trails</p></div>
             <ul className='nav nav--divider'>
               <li><a href='#'>Easy</a></li>
@@ -156,7 +156,7 @@ export const DrillDownReact: Story = {
               <li><a href='#'>All Trails</a></li>
             </ul>
           </Flyout.Panel>
-          <Flyout.Panel>
+          <Flyout.Panel key='birds'>
             <div className='flyout__panel-title'><p>Birds</p></div>
             <ul className='nav nav--divider'>
               <li><a href='#'>Waterfowl</a></li>
@@ -164,7 +164,7 @@ export const DrillDownReact: Story = {
               <li><a href='#'>All Birds</a></li>
             </ul>
           </Flyout.Panel>
-          <Flyout.Panel>
+          <Flyout.Panel key='mammals'>
             <div className='flyout__panel-title'><p>Mammals</p></div>
             <ul className='nav nav--divider'>
               <li><a href='#'>Bears</a></li>

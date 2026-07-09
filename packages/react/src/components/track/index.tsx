@@ -21,6 +21,13 @@ interface TrackProps {
   PaginationComponent?: ComponentType<PaginationProps>;
 }
 
+const getPanelKey = (panel: Record<string, unknown>, index: number, trackId: string) => {
+  const panelId = panel.id;
+  return typeof panelId === 'string' || typeof panelId === 'number'
+    ? panelId
+    : `${trackId}-panel-${index}`;
+};
+
 const Track = ({
   panels,
   ariaLabel,
@@ -241,7 +248,7 @@ const Track = ({
         return (
           <li
             ref={(el) => { panelRefs.current[index] = el; }}
-            key={`${trackId}-panel-${index}`}
+            key={getPanelKey(panel, index, trackId)}
             data-index={index}
             data-page={pageIndex}
             className="track__panel"

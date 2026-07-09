@@ -72,7 +72,25 @@ const FormEntry = ({
   utilities = null,
 }: FormEntryProps) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [hasValue, setHasValue] = useState(false);
+  const isControlled = value !== undefined;
+  const supportsDefaultValue = ![
+    'groupRadio',
+    'groupCheck',
+    'singleCheck',
+    'singleCheckSwitch',
+    'fileUpload',
+  ].includes(entryType);
+  const fieldValueHasValue = (fieldValue: string | undefined) => {
+    if (fieldValue === undefined) return false;
+    if (entryType === 'singleCheck' || entryType === 'singleCheckSwitch') {
+      return fieldValue === 'true';
+    }
+    return fieldValue !== '';
+  };
+  const [uncontrolledHasValue, setUncontrolledHasValue] = useState(
+    () => supportsDefaultValue && fieldValueHasValue(defaultValue)
+  );
+  const hasValue = isControlled ? fieldValueHasValue(value) : uncontrolledHasValue;
 
   const generatedId = useId();
   const resolvedId = entryId ?? generatedId;
@@ -99,11 +117,11 @@ const FormEntry = ({
 
   const handleBlur = (e: FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setIsFocused(false);
-    setHasValue(targetHasValue(e.target));
+    if (!isControlled) setUncontrolledHasValue(targetHasValue(e.target));
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setHasValue(targetHasValue(e.target));
+    if (!isControlled) setUncontrolledHasValue(targetHasValue(e.target));
     onChange?.(e);
   };
 

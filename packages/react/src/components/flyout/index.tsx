@@ -191,7 +191,7 @@ const Flyout = ({
                   const { children: panelContent } = child.props;
                   return (
                     <div
-                      key={index}
+                      key={child.key ?? index}
                       ref={el => { panelRefs.current[index] = el; }}
                       className="flyout__panel"
                     >

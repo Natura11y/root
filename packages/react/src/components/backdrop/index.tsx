@@ -123,11 +123,7 @@ const BackdropVideo = ({
   const videoRef = useRef<HTMLVideoElement>(null);
   const mergedRef = useMergedRefs(containerRef, ref);
 
-  const [isPlaying, setIsPlaying] = useState(
-    () => typeof window !== 'undefined'
-      ? !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      : true
-  );
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -142,8 +138,10 @@ const BackdropVideo = ({
   }, [isPlaying]);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
     const handler = () => setIsPlaying(!mq.matches);
+    handler();
     mq.addEventListener('change', handler);
     return () => mq.removeEventListener('change', handler);
   }, []);

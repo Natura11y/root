@@ -17,6 +17,7 @@ const meta: Meta<typeof Table> = {
       control: 'select',
       options: [null, 'sm', 'md', 'lg', 'xl', 'xxl'],
     },
+    rowKey: { control: false },
   },
   parameters: {
     docs: {
@@ -50,6 +51,7 @@ const responsiveTableArgs = {
   caption: 'Places with columnar jointed volcanics',
   headers: responsiveHeaders,
   rows: responsiveRows,
+  rowKey: (row: Record<string, unknown>) => String(row.name),
 };
 
 export const DefaultHtml: Story = {
@@ -74,6 +76,7 @@ export const DefaultReact: Story = {
     caption: 'Places with columnar jointed volcanics',
     headers,
     rows,
+    rowKey: (row) => String(row.name),
   },
 };
 
@@ -82,6 +85,7 @@ export const EdgeToEdge: Story = {
     caption: 'Places with columnar jointed volcanics',
     headers,
     rows,
+    rowKey: (row) => String(row.name),
     utilities: 'table--edge',
   },
 };
@@ -91,6 +95,7 @@ export const StripedRows: Story = {
     caption: 'Places with columnar jointed volcanics',
     headers,
     rows,
+    rowKey: (row) => String(row.name),
     utilities: 'table--striped',
   },
 };
@@ -100,6 +105,7 @@ export const TableDivider: Story = {
     caption: 'Places with columnar jointed volcanics',
     headers,
     rows,
+    rowKey: (row) => String(row.name),
     utilities: 'table--divider box-shadow-1',
   },
 };

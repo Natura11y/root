@@ -12,6 +12,10 @@ const config: StorybookConfig = {
   staticDirs: [
     '../public',
     {
+      from: '../../docs/public/docs-assets',
+      to: '/docs-assets',
+    },
+    {
       from: '../../../packages/icons/dist',
       to: '/icons',
     },

@@ -6,6 +6,7 @@ interface TableProps {
   caption?: string | null;
   headers?: string[];
   rows?: Record<string, ReactNode>[];
+  rowKey?: (row: Record<string, ReactNode>, rowIndex: number) => string | number;
   stack?: string | null;
   utilities?: string | null;
 }
@@ -15,6 +16,7 @@ const Table = ({
   caption = null,
   headers = [],
   rows = [],
+  rowKey,
   stack = null,
   utilities = null,
 }: TableProps) => {
@@ -44,7 +46,7 @@ const Table = ({
         {rows.map((row, rowIndex) => {
           const cells = Object.values(row);
           return (
-            <tr key={rowIndex}>
+            <tr key={rowKey?.(row, rowIndex) ?? rowIndex}>
               {cells.map((cell, cellIndex) => {
                 const header = headers[cellIndex];
                 return (

@@ -2,6 +2,8 @@ import { type Ref, type MouseEventHandler } from 'react';
 import classNames from 'classnames';
 import Icon from '../icon';
 
+type ButtonClickHandler = MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>;
+
 interface ButtonIconOnlyProps {
   ref?: Ref<HTMLElement>;
   tag?: 'button' | 'a';
@@ -10,7 +12,7 @@ interface ButtonIconOnlyProps {
   linkUrl?: string;
   outline?: boolean;
   ariaLabel?: string | null;
-  onClick?: MouseEventHandler<HTMLButtonElement> | null;
+  onClick?: ButtonClickHandler | null;
   ariaExpanded?: boolean | null;
   utilities?: string | null;
   attributes?: Record<string, unknown>;
@@ -43,6 +45,7 @@ const ButtonIconOnly = ({
         className={buttonClasses}
         href={linkUrl}
         aria-label={ariaLabel ?? undefined}
+        onClick={onClick ?? undefined}
         {...attributes}
       >
         <Icon iconHandle={iconHandle} />

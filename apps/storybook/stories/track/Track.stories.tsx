@@ -19,6 +19,7 @@ interface TrackStoryPanel extends Record<string, unknown> {
 
 const panels: TrackStoryPanel[] = [
   {
+    id: 'mountain-sunset',
     linkUrl: '#1',
     imageUrl: storyMedia.landscapeImage,
     altText: 'Snowy mountain ridge at sunset',
@@ -26,6 +27,7 @@ const panels: TrackStoryPanel[] = [
     imageCredit: 'Eberhard Grossgasteiger',
   },
   {
+    id: 'misty-walk',
     linkUrl: '#2',
     imageUrl: storyMedia.videoOneThumbnail,
     altText: 'Person walking through a misty landscape',
@@ -33,6 +35,7 @@ const panels: TrackStoryPanel[] = [
     imageCredit: 'Dmitry Varennikov',
   },
   {
+    id: 'mountain-lake',
     linkUrl: '#3',
     imageUrl: storyMedia.videoTwoThumbnail,
     altText: 'Person standing near a mountain lake',
@@ -40,6 +43,7 @@ const panels: TrackStoryPanel[] = [
     imageCredit: 'Dmitry Varennikov',
   },
   {
+    id: 'snowy-slope',
     linkUrl: '#4',
     imageUrl: storyMedia.landscapeImage,
     altText: 'Mountain slope covered in snow',
@@ -47,6 +51,7 @@ const panels: TrackStoryPanel[] = [
     imageCredit: 'Eberhard Grossgasteiger',
   },
   {
+    id: 'muted-landscape',
     linkUrl: '#5',
     imageUrl: storyMedia.videoOneThumbnail,
     altText: 'Landscape video thumbnail with muted colors',
@@ -54,6 +59,7 @@ const panels: TrackStoryPanel[] = [
     imageCredit: 'Dmitry Varennikov',
   },
   {
+    id: 'still-water',
     linkUrl: '#6',
     imageUrl: storyMedia.videoTwoThumbnail,
     altText: 'Outdoor video thumbnail beside still water',
@@ -61,6 +67,7 @@ const panels: TrackStoryPanel[] = [
     imageCredit: 'Dmitry Varennikov',
   },
   {
+    id: 'wide-clouds',
     linkUrl: '#7',
     imageUrl: storyMedia.landscapeImage,
     altText: 'Wide mountain landscape with clouds',

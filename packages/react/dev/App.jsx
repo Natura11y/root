@@ -195,6 +195,7 @@ const starterStats = [
 ];
 
 const trackPanels = ['One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight'].map((label) => ({
+  id: `starter-${label.toLowerCase()}`,
   linkUrl: '#1',
   imageUrl: placeholderImage({ width: 1500, height: 750, text: label }),
   altText: 'Placeholder',

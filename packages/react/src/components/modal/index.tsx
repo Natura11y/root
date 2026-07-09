@@ -17,6 +17,8 @@ interface ModalProps {
   footerContent?: ReactNode;
   modalUtilities?: string | null;
   modalContentUtilities?: string | null;
+  titleUtilities?: string | null;
+  footerUtilities?: string | null;
 }
 
 const Modal = ({
@@ -30,6 +32,8 @@ const Modal = ({
   footerContent = null,
   modalUtilities = null,
   modalContentUtilities = null,
+  titleUtilities = 'h6',
+  footerUtilities = null,
 }: ModalProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -67,7 +71,7 @@ const Modal = ({
         aria-labelledby={titleId}
       >
         <header className='modal__content__head border-bottom'>
-          <h2 id={titleId}>{title}</h2>
+          <h2 id={titleId} className={classNames(titleUtilities)}>{title}</h2>
           <ButtonIconOnly
             buttonType='button'
             iconHandle='close'
@@ -82,7 +86,7 @@ const Modal = ({
         </main>
 
         {footerContent && (
-          <footer className='modal__content__foot border-top'>
+          <footer className={classNames('modal__content__foot', 'border-top', footerUtilities)}>
             {footerContent}
           </footer>
         )}

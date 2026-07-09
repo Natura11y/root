@@ -2,6 +2,8 @@ import { type Ref, type MouseEventHandler } from 'react';
 import classNames from 'classnames';
 import Icon from '../icon';
 
+type ButtonClickHandler = MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>;
+
 interface ButtonIconOverTextProps {
   ref?: Ref<HTMLElement>;
   tag?: 'button' | 'a';
@@ -12,7 +14,7 @@ interface ButtonIconOverTextProps {
   label?: string;
   linkUrl?: string;
   ariaLabel?: string | null;
-  onClick?: MouseEventHandler<HTMLButtonElement> | null;
+  onClick?: ButtonClickHandler | null;
   ariaExpanded?: boolean | null;
   utilities?: string | null;
   attributes?: Record<string, unknown>;
@@ -51,6 +53,7 @@ const ButtonIconOverText = ({
         className={buttonClasses}
         href={linkUrl}
         aria-label={ariaLabel ?? undefined}
+        onClick={onClick ?? undefined}
         {...attributes}
       >
         {buttonContent}

@@ -2,6 +2,8 @@ import { type MouseEventHandler } from 'react';
 import classNames from 'classnames';
 import Icon from '../icon';
 
+type ButtonClickHandler = MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>;
+
 interface ButtonProps {
   tag?: 'button' | 'a';
   buttonType?: 'button' | 'submit' | 'reset';
@@ -13,7 +15,7 @@ interface ButtonProps {
   iconEndHandle?: string | null;
   utilities?: string | null;
   attributes?: Record<string, unknown>;
-  onClick?: MouseEventHandler<HTMLButtonElement> | null;
+  onClick?: ButtonClickHandler | null;
   target?: string | null;
   rel?: string | null;
 }
@@ -45,7 +47,14 @@ const Button = ({
 
   if (tag === 'a') {
     return (
-      <a className={buttonClasses} href={linkUrl} target={target ?? undefined} rel={rel ?? undefined} {...attributes}>
+      <a
+        className={buttonClasses}
+        href={linkUrl}
+        target={target ?? undefined}
+        rel={rel ?? undefined}
+        onClick={onClick ?? undefined}
+        {...attributes}
+      >
         {buttonContents}
       </a>
     );

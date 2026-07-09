@@ -17,7 +17,17 @@ export default defineConfig(({ command, mode }) => {
       react(),
       ...(isPackageBuild
         ? [dts({
-            include: ['src/components', 'src/hooks', 'src/types']
+            include: ['src/components', 'src/hooks', 'src/types'],
+            exclude: [
+              'src/components/accordion/AccordionContext.ts',
+              'src/components/alert/AlertParent.tsx',
+              'src/components/form/FormValidation.tsx',
+              'src/components/lightbox/ImageWithLoading.tsx',
+              'src/components/lightbox/LightboxExample.tsx',
+              'src/components/modal/ModalParent.tsx',
+              'src/components/tab/TabContext.ts',
+              'src/components/table/tableData.ts'
+            ]
           })]
         : [])
     ],
