@@ -1,3 +1,4 @@
+import type { ComponentProps } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import NestedNav from '@lib/components/nested-nav';
 import VanillaExample from '../../utils/VanillaExample';
@@ -15,36 +16,40 @@ const meta: Meta<typeof NestedNav> = {
 
 export default meta;
 type Story = StoryObj<typeof NestedNav>;
+type NestedNavItems = NonNullable<ComponentProps<typeof NestedNav>['items']>;
 
-const items = [
-  { label: 'Overview', href: '#1' },
+const items: NestedNavItems = [
+  { id: 'overview', label: 'Overview', href: '#1' },
   {
+    id: 'american-robin',
     label: 'American Robin',
     href: '#1',
     current: 'true',
     children: [
-      { label: 'Nesting', href: '#1', current: 'page' },
-      { label: 'Diet', href: '#1' },
-      { label: 'Migration', href: '#1' },
+      { id: 'american-robin-nesting', label: 'Nesting', href: '#1', current: 'page' },
+      { id: 'american-robin-diet', label: 'Diet', href: '#1' },
+      { id: 'american-robin-migration', label: 'Migration', href: '#1' },
     ],
   },
   {
+    id: 'eastern-bluebird',
     label: 'Eastern Bluebird',
     href: '#1',
     children: [
       {
+        id: 'eastern-bluebird-identification',
         label: 'Identification',
         href: '#1',
         children: [
-          { label: 'Plumage', href: '#1' },
-          { label: 'Song', href: '#1' },
+          { id: 'eastern-bluebird-plumage', label: 'Plumage', href: '#1' },
+          { id: 'eastern-bluebird-song', label: 'Song', href: '#1' },
         ],
       },
-      { label: 'Habitat', href: '#1' },
+      { id: 'eastern-bluebird-habitat', label: 'Habitat', href: '#1' },
     ],
   },
-  { label: 'Conservation', href: '#1' },
-  { label: 'Resources', href: '#1' },
+  { id: 'conservation', label: 'Conservation', href: '#1' },
+  { id: 'resources', label: 'Resources', href: '#1' },
 ];
 
 export const DefaultHtml: Story = {

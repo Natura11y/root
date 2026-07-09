@@ -18,25 +18,25 @@ export default meta;
 type Story = StoryObj<typeof Pagination>;
 
 const truncatedItems = [
-  { iconHandle: 'arrow-left', ariaLabel: 'Previous page', href: '#prev' },
-  { label: '1', href: '#1' },
-  { label: '2', href: '#2' },
-  { label: '3', href: '#3', current: true },
-  { label: '4', href: '#4' },
-  { ellipsis: true },
-  { label: '9', href: '#9' },
-  { iconHandle: 'arrow-right', ariaLabel: 'Next page', href: '#next' },
+  { id: 'previous-page', iconHandle: 'arrow-left', ariaLabel: 'Previous page', href: '#prev' },
+  { id: 'page-1', label: '1', href: '#1' },
+  { id: 'page-2', label: '2', href: '#2' },
+  { id: 'page-3', label: '3', href: '#3', current: true },
+  { id: 'page-4', label: '4', href: '#4' },
+  { id: 'more-pages', ellipsis: true },
+  { id: 'page-9', label: '9', href: '#9' },
+  { id: 'next-page', iconHandle: 'arrow-right', ariaLabel: 'Next page', href: '#next' },
 ];
 
 const visibleLabelItems = [
-  { iconHandle: 'arrow-left', label: 'Previous', href: '#prev' },
-  { label: '1', href: '#1' },
-  { label: '2', href: '#2' },
-  { label: '3', href: '#3', current: true },
-  { label: '4', href: '#4' },
-  { ellipsis: true },
-  { label: '9', href: '#9' },
-  { iconHandle: 'arrow-right', iconPosition: 'end' as const, label: 'Next', href: '#next' },
+  { id: 'previous-page', iconHandle: 'arrow-left', label: 'Previous', href: '#prev' },
+  { id: 'page-1', label: '1', href: '#1' },
+  { id: 'page-2', label: '2', href: '#2' },
+  { id: 'page-3', label: '3', href: '#3', current: true },
+  { id: 'page-4', label: '4', href: '#4' },
+  { id: 'more-pages', ellipsis: true },
+  { id: 'page-9', label: '9', href: '#9' },
+  { id: 'next-page', iconHandle: 'arrow-right', iconPosition: 'end' as const, label: 'Next', href: '#next' },
 ];
 
 const createHtmlStory = (markup: string): Story => ({

@@ -2,6 +2,7 @@ import { type ElementType } from 'react';
 import classNames from 'classnames';
 
 interface PaginationItem {
+  id?: string | number;
   ellipsis?: boolean;
   label?: string;
   href?: string;
@@ -20,6 +21,18 @@ interface PaginationProps {
   utilities?: string | null;
 }
 
+const getItemKey = (item: PaginationItem, index: number) => {
+  if (item.id !== undefined) return item.id;
+  if (item.ellipsis) return `ellipsis-${index}`;
+
+  return [
+    item.href,
+    item.label,
+    item.iconHandle,
+    item.ariaLabel,
+  ].filter(Boolean).join(':') || `item-${index}`;
+};
+
 const Pagination = ({
   items = [],
   ariaLabel = 'Pagination',
@@ -31,7 +44,7 @@ const Pagination = ({
       {items.map((item, index) => {
         if (item.ellipsis) {
           return (
-            <li key={index} aria-hidden='true'>
+            <li key={getItemKey(item, index)} aria-hidden='true'>
               <span className='icon icon-more-horizontal' aria-hidden='true' />
             </li>
           );
@@ -46,7 +59,7 @@ const Pagination = ({
         ) : null;
 
         return (
-          <li key={index}>
+          <li key={getItemKey(item, index)}>
             <LinkTag
               href={item.href}
               {...(item.current && { 'aria-current': 'page' })}

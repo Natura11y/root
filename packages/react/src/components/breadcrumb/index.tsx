@@ -2,6 +2,7 @@ import { type ElementType } from 'react';
 import classNames from 'classnames';
 
 interface BreadcrumbItem {
+  id?: string | number;
   label: string;
   href?: string;
   linkTag?: ElementType;
@@ -14,6 +15,10 @@ interface BreadcrumbProps {
   linkTag?: ElementType;
   utilities?: string | null;
 }
+
+const getItemKey = (item: BreadcrumbItem) => (
+  item.id ?? `${item.href ?? 'current'}:${item.label}`
+);
 
 const Breadcrumb = ({
   items = [],
@@ -28,7 +33,7 @@ const Breadcrumb = ({
         const LinkTag = item.linkTag ?? linkTag;
 
         return (
-          <li key={index} {...(isLast && { 'aria-current': 'page' })}>
+          <li key={getItemKey(item)} {...(isLast && { 'aria-current': 'page' })}>
             {isLast ? (
               item.label
             ) : (

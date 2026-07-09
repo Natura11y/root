@@ -76,7 +76,27 @@ Jumpstart your next web project with Natura11y's prebuilt React components.
 
 ## Getting Started
 
-Natura11y's React package is being prepared for npm release as `@natura11y/react`. The package lives with the rest of the Natura11y ecosystem and will use `@natura11y/core` for shared styles and JavaScript utilities.
+Natura11y's React package is being prepared for release as `@natura11y/react`. It is meant to be added to an existing React 19 app. Start with your app framework or Vite setup, then add Natura11y.
+
+The npm install path will be:
+
+```bash
+npm install @natura11y/react react react-dom
+```
+
+Import the core stylesheet once in your app entry point:
+
+```jsx
+import '@natura11y/core/css';
+```
+
+Then import the React components you need:
+
+```jsx
+import { Alert, Button } from '@natura11y/react';
+```
+
+Natura11y React does not replace your React framework. It gives React projects the same component language, styling foundation, and accessibility patterns used by the core Natura11y framework.
 
 </TextBlock>
 

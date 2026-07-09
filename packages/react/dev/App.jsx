@@ -118,6 +118,8 @@ const articleSections = [
   ['Heading 6', `${loremParagraphs[0]} ${loremParagraphs[1]} ${loremParagraphs[2]} ${loremParagraphs[3]} ${loremParagraphs[4]}`, loremParagraphs[6]],
 ];
 
+const getHeadingTag = (heading) => `h${heading.match(/[2-6]$/)?.[0] ?? '2'}`;
+
 const searchFilters = [
   { label: 'Omnis', value: 'all' },
   { label: 'Aliquet', value: 'Aliquet' },
@@ -207,34 +209,37 @@ const faqItems = [
 ];
 
 const templateSidebarItems = [
-  { label: 'Section One', href: '#1' },
+  { id: 'section-one', label: 'Section One', href: '#1' },
   {
+    id: 'section-two',
     label: 'Section Two',
     href: '#1',
     current: 'true',
     children: [
-      { label: 'Item One', href: '#1' },
-      { label: 'Item Two', href: '#1', current: 'page' },
-      { label: 'Item Three', href: '#1' },
+      { id: 'section-two-item-one', label: 'Item One', href: '#1' },
+      { id: 'section-two-item-two', label: 'Item Two', href: '#1', current: 'page' },
+      { id: 'section-two-item-three', label: 'Item Three', href: '#1' },
     ],
   },
   {
+    id: 'section-three',
     label: 'Section Three',
     href: '#1',
     children: [
       {
+        id: 'section-three-item-one',
         label: 'Item One',
         href: '#1',
         children: [
-          { label: 'Sub-item One', href: '#1' },
-          { label: 'Sub-item Two', href: '#1' },
+          { id: 'section-three-subitem-one', label: 'Sub-item One', href: '#1' },
+          { id: 'section-three-subitem-two', label: 'Sub-item Two', href: '#1' },
         ],
       },
-      { label: 'Item Two', href: '#1' },
+      { id: 'section-three-item-two', label: 'Item Two', href: '#1' },
     ],
   },
-  { label: 'Section Four', href: '#1' },
-  { label: 'Section Five', href: '#1' },
+  { id: 'section-four', label: 'Section Four', href: '#1' },
+  { id: 'section-five', label: 'Section Five', href: '#1' },
 ];
 
 const initialContactForm = {
@@ -407,9 +412,9 @@ const TemplateBreadcrumb = () => (
     <div className="container wide padding-y-2">
       <Breadcrumb
         items={[
-          { label: 'Grandparent', href: '#1' },
-          { label: 'Parent', href: '#1' },
-          { label: 'Child Page' },
+          { id: 'grandparent', label: 'Grandparent', href: '#1' },
+          { id: 'parent', label: 'Parent', href: '#1' },
+          { id: 'child-page', label: 'Child Page' },
         ]}
       />
     </div>
@@ -442,7 +447,7 @@ const TemplateArticleContent = () => (
 
     <div className="narrow">
       {articleSections.slice(0, 4).map(([heading, firstParagraph, secondParagraph], index) => {
-        const Heading = heading.toLowerCase().replace(' ', '');
+        const Heading = getHeadingTag(heading);
 
         return (
           <section key={`${heading}-${index}`}>
@@ -904,13 +909,13 @@ const SearchResultsTemplatePage = ({ currentSearch, onNavigate }) => {
                 <Pagination
                   ariaLabel="Search Results Pages"
                   items={[
-                    { iconHandle: 'arrow-left', ariaLabel: 'Previous page', href: '#1', linkProps: { onClick: (event) => { event.preventDefault(); setPage(Math.max(1, page - 1)); } } },
-                    { label: '1', href: '#1', current: page === 1, linkProps: { onClick: (event) => { event.preventDefault(); setPage(1); } } },
-                    { label: '2', href: '#1', current: page === 2, linkProps: { onClick: (event) => { event.preventDefault(); setPage(2); } } },
-                    { label: '3', href: '#1', current: page === 3, linkProps: { onClick: (event) => { event.preventDefault(); setPage(3); } } },
-                    { ellipsis: true },
-                    { label: '15', href: '#1', linkProps: { onClick: (event) => event.preventDefault() } },
-                    { iconHandle: 'arrow-right', ariaLabel: 'Next page', href: '#1', linkProps: { onClick: (event) => { event.preventDefault(); setPage(Math.min(3, page + 1)); } } },
+                    { id: 'previous-page', iconHandle: 'arrow-left', ariaLabel: 'Previous page', href: '#1', linkProps: { onClick: (event) => { event.preventDefault(); setPage(Math.max(1, page - 1)); } } },
+                    { id: 'page-1', label: '1', href: '#1', current: page === 1, linkProps: { onClick: (event) => { event.preventDefault(); setPage(1); } } },
+                    { id: 'page-2', label: '2', href: '#1', current: page === 2, linkProps: { onClick: (event) => { event.preventDefault(); setPage(2); } } },
+                    { id: 'page-3', label: '3', href: '#1', current: page === 3, linkProps: { onClick: (event) => { event.preventDefault(); setPage(3); } } },
+                    { id: 'more-pages', ellipsis: true },
+                    { id: 'page-15', label: '15', href: '#1', linkProps: { onClick: (event) => event.preventDefault() } },
+                    { id: 'next-page', iconHandle: 'arrow-right', ariaLabel: 'Next page', href: '#1', linkProps: { onClick: (event) => { event.preventDefault(); setPage(Math.min(3, page + 1)); } } },
                   ]}
                 />
               </div>
@@ -933,7 +938,7 @@ const FullWidthTemplatePage = () => (
       </p>
 
       {articleSections.map(([heading, firstParagraph, secondParagraph], index) => {
-        const Heading = heading.toLowerCase().replace(' ', '');
+        const Heading = getHeadingTag(heading);
 
         return (
           <section key={`${heading}-${index}`}>

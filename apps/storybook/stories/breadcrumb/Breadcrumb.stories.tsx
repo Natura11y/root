@@ -33,10 +33,10 @@ export const DefaultHtml: Story = {
 export const React: Story = {
   args: {
     items: [
-      { label: 'Home', href: '#1' },
-      { label: 'Recipes', href: '#1' },
-      { label: 'Baking', href: '#1' },
-      { label: 'Focaccia' },
+      { id: 'home', label: 'Home', href: '#1' },
+      { id: 'recipes', label: 'Recipes', href: '#1' },
+      { id: 'baking', label: 'Baking', href: '#1' },
+      { id: 'focaccia', label: 'Focaccia' },
     ],
   },
 };

@@ -4,6 +4,7 @@ import classNames from 'classnames';
 type AriaCurrentValue = 'page' | 'step' | 'location' | 'date' | 'time' | 'true';
 
 interface NavItem {
+  id?: string | number;
   label: string;
   href?: string;
   current?: boolean | AriaCurrentValue;
@@ -18,6 +19,10 @@ interface NavItemsProps {
   depth?: number;
 }
 
+const getItemKey = (item: NavItem) => (
+  item.id ?? `${item.href ?? 'section'}:${item.label}`
+);
+
 const NavItems = ({ items, linkTag, depth = 0 }: NavItemsProps) => (
   <>
     {items.map((item, index) => {
@@ -25,7 +30,7 @@ const NavItems = ({ items, linkTag, depth = 0 }: NavItemsProps) => (
       const ariaCurrent = item.current === true ? 'page' : item.current || undefined;
 
       return (
-        <li key={index}>
+        <li key={getItemKey(item)}>
           <LinkTag
             href={item.href}
             {...(ariaCurrent && { 'aria-current': ariaCurrent })}
