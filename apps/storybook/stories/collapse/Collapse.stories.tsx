@@ -58,7 +58,7 @@ export const React: Story = {
       <div>
         <Button
           title={isOpen ? 'Hide' : 'Show'}
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setIsOpen(current => !current)}
           attributes={{
             ref: buttonRef,
             'aria-controls': 'collapse-react',
@@ -85,7 +85,7 @@ export const ResponsiveReact: Story = {
         <Button
           title={isOpen ? 'Hide' : 'Show'}
           utilities='button--disperse display-none--lg'
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setIsOpen(current => !current)}
           attributes={{
             'aria-controls': 'collapse-responsive-react',
             'aria-expanded': isOpen,

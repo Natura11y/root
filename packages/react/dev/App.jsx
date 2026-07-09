@@ -910,13 +910,13 @@ const SearchResultsTemplatePage = ({ currentSearch, onNavigate }) => {
                 <Pagination
                   ariaLabel="Search Results Pages"
                   items={[
-                    { id: 'previous-page', iconHandle: 'arrow-left', ariaLabel: 'Previous page', href: '#1', linkProps: { onClick: (event) => { event.preventDefault(); setPage(Math.max(1, page - 1)); } } },
+                    { id: 'previous-page', iconHandle: 'arrow-left', ariaLabel: 'Previous page', href: '#1', linkProps: { onClick: (event) => { event.preventDefault(); setPage((currentPage) => Math.max(1, currentPage - 1)); } } },
                     { id: 'page-1', label: '1', href: '#1', current: page === 1, linkProps: { onClick: (event) => { event.preventDefault(); setPage(1); } } },
                     { id: 'page-2', label: '2', href: '#1', current: page === 2, linkProps: { onClick: (event) => { event.preventDefault(); setPage(2); } } },
                     { id: 'page-3', label: '3', href: '#1', current: page === 3, linkProps: { onClick: (event) => { event.preventDefault(); setPage(3); } } },
                     { id: 'more-pages', ellipsis: true },
                     { id: 'page-15', label: '15', href: '#1', linkProps: { onClick: (event) => event.preventDefault() } },
-                    { id: 'next-page', iconHandle: 'arrow-right', ariaLabel: 'Next page', href: '#1', linkProps: { onClick: (event) => { event.preventDefault(); setPage(Math.min(3, page + 1)); } } },
+                    { id: 'next-page', iconHandle: 'arrow-right', ariaLabel: 'Next page', href: '#1', linkProps: { onClick: (event) => { event.preventDefault(); setPage((currentPage) => Math.min(3, currentPage + 1)); } } },
                   ]}
                 />
               </div>

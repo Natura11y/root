@@ -126,20 +126,19 @@ const Flyout = ({
   };
 
   const navigateBack = useCallback(() => {
-    setHistory(prev => {
-      if (!prev.length) return prev;
-      const newHistory = [...prev];
-      const prevIndex = newHistory.pop()!;
-      enteringIndexRef.current = prevIndex;
-      setActiveIndex(prevIndex);
-      const selector = newHistory.length > 0 ? '[data-flyout-back]' : '[data-flyout-close]';
-      setTimeout(() => {
-        (contentRef.current?.querySelector(selector) as HTMLElement | null)
-          ?.focus({ preventScroll: true });
-      }, 0);
-      return newHistory;
-    });
-  }, []);
+    if (!history.length) return;
+    const newHistory = history.slice(0, -1);
+    const prevIndex = history[history.length - 1]!;
+    const selector = newHistory.length > 0 ? '[data-flyout-back]' : '[data-flyout-close]';
+
+    enteringIndexRef.current = prevIndex;
+    setActiveIndex(prevIndex);
+    setHistory(newHistory);
+    setTimeout(() => {
+      (contentRef.current?.querySelector(selector) as HTMLElement | null)
+        ?.focus({ preventScroll: true });
+    }, 0);
+  }, [history]);
 
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (contentRef.current && !contentRef.current.contains(event.target as Node)) {
