@@ -1,6 +1,11 @@
 import { useEffect, useRef } from 'react';
 
-const initializedExamples = new Set<string>();
+type InitializedExample = {
+  container: HTMLDivElement;
+  html: string;
+};
+
+const initializedExamples = new Map<string, InitializedExample>();
 
 type VanillaExampleProps = {
   html: string;
@@ -16,8 +21,20 @@ const VanillaExample = ({ html, initialize, initializeOnceKey }: VanillaExampleP
     if (!container) return;
 
     if (initializeOnceKey) {
-      if (initializedExamples.has(initializeOnceKey)) return;
-      initializedExamples.add(initializeOnceKey);
+      const initializedExample = initializedExamples.get(initializeOnceKey);
+
+      const sameLiveContainer =
+        initializedExample?.container === container &&
+        document.contains(container);
+
+      const sameHtml = initializedExample?.html === html;
+
+      if (sameLiveContainer && sameHtml) return;
+
+      initializedExamples.set(initializeOnceKey, {
+        container,
+        html,
+      });
     }
 
     initialize?.(container);

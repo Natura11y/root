@@ -86,7 +86,7 @@ export const DrillDownHtml: Story = {
     <VanillaExample
       html={flyoutDrillDownMarkup}
       initialize={initializeFlyout}
-      initializeOnceKey='flyout'
+      initializeOnceKey='flyout-drill-down'
     />
   ),
 };

@@ -116,7 +116,7 @@ export const CloseTargetHtml: Story = {
     <VanillaExample
       html={collapseCloseTargetMarkup}
       initialize={initializeCollapse}
-      initializeOnceKey='collapse'
+      initializeOnceKey='collapse-close-target'
     />
   ),
 };
