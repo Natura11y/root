@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [5.2.1] — 2026-07-10
+
+### Accessibility
+
+#### Color
+- Improve the default canvas warning color contrast token.
+
+#### Tabs
+- Update the HTML tab examples so `role="tablist"` is applied to the tab navigation list and list items use `role="presentation"`.
+
+---
+
 ## [5.2.0] — 2026-07-08
 
 ### Bug Fixes

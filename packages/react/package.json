@@ -1,6 +1,6 @@
 {
   "name": "@natura11y/react",
-  "version": "1.0.0",
+  "version": "1.0.0-beta",
   "description": "React components for the Natura11y Design Ecosystem.",
   "type": "module",
   "private": false,
@@ -62,7 +62,7 @@
     "react-dom": "^19.0.0"
   },
   "dependencies": {
-    "@natura11y/core": "^5.2.0",
+    "@natura11y/core": "^5.2.1",
     "classnames": "^2.5.1"
   },
   "devDependencies": {
