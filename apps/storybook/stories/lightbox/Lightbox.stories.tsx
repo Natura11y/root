@@ -1,8 +1,7 @@
-import { useContext, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import type { Decorator, Meta, StoryObj } from '@storybook/react-vite';
 import VanillaLightbox from '@core-js/lightbox';
-import { LightboxContext, LightboxProvider, type MediaItem } from '@lib/context/LightboxContext';
-import LightboxButton from '@lib/components/lightbox/LightboxButton';
+import { LightboxButton, LightboxProvider, useLightbox, type MediaItem } from '@lib/components';
 import VanillaExample from '../../utils/VanillaExample';
 import { storyMedia } from '../media';
 import galleryMarkup from './lightbox-gallery.example.html?raw';
@@ -92,18 +91,18 @@ const ReactLightboxGrid = ({
   items: LightboxStoryItem[];
   utilities: string;
 }) => {
-  const ctx = useContext(LightboxContext);
+  const lightbox = useLightbox();
   const hasRegisteredMedia = useRef(false);
 
   useEffect(() => {
-    if (!ctx || hasRegisteredMedia.current) return;
+    if (hasRegisteredMedia.current) return;
 
     items.forEach(({ lbType, lbSrc, lbCaption }) => {
-      ctx.addToMediaArray({ lbType, lbSrc, lbCaption });
+      lightbox.addToMediaArray({ lbType, lbSrc, lbCaption });
     });
 
     hasRegisteredMedia.current = true;
-  }, [ctx, items]);
+  }, [lightbox, items]);
 
   return (
     <div className={utilities}>

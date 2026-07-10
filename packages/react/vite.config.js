@@ -17,7 +17,7 @@ export default defineConfig(({ command, mode }) => {
       react(),
       ...(isPackageBuild
         ? [dts({
-            include: ['src/components', 'src/hooks', 'src/types'],
+            include: ['src/components', 'src/context', 'src/hooks', 'src/types'],
             exclude: [
               'src/components/accordion/AccordionContext.ts',
               'src/components/alert/AlertParent.tsx',

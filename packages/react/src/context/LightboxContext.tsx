@@ -1,4 +1,4 @@
-import { createContext, useState, useRef, useEffect, type ReactNode, type RefObject } from 'react';
+import { createContext, useContext, useState, useRef, useEffect, type ReactNode, type RefObject } from 'react';
 import { useScrollLock } from '../hooks/useScrollLock';
 import { useStableCallback } from '../hooks/useStableCallback';
 import Lightbox from '../components/lightbox';
@@ -33,6 +33,16 @@ export interface LightboxContextValue {
 }
 
 export const LightboxContext = createContext<LightboxContextValue | null>(null);
+
+export function useLightbox(): LightboxContextValue {
+  const context = useContext(LightboxContext);
+
+  if (!context) {
+    throw new Error('useLightbox must be used within LightboxProvider');
+  }
+
+  return context;
+}
 
 export const LightboxProvider = ({ children }: { children: ReactNode }) => {
   const [mediaArray, setMediaArray] = useState<MediaItem[]>([]);

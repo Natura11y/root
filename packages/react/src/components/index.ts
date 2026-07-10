@@ -28,6 +28,8 @@ export { default as Icon } from './icon';
 
 export { default as Lightbox } from './lightbox';
 export { default as LightboxButton } from './lightbox/LightboxButton';
+export { LightboxProvider, useLightbox } from '../context/LightboxContext';
+export type { LightboxContextValue, LightboxData, MediaItem } from '../context/LightboxContext';
 
 export { default as Modal } from './modal';
 
