@@ -1,6 +1,6 @@
 {
 	"name": "@natura11y/core",
-	"version": "5.2.1",
+	"version": "5.2.2",
 	"description": "Core CSS, vanilla JavaScript, Sass source, and utility exports for the Natura11y Design Ecosystem.",
 	"private": false,
 	"scripts": {

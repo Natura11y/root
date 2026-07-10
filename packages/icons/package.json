@@ -1,6 +1,6 @@
 {
   "name": "@natura11y/icons",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Open source icon library for the Natura11y Design Ecosystem.",
   "private": false,
   "style": "dist/natura11y-icons.min.css",
