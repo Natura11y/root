@@ -1,8 +1,30 @@
 # Natura11y Icons
 
-Use Natura11y's open source icon font, or use this package as the starting point for your own icon library.
+Open source icon library and icon font for the Natura11y Design Ecosystem.
 
 This repository is a public release mirror of the `@natura11y/icons` package. Development and release management take place in Natura11y's private monorepo.
+
+[https://gonatura11y.com/icons/](https://gonatura11y.com/icons/)
+
+---
+
+## Install
+
+```bash
+npm install @natura11y/icons
+```
+
+Import the icon font stylesheet once from your application entry point:
+
+```js
+import '@natura11y/icons/dist/natura11y-icons.min.css';
+```
+
+Use icons with Natura11y's icon classes:
+
+```html
+<span class="icon icon-search" aria-hidden="true"></span>
+```
 
 ---
 
@@ -14,32 +36,29 @@ This repository is a public release mirror of the `@natura11y/icons` package. De
 
 ---
 
+## What's Included
+
+- Original SVG source files.
+- Optimized SVG files.
+- Generated icon font files.
+- Compiled and minified icon CSS.
+- Icon metadata used by the Natura11y docs site.
+
+---
+
 ## Build Icons
-
-1. Save your SVGs to `./original-svg`.
-
-2. Install package dependencies:
 
 ```bash
 npm install
-```
-
-3. Optimize SVGs, build the icon font, and write the minified CDN stylesheet:
-
-```bash
 npm run build:icons
 ```
 
----
-
-## The icon font
-
-The build generates `dist/natura11y-icons.css`, `dist/natura11y-icons.min.css`, font files, a sprite, and icon metadata. You can customize the generated icon font with `.fantasticonrc.js`.
+The build optimizes SVGs, generates the icon font, and writes the minified CDN stylesheet.
 
 ---
 
-Related:
+## Related
 
-- [Repo: Natura11y Icons](https://github.com/Natura11y/icons)
-- [NPM: @natura11y/icons](https://www.npmjs.com/package/@natura11y/icons)
-- [Docs: Natura11y Docs](https://gonatura11y.com)
+- [Natura11y Icons on GitHub](https://github.com/Natura11y/icons)
+- [Natura11y Icons on NPM](https://www.npmjs.com/package/@natura11y/icons)
+- [Natura11y Docs](https://gonatura11y.com)

@@ -1,52 +1,68 @@
-# Natura11y Inclusive Framework
+# Natura11y Core
 
-Natura11y is an open-source front-end toolkit for building modern websites. It's easy to use for developers at different skill levels.
+Core CSS, vanilla JavaScript, Sass source, and utility exports for the Natura11y Design Ecosystem.
+
+This repository is a public release mirror of the `@natura11y/core` package. Development and release management take place in Natura11y's private monorepo.
 
 [https://gonatura11y.com](https://gonatura11y.com)
 
 ---
 
-## CDNs
+## Install
 
-Natura11y Icons:
+```bash
+npm install @natura11y/core
+```
 
-`https://cdn.jsdelivr.net/npm/@natura11y/icons@2.2.0/dist/natura11y-icons.min.css`
+Import the compiled CSS and JavaScript once from your application entry point:
 
-Natura11y Stylesheet:
+```js
+import '@natura11y/core/css';
+import '@natura11y/core';
+```
 
-`https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.1/dist/natura11y.css`
+Or load the Sass source from your Sass bundle:
 
-Natura11y JS:
-
-`https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.1/dist/natura11y.js`
-
----
-
-Related:
-
-- [Repo: Natura11y Core](https://github.com/Natura11y/core)
-- [NPM: Natura11y Core](https://www.npmjs.com/package/@natura11y/core)
-- [NPM: Natura11y Icons](https://www.npmjs.com/package/@natura11y/icons)
-- [Docs: Natura11y Docs](https://gonatura11y.com)
+```scss
+@use '@natura11y/core/scss';
+```
 
 ---
 
-## Branch Naming Conventions
+## CDN
 
-To keep our development organized and maintain a clear workflow, we use specific prefixes for our branches. This helps identify the purpose of each branch at a glance. Below is a summary of our branch naming conventions:
-
-- **`release/`**: Prepares a new release version (e.g., `release/4.0.0-alpha`).
-- **`feature/`**: Develops new features or enhancements (e.g., `feature/add-track-component`).
-- **`fix/`**: Fixes bugs or minor issues (e.g., `fix/button-styling`).
-- **`test/` or `experiment/`**: Tests or experiments with new ideas (e.g., `test/alpha-search-tweaks`).
-- **`chore/`**: Routine tasks, maintenance, or minor updates (e.g., `chore/update-dependencies`).
-
-### How to Contribute
-
-When creating a new branch, please follow the naming conventions above. This helps keep our workflow clear and organized. Feel free to refer to this guide as your "cheat sheet" while working on the project!
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.1/dist/natura11y.css">
+<script src="https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.1/dist/natura11y.js"></script>
+```
 
 ---
 
-## Thanks
+## What's Included
 
-Many thanks to [BrowserStack](https://www.browserstack.com/) for the ability to test Natura11y in different browsers.
+- CSS custom properties, cascade layers, layout utilities, components, and accessibility helpers.
+- Vanilla JavaScript for interactive components such as accordion, alert, collapse, dropdown, flyout, lightbox, modal, tabs, table, and track.
+- Sass source files for teams that want to customize or bundle Natura11y from source.
+- Shared JavaScript utilities used by other Natura11y packages.
+- Static HTML examples for the core component patterns.
+
+---
+
+## Utility Exports
+
+```js
+import { getFocusableElements, focusTrap } from '@natura11y/core/utilities/focus';
+import { getCurrentBreakpoint } from '@natura11y/core/utilities/getCurrentBreakpoint';
+import { handleArrowKeyNavigation } from '@natura11y/core/utilities/keyboardNavigation';
+import { handleOverlayOpen, handleOverlayClose } from '@natura11y/core/utilities/overlay';
+```
+
+---
+
+## Related
+
+- [Natura11y Core on GitHub](https://github.com/Natura11y/core)
+- [Natura11y Core on NPM](https://www.npmjs.com/package/@natura11y/core)
+- [Natura11y Icons on NPM](https://www.npmjs.com/package/@natura11y/icons)
+- [Natura11y React on NPM](https://www.npmjs.com/package/@natura11y/react)
+- [Natura11y Docs](https://gonatura11y.com)

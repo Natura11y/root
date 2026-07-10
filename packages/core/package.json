@@ -1,7 +1,7 @@
 {
 	"name": "@natura11y/core",
 	"version": "5.2.1",
-	"description": "Natura11y is an open-source design system for creating beautiful web interfaces with a focus on accessible interaction design and front-end development.",
+	"description": "Core CSS, vanilla JavaScript, Sass source, and utility exports for the Natura11y Design Ecosystem.",
 	"private": false,
 	"scripts": {
 		"start": "webpack serve --config webpack.dev.js",
