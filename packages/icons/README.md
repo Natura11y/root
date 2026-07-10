@@ -31,7 +31,7 @@ Use icons with Natura11y's icon classes:
 ## CDN
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@natura11y/icons@2.2.0/dist/natura11y-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@natura11y/icons@2.2.1/dist/natura11y-icons.min.css">
 ```
 
 ---
@@ -59,6 +59,6 @@ The build optimizes SVGs, generates the icon font, and writes the minified CDN s
 
 ## Related
 
-- [Natura11y Icons source on GitHub](https://github.com/Natura11y/root/tree/main/packages/icons)
+- [Natura11y Icons on GitHub](https://github.com/Natura11y/root/tree/main/packages/icons)
 - [Natura11y Icons on NPM](https://www.npmjs.com/package/@natura11y/icons)
 - [Natura11y Docs](https://gonatura11y.com)

@@ -87,7 +87,7 @@ import { useFocusTrap } from '@natura11y/react/hooks';
 
 - Built for React 19.
 - Designed to be added to an existing React app.
-- Uses `@natura11y/core@^5.2.1` for shared styles and JavaScript utilities.
+- Uses `@natura11y/core@^5.2.2` for shared styles and JavaScript utilities.
 - Ships ES modules, CommonJS bundles, and TypeScript declarations.
 
 ---
@@ -107,7 +107,7 @@ npm --workspace @natura11y/react pack --dry-run
 
 ## Related
 
-- [Natura11y React source on GitHub](https://github.com/Natura11y/root/tree/main/packages/react)
+- [Natura11y React on GitHub](https://github.com/Natura11y/root/tree/main/packages/react)
 - [Natura11y React on NPM](https://www.npmjs.com/package/@natura11y/react)
-- [Natura11y Core source on GitHub](https://github.com/Natura11y/root/tree/main/packages/core)
+- [Natura11y Core on GitHub](https://github.com/Natura11y/root/tree/main/packages/core)
 - [Natura11y Docs](https://gonatura11y.com)

@@ -6,6 +6,7 @@
   "style": "dist/natura11y-icons.min.css",
   "files": [
     ".fantasticonrc.js",
+    "CHANGELOG.md",
     "dist",
     "original-svg",
     "optimized-svg",

@@ -32,8 +32,8 @@ Or load the Sass source from your Sass bundle:
 ## CDN
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.1/dist/natura11y.css">
-<script src="https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.1/dist/natura11y.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.2/dist/natura11y.css">
+<script src="https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.2/dist/natura11y.js"></script>
 ```
 
 ---
@@ -61,7 +61,7 @@ import { handleOverlayOpen, handleOverlayClose } from '@natura11y/core/utilities
 
 ## Related
 
-- [Natura11y Core source on GitHub](https://github.com/Natura11y/root/tree/main/packages/core)
+- [Natura11y Core on GitHub](https://github.com/Natura11y/root/tree/main/packages/core)
 - [Natura11y Core on NPM](https://www.npmjs.com/package/@natura11y/core)
 - [Natura11y Icons on NPM](https://www.npmjs.com/package/@natura11y/icons)
 - [Natura11y React on NPM](https://www.npmjs.com/package/@natura11y/react)

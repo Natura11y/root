@@ -62,7 +62,7 @@
     "react-dom": "^19.0.0"
   },
   "dependencies": {
-    "@natura11y/core": "^5.2.1",
+    "@natura11y/core": "^5.2.2",
     "classnames": "^2.5.1"
   },
   "devDependencies": {

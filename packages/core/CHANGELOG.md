@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [5.2.2] — 2026-07-10
+
+### Package
+
+- Updated package metadata and README links for the public Natura11y monorepo.
+- Updated CDN examples to reference `@natura11y/core@5.2.2` and `@natura11y/icons@2.2.1`.
+- No runtime CSS or JavaScript changes.
+
+---
+
 ## [5.2.1] — 2026-07-10
 
 ### Accessibility

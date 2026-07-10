@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [1.0.0-beta.1] - 2026-07-10
+
+### Package
+
+- Updated package metadata and README links for the public Natura11y monorepo.
+- Updated the package dependency to require `@natura11y/core@^5.2.2`.
+- Updated React development HTML to reference `@natura11y/icons@2.2.1`.
+
+---
+
 ## [1.0.0-beta] - 2026-07-10
 
 ### Package
