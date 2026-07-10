@@ -16,8 +16,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Natura11y/core.git",
-    "directory": "packages/icons"
+    "url": "git+https://github.com/Natura11y/icons.git"
   },
   "keywords": [
     "accessibility",
@@ -31,7 +30,7 @@
   "author": "Carl Avidano",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Natura11y/core/issues"
+    "url": "https://github.com/Natura11y/icons/issues"
   },
   "homepage": "https://gonatura11y.com/docs/icon/",
   "devDependencies": {

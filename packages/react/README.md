@@ -4,6 +4,8 @@ React components for the Natura11y Design Ecosystem.
 
 Natura11y React provides reusable React 19 components that pair with `@natura11y/core` styles and utilities.
 
+This repository is a public release mirror of the `@natura11y/react` package. Development and release management take place in Natura11y's private monorepo.
+
 [https://gonatura11y.com/docs/react/](https://gonatura11y.com/docs/react/)
 
 ---
@@ -11,8 +13,6 @@ Natura11y React provides reusable React 19 components that pair with `@natura11y
 ## Install
 
 Use Natura11y React in an existing React 19 app. If you are starting a new app, create the app with a React framework first, then add Natura11y. Vite, Parcel, and similar build tools are still useful when you intentionally build a React app from scratch.
-
-Once the package is published to npm:
 
 ```bash
 npm install @natura11y/react
@@ -102,7 +102,7 @@ import { useFocusTrap } from '@natura11y/react/hooks';
 - Built for React 19.
 - Framework-agnostic: works with React apps that can import package CSS and render client components.
 - Designed to be added to an existing React app, not to scaffold or choose the app framework.
-- Uses `@natura11y/core@^5.2.0` for shared styles and JavaScript utilities.
+- Uses `@natura11y/core@^5.2.1` for shared styles and JavaScript utilities.
 - Ships ES modules, CommonJS bundles, and TypeScript declarations.
 - Intended to be published as `@natura11y/react` under the Natura11y npm organization.
 
@@ -124,5 +124,7 @@ npm --workspace @natura11y/react pack --dry-run
 ## Related
 
 - [Natura11y Docs](https://gonatura11y.com)
+- [Natura11y React on GitHub](https://github.com/Natura11y/react)
+- [Natura11y React on npm](https://www.npmjs.com/package/@natura11y/react)
 - [Natura11y Core on GitHub](https://github.com/Natura11y/core)
 - [Natura11y on npm](https://www.npmjs.com/org/natura11y)

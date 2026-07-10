@@ -14,18 +14,19 @@ Natura11y Icons:
 
 Natura11y Stylesheet:
 
-`https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.0/dist/natura11y.css`
+`https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.1/dist/natura11y.css`
 
 Natura11y JS:
 
-`https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.0/dist/natura11y.js`
+`https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.1/dist/natura11y.js`
 
 ---
 
 Related:
 
+- [Repo: Natura11y Core](https://github.com/Natura11y/core)
+- [NPM: Natura11y Core](https://www.npmjs.com/package/@natura11y/core)
 - [NPM: Natura11y Icons](https://www.npmjs.com/package/@natura11y/icons)
-- [Repo: Natura11y React Components](https://github.com/cavidano/natura11y-react)
 - [Docs: Natura11y Docs](https://gonatura11y.com)
 
 ---

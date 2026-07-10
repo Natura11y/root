@@ -2,6 +2,8 @@
 
 Use Natura11y's open source icon font, or use this package as the starting point for your own icon library.
 
+This repository is a public release mirror of the `@natura11y/icons` package. Development and release management take place in Natura11y's private monorepo.
+
 ---
 
 ## CDN
@@ -38,6 +40,6 @@ The build generates `dist/natura11y-icons.css`, `dist/natura11y-icons.min.css`, 
 
 Related:
 
+- [Repo: Natura11y Icons](https://github.com/Natura11y/icons)
 - [NPM: @natura11y/icons](https://www.npmjs.com/package/@natura11y/icons)
-- [Repo: Natura11y Core](https://github.com/Natura11y/core)
 - [Docs: Natura11y Docs](https://gonatura11y.com)
