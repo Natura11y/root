@@ -2,7 +2,7 @@
 
 Open source icon library and icon font for the Natura11y Design Ecosystem.
 
-This repository is a public release mirror of the `@natura11y/icons` package. Development and release management take place in Natura11y's private monorepo.
+This package is maintained in the public Natura11y monorepo.
 
 [https://gonatura11y.com/icons/](https://gonatura11y.com/icons/)
 
@@ -59,6 +59,6 @@ The build optimizes SVGs, generates the icon font, and writes the minified CDN s
 
 ## Related
 
-- [Natura11y Icons on GitHub](https://github.com/Natura11y/icons)
+- [Natura11y Icons source on GitHub](https://github.com/Natura11y/root/tree/main/packages/icons)
 - [Natura11y Icons on NPM](https://www.npmjs.com/package/@natura11y/icons)
 - [Natura11y Docs](https://gonatura11y.com)

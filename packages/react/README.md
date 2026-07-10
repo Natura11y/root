@@ -4,7 +4,7 @@ React components for the Natura11y Design Ecosystem.
 
 Natura11y React provides reusable React 19 components that use Natura11y Core styles, utilities, and accessibility patterns.
 
-This repository is a public release mirror of the `@natura11y/react` package. Development and release management take place in Natura11y's private monorepo.
+This package is maintained in the public Natura11y monorepo.
 
 [https://gonatura11y.com/docs/react/](https://gonatura11y.com/docs/react/)
 
@@ -107,7 +107,7 @@ npm --workspace @natura11y/react pack --dry-run
 
 ## Related
 
-- [Natura11y React on GitHub](https://github.com/Natura11y/react)
+- [Natura11y React source on GitHub](https://github.com/Natura11y/root/tree/main/packages/react)
 - [Natura11y React on NPM](https://www.npmjs.com/package/@natura11y/react)
-- [Natura11y Core on GitHub](https://github.com/Natura11y/core)
+- [Natura11y Core source on GitHub](https://github.com/Natura11y/root/tree/main/packages/core)
 - [Natura11y Docs](https://gonatura11y.com)

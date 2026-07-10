@@ -2,7 +2,7 @@
 
 Core CSS, vanilla JavaScript, Sass source, and utility exports for the Natura11y Design Ecosystem.
 
-This repository is a public release mirror of the `@natura11y/core` package. Development and release management take place in Natura11y's private monorepo.
+This package is maintained in the public Natura11y monorepo.
 
 [https://gonatura11y.com](https://gonatura11y.com)
 
@@ -61,7 +61,7 @@ import { handleOverlayOpen, handleOverlayClose } from '@natura11y/core/utilities
 
 ## Related
 
-- [Natura11y Core on GitHub](https://github.com/Natura11y/core)
+- [Natura11y Core source on GitHub](https://github.com/Natura11y/root/tree/main/packages/core)
 - [Natura11y Core on NPM](https://www.npmjs.com/package/@natura11y/core)
 - [Natura11y Icons on NPM](https://www.npmjs.com/package/@natura11y/icons)
 - [Natura11y React on NPM](https://www.npmjs.com/package/@natura11y/react)
