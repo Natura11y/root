@@ -28,7 +28,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Natura11y/react.git"
+    "url": "git+https://github.com/Natura11y/root.git",
+    "directory": "packages/react"
   },
   "keywords": [
     "accessibility",
@@ -39,10 +40,10 @@
     "ui",
     "web accessibility"
   ],
-  "author": "Carl Avidano",
+  "author": "Avidano Digital",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Natura11y/react/issues"
+    "url": "https://github.com/Natura11y/root/issues"
   },
   "homepage": "https://gonatura11y.com/docs/react/",
   "publishConfig": {

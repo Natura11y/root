@@ -1,5 +1,7 @@
-# Contributing
+# Contributing to @natura11y/core
 
-This repository is a public release mirror of the `@natura11y/core` package. Development and release management take place in Natura11y's private monorepo.
+This package is maintained inside the public Natura11y monorepo.
 
-Issues are welcome. Pull requests are not accepted directly in this mirror because canonical development happens in Natura11y's private monorepo.
+For contribution rules and licensing details, see [../../CONTRIBUTING.md](../../CONTRIBUTING.md).
+
+Issues and pull requests should be opened against [Natura11y/root](https://github.com/Natura11y/root).

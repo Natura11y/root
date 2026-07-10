@@ -16,7 +16,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Natura11y/icons.git"
+    "url": "git+https://github.com/Natura11y/root.git",
+    "directory": "packages/icons"
   },
   "keywords": [
     "accessibility",
@@ -27,10 +28,10 @@
     "svg",
     "web accessibility"
   ],
-  "author": "Carl Avidano",
+  "author": "Avidano Digital",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Natura11y/icons/issues"
+    "url": "https://github.com/Natura11y/root/issues"
   },
   "homepage": "https://gonatura11y.com/docs/icon/",
   "devDependencies": {

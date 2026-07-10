@@ -1,106 +1,68 @@
 # Publishing
 
-`Natura11y/root` is the private management system for the Natura11y ecosystem.
+`Natura11y/root` is the canonical monorepo for the Natura11y Design Ecosystem.
 
-It owns source, package coordination, apps, documentation, Storybook, builds, versions, and release management. Public GitHub package repositories, npm packages, the docs site, and Storybook are distribution outputs generated from this private source of truth.
+It owns source, package coordination, apps, documentation, Storybook, builds, versions, and release management. npm packages, the docs site, Storybook, and GitHub releases are distribution outputs generated from this monorepo.
+
+Public package mirrors are no longer part of the release model.
 
 ## Source Of Truth
 
-- `Natura11y/root` is private and is the canonical source of truth.
-- Public GitHub repositories are package-specific release mirrors, not canonical development repositories.
-- npm packages are installable distribution artifacts.
+- `Natura11y/root` is the canonical development repository.
+- Packages are published to npm from workspace folders in this monorepo.
+- GitHub source links should point back to this monorepo, using package directories where appropriate.
 - The public docs site is built from `apps/docs`.
-- Storybook is a static workbench application output.
-- The private monorepo must not be made public.
+- Storybook is built from `apps/storybook`.
+- Public GitHub issues and pull requests should be opened against `Natura11y/root`.
 
 The old unscoped `natura11y` npm package remains available as the legacy package line. It should not receive new framework feature releases. New framework releases start with `@natura11y/core`.
 
+## Licensing Boundary
+
+This repository uses a mixed-license model.
+
+- Software code, examples, Storybook source, tests, package source, build configuration, and documentation application code are MIT licensed.
+- Documentation prose, editorial content, screenshots, diagrams, original images, and other original media in `apps/docs` are protected by copyright and all rights are reserved unless a file says otherwise.
+- The Natura11y name, logo, wordmark, and related brand assets are protected separately as trademarks.
+- Third-party materials remain governed by their original licenses.
+
+Before a public launch or major release, confirm these files are current:
+
+- `LICENSE.md`
+- `LICENSE-CODE.md`
+- `apps/docs/LICENSE.md`
+- `TRADEMARKS.md`
+- `CONTRIBUTING.md`
+
 ## Distribution Map
 
-| Private location | Public GitHub mirror | npm package | Notes |
-| --- | --- | --- | --- |
-| `packages/core` | `Natura11y/core` | `@natura11y/core` | Public mirror exists. |
-| `packages/icons` | `Natura11y/icons` | `@natura11y/icons` | Public mirror exists. |
-| `packages/react` | `Natura11y/react` | `@natura11y/react` | Public mirror exists. |
-| `apps/docs` | none | none | Deploys to `gonatura11y.com`. |
-| `apps/storybook` | none | none | Builds to `storybook-static` and should deploy to a dedicated workbench host. |
-
-## Public Package Mirrors
-
-Package mirrors exist so users can inspect package source, read release notes, file issues, and discover the package from GitHub. They are not where canonical development happens.
-
-Each public mirror README should include this note, adjusted for the package name:
-
-```txt
-This repository is a public release mirror of the @natura11y/core package. Development and release management take place in Natura11y's private monorepo.
-```
-
-Each public mirror should also include a `CONTRIBUTING.md` that states the contribution policy. The default policy is:
-
-```txt
-Issues are welcome. Pull requests are not accepted directly in this mirror because canonical development happens in Natura11y's private monorepo.
-```
-
-## First-Time Mirror Setup
-
-Each package should have a matching public GitHub mirror before the package is treated as fully public.
-
-Create the public repository in the `Natura11y` organization:
-
-- `Natura11y/core`
-- `Natura11y/icons`
-- `Natura11y/react`
-
-The public mirror should be a package repository, not an import of the private monorepo. Do not copy `apps`, unrelated packages, private release tooling, or monorepo configuration into a package mirror.
-
-After the GitHub repo exists, create or refresh the local mirror checkout:
-
-```sh
-git clone https://github.com/Natura11y/icons.git /Users/carlavidano/Sites/natura11y-icons-public
-git clone https://github.com/Natura11y/react.git /Users/carlavidano/Sites/natura11y-react-public
-```
-
-Then sync only the package contents from the private monorepo:
-
-```sh
-rsync -a --delete \
-  --exclude '.git/' \
-  --exclude 'node_modules/' \
-  --exclude '.DS_Store' \
-  /Users/carlavidano/Sites/natura11y/packages/icons/ \
-  /Users/carlavidano/Sites/natura11y-icons-public/
-```
-
-Commit, tag, and push the mirror with the package version:
-
-```sh
-cd /Users/carlavidano/Sites/natura11y-icons-public
-git add -A
-git commit -m "Release 2.2.0"
-git tag -a v2.2.0 -m "Release 2.2.0"
-git push origin main --tags
-```
-
-Repeat the same package-scoped process for React once `Natura11y/react` exists.
+| Source location | Distribution output | Notes |
+| --- | --- | --- |
+| `packages/core` | `@natura11y/core` on npm | Core CSS, Sass, JavaScript, and utilities. |
+| `packages/icons` | `@natura11y/icons` on npm | Icon font, SVG assets, and icon data. |
+| `packages/react` | `@natura11y/react` on npm | React components that use core styles and utilities. |
+| `apps/docs` | `gonatura11y.com` | Public documentation site. |
+| `apps/storybook` | Storybook static site | Public workbench for core and React examples. |
 
 ## Package Metadata
 
-Each package should eventually point to its own public mirror:
+Each package should point to the canonical monorepo and identify its workspace directory:
 
 ```json
 {
   "repository": {
     "type": "git",
-    "url": "https://github.com/Natura11y/react.git"
+    "url": "git+https://github.com/Natura11y/root.git",
+    "directory": "packages/react"
   },
   "bugs": {
-    "url": "https://github.com/Natura11y/react/issues"
+    "url": "https://github.com/Natura11y/root/issues"
   },
-  "homepage": "https://gonatura11y.com"
+  "homepage": "https://gonatura11y.com/docs/react/"
 }
 ```
 
-Before publishing package metadata that points to a public mirror, confirm the mirror repository exists and accepts pushes.
+Package metadata should not point to old package mirror repositories.
 
 ## Release Order
 
@@ -135,60 +97,50 @@ npm publish --workspace @natura11y/react --tag beta --access public
 
 ## Release Workflow
 
-1. Work in the private monorepo.
-2. Confirm the active repo is `/Users/carlavidano/Sites/natura11y`.
-3. Confirm `origin` points to `https://github.com/Natura11y/root.git`.
+1. Confirm the active repo is `/Users/carlavidano/Sites/natura11y`.
+2. Confirm `origin` points to `https://github.com/Natura11y/root.git`.
+3. Confirm the worktree contains only intentional release changes.
 4. Build and verify changed packages.
-5. Update versions and changelogs.
-6. Commit and push the private release state.
-7. For each changed package, sync only that package's approved files to its public GitHub mirror.
-8. Commit the mirror as `Release x.y.z`.
-9. Tag the mirror repo with the package version, such as `v5.2.1`.
-10. Push the public mirror and tag.
-11. Publish the package to npm.
-12. Deploy docs or Storybook if those outputs changed.
+5. Update versions and changelogs for changed packages.
+6. Commit and push the release state.
+7. Tag the monorepo with package-specific tags for packages being published.
+8. Publish changed packages to npm.
+9. Create or update GitHub releases when useful for public release notes.
+10. Deploy docs or Storybook if those outputs changed.
 
-## Mirror Sync Rules
+Use package-specific tags in the monorepo so independent package versions stay clear:
 
-Mirror sync must be package-only. Never sync the private monorepo root into a public package mirror.
+```txt
+core-v5.2.1
+icons-v2.2.0
+react-v1.0.0-beta
+```
 
-Approved public mirror contents may include:
+## npm Publish Commands
 
-- `package.json`
-- `README.md`
-- `CHANGELOG.md`
-- `LICENSE`
-- package source files
-- compiled distribution files, when the package intentionally commits them
-- TypeScript declarations, when applicable
-- package-specific examples or documentation, when intentionally public
+Core:
 
-Never sync:
+```sh
+npm publish --workspace @natura11y/core --access public
+```
 
-- unrelated packages
-- `apps`
-- private release tooling
-- internal notes
-- credentials or environment files
-- `.DS_Store`
-- `node_modules`
-- large local media that is not intentionally part of the public package
+Icons:
 
-Mirror automation should use an allowlist or package-scoped sync command so the public mirror receives only the intended package contents.
+```sh
+npm publish --workspace @natura11y/icons --access public
+```
 
-## Operational Guardrails
+React beta:
 
-The mirror workflow is operationally sensitive even though the architecture is straightforward.
+```sh
+npm publish --workspace @natura11y/react --tag beta --access public
+```
 
-- Public mirrors must be generated from the private monorepo.
-- Public mirrors should never be edited independently as the source of truth.
-- If a public mirror needs an emergency manual fix, port that fix back into the private monorepo before the next release.
-- npm package versions and public GitHub tags must match.
-- A release should fail before publishing if the target mirror repository does not exist.
-- A release should fail before publishing if the private worktree is dirty.
-- A release should fail before publishing if the mirror tag already exists.
-- A release should fail before publishing if the package version in `package.json` does not match the intended tag.
-- Published docs should not link to a public package mirror until that mirror exists.
+React stable:
+
+```sh
+npm publish --workspace @natura11y/react --access public
+```
 
 ## Verification Commands
 
@@ -229,9 +181,42 @@ npm run typecheck:storybook
 npm run build-storybook
 ```
 
+## Application Deployments
+
+The docs and Storybook apps are deployed as static application outputs, not npm packages.
+
+- Docs source: `apps/docs`
+- Docs build output: `apps/docs/dist`
+- Docs public host: `gonatura11y.com`
+- Storybook source: `apps/storybook`
+- Storybook build output: `storybook-static`
+
+Use GitHub Actions for repeatable deployments once the repository is public.
+
+## First Public Launch Checklist
+
+Before changing repository visibility to public:
+
+- Confirm no credentials, tokens, `.env` files, FTP details, or private deployment keys are present in the current tree.
+- Audit git history for sensitive material before making the repository public.
+- Confirm large local media and working design assets are intentionally public before committing them.
+- Confirm `apps/docs` licensing text reflects the copyright boundary for documentation content and original media.
+- Confirm package metadata points to `Natura11y/root`, not package mirrors.
+- Confirm docs links use `gonatura11y.com`.
+- Confirm README, contributing, license, and trademark files are ready for public readers.
+- Confirm build and package dry-runs pass.
+
+## Repository Hygiene
+
+- Do not commit `.DS_Store` files.
+- Do not commit video files such as `.mp4`, `.mov`, `.webm`, or `.m4v` unless they are intentionally public package or docs assets.
+- Keep large local media assets local, external, or intentionally hosted elsewhere.
+- Keep generated build output out of git unless a package specifically needs it as a publish artifact.
+- Keep npm package releases tied to committed source, version, and changelog changes.
+
 ## Local Paths
 
-Use the active private monorepo folder:
+Use the active monorepo folder:
 
 ```txt
 /Users/carlavidano/Sites/natura11y
@@ -242,24 +227,3 @@ Its `origin` remote should point to:
 ```txt
 https://github.com/Natura11y/root.git
 ```
-
-Current local public mirror checkouts may include:
-
-```txt
-/Users/carlavidano/Sites/natura11y-core-public
-/Users/carlavidano/Sites/natura11y-icons-public
-/Users/carlavidano/Sites/natura11y-react-public
-```
-
-The legacy local folder, if present, is only for old public repo reference:
-
-```txt
-/Users/carlavidano/Sites/natura11y-legacy
-```
-
-## Repository Hygiene
-
-- Do not commit `.DS_Store` files.
-- Do not commit video files such as `.mp4`, `.mov`, `.webm`, or `.m4v` unless they are intentionally public package assets.
-- Keep large local media assets local, external, or intentionally hosted elsewhere.
-- Keep generated build output out of git unless a package specifically needs it as a publish artifact.
