@@ -36,12 +36,9 @@ const scrollToTop = (event) => {
 };
 
 const templateRoutes = [
-  { path: '/templates/landing', label: 'Landing' },
-  { path: '/templates/form', label: 'Form' },
-  { path: '/templates/search-results', label: 'Search Results' },
-  { path: '/templates/full-width', label: 'Full Width' },
   { path: '/templates/two-column', label: 'Two Column' },
-  { path: '/templates/three-column', label: 'Three Column' },
+  { path: '/templates/search-results', label: 'Search Results' },
+  { path: '/templates/form', label: 'Form' },
 ];
 
 const templateRouteAliases = {
@@ -51,7 +48,10 @@ const templateRouteAliases = {
   '/nutrition': '/templates/form',
 };
 
-const templateRoutePaths = new Set(templateRoutes.map(({ path }) => path));
+const templateRoutePaths = new Set([
+  '/templates/landing',
+  ...templateRoutes.map(({ path }) => path),
+]);
 
 const resolveRoutePath = (path) => {
   const canonicalPath = templateRouteAliases[path] ?? path;
@@ -486,19 +486,6 @@ const TemplateSidebarNav = () => {
   );
 };
 
-const OnThisPage = () => (
-  <div className="narrow margin-x-auto">
-    <nav aria-label="On This Page">
-      <h2 className="h6">On This Page:</h2>
-      <ul className="nav nav--divider font-size-sm">
-        {['Introduction', 'Heading 2', 'Heading 3', 'Heading 4'].map((label) => (
-          <li key={label}><a href="#1">{label}</a></li>
-        ))}
-      </ul>
-    </nav>
-  </div>
-);
-
 const ContactForm = () => {
   const [formData, setFormData] = useState(initialContactForm);
   const [errors, setErrors] = useState({});
@@ -928,31 +915,6 @@ const SearchResultsTemplatePage = ({ currentSearch, onNavigate }) => {
   );
 };
 
-const FullWidthTemplatePage = () => (
-  <main id="main-content">
-    <PageBanner label="Full Width" aspectRatioClass="aspect-ratio-3x1" />
-
-    <div className="container--lg wide--lg margin-y-5">
-      <h2 className="h1">Introduction</h2>
-      <p className="font-size-lg">
-        {loremParagraphs[0]} {loremParagraphs[1]}
-      </p>
-
-      {articleSections.map(([heading, firstParagraph, secondParagraph], index) => {
-        const Heading = getHeadingTag(heading);
-
-        return (
-          <section key={`${heading}-${index}`}>
-            <Heading>{heading}</Heading>
-            <p>{firstParagraph}</p>
-            <p>{secondParagraph}</p>
-          </section>
-        );
-      })}
-    </div>
-  </main>
-);
-
 const TwoColumnTemplatePage = () => (
   <main id="main-content">
     <PageBanner label="Two Column" />
@@ -966,28 +928,6 @@ const TwoColumnTemplatePage = () => (
         <article className="grid-sidebar__major">
           <TemplateArticleContent />
         </article>
-      </div>
-    </div>
-  </main>
-);
-
-const ThreeColumnTemplatePage = () => (
-  <main id="main-content">
-    <PageBanner label="Three Column" />
-
-    <div className="container wide--lg margin-y-5">
-      <div className="grid-sidebars gap-5">
-        <aside className="grid-sidebar__minor-start" aria-label="Page Navigation">
-          <TemplateSidebarNav />
-        </aside>
-
-        <article className="grid-sidebars__major">
-          <TemplateArticleContent />
-        </article>
-
-        <aside className="grid-sidebars__minor-end display-none display-block--lg" aria-label="On This Page">
-          <OnThisPage />
-        </aside>
       </div>
     </div>
   </main>
@@ -1138,9 +1078,7 @@ const templatePageMap = {
   '/templates/landing': LandingTemplatePage,
   '/templates/form': FormTemplatePage,
   '/templates/search-results': SearchResultsTemplatePage,
-  '/templates/full-width': FullWidthTemplatePage,
   '/templates/two-column': TwoColumnTemplatePage,
-  '/templates/three-column': ThreeColumnTemplatePage,
 };
 
 const App = () => {
