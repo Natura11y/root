@@ -45,9 +45,9 @@ const galleryItems: LightboxStoryItem[] = [
   ...thumbnailItems,
   {
     lbType: 'image',
-    lbSrc: '/story-assets/backdrop/backdrop-example-01.jpg',
+    lbSrc: 'story-assets/backdrop/backdrop-example-01.jpg',
     lbCaption: 'Forest path',
-    thumbnailSrc: '/story-assets/backdrop/backdrop-example-01.jpg',
+    thumbnailSrc: 'story-assets/backdrop/backdrop-example-01.jpg',
     thumbnailAlt: 'Forest path',
   },
   {
