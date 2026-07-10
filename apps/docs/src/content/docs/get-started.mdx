@@ -30,77 +30,62 @@ The Natura11y ecosystem includes:
 </TextBlock>
 
 <ul className="container narrow margin-y-4 grid gap-2">
-  <li className="card subtle-fill-1">
-    <div className="card__body">
-      <h3>Figma UI Kits</h3>
-      <p>Natura11y's Figma UI kits help designers connect static design work with the same foundations used in code.</p>
-      <ul className="nav text-color-link">
-        <li>
-          <LinkOpenNew LinkUrl="https://www.figma.com/community/file/1455137800245836909/natura11y-ui-kit" LinkText="Hi-Fi UI Kit Community File" />
-        </li>
-        <li>
-          <LinkOpenNew LinkUrl="https://www.figma.com/community/file/1568593876481751799" LinkText="Lo-Fi UI Kit Community File" />
-        </li>
-      </ul>
-    </div>
-  </li>
+  <FeatureCard title="Figma UI Kits">
+    <p>Natura11y's Figma UI kits help designers connect static design work with the same foundations used in code.</p>
+    <ul className="nav text-color-link">
+      <li>
+        <LinkOpenNew LinkUrl="https://www.figma.com/community/file/1455137800245836909/natura11y-ui-kit" LinkText="Hi-Fi UI Kit Community File" />
+      </li>
+      <li>
+        <LinkOpenNew LinkUrl="https://www.figma.com/community/file/1568593876481751799" LinkText="Lo-Fi UI Kit Community File" />
+      </li>
+    </ul>
+  </FeatureCard>
 
-  <li className="card subtle-fill-1">
-    <div className="card__body">
-      <h3>Natura11y Core</h3>
-      <p>Natura11y Core provides the framework CSS, vanilla JavaScript, utilities, examples, and templates that power the ecosystem.</p>
-      <ul className="nav text-color-link">
-        <li>
-          <LinkOpenNew LinkUrl="https://github.com/Natura11y/root/tree/main/packages/core" LinkText="GitHub: Natura11y Core" />
-        </li>
-        <li>
-          <LinkOpenNew LinkUrl="https://www.npmjs.com/package/@natura11y/core" LinkText="NPM: Natura11y Core" />
-        </li>
-      </ul>
-    </div>
-  </li>
+  <FeatureCard title="Natura11y Core">
+    <p>Natura11y Core provides the framework CSS, vanilla JavaScript, utilities, examples, and templates that power the ecosystem.</p>
+    <ul className="nav text-color-link">
+      <li>
+        <LinkOpenNew LinkUrl="https://github.com/Natura11y/root/tree/main/packages/core" LinkText="GitHub: Natura11y Core" />
+      </li>
+      <li>
+        <LinkOpenNew LinkUrl="https://www.npmjs.com/package/@natura11y/core" LinkText="NPM: Natura11y Core" />
+      </li>
+    </ul>
+  </FeatureCard>
 
-  <li className="card subtle-fill-1">
-    <div className="card__body">
-      <h3>Natura11y Icons</h3>
-      <p>Natura11y Icons provides the icon library and icon font used across Natura11y projects.</p>
-      <ul className="nav text-color-link">
-        <li>
-          <LinkOpenNew LinkUrl="https://github.com/Natura11y/root/tree/main/packages/icons" LinkText="GitHub: Natura11y Icons" />
-        </li>
-        <li>
-          <LinkOpenNew LinkUrl="https://www.npmjs.com/package/@natura11y/icons" LinkText="NPM: Natura11y Icons" />
-        </li>
-      </ul>
-    </div>
-  </li>
+  <FeatureCard title="Natura11y Icons">
+    <p>Natura11y Icons provides the icon library and icon font used across Natura11y projects.</p>
+    <ul className="nav text-color-link">
+      <li>
+        <LinkOpenNew LinkUrl="https://github.com/Natura11y/root/tree/main/packages/icons" LinkText="GitHub: Natura11y Icons" />
+      </li>
+      <li>
+        <LinkOpenNew LinkUrl="https://www.npmjs.com/package/@natura11y/icons" LinkText="NPM: Natura11y Icons" />
+      </li>
+    </ul>
+  </FeatureCard>
 
-  <li className="card subtle-fill-1">
-    <div className="card__body">
-      <h3>Natura11y React</h3>
-      <p>Natura11y React provides React components that use Natura11y Core styles, utilities, and accessibility patterns.</p>
-      <ul className="nav text-color-link">
-        <li>
-          <LinkOpenNew LinkUrl="https://github.com/Natura11y/root/tree/main/packages/react" LinkText="GitHub: Natura11y React" />
-        </li>
-        <li>
-          <LinkOpenNew LinkUrl="https://www.npmjs.com/package/@natura11y/react" LinkText="NPM: Natura11y React" />
-        </li>
-      </ul>
-    </div>
-  </li>
+  <FeatureCard title="Natura11y React">
+    <p>Natura11y React provides React components that use Natura11y Core styles, utilities, and accessibility patterns.</p>
+    <ul className="nav text-color-link">
+      <li>
+        <LinkOpenNew LinkUrl="https://github.com/Natura11y/root/tree/main/packages/react" LinkText="GitHub: Natura11y React" />
+      </li>
+      <li>
+        <LinkOpenNew LinkUrl="https://www.npmjs.com/package/@natura11y/react" LinkText="NPM: Natura11y React" />
+      </li>
+    </ul>
+  </FeatureCard>
 
-  <li className="card subtle-fill-1">
-    <div className="card__body">
-      <h3>Natura11y CDNs</h3>
-      <p>Natura11y's CDNs provide styles, JavaScript, and icons for projects that do not use a build process.</p>
-      <ul className="nav text-color-link">
-        <li>
-          <a href="#quick-start-with-cdn">Quick Start with CDN</a>
-        </li>
-      </ul>
-    </div>
-  </li>
+  <FeatureCard title="Natura11y CDNs">
+    <p>Natura11y's CDNs provide styles, JavaScript, and icons for projects that do not use a build process.</p>
+    <ul className="nav text-color-link">
+      <li>
+        <a href="#quick-start-with-cdn">Quick Start with CDN</a>
+      </li>
+    </ul>
+  </FeatureCard>
 </ul>
 
 </Section>
@@ -120,53 +105,41 @@ Key features of Natura11y's CSS include:
 </TextBlock>
 
 <ul className="container narrow margin-y-4 grid gap-2">
-  <li className="card subtle-fill-1">
-    <div className="card__body">
-      <h3>CSS Variables</h3>
-      <p>You can customize Natura11y's default styles with CSS variables, also known as custom properties. Each CSS variable matches a specific Sass module.</p>
-      <ul className="nav text-color-link">
-        <li>
-          <a href="/docs/customization/">Customization</a>
-        </li>
-      </ul>
-    </div>
-  </li>
+  <FeatureCard title="CSS Variables">
+    <p>You can customize Natura11y's default styles with CSS variables, also known as custom properties. Each CSS variable matches a specific Sass module.</p>
+    <ul className="nav text-color-link">
+      <li>
+        <a href="/docs/customization/">Customization</a>
+      </li>
+    </ul>
+  </FeatureCard>
 
-  <li className="card subtle-fill-1">
-    <div className="card__body">
-      <h3>Cascade Layers</h3>
-      <p>Natura11y's CSS uses cascade layers to make styling more predictable and semantic, reducing the need for the <code>!important</code> flag.</p>
-      <ul className="nav text-color-link">
-        <li>
-          <a href="/docs/layer/">Using Cascade Layers</a>
-        </li>
-      </ul>
-    </div>
-  </li>
+  <FeatureCard title="Cascade Layers">
+    <p>Natura11y's CSS uses cascade layers to make styling more predictable and semantic, reducing the need for the <code>!important</code> flag.</p>
+    <ul className="nav text-color-link">
+      <li>
+        <a href="/docs/layer/">Using Cascade Layers</a>
+      </li>
+    </ul>
+  </FeatureCard>
 
-  <li className="card subtle-fill-1">
-    <div className="card__body">
-      <h3>Logical Properties</h3>
-      <p>Natura11y uses CSS logical properties for directional values. These properties are essential for supporting right-to-left languages.</p>
-      <ul className="nav text-color-link">
-        <li>
-          <a href="/docs/rtl/">RTL and Logical Properties</a>
-        </li>
-      </ul>
-    </div>
-  </li>
+  <FeatureCard title="Logical Properties">
+    <p>Natura11y uses CSS logical properties for directional values. These properties are essential for supporting right-to-left languages.</p>
+    <ul className="nav text-color-link">
+      <li>
+        <a href="/docs/rtl/">RTL and Logical Properties</a>
+      </li>
+    </ul>
+  </FeatureCard>
 
-  <li className="card subtle-fill-1">
-    <div className="card__body">
-      <h3>Typography Scale</h3>
-      <p>Natura11y's default font sizes are related from smallest to largest, making it easy to create balanced typography with one or two variables.</p>
-      <ul className="nav text-color-link">
-        <li>
-          <a href="/docs/typography/">Natura11y's Type Scale</a>
-        </li>
-      </ul>
-    </div>
-  </li>
+  <FeatureCard title="Typography Scale">
+    <p>Natura11y's default font sizes are related from smallest to largest, making it easy to create balanced typography with one or two variables.</p>
+    <ul className="nav text-color-link">
+      <li>
+        <a href="/docs/typography/">Natura11y's Type Scale</a>
+      </li>
+    </ul>
+  </FeatureCard>
 </ul>
 
 </Section>
