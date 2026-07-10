@@ -14,7 +14,6 @@ interface FormEntrySearchProps {
   submitButton?: 'text' | 'icon' | null;
   submitLabel?: string;
   fieldInputUtilities?: string | null;
-  submitButtonUtilities?: string | null;
   onSearch?: ((value: string) => void) | null;
   onSubmit?: (() => void) | null;
   onClear?: (() => void) | null;
@@ -33,7 +32,6 @@ const FormEntrySearch = ({
   submitButton = null,
   submitLabel = 'Search',
   fieldInputUtilities = null,
-  submitButtonUtilities = null,
   onSearch = null,
   onSubmit = null,
   onClear = null,
@@ -102,13 +100,13 @@ const FormEntrySearch = ({
           </button>
 
           {submitButton === 'text' && (
-            <button type='submit' className={classNames('button', submitButtonUtilities ?? 'theme-primary')} onClick={onSubmit ?? undefined}>
+            <button type='submit' className='button' onClick={onSubmit ?? undefined}>
               {submitLabel}
             </button>
           )}
 
           {submitButton === 'icon' && (
-            <button type='submit' className={classNames('button button--icon-only', submitButtonUtilities ?? 'theme-primary')} aria-label={submitLabel} onClick={onSubmit ?? undefined}>
+            <button type='submit' className='button button--icon-only theme-primary' aria-label={submitLabel} onClick={onSubmit ?? undefined}>
               <span className='icon icon-search' aria-hidden='true' />
             </button>
           )}
