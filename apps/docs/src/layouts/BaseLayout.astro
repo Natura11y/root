@@ -1,5 +1,6 @@
 ---
 import '@natura11y-icons/natura11y-icons.css';
+import Head from '../components/seo/Head.astro';
 import GlobalFooter from '../components/ui/GlobalFooter/GlobalFooter.astro';
 import GlobalHeader from '../components/ui/GlobalHeader/GlobalHeader.astro';
 import '../styles/global.scss';
@@ -10,9 +11,6 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
-const siteTitle = 'Natura11y Design Ecosystem';
-const hasSiteTitle = title === siteTitle || title.endsWith(`• ${siteTitle}`) || title.endsWith('• Natura11y');
-const documentTitle = hasSiteTitle ? title : `${title} • ${siteTitle}`;
 ---
 
 <!doctype html>
@@ -58,8 +56,7 @@ const documentTitle = hasSiteTitle ? title : `${title} • ${siteTitle}`;
         applyTheme(getStoredTheme());
       })();
     </script>
-    <title>{documentTitle}</title>
-    {description && <meta name="description" content={description} />}
+    <Head title={title} description={description} />
   </head>
   
   <body id="top">

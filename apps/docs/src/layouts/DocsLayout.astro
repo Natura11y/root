@@ -34,7 +34,9 @@ interface Props {
 }
 
 const { docs = [], currentSlug = '', frontmatter = {}, searchPages = [], tocSections = [] } = Astro.props;
-const title = frontmatter.title ?? 'Natura11y Astro Docs Spike';
+const siteTitle = 'Natura11y Design Ecosystem';
+const pageTitle = frontmatter.title ?? siteTitle;
+const documentTitle = pageTitle === siteTitle ? siteTitle : `${pageTitle} • ${siteTitle}`;
 const visibleDocs = docs.filter((doc) => doc.data.draft !== true);
 const introductionDocs = visibleDocs
   .filter((doc) => doc.data.category === 'introduction')
@@ -47,7 +49,7 @@ const bannerImage = frontmatter.bannerImage;
 const bannerAlt = frontmatter.bannerAlt ?? '';
 ---
 
-<BaseLayout title={title} description={frontmatter.description}>
+<BaseLayout title={documentTitle} description={frontmatter.description}>
 
   <div class="docs-layout">
     
@@ -155,7 +157,7 @@ const bannerAlt = frontmatter.bannerAlt ?? '';
 
         <div>
           <div class="container narrow">
-            <h1 class="banner-headline text-shadow">{title}</h1>
+            <h1 class="banner-headline text-shadow">{pageTitle}</h1>
           </div>
         </div>
       
