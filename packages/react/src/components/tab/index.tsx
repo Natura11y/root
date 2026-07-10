@@ -24,7 +24,7 @@ const Tabs = ({
   navClass = null,
   children,
 }: TabsProps) => {
-  const tabsRef = useRef<HTMLDivElement>(null);
+  const tabsRef = useRef<HTMLUListElement>(null);
   const idPrefix = useId();
 
   const childArray = React.Children.toArray(children) as React.ReactElement<{ title: string }>[];
@@ -56,14 +56,14 @@ const Tabs = ({
 
   return (
     <TabContext.Provider value={{ activeTab: activeTabState, idPrefix, setActiveTab: handleTabClick, onTabChange }}>
-      <div ref={tabsRef} className='tabs' role='tablist' onKeyDown={onKeyDown}>
-        <ul className={navClasses}>
+      <div className='tabs'>
+        <ul ref={tabsRef} className={navClasses} role='tablist' onKeyDown={onKeyDown}>
           {childArray.map((child) => {
             const title = child.props.title;
             const slug = title.toLowerCase().replace(/\s+/g, '-');
             const isActive = activeTabState === title;
             return (
-              <li key={title}>
+              <li key={title} role='presentation'>
                 <button
                   className={isActive ? 'is-active' : ''}
                   id={`${idPrefix}-btn-${slug}`}
