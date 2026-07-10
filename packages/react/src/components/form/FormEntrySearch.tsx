@@ -1,5 +1,7 @@
 import { useState, useId, useRef, useCallback, type Ref } from 'react';
 import classNames from 'classnames';
+import Button from '../button';
+import ButtonIconOnly from '../button/ButtonIconOnly';
 import { useMergedRefs } from '../../hooks/useMergedRefs';
 
 interface FormEntrySearchProps {
@@ -100,15 +102,11 @@ const FormEntrySearch = ({
           </button>
 
           {submitButton === 'text' && (
-            <button type='submit' className='button' onClick={onSubmit ?? undefined}>
-              {submitLabel}
-            </button>
+            <Button buttonType='submit' title={submitLabel} onClick={onSubmit} />
           )}
 
           {submitButton === 'icon' && (
-            <button type='submit' className='button button--icon-only theme-primary' aria-label={submitLabel} onClick={onSubmit ?? undefined}>
-              <span className='icon icon-search' aria-hidden='true' />
-            </button>
+            <ButtonIconOnly buttonType='submit' iconHandle='search' ariaLabel={submitLabel} utilities='theme-primary' onClick={onSubmit} />
           )}
         </span>
       </label>
