@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaAccordion from '@core-js/accordion';
 import Accordion from '@lib/components/accordion';
@@ -144,18 +144,6 @@ const accordionWithHeadingsCode = `<Accordion headingLevel={3}>
   </Accordion.Item>
 </Accordion>`;
 
-const accordionControlledCode = `const [openItem, setOpenItem] = useState<string | null>('danaus-plexippus');
-
-<Accordion open={openItem} onOpenChange={setOpenItem}>
-  <Accordion.Item itemId="danaus-plexippus" title="Danaus Plexippus">
-    <p>...</p>
-  </Accordion.Item>
-
-  <Accordion.Item itemId="papilio-polyxenes" title="Papilio Polyxenes">
-    <p>...</p>
-  </Accordion.Item>
-</Accordion>`;
-
 const VanillaAccordionExample = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -172,16 +160,6 @@ const VanillaAccordionExample = () => {
   }, []);
 
   return <div ref={containerRef} />;
-};
-
-const ControlledAccordionExample = () => {
-  const [openItem, setOpenItem] = useState<string | null>('danaus-plexippus');
-
-  return (
-    <Accordion open={openItem} onOpenChange={setOpenItem}>
-      {renderItems()}
-    </Accordion>
-  );
 };
 
 const meta = {
@@ -322,20 +300,4 @@ export const WithHeadings: Story = {
       },
     },
   },
-};
-
-export const Controlled: Story = {
-  parameters: {
-    docs: {
-      description: {
-        story: 'Use `open` and `onOpenChange` when parent state owns which item is expanded.',
-      },
-      source: {
-        code: accordionControlledCode,
-        language: 'tsx',
-        type: 'code',
-      },
-    },
-  },
-  render: () => <ControlledAccordionExample />,
 };
