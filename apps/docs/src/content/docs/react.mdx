@@ -8,7 +8,7 @@ bannerCreditUrl: https://unsplash.com/@zmachacek
 bannerImage: ./banner/react.jpg
 bannerAlt: Grey owl in a tree
 description:
-    Use Natura11y with React components and JSX. Includes React-specific utilities, component examples, and package setup.
+    Use Natura11y React components in React 19 projects with the same Core styles, utilities, and accessibility patterns used across the Natura11y Design Ecosystem.
 relatedPages:
   - "Get Started"
   - "Accessibility"
@@ -18,9 +18,9 @@ relatedPages:
 
 <TextBlock>
 
-## Natura11y and React
+## Naturally and React: Two Birds of a Feather
 
-Harness the limitless potential of Natura11y styles and React's component-based development.
+Natura11y React gives React projects a component layer that stays aligned with Natura11y Core. The components use the same CSS foundation as the vanilla examples, while interactive behavior is handled through React state, props, refs, and hooks.
 
 </TextBlock>
 
@@ -28,37 +28,37 @@ Harness the limitless potential of Natura11y styles and React's component-based 
 
 ---
 
-<Section id="efficient-and-flexible-styling">
+<Section id="what-you-get">
 
 <TextBlock>
 
-## Components at a Glance
+## React at a Glance
 
-Natura11y's prebuilt React components make starting any React project a breeze.
+Natura11y’s prebuilt React components make starting any React project a breeze. Use Natura11y React as a package layer on top of Natura11y Core.
 
 <ul className="grid gap-2">
 
 <FeatureCard
-    title='Style the same way'
+    title='Same styling foundation'
 >
 
-Style your React project just as you would with Natura11y's core framework, whether you use the CSS CDN or Sass package.
+Import Core CSS once, or use the CDN or Sass source, and keep the same classes, CSS variables, and utilities across React and vanilla examples.
 
 </FeatureCard>
 
 <FeatureCard
-    title='Exclude unneeded JavaScript'
+    title='React-owned interaction'
 >
 
-Since React uses the virtual DOM to update the user interface, Natura11y's vanilla JavaScript is replaced with React's declarative state and hooks.
+Interactive components use React props, state, refs, and hooks instead of DOM initialization from Natura11y's vanilla JavaScript.
 
 </FeatureCard>
 
 <FeatureCard
-    title='Premade starter components'
+    title='Accessible starter components'
 >
 
-Jumpstart your next web project with Natura11y's prebuilt React components.
+Start from components that carry the same semantics and behavior patterns documented in Core.
 
 </FeatureCard>
 
@@ -76,48 +76,90 @@ Jumpstart your next web project with Natura11y's prebuilt React components.
 
 ## Getting Started
 
-Natura11y's React package is being prepared for release as `@natura11y/react`. It is meant to be added to an existing React 19 app.
-
-If you are creating a new React app, start with a React framework first. That can still be a client-rendered, single-page, or statically generated site. Vite and similar build tools are best reserved for projects where you intentionally want to assemble the app foundation yourself.
-
-The npm install path will be:
-
-```bash
-npm install @natura11y/react
-```
-
-React and React DOM are peer dependencies. Your app should provide React 19.
-
-Import the core stylesheet once in your app entry point:
-
-```ts
-import '@natura11y/core/css';
-```
-
-TypeScript declarations ship with the React package. Production React frameworks usually configure TypeScript, JSX, and DOM types for you. If you are adding TypeScript to an existing React app, install React's type definitions:
-
-```bash
-npm install --save-dev @types/react @types/react-dom
-```
-
-Then import the React components you need:
-
-```tsx
-import { Alert, Button } from '@natura11y/react';
-```
-
-Natura11y React does not replace your React framework. It gives React projects the same component language, styling foundation, and accessibility patterns used by the core Natura11y framework.
+Natura11y React is available as the experimental beta package `@natura11y/react`. It is designed for React 19 apps that want to use the same styling foundation, utilities, and accessibility patterns as Natura11y Core.
 
 </TextBlock>
 
 <div className="container narrow margin-y-4">
-    <a
-        className="button theme-primary"
-        href="https://www.npmjs.com/org/natura11y"
-        target="_blank">
-        <span className="icon icon-npm" aria-hidden="true"></span>
-        <span className="text">Natura11y on NPM</span>
-    </a>
+  <CodeBlock
+    showCodeFrame={false}
+    codeLanguage="bash"
+    code={`npm install @natura11y/react@beta`}
+  />
 </div>
+
+<TextBlock>
+
+React and React DOM are peer dependencies. Your app should provide React 19.
+
+Import the Core stylesheet once in your app entry point:
+
+</TextBlock>
+
+<div className="container narrow margin-y-4">
+  <CodeBlock
+    showCodeFrame={false}
+    codeLanguage="ts"
+    code={`import '@natura11y/core/css';`}
+  />
+</div>
+
+<TextBlock>
+
+Then import the React components you need:
+
+</TextBlock>
+
+<div className="container narrow margin-y-4">
+  <CodeBlock
+    showCodeFrame={false}
+    codeLanguage="tsx"
+    code={`import { Alert, Button } from '@natura11y/react';`}
+  />
+</div>
+
+<TextBlock>
+
+Hooks are available from the hooks export:
+
+</TextBlock>
+
+<div className="container narrow margin-y-4">
+  <CodeBlock
+    showCodeFrame={false}
+    codeLanguage="tsx"
+    code={`import { useFocusTrap } from '@natura11y/react/hooks';`}
+  />
+</div>
+
+<TextBlock>
+
+Natura11y React does not replace your React framework. It gives React projects the same component language, styling foundation, and accessibility patterns used by Natura11y Core.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="package-links">
+
+<TextBlock>
+
+## Package Links
+
+<ul className="nav text-color-link">
+  <li>
+    <LinkOpenNew LinkUrl="https://github.com/Natura11y/react" LinkText="GitHub: Natura11y React" />
+  </li>
+  <li>
+    <LinkOpenNew LinkUrl="https://www.npmjs.com/package/@natura11y/react" LinkText="NPM: Natura11y React" />
+  </li>
+  <li>
+    <LinkOpenNew LinkUrl="https://github.com/Natura11y/core" LinkText="GitHub: Natura11y Core" />
+  </li>
+</ul>
+
+</TextBlock>
 
 </Section>
