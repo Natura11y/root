@@ -62,7 +62,7 @@ const preview: Preview = {
         date: /Date$/,
       },
     },
-    backgrounds: { disable: true },
+    backgrounds: { disabled: true },
     docs: {
       container: CustomDocsContainer,
       story: { inline: true, width: '100%' },
