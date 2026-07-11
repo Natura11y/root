@@ -1,0 +1,164 @@
+---
+import { Image } from 'astro:assets';
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import birdImage from '../assets/home/banner-introduction.jpg';
+import grassImage from '../components/examples/backdrop/images/backdrop-example-04.jpg';
+import lifecycleImage from '../components/examples/backdrop/images/backdrop-example-02.jpg';
+import pronunciationImage from '../components/examples/backdrop/images/backdrop-example-03.jpg';
+import helpImage from '../content/docs/banner/accessibility.jpg';
+
+const title = 'About • Natura11y Design Ecosystem';
+const description =
+  'Natura11y is an independent open source design ecosystem for building accessible websites with shared CSS, JavaScript, React components, icons, Figma assets, documentation, and examples that help teams move from design to production with less rework.';
+---
+
+<BaseLayout title={title} description={description}>
+
+  <section class="backdrop backdrop--fixed" style="--backdrop-fixed-height: min(760px, 90dvh); --gradient-direction-start: 35%;">
+    <div class="backdrop__media">
+      <Image
+        class="opacity-50 gradient-mask-vignette"
+        src={birdImage}
+        alt=""
+        widths={[640, 960, 1280, 1600, 2000]}
+        sizes="100vw"
+        priority
+      />
+    </div>
+
+    <div class="backdrop__cover justify-content-end">
+      <div class="container medium margin-y-6 text-shadow--lg">
+
+        <h1 class="banner-headline text-align-center margin-bottom-4">
+          Natura11y is for people who give a flying fuck about inclusion.
+        </h1>
+
+        <div class="container narrow">
+        
+        <p>
+          Accessibility should be part of the first draft, not a cleanup project after everything else is finished.
+        </p>
+
+        <p>
+          Natura11y gives teams a practical foundation for building accessible websites with shared CSS, JavaScript, React starter components, icons, Figma UI kits, documentation, and examples.
+        </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="backdrop backdrop--fixed theme-dark" style="--backdrop-fixed-height: min(760px, 90dvh); --gradient-direction-start: 35%;">
+    <div class="backdrop__media">
+      <Image
+        class="opacity-20 gradient-mask-bottom"
+        src={grassImage}
+        alt=""
+        widths={[640, 960, 1280, 1600, 2000]}
+        sizes="100vw"
+      />
+    </div>
+
+    <div class="backdrop__cover justify-content-end">
+      <div class="container medium margin-y-5 text-shadow--lg">
+        <h2 class="banner-headline margin-bottom-4">
+          Natura11y is a grassroots effort, it's not corporate-owned
+        </h2>
+
+        <p class="font-size-lg">
+          Natura11y is independent, open source, and shaped by the kind of work small teams actually do: building useful websites with limited time, real content, real users, and real accessibility responsibilities.
+        </p>
+
+        <p>
+          It is not trying to lock teams into a product suite or a single way of working. The priorities are simpler: readable HTML, flexible adoption, useful examples, and accessible components that keep working after a site is handed off.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="backdrop backdrop--fixed theme-dark" style="--backdrop-fixed-height: min(760px, 90dvh); --gradient-direction-start: 35%;">
+    <div class="backdrop__media">
+      <Image
+        class="opacity-70 gradient-mask-bottom"
+        src={lifecycleImage}
+        alt=""
+        widths={[640, 960, 1280, 1600, 2000]}
+        sizes="100vw"
+      />
+    </div>
+
+    <div class="backdrop__cover justify-content-end">
+      <div class="container medium margin-y-5 text-shadow--lg">
+        <h2 class="banner-headline margin-bottom-4">
+          Natura11y is for every stage of the digital product lifecycle
+        </h2>
+
+        <p class="font-size-lg">
+          Designers get Figma kits and component patterns that can survive implementation. Developers get CSS, JavaScript, React starter components, and copyable examples that reduce repeated interface work. Website owners get a foundation that is easier to maintain, extend, and trust after launch.
+        </p>
+
+        <p>
+          Components like Track, Lightbox, Main Menu, Dropdown, Mega Menu, Modal, Tabs, and Forms handle the details teams rebuild over and over: focus, keyboard behavior, ARIA state, responsive layout, reduced motion, validation, and clear user feedback.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="backdrop backdrop--fixed theme-dark" style="--backdrop-fixed-height: min(760px, 90dvh); --gradient-direction-start: 35%;">
+    <div class="backdrop__media">
+      <Image
+        class="opacity-70 gradient-mask-bottom"
+        src={pronunciationImage}
+        alt=""
+        widths={[640, 960, 1280, 1600, 2000]}
+        sizes="100vw"
+      />
+    </div>
+
+    <div class="backdrop__cover justify-content-end">
+      <div class="container medium margin-y-5 text-shadow--lg">
+        <h2 class="banner-headline margin-bottom-4">
+          Natura11y is pronounced naturally
+        </h2>
+
+        <p class="font-size-lg">
+          The name carries the accessibility shorthand <code>a11y</code>, but you say it like the word naturally.
+        </p>
+
+        <p>
+          That is the point of the project too. Accessible design should feel like the natural way to build, not a separate track reserved for audits, specialists, or the end of the project.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="backdrop backdrop--fixed theme-dark" style="--backdrop-fixed-height: min(760px, 90dvh); --gradient-direction-start: 35%;">
+    <div class="backdrop__media">
+      <Image
+        class="opacity-70 gradient-mask-bottom"
+        src={helpImage}
+        alt=""
+        widths={[640, 960, 1280, 1600, 2000]}
+        sizes="100vw"
+      />
+    </div>
+
+    <div class="backdrop__cover justify-content-end">
+      <div class="container medium margin-y-5 text-shadow--lg">
+        <h2 class="banner-headline margin-bottom-4">
+          Natura11y needs your help
+        </h2>
+
+        <p class="font-size-lg">
+          Open source only gets better when people use it in real projects and speak up about what is missing, confusing, or worth improving.
+        </p>
+
+        <p>
+          Try the components, test the examples, read the docs with fresh eyes, and share where Natura11y can be clearer or more useful. The project is created and maintained by <a class="link" href="https://avidanodigital.com/" target="_blank" rel="noreferrer">Avidano Digital</a>, a disability-led, multi-cultural design studio serving nonprofit and social impact organizations.
+        </p>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

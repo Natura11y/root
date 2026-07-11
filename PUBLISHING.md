@@ -4,8 +4,6 @@
 
 It owns source, package coordination, apps, documentation, Storybook, builds, versions, and release management. npm packages, the docs site, Storybook, and GitHub releases are distribution outputs generated from this monorepo.
 
-Public package mirrors are no longer part of the release model.
-
 ## Source Of Truth
 
 - `Natura11y/root` is the canonical development repository.
@@ -15,7 +13,7 @@ Public package mirrors are no longer part of the release model.
 - Storybook is built from `apps/storybook`.
 - Public GitHub issues and pull requests should be opened against `Natura11y/root`.
 
-The old unscoped `natura11y` npm package remains available as the legacy package line. It should not receive new framework feature releases. New framework releases start with `@natura11y/core`.
+New framework releases start with `@natura11y/core`.
 
 ## Licensing Boundary
 
@@ -62,7 +60,7 @@ Each package should point to the canonical monorepo and identify its workspace d
 }
 ```
 
-Package metadata should not point to old package mirror repositories.
+Package metadata should point to the canonical monorepo.
 
 ## Release Order
 
@@ -201,7 +199,7 @@ Before changing repository visibility to public:
 - Audit git history for sensitive material before making the repository public.
 - Confirm large local media and working design assets are intentionally public before committing them.
 - Confirm `apps/docs` licensing text reflects the copyright boundary for documentation content and original media.
-- Confirm package metadata points to `Natura11y/root`, not package mirrors.
+- Confirm package metadata points to `Natura11y/root`.
 - Confirm docs links use `gonatura11y.com`.
 - Confirm README, contributing, license, and trademark files are ready for public readers.
 - Confirm build and package dry-runs pass.
