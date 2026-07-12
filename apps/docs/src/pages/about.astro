@@ -2,9 +2,10 @@
 import { Image } from 'astro:assets';
 
 import BaseLayout from '../layouts/BaseLayout.astro';
+import FeatureCard from '../components/ui/FeatureCard/FeatureCard.astro';
 import flockImage from '../assets/about/about-flock.jpg';
 import grassrootsImage from '../assets/about/about-grassroots.jpg';
-import lifecycleImage from '../assets/about/about-ecosystem.jpg';
+import ecosystemImage from '../assets/about/about-ecosystem.jpg';
 import pronunciationImage from '../assets/about/about-pronounced.jpg';
 import beeImage from '../assets/about/about-bee.jpg';
 import accessibilityFeature from '../content/docs/banner/accessibility.jpg';
@@ -12,7 +13,7 @@ import rtlFeature from '../content/docs/banner/rtl.jpg';
 
 const title = 'About • Natura11y Design Ecosystem';
 const description =
-  'Natura11y is an independent open source design ecosystem for building accessible websites with shared CSS, JavaScript, React components, icons, Figma assets, documentation, and examples that help teams move from design to production with less rework.';
+  'Explore Natura11y, an independent open-source ecosystem bringing accessible design resources, framework code, icons, React components, and templates together.';
 ---
 
 <BaseLayout title={title} description={description}>
@@ -53,7 +54,7 @@ const description =
       </p>
 
       <p>
-        The framework simplifies creating accessible experiences through a comprehensive component library where accessibility best practices are central to every element. Natura11y includes essential components often overlooked (or under developed) in accessibility implementations:
+        The framework simplifies creating accessible experiences through a comprehensive component library where accessibility best practices are central to every element. Natura11y includes essential components often overlooked (or underdeveloped) in accessibility implementations:
       </p>
 
     </div>
@@ -95,7 +96,7 @@ const description =
           <div class="card__body">
             <h3 class="h4">RTL Support</h3>
             <p>
-              Create layouts that flow naturally in any reading direction. Natura11y ships with full right-to-left language support.
+              Create layouts that flow naturally in any reading direction. Natura11y ships with right-to-left language support.
             </p>
           </div>
         </a>
@@ -106,14 +107,14 @@ const description =
 
   </section>
 
-  <section class="margin-y-5">
+  <section class="margin-y-6">
 
     <div class="backdrop backdrop--stack--md">
 
       <div class="backdrop__media">
         <Image
           class="opacity-40 gradient-mask-bottom"
-          src={lifecycleImage}
+          src={ecosystemImage}
           alt=""
           widths={[640, 960, 1280, 1600, 2000]}
           sizes="100vw"
@@ -136,82 +137,60 @@ const description =
     <div class="container narrow">
 
       <p>
-        The Natura11y Design Ecosystem provides modern tooling for projects of any size or complexity. Use it to develop a simple website theme or a comprehensive design system.
+        Natura11y has everything you need to design and build, with tools for projects of any size or complexity. Use it to create anything from a simple website theme to a comprehensive design system.
       </p>
 
     </div>
 
-    <div class="container wide--md margin-top-5">
+    <ul class="container wide--md margin-top-5 grid grid--column-2--md grid--column-3--lg gap-2">
 
-      <div class="grid grid--column-2--md grid--column-3--lg gap-2 text-align-center">
+      <FeatureCard title="Figma UI Kits">
+        <p>Natura11y's Figma UI kits connect design work with the same foundations used in code.</p>
+        <ul class="nav text-color-link">
+          <li><a href="/docs/figma/">Explore Figma UI Kits</a></li>
+        </ul>
+      </FeatureCard>
 
-        <a class="card subtle-fill-1 border-radius-2 text-decoration-none" href="https://www.figma.com/community/file/1568593876481751799" target="_blank" rel="noreferrer">
-          <div class="card__body">
-            <span class="badge theme-secondary">Plan</span>
-            <h3 class="h4 margin-top-2">Lo-Fi Wireframe Kit</h3>
-            <p>
-              Start with fast, low-pressure layouts for early decisions, rough flows, and content structure before the interface gets polished.
-            </p>
-          </div>
-        </a>
+      <FeatureCard title="Natura11y Core">
+        <p>Natura11y Core provides the CSS, vanilla JavaScript, utilities, examples, and templates that power the ecosystem.</p>
+        <ul class="nav text-color-link">
+          <li><a href="/docs/get-started/">Get Started with Natura11y Core</a></li>
+        </ul>
+      </FeatureCard>
 
-        <a class="card subtle-fill-1 border-radius-2 text-decoration-none" href="https://www.figma.com/community/file/1455137800245836909/natura11y-ui-kit" target="_blank" rel="noreferrer">
-          <div class="card__body">
-            <span class="badge theme-secondary">Design</span>
-            <h3 class="h4 margin-top-2">Hi-Fi UI Kit</h3>
-            <p>
-              Move into refined components, design tokens, color modes, icons, and patterns that connect directly to the code foundation.
-            </p>
-          </div>
-        </a>
+      <FeatureCard title="Natura11y Icons">
+        <p>Natura11y Icons provides the open source icon library and icon font used across Natura11y projects.</p>
+        <ul class="nav text-color-link">
+          <li><a href="/icons/">Explore Natura11y Icons</a></li>
+        </ul>
+      </FeatureCard>
 
-        <a class="card subtle-fill-1 border-radius-2 text-decoration-none" href="/docs/get-started/">
-          <div class="card__body">
-            <span class="badge theme-secondary">Build</span>
-            <h3 class="h4 margin-top-2">Core CSS and JavaScript</h3>
-            <p>
-              Build accessible HTML interfaces with the same utilities, components, and behavior patterns represented in the design system.
-            </p>
-          </div>
-        </a>
+      <FeatureCard title="Natura11y React">
+        <p>Natura11y React provides components that use the same Core styles, utilities, and accessibility patterns.</p>
+        <ul class="nav text-color-link">
+          <li><a href="/docs/react/">Explore Natura11y React</a></li>
+        </ul>
+      </FeatureCard>
 
-        <a class="card subtle-fill-1 border-radius-2 text-decoration-none" href="/docs/react/">
-          <div class="card__body">
-            <span class="badge theme-secondary">Compose</span>
-            <h3 class="h4 margin-top-2">React Components</h3>
-            <p>
-              Use React starter components without leaving the shared Natura11y styling, layout, and accessibility conventions behind.
-            </p>
-          </div>
-        </a>
+      <FeatureCard title="Natura11y Storybook">
+        <p>Natura11y Storybook is the public workbench for exploring React and vanilla examples side by side.</p>
+        <ul class="nav text-color-link">
+          <li><a href="https://natura11y.github.io/root/storybook/" target="_blank" rel="noreferrer">Explore Natura11y Storybook</a></li>
+        </ul>
+      </FeatureCard>
 
-        <a class="card subtle-fill-1 border-radius-2 text-decoration-none" href="https://natura11y.github.io/root/storybook/" target="_blank" rel="noreferrer">
-          <div class="card__body">
-            <span class="badge theme-secondary">Compare</span>
-            <h3 class="h4 margin-top-2">Storybook Workbench</h3>
-            <p>
-              Review vanilla and React examples side by side while components, props, states, and accessibility behavior are still being shaped.
-            </p>
-          </div>
-        </a>
+      <FeatureCard title="Templates">
+        <p>Natura11y's templates show how the ecosystem comes together in practical layouts and complete pages.</p>
+        <ul class="nav text-color-link">
+          <li><a href="/templates/">Explore Templates</a></li>
+        </ul>
+      </FeatureCard>
 
-        <a class="card subtle-fill-1 border-radius-2 text-decoration-none" href="/templates/">
-          <div class="card__body">
-            <span class="badge theme-secondary">Ship</span>
-            <h3 class="h4 margin-top-2">Examples and Templates</h3>
-            <p>
-              Move from component decisions into practical page patterns that help teams launch, maintain, and extend real websites.
-            </p>
-          </div>
-        </a>
-
-      </div>
-
-    </div>
+    </ul>
 
   </section>
 
-  <section class="margin-y-5">
+  <section class="margin-y-6">
 
     <div class="backdrop backdrop--stack--md">
 
@@ -229,7 +208,7 @@ const description =
 
         <div class="container medium--md">
           <h2 class="banner-headline text-align-center text-shadow--lg">
-            Natura11y is a grassroots effort. It’s not corporate-owned.
+            Natura11y is a grassroots effort. It's not corporate-owned.
           </h2>
 
         </div>
@@ -270,14 +249,14 @@ const description =
       </p>
 
       <p>
-        The design system emerged from years of client work and a fundamental belief that accessibility should be integrated from the project's inception, not added as an afterthought. Natura11y was specifically designed to make WCAG compliance and accessible best practices more attainable for teams working with limited resources: addressing a critical gap in the digital accessibility landscape.
+        The design system emerged from years of client work and a fundamental belief that accessibility should be integrated from the project's inception, not added as an afterthought. Natura11y was specifically designed to accessibility more attainable for teams working with limited resources: addressing a critical gap in the digital accessibility landscape.
       </p>
 
       <p>
         Unlike large, corporate-driven solutions, Natura11y operates independently without a parent company or proprietary product suite. As an open-source framework, it's built around real-world accessibility needs and continues to grow through ongoing research, usability testing, and feedback from accessibility practitioners.
       </p>
 
-      <a class="button theme-primary" href="/docs/customization/">
+      <a class="button theme-primary" href="https://avidanodigital.com/" target="_blank" rel="noreferrer">
         <span class="text">Avidano Digital</span>
         <span class="icon icon-open-new" aria-hidden="true"></span>
       </a>
@@ -286,7 +265,7 @@ const description =
 
   </section>
 
-  <section class="margin-y-5">
+  <section class="margin-y-6">
 
     <div class="backdrop backdrop--stack--md">
 
@@ -361,7 +340,7 @@ const description =
 
   </section>
 
-  <section class="margin-y-5">
+  <section class="margin-y-6">
 
     <div class="backdrop backdrop--stack--md">
 
@@ -400,15 +379,15 @@ const description =
 
       <div class="grid grid--column-2--md gap-2 margin-top-4">
 
-        <a class="button theme-primary" href="https://www.npmjs.com/org/natura11y" target="_blank" rel="noreferrer">
-          <span class="icon icon-npm" aria-hidden="true"></span>
-          <span class="text">NPM</span>
-          <span class="icon icon-open-new" aria-hidden="true"></span>
-        </a>
-
         <a class="button theme-primary" href="https://github.com/Natura11y/root" target="_blank" rel="noreferrer">
           <span class="icon icon-github" aria-hidden="true"></span>
           <span class="text">GitHub</span>
+          <span class="icon icon-open-new" aria-hidden="true"></span>
+        </a>
+
+        <a class="button theme-primary" href="https://www.npmjs.com/org/natura11y" target="_blank" rel="noreferrer">
+          <span class="icon icon-npm" aria-hidden="true"></span>
+          <span class="text">npm</span>
           <span class="icon icon-open-new" aria-hidden="true"></span>
         </a>
 
