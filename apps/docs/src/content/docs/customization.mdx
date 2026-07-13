@@ -43,12 +43,14 @@ The <a href="/docs/get-started/#quick-start-with-cdn">Quick Start</a> guide show
 </TextBlock>
 
 <FigureExample
-    figureNumber="2"
+    figureNumber="1"
     figureWidth="medium--lg"
-    highlightedLines="2"
     code={`
         <!-- Natura11y Stylesheet -->
         <link rel="stylesheet" href="${cdnCSS}" />
+
+        <!-- Custom Stylesheet -->
+        <link rel="stylesheet" href="/css/theme.css" />
     `}
 />
 
@@ -68,11 +70,11 @@ You can declare new CSS variable values in a few ways:
 
 ---
 
-<Section id="reference-guide-css-variables">
+<Section id="css-variables">
 
 <TextBlock>
 
-## Reference Guide: CSS Variables
+## CSS Variables
 
 All CSS Variables in Natura11y are **scoped** to `:root` (document). Document scoped variables use the `:root` pseudo selector, making them available throughout the entire page (Figure 5). This means that once you define a CSS variable under `:root`, it can be accessed and used anywhere in the document, ensuring consistent styling across all elements on the page.
 
