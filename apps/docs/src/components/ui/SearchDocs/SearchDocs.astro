@@ -117,6 +117,7 @@ const getVisibleSections = (sections: DocSection[]) => (
                         formats={['avif', 'webp']}
                         alt=""
                         loading="lazy"
+                        data-doc-search-image
                       />
                     </div>
                   )}
@@ -191,6 +192,27 @@ const getVisibleSections = (sections: DocSection[]) => (
 
     const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
+    const getDocumentOffsetTop = (element: HTMLElement) => {
+      let currentElement: HTMLElement | null = element;
+      let offsetTop = 0;
+
+      while (currentElement) {
+        offsetTop += currentElement.offsetTop;
+        currentElement = currentElement.offsetParent as HTMLElement | null;
+      }
+
+      return offsetTop;
+    };
+
+    const setSearchImageLoading = (image: HTMLImageElement) => {
+      if (image.offsetParent === null) {
+        image.loading = 'lazy';
+        return;
+      }
+
+      image.loading = getDocumentOffsetTop(image) < window.innerHeight ? 'eager' : 'lazy';
+    };
+
     const highlightText = (element: HTMLElement, query: string) => {
       const originalText = element.dataset.docSearchOriginalText ?? element.textContent ?? '';
       element.dataset.docSearchOriginalText = originalText;
@@ -231,12 +253,17 @@ const getVisibleSections = (sections: DocSection[]) => (
       const searchTerm = root.querySelector<HTMLElement>('[data-doc-search-term]');
       const searchStatus = root.querySelector<HTMLElement>('[data-doc-search-status]');
       const closeLinks = Array.from(root.querySelectorAll<HTMLAnchorElement>('[data-doc-search-close]'));
+      const searchImages = Array.from(root.querySelectorAll<HTMLImageElement>('[data-doc-search-image]'));
       let lastNoResultsQuery = '';
       let wasOpen = modal?.classList.contains('shown') ?? false;
 
       if (!searchInput || searchItems.length === 0) {
         return;
       }
+
+      const syncSearchImageLoading = () => {
+        searchImages.forEach(setSearchImageLoading);
+      };
 
       const setNoResultsArtwork = (query: string) => {
         if (!noResultsArt || query === lastNoResultsQuery) {
@@ -264,6 +291,7 @@ const getVisibleSections = (sections: DocSection[]) => (
         });
 
         labels.forEach((label) => highlightText(label, query));
+        syncSearchImageLoading();
 
         if (noResults) {
           noResults.hidden = visibleCount > 0;
@@ -296,6 +324,7 @@ const getVisibleSections = (sections: DocSection[]) => (
       });
 
       searchInput.addEventListener('input', filterDocs);
+      window.addEventListener('resize', syncSearchImageLoading);
 
       modal?.addEventListener('click', (event) => {
         const target = event.target;
