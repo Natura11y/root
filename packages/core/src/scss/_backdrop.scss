@@ -128,10 +128,15 @@ In this file:
             display: flex;
             overflow: hidden;
 
-            img, video {
+            :is(img, video) {
                 object-fit: cover;
                 object-position: 50% 50%;
+
+                // opacity: 0.5;
+                // outline: 20px solid rgb(69, 255, 69);
+                // outline-offset: -20px;
             }
+
         }
 
         .backdrop__cover {

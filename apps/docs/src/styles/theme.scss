@@ -50,7 +50,6 @@ In this file:
   --body-line-height: 1.5;
   --header-line-height: 1.25;
 
-  // --banner-headline-font-size: 3em;
   --banner-headline-font-weight: var(--font-weight-normal);
 
   --modal-overlay-opacity: 0.5;
@@ -83,7 +82,10 @@ In this file:
 @include breakpoint.breakpoint-down(md) {
   :root {
     --banner-headline-font-size: calc(var(--h1-font-size) * 1);
+
     --type-scale: 1.16;
+
+    --spacer-base: 0.75rem; // 16px
   }
 }
 
@@ -205,6 +207,10 @@ a[data-logo='brand']:is(:focus, :hover) .a11y {
 
   @include breakpoint.breakpoint-up(lg) {
     aspect-ratio: 3 / 1;
+  }
+
+  .backdrop__media img {
+  height: 100%;
   }
 }
 

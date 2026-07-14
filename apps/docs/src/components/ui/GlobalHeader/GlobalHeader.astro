@@ -126,21 +126,21 @@ const ariaCurrent = (item: (typeof navItems)[number]) => {
       
       <ul class="nav nav--divider" role="menu">
         <li>
+          <button type="button" data-theme-option="os" aria-expanded="false" role="menuitem">
+            <span class="icon icon-mode-light-dark" aria-hidden="true"></span>
+            <span class="nav__text">Prefers (default)</span>
+          </button>
+        </li>
+        <li>
           <button type="button" data-theme-option="light" aria-expanded="false" role="menuitem">
             <span class="icon icon-sun" aria-hidden="true"></span>
-            <span class="nav__text">Canvas (default)</span>
+            <span class="nav__text">Light</span>
           </button>
         </li>
         <li>
           <button type="button" data-theme-option="dark" aria-expanded="false" role="menuitem">
             <span class="icon icon-moon" aria-hidden="true"></span>
-            <span class="nav__text">Dark Mode</span>
-          </button>
-        </li>
-        <li>
-          <button type="button" data-theme-option="os" aria-expanded="false" role="menuitem">
-            <span class="icon icon-mode-light-dark" aria-hidden="true"></span>
-            <span class="nav__text">Prefers</span>
+            <span class="nav__text">Dark</span>
           </button>
         </li>
       </ul>
@@ -151,26 +151,27 @@ const ariaCurrent = (item: (typeof navItems)[number]) => {
 </header>
 
 <script>
-  type ThemeOption = 'light' | 'dark' | 'os';
+  type ThemeOption = 'os' | 'light' | 'dark';
 
   const storageKey = 'preferred-theme';
+  const defaultTheme: ThemeOption = 'os';
   const themeClasses = ['theme-canvas', 'theme-dark', 'theme-canvas--prefers'];
   const themeClassMap: Record<ThemeOption, string> = {
+    os: 'theme-canvas--prefers',
     light: 'theme-canvas',
     dark: 'theme-dark',
-    os: 'theme-canvas--prefers',
   };
 
   const isThemeOption = (value: string | null | undefined): value is ThemeOption => (
-    value === 'light' || value === 'dark' || value === 'os'
+    value === 'os' || value === 'light' || value === 'dark'
   );
 
   const getStoredTheme = (): ThemeOption => {
     try {
       const storedTheme = window.localStorage.getItem(storageKey);
-      return isThemeOption(storedTheme) ? storedTheme : 'light';
+      return isThemeOption(storedTheme) ? storedTheme : defaultTheme;
     } catch {
-      return 'light';
+      return defaultTheme;
     }
   };
 
