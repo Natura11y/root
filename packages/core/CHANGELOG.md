@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [5.2.3] — 2026-07-15
+
+### Accessibility
+
+#### Modal
+- Ensure open modals set `aria-hidden="false"` so their dialog content is exposed to assistive technologies. Closing a modal restores `aria-hidden="true"`.
+
+---
+
 ## [5.2.2] — 2026-07-10
 
 ### Package

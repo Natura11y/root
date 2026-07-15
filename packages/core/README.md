@@ -32,8 +32,8 @@ Or load the Sass source from your Sass bundle:
 ## CDN
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.2/dist/natura11y.css">
-<script src="https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.2/dist/natura11y.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.3/dist/natura11y.css">
+<script src="https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.3/dist/natura11y.js"></script>
 ```
 
 ---

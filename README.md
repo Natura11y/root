@@ -53,8 +53,8 @@ import '@natura11y/core/css';
 Official CDN examples use full SemVer versions so copied production URLs stay predictable.
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.2/dist/natura11y.css">
-<script src="https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.2/dist/natura11y.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.3/dist/natura11y.css">
+<script src="https://cdn.jsdelivr.net/npm/@natura11y/core@5.2.3/dist/natura11y.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@natura11y/icons@2.2.1/dist/natura11y-icons.min.css">
 ```
 

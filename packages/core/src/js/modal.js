@@ -82,6 +82,7 @@ export default class Modal {
 			return;
 		}
 
+		modalTarget.setAttribute('aria-hidden', 'false');
 		modalTarget.inert = false;
 		modalTarget.classList.add('shown');
 		modalTarget.focus();
