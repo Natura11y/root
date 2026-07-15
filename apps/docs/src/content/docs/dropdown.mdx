@@ -245,6 +245,7 @@ This approach is particularly useful for main navigation where you want to provi
                         data-toggle="dropdown"
                         aria-controls="docs-dropdown"
                         aria-expanded="false"
+                        aria-label="Open Link menu"
                         type="button">
                     </button>
 
@@ -287,7 +288,7 @@ This provides the direct link functionality, allowing users to navigate directly
 
 The `<button>` with `data-toggle="dropdown"` attribute is required.
 
-The `aria-controls` attribute should reference the ID of the associated dropdown menu. This button provides access to the sub-navigation dropdown.
+The `aria-controls` attribute should reference the ID of the associated dropdown menu. Because the button has no visible text, its `aria-label` should describe the menu it opens.
 
 </TableLineDescRow>
 

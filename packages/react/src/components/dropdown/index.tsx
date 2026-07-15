@@ -227,8 +227,10 @@ const Dropdown = ({
             ref={menuButton}
             aria-expanded={menuShow}
             aria-controls={dropdownId}
+            aria-label={`Open ${linkText} menu`}
             onClick={handleClick}
             onKeyDown={handleButtonKeyDown}
+            type='button'
           />
         </div>
       ) : (
