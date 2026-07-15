@@ -24,13 +24,7 @@ import { cdnCSS } from '../mdxVars.js';
 
 ## Make Natura11y Yours
 
-We designed Natura11y to be easily customized and extended.
-
-For simple style updates, the CDN stylesheet lets you override Natura11y’s default styles.
-
-For deeper customization, work with <a href="https://github.com/Natura11y/root/tree/main/packages/core">Natura11y Core</a> to modify the Sass, adapt its HTML patterns, or change the JavaScript behind interactive features.
-
-Ultimately, Natura11y can serve as the foundation for a complete design system tailored to your project or organization, with its own visual language, components, documentation, and standards.
+The Natura11y Design Ecosystem is made to be customized, extended, and adapted to your needs. Create anything from a simple website theme to a comprehensive design system.
 
 </TextBlock>
 
@@ -105,13 +99,14 @@ Any Natura11y style that uses these variables will now use the new values. The s
 
 ## Core: HTML, CSS, and JS
 
-Natura11y Core gives you access to its Sass and JavaScript source. Figure 3 shows the basic structure.
+<a href="https://github.com/Natura11y/root/tree/main/packages/core">Natura11y Core</a> gives you access to its Sass and JavaScript source. Figure 3 shows the basic structure.
 
 </TextBlock>
 
 <FigureExample
 	figureNumber="3"
 	figureWidth="medium--lg"
+	showCodeFrame={false}
 	codeLanguage="text"
 	code={`
 	core/
@@ -139,15 +134,13 @@ Natura11y Core gives you access to its Sass and JavaScript source. Figure 3 show
 
 ### SCSS
 
-Natura11y’s Sass is organized much like the documentation: each partial represents a component, utility, or feature of the framework. Component class names follow BEM conventions to keep selectors consistent and readable. Related CSS variables are grouped near the top of the file, followed by the styles that use them. The compiled CSS uses modern features such as custom properties, logical properties, and cascade layers to keep styles predictable and easy to customize.
+Natura11y’s Sass is organized much like the documentation, with a partial for each component, utility, or feature. Component class names follow BEM conventions, and related CSS variables are grouped near the top of each partial. The compiled CSS uses cascade layers and logical properties to keep styles predictable and easy to customize.
 
 ### Vanilla JavaScript
 
-Natura11y’s JavaScript uses native browser APIs and a simple class-based structure, with each class responsible for an interactive pattern. Shared utilities support common behavior across those classes. Keeping the JavaScript vanilla allows Natura11y to work without depending on a JavaScript framework.
+Natura11y’s JavaScript uses native browser APIs and a simple class-based structure, with each class focused on a single interaction. Shared Core utilities support common behavior and are also used by Natura11y React, keeping both versions aligned without adding a framework dependency to Core.
 
-### DIST
-
-The `dist` folder contains the compiled version of Natura11y. All Sass is compiled into a single `natura11y.css` file, and all JavaScript is compiled into a single `natura11y.js` file.
+The Sass and JavaScript compile into two files in `dist`: `natura11y.css` and `natura11y.js`.
 
 </TextBlock>
 
@@ -159,9 +152,9 @@ The `dist` folder contains the compiled version of Natura11y. All Sass is compil
 
 <TextBlock>
 
-## Build a Complete Design System
+## Design System Architecture
 
-Natura11y can extend beyond the styles and behavior of a single website. The ecosystem includes resources for carrying the same design decisions into design files, icons, application frameworks, and documentation.
+Natura11y is structured to serve as the foundation for a complete design system. Its tools and packages work together to connect design decisions, shared assets, component behavior, and production code.
 
 - <a href="/docs/figma/">Figma UI Kits</a> use local variables, theme modes, and reusable patterns that align with Natura11y’s CSS foundation.
 
