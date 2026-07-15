@@ -9,10 +9,11 @@ bannerCreditUrl: https://unsplash.com/@bamin
 bannerImage: ./banner/customization.jpg
 bannerAlt: Close-up image of a chameleon showcasing its textured skin and vibrant colors
 description:
-    Learn how to customize Natura11y without starting from scratch. Use the customizable CDN Stylesheet or set up a modern development environment with WebPack.
+    Customize Natura11y with CSS variables, work with Natura11y Core, or use the ecosystem as the foundation for a complete design system.
 relatedPages:
   - "Get Started"
   - "Accessibility"
+  - "Figma"
 ---
 
 import { cdnCSS } from '../mdxVars.js';
@@ -23,9 +24,13 @@ import { cdnCSS } from '../mdxVars.js';
 
 ## Make Natura11y Yours
 
-There are several ways to customize Natura11y. You can use the CDN Stylesheet to redefine styles, which we'll cover in the next section. Alternatively, you can set up a modern <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/development_environment' LinkText='development environment' />.
+We designed Natura11y to be easily customized and extended.
 
-Setting up a development environment typically involves installing necessary tools like Node.js, a package manager (such as npm or yarn), and setting up Webpack to bundle your code. This approach gives you full control over the build process, allowing for advanced customizations and optimizations.
+For simple style updates, the CDN stylesheet lets you override Natura11y’s default styles.
+
+For deeper customization, work with <a href="https://github.com/Natura11y/root/tree/main/packages/core">Natura11y Core</a> to modify the Sass, adapt its HTML patterns, or change the JavaScript behind interactive features.
+
+Ultimately, Natura11y can serve as the foundation for a complete design system tailored to your project or organization, with its own visual language, components, documentation, and standards.
 
 </TextBlock>
 
@@ -39,31 +44,54 @@ Setting up a development environment typically involves installing necessary too
 
 ## Customizable CDN
 
-The <a href="/docs/get-started/#quick-start-with-cdn">Quick Start</a> guide shows how to include the framework's core stylesheet via CDN. Natura11y's CSS uses <LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties' LinkText='CSS variables' />, making customization easy.
+The <a href="/docs/get-started/#quick-start-with-cdn">Quick Start</a> guide shows how to add Natura11y’s stylesheet from the CDN. Because Natura11y uses CSS variables, you can update colors, typography, spacing, and other style attributes in your own stylesheet without changing Natura11y Core.
+
+In Figure 1 below, `theme.css` loads after the Natura11y stylesheet, so custom values set in this file will take effect.
 
 </TextBlock>
 
 <FigureExample
-    figureNumber="1"
-    figureWidth="medium--lg"
-    code={`
-        <!-- Natura11y Stylesheet -->
-        <link rel="stylesheet" href="${cdnCSS}" />
+	figureNumber="1"
+	figureWidth="medium--lg"
+	code={`
+	<!-- Natura11y Stylesheet -->
+	<link rel="stylesheet" href="${cdnCSS}" />
 
-        <!-- Custom Stylesheet -->
-        <link rel="stylesheet" href="/css/theme.css" />
-    `}
+	<!-- Custom Stylesheet -->
+	<link rel="stylesheet" href="/css/theme.css" />
+	`}
 />
 
 <TextBlock>
 
-CSS variables can be updated dynamically, allowing you to declare new values from **natura11y.css** at any point after including the stylesheet.
+### CSS Variables
 
-You can declare new CSS variable values in a few ways:
+Natura11y’s CSS variables are declared inside `:root`, making them available throughout the page. Variables are grouped by feature, and each documentation page lists the custom properties available for that feature.
 
-- **Add a style tag in the header**: Ideal for prototyping and experimenting.
-- **Create a second stylesheet**: Preferred for maintaining organization.
-- **Use JavaScript**: Redeclare values programmatically for dynamic customization.
+### Example: Updating Colors
+
+Add new color values to `theme.css` by declaring them inside `:root`. Figure 2 replaces several of Natura11y's default colors with a custom palette.
+
+</TextBlock>
+
+<FigureExample
+	figureNumber="2"
+	figureWidth="narrow"
+	codeLanguage="css"
+	code={`
+	:root {
+		--primary: #008f47;
+		--secondary: #004d40;
+		--dark: #0d1627;
+		--canvas: #f4f4ef;
+		--secondary-text: white;
+	}
+	`}
+/>
+
+<TextBlock>
+
+Any Natura11y style that uses these variables will now use the new values. The same approach can be used for typography, spacing, borders, and other documented variables.
 
 </TextBlock>
 
@@ -71,34 +99,80 @@ You can declare new CSS variable values in a few ways:
 
 ---
 
-<Section id="css-variables">
+<Section id="working-with-core">
 
 <TextBlock>
 
-## CSS Variables
+## Core: HTML, CSS, and JS
 
-All CSS Variables in Natura11y are **scoped** to `:root` (document). Document scoped variables use the `:root` pseudo selector, making them available throughout the entire page (Figure 5). This means that once you define a CSS variable under `:root`, it can be accessed and used anywhere in the document, ensuring consistent styling across all elements on the page.
+Natura11y Core gives you access to its Sass and JavaScript source. Figure 3 shows the basic structure.
 
 </TextBlock>
 
 <FigureExample
-    figureNumber="5"
-    figureWidth="narrow"
-    codeLanguage="scss"
-    code={`
-        /* Scoped to the root */
-
-        :root {
-            --primary: #0080f8;
-        }
-    `}
+	figureNumber="3"
+	figureWidth="medium--lg"
+	codeLanguage="text"
+	code={`
+	core/
+	├── src/
+	│   ├── js/
+	│   │   ├── accordion.js
+	│   │   ├── alert.js
+	│   │   ├── backdrop.js
+	│   │   ├── ...
+	│   │   └── utilities/
+	│   ├── scss/
+	│   │   ├── _accordion.scss
+	│   │   ├── _alert.scss
+	│   │   ├── _backdrop.scss
+	│   │   ├── ...
+	│   │   └── index.scss (loads Sass partials)
+	│   └── index.js (loads styles and initializes JavaScript classes)
+	└── dist/
+	    ├── natura11y.css (compiled CSS output)
+	    └── natura11y.js (compiled JS output)
+	`}
 />
 
-<div class="container narrow margin-y-4">
-    <a class="button theme-primary" href="/docs/accessibility/">
-        <span class="text">Accessibility</span>
-        <span class="icon icon-arrow-right" aria-hidden="true"></span>
-    </a>
-</div>
+<TextBlock>
+
+### SCSS
+
+Natura11y’s Sass is organized much like the documentation: each partial represents a component, utility, or feature of the framework. Component class names follow BEM conventions to keep selectors consistent and readable. Related CSS variables are grouped near the top of the file, followed by the styles that use them. The compiled CSS uses modern features such as custom properties, logical properties, and cascade layers to keep styles predictable and easy to customize.
+
+### Vanilla JavaScript
+
+Natura11y’s JavaScript uses native browser APIs and a simple class-based structure, with each class responsible for an interactive pattern. Shared utilities support common behavior across those classes. Keeping the JavaScript vanilla allows Natura11y to work without depending on a JavaScript framework.
+
+### DIST
+
+The `dist` folder contains the compiled version of Natura11y. All Sass is compiled into a single `natura11y.css` file, and all JavaScript is compiled into a single `natura11y.js` file.
+
+</TextBlock>
+
+</Section>
+
+---
+
+<Section id="complete-design-system">
+
+<TextBlock>
+
+## Build a Complete Design System
+
+Natura11y can extend beyond the styles and behavior of a single website. The ecosystem includes resources for carrying the same design decisions into design files, icons, application frameworks, and documentation.
+
+- <a href="/docs/figma/">Figma UI Kits</a> use local variables, theme modes, and reusable patterns that align with Natura11y’s CSS foundation.
+
+- <a href="/docs/icon/">Natura11y Icons</a> can be managed across Figma and the front end as part of a shared icon system.
+
+- <a href="/docs/react/">Natura11y React</a> applies the same Core styling foundation and accessibility patterns to React projects.
+
+- <LinkOpenNew LinkUrl="https://natura11y.github.io/root/storybook/" LinkText="Natura11y Storybook" /> presents vanilla and React examples side by side.
+
+Together, these resources can establish a shared visual language while keeping design decisions, accessible behavior, and production code connected as the system grows.
+
+</TextBlock>
 
 </Section>
