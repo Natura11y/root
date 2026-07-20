@@ -1,375 +1,129 @@
 ---
-import { Picture } from 'astro:assets';
-import type { CollectionEntry } from 'astro:content';
-import type { DocSection } from '../../../utilities/docSections';
 import './search-docs.css';
 
-interface SearchPage {
-  doc: CollectionEntry<'docs'>;
-  sections: DocSection[];
-}
-
-interface Props {
-  pages?: SearchPage[];
-}
-
-const { pages = [] } = Astro.props;
-
-const visiblePages = pages
-  .filter(({ doc }) => doc.data.draft !== true)
-  .sort((a, b) => a.doc.data.title.localeCompare(b.doc.data.title));
-
-const modalId = 'docs-search-modal';
-const inputId = 'docs-search-input';
-const resultsId = 'docs-search-results';
-
-const getKeywords = ({ doc, sections }: SearchPage) => [
-  doc.data.title,
-  doc.data.description ?? '',
-  ...sections.map((section) => section.text),
-].join(' ').toLowerCase();
-
-const getVisibleSections = (sections: DocSection[]) => (
-  sections.filter((section) => section.id !== 'introduction')
-);
+const appId = import.meta.env.PUBLIC_ALGOLIA_APP_ID;
+const apiKey = import.meta.env.PUBLIC_ALGOLIA_SEARCH_API_KEY;
+const indexName = import.meta.env.PUBLIC_ALGOLIA_INDEX_NAME;
+const isConfigured = Boolean(appId && apiKey && indexName);
 ---
 
-<div
-  class="modal padding-2"
-  id={modalId}
-  aria-hidden="true"
-  data-modal-close-outside="true"
->
+{isConfigured && (
   <div
-    class="modal__content wide border-radius-2 box-shadow-3 height-100vh"
-    aria-labelledby={`${modalId}-title`}
-    aria-describedby={`${modalId}-description`}
-    role="dialog"
-    aria-modal="true"
+    class="docs-search"
+    data-docsearch-root
+    data-app-id={appId}
+    data-api-key={apiKey}
+    data-index-name={indexName}
   >
-  
-    <header class="modal__content__head border-bottom">
-      <div>
-        <h2 class="h5" id={`${modalId}-title`}>
-          Search Docs
-        </h2>
-        <p class="screen-reader-only" id={`${modalId}-description`}>
-          Search documentation pages and page sections.
-        </p>
-      </div>
+    <button
+      class="button font-size-md button--disperse button--outline text-color-link font-size-sm--lg"
+      type="button"
+      aria-controls="docs-search-modal"
+      aria-expanded="false"
+      aria-haspopup="dialog"
+      data-docsearch-open
+    >
+      <span class="text">Search Docs</span>
+      <span class="icon icon-search" aria-hidden="true"></span>
+    </button>
 
-      <button class="button button--icon-only" type="button" data-modal-close>
-        <span class="icon icon-close" aria-hidden="true"></span>
-        <span class="screen-reader-only">Close search</span>
-      </button>
-    </header>
-
-    <main class="modal__content__body docs-search flex-grow-1" data-doc-search-root>
-      <form class="form-entry form-entry--search" role="search" aria-label="Search docs" data-doc-search-form>
-        <label class="form-entry__field">
-          <span class="form-entry__field__label screen-reader-only">Search Docs</span>
-          <span class="form-entry__field__input">
-            <span class="icon icon-search opacity-50" aria-hidden="true"></span>
-            <input
-              type="search"
-              id={inputId}
-              name="docs-search"
-              placeholder="Filter pages and sections"
-              aria-controls={resultsId}
-              autocomplete="off"
-              data-doc-search
-            />
-            <button
-              class="button button--icon-only"
-              type="button"
-              data-search-clear
-              aria-label="Clear search"
-              aria-controls={inputId}
-            >
-              <span class="icon icon-clear" aria-hidden="true"></span>
-            </button>
-          </span>
-        </label>
-      </form>
-
-      <p class="screen-reader-only" aria-live="polite" data-doc-search-status>
-        {visiblePages.length} pages available.
-      </p>
-
-      <ul class="grid grid--column-3--lg gap-2 margin-y-3" id={resultsId}>
-        {visiblePages.map((page) => {
-          const { doc, sections } = page;
-          const visibleSections = getVisibleSections(sections);
-
-          return (
-            <li data-doc-search-item data-doc-search-keywords={getKeywords(page)}>
-              <article class="card subtle-fill-1 border-radius-2">
-                <a
-                  class="card__media docs-search__media backdrop theme-dark"
-                  href={`/docs/${doc.data.slug}/`}
-                  data-doc-search-close
-                >
-                  {doc.data.bannerImage && (
-                    <div class="backdrop__media">
-                      <Picture
-                        class="opacity-40"
-                        src={doc.data.bannerImage}
-                        formats={['avif', 'webp']}
-                        alt=""
-                        loading="lazy"
-                        data-doc-search-image
-                      />
-                    </div>
-                  )}
-
-                  <div class="backdrop__cover">
-                    <div class="container width-100">
-                      <h3
-                        class="h4 font-weight-normal text-shadow"
-                        data-doc-search-label
-                      >
-                        {doc.data.title}
-                      </h3>
-                    </div>
-                  </div>
-                </a>
-
-                <div class="card__body padding-0">
-                  <nav aria-label={`${doc.data.title} sections`}>
-                    <ul class="nav nav--divider font-size-md">
-                      {visibleSections.map((section) => (
-                        <li>
-                          <a
-                            href={`/docs/${doc.data.slug}/#${section.id}`}
-                            data-doc-search-close
-                            data-doc-search-label
-                          >
-                            {section.text}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </nav>
-                </div>
-              </article>
-            </li>
-          );
-        })}
-      </ul>
-
-      <div class="container narrow text-align-center margin-y-5" data-doc-search-no-results hidden>
-        <pre class="h2 code-font" aria-hidden="true">
-          <code data-doc-search-no-results-art></code>
-        </pre>
-        <p class="h6">
-          No results found for '<span data-doc-search-term></span>'
-        </p>
-      </div>
-    </main>
+    <div class="docs-search__mount" data-docsearch-mount></div>
   </div>
-</div>
+)}
 
 <script>
-  const initializeDocsSearch = () => {
-    const roots = Array.from(document.querySelectorAll<HTMLElement>('[data-doc-search-root]'));
-    const noResultsArtwork = [
-     `.__.
-      {O,o}
-      /)__)
-      " "`,
-     `/\\_/\\
-      ( o.o )
-      >^_^<`,
-      `><(((º>
-         '''`,
-      ` (\\(\\
-        ( -.-)
-      o_(")(")`,
-      `/\\_/\\
-        (°ᴥ°)
-        /  \\`,
-    ];
+  const initializeDocSearch = async () => {
+    const roots = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-docsearch-root]:not([data-docsearch-ready])'),
+    );
 
-    const escapeRegExp = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    if (roots.length === 0) {
+      return;
+    }
 
-    const getDocumentOffsetTop = (element: HTMLElement) => {
-      let currentElement: HTMLElement | null = element;
-      let offsetTop = 0;
-
-      while (currentElement) {
-        offsetTop += currentElement.offsetTop;
-        currentElement = currentElement.offsetParent as HTMLElement | null;
-      }
-
-      return offsetTop;
-    };
-
-    const setSearchImageLoading = (image: HTMLImageElement) => {
-      if (image.offsetParent === null) {
-        image.loading = 'lazy';
-        return;
-      }
-
-      image.loading = getDocumentOffsetTop(image) < window.innerHeight ? 'eager' : 'lazy';
-    };
-
-    const highlightText = (element: HTMLElement, query: string) => {
-      const originalText = element.dataset.docSearchOriginalText ?? element.textContent ?? '';
-      element.dataset.docSearchOriginalText = originalText;
-      element.textContent = '';
-
-      if (!query) {
-        element.textContent = originalText;
-        return;
-      }
-
-      const regex = new RegExp(`(${escapeRegExp(query)})`, 'gi');
-      const parts = originalText.split(regex);
-
-      parts.forEach((part) => {
-        if (!part) {
-          return;
-        }
-
-        if (part.toLowerCase() === query.toLowerCase()) {
-          const marker = document.createElement('mark');
-          marker.textContent = part;
-          element.appendChild(marker);
-          return;
-        }
-
-        element.appendChild(document.createTextNode(part));
-      });
-    };
+    const { default: docsearch } = await import('@docsearch/js');
 
     roots.forEach((root) => {
-      const modal = root.closest<HTMLElement>('.modal');
-      const searchForm = root.querySelector<HTMLFormElement>('[data-doc-search-form]');
-      const searchInput = root.querySelector<HTMLInputElement>('[data-doc-search]');
-      const searchItems = Array.from(root.querySelectorAll<HTMLElement>('[data-doc-search-item]'));
-      const labels = Array.from(root.querySelectorAll<HTMLElement>('[data-doc-search-label]'));
-      const noResults = root.querySelector<HTMLElement>('[data-doc-search-no-results]');
-      const noResultsArt = root.querySelector<HTMLElement>('[data-doc-search-no-results-art]');
-      const searchTerm = root.querySelector<HTMLElement>('[data-doc-search-term]');
-      const searchStatus = root.querySelector<HTMLElement>('[data-doc-search-status]');
-      const closeLinks = Array.from(root.querySelectorAll<HTMLAnchorElement>('[data-doc-search-close]'));
-      const searchImages = Array.from(root.querySelectorAll<HTMLImageElement>('[data-doc-search-image]'));
-      let lastNoResultsQuery = '';
-      let wasOpen = modal?.classList.contains('shown') ?? false;
+      const { appId, apiKey, indexName } = root.dataset;
+      const mount = root.querySelector<HTMLElement>('[data-docsearch-mount]');
+      const trigger = root.querySelector<HTMLButtonElement>('[data-docsearch-open]');
 
-      if (!searchInput || searchItems.length === 0) {
+      if (!appId || !apiKey || !indexName || !mount || !trigger) {
         return;
       }
 
-      const syncSearchImageLoading = () => {
-        searchImages.forEach(setSearchImageLoading);
-      };
+      root.dataset.docsearchReady = 'true';
 
-      const setNoResultsArtwork = (query: string) => {
-        if (!noResultsArt || query === lastNoResultsQuery) {
-          return;
-        }
+      const search = docsearch({
+        container: mount,
+        appId,
+        apiKey,
+        indexName,
+        placeholder: 'Search Natura11y documentation',
+        transformItems: (items) => {
+          const isLocal = ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
 
-        const randomIndex = Math.floor(Math.random() * noResultsArtwork.length);
-        noResultsArt.textContent = noResultsArtwork[randomIndex] ?? noResultsArtwork[0];
-        lastNoResultsQuery = query;
-      };
+          return items
+            .filter((item) => {
+              try {
+                const resultUrl = new URL(item.url, window.location.origin);
+                return !/^\/v[1-4](?:\/|$)/.test(resultUrl.pathname);
+              } catch {
+                return true;
+              }
+            })
+            .map((item) => {
+              if (!isLocal) {
+                return item;
+              }
 
-      const filterDocs = () => {
-        const query = searchInput.value.trim().toLowerCase();
-        let visibleCount = 0;
+              try {
+                const resultUrl = new URL(item.url, window.location.origin);
+                const isNatura11yUrl = ['gonatura11y.com', 'www.gonatura11y.com'].includes(resultUrl.hostname);
 
-        searchItems.forEach((item) => {
-          const keywords = item.dataset.docSearchKeywords ?? '';
-          const isMatch = query === '' || keywords.includes(query);
+                if (!isNatura11yUrl) {
+                  return item;
+                }
 
-          item.hidden = !isMatch;
-
-          if (isMatch) {
-            visibleCount += 1;
-          }
-        });
-
-        labels.forEach((label) => highlightText(label, query));
-        syncSearchImageLoading();
-
-        if (noResults) {
-          noResults.hidden = visibleCount > 0;
-        }
-
-        if (visibleCount === 0) {
-          setNoResultsArtwork(query);
-        } else {
-          lastNoResultsQuery = '';
-        }
-
-        if (searchTerm) {
-          searchTerm.textContent = query;
-        }
-
-        if (searchStatus) {
-          searchStatus.textContent = query
-            ? `${visibleCount} pages found for ${query}.`
-            : `${visibleCount} pages available.`;
-        }
-      };
-
-      const resetSearch = () => {
-        searchInput.value = '';
-        filterDocs();
-      };
-
-      searchForm?.addEventListener('submit', (event) => {
-        event.preventDefault();
-      });
-
-      searchInput.addEventListener('input', filterDocs);
-      window.addEventListener('resize', syncSearchImageLoading);
-
-      modal?.addEventListener('click', (event) => {
-        const target = event.target;
-
-        if (!(target instanceof Element)) {
-          return;
-        }
-
-        if (target.closest('[data-modal-close]')) {
-          resetSearch();
-        }
-      });
-
-      closeLinks.forEach((link) => {
-        link.addEventListener('click', resetSearch);
-      });
-
-      if (modal) {
-        const handleModalState = () => {
-          const isOpen = modal.classList.contains('shown');
-
-          if (isOpen && !wasOpen) {
-            requestAnimationFrame(() => {
-              searchInput.focus();
+                return {
+                  ...item,
+                  url: `${window.location.origin}${resultUrl.pathname}${resultUrl.search}${resultUrl.hash}`,
+                };
+              } catch {
+                return item;
+              }
             });
-          }
+        },
+        onOpen: () => {
+          trigger.setAttribute('aria-expanded', 'true');
 
-          if (!isOpen && wasOpen) {
-            resetSearch();
-          }
+          requestAnimationFrame(() => {
+            const dialog = document.querySelector<HTMLElement>('.DocSearch-Container');
 
-          wasOpen = isOpen;
-        };
+            if (!dialog) {
+              return;
+            }
 
-        const observer = new MutationObserver(handleModalState);
-        observer.observe(modal, { attributes: true, attributeFilter: ['class'] });
-      }
+            dialog.id = 'docs-search-modal';
+            dialog.setAttribute('role', 'dialog');
+            dialog.setAttribute('aria-modal', 'true');
+            dialog.setAttribute('aria-label', 'Search Natura11y documentation');
+            dialog.removeAttribute('aria-expanded');
+            dialog.removeAttribute('aria-haspopup');
+            dialog.removeAttribute('aria-labelledby');
+            dialog.removeAttribute('tabindex');
+          });
+        },
+        onClose: () => trigger.setAttribute('aria-expanded', 'false'),
+      });
 
-      filterDocs();
+      trigger.addEventListener('click', () => search.open());
     });
   };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeDocsSearch, { once: true });
+    document.addEventListener('DOMContentLoaded', initializeDocSearch, { once: true });
   } else {
-    initializeDocsSearch();
+    initializeDocSearch();
   }
 </script>

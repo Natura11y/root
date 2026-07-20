@@ -7,6 +7,9 @@ storybook-static
 apps/docs/dist
 apps/docs/.astro
 packages/react/demo-dist
+apps/docs/.env
+apps/docs/.env.*
+!apps/docs/.env.example
 
 #Files
 .DS_Store

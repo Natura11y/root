@@ -25,6 +25,8 @@
     "@astrojs/mdx": "^7.0.2",
     "@astrojs/sitemap": "^3.7.3",
     "@chromatic-com/storybook": "^5.2.1",
+    "@docsearch/css": "^4.6.3",
+    "@docsearch/js": "^4.6.3",
     "@expressive-code/plugin-line-numbers": "^0.44.0",
     "@natura11y/core": "^5.2.1",
     "@natura11y/icons": "^2.2.0",

@@ -7,12 +7,6 @@ import type { CollectionEntry } from 'astro:content';
 import OnThisPage from '../components/ui/OnThisPage.astro';
 import SearchDocs from '../components/ui/SearchDocs/SearchDocs.astro';
 import BaseLayout from './BaseLayout.astro';
-import type { DocSection } from '../utilities/docSections';
-
-interface SearchPage {
-  doc: CollectionEntry<'docs'>;
-  sections: DocSection[];
-}
 
 interface Props {
   docs?: CollectionEntry<'docs'>[];
@@ -30,10 +24,9 @@ interface Props {
     text: string;
     depth: number;
   }>;
-  searchPages?: SearchPage[];
 }
 
-const { docs = [], currentSlug = '', frontmatter = {}, searchPages = [], tocSections = [] } = Astro.props;
+const { docs = [], currentSlug = '', frontmatter = {}, tocSections = [] } = Astro.props;
 const siteTitle = 'Natura11y Design Ecosystem';
 const pageTitle = frontmatter.title ?? siteTitle;
 const documentTitle = pageTitle === siteTitle ? siteTitle : `${pageTitle} • ${siteTitle}`;
@@ -57,15 +50,7 @@ const bannerAlt = frontmatter.bannerAlt ?? '';
       <div class="doc-left-rail">
         <div class="container narrow">
           <div class="grid gap-2">
-            <button
-              class="button font-size-md button--disperse button--outline text-color-link font-size-sm--lg"
-              data-modal="open"
-              aria-controls="docs-search-modal"
-              type="button"
-            >
-              <span class="text">Search Docs</span>
-              <span class="icon icon-search" aria-hidden="true"></span>
-            </button>
+            <SearchDocs />
 
             <button
               class="button button--outline button--disperse font-size-md display-none--xl"
@@ -170,8 +155,6 @@ const bannerAlt = frontmatter.bannerAlt ?? '';
     <div class="docs-layout__body">
       <slot />
     </div>
-
-    <SearchDocs pages={searchPages} />
 
   </div>
 
