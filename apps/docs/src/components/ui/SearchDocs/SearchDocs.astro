@@ -1,5 +1,5 @@
 ---
-import './search-docs.css';
+import SearchDocsIsland from './SearchDocsIsland';
 
 const appId = import.meta.env.PUBLIC_ALGOLIA_APP_ID;
 const apiKey = import.meta.env.PUBLIC_ALGOLIA_SEARCH_API_KEY;
@@ -8,122 +8,10 @@ const isConfigured = Boolean(appId && apiKey && indexName);
 ---
 
 {isConfigured && (
-  <div
-    class="docs-search"
-    data-docsearch-root
-    data-app-id={appId}
-    data-api-key={apiKey}
-    data-index-name={indexName}
-  >
-    <button
-      class="button font-size-md button--disperse button--outline text-color-link font-size-sm--lg"
-      type="button"
-      aria-controls="docs-search-modal"
-      aria-expanded="false"
-      aria-haspopup="dialog"
-      data-docsearch-open
-    >
-      <span class="text">Search Docs</span>
-      <span class="icon icon-search" aria-hidden="true"></span>
-    </button>
-
-    <div class="docs-search__mount" data-docsearch-mount></div>
-  </div>
+  <SearchDocsIsland
+    client:load
+    appId={appId}
+    apiKey={apiKey}
+    indexName={indexName}
+  />
 )}
-
-<script>
-  const initializeDocSearch = async () => {
-    const roots = Array.from(
-      document.querySelectorAll<HTMLElement>('[data-docsearch-root]:not([data-docsearch-ready])'),
-    );
-
-    if (roots.length === 0) {
-      return;
-    }
-
-    const { default: docsearch } = await import('@docsearch/js');
-
-    roots.forEach((root) => {
-      const { appId, apiKey, indexName } = root.dataset;
-      const mount = root.querySelector<HTMLElement>('[data-docsearch-mount]');
-      const trigger = root.querySelector<HTMLButtonElement>('[data-docsearch-open]');
-
-      if (!appId || !apiKey || !indexName || !mount || !trigger) {
-        return;
-      }
-
-      root.dataset.docsearchReady = 'true';
-
-      const search = docsearch({
-        container: mount,
-        appId,
-        apiKey,
-        indexName,
-        placeholder: 'Search Natura11y documentation',
-        transformItems: (items) => {
-          const isLocal = ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
-
-          return items
-            .filter((item) => {
-              try {
-                const resultUrl = new URL(item.url, window.location.origin);
-                return !/^\/v[1-4](?:\/|$)/.test(resultUrl.pathname);
-              } catch {
-                return true;
-              }
-            })
-            .map((item) => {
-              if (!isLocal) {
-                return item;
-              }
-
-              try {
-                const resultUrl = new URL(item.url, window.location.origin);
-                const isNatura11yUrl = ['gonatura11y.com', 'www.gonatura11y.com'].includes(resultUrl.hostname);
-
-                if (!isNatura11yUrl) {
-                  return item;
-                }
-
-                return {
-                  ...item,
-                  url: `${window.location.origin}${resultUrl.pathname}${resultUrl.search}${resultUrl.hash}`,
-                };
-              } catch {
-                return item;
-              }
-            });
-        },
-        onOpen: () => {
-          trigger.setAttribute('aria-expanded', 'true');
-
-          requestAnimationFrame(() => {
-            const dialog = document.querySelector<HTMLElement>('.DocSearch-Container');
-
-            if (!dialog) {
-              return;
-            }
-
-            dialog.id = 'docs-search-modal';
-            dialog.setAttribute('role', 'dialog');
-            dialog.setAttribute('aria-modal', 'true');
-            dialog.setAttribute('aria-label', 'Search Natura11y documentation');
-            dialog.removeAttribute('aria-expanded');
-            dialog.removeAttribute('aria-haspopup');
-            dialog.removeAttribute('aria-labelledby');
-            dialog.removeAttribute('tabindex');
-          });
-        },
-        onClose: () => trigger.setAttribute('aria-expanded', 'false'),
-      });
-
-      trigger.addEventListener('click', () => search.open());
-    });
-  };
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeDocSearch, { once: true });
-  } else {
-    initializeDocSearch();
-  }
-</script>

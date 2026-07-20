@@ -1,4 +1,14 @@
-import { useState, useId, useRef, useCallback, type Ref } from 'react';
+import {
+  useState,
+  useId,
+  useRef,
+  useCallback,
+  type ButtonHTMLAttributes,
+  type FocusEvent,
+  type HTMLAttributes,
+  type InputHTMLAttributes,
+  type Ref,
+} from 'react';
 import classNames from 'classnames';
 import Button from '../button';
 import ButtonIconOnly from '../button/ButtonIconOnly';
@@ -20,6 +30,9 @@ interface FormEntrySearchProps {
   onSubmit?: (() => void) | null;
   onClear?: (() => void) | null;
   utilities?: string | null;
+  inputAttributes?: Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> | null;
+  labelAttributes?: HTMLAttributes<HTMLSpanElement> | null;
+  clearButtonAttributes?: ButtonHTMLAttributes<HTMLButtonElement> | null;
 }
 
 const FormEntrySearch = ({
@@ -38,39 +51,80 @@ const FormEntrySearch = ({
   onSubmit = null,
   onClear = null,
   utilities = null,
+  inputAttributes = null,
+  labelAttributes = null,
+  clearButtonAttributes = null,
 }: FormEntrySearchProps) => {
   const generatedId = useId();
-  const inputId = id ?? generatedId;
+  const {
+    id: inputAttributeId,
+    name: inputAttributeName,
+    placeholder: inputAttributePlaceholder,
+    value: inputValue,
+    defaultValue: inputDefaultValue,
+    onChange: onInputChange,
+    onFocus: onInputFocus,
+    onBlur: onInputBlur,
+    ...restInputAttributes
+  } = inputAttributes ?? {};
+  const {
+    className: labelAttributeClassName,
+    ...restLabelAttributes
+  } = labelAttributes ?? {};
+  const {
+    className: clearButtonAttributeClassName,
+    onClick: onClearButtonClick,
+    ...restClearButtonAttributes
+  } = clearButtonAttributes ?? {};
+  const inputId = inputAttributeId ?? id ?? generatedId;
+  const resolvedDefaultValue = inputDefaultValue ?? defaultValue;
+  const isControlled = inputValue !== undefined;
 
   const inputRef = useRef<HTMLInputElement>(null);
   const mergedRef = useMergedRefs(inputRef, ref);
 
-  const [hasValue, setHasValue] = useState(defaultValue !== '');
+  const [uncontrolledHasValue, setUncontrolledHasValue] = useState(resolvedDefaultValue !== '');
   const [isFocused, setIsFocused] = useState(false);
+  const hasValue = isControlled ? String(inputValue ?? '') !== '' : uncontrolledHasValue;
 
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setHasValue(value !== '');
+    if (!isControlled) setUncontrolledHasValue(value !== '');
+    onInputChange?.(e);
     onSearch?.(value);
-  }, [onSearch]);
+  }, [isControlled, onInputChange, onSearch]);
 
-  const handleClear = useCallback(() => {
-    if (inputRef.current) {
+  const handleClear = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    if (inputRef.current && !isControlled) {
       inputRef.current.value = '';
-      inputRef.current.focus();
     }
-    setHasValue(false);
+    inputRef.current?.focus();
+    setUncontrolledHasValue(false);
+    onClearButtonClick?.(event);
     onSearch?.('');
     onClear?.();
-  }, [onSearch, onClear]);
+  }, [isControlled, onClearButtonClick, onSearch, onClear]);
 
-  const handleFocus = useCallback(() => setIsFocused(true), []);
-  const handleBlur = useCallback(() => setIsFocused(false), []);
+  const handleFocus = useCallback((event: FocusEvent<HTMLInputElement>) => {
+    setIsFocused(true);
+    onInputFocus?.(event);
+  }, [onInputFocus]);
+  const handleBlur = useCallback((event: FocusEvent<HTMLInputElement>) => {
+    setIsFocused(false);
+    onInputBlur?.(event);
+  }, [onInputBlur]);
 
   return (
     <div className={classNames('form-entry', 'form-entry--search', { 'has-value': hasValue, 'is-focused': isFocused }, utilities)}>
       <label className='form-entry__field'>
-        <span className={classNames('form-entry__field__label', { 'screen-reader-only': !labelVisible })}>
+        <span
+          className={classNames(
+            'form-entry__field__label',
+            { 'screen-reader-only': !labelVisible },
+            labelAttributeClassName,
+          )}
+          {...restLabelAttributes}
+        >
           {labelText}
         </span>
         <span className={classNames('form-entry__field__input', fieldInputUtilities)}>
@@ -79,20 +133,23 @@ const FormEntrySearch = ({
           )}
 
           <input
+            {...restInputAttributes}
             ref={mergedRef}
             type='search'
             id={inputId}
-            name={name}
-            placeholder={placeholder ?? undefined}
-            defaultValue={defaultValue}
+            name={inputAttributeName ?? name}
+            placeholder={inputAttributePlaceholder ?? placeholder ?? undefined}
+            value={inputValue}
+            defaultValue={isControlled ? undefined : resolvedDefaultValue}
             onChange={handleChange}
             onFocus={handleFocus}
             onBlur={handleBlur}
           />
 
           <button
+            {...restClearButtonAttributes}
             type='button'
-            className='button button--icon-only'
+            className={classNames('button', 'button--icon-only', clearButtonAttributeClassName)}
             data-search-clear=''
             aria-label='Clear search'
             aria-controls={inputId}
