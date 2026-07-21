@@ -95,7 +95,7 @@ const SavedSearches = ({
       {recentResults.length > 0 && (
         <section>
           <div className="flex-row flex-no-wrap align-items-center justify-content-between gap-2 margin-bottom-1">
-            <h3 className="h6 margin-0">Recent</h3>
+            <h3 className="h6">Recent searches</h3>
             <Button title="Clear all" utilities="font-size-sm" onClick={onClearRecent} />
           </div>
           <ul className="docs-search-saved-list grid border border-radius-2" role="list">

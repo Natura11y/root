@@ -36,11 +36,22 @@ In this file:
         align-items: center;
         gap: var(--spacer-2);
 
-        color: var(--text-color);
+
+        padding-block: 0.5em;
+        padding-inline: 0.75em;
+
+        display: grid;
+        gap: 0.5em;
+        align-items: center;
+
         cursor: pointer;
 
         .icon{
             font-size: var(--font-size-md);
+        }
+
+        &:not(:last-child){
+            border-bottom: var(--border-width) var(--border-style) var(--border-color);
         }
     }
 

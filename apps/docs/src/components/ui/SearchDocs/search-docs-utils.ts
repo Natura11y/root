@@ -162,7 +162,11 @@ export const selectSearchResults = (hits: DocSearchRecord[]) => {
     }
   }
 
-  return Array.from(uniqueResults.values());
+  const results = Array.from(uniqueResults.values());
+
+  // Autocomplete assigns keyboard-navigation IDs from this array order.
+  // Match the page-grouped order used by SearchResults before returning it.
+  return groupSearchResults(results).flatMap((group) => group.items);
 };
 
 const isSavedSearchResult = (value: unknown): value is SavedSearchResult => {

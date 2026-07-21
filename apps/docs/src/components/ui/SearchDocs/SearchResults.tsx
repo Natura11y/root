@@ -96,7 +96,7 @@ const SearchResults = ({
                     <li
                       key={item.objectID}
                       {...itemProps}
-                      className={`docs-search-result docs-search-result--depth-${resultDepth} border-bottom padding-2${itemProps['aria-selected'] ? ' is-selected' : ''}`}
+                      className={`docs-search-result docs-search-result--depth-${resultDepth} ${itemProps['aria-selected'] ? ' is-selected' : ''}`}
                     >
                       <Icon iconHandle={resultDepth === 0 ? 'list' : 'hashtag'} />
                       <span className="docs-search-result__body">
