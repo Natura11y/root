@@ -15,6 +15,7 @@ interface SearchResultsProps {
   autocomplete: SearchAutocomplete;
   autocompleteState: AutocompleteState<DocSearchRecord>;
   isLoading: boolean;
+  listId: string;
   resultCount: number;
 }
 
@@ -44,6 +45,7 @@ const SearchResults = ({
   autocomplete,
   autocompleteState,
   isLoading,
+  listId,
   resultCount,
 }: SearchResultsProps) => {
   if (isLoading && resultCount === 0) {
@@ -69,7 +71,11 @@ const SearchResults = ({
     return (
       <ul
         key={collection.source.sourceId}
-        {...autocomplete.getListProps({ source: collection.source })}
+        {...autocomplete.getListProps({
+          source: collection.source,
+          id: listId,
+          'aria-busy': isLoading,
+        })}
         className="grid gap-3"
       >
         {resultGroups.map((group, groupIndex) => {

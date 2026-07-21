@@ -39,6 +39,9 @@ interface SearchDocsIslandProps {
   indexName: string;
 }
 
+const SEARCH_AUTOCOMPLETE_ID = 'natura11y-docs-search';
+const SEARCH_RESULTS_LIST_ID = `${SEARCH_AUTOCOMPLETE_ID}-list-documentation`;
+
 const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) => {
   const [hasMounted, setHasMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
@@ -115,7 +118,7 @@ const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) =
         ReactMouseEvent,
         ReactKeyboardEvent
       >({
-        id: 'natura11y-docs-search',
+        id: SEARCH_AUTOCOMPLETE_ID,
         defaultActiveItemId: 0,
         openOnFocus: false,
         onStateChange({ state }) {
@@ -191,7 +194,6 @@ const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) =
   const openSearch = () => {
     setSavedSearchMessage('');
     setIsOpen(true);
-    autocomplete?.setIsOpen(true);
   };
 
   const closeSearch = () => {
@@ -283,13 +285,18 @@ const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) =
     inputRef.current?.focus();
   };
 
-  const rootProps = autocomplete?.getRootProps({}) ?? {};
+  const comboboxProps = autocomplete?.getRootProps({
+    'aria-controls': SEARCH_RESULTS_LIST_ID,
+  }) ?? {};
   const formProps = autocomplete?.getFormProps({ inputElement: inputRef.current }) ?? {};
   const labelProps = autocomplete?.getLabelProps({}) ?? {
     htmlFor: 'natura11y-docs-search-input',
     id: 'natura11y-docs-search-label',
   };
-  const inputProps = autocomplete?.getInputProps({ inputElement: inputRef.current }) ?? {
+  const inputProps = autocomplete?.getInputProps({
+    inputElement: inputRef.current,
+    ...comboboxProps,
+  }) ?? {
     id: 'natura11y-docs-search-input',
     value: '',
     type: 'search' as const,
@@ -330,7 +337,7 @@ const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) =
           id="docs-search-modal"
           isOpen={isOpen}
           closeOutside
-          title="Search documentation"
+          title="Search docs"
           titleUtilities="h5"
           closeButtonLabel="Close search"
           modalUtilities="docs-search-modal"
@@ -351,14 +358,14 @@ const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) =
                 data-logo="brand"
                 className="display-flex align-items-center gap-1 margin-left-auto"
               >
-                <span>Search by</span>
+                <em>Search by</em>
                 <span className="screen-reader-only">Algolia</span>
                 <AlgoliaLogo />
               </a>
             </div>
           )}
         >
-          <div {...rootProps} className="grid gap-3">
+          <div className="grid gap-3">
             <form {...formProps}>
               <FormEntrySearch
                 ref={inputRef}
@@ -378,6 +385,16 @@ const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) =
             </p>
 
             <div {...panelProps}>
+              {autocomplete && resultCount === 0 && (
+                <ul
+                  id={SEARCH_RESULTS_LIST_ID}
+                  role="listbox"
+                  aria-labelledby={labelProps.id}
+                  aria-busy={isLoading}
+                  hidden={!hasQuery}
+                />
+              )}
+
               {!hasQuery && (favoriteResults.length > 0 || recentResults.length > 0) && (
                 <SavedSearches
                   favorites={favoriteResults}
@@ -401,6 +418,7 @@ const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) =
                   autocomplete={autocomplete}
                   autocompleteState={autocompleteState}
                   isLoading={isLoading}
+                  listId={SEARCH_RESULTS_LIST_ID}
                   resultCount={resultCount}
                 />
               )}
