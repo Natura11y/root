@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import astroExpressiveCode from 'astro-expressive-code';
 import mdx from '@astrojs/mdx';
@@ -9,6 +10,7 @@ const fromRoot = (path) => fileURLToPath(new URL(`../../${path}`, import.meta.ur
 export default defineConfig({
   site: 'https://gonatura11y.com',
   integrations: [
+    react(),
     astroExpressiveCode(),
     mdx(),
     sitemap({

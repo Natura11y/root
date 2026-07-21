@@ -1,0 +1,193 @@
+/*
+
+In this file:
+
+// A. Component
+// B. Responsive
+
+*/
+
+//////////////////////////////////////////////
+// A. Component
+//////////////////////////////////////////////
+
+@layer component {
+
+// Search Docs Block
+
+    .docs-search,
+    .docs-search > .button {
+        width: 100%;
+        min-width: 0;
+    }
+
+    // Search Docs Modal
+
+    .docs-search-modal {
+        align-content: start;
+        padding-block: var(--spacer-4);
+    }
+
+    // Search Result Block
+
+    .docs-search-result {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: center;
+        gap: var(--spacer-2);
+
+
+        padding-block: 0.5em;
+        padding-inline: 0.75em;
+
+        display: grid;
+        gap: 0.5em;
+        align-items: center;
+
+        cursor: pointer;
+
+        .icon{
+            font-size: var(--font-size-md);
+        }
+
+        &:not(:last-child){
+            border-bottom: var(--border-width) var(--border-style) var(--border-color);
+        }
+    }
+
+    .docs-search-result-list > .docs-search-result:last-child {
+        border-bottom: 0;
+    }
+
+    // Search Result States
+
+    .docs-search-result.is-selected {
+        background-color: var(--subtle-fill-1);
+    }
+
+    // Search Result Depth Modifiers
+
+    .docs-search-result.docs-search-result--depth-1 {
+        padding-inline-start: calc(var(--spacer-2) * 2);
+    }
+
+    .docs-search-result.docs-search-result--depth-2 {
+        padding-inline-start: calc(var(--spacer-2) * 3);
+    }
+
+    .docs-search-result[class*='docs-search-result--depth-']:not(.docs-search-result--depth-0) > .icon:first-child {
+        opacity: 0.65;
+        font-size: var(--font-size-sm);
+    }
+
+    // Search Result Elements
+
+    .docs-search-result__body {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+    }
+
+    .docs-search-result__title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .docs-search-result__title {
+        // font-weight: var(--font-weight-bold);
+    }
+
+    mark {
+        padding: 0;
+        color: inherit;
+        background-color: color-mix(in srgb, var(--primary) 50%, transparent);
+        font-weight: inherit;
+        text-decoration: underline;
+        text-decoration-color: currentColor;
+        text-decoration-thickness: 0.125em;
+    }
+
+    // Saved Search List
+
+    .docs-search-saved-list {
+        /* background-color: red; */
+        font-size: var(--font-size-md);
+    }
+
+    // Saved Search Result Block
+
+    .docs-search-saved-result {
+        padding: 0.5em;
+        display: grid;
+        gap: 0.5em;
+        align-items: center;
+
+        grid-template-columns: minmax(0, 1fr) auto;
+
+        &:not(:last-child){
+            border-bottom: var(--border-width) var(--border-style) var(--border-color);
+        }
+
+        .icon{
+            opacity: 0.5;
+        }
+    }
+
+    // Saved Search Result Elements
+
+    .docs-search-saved-result__link {
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+    }
+
+    .docs-search-saved-result__link:is(:hover, :focus-visible) .docs-search-saved-result__title {
+        text-decoration: underline;
+    }
+
+    .docs-search-saved-result__actions {
+        display: flex;
+        gap: 0.5em;
+        font-size: var(--font-size-md);
+
+        button {
+        color: var(--link-color);
+        }
+    }
+
+    .docs-search-saved-result__body {
+        display: flex;
+        min-width: 0;
+        flex-direction: column;
+    }
+
+    .docs-search-saved-result__body > span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .docs-search-saved-result__title {
+        font-weight: var(--font-weight-bold);
+    }
+
+    // Search Commands
+
+    .docs-search-commands {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    //////////////////////////////////////////////
+    // B. Responsive
+    //////////////////////////////////////////////
+
+    @media (max-width: 36rem) {
+        .docs-search-commands {
+            display: none;
+        }
+    }
+
+} // end @layer

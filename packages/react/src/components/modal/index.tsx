@@ -1,4 +1,12 @@
-import { useRef, useId, useEffect, type Ref, type ReactNode, type MouseEvent } from 'react';
+import {
+  useRef,
+  useId,
+  useEffect,
+  type Ref,
+  type RefObject,
+  type ReactNode,
+  type MouseEvent,
+} from 'react';
 import classNames from 'classnames';
 import ButtonIconOnly from '../button/ButtonIconOnly';
 import { useMergedRefs } from '../../hooks/useMergedRefs';
@@ -8,6 +16,7 @@ import { getFocusableElements } from '@natura11y/core/utilities/focus';
 
 interface ModalProps {
   ref?: Ref<HTMLDivElement>;
+  id?: string;
   isOpen?: boolean;
   scrollAll?: boolean;
   closeOutside?: boolean;
@@ -19,10 +28,14 @@ interface ModalProps {
   modalContentUtilities?: string | null;
   titleUtilities?: string | null;
   footerUtilities?: string | null;
+  initialFocusRef?: RefObject<HTMLElement | null> | null;
+  returnFocusRef?: RefObject<HTMLElement | null> | null;
+  closeButtonLabel?: string;
 }
 
 const Modal = ({
   ref,
+  id,
   isOpen = false,
   scrollAll = false,
   closeOutside = false,
@@ -34,20 +47,32 @@ const Modal = ({
   modalContentUtilities = null,
   titleUtilities = 'h6',
   footerUtilities = null,
+  initialFocusRef = null,
+  returnFocusRef = null,
+  closeButtonLabel = 'Close Modal Window',
 }: ModalProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
   const mergedRef = useMergedRefs(containerRef, ref);
+  const wasOpenRef = useRef(isOpen);
 
   useScrollLock(isOpen);
   useFocusTrap(contentRef, { enabled: isOpen, onEscape: onClose ?? undefined });
 
   useEffect(() => {
     if (!isOpen || !contentRef.current) return;
-    const first = getFocusableElements(contentRef.current)[0] as HTMLElement | undefined;
+    const first = initialFocusRef?.current
+      ?? getFocusableElements(contentRef.current)[0] as HTMLElement | undefined;
     first?.focus();
-  }, [isOpen]);
+  }, [initialFocusRef, isOpen]);
+
+  useEffect(() => {
+    if (wasOpenRef.current && !isOpen) {
+      returnFocusRef?.current?.focus();
+    }
+    wasOpenRef.current = isOpen;
+  }, [isOpen, returnFocusRef]);
 
   const handleCloseOutside = (e: MouseEvent<HTMLDivElement>) => {
     if (closeOutside && contentRef.current && !contentRef.current.contains(e.target as Node)) {
@@ -58,9 +83,11 @@ const Modal = ({
   return (
     <div
       ref={mergedRef}
+      id={id}
       className={classNames('modal', { 'modal--scroll-all': scrollAll, 'shown': isOpen }, modalUtilities)}
       data-state={isOpen ? 'open' : 'closed'}
       aria-hidden={!isOpen}
+      inert={isOpen ? undefined : true}
       onClick={handleCloseOutside}
     >
       <div
@@ -70,25 +97,25 @@ const Modal = ({
         aria-modal='true'
         aria-labelledby={titleId}
       >
-        <header className='modal__content__head border-bottom'>
+        <div className='modal__content__head border-bottom'>
           <h2 id={titleId} className={classNames(titleUtilities)}>{title}</h2>
           <ButtonIconOnly
             buttonType='button'
             iconHandle='close'
-            ariaLabel='Close Modal Window'
+            ariaLabel={closeButtonLabel}
             utilities='font-size-md'
             onClick={onClose ?? undefined}
           />
-        </header>
+        </div>
 
-        <main className='modal__content__body flex-grow-1'>
+        <div className='modal__content__body flex-grow-1'>
           {children}
-        </main>
+        </div>
 
         {footerContent && (
-          <footer className={classNames('modal__content__foot', 'border-top', footerUtilities)}>
+          <div className={classNames('modal__content__foot', 'border-top', footerUtilities)}>
             {footerContent}
-          </footer>
+          </div>
         )}
       </div>
     </div>

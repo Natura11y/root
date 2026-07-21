@@ -1,10 +1,11 @@
-import { type MouseEventHandler } from 'react';
+import { type MouseEventHandler, type Ref } from 'react';
 import classNames from 'classnames';
 import Icon from '../icon';
 
 type ButtonClickHandler = MouseEventHandler<HTMLButtonElement | HTMLAnchorElement>;
 
 interface ButtonProps {
+  ref?: Ref<HTMLElement>;
   tag?: 'button' | 'a';
   buttonType?: 'button' | 'submit' | 'reset';
   title?: string;
@@ -21,6 +22,7 @@ interface ButtonProps {
 }
 
 const Button = ({
+  ref,
   tag = 'button',
   buttonType = 'button',
   title = 'Button',
@@ -48,6 +50,7 @@ const Button = ({
   if (tag === 'a') {
     return (
       <a
+        ref={ref as Ref<HTMLAnchorElement>}
         className={buttonClasses}
         href={linkUrl}
         target={target ?? undefined}
@@ -61,7 +64,13 @@ const Button = ({
   }
 
   return (
-    <button type={buttonType} className={buttonClasses} onClick={onClick ?? undefined} {...attributes}>
+    <button
+      ref={ref as Ref<HTMLButtonElement>}
+      type={buttonType}
+      className={buttonClasses}
+      onClick={onClick ?? undefined}
+      {...attributes}
+    >
       {buttonContents}
     </button>
   );

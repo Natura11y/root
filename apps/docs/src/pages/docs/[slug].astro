@@ -33,17 +33,12 @@ const relatedPages = (doc.data.relatedPages ?? [])
   .map((title) => docs.find((page) => page.data.title === title))
   .filter((page): page is DocsEntry => Boolean(page));
 const tocSections = getDocSections(doc.body);
-const searchPages = docs.map((doc) => ({
-  doc,
-  sections: getDocSections(doc.body),
-}));
 ---
 
 <DocsLayout
   docs={docs}
   currentSlug={doc.data.slug}
   frontmatter={doc.data}
-  searchPages={searchPages}
   tocSections={tocSections}
 >
   <Content
