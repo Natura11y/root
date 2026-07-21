@@ -1,7 +1,9 @@
-import type { AutocompleteApi, AutocompleteState } from '@algolia/autocomplete-core';
-import { Button, ButtonIconOnly, FormEntrySearch, Icon, Modal } from '@natura11y/react';
+import { Button, FormEntrySearch, Modal } from '@natura11y/react';
+
 import { liteClient } from 'algoliasearch/lite';
+
 import { createPortal } from 'react-dom';
+
 import {
   useCallback,
   useEffect,
@@ -10,8 +12,28 @@ import {
   type BaseSyntheticEvent,
   type KeyboardEvent as ReactKeyboardEvent,
   type MouseEvent as ReactMouseEvent,
-  type ReactNode,
 } from 'react';
+
+import SavedSearches from './SavedSearches';
+import SearchResults from './SearchResults';
+import {
+  createSavedSearchResult,
+  getResultTitle,
+  initialAutocompleteState,
+  isSameSavedResult,
+  MAX_FAVORITE_RESULTS,
+  MAX_RECENT_RESULTS,
+  prependSavedResult,
+  readFavoriteResults,
+  readRecentResults,
+  SEARCH_CANDIDATE_LIMIT,
+  selectSearchResults,
+  writeFavoriteResults,
+  writeRecentResults,
+  type DocSearchRecord,
+  type SavedSearchResult,
+  type SearchAutocomplete,
+} from './search-docs-utils';
 
 import './search-docs.css';
 
@@ -21,224 +43,51 @@ interface SearchDocsIslandProps {
   indexName: string;
 }
 
-type HierarchyLevel = 'lvl0' | 'lvl1' | 'lvl2' | 'lvl3' | 'lvl4' | 'lvl5' | 'lvl6';
-
-interface DocSearchRecord {
-  [key: string]: unknown;
-  objectID: string;
-  url: string;
-  content?: string | null;
-  hierarchy?: Partial<Record<HierarchyLevel, string | null>>;
-  type?: string;
-}
-
-interface SearchResultGroup {
-  key: string;
-  title: string;
-  items: DocSearchRecord[];
-}
-
-type SearchAutocomplete = AutocompleteApi<
-  DocSearchRecord,
-  BaseSyntheticEvent,
-  ReactMouseEvent,
-  ReactKeyboardEvent
->;
-
-const RECENT_SEARCHES_KEY = 'natura11y-docs-recent-searches';
-const MAX_RESULTS = 12;
-const SEARCH_CANDIDATE_LIMIT = 100;
-const HIERARCHY_LEVELS: HierarchyLevel[] = [
-  'lvl0',
-  'lvl1',
-  'lvl2',
-  'lvl3',
-  'lvl4',
-  'lvl5',
-  'lvl6',
-];
-
-const initialAutocompleteState: AutocompleteState<DocSearchRecord> = {
-  activeItemId: null,
-  query: '',
-  completion: null,
-  collections: [],
-  isOpen: false,
-  status: 'idle',
-  context: {},
-};
-
-const getHierarchyValues = (item: DocSearchRecord) =>
-  HIERARCHY_LEVELS.map((level) => item.hierarchy?.[level]).filter(
-    (value): value is string => Boolean(value?.trim()),
-  );
-
-const cleanResultTitle = (title: string) => title.replace(/\s*[•|]\s*Natura11y\s*$/i, '');
-
-const getResultTitle = (item: DocSearchRecord) => {
-  const hierarchyValues = getHierarchyValues(item);
-  return cleanResultTitle(hierarchyValues.at(-1) ?? item.content ?? 'Documentation result');
-};
-
-const getResultDepth = (item: DocSearchRecord) => {
-  const deepestHierarchyIndex = HIERARCHY_LEVELS.reduce((deepestIndex, level, index) => {
-    return item.hierarchy?.[level]?.trim() ? index : deepestIndex;
-  }, 0);
-
-  return Math.max(0, deepestHierarchyIndex - 1);
-};
-
-const getParentPageTitle = (item: DocSearchRecord) =>
-  item.hierarchy?.lvl1?.trim() || getResultTitle(item);
-
-const groupSearchResults = (items: DocSearchRecord[]) => {
-  const groups = new Map<string, SearchResultGroup>();
-
-  for (const item of items) {
-    const title = getParentPageTitle(item);
-    const pageUrl = item.url.split('#')[0];
-    const key = `${pageUrl}:${title}`;
-    const existingGroup = groups.get(key);
-
-    if (existingGroup) {
-      existingGroup.items.push(item);
-    } else {
-      groups.set(key, { key, title, items: [item] });
-    }
-  }
-
-  return Array.from(groups.values());
-};
-
-const normalizeResultUrl = (url: string) => {
-  try {
-    const resultUrl = new URL(url, window.location.origin);
-    const isLocal = ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
-    const isNatura11yUrl = ['gonatura11y.com', 'www.gonatura11y.com'].includes(resultUrl.hostname);
-
-    if (isLocal && isNatura11yUrl) {
-      return `${window.location.origin}${resultUrl.pathname}${resultUrl.search}${resultUrl.hash}`;
-    }
-
-    return resultUrl.href;
-  } catch {
-    return url;
-  }
-};
-
-const isCurrentDocumentation = (item: DocSearchRecord) => {
-  try {
-    const resultUrl = new URL(item.url, window.location.origin);
-    return !/^\/v[1-4](?:\/|$)/.test(resultUrl.pathname);
-  } catch {
-    return true;
-  }
-};
-
-const selectSearchResults = (hits: DocSearchRecord[]) => {
-  const uniqueResults = new Map<string, DocSearchRecord>();
-
-  for (const item of hits) {
-    if (!isCurrentDocumentation(item)) {
-      continue;
-    }
-
-    const normalizedUrl = normalizeResultUrl(item.url);
-
-    if (!uniqueResults.has(normalizedUrl)) {
-      uniqueResults.set(normalizedUrl, { ...item, url: normalizedUrl });
-    }
-
-    if (uniqueResults.size === MAX_RESULTS) {
-      break;
-    }
-  }
-
-  return groupSearchResults(Array.from(uniqueResults.values())).flatMap((group) => group.items);
-};
-
-const readRecentSearches = () => {
-  try {
-    const savedValue = window.localStorage.getItem(RECENT_SEARCHES_KEY);
-    const parsedValue = savedValue ? JSON.parse(savedValue) : [];
-
-    return Array.isArray(parsedValue)
-      ? parsedValue.filter((value): value is string => typeof value === 'string').slice(0, 5)
-      : [];
-  } catch {
-    return [];
-  }
-};
-
-const writeRecentSearches = (searches: string[]) => {
-  try {
-    window.localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(searches));
-  } catch {
-    // Search remains usable when storage is unavailable.
-  }
-};
-
-const escapeRegularExpression = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-
-function HighlightedText({ text, query }: { text: string; query: string }) {
-  const terms = query
-    .trim()
-    .split(/\s+/)
-    .filter(Boolean)
-    .sort((first, second) => second.length - first.length);
-
-  if (terms.length === 0) {
-    return text;
-  }
-
-  const matcher = new RegExp(`(${terms.map(escapeRegularExpression).join('|')})`, 'gi');
-  const parts = text.split(matcher);
-
-  return parts.map((part, index): ReactNode => {
-    const isMatch = terms.some((term) => term.toLocaleLowerCase() === part.toLocaleLowerCase());
-    return isMatch ? <mark key={`${part}-${index}`}>{part}</mark> : part;
-  });
-}
-
-export default function SearchDocsIsland({ appId, apiKey, indexName }: SearchDocsIslandProps) {
+const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) => {
   const [hasMounted, setHasMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [autocomplete, setAutocomplete] = useState<SearchAutocomplete | null>(null);
   const [autocompleteState, setAutocompleteState] = useState(initialAutocompleteState);
-  const [recentSearches, setRecentSearches] = useState<string[]>([]);
+  const [favoriteResults, setFavoriteResults] = useState<SavedSearchResult[]>([]);
+  const [recentResults, setRecentResults] = useState<SavedSearchResult[]>([]);
+  const [savedSearchMessage, setSavedSearchMessage] = useState('');
 
   const triggerRef = useRef<HTMLButtonElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const addRecentSearchRef = useRef<(query: string) => void>(() => undefined);
+  const favoriteResultsRef = useRef<SavedSearchResult[]>([]);
+  const addRecentResultRef = useRef<(result: DocSearchRecord) => void>(() => undefined);
 
-  const addRecentSearch = useCallback((query: string) => {
-    const normalizedQuery = query.trim();
+  const addRecentResult = useCallback((result: DocSearchRecord) => {
+    const savedResult = createSavedSearchResult(result);
 
-    if (!normalizedQuery) {
+    if (favoriteResultsRef.current.some((favorite) => isSameSavedResult(favorite, savedResult))) {
       return;
     }
 
-    setRecentSearches((currentSearches) => {
-      const nextSearches = [
-        normalizedQuery,
-        ...currentSearches.filter(
-          (search) => search.toLocaleLowerCase() !== normalizedQuery.toLocaleLowerCase(),
-        ),
-      ].slice(0, 5);
-
-      writeRecentSearches(nextSearches);
-      return nextSearches;
+    setRecentResults((currentResults) => {
+      const nextResults = prependSavedResult(currentResults, savedResult, MAX_RECENT_RESULTS);
+      writeRecentResults(nextResults);
+      return nextResults;
     });
   }, []);
 
-  addRecentSearchRef.current = addRecentSearch;
+  favoriteResultsRef.current = favoriteResults;
+  addRecentResultRef.current = addRecentResult;
 
   useEffect(() => {
     setHasMounted(true);
   }, []);
 
   useEffect(() => {
-    setRecentSearches(readRecentSearches());
+    const storedFavorites = readFavoriteResults();
+    const storedRecentResults = readRecentResults().filter(
+      (recentResult) => !storedFavorites.some(
+        (favorite) => isSameSavedResult(favorite, recentResult),
+      ),
+    );
+
+    setFavoriteResults(storedFavorites);
+    setRecentResults(storedRecentResults);
   }, []);
 
   useEffect(() => {
@@ -269,7 +118,6 @@ export default function SearchDocsIsland({ appId, apiKey, indexName }: SearchDoc
         id: 'natura11y-docs-search',
         defaultActiveItemId: 0,
         openOnFocus: false,
-        placeholder: 'Search Natura11y documentation',
         onStateChange({ state }) {
           setAutocompleteState(state);
         },
@@ -310,7 +158,7 @@ export default function SearchDocsIsland({ appId, apiKey, indexName }: SearchDoc
                 return selectSearchResults(hits as unknown as DocSearchRecord[]);
               },
               onSelect({ event, item, navigator, state }) {
-                addRecentSearchRef.current(state.query);
+                addRecentResultRef.current(item);
                 setIsOpen(false);
                 autocompleteInstance?.setIsOpen(false);
 
@@ -341,6 +189,7 @@ export default function SearchDocsIsland({ appId, apiKey, indexName }: SearchDoc
   }, [apiKey, appId, indexName]);
 
   const openSearch = () => {
+    setSavedSearchMessage('');
     setIsOpen(true);
     autocomplete?.setIsOpen(true);
   };
@@ -357,28 +206,72 @@ export default function SearchDocsIsland({ appId, apiKey, indexName }: SearchDoc
     inputRef.current?.focus();
   };
 
-  const runRecentSearch = (query: string) => {
-    if (!autocomplete) {
-      return;
+  const openSavedResult = (result: SavedSearchResult) => {
+    if (!favoriteResults.some((favorite) => isSameSavedResult(favorite, result))) {
+      setRecentResults((currentResults) => {
+        const nextResults = prependSavedResult(currentResults, result, MAX_RECENT_RESULTS);
+        writeRecentResults(nextResults);
+        return nextResults;
+      });
     }
 
-    autocomplete.setQuery(query);
-    autocomplete.setIsOpen(true);
-    void autocomplete.refresh();
+    closeSearch();
+  };
+
+  const removeRecentResult = (result: SavedSearchResult) => {
+    setRecentResults((currentResults) => {
+      const nextResults = currentResults.filter(
+        (currentResult) => !isSameSavedResult(currentResult, result),
+      );
+      writeRecentResults(nextResults);
+      return nextResults;
+    });
+    setSavedSearchMessage(`${result.title} removed from recent results.`);
     inputRef.current?.focus();
   };
 
-  const removeRecentSearch = (query: string) => {
-    setRecentSearches((currentSearches) => {
-      const nextSearches = currentSearches.filter((search) => search !== query);
-      writeRecentSearches(nextSearches);
-      return nextSearches;
-    });
+  const clearRecentResults = () => {
+    setRecentResults([]);
+    writeRecentResults([]);
+    setSavedSearchMessage('Recent results cleared.');
+    inputRef.current?.focus();
   };
 
-  const clearRecentSearches = () => {
-    setRecentSearches([]);
-    writeRecentSearches([]);
+  const addFavoriteResult = (result: SavedSearchResult) => {
+    setFavoriteResults((currentFavorites) => {
+      const nextFavorites = prependSavedResult(
+        currentFavorites,
+        result,
+        MAX_FAVORITE_RESULTS,
+      );
+      writeFavoriteResults(nextFavorites);
+      return nextFavorites;
+    });
+    setRecentResults((currentResults) => {
+      const nextResults = currentResults.filter(
+        (currentResult) => !isSameSavedResult(currentResult, result),
+      );
+      writeRecentResults(nextResults);
+      return nextResults;
+    });
+    setSavedSearchMessage(`${result.title} added to favorites.`);
+    inputRef.current?.focus();
+  };
+
+  const removeFavoriteResult = (result: SavedSearchResult) => {
+    setFavoriteResults((currentFavorites) => {
+      const nextFavorites = currentFavorites.filter(
+        (favorite) => !isSameSavedResult(favorite, result),
+      );
+      writeFavoriteResults(nextFavorites);
+      return nextFavorites;
+    });
+    setRecentResults((currentResults) => {
+      const nextResults = prependSavedResult(currentResults, result, MAX_RECENT_RESULTS);
+      writeRecentResults(nextResults);
+      return nextResults;
+    });
+    setSavedSearchMessage(`${result.title} removed from favorites.`);
     inputRef.current?.focus();
   };
 
@@ -444,7 +337,6 @@ export default function SearchDocsIsland({ appId, apiKey, indexName }: SearchDoc
                 <kbd>↑</kbd><kbd>↓</kbd> Navigate <kbd>Enter</kbd> Open <kbd>Esc</kbd> Close
               </p>
               <a
-                className="text-decoration-none"
                 href="https://www.algolia.com/"
                 target="_blank"
                 rel="noreferrer"
@@ -454,7 +346,7 @@ export default function SearchDocsIsland({ appId, apiKey, indexName }: SearchDoc
             </div>
           )}
         >
-          <div {...rootProps} className="grid gap-2">
+          <div {...rootProps} className="grid gap-3">
             <form {...formProps}>
               <FormEntrySearch
                 ref={inputRef}
@@ -469,106 +361,37 @@ export default function SearchDocsIsland({ appId, apiKey, indexName }: SearchDoc
               {statusMessage}
             </p>
 
+            <p className="screen-reader-only" role="status" aria-live="polite" aria-atomic="true">
+              {savedSearchMessage}
+            </p>
+
             <div {...panelProps}>
-              {!hasQuery && recentSearches.length > 0 && (
-                <section aria-labelledby="docs-search-recent-title">
-                  <div className="flex-row flex-no-wrap align-items-center justify-content-between gap-2 margin-bottom-1">
-                    <h3 className="h6 margin-0" id="docs-search-recent-title">Recent searches</h3>
-                    <Button title="Clear all" utilities="font-size-sm" onClick={clearRecentSearches} />
-                  </div>
-                  <ul className="grid gap-1" role="list">
-                    {recentSearches.map((query) => (
-                      <li className="flex-row flex-no-wrap align-items-center gap-1" key={query}>
-                        <Button
-                          title={query}
-                          iconStartHandle="search"
-                          utilities="button--dispersex width-100"
-                          onClick={() => runRecentSearch(query)}
-                        />
-                        <ButtonIconOnly
-                          iconHandle="clear"
-                          ariaLabel={`Remove “${query}” from recent searches`}
-                          onClick={() => removeRecentSearch(query)}
-                        />
-                      </li>
-                    ))}
-                  </ul>
-                </section>
+              {!hasQuery && (favoriteResults.length > 0 || recentResults.length > 0) && (
+                <SavedSearches
+                  favorites={favoriteResults}
+                  recentResults={recentResults}
+                  onClearRecent={clearRecentResults}
+                  onFavorite={addFavoriteResult}
+                  onOpen={openSavedResult}
+                  onRemoveFavorite={removeFavoriteResult}
+                  onRemoveRecent={removeRecentResult}
+                />
               )}
 
-              {!hasQuery && recentSearches.length === 0 && (
-                <p className="margin-0">Start typing to search the current Natura11y documentation.</p>
+              {!hasQuery && favoriteResults.length === 0 && recentResults.length === 0 && (
+                <p className="margin-y-3">
+                  Start typing to search the current Natura11y documentation.
+                </p>
               )}
 
-              {hasQuery && isLoading && resultCount === 0 && (
-                <p className="margin-0">Searching…</p>
+              {hasQuery && autocomplete && (
+                <SearchResults
+                  autocomplete={autocomplete}
+                  autocompleteState={autocompleteState}
+                  isLoading={isLoading}
+                  resultCount={resultCount}
+                />
               )}
-
-              {hasQuery && !isLoading && resultCount === 0 && (
-                <div>
-                  <p className="h6">No results found</p>
-                  <p className="margin-0">Try a different or more general search term.</p>
-                </div>
-              )}
-
-              {hasQuery && autocompleteState.collections.map((collection) => {
-                if (collection.items.length === 0 || !autocomplete) {
-                  return null;
-                }
-
-                const resultGroups = groupSearchResults(collection.items);
-
-                return (
-                  <ul
-                    key={collection.source.sourceId}
-                    {...autocomplete.getListProps({ source: collection.source })}
-                    className="grid gap-3"
-                  >
-                    {resultGroups.map((group, groupIndex) => {
-                      const groupTitleId = `docs-search-group-${collection.source.sourceId}-${groupIndex}`;
-
-                      return (
-                        <li key={group.key} role="group" aria-labelledby={groupTitleId}>
-                          <h3 className="h6 text-color-link margin-bottom-1" id={groupTitleId}>
-                            <HighlightedText text={group.title} query={autocompleteState.query} />
-                          </h3>
-                          <ul className="docs-search-hit-list border border-radius-2 overflow-hidden" role="presentation">
-                            {group.items.map((item) => {
-                              const itemProps = autocomplete.getItemProps({
-                                item,
-                                source: collection.source,
-                              });
-                              const resultDepth = Math.min(getResultDepth(item), 2);
-                              const resultTitle = item.type === 'lvl1' ? 'Overview' : getResultTitle(item);
-
-                              return (
-                                <li
-                                  key={item.objectID}
-                                  {...itemProps}
-                                  className={`docs-search-hit docs-search-hit--depth-${resultDepth} border-bottom padding-2${itemProps['aria-selected'] ? ' is-selected' : ''}`}
-                                >
-                                  <Icon iconHandle={resultDepth === 0 ? 'list' : 'hashtag'} />
-                                  <span className="docs-search-hit__body">
-                                    <span className="docs-search-hit__title">
-                                      {resultDepth > 0 && (
-                                        <span className="screen-reader-only">
-                                          {`Section of ${group.title}: `}
-                                        </span>
-                                      )}
-                                      <HighlightedText text={resultTitle} query={autocompleteState.query} />
-                                    </span>
-                                  </span>
-                                  <Icon iconHandle="arrow-right" />
-                                </li>
-                              );
-                            })}
-                          </ul>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                );
-              })}
             </div>
           </div>
         </Modal>,
@@ -576,4 +399,6 @@ export default function SearchDocsIsland({ appId, apiKey, indexName }: SearchDoc
       )}
     </div>
   );
-}
+};
+
+export default SearchDocsIsland;
