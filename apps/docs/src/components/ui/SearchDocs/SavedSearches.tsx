@@ -15,21 +15,21 @@ const SavedResult = ({ result, type, onFavorite, onOpen, onRemove }: SavedResult
   const isFavorite = type === 'favorite';
 
   return (
-    <li className="docs-search-saved-result border-bottom padding-2">
+    <li className="docs-search-saved-result">
+
       <a
         className="docs-search-saved-result__link"
         href={result.url}
-        aria-label={`Open ${result.title} in ${result.pageTitle}`}
         onClick={() => onOpen(result)}
       >
         <Icon iconHandle="search" />
-        <span className="docs-search-saved-result__body">
+        <div className="docs-search-saved-result__body">
           <span className="font-size-sm">{result.pageTitle}</span>
           <span className="docs-search-saved-result__title">{result.title}</span>
-        </span>
+        </div>
       </a>
 
-      <div className="flex-row gap-1">
+      <div className="docs-search-saved-result__actions">
       
       <ButtonIconOnly
         iconHandle={isFavorite ? 'star-fill' : 'star-outline'}
@@ -37,7 +37,6 @@ const SavedResult = ({ result, type, onFavorite, onOpen, onRemove }: SavedResult
           ? `Remove ${result.title} from favorites`
           : `Add ${result.title} to favorites`}
         attributes={{ 'aria-pressed': isFavorite }}
-        utilities="font-size-md"
         onClick={() => (isFavorite ? onRemove(result) : onFavorite(result))}
       />
 
@@ -45,7 +44,6 @@ const SavedResult = ({ result, type, onFavorite, onOpen, onRemove }: SavedResult
         <ButtonIconOnly
           iconHandle="clear"
           ariaLabel={`Remove ${result.title} from recent results`}
-          utilities="font-size-md"
           onClick={() => onRemove(result)}
         />
       )}

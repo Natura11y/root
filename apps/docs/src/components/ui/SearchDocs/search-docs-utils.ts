@@ -23,7 +23,6 @@ export interface SearchResultGroup {
 }
 
 export interface SavedSearchResult {
-  objectID: string;
   pageTitle: string;
   title: string;
   url: string;
@@ -36,12 +35,19 @@ export type SearchAutocomplete = AutocompleteApi<
   ReactKeyboardEvent
 >;
 
-const RECENT_RESULTS_KEY = 'natura11y-docs-recent-results-v1';
-const FAVORITE_RESULTS_KEY = 'natura11y-docs-favorite-results-v1';
-const MAX_RESULTS = 12;
+export type SavedResultsCollection = 'favorites' | 'recent';
 
-export const MAX_RECENT_RESULTS = 5;
-export const MAX_FAVORITE_RESULTS = 8;
+const SAVED_RESULTS_KEYS: Record<SavedResultsCollection, string> = {
+  favorites: 'natura11y-docs-favorite-results-v1',
+  recent: 'natura11y-docs-recent-results-v1',
+};
+
+export const SAVED_RESULTS_LIMITS: Record<SavedResultsCollection, number> = {
+  favorites: 8,
+  recent: 5,
+};
+
+const MAX_RESULTS = 12;
 
 export const SEARCH_CANDIDATE_LIMIT = 100;
 
@@ -65,35 +71,34 @@ export const initialAutocompleteState: AutocompleteState<DocSearchRecord> = {
   context: {},
 };
 
-const getHierarchyValues = (item: DocSearchRecord) =>
-  HIERARCHY_LEVELS.map((level) => item.hierarchy?.[level]).filter(
-    (value): value is string => Boolean(value?.trim()),
-  );
-
 const cleanResultTitle = (title: string) => title.replace(/\s*[•|]\s*Natura11y\s*$/i, '');
 
-export const getResultTitle = (item: DocSearchRecord) => {
-  const hierarchyValues = getHierarchyValues(item);
-  return cleanResultTitle(hierarchyValues.at(-1) ?? item.content ?? 'Documentation result');
-};
-
-export const getResultDepth = (item: DocSearchRecord) => {
+export const getResultMetadata = (item: DocSearchRecord) => {
+  const hierarchyValues = HIERARCHY_LEVELS.map((level) => item.hierarchy?.[level]).filter(
+    (value): value is string => Boolean(value?.trim()),
+  );
+  const resultTitle = cleanResultTitle(
+    hierarchyValues.at(-1) ?? item.content ?? 'Documentation result',
+  );
   const deepestHierarchyIndex = HIERARCHY_LEVELS.reduce((deepestIndex, level, index) => {
     return item.hierarchy?.[level]?.trim() ? index : deepestIndex;
   }, 0);
+  const depth = Math.max(0, deepestHierarchyIndex - 1);
+  const pageTitle = cleanResultTitle(item.hierarchy?.lvl1?.trim() || resultTitle);
 
-  return Math.max(0, deepestHierarchyIndex - 1);
+  return {
+    depth,
+    pageTitle,
+    resultTitle,
+    title: depth === 0 ? 'Overview' : resultTitle,
+  };
 };
 
-export const getParentPageTitle = (item: DocSearchRecord) =>
-  cleanResultTitle(item.hierarchy?.lvl1?.trim() || getResultTitle(item));
+export const createSavedSearchResult = (item: DocSearchRecord): SavedSearchResult => {
+  const { pageTitle, title } = getResultMetadata(item);
 
-export const createSavedSearchResult = (item: DocSearchRecord): SavedSearchResult => ({
-  objectID: item.objectID,
-  pageTitle: getParentPageTitle(item),
-  title: getResultDepth(item) === 0 ? 'Overview' : getResultTitle(item),
-  url: item.url,
-});
+  return { pageTitle, title, url: item.url };
+};
 
 export const isSameSavedResult = (
   firstResult: SavedSearchResult,
@@ -111,7 +116,7 @@ export const groupSearchResults = (items: DocSearchRecord[]) => {
   const groups = new Map<string, SearchResultGroup>();
 
   for (const item of items) {
-    const title = getParentPageTitle(item);
+    const { pageTitle: title } = getResultMetadata(item);
     const pageUrl = item.url.split('#')[0];
     const key = `${pageUrl}:${title}`;
     const existingGroup = groups.get(key);
@@ -142,23 +147,10 @@ const normalizeResultUrl = (url: string) => {
   }
 };
 
-const isCurrentDocumentation = (item: DocSearchRecord) => {
-  try {
-    const resultUrl = new URL(item.url, window.location.origin);
-    return !/^\/v[1-4](?:\/|$)/.test(resultUrl.pathname);
-  } catch {
-    return true;
-  }
-};
-
 export const selectSearchResults = (hits: DocSearchRecord[]) => {
   const uniqueResults = new Map<string, DocSearchRecord>();
 
   for (const item of hits) {
-    if (!isCurrentDocumentation(item)) {
-      continue;
-    }
-
     const normalizedUrl = normalizeResultUrl(item.url);
 
     if (!uniqueResults.has(normalizedUrl)) {
@@ -170,7 +162,7 @@ export const selectSearchResults = (hits: DocSearchRecord[]) => {
     }
   }
 
-  return groupSearchResults(Array.from(uniqueResults.values())).flatMap((group) => group.items);
+  return Array.from(uniqueResults.values());
 };
 
 const isSavedSearchResult = (value: unknown): value is SavedSearchResult => {
@@ -180,44 +172,31 @@ const isSavedSearchResult = (value: unknown): value is SavedSearchResult => {
 
   const result = value as Partial<SavedSearchResult>;
 
-  return typeof result.objectID === 'string'
-    && typeof result.pageTitle === 'string'
+  return typeof result.pageTitle === 'string'
     && typeof result.title === 'string'
     && typeof result.url === 'string';
 };
 
-const readSavedResults = (storageKey: string, limit: number) => {
+export const readSavedResults = (collection: SavedResultsCollection) => {
   try {
-    const savedValue = window.localStorage.getItem(storageKey);
+    const savedValue = window.localStorage.getItem(SAVED_RESULTS_KEYS[collection]);
     const parsedValue = savedValue ? JSON.parse(savedValue) : [];
 
     return Array.isArray(parsedValue)
-      ? parsedValue.filter(isSavedSearchResult).slice(0, limit)
+      ? parsedValue.filter(isSavedSearchResult).slice(0, SAVED_RESULTS_LIMITS[collection])
       : [];
   } catch {
     return [];
   }
 };
 
-const writeSavedResults = (storageKey: string, results: SavedSearchResult[]) => {
+export const writeSavedResults = (
+  collection: SavedResultsCollection,
+  results: SavedSearchResult[],
+) => {
   try {
-    window.localStorage.setItem(storageKey, JSON.stringify(results));
+    window.localStorage.setItem(SAVED_RESULTS_KEYS[collection], JSON.stringify(results));
   } catch {
     // Search remains usable when storage is unavailable.
   }
-};
-
-export const readRecentResults = () => readSavedResults(RECENT_RESULTS_KEY, MAX_RECENT_RESULTS);
-
-export const writeRecentResults = (results: SavedSearchResult[]) => {
-  writeSavedResults(RECENT_RESULTS_KEY, results);
-};
-
-export const readFavoriteResults = () => readSavedResults(
-  FAVORITE_RESULTS_KEY,
-  MAX_FAVORITE_RESULTS,
-);
-
-export const writeFavoriteResults = (results: SavedSearchResult[]) => {
-  writeSavedResults(FAVORITE_RESULTS_KEY, results);
 };

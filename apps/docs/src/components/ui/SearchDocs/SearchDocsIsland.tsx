@@ -14,28 +14,24 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from 'react';
 
+import AlgoliaLogo from './AlgoliaLogo';
 import SavedSearches from './SavedSearches';
 import SearchResults from './SearchResults';
 import {
   createSavedSearchResult,
-  getResultTitle,
+  getResultMetadata,
   initialAutocompleteState,
   isSameSavedResult,
-  MAX_FAVORITE_RESULTS,
-  MAX_RECENT_RESULTS,
   prependSavedResult,
-  readFavoriteResults,
-  readRecentResults,
+  readSavedResults,
+  SAVED_RESULTS_LIMITS,
   SEARCH_CANDIDATE_LIMIT,
   selectSearchResults,
-  writeFavoriteResults,
-  writeRecentResults,
+  writeSavedResults,
   type DocSearchRecord,
   type SavedSearchResult,
   type SearchAutocomplete,
 } from './search-docs-utils';
-
-import './search-docs.css';
 
 interface SearchDocsIslandProps {
   appId: string;
@@ -65,8 +61,12 @@ const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) =
     }
 
     setRecentResults((currentResults) => {
-      const nextResults = prependSavedResult(currentResults, savedResult, MAX_RECENT_RESULTS);
-      writeRecentResults(nextResults);
+      const nextResults = prependSavedResult(
+        currentResults,
+        savedResult,
+        SAVED_RESULTS_LIMITS.recent,
+      );
+      writeSavedResults('recent', nextResults);
       return nextResults;
     });
   }, []);
@@ -79,8 +79,8 @@ const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) =
   }, []);
 
   useEffect(() => {
-    const storedFavorites = readFavoriteResults();
-    const storedRecentResults = readRecentResults().filter(
+    const storedFavorites = readSavedResults('favorites');
+    const storedRecentResults = readSavedResults('recent').filter(
       (recentResult) => !storedFavorites.some(
         (favorite) => isSameSavedResult(favorite, recentResult),
       ),
@@ -129,7 +129,7 @@ const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) =
             {
               sourceId: 'documentation',
               getItemInputValue({ item }) {
-                return getResultTitle(item);
+                return getResultMetadata(item).resultTitle;
               },
               getItemUrl({ item }) {
                 return item.url;
@@ -209,8 +209,12 @@ const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) =
   const openSavedResult = (result: SavedSearchResult) => {
     if (!favoriteResults.some((favorite) => isSameSavedResult(favorite, result))) {
       setRecentResults((currentResults) => {
-        const nextResults = prependSavedResult(currentResults, result, MAX_RECENT_RESULTS);
-        writeRecentResults(nextResults);
+        const nextResults = prependSavedResult(
+          currentResults,
+          result,
+          SAVED_RESULTS_LIMITS.recent,
+        );
+        writeSavedResults('recent', nextResults);
         return nextResults;
       });
     }
@@ -223,7 +227,7 @@ const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) =
       const nextResults = currentResults.filter(
         (currentResult) => !isSameSavedResult(currentResult, result),
       );
-      writeRecentResults(nextResults);
+      writeSavedResults('recent', nextResults);
       return nextResults;
     });
     setSavedSearchMessage(`${result.title} removed from recent results.`);
@@ -232,7 +236,7 @@ const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) =
 
   const clearRecentResults = () => {
     setRecentResults([]);
-    writeRecentResults([]);
+    writeSavedResults('recent', []);
     setSavedSearchMessage('Recent results cleared.');
     inputRef.current?.focus();
   };
@@ -242,16 +246,16 @@ const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) =
       const nextFavorites = prependSavedResult(
         currentFavorites,
         result,
-        MAX_FAVORITE_RESULTS,
+        SAVED_RESULTS_LIMITS.favorites,
       );
-      writeFavoriteResults(nextFavorites);
+      writeSavedResults('favorites', nextFavorites);
       return nextFavorites;
     });
     setRecentResults((currentResults) => {
       const nextResults = currentResults.filter(
         (currentResult) => !isSameSavedResult(currentResult, result),
       );
-      writeRecentResults(nextResults);
+      writeSavedResults('recent', nextResults);
       return nextResults;
     });
     setSavedSearchMessage(`${result.title} added to favorites.`);
@@ -263,12 +267,16 @@ const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) =
       const nextFavorites = currentFavorites.filter(
         (favorite) => !isSameSavedResult(favorite, result),
       );
-      writeFavoriteResults(nextFavorites);
+      writeSavedResults('favorites', nextFavorites);
       return nextFavorites;
     });
     setRecentResults((currentResults) => {
-      const nextResults = prependSavedResult(currentResults, result, MAX_RECENT_RESULTS);
-      writeRecentResults(nextResults);
+      const nextResults = prependSavedResult(
+        currentResults,
+        result,
+        SAVED_RESULTS_LIMITS.recent,
+      );
+      writeSavedResults('recent', nextResults);
       return nextResults;
     });
     setSavedSearchMessage(`${result.title} removed from favorites.`);
@@ -340,8 +348,12 @@ const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) =
                 href="https://www.algolia.com/"
                 target="_blank"
                 rel="noreferrer"
+                data-logo="brand"
+                className="display-flex align-items-center gap-1 margin-left-auto"
               >
-                Powered by <strong>Algolia</strong>
+                <span>Search by</span>
+                <span className="screen-reader-only">Algolia</span>
+                <AlgoliaLogo />
               </a>
             </div>
           )}

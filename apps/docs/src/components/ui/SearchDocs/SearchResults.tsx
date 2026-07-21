@@ -1,10 +1,11 @@
 import type { AutocompleteState } from '@algolia/autocomplete-core';
+
 import { Icon } from '@natura11y/react';
+
 import type { ReactNode } from 'react';
 
 import {
-  getResultDepth,
-  getResultTitle,
+  getResultMetadata,
   groupSearchResults,
   type DocSearchRecord,
   type SearchAutocomplete,
@@ -77,28 +78,29 @@ const SearchResults = ({
           return (
             <li key={group.key} role="group" aria-labelledby={groupTitleId}>
 
-              <h3 className="h6 text-color-link margin-bottom-1" id={groupTitleId}>
+              <h3 className="h6 margin-bottom-1" id={groupTitleId}>
                 <HighlightedText text={group.title} query={autocompleteState.query} />
               </h3>
               
-              <ul className="docs-search-hit-list border border-radius-2" role="presentation">
+              <ul className="docs-search-result-list border border-radius-2" role="presentation">
+                
                 {group.items.map((item) => {
                   const itemProps = autocomplete.getItemProps({
                     item,
                     source: collection.source,
                   });
-                  const resultDepth = Math.min(getResultDepth(item), 2);
-                  const resultTitle = item.type === 'lvl1' ? 'Overview' : getResultTitle(item);
+                  const { depth, title: resultTitle } = getResultMetadata(item);
+                  const resultDepth = Math.min(depth, 2);
 
                   return (
                     <li
                       key={item.objectID}
                       {...itemProps}
-                      className={`docs-search-hit docs-search-hit--depth-${resultDepth} border-bottom padding-2${itemProps['aria-selected'] ? ' is-selected' : ''}`}
+                      className={`docs-search-result docs-search-result--depth-${resultDepth} border-bottom padding-2${itemProps['aria-selected'] ? ' is-selected' : ''}`}
                     >
                       <Icon iconHandle={resultDepth === 0 ? 'list' : 'hashtag'} />
-                      <span className="docs-search-hit__body">
-                        <span className="docs-search-hit__title">
+                      <span className="docs-search-result__body">
+                        <span className="docs-search-result__title">
                           {resultDepth > 0 && (
                             <span className="screen-reader-only">
                               {`Section of ${group.title}: `}
