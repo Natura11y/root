@@ -9,6 +9,7 @@ import ButtonIconOnly from '@lib/components/button/ButtonIconOnly';
 import FormEntrySearch from '@lib/components/form/FormEntrySearch';
 import VanillaExample from '../../utils/VanillaExample';
 import dropdownMarkup from './dropdown.example.html?raw';
+import linkSplitMarkup from './link-split.example.html?raw';
 import megaMenuMarkup from './mega-menu.example.html?raw';
 
 const initializeDropdown = () => {
@@ -99,7 +100,27 @@ export const DefaultReact: Story = {
   ),
 };
 
-export const LinkSplit: Story = {
+export const LinkSplitHtml: Story = {
+  name: 'Link Split (HTML)',
+  parameters: {
+    docs: {
+      source: {
+        code: linkSplitMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => (
+    <VanillaExample
+      html={linkSplitMarkup}
+      initialize={initializeDropdown}
+      initializeOnceKey='dropdown-link-split'
+    />
+  ),
+};
+
+export const LinkSplitReact: Story = {
   name: 'Link Split (React)',
   args: {
     buttonText: 'Components',
