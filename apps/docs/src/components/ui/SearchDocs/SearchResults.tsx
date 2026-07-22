@@ -104,7 +104,7 @@ const SearchResults = ({
                       {...itemProps}
                       className={`docs-search-result docs-search-result--depth-${resultDepth} ${itemProps['aria-selected'] ? ' is-selected' : ''}`}
                     >
-                      <Icon iconHandle={resultDepth === 0 ? 'list' : 'hashtag'} />
+                      <Icon iconHandle={resultDepth === 0 ? 'page' : 'hashtag'} />
                       <span className="docs-search-result__body">
                         <span className="docs-search-result__title">
                           {resultDepth > 0 && (

@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [2.3.0] - 2026-07-22
+
+### Icons
+
+- Added the `page` icon.
+
+### Package
+
+- Updated CDN examples to reference `@natura11y/icons@2.3.0`.
+
+---
+
 ## [2.2.1] - 2026-07-10
 
 ### Package

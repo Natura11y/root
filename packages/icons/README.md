@@ -31,7 +31,7 @@ Use icons with Natura11y's icon classes:
 ## CDN
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@natura11y/icons@2.2.1/dist/natura11y-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@natura11y/icons@2.3.0/dist/natura11y-icons.min.css">
 ```
 
 ---
