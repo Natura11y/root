@@ -68,11 +68,12 @@ In this file:
     // Search Result Depth Modifiers
 
     .docs-search-result.docs-search-result--depth-1 {
-        padding-inline-start: calc(var(--spacer-2) * 2);
+        padding-inline-start: calc(0.75em * 2);
     }
 
     .docs-search-result.docs-search-result--depth-2 {
-        padding-inline-start: calc(var(--spacer-2) * 3);
+        padding-inline-start: calc(1em * 3);
+        background-color: red;
     }
 
     .docs-search-result[class*='docs-search-result--depth-']:not(.docs-search-result--depth-0) > .icon:first-child {
