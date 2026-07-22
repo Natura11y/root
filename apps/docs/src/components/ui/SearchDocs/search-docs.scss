@@ -130,7 +130,7 @@ In this file:
             border-bottom: var(--border-width) var(--border-style) var(--border-color);
         }
 
-        .icon{
+        a > .icon{
             opacity: 0.5;
         }
     }

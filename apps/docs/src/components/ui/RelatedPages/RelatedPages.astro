@@ -23,7 +23,7 @@ const visiblePages = pages.filter((page) => page.data.draft !== true);
       <div class="related-pages-grid">
         {visiblePages.map((page) => (
           <a
-            class="related-pages-card backdrop border-radius-2"
+            class="related-pages-card backdrop theme-dark border-radius-2"
             href={`/docs/${page.data.slug}/`}
           >
             {page.data.bannerImage && (
