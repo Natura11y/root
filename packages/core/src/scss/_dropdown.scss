@@ -112,6 +112,17 @@ In this file:
         justify-content: center;
     }
 
+    .dropdown-link-split > .text::before {
+        position: absolute;
+        content: "";
+
+        inset: 0;
+
+        z-index: 1;
+
+        pointer-events: auto;
+    }
+
     [data-toggle="dropdown"]:not([data-indicator])[aria-expanded="true"]::after {
         transform: rotate(180deg);
     }

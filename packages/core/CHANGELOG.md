@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [Unreleased]
+
+### Bug Fixes
+
+#### Dropdown
+- Allow standalone vanilla link-split dropdowns to initialize desktop hover behavior without requiring a mega menu or main menu in the DOM.
+- Restore the split link's hit area across the full `.dropdown-link-split` wrapper while preserving the dropdown button as a separate focusable control.
+
+---
+
 ## [5.2.3] — 2026-07-15
 
 ### Accessibility

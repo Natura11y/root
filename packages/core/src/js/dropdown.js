@@ -185,7 +185,7 @@ export default class Dropdown {
         return;
       }
 
-      if (dropdownButton.getAttribute('data-hover') === 'true' && dropdownButton._hasHoverListeners && event.detail > 0) return;
+      if (dropdownButton._hasHoverListeners && event.detail > 0) return;
 
       const isShown = dropdownMenu.classList.contains('shown');
 
@@ -215,7 +215,7 @@ export default class Dropdown {
         let openedByKeyboardOrClick = false;
 
         dropdownButton._clickFlagHandler = (e) => {
-          if (dropdownButton.getAttribute('data-hover') === 'true' && e.detail > 0) return;
+          if (dropdownButton._hasHoverListeners && e.detail > 0) return;
           openedByKeyboardOrClick = true;
         };
         dropdownButton.addEventListener('click', dropdownButton._clickFlagHandler);
@@ -310,6 +310,9 @@ export default class Dropdown {
       const hoverDropdownAtBreakpoint = document.querySelector('[data-toggle="dropdown"][data-hover="true"]') &&
         getCurrentBreakpoint().isDesktop;
 
+      const linkSplitAtBreakpoint = document.querySelector('.dropdown-link-split [data-toggle="dropdown"]') &&
+        getCurrentBreakpoint().isDesktop;
+
       // Check if any mega menu is at its required breakpoint
       const megaMenuAtBreakpoint = Array.from(document.querySelectorAll('[class*="mega-menu--"]')).some(menu =>
         this.#isAtBreakpoint(menu)
@@ -320,7 +323,7 @@ export default class Dropdown {
       const mainMenuBpClass = mainMenuEl && [...mainMenuEl.classList].find(cls => cls.startsWith('main-menu--'));
       const mainMenuAtBreakpoint = mainMenuBpClass ? this.#isBreakpointAtLeast(mainMenuBpClass.split('--').pop()) : false;
 
-      const shouldEnableHover = hoverDropdownAtBreakpoint || megaMenuAtBreakpoint || mainMenuAtBreakpoint;
+      const shouldEnableHover = hoverDropdownAtBreakpoint || linkSplitAtBreakpoint || megaMenuAtBreakpoint || mainMenuAtBreakpoint;
 
       if (
         window.matchMedia &&
