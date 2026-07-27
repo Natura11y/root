@@ -409,7 +409,6 @@ const SearchDocsIsland = ({ appId, apiKey, indexName }: SearchDocsIslandProps) =
 
               {!hasQuery && favoriteResults.length === 0 && recentResults.length === 0 && (
                 <p className="margin-y-3 text-align-center">
-                  No recent searches
                 </p>
               )}
 
