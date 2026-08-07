@@ -151,6 +151,30 @@ npm run sync:figma-tokens
 npm run sync:figma-components
 ```
 
+### Long-term DTCG token interchange evaluation
+
+This is deferred research, not a current implementation priority. The existing
+Core Sass/CSS, Storybook, and Figma workflows should remain in place.
+
+- [ ] Test a read-only Design Tokens Community Group (DTCG) export of the
+      canonical hi-fi Figma variables.
+- [ ] Compare that export with Core Sass/CSS to determine whether DTCG provides
+      a useful interchange format for detecting token drift.
+- [ ] Keep Core Sass authoritative. If adopted, DTCG should be a generated
+      transport artifact rather than a competing source of truth.
+- [ ] Verify that Natura11y-specific relationships and exceptions survive the
+      translation, including aliases, modes, `currentColor`, `color-mix()`,
+      relative units, and intentional Figma-versus-browser differences.
+- [ ] Preserve Storybook as the rendered component documentation, behavior,
+      accessibility-testing, and code-example surface. DTCG should address only
+      token interchange and parity automation.
+- [ ] Evaluate Figma Console MCP or another synchronization mechanism only if
+      repeated Core-to-Figma token maintenance demonstrates enough benefit to
+      justify the additional tooling.
+
+The first experiment must be read-only: export, compare, and report. It must not
+modify Core or write changes back to Figma without review and approval.
+
 ### Suggested first Natura11y implementation slice
 
 - [ ] Audit the canonical Natura11y color variables against `_color.scss`.
