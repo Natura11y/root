@@ -102,7 +102,7 @@ jobs:
         shell: bash
         run: |
           remote="${CLOUDWAYS_USER}@${CLOUDWAYS_HOST}"
-          staging_path=".deploy-staging/${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          staging_path="tmp/.deploy-staging/${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           ssh_command=(ssh -i "${HOME}/.ssh/natura11y-cloudways" -o BatchMode=yes -o StrictHostKeyChecking=yes)
 
           "${ssh_command[@]}" "${remote}" "mkdir -p '${staging_path}'"
@@ -115,8 +115,8 @@ jobs:
         shell: bash
         run: |
           remote="${CLOUDWAYS_USER}@${CLOUDWAYS_HOST}"
-          staging_path=".deploy-staging/${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
-          backup_path=".deploy-backups/public_html-$(date -u +%Y%m%dT%H%M%SZ)-${{ steps.release.outputs.sha }}"
+          staging_path="tmp/.deploy-staging/${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          backup_path="private_html/.deploy-backups/public_html-$(date -u +%Y%m%dT%H%M%SZ)-${{ steps.release.outputs.sha }}"
           ssh_command=(ssh -i "${HOME}/.ssh/natura11y-cloudways" -o BatchMode=yes -o StrictHostKeyChecking=yes)
 
           "${ssh_command[@]}" "${remote}" bash -s -- "${staging_path}" "${CLOUDWAYS_PATH}" "${backup_path}" <<'REMOTE'
@@ -135,12 +135,14 @@ jobs:
             fi
           done
 
-          mv "${target_path}" "${backup_path}"
+          rsync --archive --delete "${target_path}/" "${backup_path}/"
 
-          if ! mv "${staging_path}" "${target_path}"; then
-            mv "${backup_path}" "${target_path}"
+          if ! rsync --archive --delete "${staging_path}/" "${target_path}/"; then
+            rsync --archive --delete "${backup_path}/" "${target_path}/"
             exit 1
           fi
+
+          rm -rf "${staging_path}"
           REMOTE
 
           echo "Cloudways rollback backup: ${backup_path}" >> "${GITHUB_STEP_SUMMARY}"
