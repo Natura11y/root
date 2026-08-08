@@ -39,6 +39,10 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
+      if (context.parameters.fullPage) {
+        return <Story />;
+      }
+
       const themeName = context.globals.natura11yTheme as keyof typeof themeClassNames;
       const themeClassName = themeClassNames[themeName] ?? themeClassNames.canvas;
 
