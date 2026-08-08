@@ -23,9 +23,10 @@ No red stations.
 - **Suggested timing:** this sprint / before more AI-generated component work
 
 ### 3. Close the Figma naming and Web-syntax gaps
-- **Status:** In progress. The Radio and Tab variant axes, Textarea resize layers, and Nested Nav label layers are now semantically named. All 34 broad variable scopes were corrected and the verified Button font-family syntax was added. Classification of the remaining missing Web syntax is still open.
-- **Station:** 4, Shared language · **Evidence:** [verified] 46/139 variables lack Web syntax and the radio component exposes `Property 1` instead of `State`.
+- **Status:** Completed 2026-08-08. The Radio and Tab variant axes, Textarea resize layers, and Nested Nav label layers are semantically named. All 34 broad variable scopes were corrected. The verified Button font-family syntax and all five Core border-radius mappings are present. Every intentional no-syntax variable is now classified in its Figma description.
+- **Station:** 4, Shared language · **Baseline evidence:** [verified at inspection] 46/139 variables lacked Web syntax and the radio component exposed `Property 1` instead of `State`.
 - **First move:** Label each missing entry as web-facing, derived, or Figma-only; add exact `var(--…)` syntax only to web-facing variables and rename the radio property. · **Done when:** every web-facing variable has exact Web syntax and intentional exceptions are documented. · **Effort:** S
+- **Completion evidence:** [verified] 99/139 variables now expose exact Core-backed Web syntax. The remaining 40 are intentionally unmapped and explicitly described as 24 Figma-only variables plus 16 derived helpers; zero entries remain unresolved. All 71 alias references resolve, and no variable uses `ALL_SCOPES`. See [the complete classification report](../reports/2026-08-08-figma-web-syntax-classification.md).
 - **Suggested timing:** before the next Hi-fi library publish
 
 ### 4. Publish the current component-library improvements

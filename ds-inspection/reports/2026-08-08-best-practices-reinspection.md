@@ -40,6 +40,7 @@ _Inspected: 2026-08-08 · Technician: Codex (GPT-5) · Comparison baseline: `202
 - Renamed eight Textarea master groups from `Group 1` to `Resize Grip` and their 24 decorative vectors to `Grip Line 1–3`.
 - Renamed six Nested Nav master text layers from `Text` to `Label`.
 - Replaced `ALL_SCOPES` on 34 variables with intentional role scopes and added verified Web syntax for `Button/button-font-family`.
+- Completed the Web-syntax classification: added the five exact Core border-radius mappings and described all 40 intentional Figma-only or derived exceptions directly in the variables.
 - Added Accessibility/RTL cross-links to four behavior-heavy component pages and corrected the RTL guide prose.
 
 ## Score decision
@@ -49,6 +50,5 @@ The score remains **9/10** rather than moving to 10. The audited design and docu
 ## Follow-up
 
 - Implement and close issues [#2](https://github.com/Natura11y/root/issues/2) and [#3](https://github.com/Natura11y/root/issues/3).
-- Finish the Station 4 classification of Figma variables without Web syntax; do not invent code mappings for Figma-only variables.
+- Keep the completed Station 4 classification contract intact: exact Core mappings get Web syntax; Figma-only and derived helpers stay explicitly described rather than receiving invented code mappings.
 - Publish the reviewed Hi-fi library changes when normal Figma publishing access is available.
-

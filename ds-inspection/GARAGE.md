@@ -9,6 +9,7 @@ _Checked in: 2026-08-08 · Re-confirm at next inspection_
 
 ## Service log
 - 2026-08-08: Closed the first Accessibility work-order item holistically. Updated Secondary Confirm/Warn and the borderline Light Confirm token in Core and the Hi-fi Figma library, preserved semantic aliases and Web syntax, and added a five-theme contrast regression check to Core's prebuild.
+- 2026-08-08: Closed the Figma Web-syntax classification gap. The Hi-fi library now has 99 exact Core-backed mappings plus 40 explicitly described exceptions (24 Figma-only, 16 derived), with zero unresolved variables and no invented CSS tokens.
 - 2026-08-08: Ran a balanced Station 1 benchmark against established systems. Recorded both candidate gaps and Natura11y advantages, classified catalog differences by demonstrated consumer need, and opened GitHub issue #1 for a first-class Button loading state across Core, React, Docs, Storybook, and Figma.
 - 2026-08-08: Reinspected Station 2 across the full Hi-fi file, representative Core/React code, and all docs metadata. Kept Best Practices green at 9/10; completed Figma naming and variable-scope cleanup, strengthened RTL/accessibility cross-links, and opened issues #2 and #3 for lifecycle-safe events and direction-aware horizontal behavior.
 
