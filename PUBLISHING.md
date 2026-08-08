@@ -104,7 +104,8 @@ npm publish --workspace @natura11y/react --tag beta --access public
 7. Tag the monorepo with package-specific tags for packages being published.
 8. Publish changed packages to npm.
 9. Create or update GitHub releases when useful for public release notes.
-10. Deploy docs or Storybook if those outputs changed.
+10. Run `npm run verify:docs-release` before every documentation deployment so source references, built HTML, package versions, and live CDN assets agree.
+11. Deploy docs or Storybook if those outputs changed.
 
 Use package-specific tags in the monorepo so independent package versions stay clear:
 
@@ -216,6 +217,16 @@ The docs and Storybook apps are deployed as static application outputs, not npm 
 - Docs public host: `gonatura11y.com`
 - Storybook source: `apps/storybook`
 - Storybook build output: `storybook-static`
+
+### Documentation CDN release gate
+
+Run this after the referenced packages are published and before uploading `apps/docs/dist`:
+
+```sh
+npm run verify:docs-release
+```
+
+The command fails when documentation source or production HTML references an unversioned package, the retired unscoped `natura11y` package, or a `@natura11y/*` version that differs from the corresponding workspace package. It also verifies that the configured Core CSS, Core JavaScript, and Icons stylesheet URLs are available from jsDelivr.
 
 Use GitHub Actions for repeatable deployments once the repository is public.
 
