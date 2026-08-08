@@ -215,6 +215,7 @@ The docs and Storybook apps are deployed as static application outputs, not npm 
 - Docs source: `apps/docs`
 - Docs build output: `apps/docs/dist`
 - Docs public host: `gonatura11y.com`
+- Docs deployment workflow: `.github/workflows/deploy-docs.yml`
 - Storybook source: `apps/storybook`
 - Storybook build output: `storybook-static`
 
@@ -228,7 +229,26 @@ npm run verify:docs-release
 
 The command fails when documentation source or production HTML references an unversioned package, the retired unscoped `natura11y` package, or a `@natura11y/*` version that differs from the corresponding workspace package. It also verifies that the configured Core CSS, Core JavaScript, and Icons stylesheet URLs are available from jsDelivr.
 
-Use GitHub Actions for repeatable deployments once the repository is public.
+After the gate passes, deploy the verified release through GitHub Actions:
+
+```sh
+gh workflow run deploy-docs.yml --ref main -f release_ref=main
+```
+
+The workflow uploads to a unique staging directory, preserves the `/v1` through `/v4` archives and `/.well-known`, moves the current production tree into `.deploy-backups`, promotes staging, and verifies the live release manifest and pinned CDN versions.
+
+The workflow requires these repository variables:
+
+- `CLOUDWAYS_HOST`
+- `CLOUDWAYS_USER`
+- `CLOUDWAYS_PATH`
+
+It also requires these encrypted repository secrets:
+
+- `CLOUDWAYS_SSH_PRIVATE_KEY`
+- `CLOUDWAYS_KNOWN_HOSTS`
+
+Use a dedicated key registered only with the Natura11y Cloudways application. Do not commit credentials, use another application's deployment identity, or make FileZilla the routine release path.
 
 ## First Public Launch Checklist
 
