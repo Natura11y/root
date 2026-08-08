@@ -7,14 +7,15 @@ _Vehicle profile: `ds-inspection/GARAGE.md` (checked in 2026-08-08)_
 
 Natura11y is already a real, broad, well-crafted design system: its strongest evidence is the semantic component code, unusually thorough documentation, current packages, and a substantial Figma library with machine-readable variables and component contracts. The main weakness is not another missing token format or package; it is the lack of automated proof that the three surfaces continue to behave and agree. The first practical initiative is to correct the Secondary status-color contrast problem, then activate the Storybook/Vitest/Playwright/a11y tooling that is already installed so regressions fail before release.
 
-**Overall: 65/100** — a conversation starter, not a grade. Fix the reds, schedule the yellows, re-run on a cadence.
+**Overall: 67/100** — a conversation starter, not a grade. Fix the reds, schedule the yellows, re-run on a cadence.
 
 ## Post-inspection remediation
 
 - **2026-08-08:** Work-order item 1 was completed across Core and the Hi-fi Figma source library. Secondary Confirm now resolves to `#005E68` (5.03:1), Secondary Warn to `#A21F20` (5.11:1), and Light Confirm to `#007C35` (4.60:1). A dependency-free 20-pair theme contrast matrix now runs before every Core build.
 - **2026-08-08:** A balanced Station 1 follow-up compared Natura11y with established systems in both directions. It prioritized [Button loading as GitHub issue #1](https://github.com/Natura11y/root/issues/1), classified the remaining catalog differences without treating them as automatic defects, and recorded Natura11y advantages that future work should protect. See `reports/2026-08-08-coverage-benchmark.md`.
 - **2026-08-08:** A fresh Station 2 reinspection kept Best Practices green at 9/10. It completed the remaining Figma naming and variable-scope cleanup, strengthened RTL/accessibility documentation cross-links, and opened [issue #2](https://github.com/Natura11y/root/issues/2) and [issue #3](https://github.com/Natura11y/root/issues/3) for the two behavioral engineering gaps. See `reports/2026-08-08-best-practices-reinspection.md`.
-- The 65/100 score remains the original inspection snapshot. Station scores should change only through the next evidence-based inspection pass.
+- **2026-08-08:** A Station 3 reinspection moved Accessibility from 6/10 to 8/10. It verified the corrected 20-pair contrast matrix, repaired Lightbox and Form Entry accessibility drift across Core/React/docs, ran browser-level checks, and opened [issue #4](https://github.com/Natura11y/root/issues/4) for repeatable behavioral and manual accessibility proof. See `reports/2026-08-08-accessibility-reinspection.md`.
+- The active inspection sheet incorporates completed evidence-based station reinspections; it is not a release version number.
 
 ## Inspection sheet
 
@@ -22,7 +23,7 @@ Natura11y is already a real, broad, well-crafted design system: its strongest ev
 |---:|:--------------------------------|:-------------|:-----:|-----------:|
 |  1 | Coverage & gaps                 | Complete     |  🟢   |       8/10 |
 |  2 | Best practices                  | Sound        |  🟢   |       9/10 |
-|  3 | Accessibility                   | Sound        |  🟡   |       6/10 |
+|  3 | Accessibility                   | Sound        |  🟢   |       8/10 |
 |  4 | Shared language                 | Sound        |  🟡   |       7/10 |
 |  5 | Testing & validation            | Sound        |  🟡   |       4/10 |
 |  6 | Orchestration                   | Synchronized |  🟡   |       7/10 |
@@ -30,9 +31,9 @@ Natura11y is already a real, broad, well-crafted design system: its strongest ev
 |  8 | Feedback & adoption             | Extensible   |  🟡   |       5/10 |
 |  9 | Machine-readable docs & context | AI-Ready     |  🟡   |       7/10 |
 | 10 | Agent access                    | AI-Ready     |  🟡   |       6/10 |
-|    | **Overall**                     |              |       | **65/100** |
+|    | **Overall**                     |              |       | **67/100** |
 
-**Lights:** 🟢 2 green · 🟡 8 yellow · 🔴 0 red · 0 not inspected
+**Lights:** 🟢 3 green · 🟡 7 yellow · 🔴 0 red · 0 not inspected
 
 **Key:** 🔴 Red (0–3) — broken or missing; the light is ON · 🟡 Yellow (4–7) — drift or gaps; schedule a fix · 🟢 Green (8–10) — healthy, no action needed · **N/I** — not inspected (no evidence access; never guessed)
 
@@ -71,18 +72,18 @@ Natura11y is already a real, broad, well-crafted design system: its strongest ev
 - Deviations noted: some absolute positioning is appropriate for focus outlines, decorative resizer marks, and control indicators; it was not counted as a fault automatically.
 - First move: clean the small Figma naming residue and classify the remaining unbound values as intentional or token candidates.
 
-### Station 3 — Accessibility: YELLOW (6/10)
-- Sampled: React/Core Accordion, Tabs, Modal, Main Menu, Form Entry, Alert, focus utilities, reduced-motion styles, five theme token groups, component/docs accessibility guidance.
-- Evidence level: code live · docs live · token ratios computed from authoritative Core Sass · test wiring live.
+### Station 3 — Accessibility: GREEN (8/10)
+- Sampled: React/Core Accordion, Tabs, Modal, Main Menu, Flyout, Lightbox, Form Entry, Alert, Track, focus utilities, reduced-motion styles, all five theme groups, component/docs accessibility guidance, and nine representative Hi-fi Figma pages.
+- Evidence level: design live · code live · docs live · token ratios computed from authoritative Core Sass · built Storybook browser verification live.
 - Findings:
   - [verified] Interactive samples implement strong fundamentals: native controls; synchronized ARIA state; inert hidden panels; arrow-key navigation; focus traps; Escape behavior; initial/return focus; live regions; visible focus; reduced-motion handling; and 40px-or-larger button targets.
-  - [verified] Body text and link pairs pass in all five inspected themes. Primary, Dark, Light, and Canvas confirm/warn pairs are generally sound, except Light Confirm is 4.48:1—just below 4.5:1 when used for small text.
-  - [verified] Secondary Confirm is 1.07:1 and Secondary Warn is 1.28:1 against the Secondary background. Those fail both 4.5:1 text contrast and 3:1 non-text contrast when the status colors are used as alert text, icons, borders, or inverse fills.
-  - [verified] The Storybook a11y addon is installed and configured with `test: 'todo'`, but the GitHub workflow builds Storybook without running accessibility assertions. No keyboard behavior tests or screen-reader test plan were found.
-  - [verified] Accessibility is documented both globally and per component, and sampled Figma descriptions encode semantic elements, ARIA relationships, focus requirements, and color-independent meaning.
+  - [verified] All 20 text, link, confirm, and warn theme pairs now pass the 4.5:1 contrast matrix, which runs before every Core build.
+  - [verified] Sampled Figma descriptions encode semantic elements, accessible names, ARIA relationships, focus requirements, keyboard behavior, validation associations, and color-independent meaning.
+  - [verified] This pass corrected Lightbox dialog/focus/control-name/image-alt drift across Core and React, and added programmatic invalid state to React Form Entry. Browser verification confirmed the repaired contracts.
+  - [verified] The Storybook a11y addon remains configured with `test: 'todo'`, the GitHub workflow does not run accessibility assertions, and no committed behavioral accessibility tests or manual assistive-technology matrix were found. This is tracked in [issue #4](https://github.com/Natura11y/root/issues/4).
 - Not inspected: manual VoiceOver/NVDA behavior, forced-colors/high-contrast mode, zoom/reflow at 200–400%, touch-device testing, or a legal/accessibility audit history.
 - Deviations noted: a design-system component is a strong foundation, not a guarantee that every downstream composition is accessible.
-- First move: retune Secondary Confirm/Warn, then lock every theme/status pair with a lightweight contrast matrix check.
+- First move: implement the bounded automated and manual proof plan in issue #4 when Station 5 testing work is prioritized.
 
 ### Station 4 — Shared language: YELLOW (7/10)
 - Swept: all React `*Props` interfaces/type literals, all Core Sass custom-property declarations, all 139 local Figma variables, and five cross-asset component traces (Button, Accordion, Alert, Form, Main Menu).

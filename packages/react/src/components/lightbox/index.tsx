@@ -1,13 +1,10 @@
-import { useContext } from 'react';
 import classNames from 'classnames';
-import { LightboxContext } from '../../context/LightboxContext';
+import { useLightbox } from '../../context/LightboxContext';
+import { useFocusTrap } from '../../hooks/useFocusTrap';
 import ButtonIconOnly from '../button/ButtonIconOnly';
 import ImageWithLoading from './ImageWithLoading';
 
 const Lightbox = () => {
-  const ctx = useContext(LightboxContext);
-  if (!ctx) return null;
-
   const {
     mediaArray,
     lightboxData,
@@ -18,20 +15,25 @@ const Lightbox = () => {
     lbPrevious,
     lbNext,
     lbClose,
-  } = ctx;
+  } = useLightbox();
 
-  const { isOpen, lbType, lbSrc, lbCaption } = lightboxData;
+  const { isOpen, lbType, lbSrc, lbCaption, lbAlt } = lightboxData;
+
+  useFocusTrap(lbContainer, {
+    enabled: isOpen,
+    onEscape: handleLightboxClose,
+  });
 
   const mediaTypes: Record<string, (src: string) => React.ReactNode> = {
     video: src => (
-      <video controls key={src}>
+      <video controls aria-label={lbCaption || 'Video'} key={src}>
         <source src={src} type='video/mp4' />
       </video>
     ),
     youtube: src => (
       <iframe
         key={src}
-        title='YouTube Video'
+        title={lbCaption || 'YouTube video'}
         src={`https://www.youtube.com/embed/${src}`}
         allow='autoplay; fullscreen;'
         allowFullScreen
@@ -40,13 +42,13 @@ const Lightbox = () => {
     vimeo: src => (
       <iframe
         key={src}
-        title='Vimeo Video'
+        title={lbCaption || 'Vimeo video'}
         src={`https://player.vimeo.com/video/${src}`}
         allow='autoplay; fullscreen;'
         allowFullScreen
       />
     ),
-    default: src => <ImageWithLoading src={src} alt='Lightbox content' key={src} />,
+    default: src => <ImageWithLoading src={src} alt={lbAlt} key={src} />,
   };
 
   const renderContent = () => (mediaTypes[lbType as keyof typeof mediaTypes] ?? mediaTypes.default)!(lbSrc);
@@ -56,6 +58,9 @@ const Lightbox = () => {
       className={classNames('lightbox', { 'shown': isOpen })}
       ref={lbContainer}
       aria-hidden={!isOpen}
+      aria-label='Media viewer'
+      aria-modal='true'
+      role='dialog'
       tabIndex={isOpen ? 0 : -1}
       onClick={handleCloseOutside}
     >
@@ -73,12 +78,14 @@ const Lightbox = () => {
               ref={lbPrevious}
               buttonType='button'
               iconHandle='arrow-left'
+              ariaLabel='Previous item'
               onClick={() => handleNextPrevious(-1)}
             />
             <ButtonIconOnly
               ref={lbNext}
               buttonType='button'
               iconHandle='arrow-right'
+              ariaLabel='Next item'
               onClick={() => handleNextPrevious(1)}
             />
           </>
@@ -87,6 +94,7 @@ const Lightbox = () => {
           ref={lbClose}
           buttonType='button'
           iconHandle='close'
+          ariaLabel='Close media viewer'
           onClick={handleLightboxClose}
         />
       </div>
