@@ -53,7 +53,7 @@ export default class Lightbox {
     </div>
   `;
 
-  #lightboxElementHTML = `<img src="https://source.unsplash.com/1600x900"/>`;
+  #lightboxElementHTML = `<img src="https://source.unsplash.com/1600x900" alt=""/>`;
 
   #lightboxes = [];
 
@@ -210,7 +210,7 @@ export default class Lightbox {
     lightboxElement.innerHTML = '';
 
     // Extract lightbox object data into variables
-    const { lbType, lbSrc, lbCaption } = this.#lightboxes[index];
+    const { lbType, lbSrc, lbCaption, lbAlt } = this.#lightboxes[index];
 
     // Update caption display based on attribute presence
     const shouldDisplayCaption = lbCaption !== null;
@@ -218,7 +218,7 @@ export default class Lightbox {
 
     switch (lbType) {
       case 'image':
-        this.#updateLightboxImage(lightboxElement, lbSrc);
+        this.#updateLightboxImage(lightboxElement, lbSrc, lbAlt);
         break;
 
       case 'video':
@@ -248,7 +248,7 @@ export default class Lightbox {
     focusTrap(this.lightbox);
   }
 
-  #updateLightboxImage = (lightboxElement, lbSrc) => {
+  #updateLightboxImage = (lightboxElement, lbSrc, lbAlt = '') => {
     if (lightboxElement.hasAttribute('style')) {
       lightboxElement.removeAttribute('style');
     }
@@ -261,6 +261,7 @@ export default class Lightbox {
     const lightboxElementTarget = lightboxElement.querySelector('img');
 
     lightboxElementTarget.src = lbSrc;
+    lightboxElementTarget.alt = lbAlt;
 
     this.#handleMediaLoading(lightboxElementTarget, loader);
 
@@ -354,6 +355,9 @@ export default class Lightbox {
   #createLightbox = () => {
     const lightbox = document.createElement('div');
     lightbox.classList.add('lightbox');
+    lightbox.setAttribute('role', 'dialog');
+    lightbox.setAttribute('aria-modal', 'true');
+    lightbox.setAttribute('aria-label', 'Media viewer');
     lightbox.innerHTML = this.#lightboxHTML;
 
     document.body.appendChild(lightbox);

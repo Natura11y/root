@@ -13,6 +13,7 @@ const LightboxExample = () => {
     lbType: 'image',
     lbSrc: 'https://placehold.co/1500x750',
     lbCaption: 'Caption for example 1',
+    lbAlt: 'Placeholder landscape for example 1',
   };
 
   const imageMedia2 = {
@@ -20,6 +21,7 @@ const LightboxExample = () => {
     lbType: 'image',
     lbSrc: 'https://placehold.co/1500x750',
     lbCaption: 'Caption for example 2',
+    lbAlt: 'Placeholder landscape for example 2',
   };
 
   const youtubeMedia = {

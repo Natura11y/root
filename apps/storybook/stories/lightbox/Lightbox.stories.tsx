@@ -29,6 +29,7 @@ const thumbnailItems: LightboxStoryItem[] = [
     lbType: 'image',
     lbSrc: storyMedia.landscapeImage,
     lbCaption: 'Mountain landscape',
+    lbAlt: 'Mountain landscape',
     thumbnailSrc: storyMedia.landscapeImage,
     thumbnailAlt: 'Mountain landscape',
   },
@@ -36,6 +37,7 @@ const thumbnailItems: LightboxStoryItem[] = [
     lbType: 'video',
     lbSrc: storyMedia.videoOne,
     lbCaption: 'Video one',
+    lbAlt: 'Video one thumbnail',
     thumbnailSrc: storyMedia.videoOneThumbnail,
     thumbnailAlt: 'Video one thumbnail',
   },
@@ -47,6 +49,7 @@ const galleryItems: LightboxStoryItem[] = [
     lbType: 'image',
     lbSrc: 'story-assets/backdrop/backdrop-example-01.jpg',
     lbCaption: 'Forest path',
+    lbAlt: 'Forest path',
     thumbnailSrc: 'story-assets/backdrop/backdrop-example-01.jpg',
     thumbnailAlt: 'Forest path',
   },
@@ -54,6 +57,7 @@ const galleryItems: LightboxStoryItem[] = [
     lbType: 'video',
     lbSrc: storyMedia.videoTwo,
     lbCaption: 'Video two',
+    lbAlt: 'Video two thumbnail',
     thumbnailSrc: storyMedia.videoTwoThumbnail,
     thumbnailAlt: 'Video two thumbnail',
   },
@@ -97,8 +101,8 @@ const ReactLightboxGrid = ({
   useEffect(() => {
     if (hasRegisteredMedia.current) return;
 
-    items.forEach(({ lbType, lbSrc, lbCaption }) => {
-      lightbox.addToMediaArray({ lbType, lbSrc, lbCaption });
+    items.forEach(({ lbType, lbSrc, lbCaption, lbAlt }) => {
+      lightbox.addToMediaArray({ lbType, lbSrc, lbCaption, lbAlt });
     });
 
     hasRegisteredMedia.current = true;
@@ -112,6 +116,7 @@ const ReactLightboxGrid = ({
           lbType={item.lbType}
           lbSrc={item.lbSrc}
           lbCaption={item.lbCaption}
+          lbAlt={item.lbAlt}
           lbIndex={index}
           utilities='lightbox-thumbnail'
         >

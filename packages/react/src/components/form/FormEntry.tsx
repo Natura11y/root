@@ -100,6 +100,10 @@ const FormEntry = ({
     helpText ? helpId : null,
     showError ? feedbackId : null,
   ].filter(Boolean).join(' ') || undefined;
+  const fieldAccessibilityProps = {
+    'aria-describedby': describedBy,
+    'aria-invalid': showError || undefined,
+  };
 
   const isGroup = entryType === 'groupRadio' || entryType === 'groupCheck';
   const isOption = entryType === 'singleCheck' || entryType === 'singleCheckSwitch';
@@ -160,7 +164,7 @@ const FormEntry = ({
               type={entryType}
               name={entryName ?? resolvedId}
               id={resolvedId}
-              aria-describedby={describedBy}
+              {...fieldAccessibilityProps}
               placeholder={placeholder ?? undefined}
               onChange={handleChange}
               onFocus={handleFocus}
@@ -180,7 +184,7 @@ const FormEntry = ({
             rows={rows}
             name={entryName ?? resolvedId}
             id={resolvedId}
-            aria-describedby={describedBy}
+            {...fieldAccessibilityProps}
             placeholder={placeholder ?? undefined}
             onChange={handleChange}
             onFocus={handleFocus}
@@ -195,7 +199,7 @@ const FormEntry = ({
           <select
             id={resolvedId}
             name={entryName ?? resolvedId}
-            aria-describedby={describedBy}
+            {...fieldAccessibilityProps}
             onFocus={handleFocus}
             onBlur={handleBlur}
             onChange={handleChange}
@@ -220,6 +224,7 @@ const FormEntry = ({
                     type='radio'
                     name={entryName ?? resolvedId}
                     id={optionId(option.value, index)}
+                    {...fieldAccessibilityProps}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
                     value={option.value}
@@ -244,6 +249,7 @@ const FormEntry = ({
                     type='checkbox'
                     name={entryName ?? resolvedId}
                     id={optionId(option.value, index)}
+                    {...fieldAccessibilityProps}
                     value={option.value}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
@@ -265,6 +271,8 @@ const FormEntry = ({
                 type='checkbox'
                 name={entryName ?? resolvedId}
                 id={resolvedId}
+                {...fieldAccessibilityProps}
+                required={required}
                 value='true'
                 checked={isOptionChecked}
                 onFocus={handleFocus}
@@ -284,6 +292,8 @@ const FormEntry = ({
                 type='checkbox'
                 name={entryName ?? resolvedId}
                 id={resolvedId}
+                {...fieldAccessibilityProps}
+                required={required}
                 value='true'
                 checked={isOptionChecked}
                 onFocus={handleFocus}
@@ -307,7 +317,9 @@ const FormEntry = ({
               type='file'
               name={entryName ?? resolvedId}
               id={resolvedId}
+              {...fieldAccessibilityProps}
               accept={fileAccept}
+              required={required}
               onChange={handleChange}
             />
             <span className='button button--outline file-upload__button'>

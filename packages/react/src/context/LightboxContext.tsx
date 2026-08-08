@@ -7,6 +7,7 @@ export interface MediaItem {
   lbType: string;
   lbSrc: string;
   lbCaption: string;
+  lbAlt?: string;
   utilities?: string;
 }
 
@@ -15,6 +16,7 @@ export interface LightboxData {
   lbType: string;
   lbSrc: string;
   lbCaption: string;
+  lbAlt: string;
   currentLB: number;
 }
 
@@ -22,7 +24,7 @@ export interface LightboxContextValue {
   mediaArray: MediaItem[];
   addToMediaArray: (media: MediaItem) => void;
   lightboxData: LightboxData;
-  handleLightboxOpen: (lbType: string, lbSrc: string, lbCaption: string, currentLB?: number) => void;
+  handleLightboxOpen: (lbType: string, lbSrc: string, lbCaption: string, currentLB?: number, lbAlt?: string) => void;
   handleLightboxClose: () => void;
   handleNextPrevious: (dir: number) => void;
   handleCloseOutside: (event: React.MouseEvent) => void;
@@ -51,6 +53,7 @@ export const LightboxProvider = ({ children }: { children: ReactNode }) => {
     lbType: '',
     lbSrc: '',
     lbCaption: '',
+    lbAlt: '',
     currentLB: 0,
   });
 
@@ -73,22 +76,23 @@ export const LightboxProvider = ({ children }: { children: ReactNode }) => {
     lbSrc: string,
     lbCaption: string,
     isOpen: boolean,
-    currentLB = lightboxData.currentLB
+    currentLB = lightboxData.currentLB,
+    lbAlt = lightboxData.lbAlt
   ) => {
-    setLightboxData(prevState => ({ ...prevState, isOpen, lbType, lbSrc, lbCaption, currentLB }));
+    setLightboxData(prevState => ({ ...prevState, isOpen, lbType, lbSrc, lbCaption, lbAlt, currentLB }));
   };
 
   const updateCurrentLB = (newIndex: number) => {
     setLightboxData(prevState => ({ ...prevState, currentLB: newIndex }));
   };
 
-  const handleLightboxOpen = (lbType: string, lbSrc: string, lbCaption: string, currentLB = 0) => {
+  const handleLightboxOpen = (lbType: string, lbSrc: string, lbCaption: string, currentLB = 0, lbAlt = '') => {
     lastFocusedRef.current = document.activeElement as HTMLElement;
-    updateLightboxState(lbType, lbSrc, lbCaption, true, currentLB);
+    updateLightboxState(lbType, lbSrc, lbCaption, true, currentLB, lbAlt);
   };
 
   const handleLightboxClose = () => {
-    updateLightboxState('', '', '', false);
+    updateLightboxState('', '', '', false, lightboxData.currentLB, '');
     lastFocusedRef.current?.focus();
   };
 
@@ -109,11 +113,6 @@ export const LightboxProvider = ({ children }: { children: ReactNode }) => {
 
   const handleLightboxUpdate = useStableCallback((e: KeyboardEvent) => {
     if (!lightboxData.isOpen) return;
-
-    if (e.code === 'Escape') {
-      handleLightboxClose();
-      return;
-    }
 
     if (mediaArray.length <= 1) return;
 
@@ -153,7 +152,14 @@ export const LightboxProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const currentMedia = mediaArray[lightboxData.currentLB];
     if (currentMedia) {
-      updateLightboxState(currentMedia.lbType, currentMedia.lbSrc, currentMedia.lbCaption, true);
+      updateLightboxState(
+        currentMedia.lbType,
+        currentMedia.lbSrc,
+        currentMedia.lbCaption,
+        true,
+        lightboxData.currentLB,
+        currentMedia.lbAlt ?? ''
+      );
     }
   }, [lightboxData.currentLB]); // eslint-disable-line react-hooks/exhaustive-deps
 

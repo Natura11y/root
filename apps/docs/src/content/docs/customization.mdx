@@ -169,3 +169,43 @@ Together, these resources can establish a shared visual language while keeping d
 </TextBlock>
 
 </Section>
+
+---
+
+<Section id="document-custom-properties">
+
+<TextBlock>
+
+## Document Custom Properties
+
+The document canvas can be customized by redefining the related CSS custom properties. The reduced-motion media query automatically changes `--html-scroll-behavior` to `auto` when a visitor requests reduced motion.
+
+</TextBlock>
+
+<RelatedCustomProperties
+	figureNumber="4"
+	properties={[
+		{
+			property: 'body-min-width',
+			defaultValue: '325px',
+			purpose: 'Minimum inline size of the document body.',
+		},
+		{
+			property: 'body-max-width',
+			defaultValue: '100dvw',
+			purpose: 'Maximum inline size of the document body.',
+		},
+		{
+			property: 'body-min-height',
+			defaultValue: '100%',
+			purpose: 'Minimum block size applied to the html and body elements.',
+		},
+		{
+			property: 'html-scroll-behavior',
+			defaultValue: 'smooth',
+			purpose: 'Scrolling behavior of the document; reduced-motion preference changes it to auto.',
+		},
+	]}
+/>
+
+</Section>

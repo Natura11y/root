@@ -125,7 +125,7 @@ Natura11y ensures focus indicators are always visible and properly positioned. F
 
 <TextBlock>
 
-Beyond visual indicators, Natura11y components include proper focus management. When you close a modal or accordion, focus returns to the triggering element. Navigation components support <kbd>Arrow</kbd> key movement, and interactive elements maintain logical <kbd>Tab</kbd> order throughout.
+Beyond visual indicators, Natura11y components include proper focus management. When you close a modal, flyout, or lightbox, focus returns to the triggering element. Navigation components support <kbd>Arrow</kbd> key movement, and interactive elements maintain logical <kbd>Tab</kbd> order throughout.
 
 </TextBlock>
 
@@ -155,7 +155,7 @@ Every Natura11y component that includes animation or transitions—accordions, a
 
 Most frameworks leave you searching for accessible third-party plugins that break your design system's consistency. Natura11y includes a complete library of accessible components out of the box—from complex interactions like modals and carousels to essential form controls and navigation patterns.
 
-Every component follows WCAG guidelines and integrates seamlessly with Natura11y's theme system, giving you consistent accessibility across your entire interface.
+Components use WCAG-aligned patterns and integrate with Natura11y's theme system, giving teams a strong accessibility foundation. Final conformance still depends on the content, composition, and testing of the product that uses them.
 
 <ul class="grid gap-2 margin-y-4">
 
@@ -202,5 +202,40 @@ The [Main Menu](/docs/main-menu) collapses for mobile with `aria-expanded` and e
 </ul>
 
 </TextBlock>
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Focus indication can be customized by redefining the related CSS custom properties. Natura11y may adjust the offset for particular controls so the outline remains visible against the component boundary.
+
+</TextBlock>
+
+<RelatedCustomProperties
+  figureNumber="2"
+  properties={[
+    {
+      property: 'focus-outline-width',
+      defaultValue: 'calc(var(--border-width) * 2)',
+      purpose: 'Width of focus-visible outlines.',
+    },
+    {
+      property: 'focus-outline-style',
+      defaultValue: 'solid',
+      purpose: 'Line style used for focus-visible outlines.',
+    },
+    {
+      property: 'focus-outline-offset',
+      defaultValue: 'calc(var(--focus-outline-width) * -1)',
+      purpose: 'Default distance between a focus-visible outline and the focused element.',
+    },
+  ]}
+/>
 
 </Section>

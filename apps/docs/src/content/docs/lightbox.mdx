@@ -58,6 +58,8 @@ Use a `<button>` with the required `data-lightbox` attributes to open a lightbox
 
 Add `.lightbox-thumbnail` when the button contains an image or video thumbnail. Figure 1 shows an image lightbox and a video lightbox.
 
+For image lightboxes, Natura11y reuses the thumbnail image's `alt` text for the enlarged image. Use `data-lightbox-alt` when the enlarged image needs different alternative text; use an empty value when the enlarged image is decorative in context.
+
 </TextBlock>
 
 <FigureExample
@@ -168,5 +170,90 @@ Natura11y's JavaScript automatically collects every `[data-lightbox]` trigger on
 </TextBlock>
 
 <LightboxGallery />
+
+</Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Lightbox layout, appearance, motion, and thumbnail icons can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+  figureNumber="3"
+  properties={[
+    {
+      property: 'lightbox-padding-x',
+      defaultValue: 'var(--spacer-2)',
+      purpose: 'Inline padding inside the lightbox viewport.',
+    },
+    {
+      property: 'lightbox-padding-y',
+      defaultValue: 'var(--spacer-2)',
+      purpose: 'Block padding inside the lightbox viewport.',
+    },
+    {
+      property: 'lightbox-text-color',
+      defaultValue: 'hsl(0, 0%, 100%)',
+      purpose: 'Text and control color displayed over the lightbox overlay.',
+    },
+    {
+      property: 'lightbox-overlay-color',
+      defaultValue: 'hsl(0, 0%, 0%)',
+      purpose: 'Background color of the lightbox overlay.',
+    },
+    {
+      property: 'lightbox-overlay-opacity',
+      defaultValue: '0.8',
+      purpose: 'Opacity of the lightbox overlay and thumbnail overlays.',
+    },
+    {
+      property: 'lightbox-media-border-radius',
+      defaultValue: '0',
+      purpose: 'Border radius applied to displayed lightbox media.',
+    },
+    {
+      property: 'lightbox-media-shadow',
+      defaultValue: '0 0.125rem 1rem 0.5rem rgba(0, 0, 0, 0.25)',
+      purpose: 'Box shadow applied to displayed lightbox media.',
+    },
+    {
+      property: 'lightbox-z-index',
+      defaultValue: '10000',
+      purpose: 'Stacking level of the lightbox above page content.',
+    },
+    {
+      property: 'lightbox-caption-text-align',
+      defaultValue: 'center',
+      purpose: 'Text alignment of lightbox captions.',
+    },
+    {
+      property: 'lightbox-animation-duration',
+      defaultValue: '0.35s',
+      purpose: 'Duration of lightbox overlay and media transitions.',
+    },
+    {
+      property: 'lightbox-animation-translate-x',
+      defaultValue: '2rem',
+      purpose: 'Horizontal travel distance for gallery navigation transitions.',
+    },
+    {
+      property: 'lightbox-thumbnail-icon-image',
+      defaultValue: '"\\f160"',
+      purpose: 'Icon-font glyph displayed on image thumbnails.',
+    },
+    {
+      property: 'lightbox-thumbnail-icon-video',
+      defaultValue: '"\\f163"',
+      purpose: 'Icon-font glyph displayed on video thumbnails.',
+    },
+  ]}
+/>
 
 </Section>

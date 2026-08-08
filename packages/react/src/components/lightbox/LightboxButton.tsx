@@ -5,6 +5,7 @@ interface LightboxButtonProps {
   lbType?: string;
   lbSrc?: string;
   lbCaption?: string;
+  lbAlt?: string;
   lbIndex?: number;
   utilities?: string | null;
   children?: ReactNode;
@@ -14,6 +15,7 @@ const LightboxButton = ({
   lbType = 'image',
   lbSrc = '',
   lbCaption = 'A caption for the image',
+  lbAlt = '',
   lbIndex = 0,
   utilities = null,
   children = 'Lightbox Button',
@@ -27,7 +29,7 @@ const LightboxButton = ({
     <button
       className={utilities ?? undefined}
       data-lightbox={lbType}
-      onClick={() => handleLightboxOpen(lbType, lbSrc, lbCaption, lbIndex)}
+      onClick={() => handleLightboxOpen(lbType, lbSrc, lbCaption, lbIndex, lbAlt)}
     >
       {children}
     </button>

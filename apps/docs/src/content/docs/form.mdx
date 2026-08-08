@@ -54,6 +54,8 @@ Respects `prefers-reduced-motion` — the switch toggle transition is disabled w
 
 When the search clear button is activated, Natura11y announces "Search cleared" to screen readers via an ARIA live region — no extra markup needed.
 
+When validation fails, associate the visible feedback with its native control using `aria-describedby` and set `aria-invalid="true"` only while that control is invalid.
+
 </AccessibilitySpotlight>
 
 </Section>

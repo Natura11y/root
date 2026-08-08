@@ -112,3 +112,28 @@ Breakpoint modifiers are always added to the end of the class name, using a doub
 />
 
 </Section>
+
+---
+
+<Section id="current-breakpoint-property">
+
+<TextBlock>
+
+## Current Breakpoint Property
+
+Natura11y updates `--current-bp` as the viewport crosses its responsive breakpoints. This is a runtime status value for scripts and diagnostic tools; it should not be overridden as a theme setting.
+
+</TextBlock>
+
+<RelatedCustomProperties
+  showCode={false}
+  properties={[
+    {
+      property: 'current-bp',
+      defaultValue: "'sm'",
+      purpose: "Reports the active breakpoint key: 'sm', 'md', 'lg', 'xl', or 'xxl'.",
+    },
+  ]}
+/>
+
+</Section>

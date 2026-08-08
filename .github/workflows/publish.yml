@@ -1,0 +1,79 @@
+name: Publish npm Packages
+
+on:
+  push:
+    tags:
+      - 'core-v*'
+      - 'react-v*'
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: npm-publish-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          package-manager-cache: false
+
+      - name: Use npm CLI 12
+        run: npm install --global npm@12
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve and validate release
+        id: release
+        shell: bash
+        run: |
+          case "${GITHUB_REF_NAME}" in
+            core-v*)
+              package_name="@natura11y/core"
+              package_path="packages/core/package.json"
+              expected_version="${GITHUB_REF_NAME#core-v}"
+              build_command="npm run build:core"
+              publish_command="npm publish --workspace @natura11y/core --access public"
+              ;;
+            react-v*)
+              package_name="@natura11y/react"
+              package_path="packages/react/package.json"
+              expected_version="${GITHUB_REF_NAME#react-v}"
+              build_command="npm run typecheck:react && npm run build:react"
+              publish_command="npm publish --workspace @natura11y/react --tag beta --access public"
+              ;;
+            *)
+              echo "Unsupported release tag: ${GITHUB_REF_NAME}" >&2
+              exit 1
+              ;;
+          esac
+
+          actual_version="$(node -p "require('./${package_path}').version")"
+
+          if [[ "${actual_version}" != "${expected_version}" ]]; then
+            echo "Tag ${GITHUB_REF_NAME} does not match ${package_name} version ${actual_version}." >&2
+            exit 1
+          fi
+
+          echo "package_name=${package_name}" >> "${GITHUB_OUTPUT}"
+          echo "build_command=${build_command}" >> "${GITHUB_OUTPUT}"
+          echo "publish_command=${publish_command}" >> "${GITHUB_OUTPUT}"
+
+      - name: Build and verify package
+        run: |
+          ${{ steps.release.outputs.build_command }}
+          npm pack --dry-run --workspace "${{ steps.release.outputs.package_name }}"
+
+      - name: Publish package
+        run: ${{ steps.release.outputs.publish_command }}
