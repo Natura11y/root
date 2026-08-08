@@ -1,8 +1,4 @@
+#storybook-root:has(.full-page-preview),
 .full-page-preview {
-  display: block;
-  inline-size: 100%;
-  block-size: 100dvh;
-  min-block-size: 40rem;
-  border: 0;
-  background: white;
+  display: contents;
 }
