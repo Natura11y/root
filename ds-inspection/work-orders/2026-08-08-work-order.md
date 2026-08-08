@@ -23,6 +23,7 @@ No red stations.
 - **Suggested timing:** this sprint / before more AI-generated component work
 
 ### 3. Close the Figma naming and Web-syntax gaps
+- **Status:** In progress. The Radio and Tab variant axes, Textarea resize layers, and Nested Nav label layers are now semantically named. All 34 broad variable scopes were corrected and the verified Button font-family syntax was added. Classification of the remaining missing Web syntax is still open.
 - **Station:** 4, Shared language · **Evidence:** [verified] 46/139 variables lack Web syntax and the radio component exposes `Property 1` instead of `State`.
 - **First move:** Label each missing entry as web-facing, derived, or Figma-only; add exact `var(--…)` syntax only to web-facing variables and rename the radio property. · **Done when:** every web-facing variable has exact Web syntax and intentional exceptions are documented. · **Effort:** S
 - **Suggested timing:** before the next Hi-fi library publish
@@ -51,6 +52,16 @@ No red stations.
 - **Station:** 8, Feedback & adoption · **Evidence:** [verified] downloads and at least two current package consumers are visible, but one is behind and embedded/legacy copies cannot be classified automatically.
 - **First move:** Keep a small `CONSUMERS.md` ledger with project, integration type, package versions, active/archive status, and last verification date; optionally generate the version columns with a dependency scan. · **Done when:** the owner can name active consumers, stale versions, embedded forks, and archives in one view. · **Effort:** S
 - **Suggested timing:** this quarter
+
+### 9. Make Core initialization and teardown idempotent
+- **Station:** 2, Best practices; 5, Testing & validation · **Evidence:** [verified] delegated handlers cannot currently be unsubscribed, Table can accumulate listeners, and Track teardown cannot remove every handler it creates. Tracked in [GitHub issue #2](https://github.com/Natura11y/root/issues/2).
+- **First move:** Give event delegation a cleanup contract, store cleanup handles per component instance, and add repeated init/destroy regression tests for Table and Track. · **Done when:** repeated initialization does not duplicate behavior and destroy removes every listener/observer created by that instance. · **Effort:** M
+- **Suggested timing:** before the next Core minor release
+
+### 10. Make horizontal components direction-aware in RTL
+- **Station:** 2, Best practices; 3, Accessibility · **Evidence:** [verified] Track, Table, and Flyout still use physical horizontal scroll/offset/transform assumptions in Core and React despite the system-wide RTL contract. Tracked in [GitHub issue #3](https://github.com/Natura11y/root/issues/3).
+- **First move:** Normalize logical scroll-start measurements and inline-end motion, then exercise Track, Table, and Flyout under `dir="rtl"` in behavioral tests. · **Done when:** LTR and RTL reach the same logical state and the docs example matches verified behavior. · **Effort:** M
+- **Suggested timing:** before the next Core/React behavior release
 
 ## 🔧 Access upgrades (sharper next inspection)
 

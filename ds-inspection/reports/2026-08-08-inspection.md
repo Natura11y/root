@@ -13,6 +13,7 @@ Natura11y is already a real, broad, well-crafted design system: its strongest ev
 
 - **2026-08-08:** Work-order item 1 was completed across Core and the Hi-fi Figma source library. Secondary Confirm now resolves to `#005E68` (5.03:1), Secondary Warn to `#A21F20` (5.11:1), and Light Confirm to `#007C35` (4.60:1). A dependency-free 20-pair theme contrast matrix now runs before every Core build.
 - **2026-08-08:** A balanced Station 1 follow-up compared Natura11y with established systems in both directions. It prioritized [Button loading as GitHub issue #1](https://github.com/Natura11y/root/issues/1), classified the remaining catalog differences without treating them as automatic defects, and recorded Natura11y advantages that future work should protect. See `reports/2026-08-08-coverage-benchmark.md`.
+- **2026-08-08:** A fresh Station 2 reinspection kept Best Practices green at 9/10. It completed the remaining Figma naming and variable-scope cleanup, strengthened RTL/accessibility documentation cross-links, and opened [issue #2](https://github.com/Natura11y/root/issues/2) and [issue #3](https://github.com/Natura11y/root/issues/3) for the two behavioral engineering gaps. See `reports/2026-08-08-best-practices-reinspection.md`.
 - The 65/100 score remains the original inspection snapshot. Station scores should change only through the next evidence-based inspection pass.
 
 ## Inspection sheet

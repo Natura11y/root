@@ -10,6 +10,7 @@ _Checked in: 2026-08-08 · Re-confirm at next inspection_
 ## Service log
 - 2026-08-08: Closed the first Accessibility work-order item holistically. Updated Secondary Confirm/Warn and the borderline Light Confirm token in Core and the Hi-fi Figma library, preserved semantic aliases and Web syntax, and added a five-theme contrast regression check to Core's prebuild.
 - 2026-08-08: Ran a balanced Station 1 benchmark against established systems. Recorded both candidate gaps and Natura11y advantages, classified catalog differences by demonstrated consumer need, and opened GitHub issue #1 for a first-class Button loading state across Core, React, Docs, Storybook, and Figma.
+- 2026-08-08: Reinspected Station 2 across the full Hi-fi file, representative Core/React code, and all docs metadata. Kept Best Practices green at 9/10; completed Figma naming and variable-scope cleanup, strengthened RTL/accessibility cross-links, and opened issues #2 and #3 for lifecycle-safe events and direction-aware horizontal behavior.
 
 ## Assets
 - Design library: live Natura11y Hi-fi UI Kit in Figma (`ay1pEztl6oK8jlXmEtMAO7`), organized into 32 pages covering foundations, components, examples, and annotations. It has 7 local variable collections with 139 variables, five color-theme modes, 31 local text styles, 4 paint styles, and 4 effect styles. The published Natura11y Lo-fi UI Kit was discoverable through design-system search, but its source file was not directly probed in this inspection.
