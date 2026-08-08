@@ -1,0 +1,50 @@
+.principal-palette {
+  margin-inline: auto;
+  max-inline-size: 90rem;
+}
+
+.principal-palette__introduction {
+  margin-block-end: 2rem;
+  max-inline-size: 52rem;
+}
+
+.principal-palette__card {
+  overflow: hidden;
+}
+
+.principal-palette__table-scroll {
+  overflow-x: auto;
+}
+
+.principal-palette__table {
+  margin: 0;
+  min-inline-size: 34rem;
+  table-layout: auto;
+}
+
+.principal-palette__table thead th {
+  font-size: var(--font-size-sm);
+  opacity: 0.75;
+}
+
+.principal-palette__table tbody th {
+  border-block-start-width: var(--border-width);
+  border-block-start-style: var(--border-style);
+  text-align: start;
+}
+
+.principal-palette__swatch-cell {
+  inline-size: 4rem;
+}
+
+.principal-palette__swatch {
+  block-size: 2rem;
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  display: block;
+  inline-size: 2rem;
+}
+
+.principal-palette__value {
+  overflow-wrap: anywhere;
+}

@@ -1,0 +1,74 @@
+.correlated-colors {
+  margin-inline: auto;
+  max-inline-size: 90rem;
+}
+
+.correlated-colors__introduction {
+  margin-block-end: 2rem;
+  max-inline-size: 52rem;
+}
+
+.correlated-colors__grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.correlated-colors__card {
+  overflow: hidden;
+}
+
+.correlated-colors__table-scroll {
+  overflow-x: auto;
+}
+
+.correlated-colors__table {
+  margin: 0;
+  min-inline-size: 34rem;
+  table-layout: auto;
+}
+
+.correlated-colors__table caption {
+  border-block-end-width: var(--border-width);
+  border-block-end-style: var(--border-style);
+  border-block-start: 0;
+  caption-side: top;
+  opacity: 1;
+  text-align: start;
+}
+
+.correlated-colors__caption {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  justify-content: space-between;
+}
+
+.correlated-colors__table thead th {
+  font-size: var(--font-size-sm);
+  opacity: 0.75;
+}
+
+.correlated-colors__table tbody th {
+  border-block-start-width: var(--border-width);
+  border-block-start-style: var(--border-style);
+  text-align: start;
+}
+
+.correlated-colors__swatch-cell {
+  inline-size: 4rem;
+}
+
+.correlated-colors__swatch {
+  block-size: 2rem;
+  border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, transparent 75%, currentColor);
+  display: block;
+  inline-size: 2rem;
+}
+
+.correlated-colors__value {
+  overflow-wrap: anywhere;
+}
