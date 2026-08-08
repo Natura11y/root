@@ -1,0 +1,181 @@
+name: Deploy Documentation
+
+on:
+  workflow_dispatch:
+    inputs:
+      release_ref:
+        description: Git ref containing the documentation release
+        required: true
+        default: main
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: natura11y-docs-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: docs-production
+      url: https://gonatura11y.com
+    env:
+      CLOUDWAYS_HOST: ${{ vars.CLOUDWAYS_HOST }}
+      CLOUDWAYS_USER: ${{ vars.CLOUDWAYS_USER }}
+      CLOUDWAYS_PATH: ${{ vars.CLOUDWAYS_PATH }}
+    steps:
+      - name: Checkout release
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.release_ref }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and verify documentation release
+        run: npm run verify:docs-release
+
+      - name: Create release manifest
+        id: release
+        shell: bash
+        run: |
+          release_sha="$(git rev-parse HEAD)"
+          core_version="$(node -p "require('./packages/core/package.json').version")"
+          icons_version="$(node -p "require('./packages/icons/package.json').version")"
+
+          RELEASE_SHA="${release_sha}" \
+          CORE_VERSION="${core_version}" \
+          ICONS_VERSION="${icons_version}" \
+          node --input-type=module <<'NODE'
+          import { writeFileSync } from 'node:fs';
+
+          const manifest = {
+            commit: process.env.RELEASE_SHA,
+            core: process.env.CORE_VERSION,
+            icons: process.env.ICONS_VERSION,
+            generatedAt: new Date().toISOString(),
+          };
+
+          writeFileSync('apps/docs/dist/release.json', `${JSON.stringify(manifest, null, 2)}\n`);
+          NODE
+
+          echo "sha=${release_sha}" >> "${GITHUB_OUTPUT}"
+          echo "core_version=${core_version}" >> "${GITHUB_OUTPUT}"
+          echo "icons_version=${icons_version}" >> "${GITHUB_OUTPUT}"
+
+      - name: Upload verified documentation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: natura11y-docs-${{ steps.release.outputs.sha }}
+          path: apps/docs/dist
+          if-no-files-found: error
+          retention-days: 30
+
+      - name: Configure Cloudways SSH
+        shell: bash
+        env:
+          CLOUDWAYS_SSH_PRIVATE_KEY: ${{ secrets.CLOUDWAYS_SSH_PRIVATE_KEY }}
+          CLOUDWAYS_KNOWN_HOSTS: ${{ secrets.CLOUDWAYS_KNOWN_HOSTS }}
+        run: |
+          for required_name in CLOUDWAYS_HOST CLOUDWAYS_USER CLOUDWAYS_PATH CLOUDWAYS_SSH_PRIVATE_KEY CLOUDWAYS_KNOWN_HOSTS; do
+            if [[ -z "${!required_name:-}" ]]; then
+              echo "Missing required deployment setting: ${required_name}" >&2
+              exit 1
+            fi
+          done
+
+          install -d -m 700 "${HOME}/.ssh"
+          printf '%s\n' "${CLOUDWAYS_SSH_PRIVATE_KEY}" > "${HOME}/.ssh/natura11y-cloudways"
+          printf '%s\n' "${CLOUDWAYS_KNOWN_HOSTS}" > "${HOME}/.ssh/known_hosts"
+          chmod 600 "${HOME}/.ssh/natura11y-cloudways" "${HOME}/.ssh/known_hosts"
+
+      - name: Upload documentation to staging
+        shell: bash
+        run: |
+          remote="${CLOUDWAYS_USER}@${CLOUDWAYS_HOST}"
+          staging_path=".deploy-staging/${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          ssh_command=(ssh -i "${HOME}/.ssh/natura11y-cloudways" -o BatchMode=yes -o StrictHostKeyChecking=yes)
+
+          "${ssh_command[@]}" "${remote}" "mkdir -p '${staging_path}'"
+          rsync --archive --compress --delete \
+            --chmod=Du=rwx,Dgo=rx,Fu=rw,Fgo=r \
+            -e "ssh -i ${HOME}/.ssh/natura11y-cloudways -o BatchMode=yes -o StrictHostKeyChecking=yes" \
+            apps/docs/dist/ "${remote}:${staging_path}/"
+
+      - name: Promote documentation with rollback backup
+        shell: bash
+        run: |
+          remote="${CLOUDWAYS_USER}@${CLOUDWAYS_HOST}"
+          staging_path=".deploy-staging/${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          backup_path=".deploy-backups/public_html-$(date -u +%Y%m%dT%H%M%SZ)-${{ steps.release.outputs.sha }}"
+          ssh_command=(ssh -i "${HOME}/.ssh/natura11y-cloudways" -o BatchMode=yes -o StrictHostKeyChecking=yes)
+
+          "${ssh_command[@]}" "${remote}" bash -s -- "${staging_path}" "${CLOUDWAYS_PATH}" "${backup_path}" <<'REMOTE'
+          set -euo pipefail
+
+          staging_path="$1"
+          target_path="$2"
+          backup_path="$3"
+
+          test -f "${staging_path}/index.html"
+          mkdir -p "$(dirname "${backup_path}")"
+
+          for retained_path in v1 v2 v3 v4 .well-known; do
+            if [[ -e "${target_path}/${retained_path}" ]]; then
+              cp -a "${target_path}/${retained_path}" "${staging_path}/${retained_path}"
+            fi
+          done
+
+          mv "${target_path}" "${backup_path}"
+
+          if ! mv "${staging_path}" "${target_path}"; then
+            mv "${backup_path}" "${target_path}"
+            exit 1
+          fi
+          REMOTE
+
+          echo "Cloudways rollback backup: ${backup_path}" >> "${GITHUB_STEP_SUMMARY}"
+
+      - name: Verify production documentation
+        shell: bash
+        run: |
+          expected_sha="${{ steps.release.outputs.sha }}"
+          expected_core="${{ steps.release.outputs.core_version }}"
+          expected_icons="${{ steps.release.outputs.icons_version }}"
+
+          for attempt in {1..20}; do
+            release_json="$(curl --fail --silent --show-error --max-time 20 "https://gonatura11y.com/release.json?release=${expected_sha}" || true)"
+
+            if [[ -n "${release_json}" ]]; then
+              deployed_sha="$(printf '%s' "${release_json}" | node -e "let value=''; process.stdin.on('data', chunk => value += chunk).on('end', () => console.log(JSON.parse(value).commit));" 2>/dev/null || true)"
+
+              if [[ "${deployed_sha}" == "${expected_sha}" ]]; then
+                break
+              fi
+            fi
+
+            if [[ "${attempt}" == '20' ]]; then
+              echo "Production did not report release ${expected_sha}." >&2
+              exit 1
+            fi
+
+            sleep 5
+          done
+
+          get_started="$(curl --fail --silent --show-error --max-time 20 "https://gonatura11y.com/docs/get-started/?release=${expected_sha}")"
+          grep --fixed-strings --quiet "@natura11y/core@${expected_core}" <<< "${get_started}"
+          grep --fixed-strings --quiet "@natura11y/icons@${expected_icons}" <<< "${get_started}"
+          curl --fail --silent --show-error --head --max-time 20 https://gonatura11y.com/ > /dev/null
+
+          for archive in v1 v2 v3 v4; do
+            curl --fail --silent --show-error --head --max-time 20 "https://gonatura11y.com/${archive}/" > /dev/null
+          done
