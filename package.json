@@ -11,6 +11,7 @@
     "build:react-demo": "npm --workspace @natura11y/react run build:demo",
     "react-demo": "npm --workspace @natura11y/react run dev",
     "build:icons": "npm --workspace @natura11y/icons run build:icons",
+    "test:contrast": "node scripts/check-theme-contrast.mjs",
     "typecheck:react": "npm --workspace @natura11y/react run typecheck",
     "typecheck:storybook": "tsc -p tsconfig.storybook.json --noEmit",
     "storybook": "storybook dev -p 6006 -c apps/storybook/.storybook",

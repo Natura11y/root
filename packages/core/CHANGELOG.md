@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## Unreleased
+
+### Accessibility
+
+#### Color
+- Increase Secondary Confirm and Warn contrast against the Secondary theme background while preserving their cyan and red status identities.
+- Bring Light Confirm above the WCAG AA contrast threshold against the Light theme background.
+
+### Testing
+
+- Add a dependency-free contrast matrix for every theme's text, link, confirm, and warn colors, and run it before Core builds.
+
+---
+
 ## [5.2.4] — 2026-07-27
 
 ### Bug Fixes
