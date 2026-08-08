@@ -235,7 +235,7 @@ After the gate passes, deploy the verified release through GitHub Actions:
 gh workflow run deploy-docs.yml --ref main -f release_ref=main
 ```
 
-The workflow uploads to a unique staging directory, preserves the `/v1` through `/v4` archives and `/.well-known`, moves the current production tree into `.deploy-backups`, promotes staging, and verifies the live release manifest and pinned CDN versions.
+The workflow uploads to a unique staging directory under `tmp`, preserves the `/v1` through `/v4` archives and `/.well-known`, copies the complete current production tree into `private_html/.deploy-backups`, synchronizes staging into production, and verifies the live release manifest and pinned CDN versions. If synchronization fails, the workflow restores the recorded backup.
 
 The workflow requires these repository variables:
 
