@@ -1,0 +1,104 @@
+.workbench-introduction {
+  display: grid;
+  gap: var(--spacer-5);
+
+  width: min(100%, 1200px);
+  margin-inline: auto;
+  padding-block: var(--spacer-3) var(--spacer-5);
+
+  &__hero {
+    display: grid;
+    gap: var(--spacer-2);
+
+    max-width: 850px;
+
+    h1,
+    p {
+      margin: 0;
+    }
+  }
+
+  &__lead {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-tight, 1.25);
+  }
+
+  &__section {
+    display: grid;
+    gap: var(--spacer-3);
+  }
+
+  &__section-heading {
+    display: grid;
+    gap: var(--spacer-1);
+
+    h2,
+    p {
+      margin: 0;
+    }
+  }
+
+  &__eyebrow {
+    color: var(--text-color-muted, currentColor);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__grid {
+    display: grid;
+    gap: var(--spacer-2);
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+
+    article {
+      align-content: start;
+      display: grid;
+      gap: var(--spacer-1);
+
+      h3,
+      p {
+        margin: 0;
+      }
+    }
+  }
+
+  &__next-step {
+    align-items: center;
+    display: grid;
+    gap: var(--spacer-3);
+    grid-template-columns: minmax(0, 1fr) auto;
+
+    h2,
+    p {
+      margin: 0;
+    }
+
+    nav {
+      justify-self: end;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .workbench-introduction {
+    &__next-step {
+      align-items: start;
+      grid-template-columns: 1fr;
+
+      nav {
+        justify-self: stretch;
+      }
+
+      .nav {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .button {
+        justify-content: center;
+        width: 100%;
+      }
+    }
+  }
+}

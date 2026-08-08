@@ -246,3 +246,33 @@ You're all set! You can now use Font Awesome icons in your Natura11y project.
 </TextBlock>
 
 </Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Icon sizing and the icon-font source can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+    figureNumber="4"
+    properties={[
+        {
+            property: 'icon-size',
+            defaultValue: '1.25em',
+            purpose: 'Default size of font icons; SVG icons set a scoped 48px default that can be overridden in context.',
+        },
+        {
+            property: 'icon-font-family',
+            defaultValue: "'natura11y-icons'",
+            purpose: 'Font family used by the icon-font utility.',
+        },
+    ]}
+/>
+
+</Section>

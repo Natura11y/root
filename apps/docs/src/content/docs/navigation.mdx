@@ -253,3 +253,43 @@ Learn about <a href="/docs/dropdown/">dropdowns, link–dropdown combos, and meg
 </TextBlock>
 
 </Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Navigation spacing and typography can be customized by redefining the related CSS custom properties.
+
+</TextBlock>
+
+<RelatedCustomProperties
+    figureNumber="8"
+    properties={[
+        {
+            property: 'nav-gap',
+            defaultValue: '0.875em',
+            purpose: 'Gap between items in unbordered navigation lists.',
+        },
+        {
+            property: 'nav-divider-padding-x',
+            defaultValue: 'var(--container-padding-x)',
+            purpose: 'Inline padding of bordered navigation items.',
+        },
+        {
+            property: 'nav-divider-padding-y',
+            defaultValue: '0.625em',
+            purpose: 'Block padding of bordered navigation items.',
+        },
+        {
+            property: 'nav-font-family',
+            defaultValue: 'var(--font-family-sans-serif)',
+            purpose: 'Font family applied to navigation lists.',
+        },
+    ]}
+/>
+
+</Section>

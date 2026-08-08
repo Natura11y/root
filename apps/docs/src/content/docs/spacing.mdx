@@ -194,3 +194,58 @@ Apply the `.gap-{x}` utility class to <a href="/docs/grid/">grid</a> and <a href
 </FigureExample>
 
 </Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+The spacing scale can be customized by redefining its base value or any individual step. Changes affect spacing utilities and components that reference these shared values.
+
+</TextBlock>
+
+<RelatedCustomProperties
+    figureNumber="12"
+    properties={[
+        {
+            property: 'spacer-base',
+            defaultValue: '1rem',
+            purpose: 'Base unit used to calculate the default spacing scale.',
+        },
+        {
+            property: 'spacer-1',
+            defaultValue: 'calc(var(--spacer-base) * 0.5)',
+            purpose: 'First spacing step, equal to 0.5 times the base unit.',
+        },
+        {
+            property: 'spacer-2',
+            defaultValue: 'calc(var(--spacer-base) * 1)',
+            purpose: 'Second spacing step, equal to the base unit.',
+        },
+        {
+            property: 'spacer-3',
+            defaultValue: 'calc(var(--spacer-base) * 1.5)',
+            purpose: 'Third spacing step, equal to 1.5 times the base unit.',
+        },
+        {
+            property: 'spacer-4',
+            defaultValue: 'calc(var(--spacer-base) * 2.5)',
+            purpose: 'Fourth spacing step, equal to 2.5 times the base unit.',
+        },
+        {
+            property: 'spacer-5',
+            defaultValue: 'calc(var(--spacer-base) * 4)',
+            purpose: 'Fifth spacing step, equal to four times the base unit.',
+        },
+        {
+            property: 'spacer-6',
+            defaultValue: 'calc(var(--spacer-base) * 6.5)',
+            purpose: 'Sixth spacing step, equal to 6.5 times the base unit.',
+        },
+    ]}
+/>
+
+</Section>

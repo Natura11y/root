@@ -116,6 +116,34 @@ react-v1.0.0-beta
 
 ## npm Publish Commands
 
+### Trusted Publishing
+
+Package releases use npm Trusted Publishing from `.github/workflows/publish.yml`. GitHub Actions runs the npm CLI with a short-lived OIDC identity, so releases do not depend on a saved npm token or an interactive `npm login` session.
+
+Configure the trusted publisher once in the npm package settings for both `@natura11y/core` and `@natura11y/react`:
+
+- Provider: GitHub Actions
+- Organization or user: `Natura11y`
+- Repository: `root`
+- Workflow filename: `publish.yml`
+- Allowed action: `npm publish`
+
+Leave the optional environment name empty unless the workflow is intentionally updated to use a matching GitHub environment. Each package accepts one trusted publisher configuration at a time.
+
+After the trusted publishers are configured, push the package-specific release tags in dependency order:
+
+```sh
+git tag core-v5.2.5
+git push origin core-v5.2.5
+
+git tag react-v1.0.0-beta.2
+git push origin react-v1.0.0-beta.2
+```
+
+The workflow validates that the tag matches the package version, builds and inspects the package, and publishes Core with the `latest` tag or React with the `beta` tag.
+
+The direct commands below remain useful for local dry runs and emergency manual publishing, but interactive publishing may require a fresh npm login and two-factor authentication.
+
 Core:
 
 ```sh

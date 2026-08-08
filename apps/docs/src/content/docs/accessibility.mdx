@@ -204,3 +204,38 @@ The [Main Menu](/docs/main-menu) collapses for mobile with `aria-expanded` and e
 </TextBlock>
 
 </Section>
+
+---
+
+<Section id="related-custom-properties">
+
+<TextBlock>
+
+## Related Custom Properties
+
+Focus indication can be customized by redefining the related CSS custom properties. Natura11y may adjust the offset for particular controls so the outline remains visible against the component boundary.
+
+</TextBlock>
+
+<RelatedCustomProperties
+  figureNumber="2"
+  properties={[
+    {
+      property: 'focus-outline-width',
+      defaultValue: 'calc(var(--border-width) * 2)',
+      purpose: 'Width of focus-visible outlines.',
+    },
+    {
+      property: 'focus-outline-style',
+      defaultValue: 'solid',
+      purpose: 'Line style used for focus-visible outlines.',
+    },
+    {
+      property: 'focus-outline-offset',
+      defaultValue: 'calc(var(--focus-outline-width) * -1)',
+      purpose: 'Default distance between a focus-visible outline and the focused element.',
+    },
+  ]}
+/>
+
+</Section>

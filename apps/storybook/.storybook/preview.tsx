@@ -54,7 +54,10 @@ const preview: Preview = {
   parameters: {
     layout: 'fullscreen',
     options: {
-      storySort: { method: 'alphabetical' },
+      storySort: {
+        method: 'alphabetical',
+        order: ['Introduction', '*'],
+      },
     },
     controls: {
       matchers: {

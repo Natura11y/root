@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [1.0.0-beta.2] - 2026-08-08
+
+### Accessibility
+
+- Apply descriptions and invalid-state announcements consistently across every Form Entry control type, including grouped options, checkboxes, and file inputs.
+- Preserve native required behavior for single checkbox, switch, and file controls.
+- Expose Lightbox as a labeled modal dialog with focus trapping, Escape handling, descriptive media alternatives, and accessible control names.
+
+---
+
 ## [1.0.0-beta.1] - 2026-07-10
 
 ### Package
