@@ -75,18 +75,15 @@ export const focusTrap = (element, firstFocusTarget = element) => {
                 const firstFocusableElement = focusableElements[0];
                 const lastFocusableElement = focusableElements[focusableElements.length - 1];
 
-                if (document.activeElement === lastFocusableElement) {
-                    if (!event.shiftKey) {
-                        event.preventDefault();
-                        firstFocusableElement?.focus();
-                    }
-                }
-
-                if (document.activeElement === firstFocusableElement) {
-                    if (event.shiftKey) {
-                        event.preventDefault();
-                        lastFocusableElement?.focus();
-                    }
+                if (
+                    event.shiftKey &&
+                    (document.activeElement === element || document.activeElement === firstFocusableElement)
+                ) {
+                    event.preventDefault();
+                    lastFocusableElement?.focus();
+                } else if (!event.shiftKey && document.activeElement === lastFocusableElement) {
+                    event.preventDefault();
+                    firstFocusableElement?.focus();
                 }
 
                 break;

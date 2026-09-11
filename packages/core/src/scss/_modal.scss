@@ -45,6 +45,7 @@ In this file:
 
   .modal {
     --_display: grid;
+    --_content-max-height: calc(100vh - (var(--modal-padding) * 2));
 
     display: var(--_display);
     align-content: center;
@@ -109,7 +110,7 @@ In this file:
 
     width: 100%;
 
-    max-height: calc(100vh - (var(--modal-padding) * 2));
+    max-height: var(--_content-max-height);
 
     z-index: auto;
 
@@ -118,6 +119,7 @@ In this file:
     margin-inline: auto;
 
     opacity: 0;
+
     transform: translateY(var(--modal-animation-translate-y));
 
     transition:
@@ -183,6 +185,7 @@ In this file:
 
   .modal--scroll-all {
     --_display: block;
+    --_content-max-height: none;
 
     overflow-y: scroll;
 
