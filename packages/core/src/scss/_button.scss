@@ -132,6 +132,11 @@ In this file:
             opacity: var(--_button-opacity-hover);
             cursor: not-allowed;
         }
+
+        // Forced color mode support
+        @media (forced-colors: active) {
+            border: var(--forced-color-border);
+        }
     }
 
     // Outline Modifier

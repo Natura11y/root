@@ -42,5 +42,11 @@ In this file:
         content: "";
 
         @include caret-shape;
+
+        // Forced color mode support
+        @media (forced-colors: active) {
+            forced-color-adjust: none;
+            color: var(--_caret-color, CanvasText);
+        }
     }
 }

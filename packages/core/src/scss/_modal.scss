@@ -130,6 +130,11 @@ In this file:
       transition: none;
     }
 
+    // Forced color mode support
+    @media (forced-colors: active) {
+        border: var(--forced-color-border);
+    }
+
   }
 
   .modal.shown .modal__content {

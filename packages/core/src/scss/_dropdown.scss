@@ -131,6 +131,17 @@ In this file:
         transform: rotate(180deg);
     }
     
+    // Forced color mode support
+    @media (forced-colors: active) {
+        .dropdown:not([data-indicator])::after {
+            --_caret-color: ButtonText;
+        }
+
+        .dropdown-link-split > [data-toggle="dropdown"]:not([data-indicator])::after {
+            --_caret-color: LinkText;
+        }
+    }
+
     // Nav Dropdown Panel
 
     .dropdown__menu {

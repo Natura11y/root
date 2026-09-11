@@ -30,6 +30,9 @@ In this file:
     */
 
     // --focus-outline-color: currentColor;
+
+    // Forced color mode support
+    --forced-color-border: var(--border-width) solid transparent;
 }
 
 //////////////////////////////////////////////

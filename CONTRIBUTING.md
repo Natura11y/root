@@ -10,6 +10,13 @@ By submitting a software contribution, you agree that your contribution may be i
 
 Software contributions include source code, package code, examples, tests, build configuration, Storybook source, and documentation application code.
 
+## Forced-color styles
+
+- Keep forced-color support in the Sass file and existing CSS layer that own the component or shared primitive.
+- Place a `@media (forced-colors: active)` block last inside the selector it affects, after its regular declarations and nested rules. When one block covers multiple selectors, place it at the end of their related component section, before the next section.
+- Keep regular declarations that support forced colors, such as transparent borders or outlines, with their related visual properties. Do not change their scope merely to standardize placement.
+- Put the exact comment `// Forced color mode support` immediately above each support block or declaration.
+
 ## Documentation and Media Contributions
 
 Documentation content and original media in `apps/docs` are copyright protected and all rights are reserved unless a file says otherwise.

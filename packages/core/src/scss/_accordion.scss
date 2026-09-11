@@ -109,6 +109,11 @@ In this file:
 
             margin-inline-start: 0.75em;
         }
+
+        // Forced color mode support
+        @media (forced-colors: active) {
+            outline: var(--forced-color-border);
+        }
     }
 
     .accordion__panel {
