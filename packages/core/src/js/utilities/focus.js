@@ -72,6 +72,11 @@ export const focusTrap = (element, firstFocusTarget = element) => {
 
                 // Query dynamically to respect inert/hidden state changes after panel navigation
                 const focusableElements = getFocusableElements(element);
+                if (!focusableElements.length) {
+                    event.preventDefault();
+                    break;
+                }
+
                 const firstFocusableElement = focusableElements[0];
                 const lastFocusableElement = focusableElements[focusableElements.length - 1];
 

@@ -1,5 +1,6 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
 import { delegateEvent } from './utilities/eventDelegation';
+import { getFocusableElements } from './utilities/focus';
 
 export default class Modal {
 
@@ -85,7 +86,6 @@ export default class Modal {
 		modalTarget.setAttribute('aria-hidden', 'false');
 		modalTarget.inert = false;
 		modalTarget.classList.add('shown');
-		modalTarget.focus();
 
 		const modalContent = modalTarget.querySelector('.modal__content');
 
@@ -94,15 +94,15 @@ export default class Modal {
 			return;
 		}
 
-		handleOverlayOpen(modalContent);
+		// Remove existing handlers and add new ones
+		this.#removeModalCloseHandlers(modalTarget);
+		this.#addModalCloseHandlers(modalTarget);
+
+		handleOverlayOpen(modalContent, null, getFocusableElements(modalContent)[0]);
 
 		if (modalTarget.classList.contains('modal--scroll-all')) {
 			modalTarget.scrollTop = 0;
 		}
-
-		// Remove existing handlers and add new ones
-		this.#removeModalCloseHandlers(modalTarget);
-		this.#addModalCloseHandlers(modalTarget);
 
 		if (modalTarget.dataset.modalCloseOutside === 'true') {
 			const handleCloseOutside = () => this.#handleModalClose(modalTarget);

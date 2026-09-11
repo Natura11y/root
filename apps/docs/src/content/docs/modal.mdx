@@ -30,13 +30,15 @@ Present actionable content to visitors with dismissable modal dialog overlays.
 
 <AccessibilitySpotlight>
 
+Opening a modal focuses its first focusable element, usually the close button.
+
 Modals have keyboard support for focusable elements. Use the <kbd>Tab</kbd> and <kbd>Shift</kbd> + <kbd>Tab</kbd> keys without leaving the modal by accident. Using the <kbd>Esc</kbd> key closes the modal.
 
 When a modal closes, keyboard users return to the last active element in the document.
 
 Include *role="dialog"* on the modal content element.
 
-Provide an accessible name with *aria-labelledby*, referring to the modal title element.
+Provide an accessible name with *aria-labelledby*, referring to the modal title element. If there is no visible title, use *aria-label* on the dialog instead.
 
 </AccessibilitySpotlight>
 
