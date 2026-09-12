@@ -21,6 +21,9 @@ In this file:
 
     --focus-outline-offset: calc(var(--focus-outline-width) * -1);
 
+    // Forced color mode support
+    --forced-color-border: var(--border-width) solid CanvasText;
+
     /*
     
     Custom Focus Outline Color:
@@ -30,9 +33,6 @@ In this file:
     */
 
     // --focus-outline-color: currentColor;
-
-    // Forced color mode support
-    --forced-color-border: var(--border-width) solid transparent;
 }
 
 //////////////////////////////////////////////

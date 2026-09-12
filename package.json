@@ -23,7 +23,8 @@
     "prebuild:docs": "npm run check:docs-cdn",
     "build:docs": "cd apps/docs && astro build",
     "verify:docs-release": "npm run build:docs && npm run check:docs-cdn -- --build --remote",
-    "preview:docs": "cd apps/docs && astro preview"
+    "preview:docs": "cd apps/docs && astro preview",
+    "test:forced-colors": "node scripts/check-forced-colors.mjs"
   },
   "devDependencies": {
     "@algolia/autocomplete-core": "^1.19.9",

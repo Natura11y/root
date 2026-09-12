@@ -46,6 +46,8 @@ Or load the Sass source from your Sass bundle:
 - Shared JavaScript utilities used by other Natura11y packages.
 - Static HTML examples for the core component patterns.
 
+See the [forced-color guide](./FORCED-COLORS.md) for contrast-mode support, customization, and verification.
+
 ---
 
 ## Utility Exports

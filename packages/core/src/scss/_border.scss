@@ -46,6 +46,11 @@ In this file:
 
     [class*="border"]{
         border-color: var(--border-color, inherit);
+
+        // Forced color mode support
+        @media (forced-colors: active) {
+            border-color: revert-layer;
+        }
     }
 
     // Directional

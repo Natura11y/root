@@ -53,6 +53,13 @@ In this file:
 
     // Tabs Nav
 
+    .tabs {
+        // Forced color mode support
+        @media (forced-colors: active) {
+            border: var(--forced-color-border);
+        }
+    }
+
     .tabs-nav {
         list-style: none;
 
@@ -116,6 +123,22 @@ In this file:
             }
 
         }
+
+        // Forced color mode support
+        @media (forced-colors: active) {
+            --tab-nav-active-bar-color: ButtonText;
+
+            border: var(--_tab-divider-block, var(--forced-color-border));
+
+            > li {
+                border-bottom: none;
+            }
+
+            > li:not(:last-child) > :is(a, button) {
+                border-block-end: var(--_tab-divider-block, var(--forced-color-border));
+                border-inline-end: var(--_tab-divider-inline, 0);
+            }
+        }
     }
 
     // Tabs Nav Modifiers
@@ -137,6 +160,17 @@ In this file:
 
             &::before {
                 opacity: 1 !important;
+            }
+        }
+
+        // Forced color mode support
+        @media (forced-colors: active) {
+            --tab-nav-pill-active-text-color: HighlightText;
+            --tab-nav-pill-active-background-color: Highlight;
+
+            .is-active {
+                --focus-outline-color: HighlightText;
+                forced-color-adjust: none;
             }
         }
     }
@@ -173,6 +207,15 @@ In this file:
                         }
                     }
 
+                    // Forced color mode support
+                    @media (forced-colors: active) {
+                        --_tab-divider-block: 0;
+                        --_tab-divider-inline: var(--forced-color-border);
+
+                        &:not([class*="--pill"]) > li > :is(a, button):not(.is-active) {
+                            border-block-end: var(--forced-color-border);
+                        }
+                    }
                 }
             }
         }

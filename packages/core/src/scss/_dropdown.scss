@@ -227,6 +227,14 @@ In this file:
         }
     }
 
+    // Forced color mode support
+    @media (forced-colors: active) {
+        .dropdown__menu,
+        [class*="mega-menu"] {
+            border: var(--forced-color-border);
+        }
+    }
+
     @each $breakpoint in map.keys(breakpoint.$breakpoints) {
         @include breakpoint.breakpoint-up($breakpoint) {
             $mod: breakpoint.breakpoint-modifier($breakpoint, breakpoint.$breakpoints);
