@@ -11,6 +11,7 @@ bannerAlt: A giraffe reaching for a leaf
 description:
     Discover Natura11y's essential features and best practices to ensure your projects remove barriers for people with disabilities. Natura11y helps you meet WCAG guidelines and promote equal web opportunities.
 relatedPages:
+  - "Color"
   - "RTL"
   - "Get Started"
 ---
@@ -27,9 +28,9 @@ import ColorContrast from '../../components/examples/accessibility/ColorContrast
 
 ## Go Beyond Compliance
 
-Natura11y takes the stress out of accessibility compliance by providing components that help you meet and surpass WCAG requirements. Our ready-to-use components make building accessible websites simple and straightforward, no matter your experience level.
+Natura11y is built to go beyond basic accessibility compliance by making accessible implementation simple and straightforward, no matter your experience level.
 
-This page provides a bird's-eye view of Natura11y's accessibility features. Need more detailed guidance? Visit the <LinkOpenNew LinkUrl='https://www.w3.org/WAI/tips' LinkText='WAI guide' /> on accessibility basics.
+This page gives a bird's-eye view of Natura11y's built in accessibility features. For detailed guidance on accessibility best practices, see the <LinkOpenNew LinkUrl='https://www.w3.org/WAI/tips' LinkText='WAI guide' /> on accessibility basics.
 
 </TextBlock>
 
@@ -41,9 +42,9 @@ This page provides a bird's-eye view of Natura11y's accessibility features. Need
 
 ## Semantic HTML
 
-Semantic HTML forms the bedrock of web accessibility by using the correct HTML elements for their intended purpose. Natura11y components are built with proper semantic markup—headings, lists, buttons, and form controls—that assistive technologies can easily interpret and navigate.
+Semantic HTML forms the foundation of web accessibility by using elements for their intended purpose. Natura11y components use proper semantic markup—headings, lists, buttons, and form controls—that assistive technologies can interpret and navigate.
 
-This approach provides built-in keyboard accessibility, better performance, and improved SEO while making your code easier to maintain. Natura11y's utility classes complement this semantic foundation, ensuring you can style accessible HTML without compromising its meaning.
+Semantic markup improves keyboard accessibility, site performance, and SEO, and makes your code easier to maintain. Natura11y’s utility classes complement this semantic foundation, letting you style accessible HTML without changing its meaning.
 
 </TextBlock>
 
@@ -53,11 +54,15 @@ This approach provides built-in keyboard accessibility, better performance, and 
 
 <TextBlock>
 
-## Color Contrast
+## Color and Contrast
 
-Natura11y's dynamic <LinkOpenNew LinkUrl='/docs/color' LinkText='color system' /> takes the complexity out of maintaining proper contrast ratios by grouping colors into cohesive themes. Each theme provides coordinated colors for backgrounds, text, borders, and links, eliminating the guesswork of color combinations.
+People have different needs when it comes to color. Natura11y includes coordinated themes and support for personal color preferences.
 
-When you apply a theme like [theme-dark] to a page, section, or card, all elements inside automatically get appropriate colors that maintain proper contrast. This includes form validation messages and complex layouts, preventing common problems like links that disappear on dark backgrounds or error messages that become unreadable when themes change.
+### Color Themes
+
+Each Natura11y theme pairs a background with colors for text, links, borders, and feedback messages. Apply a theme to a page or an individual component, and those colors work together within it.
+
+When customizing a theme, check the contrast of your color combinations. The [Color documentation](/docs/color/) explains the available themes and related colors.
 
 </TextBlock>
 
@@ -65,7 +70,47 @@ When you apply a theme like [theme-dark] to a page, section, or card, all elemen
 
 <TextBlock>
 
-In the examples above, the dark text on green passes readability with a color contrast ratio of <em>5.84</em>, while the white text on green fails with a color contrast ratio of <em>1.91</em>.
+The examples above show a low-contrast color combination with a ratio of <em>1.91</em> beside one with stronger contrast at <em>5.84</em>.
+
+</TextBlock>
+
+<TextBlock>
+
+### Light Mode, Dark Mode, and Prefers
+
+Natura11y supports three options:
+
+- **Light mode:** the default theme for a page or component.
+- **Dark mode.** Use the dark theme for a page or component.
+- **System preference (`prefers`).** Automatically switch the canvas theme to match the user’s system light or dark setting.
+
+See [Theme Color Utilities](/docs/color/#theme-color-utilities) and [Prefers Color Scheme](/docs/color/#prefers-color-scheme) for setup and examples.
+
+</TextBlock>
+
+<TextBlock>
+
+### Contrast Themes
+
+Contrast themes, such as those available in Windows, let people replace a site's colors with a palette that works for them. Natura11y responds automatically through the CSS `forced-colors` media query.
+
+</TextBlock>
+
+<FigureImage
+    src="/docs-assets/accessibility/contrast-themes.jpg"
+    alt="Website with yellow navigation links, white text, and outlined controls on a black background."
+/>
+
+<TextBlock>
+
+Support includes:
+
+- **Component borders.** Buttons, alerts, accordions, menus, and overlay panels keep defined edges, including search buttons inside fields.
+- **Tab selection.** Active bars, dividers, and selected-tab styles keep the current tab identifiable.
+- **Arrows and switches.** Arrows retain their shape; switches keep a visible track and position indicator.
+- **Keyboard focus.** Outlines remain dedicated to focus and stay separate from component borders.
+
+Learn more in <LinkOpenNew LinkUrl="https://accessibility.huit.harvard.edu/news/2026/05/deep-dive-contrast-themes" LinkText="Harvard's guide to contrast themes" />.
 
 </TextBlock>
 
@@ -77,7 +122,7 @@ In the examples above, the dark text on green passes readability with a color co
 
 ## ARIA
 
-Accessible Rich Internet Applications (<LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA' LinkText='WAI-ARIA' />) roles, states, and properties are present throughout Natura11y's components. Some are added with JavaScript, while others are present within the example markup. You'll need to add ARIA attributes yourself when creating custom interactions or when semantic HTML alone doesn't fully convey your component's purpose to assistive technologies.
+Accessible Rich Internet Applications (<LinkOpenNew LinkUrl='https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA' LinkText='WAI-ARIA' />) roles, states, and properties appear throughout Natura11y's components. Some are added with JavaScript; others are included in the example markup. Add ARIA attributes when building custom interactions or when semantic HTML does not fully convey a component's purpose to assistive technologies.
 
 </TextBlock>
 
@@ -111,9 +156,9 @@ Accessible Rich Internet Applications (<LinkOpenNew LinkUrl='https://developer.m
 
 <TextBlock>
 
-## Focus Indication
+## Keyboard and Focus
 
-Natura11y ensures focus indicators are always visible and properly positioned. Focus rings automatically adapt to theme colors—preventing common problems like blue focus rings disappearing on blue backgrounds. Focus rings are also positioned to avoid clipping from parent containers with overflow: hidden, a frequent issue in other frameworks.
+Natura11y ensures focus indicators remain visible and correctly positioned. Focus rings adapt to theme colors—so they don't vanish on matching backgrounds. They also avoid clipping from parent containers using `overflow: hidden`, a common issue in other frameworks.
 
 </TextBlock>
 
@@ -125,7 +170,27 @@ Natura11y ensures focus indicators are always visible and properly positioned. F
 
 <TextBlock>
 
-Beyond visual indicators, Natura11y components include proper focus management. When you close a modal, flyout, or lightbox, focus returns to the triggering element. Navigation components support <kbd>Arrow</kbd> key movement, and interactive elements maintain logical <kbd>Tab</kbd> order throughout.
+Modal dialogs keep keyboard focus inside while they are open and close with <kbd>Escape</kbd>. When you close a modal, flyout, or lightbox, focus returns to the triggering element.
+
+Use <kbd>Tab</kbd> and <kbd>Shift</kbd> + <kbd>Tab</kbd> to move between controls. Components such as tabs and menus support <kbd>Arrow</kbd> keys for navigation within the component.
+
+Skip links let keyboard users move past repeated navigation and reach the main content. Natura11y includes styles that reveal these links when they receive focus.
+
+</TextBlock>
+
+</Section>
+
+<Section id="pointer-touch-target-sizes">
+
+<TextBlock>
+
+## Touch Target Sizes
+
+A target is the area of a link, button, or form control that responds to a click or tap. Larger targets with enough space between them are easier to activate, especially for people with limited dexterity or anyone using a touchscreen.
+
+Natura11y’s buttons and form fields use shared minimum heights and padding that scale with text size. When customizing controls, check their full clickable or tappable area and the space between neighboring targets. This includes icon-only buttons, whose target can be larger than the visible icon.
+
+See <LinkOpenNew LinkUrl="https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" LinkText="WAI’s target-size guidance" /> for size and spacing requirements and their exceptions.
 
 </TextBlock>
 
@@ -213,7 +278,7 @@ The [Main Menu](/docs/main-menu) collapses for mobile with `aria-expanded` and e
 
 ## Related Custom Properties
 
-Focus indication can be customized by redefining the related CSS custom properties. Natura11y may adjust the offset for particular controls so the outline remains visible against the component boundary.
+Focus outlines and contrast-theme borders can be customized with the properties below. Natura11y may adjust the focus offset for particular controls to keep the outline visible against the component border.
 
 </TextBlock>
 
@@ -234,6 +299,11 @@ Focus indication can be customized by redefining the related CSS custom properti
       property: 'focus-outline-offset',
       defaultValue: 'calc(var(--focus-outline-width) * -1)',
       purpose: 'Default distance between a focus-visible outline and the focused element.',
+    },
+    {
+      property: 'forced-color-border',
+      defaultValue: 'var(--border-width) solid CanvasText',
+      purpose: 'Shared border for added component boundaries when a contrast theme is active.',
     },
   ]}
 />
