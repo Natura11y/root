@@ -134,11 +134,11 @@ Leave the optional environment name empty unless the workflow is intentionally u
 After the trusted publishers are configured, push the package-specific release tags in dependency order:
 
 ```sh
-git tag core-v5.2.5
-git push origin core-v5.2.5
+git tag -a core-v5.2.6 -m "Core 5.2.6"
+git push origin core-v5.2.6
 
-git tag react-v1.0.0-beta.2
-git push origin react-v1.0.0-beta.2
+git tag -a react-v1.0.0-beta.3 -m "React 1.0.0-beta.3"
+git push origin react-v1.0.0-beta.3
 ```
 
 The workflow validates that the tag matches the package version, builds and inspects the package, and publishes Core with the `latest` tag or React with the `beta` tag.

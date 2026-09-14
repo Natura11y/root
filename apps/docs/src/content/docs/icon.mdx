@@ -71,7 +71,7 @@ Place the Natura11y icon font `<link>` tag in the `<head>` of your document. Add
 
 <TextBlock>
 
-## Adding Custom Icons
+## Adding custom icons
 
 Add icons to Natura11y's icon library for your own projects, or use the icon package as a starting point for a custom icon font.
 
@@ -88,7 +88,7 @@ Install or download <LinkOpenNew LinkUrl='https://www.npmjs.com/package/@natura1
 
 <TextBlock>
 
-## A Guide to Managing Icons within Figma
+## A guide to managing icons within Figma
 
 Once you open the Figma UI Kit, you'll notice that the icons are organized into a component library (within the ***Guide*** page). This allows you to easily update icons across your design system. It also makes it possible to export icons as SVGs, which can be used to generate your own icon font.
 
@@ -98,7 +98,7 @@ In this way, you can manage your icons both within Figma and on the front-end. T
 
 <TextBlock>
 
-### Step 1: Design the icon
+### Step 1: design the icon
 
 You can create the icon directly in Figma. With the existing Natura11y icons, the original vector layers have been preserved within each component.
 
@@ -114,7 +114,7 @@ You can create the icon directly in Figma. With the existing Natura11y icons, th
 
 <TextBlock>
 
-### Step 2: Create the icon component
+### Step 2: create the icon component
 
 Once you've designed the icon, it's time to create the icon component. Each component has a frame which contains the flattened vector icon layer. The frame is sized to 24x24 pixels, and named according to the icon's handle (or suffix). In a later step, this frame exports an SVG from Figma. With the example below, the frame is named ***accessibility***.
 
@@ -130,7 +130,7 @@ The icon component contains a group called ***Artwork***. It holds the icon's or
 
 <TextBlock>
 
-### Step 3: Modify the fill rule
+### Step 3: modify the fill rule
 
 This step is only required for icons that contain a hole or multiple paths. For example, the ***accessibility*** icon contains two separate paths: one for the head, and one for the body. To ensure that the paths are maintained as expected when the icon is exported as an SVG, you must modify the fill rule from ***Even-Odd*** to ***Non-Zero***.
 
@@ -146,7 +146,7 @@ Thankfully, <LinkOpenNew LinkUrl='https://www.figma.com/@evan' LinkText='Evan Wa
 
 <TextBlock>
 
-### Step 4: Export the icon as an SVG
+### Step 4: export the icon as an SVG
 
 Now that the icon is ready, install the <LinkOpenNew LinkUrl='https://www.figma.com/community/plugin/814345141907543603/svg-export' LinkText='SVG Export' /> plugin for Figma. This plugin, created by <LinkOpenNew LinkUrl='https://www.figma.com/@hamish' LinkText='Hamish' /> allows you to customize the export settings for each icon. Aim to remove any unnecessary attributes and keep the SVG as clean as possible. For example, you should remove any *fill* or *stroke* declarations. Ultimately, you want the export to only contain the parent SVG tag and paths that make up the icon.
 
@@ -162,7 +162,7 @@ The SVG Export plugin allows you to preview the code and visual icon before expo
 
 <TextBlock>
 
-### Step 5: Generate the icon font
+### Step 5: generate the icon font
 
 The <LinkOpenNew LinkUrl='https://www.npmjs.com/package/@natura11y/icons' LinkText='@natura11y/icons package' /> contains a folder called ***original-svg***. This is where you should save the SVG file. It should be named according to the icon's handle (or suffix). With the example below, the SVG is named ***accessibility.svg***.
 
@@ -197,7 +197,7 @@ The `README.md` file in the ***@natura11y/icons*** package contains instructions
 
 You don't have to use Natura11y's icons. Natura11y's base icon styling also supports <LinkOpenNew LinkUrl='https://fontawesome.com' LinkText='Font Awesome' /> icon classes.
 
-### Step 1: Include your Font Awesome kit and markup
+### Step 1: include your Font Awesome kit and markup
 
 If you don't already have one, create your Font Awesome kit and place the `<script>` tag in the head of your document (Figure 2). Then include Font Awesome icon markup in your document.
 
@@ -218,7 +218,7 @@ If you don't already have one, create your Font Awesome kit and place the `<scri
 
 <TextBlock>
 
-### Step 2: Update CSS pseudo-elements unicodes
+### Step 2: update CSS pseudo-elements unicodes
 
 Natura11y uses icon unicode values for some <a href="/docs/form/">form</a> controls. If you're using Font Awesome with those form patterns, update the related custom properties.
 
@@ -253,7 +253,7 @@ You're all set! You can now use Font Awesome icons in your Natura11y project.
 
 <TextBlock>
 
-## Related Custom Properties
+## Related custom properties
 
 Icon sizing and the icon-font source can be customized by redefining the related CSS custom properties.
 

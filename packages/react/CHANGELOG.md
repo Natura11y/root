@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [1.0.0-beta.3] - 2026-09-14
+
+### Accessibility
+
+- Restore focus to the modal opener when the dialog closes and no explicit `returnFocusRef` is provided, including dialogs that start open.
+- Require `@natura11y/core@^5.2.6` for shared forced-colors support, modal scrolling, and focus-trap fixes.
+
+---
+
 ## [1.0.0-beta.2] - 2026-08-08
 
 ### Accessibility
