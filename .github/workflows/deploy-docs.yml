@@ -147,6 +147,40 @@ jobs:
 
           echo "Cloudways rollback backup: ${backup_path}" >> "${GITHUB_STEP_SUMMARY}"
 
+      - name: Purge documentation cache
+        shell: bash
+        run: |
+          node --input-type=module > "${RUNNER_TEMP}/natura11y-cache-paths.txt" <<'NODE'
+          import { readdir } from 'node:fs/promises';
+          import path from 'node:path';
+
+          const root = path.resolve('apps/docs/dist');
+          const paths = new Set(['/release.json']);
+
+          async function collect(directory) {
+            for (const entry of await readdir(directory, { withFileTypes: true })) {
+              if (entry.name.startsWith('.')) continue;
+              const file = path.join(directory, entry.name);
+              if (file === path.join(root, '_astro')) continue;
+              if (entry.isDirectory()) {
+                await collect(file);
+              } else {
+                const url = '/' + path.relative(root, file).split(path.sep).map(encodeURIComponent).join('/');
+                paths.add(url);
+                if (url.endsWith('/index.html')) paths.add(url.slice(0, -'index.html'.length));
+              }
+            }
+          }
+
+          await collect(root);
+          console.log([...paths].sort().join('\n'));
+          NODE
+
+          ssh -i "${HOME}/.ssh/natura11y-cloudways" -o BatchMode=yes -o StrictHostKeyChecking=yes \
+            "${CLOUDWAYS_USER}@${CLOUDWAYS_HOST}" \
+            'set -e; while IFS= read -r release_path; do curl --fail --silent --show-error --max-time 20 --request PURGE "https://gonatura11y.com${release_path}" > /dev/null || { printf "Failed cache path: %s\n" "${release_path}" >&2; exit 1; }; done' \
+            < "${RUNNER_TEMP}/natura11y-cache-paths.txt"
+
       - name: Verify production documentation
         shell: bash
         run: |
@@ -155,7 +189,7 @@ jobs:
           expected_icons="${{ steps.release.outputs.icons_version }}"
 
           for attempt in {1..20}; do
-            release_json="$(curl --fail --silent --show-error --max-time 20 "https://gonatura11y.com/release.json?release=${expected_sha}" || true)"
+            release_json="$(curl --fail --silent --show-error --max-time 20 "https://gonatura11y.com/release.json" || true)"
 
             if [[ -n "${release_json}" ]]; then
               deployed_sha="$(printf '%s' "${release_json}" | node -e "let value=''; process.stdin.on('data', chunk => value += chunk).on('end', () => console.log(JSON.parse(value).commit));" 2>/dev/null || true)"
@@ -173,7 +207,7 @@ jobs:
             sleep 5
           done
 
-          get_started="$(curl --fail --silent --show-error --max-time 20 "https://gonatura11y.com/docs/get-started/?release=${expected_sha}")"
+          get_started="$(curl --fail --silent --show-error --max-time 20 "https://gonatura11y.com/docs/get-started/")"
           grep --fixed-strings --quiet "@natura11y/core@${expected_core}" <<< "${get_started}"
           grep --fixed-strings --quiet "@natura11y/icons@${expected_icons}" <<< "${get_started}"
           curl --fail --silent --show-error --head --max-time 20 https://gonatura11y.com/ > /dev/null
