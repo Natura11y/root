@@ -237,6 +237,8 @@ gh workflow run deploy-docs.yml --ref main -f release_ref=main
 
 The workflow uploads to a unique staging directory under `tmp`, preserves the `/v1` through `/v4` archives and `/.well-known`, copies the complete current production tree into `private_html/.deploy-backups`, synchronizes staging into production, and verifies the live release manifest and pinned CDN versions. If synchronization fails, the workflow restores the recorded backup.
 
+After promotion, the workflow purges the Natura11y cache for generated page URLs and assets without hashed filenames, including `release.json`. Production checks use ordinary URLs without cache-busting parameters so stale cached pages cannot pass release verification.
+
 The workflow requires these repository variables:
 
 - `CLOUDWAYS_HOST`
