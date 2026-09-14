@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 
 ---
 
+## [5.2.6] — 2026-09-14
+
+### Accessibility
+
+- Preserve component boundaries, tab selection, arrows, switch states, and keyboard focus when a forced-colors contrast theme is active.
+- Add the shared `--forced-color-border` property for contrast-theme boundaries, including buttons inside search fields.
+- Focus the first available modal control on opening and keep keyboard navigation inside dialogs, including dialogs without focusable controls.
+
+### Bug fixes
+
+- Let `modal--scroll-all` scroll the complete dialog without constraining the content to the viewport height.
+
+### Testing
+
+- Add forced-colors regression checks for HTML and React components in Chromium and Firefox, covering light and dark palettes, responsive layouts, and normal-color search controls.
+
+---
+
 ## [5.2.5] — 2026-08-08
 
 ### Accessibility

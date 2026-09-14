@@ -10,6 +10,16 @@ By submitting a software contribution, you agree that your contribution may be i
 
 Software contributions include source code, package code, examples, tests, build configuration, Storybook source, and documentation application code.
 
+## Forced-color styles
+
+- Keep forced-color support in the Sass file and existing CSS layer that own the component or shared primitive.
+- Place a `@media (forced-colors: active)` block last inside the selector it affects, after its regular declarations and nested rules. When one block covers multiple selectors, place it at the end of their related component section, before the next section.
+- Use `var(--forced-color-border)` for added boundaries. Reserve outlines for focus, and use system colors for explicit forced-color values.
+- Keep existing regular declarations that support forced colors, such as transparent borders, with their related visual properties.
+- Put the exact comment `// Forced color mode support` immediately above each support block or declaration.
+
+Use `forced-color-adjust: none` only for a demonstrated need on the smallest affected element, with system colors. See the [Core forced-color guide](packages/core/FORCED-COLORS.md) for the shared property, component coverage, and verification steps.
+
 ## Documentation and Media Contributions
 
 Documentation content and original media in `apps/docs` are copyright protected and all rights are reserved unless a file says otherwise.

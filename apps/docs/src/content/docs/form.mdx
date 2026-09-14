@@ -66,7 +66,7 @@ When validation fails, associate the visible feedback with its native control us
 
 <TextBlock>
 
-## Form Entries
+## Form entries
 
 The form entry parent selector (`.form-entry`) wraps each entry within a form. Child elements within form entries vary depending on their input types. Such types include *text inputs*, *textareas*, *selects*, *checkboxes*, and *radios*.
 
@@ -155,7 +155,7 @@ Its id equals its associated `aria-describedby` attribute.
 
 <TextBlock>
 
-## Search Entry
+## Search entry
 
 Use the `.form-entry--search` modifier on the `.form-entry` element to create an accessible search field. A `[data-search-clear]` button inside `.form-entry__field__input` is shown automatically by Natura11y's JavaScript when the field has a value, and hidden when it is empty.
 
@@ -239,7 +239,7 @@ The submit button is optional. Use `type="submit"` when the search field is insi
 
 <TextBlock>
 
-### Pre-populated Search (Search Results Page)
+### Pre-populated search (search results page)
 
 When linking to a search results page, pre-apply the `has-value` class to the `.form-entry--search` element and set the `value` attribute on the input to reflect the active query. This ensures the clear button is visible on page load — no JavaScript required for that initial state. It's a small detail that makes a meaningful difference in usability.
 
@@ -255,7 +255,7 @@ The <LinkOpenNew LinkUrl="https://natura11y.github.io/root/packages/core/dist/ht
 
 <TextBlock>
 
-## Select Element
+## Select element
 
 With the example in Figure 3, the same `.form-entry` container holds a `<select>` element.
 
@@ -329,7 +329,7 @@ The `<select>` tag's `id` can be used by help text, validation, and custom scrip
 
 <TextBlock>
 
-## Text Area
+## Text area
 
 Following the previous example's pattern, Figure 4 shows the `.form-entry` parent selector with a `<textarea>` element.
 
@@ -394,7 +394,7 @@ It holds the actual `<textarea>` tag.
 
 <TextBlock>
 
-## File Upload
+## File upload
 
 Natura11y offers a simple file upload component, as shown in Figure 5 below.
 
@@ -549,7 +549,7 @@ It holds the actual text label for the checkbox.
 
 <TextBlock>
 
-### Single Checkbox
+### Single checkbox
 
 For a single checkbox, do not use a `<fieldset>` and `<legend>`. Instead, provide an id on the `.form-entry__field__label` selector (Figure 7, line 5). Then associate it with `aria-labelledby` placed on the surrounding `<label>` tag (Figure 7, line 11).
 
@@ -592,7 +592,7 @@ For a single checkbox, do not use a `<fieldset>` and `<legend>`. Instead, provid
 
 <TextBlock>
 
-### Checkbox Switch
+### Checkbox switch
 
 Checkboxes can transform into switches with just a couple of of changes to the markup.
 
@@ -747,7 +747,7 @@ It holds the actual text label for the radio.
 
 <TextBlock>
 
-## Required Fields
+## Required fields
 
 Natura11y makes it easy to mark required fields. Add `data-required="true"` to the parent `.form-entry` element of the required field. On the same `.form-entry` element, include a custom error message using the `data-error-message={x}` attribute. Here <strong><em>x</em></strong> equals the message displayed to the user during the validation process.
 
@@ -786,7 +786,7 @@ With the previous example, notice the red asterisk placed *before* the label. Th
 
 <TextBlock>
 
-## Form Validation
+## Form validation
 
 Natura11y provides superficial client-side form validation. Include the `novalidate` attribute on the `<form>` tag.
 
@@ -828,7 +828,7 @@ Natura11y provides superficial client-side form validation. Include the `novalid
 
 <TextBlock>
 
-## Floating Labels
+## Floating labels
 
 For short forms (such as a sign in form) floating labels would be fine to use. Add the `.form-entry__field--float` modifier class to the `.form-entry__field` selector (see Figure 12, line 5).
 
@@ -864,7 +864,7 @@ For short forms (such as a sign in form) floating labels would be fine to use. A
 
 <TextBlock>
 
-## Related Custom Properties
+## Related custom properties
 
 Form styles can be customized by redefining the related CSS custom properties.
 

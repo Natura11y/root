@@ -35,7 +35,7 @@ export const getDocSections = (body: string): DocSection[] => (
 
       return {
         id,
-        text: 'Untitled Section',
+        text: 'Untitled section',
         depth: 2,
       };
     })

@@ -37,7 +37,7 @@ Natura11y provides tools for consistent <LinkOpenNew LinkUrl='https://developer.
 
 <TextBlock>
 
-## Spacing Values
+## Spacing values
 
 Spacing values range from 1 to 6, with 1 being the smallest and 6 the largest. These values follow the eight-point grid system for consistent spacing.
 
@@ -47,7 +47,7 @@ Spacing values range from 1 to 6, with 1 being the smallest and 6 the largest. T
 
 <TextBlock>
 
-### Understanding the Scale
+### Understanding the scale
 
 The spacing values in Natura11y are based on a base unit of `1rem` (typically 16px). Each subsequent value is a multiple of this base unit, but the increase is not linear. Instead, the values grow more significantly as they get larger. Specifically, each value is the sum of the previous two values. For example, *8 + 8 = 16*, *16 + 8 = 24*, and so on.
 
@@ -63,7 +63,7 @@ This scaling system allows you to apply spacing that increases more quickly with
 
 <TextBlock>
 
-## Padding and Margin Utilities
+## Padding and margin utilities
 
 You can apply padding or margin to all sides of an element using the `.padding-{x}` or `.margin-{x}` classes, where ***x*** equals the spacer amount (from 1 to 6). Figure 1 demonstrates different padding utilities applied to boxes.
 
@@ -105,7 +105,7 @@ Figure 2 shows different margin utilities applied to boxes.
 
 <TextBlock>
 
-### Direction-Specific Utilities
+### Direction-specific utilities
 
 Apply padding or margin to a specific side, top and bottom, or left and right of an element. Figure 3 provides examples of these directional utilities with a spacer value of *2*.
 
@@ -141,7 +141,7 @@ Apply padding or margin to a specific side, top and bottom, or left and right of
 
 <TextBlock>
 
-### Breakpoint Modifiers
+### Breakpoint modifiers
 
 Natura11y's padding and margin utilities also support <a href="/docs/breakpoint/#breakpoint-modifiers">breakpoint modifiers</a> for responsive designs.
 
@@ -165,7 +165,7 @@ Natura11y's padding and margin utilities also support <a href="/docs/breakpoint/
 
 <TextBlock>
 
-## Gap Utilities
+## Gap utilities
 
 Apply the `.gap-{x}` utility class to <a href="/docs/grid/">grid</a> and <a href="/docs/flex/">flex</a> selectors. Here <em><strong>x</strong></em> equals the gap value. Gap value include spacer values and the global border width (e.g., `.gap-border`).
 
@@ -201,7 +201,7 @@ Apply the `.gap-{x}` utility class to <a href="/docs/grid/">grid</a> and <a href
 
 <TextBlock>
 
-## Related Custom Properties
+## Related custom properties
 
 The spacing scale can be customized by redefining its base value or any individual step. Changes affect spacing utilities and components that reference these shared values.
 

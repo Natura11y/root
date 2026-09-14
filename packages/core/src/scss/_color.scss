@@ -196,6 +196,14 @@ $theme-colors: (
         :is(.active, .has-value) .form-entry__field--float .form-entry__field__label {
             background-color: var(--background-color);
         }
+
+        // Forced color mode support
+        @media (forced-colors: active) {
+            &,
+            *:not(:is([class*="theme-"], [class*="border"], select, footer)) {
+                border-color: revert-layer;
+            }
+        }
     }
 
     @each $breakpoint in map.keys(breakpoint.$breakpoints) {

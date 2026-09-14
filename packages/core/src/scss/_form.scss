@@ -336,6 +336,11 @@ In this file:
             margin-block: var(--_form-entry-button-inset);
 
             border-radius: inherit;
+
+            // Forced color mode support
+            @media (forced-colors: active) {
+                border: var(--forced-color-border);
+            }
         }
 
         > .button:not([class*='--icon-only']) {
@@ -481,8 +486,6 @@ In this file:
         &::before {
             --_caret-size: 0.25em;
 
-            @include caret.caret-shape;
-
             position: absolute !important;
             content: "";
             inset-inline-end: 0;
@@ -491,8 +494,18 @@ In this file:
             transform: translateY(-50%);
 
             margin-inline: var(--form-entry-padding-x);
+
+            @include caret.caret-shape;
         }
 
+        // Forced color mode support
+        @media (forced-colors: active) {
+            --_caret-color: FieldText;
+
+            &:has(select:disabled) {
+                --_caret-color: GrayText;
+            }
+        }
     }
 
     // Checkbox and Radio Elements
@@ -723,6 +736,12 @@ In this file:
                 background-color: currentColor;
                 
                 opacity: 0.375;
+
+                // Forced color mode support
+                @media (forced-colors: active) {
+                    border: var(--forced-color-border);
+                    opacity: 1;
+                }
             }
 
             &::after {

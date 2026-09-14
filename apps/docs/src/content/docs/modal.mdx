@@ -30,13 +30,15 @@ Present actionable content to visitors with dismissable modal dialog overlays.
 
 <AccessibilitySpotlight>
 
+Opening a modal focuses its first focusable element, usually the close button.
+
 Modals have keyboard support for focusable elements. Use the <kbd>Tab</kbd> and <kbd>Shift</kbd> + <kbd>Tab</kbd> keys without leaving the modal by accident. Using the <kbd>Esc</kbd> key closes the modal.
 
 When a modal closes, keyboard users return to the last active element in the document.
 
 Include *role="dialog"* on the modal content element.
 
-Provide an accessible name with *aria-labelledby*, referring to the modal title element.
+Provide an accessible name with *aria-labelledby*, referring to the modal title element. If there is no visible title, use *aria-label* on the dialog instead.
 
 </AccessibilitySpotlight>
 
@@ -48,7 +50,7 @@ Provide an accessible name with *aria-labelledby*, referring to the modal title 
 
 <TextBlock>
 
-## Default Behavior
+## Default behavior
 
 Use the button below to launch the modal component with default behavior. Modals center horizontally and vertically. Content within the `.modal__content__body` selector scrolls (vertically) when its content's height exceeds the height of the viewport.
 
@@ -190,7 +192,7 @@ The `.border-top` utility class is not required.
 
 <TextBlock>
 
-## Scroll Entire Modal
+## Scroll entire modal
 
 If you wish for the entire modal to scroll, add the `.modal--scroll-all` modifier class to the `.modal` selector (Figure 2, line 1).
 
@@ -221,7 +223,7 @@ If you wish for the entire modal to scroll, add the `.modal--scroll-all` modifie
 
 <TextBlock>
 
-## Close Outside
+## Close outside
 
 With the `data-modal-close-outside="true"` attribute present, the modal closes when the user clicks outside of the modal content (Figure 3, line 1).
 
@@ -249,7 +251,7 @@ With the `data-modal-close-outside="true"` attribute present, the modal closes w
 
 <TextBlock>
 
-## Related Custom Properties
+## Related custom properties
 
 Modal styles can be customized by redefining the related CSS custom properties.
 

@@ -55,13 +55,21 @@ const Modal = ({
   const contentRef = useRef<HTMLDivElement>(null);
   const titleId = useId();
   const mergedRef = useMergedRefs(containerRef, ref);
-  const wasOpenRef = useRef(isOpen);
+  const wasOpenRef = useRef(false);
+  const openerRef = useRef<HTMLElement | null>(null);
 
   useScrollLock(isOpen);
   useFocusTrap(contentRef, { enabled: isOpen, onEscape: onClose ?? undefined });
 
   useEffect(() => {
     if (!isOpen || !contentRef.current) return;
+
+    if (!wasOpenRef.current) {
+      openerRef.current = document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+    }
+
     const first = initialFocusRef?.current
       ?? getFocusableElements(contentRef.current)[0] as HTMLElement | undefined;
     first?.focus();
@@ -69,7 +77,7 @@ const Modal = ({
 
   useEffect(() => {
     if (wasOpenRef.current && !isOpen) {
-      returnFocusRef?.current?.focus();
+      (returnFocusRef?.current ?? openerRef.current)?.focus();
     }
     wasOpenRef.current = isOpen;
   }, [isOpen, returnFocusRef]);
