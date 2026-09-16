@@ -1,108 +1,186 @@
 ---
 import { Image } from 'astro:assets';
 import { exampleStyle } from '../shared/exampleStyles';
-import Brand from '../main-menu/Brand.astro';
 import backdropImage from './images/rtl-backdrop-01.jpg';
 ---
 
-<div class="overflow-hidden arabic-font theme-light" dir="rtl" lang="ar" style={exampleStyle}>
-  <div class="main-menu--bar--lg box-shadow-1">
+<div id="rtl-nature-guide" class="overflow-hidden arabic-font theme-light" dir="rtl" lang="ar" style={exampleStyle}>
+  <header class="main-menu--bar--lg box-shadow-1">
     <div class="main-menu__logo">
-      <a href="#1" title="Home" data-logo="brand">
-        <Brand />
-      </a>
+      <a href="#rtl-nature-guide" class="font-size-lg font-weight-bold">دليل الطبيعة</a>
     </div>
 
-    <nav class="main-menu__nav" id="rtl-main-menu" aria-label="Main Menu">
+    <nav class="main-menu__nav" id="rtl-main-menu" aria-label="التنقل الرئيسي في دليل الطبيعة">
       <ul>
-        <li><a href="#1">وصلة</a></li>
-        <li><a href="#1">وصلة</a></li>
-        <li><a href="#1">وصلة</a></li>
+        <li><a href="#rtl-guide-overview">عن السلطعون</a></li>
+        <li><a href="#rtl-guide-habitat">الموائل والغذاء</a></li>
+        <li><a href="#rtl-guide-resources">المصادر</a></li>
       </ul>
     </nav>
 
     <div class="main-menu__toggle">
       <button
         class="button button--icon-only"
-        aria-label="Menu"
+        aria-label="قائمة التنقل"
         data-toggle="collapse"
         aria-controls="rtl-main-menu"
+        aria-expanded="false"
         type="button"
       >
         <span class="icon icon-menu" aria-hidden="true"></span>
       </button>
     </div>
+  </header>
 
-    <div class="main-menu__actions">
-      <button class="button button--icon-only" aria-label="Language" type="button">
-        <span class="icon icon-language" aria-hidden="true"></span>
-      </button>
-    </div>
-  </div>
-
-  <nav class="container padding-y-1 theme-dark" aria-label="Breadcrumb">
+  <nav class="container padding-y-1 theme-dark" aria-label="مسار التصفح في دليل الطبيعة">
     <ul class="breadcrumb">
       <li>
-        <a class="button button--icon-only" href="#1" aria-label="Home">
-          <span class="icon icon-home" aria-hidden="true"></span>
-        </a>
+        <a href="#rtl-nature-guide">دليل الطبيعة</a>
       </li>
-      <li><a href="#1">معلومات عنا</a></li>
-      <li class="text-color-secondary">خدمات</li>
+      <li aria-current="page">السلطعون الناسك</li>
     </ul>
   </nav>
 
-  <div class="backdrop backdrop--fixed theme-dark" style="--backdrop-fixed-height: 600px;">
+  <div class="backdrop backdrop--fixed theme-dark" style="--backdrop-fixed-height: 400px;">
     <div class="backdrop__media gradient-mask-left">
       <Image class="opacity-50" src={backdropImage} alt="" layout="full-width" />
-      <div class="backdrop__media__credit display-none">
-        <p>الصورة من تصوير <a href="#1">Jane Doe</a>, Unsplash</p>
-      </div>
     </div>
 
     <div class="backdrop__cover">
       <div class="padding-x-3 margin-y-4 width-50--lg">
-        <div class="text-shadow margin-bottom-4">
-          <h1>حول سلطعون الناسك</h1>
+        <div class="text-shadow margin-bottom-3">
+          <h1>السلطعون الناسك</h1>
           <p class="font-size-lg">
-            هناك أكثر من 800 نوع من السرطانات الناسك ، ومعظمها له بطن غير متماثل مخفي بغطاء محكم.
+            حيوان صغير يحمل مأواه معه. تعرّف على جسمه، وكيف يختار صدفته، والبيئات التي يعيش فيها.
           </p>
         </div>
 
-        <a class="button theme-secondary box-shadow-1 font-size-sm" href="#1">
-          <span class="text">المزيد على ويكيبيديا</span>
+        <a class="button theme-secondary font-size-sm" href="#rtl-guide-overview">
+          <span class="text">استكشف الدليل</span>
           <span class="icon icon-arrow-right" aria-hidden="true"></span>
         </a>
       </div>
     </div>
   </div>
 
-  <article class="article article--column-2">
-    <aside class="article__sidebar">
-      <nav>
-        <ul class="nav nav--divider position-sticky-top margin-y-3">
-          <li><a href="#1">وصلة</a></li>
-          <li><a href="#1">الوصف البيولوجي</a></li>
-          <li><a href="#1">التنمية والتكاثر</a></li>
-          <li><a href="#1">تصنيف</a></li>
+  <div
+    class="container grid-sidebar--left grid--divider gap-4 margin-y-4"
+    style="--grid-sidebar-width: 240px;"
+  >
+    <aside class="grid-sidebar__minor">
+      <button
+        class="button button--disperse display-none--lg"
+        data-toggle="collapse"
+        aria-controls="rtl-guide-sidebar"
+        aria-expanded="false"
+        type="button"
+      >
+        <span class="text">في هذا الدليل</span>
+        <span class="icon icon-chevron-down" aria-hidden="true"></span>
+      </button>
+
+      <nav class="collapse shown--lg" id="rtl-guide-sidebar" aria-label="أقسام دليل السلطعون الناسك">
+        <ul class="nested-nav">
+          <li><a href="#rtl-guide-overview" aria-current="location">نظرة عامة</a></li>
+          <li>
+            <a href="#rtl-guide-body">الجسم والصدفة</a>
+            <ul>
+              <li><a href="#rtl-guide-shell">اختيار الصدفة</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#rtl-guide-habitat">الموائل والغذاء</a>
+            <ul>
+              <li><a href="#rtl-guide-marine">في البحر</a></li>
+              <li><a href="#rtl-guide-land">على اليابسة</a></li>
+            </ul>
+          </li>
+          <li><a href="#rtl-guide-observation">المشاهدة في الطبيعة</a></li>
+          <li><a href="#rtl-guide-resources">المصادر</a></li>
         </ul>
       </nav>
     </aside>
 
-    <div class="article__body border-left">
-      <div class="container narrow margin-y-4">
-        <h2>الوصف البيولوجي</h2>
+    <article class="grid-sidebar__major">
+      <div class="narrow margin-x-auto">
+        <section class="margin-bottom-4">
+          <h2 id="rtl-guide-overview">حياة داخل صدفة</h2>
+          <p>
+            يحمل السلطعون الناسك صدفته أينما ذهب، ويعتمد عليها لحماية الجزء اللين من جسمه.
+            لا يصنع هذه الصدفة بنفسه، بل يستقر في صدفة فارغة تركها حلزون.
+            وعندما يتحرك بين الصخور بحثًا عن الطعام، يبقى معظم بطنه مختبئًا في الداخل.
+            تبدو الصدفة من الخارج كأنها جزء من جسمه، لكنها مأوى يمكنه استبداله عندما يكبر.
+          </p>
 
-        <p>
-          تمتلك معظم الأنواع بطونًا طويلة منحنية حلزونيًا ، وهي ناعمة ، على عكس البطون الصلبة المتكلسة التي تظهر في القشريات ذات الصلة.
-        </p>
+          <p id="rtl-guide-body">
+            يغطي الجزء الأمامي من جسمه هيكل خارجي صلب، بينما يتخذ بطنه شكلًا يناسب التفاف الصدفة.
+            يستخدم بعض أرجله للمشي، وتساعده الأجزاء الخلفية على التمسك بالسطح الداخلي لمأواه.
+            أما المخالب فتساعده على الدفاع عن نفسه والإمساك بالطعام وتقطيعه.
+            يجمع جسمه بذلك بين أجزاء تتحرك خارجه وأجزاء تبقى محمية في الداخل، وهو ما يسمح له بالتنقل مع صدفته.
+          </p>
 
-        <h2>بيئة السرطان الناسك</h2>
+          <p id="rtl-guide-shell">
+            مع نمو السلطعون، تصبح الصدفة القديمة ضيقة ويبدأ البحث عن بديل مناسب.
+            يفحص فتحة الصدفة الجديدة وشكلها وملمسها، ويتحقق من المساحة المتاحة في الداخل قبل الانتقال إليها.
+            فالحجم وحده لا يكفي؛ يجب أن يتمكن من الحركة وهو يحملها، وأن ينسحب إلى داخلها عند الحاجة.
+            ولهذا تمثل الأصداف الفارغة موردًا مهمًا في بيئته، وقد تتنافس عدة سرطانات على الصدفة نفسها.
+          </p>
+        </section>
 
-        <p>
-          يمكن تقسيم السرطانات الناسك إلى مجموعتين، بحرية وبرية، ولكل منها متطلبات بيئية مختلفة.
-        </p>
+        <section class="margin-bottom-4">
+          <h2 id="rtl-guide-habitat">الموائل والغذاء</h2>
+          <p id="rtl-guide-marine">
+            تختلف حياة السلطعون الناسك باختلاف موطنه، فبعض الأنواع تعيش في البحر وأخرى تقضي معظم وقتها على اليابسة.
+            يمكن مشاهدة الأنواع البحرية في برك المد والجزر وبين الصخور، حيث تبحث عن بقايا النباتات والمواد العضوية لتتغذى عليها.
+            وبينما تتحرك في هذه الأماكن، تجد الأصداف التي تحتاج إليها.
+            وهكذا يوفر لها الموطن نفسه الغذاء والمأوى، وتبقى الأصداف جزءًا من الحياة على الشاطئ حتى بعد مغادرة أصحابها الأصليين.
+          </p>
+
+          <p id="rtl-guide-land">
+            تعيش الأنواع البرية قرب الساحل، وتحتاج إلى الرطوبة والوصول إلى الماء رغم قدرتها على التنقل فوق اليابسة.
+            يساعد الماء على إبقاء خياشيمها وداخل أصدافها رطبين، كما تبدأ حياتها في الماء قبل انتقالها إلى البر.
+            تتغذى هذه الأنواع على مواد نباتية وحيوانية متنوعة تجدها في محيطها.
+            لذلك لا تعني رؤيتها بعيدًا عن حافة الماء أنها مستقلة عن البحر؛ فالماء يظل جزءًا أساسيًا من حياتها.
+          </p>
+
+          <p id="rtl-guide-observation">
+            عند مشاهدة السلطعون الناسك في الطبيعة، اترك له مساحة يتحرك فيها من دون إزعاج.
+            يمكنك متابعة خطواته وطريقة حمله للصدفة من غير الإمساك به أو محاولة إخراجه منها.
+            واترك الأصداف الفارغة في مكانها أيضًا، فقد تصبح مأوى لسلطعون آخر.
+            تمنحك هذه المشاهدة البسيطة فرصة للتعرف على الحيوان، مع الحفاظ على الأشياء التي يحتاج إليها في بيئته.
+          </p>
+        </section>
+
+        <footer id="rtl-guide-resources" class="border-top padding-top-3 font-size-sm">
+          <p>للقراءة عن الأنواع البحرية والبرية، راجع هذين الدليلين باللغة الإنجليزية:</p>
+          <ul class="nav">
+            <li>
+              <a href="https://www.montereybayaquarium.org/animals-the-ocean/animals-a-to-z/hermit-crab" target="_blank" rel="noreferrer">
+                <bdi lang="en" dir="ltr">Monterey Bay Aquarium</bdi>
+                <span class="icon icon-open-new" aria-hidden="true"></span>
+                <span class="screen-reader-only"> (يفتح في علامة تبويب جديدة)</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://nationalzoo.si.edu/animals/land-hermit-crab" target="_blank" rel="noreferrer">
+                <bdi lang="en" dir="ltr">Smithsonian’s National Zoo</bdi>
+                <span class="icon icon-open-new" aria-hidden="true"></span>
+                <span class="screen-reader-only"> (يفتح في علامة تبويب جديدة)</span>
+              </a>
+            </li>
+          </ul>
+        </footer>
       </div>
+    </article>
+  </div>
+
+  <footer class="theme-dark">
+    <div class="container padding-y-3 flex-row justify-content-between align-items-center gap-2">
+      <p class="font-size-sm margin-bottom-0">دليل الطبيعة</p>
+      <a class="button button--outline font-size-sm" href="#rtl-nature-guide">
+        <span class="text">العودة إلى الأعلى</span>
+        <span class="icon icon-arrow-up" aria-hidden="true"></span>
+      </a>
     </div>
-  </article>
+  </footer>
 </div>

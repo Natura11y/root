@@ -26,20 +26,22 @@ import CSSLogicalProperties from '../../components/examples/rtl/CSSLogicalProper
 
 ## Include the millions who read from right to left
 
-Natura11y includes <a href="https://developer.mozilla.org/en-US/docs/Glossary/Localization" target="_blank">localization</a> support for the 12 right-to-left (RTL) languages around the world:
+Natura11y supports layouts for languages written in right-to-left (RTL) scripts, including:
 
 - Arabic
 - Aramaic
-- Azeri
+- Azeri (Arabic script)
 - Divehi
-- Fula
+- Fula (Adlam or Arabic script)
 - Hebrew
-- Kurdish
-- N'Ko
+- Kurdish (Arabic script)
+- Maninka (N’Ko script)
 - Persian
-- Rohingya
+- Rohingya (Hanifi or Arabic script)
 - Syriac
 - Urdu
+
+Writing direction depends on the script. Some of these languages are also written in left-to-right scripts.
 
 </TextBlock>
 
@@ -60,6 +62,8 @@ The `dir` attribute declares the default text direction. A value of `ltr` sets a
 The `lang` attribute sets the document's default language. A value of `en` sets the language to *English*.
 
 A document written in Arabic, for example, requires both the `dir="rtl"` and `lang="ar"` attributes (Figure 1, line 3).
+
+Translate interface labels and messages alongside page content, and check layouts that combine right-to-left and left-to-right text.
 
 </TextBlock>
 
@@ -95,9 +99,9 @@ A document written in Arabic, for example, requires both the `dir="rtl"` and `la
 
 ## CSS logical properties
 
-Natura11y declares all *text alignment*, *margin*, *padding*, *position*, and *border* styles using <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties" target="_blank">CSS Logical Properties</a>.
+Natura11y uses <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Logical_Properties" target="_blank">CSS logical properties</a> for directional text alignment, spacing, positioning, and borders.
 
-With the aforementioned `dir="rtl"` attribute present on the `html` tag, left and right directional styles flip automatically.
+With `dir="rtl"` on the `html` tag, styles that use logical start and end values follow the right-to-left direction.
 
 </TextBlock>
 
@@ -113,7 +117,7 @@ With the aforementioned `dir="rtl"` attribute present on the `html` tag, left an
 
 ## Flipping icons
 
-Natura11y's directional icons flip horizontally when the `dir="rtl"` attribute is present. Consider the following directional icons:
+Natura11y's directional icon font symbols flip horizontally when the `dir="rtl"` attribute is present. Consider the following directional icons:
 
 </TextBlock>
 

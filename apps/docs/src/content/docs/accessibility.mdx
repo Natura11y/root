@@ -144,7 +144,10 @@ Accessible Rich Internet Applications (<LinkOpenNew LinkUrl='https://developer.m
 	<!-- Aria Property -->
 	<div
 			class="modal__content"
+			role="dialog"
+			aria-modal="true"
 			aria-labelledby="modal-title">
+			<h2 id="modal-title">Dialog title</h2>
 			<!-- modal content -->
 	</div>
 	`)}
@@ -158,7 +161,7 @@ Accessible Rich Internet Applications (<LinkOpenNew LinkUrl='https://developer.m
 
 ## Keyboard and focus
 
-Natura11y ensures focus indicators remain visible and correctly positioned. Focus rings adapt to theme colors—so they don't vanish on matching backgrounds. They also avoid clipping from parent containers using `overflow: hidden`, a common issue in other frameworks.
+Natura11y’s focus indicators adapt to theme colors. Inset outlines help keep focus visible within components and containers that clip overflowing content.
 
 </TextBlock>
 
@@ -191,6 +194,18 @@ A target is the area of a link, button, or form control that responds to a click
 Natura11y’s buttons and form fields use shared minimum heights and padding that scale with text size. When customizing controls, check their full clickable or tappable area and the space between neighboring targets. This includes icon-only buttons, whose target can be larger than the visible icon.
 
 See <LinkOpenNew LinkUrl="https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html" LinkText="WAI’s target-size guidance" /> for size and spacing requirements and their exceptions.
+
+</TextBlock>
+
+</Section>
+
+<Section id="zoom-and-reflow">
+
+<TextBlock>
+
+## Zoom and reflow
+
+People may enlarge text or zoom the page to make content easier to read. Natura11y’s type scale and responsive utilities support layouts that adapt to different viewing sizes. Check your pages with enlarged text and browser zoom so content and controls remain available.
 
 </TextBlock>
 

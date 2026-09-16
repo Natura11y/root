@@ -60,11 +60,11 @@ In Figure 1 below, `theme.css` loads after the Natura11y stylesheet, so custom v
 
 ### CSS variables
 
-Natura11y’s CSS variables are declared inside `:root`, making them available throughout the page. Variables are grouped by feature, and each documentation page lists the custom properties available for that feature.
+Natura11y defines global defaults in `:root`. Themes and components can override values where they are used. Variables are grouped by feature, and each documentation page lists the custom properties available for that feature.
 
 ### Example: updating colors
 
-Add new color values to `theme.css` by declaring them inside `:root`. Figure 2 replaces several of Natura11y's default colors with a custom palette.
+Add new color values to `theme.css` by declaring them inside `:root`. Figure 2 updates theme backgrounds and their related text and feedback colors together. When customizing a palette, check text, links, and feedback colors against each theme background.
 
 </TextBlock>
 
@@ -74,11 +74,16 @@ Add new color values to `theme.css` by declaring them inside `:root`. Figure 2 r
 	codeLanguage="css"
 	code={`
 	:root {
-		--primary: #008f47;
+		--primary: #006b35;
+		--primary-confirm: #b9f6ca;
+		--primary-warn: #ffe5b4;
 		--secondary: #004d40;
+		--secondary-text: white;
+		--secondary-confirm: #b9f6ca;
+		--secondary-warn: #ffcccc;
 		--dark: #0d1627;
 		--canvas: #f4f4ef;
-		--secondary-text: white;
+		--canvas-confirm: #007c35;
 	}
 	`}
 />
@@ -134,7 +139,7 @@ Any Natura11y style that uses these variables will now use the new values. The s
 
 ### SCSS
 
-Natura11y’s Sass is organized much like the documentation, with a partial for each component, utility, or feature. Component class names follow BEM conventions, and related CSS variables are grouped near the top of each partial. The compiled CSS uses cascade layers and logical properties to keep styles predictable and easy to customize.
+Natura11y’s Sass is organized much like the documentation, with a partial for each component, utility, or feature. Component class names follow BEM conventions, and related CSS variables are grouped near the top of each partial. The compiled CSS uses cascade layers and logical properties to keep styles predictable and easy to customize. Core’s layers are applied in this order: base, component, then utility.
 
 ### Vanilla JavaScript
 
@@ -188,17 +193,17 @@ The document canvas can be customized by redefining the related CSS custom prope
 		{
 			property: 'body-min-width',
 			defaultValue: '325px',
-			purpose: 'Minimum inline size of the document body.',
+			purpose: 'Minimum width of the document body.',
 		},
 		{
 			property: 'body-max-width',
 			defaultValue: '100dvw',
-			purpose: 'Maximum inline size of the document body.',
+			purpose: 'Maximum width of the document body.',
 		},
 		{
 			property: 'body-min-height',
 			defaultValue: '100%',
-			purpose: 'Minimum block size applied to the html and body elements.',
+			purpose: 'Minimum height applied to the html and body elements.',
 		},
 		{
 			property: 'html-scroll-behavior',

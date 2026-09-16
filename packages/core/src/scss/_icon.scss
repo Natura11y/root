@@ -42,7 +42,8 @@ In this file:
     &[class*="-left"], 
     &[class*="-right"],
     &[class*="-checked"],
-    &[class*="-confirm"] {
+    &[class*="-confirm"],
+    &.icon-open-new {
       [dir="rtl"] & {
         transform: scaleX(-1);
       }
