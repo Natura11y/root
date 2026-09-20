@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 
 import BaseLayout from '../layouts/BaseLayout.astro';
 import bannerIntroduction from '../assets/home/banner-introduction.jpg';
+import homepageSocialImage from '../assets/home/natura11y-home-og.png';
 import exampleFeature from '../assets/example-thumbnails/peak-performance-page.jpg';
 import templateFeature from '../assets/template-thumbnails/template-landing.jpg';
 import accessibilityFeature from '../content/docs/banner/accessibility.jpg';
@@ -15,9 +16,9 @@ import iconFeature from '../content/docs/banner/icon.jpg';
 import mainMenuFeature from '../content/docs/banner/main-menu.jpg';
 import reactFeature from '../content/docs/banner/react.jpg';
 
-const title = 'Natura11y Design Ecosystem';
+const title = 'Natura11y | Accessible Design Ecosystem';
 const description =
-  'Natura11y is a user-friendly front end ecosystem. Natura11y provides bleeding-edge CSS, modern JavaScript, and its own icon library. Get started using CDNs, NPM, or Webpack. Start creating amazing web experiences with Natura11y.';
+  'Build accessible interfaces with Natura11y’s open-source design ecosystem: Figma UI kits, Core CSS and JavaScript, React components, icons, and documentation.';
 
 const ecosystemFeatures = [
   {
@@ -95,7 +96,12 @@ const ecosystemFeatures = [
 ];
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout
+  title={title}
+  description={description}
+  socialImage={homepageSocialImage}
+  socialImageAlt="Natura11y Design Ecosystem in white lettering over a hummingbird beside an orange flower."
+>
 
   <section class="backdrop theme-dark backdrop--stack--lg">
 
