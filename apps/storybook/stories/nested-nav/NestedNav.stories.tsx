@@ -7,6 +7,13 @@ import nestedNavMarkup from './nested-nav.example.html?raw';
 const meta: Meta<typeof NestedNav> = {
   title: 'Nested Nav',
   component: NestedNav,
+  decorators: [
+    (Story) => (
+      <div style={{ width: '100%', maxWidth: '400px' }}>
+        <Story />
+      </div>
+    ),
+  ],
   parameters: {
     docs: {
       codePanel: true,
