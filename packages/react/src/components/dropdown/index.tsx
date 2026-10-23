@@ -92,16 +92,6 @@ const Dropdown = ({
       (items[nextIndex] as HTMLElement | undefined)?.focus();
     };
 
-    const handleTabNavigation = (e: KeyboardEvent) => {
-      const items = getFocusableElements(menu);
-      if (document.activeElement === items[items.length - 1] && !e.shiftKey) {
-        setMenuShow(false);
-        const next = button.closest('li')?.nextElementSibling?.querySelector('button, a');
-        (next as HTMLElement | null)?.focus();
-        e.preventDefault();
-      }
-    };
-
     const handleOutsideClick = (e: MouseEvent) => {
       if (!menuShowRef.current) return;
       if (!menu.contains(e.target as Node) && !triggerContainer.contains(e.target as Node)) {
@@ -116,8 +106,6 @@ const Dropdown = ({
       } else if (menuShowRef.current && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
         e.preventDefault();
         navigateMenu(e.key);
-      } else if (e.key === 'Tab' && menuShowRef.current) {
-        handleTabNavigation(e);
       }
     };
 

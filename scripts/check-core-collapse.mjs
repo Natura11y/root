@@ -195,9 +195,24 @@ for (const browserType of [chromium, firefox]) {
         await page.waitForTimeout(350);
       }
 
-      // Close Target can interrupt a closing panel in the same way.
+      // Close Target must keep closing content out of keyboard navigation.
       await page.evaluate(markup => {
         document.querySelector('#examples').innerHTML = markup;
+
+        document.querySelectorAll('.collapse').forEach((panel, index) => {
+          const link = document.createElement('a');
+          link.id = 'panel-link-' + (index + 1);
+          link.href = '#example';
+          link.textContent = 'Panel link ' + (index + 1);
+          panel.firstElementChild.append(link);
+        });
+
+        const after = document.createElement('a');
+        after.id = 'after-panels';
+        after.href = '#example';
+        after.textContent = 'Following content';
+        document.querySelector('#examples').append(after);
+
         new window.Collapse().init();
       }, closeTargetMarkup);
       await verifyToggle(first, true);
@@ -206,11 +221,27 @@ for (const browserType of [chromium, firefox]) {
       await page.waitForTimeout(50);
       await trigger(first).focus();
       await verifyToggle(first, true, () => page.keyboard.press('Enter'));
+      await page.waitForTimeout(100);
+
+      await trigger(second).focus();
+      await page.keyboard.press('Tab');
+      assert.equal(await page.locator('#panel-link-1').evaluate(el => el === document.activeElement), true);
+      await page.keyboard.press('Tab');
+      assert.equal(
+        await page.locator('#after-panels').evaluate(el => el === document.activeElement),
+        true,
+        'Tab must skip the closing panel, including while visibility is transitioning'
+      );
       await page.waitForTimeout(350);
+      assert.equal(await page.locator('#after-panels').evaluate(el => el === document.activeElement), true);
+      await verifyState(second, false);
+
+      await page.keyboard.press('Shift+Tab');
+      assert.equal(await page.locator('#panel-link-1').evaluate(el => el === document.activeElement), true);
       await verifyToggle(first, false, () => page.keyboard.press('Escape'));
-      assert.equal(await trigger(second).getAttribute('aria-expanded'), 'false');
-      assert.equal(await page.locator('#' + second).evaluate(el => el.classList.contains('shown')), false);
       assert.equal(await trigger(first).evaluate(el => el === document.activeElement), true);
+      await page.waitForTimeout(350);
+      await verifyState(first, false);
 
       console.log(`PASS ${browserType.name()} (${reducedMotion}): rapid reopen Escape, focus return, closing cleanup, Close Target reversal`);
     }
