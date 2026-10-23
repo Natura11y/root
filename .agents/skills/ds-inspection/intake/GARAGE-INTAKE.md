@@ -1,8 +1,8 @@
 # Garage Intake — Check the Vehicle In
 
-Before any inspection, check the vehicle in. This step builds `ds-inspection/GARAGE.md`: a profile of the design system and a map of what evidence the agent can actually reach. Every station reads this file first — good intake is what makes the inspection specific instead of generic.
+Before inspecting, establish the system context and the evidence available. Reuse existing repository documentation and conversation history; summarize relevant gaps and access in the conversation for the selected stations. This intake does not create a profile file.
 
-**Agent:** work through the sections below conversationally — a few questions at a time, not a wall of forms. Wherever you have live access (design-tool bridge, repo, docs URL), *discover* the answer yourself and confirm it instead of asking. Aim for 10–15 minutes, not an interrogation. Then write `GARAGE.md` using the template at the bottom and read it back for confirmation.
+**Agent:** work through the sections below conversationally — a few questions at a time, not a wall of forms. Wherever you have live access (design-tool bridge, repo, docs URL), *discover* the answer yourself and confirm it instead of asking. Use the template below only where it helps summarize the context in the conversation; omit irrelevant sections and do not create a file.
 
 **First question, before anything else — the design library.** You're almost certainly running inside a code repo, which makes it easy to forget that most design systems have a Figma (or other design-tool) library too. Open with: *"Do you have a Figma or other design library for this system? And is a Figma MCP or bridge plugin connected so I can read it live?"* Then check your own available tools for Figma/design-tool tools — users often have a bridge running that you won't notice unless you look — and if you find one, make a test call to confirm you can see their actual library. Record the outcome either way. Skipping this is the #1 intake failure: it silently downgrades every design-side finding to `[reported]` and the user finds out at the end of the report.
 
@@ -54,10 +54,10 @@ Ask like a mechanic: *"What's it doing? When did it start?"*
 
 ---
 
-## GARAGE.md template
+## Intake summary template
 
 ```markdown
-# GARAGE.md — <System Name>
+# Inspection context — <System Name>
 _Checked in: <date> · Re-confirm at next inspection_
 
 ## Vehicle

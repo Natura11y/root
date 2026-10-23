@@ -1,7 +1,7 @@
 # Multi-Point Inspection Report — <System Name>
 
 _Inspected: <date> · Technician: <agent + model> · Previous inspection: <date or "first inspection">_
-_Vehicle profile: `ds-inspection/GARAGE.md` (checked in <date>)_
+_Context: <brief intake summary or reference to the relevant conversation>_
 
 ## The short version
 
@@ -54,10 +54,10 @@ _Vehicle profile: `ds-inspection/GARAGE.md` (checked in <date>)_
 
 ## What changed since last inspection
 
-<Re-inspections only: score movement per station, lights turned off, new lights, work-order items completed/still open. Delete for first inspections.>
+<Re-inspections only: score movement per station, lights turned off, new lights, GitHub Issues completed/still open. Delete for first inspections.>
 
 ## Next service
 
-- Work order: `ds-inspection/work-orders/<date>-work-order.md`
+- Follow-up work: <existing or authorized GitHub Issue links; otherwise proposed items in this conversation>
 - Recommended cadence: deep inspection <quarterly>; everyday checks to wire into CI: <stations>
 - Re-inspect by: <date>
