@@ -49,6 +49,13 @@ declare module '*.webm' {
   export default src;
 }
 
+declare module '@core-js/table' {
+  export default class Table {
+    init(root?: ParentNode): void;
+    destroy(): void;
+  }
+}
+
 declare module '@core-js/*' {
   const CoreComponent: new () => { init(): void };
   export default CoreComponent;

@@ -4,9 +4,13 @@ import Table from '@lib/components/table';
 import TableScroll from '@lib/components/table/TableScroll';
 import VanillaExample from '../../utils/VanillaExample';
 import tableMarkup from './table.example.html?raw';
+import tableScrollMarkup from './table-scroll.example.html?raw';
 
-const initializeTable = () => {
-  new VanillaTable().init();
+const initializeTable = (container: HTMLDivElement) => {
+  const table = new VanillaTable();
+  table.init(container);
+
+  return () => table.destroy();
 };
 
 const meta: Meta<typeof Table> = {
@@ -110,7 +114,25 @@ export const TableDivider: Story = {
   },
 };
 
+export const ScrollingTablesHtml: Story = {
+  name: 'Scrolling Tables (HTML)',
+  parameters: {
+    controls: { disable: true },
+    docs: {
+      source: {
+        code: tableScrollMarkup.trim(),
+        language: 'html',
+        type: 'code',
+      },
+    },
+  },
+  render: () => (
+    <VanillaExample html={tableScrollMarkup} initialize={initializeTable} />
+  ),
+};
+
 export const ScrollingTables: Story = {
+  name: 'Scrolling Tables (React)',
   render: (args) => (
     <TableScroll>
       <Table {...args} />

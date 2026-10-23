@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useRef } from 'react';
 
 type InitializedExample = {
   container: HTMLDivElement;
@@ -9,14 +9,14 @@ const initializedExamples = new Map<string, InitializedExample>();
 
 type VanillaExampleProps = {
   html: string;
-  initialize?: (container: HTMLDivElement) => void;
+  initialize?: (container: HTMLDivElement) => void | (() => void);
   initializeOnceKey?: string;
 };
 
 const VanillaExample = ({ html, initialize, initializeOnceKey }: VanillaExampleProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
@@ -37,14 +37,23 @@ const VanillaExample = ({ html, initialize, initializeOnceKey }: VanillaExampleP
       });
     }
 
-    initialize?.(container);
+    // Keep the vanilla DOM intact when Storybook rerenders for viewport or theme changes.
+    container.innerHTML = html;
+    const cleanup = initialize?.(container);
+
+    if (typeof cleanup !== 'function') return;
+
+    return () => {
+      cleanup();
+
+      if (initializeOnceKey && initializedExamples.get(initializeOnceKey)?.container === container) {
+        initializedExamples.delete(initializeOnceKey);
+      }
+    };
   }, [initialize, html, initializeOnceKey]);
 
   return (
-    <div
-      ref={containerRef}
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
+    <div ref={containerRef} />
   );
 };
 
