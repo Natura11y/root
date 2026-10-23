@@ -111,3 +111,4 @@ npm --workspace @natura11y/react pack --dry-run
 - [Natura11y React on NPM](https://www.npmjs.com/package/@natura11y/react)
 - [Natura11y Core on GitHub](https://github.com/Natura11y/root/tree/main/packages/core)
 - [Natura11y Docs](https://gonatura11y.com)
+- [Contribution guide](https://github.com/Natura11y/root/blob/main/CONTRIBUTING.md)

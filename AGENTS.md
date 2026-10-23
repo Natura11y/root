@@ -8,7 +8,7 @@ Read [README.md](README.md) for the project overview and [CONTRIBUTING.md](CONTR
 
 ## Instructions by area
 
-These instructions apply throughout the repository. Before changing an area, read its scoped `AGENTS.md`, even when starting at the repository root. Scoped instructions add area-specific requirements and take precedence over broader instructions within their directory. Direct task instructions take precedence over these files. For changes spanning areas, read each applicable file.
+These instructions apply throughout the repository. Before auditing or changing an area, read its scoped `AGENTS.md`, even when starting at the repository root. Scoped instructions add area-specific requirements and take precedence over broader instructions within their directory. Direct task instructions take precedence over these files. For changes spanning areas, read each applicable file.
 
 | Area | Instructions |
 | --- | --- |
@@ -17,6 +17,8 @@ These instructions apply throughout the repository. Before changing an area, rea
 | SVG sources, icon font, metadata | [Icons](packages/icons/AGENTS.md) |
 | Documentation content and Astro site | [Documentation](apps/docs/AGENTS.md) |
 | Component stories and interaction examples | [Storybook](apps/storybook/AGENTS.md) |
+
+Read the relevant public documentation and inspect the existing implementation, examples, and affected consumers before making audit recommendations or changes. Compare existing guidance before recommending another document. An audit is read-only unless changes are explicitly approved.
 
 ## Setup and build commands
 

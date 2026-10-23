@@ -68,3 +68,4 @@ import { handleOverlayOpen, handleOverlayClose } from '@natura11y/core/utilities
 - [Natura11y Icons on NPM](https://www.npmjs.com/package/@natura11y/icons)
 - [Natura11y React on NPM](https://www.npmjs.com/package/@natura11y/react)
 - [Natura11y Docs](https://gonatura11y.com)
+- [Contribution guide](https://github.com/Natura11y/root/blob/main/CONTRIBUTING.md)

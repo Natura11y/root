@@ -24,4 +24,4 @@ Update the affected React stories and verify interaction, including keyboard and
 
 For public export or packaging changes, inspect `npm pack --dry-run --workspace @natura11y/react`. Verify the affected exports and generated type declarations in a consumer, including the supported module formats. The package's export map and published files list are authoritative.
 
-Use `npm run react-demo` for the development app and `npm run build:react-demo` when changing its build or templates.
+Use `npm run react-demo` to run the development app and verify changes to its templates.

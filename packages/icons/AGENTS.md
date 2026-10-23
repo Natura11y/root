@@ -2,7 +2,7 @@
 
 Apply these instructions to changes in `packages/icons/`. Read the [root instructions](../../AGENTS.md); consult the [Icons README](README.md) for documented package usage.
 
-Before auditing or changing this package, read the [public icon documentation](../../apps/docs/src/content/docs/icon.mdx), including its custom-font and Figma workflow. Inspect the [icon browser](../../apps/docs/src/pages/icons/index.astro), [SVG download route](../../apps/docs/src/pages/icons/svg/[name].svg.ts), and [Storybook examples](../../apps/storybook/stories/icon/Icon.stories.tsx) for affected consumers. Compare existing guidance before recommending another document. An audit is read-only unless changes are explicitly approved.
+Read the [public icon documentation](../../apps/docs/src/content/docs/icon.mdx), including its custom-font and Figma workflow. Inspect the [icon browser](../../apps/docs/src/pages/icons/index.astro), [SVG download route](../../apps/docs/src/pages/icons/svg/[name].svg.ts), and [Storybook examples](../../apps/storybook/stories/icon/Icon.stories.tsx) for affected consumers.
 
 ## Source and compatibility
 
