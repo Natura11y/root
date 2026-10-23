@@ -91,7 +91,7 @@ For behavior changes, verify keyboard operation, focus entry/return, state chang
 
 Write READMEs for human readers: project purpose, installation, usage, and contributor onboarding. Keep agent-only directions, context-loading instructions, and agent workflows out of READMEs. Write `AGENTS.md` files as direct operational instructions for agents; link to human documentation for explanations instead of copying product introductions or tutorials into instruction files.
 
-Use [TODO.md](TODO.md) for known bugs, proposals, and planned work, and [PUBLISHING.md](PUBLISHING.md) for releases. Read the relevant section when the task needs it. These documents are references, not automatically loaded instructions; planned work is not evidence of an implemented feature.
+Use [GitHub Issues](https://github.com/Natura11y/root/issues) as the single backlog for bugs, proposals, and planned work; check for an existing issue before creating one. Read the relevant issue when the task needs it, and distinguish planned work from implemented behavior. Use [PUBLISHING.md](PUBLISHING.md) for releases.
 
 Keep shared rules here and area-specific rules in the relevant scoped `AGENTS.md`, without duplicating them. Keep instructions short, concrete, and tied to repository constraints or recurring mistakes. Update or remove stale guidance when commands, paths, or conventions change. Link to detailed references instead of copying them into instruction files.
 

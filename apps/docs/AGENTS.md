@@ -14,7 +14,7 @@ Apply these instructions to changes in `apps/docs/`. Read the [root instructions
 ## Versions and publication
 
 - Shared CDN values live in `src/content/mdxVars.js`. Use full, explicit package versions in public CDN examples and keep them consistent with package manifests. Do not use `latest` in those URLs.
-- Use [TODO.md](../../TODO.md) as a record of proposals, not as evidence that an API is available. Clearly distinguish released behavior from planned work.
+- Check relevant [GitHub Issues](https://github.com/Natura11y/root/issues) for planned work; verify API availability against package source and exports before documenting it as released.
 - Read [the documentation license](LICENSE.md) before reusing prose, media, or screenshots. The site's application code and editorial content have different licensing terms.
 - Deployment follows [PUBLISHING.md](../../PUBLISHING.md). Editing or building this app does not authorize deployment.
 
