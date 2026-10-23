@@ -37,6 +37,9 @@ export default class Collapse {
       || !CSS.supports('interpolate-size', 'allow-keywords');
 
     const cleanup = () => {
+      // A closing transition may finish after the panel has reopened.
+      if (target.classList.contains('shown')) return;
+
       target.removeAttribute('data-active');
       const handler = this.#activeKeydownHandlers.get(target);
       if (handler) {

@@ -154,6 +154,67 @@ for (const browserType of [chromium, firefox]) {
     }, markup);
     await verifyToggle('collapse-dynamic', true);
     assert.equal(await page.evaluate(() => window.documentClickListeners), 1);
+
+    // A completed reopening transition must not run stale closing cleanup.
+    for (const reducedMotion of ['no-preference', 'reduce']) {
+      await page.emulateMedia({ reducedMotion });
+      await page.evaluate(markup => {
+        document.querySelector('#examples').innerHTML = markup;
+        new window.Collapse().init();
+      }, markup);
+
+      const animated = reducedMotion === 'no-preference'
+        && await page.evaluate(() => CSS.supports('interpolate-size', 'allow-keywords'));
+
+      await verifyToggle('collapse-html', true);
+      await page.waitForTimeout(350);
+
+      for (let cycle = 0; cycle < 3; cycle++) {
+        await verifyToggle('collapse-html', false);
+        await page.waitForTimeout(50);
+
+        if (animated) {
+          assert.equal(
+            await page.locator('#collapse-html').evaluate(el =>
+              el.getAnimations().some(animation => animation.transitionProperty === 'height')
+            ),
+            true,
+            'Reopen while the closing height transition is still running'
+          );
+        }
+
+        await verifyToggle('collapse-html', true);
+        await page.waitForTimeout(350);
+        await page.locator('#collapse-html a').first().focus();
+        await verifyToggle('collapse-html', false, () => page.keyboard.press('Escape'));
+        assert.equal(await trigger('collapse-html').evaluate(el => el === document.activeElement), true);
+        await page.waitForTimeout(350);
+        assert.equal(await page.locator('#collapse-html').getAttribute('data-active'), null);
+
+        await verifyToggle('collapse-html', true);
+        await page.waitForTimeout(350);
+      }
+
+      // Close Target can interrupt a closing panel in the same way.
+      await page.evaluate(markup => {
+        document.querySelector('#examples').innerHTML = markup;
+        new window.Collapse().init();
+      }, closeTargetMarkup);
+      await verifyToggle(first, true);
+      await page.waitForTimeout(350);
+      await verifyToggle(second, true);
+      await page.waitForTimeout(50);
+      await trigger(first).focus();
+      await verifyToggle(first, true, () => page.keyboard.press('Enter'));
+      await page.waitForTimeout(350);
+      await verifyToggle(first, false, () => page.keyboard.press('Escape'));
+      assert.equal(await trigger(second).getAttribute('aria-expanded'), 'false');
+      assert.equal(await page.locator('#' + second).evaluate(el => el.classList.contains('shown')), false);
+      assert.equal(await trigger(first).evaluate(el => el === document.activeElement), true);
+
+      console.log(`PASS ${browserType.name()} (${reducedMotion}): rapid reopen Escape, focus return, closing cleanup, Close Target reversal`);
+    }
+
     assert.deepEqual(errors, []);
     console.log(`PASS ${browserType.name()}: one document listener, repeated instances, preserved state, keyboard/focus, new panels, Close Target, remounts, dynamic delegation`);
   } finally {
