@@ -20,6 +20,20 @@ These instructions apply throughout the repository. Before auditing or changing 
 
 Read the relevant public documentation and inspect the existing implementation, examples, and affected consumers before making audit recommendations or changes. Compare existing guidance before recommending another document. An audit is read-only unless changes are explicitly approved.
 
+## Foundations reading map
+
+Read the foundations relevant to the task. Use their examples and owning source to verify how the pieces fit together; surface discrepancies instead of assuming undocumented behavior.
+
+| Decision | Read |
+| --- | --- |
+| Customization and style ownership | [Customization](apps/docs/src/content/docs/customization.mdx), [CSS layers](apps/docs/src/content/docs/layer.mdx) |
+| Themes and related colors | [Color](apps/docs/src/content/docs/color.mdx) |
+| Type, scale, and spacing | [Typography](apps/docs/src/content/docs/typography.mdx), [Spacing](apps/docs/src/content/docs/spacing.mdx) |
+| Responsive layout | [Breakpoints](apps/docs/src/content/docs/breakpoint.mdx), [Grid](apps/docs/src/content/docs/grid.mdx), [Containers](apps/docs/src/content/docs/container.mdx), [Sizing](apps/docs/src/content/docs/sizing.mdx) |
+| Design-to-code relationships and assets | [Figma](apps/docs/src/content/docs/figma.mdx), [Icons](apps/docs/src/content/docs/icon.mdx); verify actual library bindings when the task depends on them |
+| Accessibility and interaction | [Accessibility](apps/docs/src/content/docs/accessibility.mdx) and the affected component's documentation |
+| Build, release, and deployment | [Publishing](PUBLISHING.md), [GitHub workflows](.github/workflows/) |
+
 ## Setup and build commands
 
 Use npm and the committed root lockfile. CI uses Node 22; check dependency engine requirements when selecting a local Node version. Run commands from the repository root unless a scoped file says otherwise. The root [package.json](package.json) contains the executable definitions.
