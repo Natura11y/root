@@ -4,6 +4,10 @@ Thank you for your interest in contributing to Natura11y.
 
 This repository uses a mixed-license model. Before contributing, please read [LICENSE.md](./LICENSE.md).
 
+For agent-assisted contributions, start with [AGENTS.md](AGENTS.md). It maps the repository's scoped instructions, development commands, and verification requirements.
+
+The instruction layout follows the [AGENTS.md guidance](https://agents.md/) for root and subproject files. The authoring approach follows [OpenAI's documented best practices](https://learn.chatgpt.com/guides/best-practices#make-guidance-reusable-with-agentsmd): concise, actionable instructions, concrete commands, clear completion criteria, and links to detailed references. Client-specific loading behavior is described in [Codex's instruction discovery documentation](https://learn.chatgpt.com/docs/agent-configuration/agents-md#how-codex-discovers-guidance); do not assume every agent loads nested files identically.
+
 ## Software Contributions
 
 By submitting a software contribution, you agree that your contribution may be included in Natura11y under the MIT License in [LICENSE-CODE.md](./LICENSE-CODE.md).

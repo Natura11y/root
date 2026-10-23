@@ -1,0 +1,82 @@
+# Natura11y — agent instructions
+
+## Project overview
+
+Natura11y is a public open source design ecosystem for accessible interfaces. This monorepo, [Natura11y/root](https://github.com/Natura11y/root), owns Core CSS and vanilla JavaScript, React components, icons, documentation, and Storybook. Use the current `@natura11y/*` packages; the standalone `natura11y` npm package and older repositories are legacy sources.
+
+Read [README.md](README.md) for the project overview and [CONTRIBUTING.md](CONTRIBUTING.md) for contribution requirements. Confirm the Git root and working-tree state before editing. When inspecting a running preview, confirm which checkout serves it.
+
+## Instructions by area
+
+These instructions apply throughout the repository. Before changing an area, read its scoped `AGENTS.md`, even when starting at the repository root. Scoped instructions add area-specific requirements and take precedence over broader instructions within their directory. Direct task instructions take precedence over these files. For changes spanning areas, read each applicable file.
+
+| Area | Instructions |
+| --- | --- |
+| Core styles, tokens, vanilla behavior, component contracts | [Core](packages/core/AGENTS.md) |
+| React components, hooks, exports, development app | [React](packages/react/AGENTS.md) |
+| SVG sources, icon font, metadata | [Icons](packages/icons/AGENTS.md) |
+| Documentation content and Astro site | [Documentation](apps/docs/AGENTS.md) |
+| Component stories and interaction examples | [Storybook](apps/storybook/AGENTS.md) |
+
+## Setup and build commands
+
+Use npm and the committed root lockfile. CI uses Node 22; check dependency engine requirements when selecting a local Node version. Run commands from the repository root unless a scoped file says otherwise. The root [package.json](package.json) contains the executable definitions.
+
+| Task | Command |
+| --- | --- |
+| Install locked dependencies | `npm ci` |
+| Start documentation | `npm run docs` |
+| Start Storybook | `npm run storybook` |
+| Start the Core development server | `npm run start:core` |
+| Start the React development app | `npm run react-demo` |
+| Build Core | `npm run build:core` |
+| Build React | `npm run build:react` |
+| Build Icons | `npm run build:icons` |
+| Build documentation | `npm run build:docs` |
+| Build Storybook | `npm run build-storybook` |
+
+The root `npm run build` builds package workspaces with a `build` script; it does not replace the explicit Icons, documentation, and Storybook commands above.
+
+## Code style and shared contracts
+
+- Follow the surrounding file's language, indentation, naming, and module conventions. Keep formatting changes focused on the work at hand.
+- Inspect existing components, utilities, tokens, and examples before adding implementation. Compose existing features where they fit; add or change shared behavior for a demonstrated need.
+- Keep Core's classes, CSS custom properties, semantic markup, and accessibility behavior consistent across vanilla examples, React, documentation, and Storybook. Update affected examples and documentation when a public contract changes.
+- Prefer native HTML. Do not add `aria-labelledby` merely to associate a visible heading with a section; use it only for a programmatic naming requirement native HTML does not meet.
+- Preserve established typography, including Georgia wherever an existing component or token uses it. Reuse existing tokens and responsive utilities before introducing new values.
+- Give each interactive element one behavior owner. Do not initialize both Core's vanilla behavior and a React or host-platform implementation on the same element.
+- Keep application-specific customizations in the consuming application unless a framework change is part of the task. Load Core styles before application theme overrides. Check published package exports before documenting an import; internal monorepo aliases are not consumer APIs.
+
+## Testing instructions
+
+Before handing off, confirm the requested behavior or documentation is complete, review the diff for unintended changes, and run the relevant checks below. Report the changes, verification results, and any failed or skipped checks with their reasons. A build or automated accessibility check alone does not establish accessibility conformance.
+
+| Change | Verification |
+| --- | --- |
+| Agent instructions or repository Markdown only | Check links, referenced paths and commands, scoped coverage, and `git diff --check`. A product build is unnecessary. |
+| Core styles or behavior | `npm run build:core`, affected HTML and React examples, and the relevant scoped checks. |
+| Theme colors | `npm run test:contrast` (also runs before the Core build). |
+| React components or hooks | `npm run typecheck:react`, `npm run build:react`, and affected Storybook examples. |
+| Icons | `npm run build:icons` and the checks in the Icons instructions. |
+| Documentation content, examples, or site code | `npm run build:docs` (includes `check:docs-cdn`) and affected pages. |
+| Stories, shared contracts, or Storybook configuration | `npm run typecheck:storybook`, `npm run build:core`, and `npm run build-storybook`. |
+| Forced-color support | Follow [Core's forced-color verification](packages/core/FORCED-COLORS.md#verification), including its running Storybook and browser prerequisites. |
+
+For behavior changes, verify keyboard operation, focus entry/return, state changes, and repeated interaction as applicable. For visual changes, check affected themes, responsive layouts, reduced motion, and forced colors where relevant. Add focused regression coverage for behavior changes when it can detect a real failure. There is no root `npm test` or `npm run lint` script; do not report them as available checks.
+
+## Public contribution and security considerations
+
+- Use a focused feature branch and pull request. Reuse the task's branch for related follow-ups, preserve unrelated work, and keep commits reviewable. Do not commit directly to `main` or force-push shared history as part of routine changes.
+- Keep credentials, environment secrets, private client material, and machine-specific paths out of new public guidance, examples, commits, and PR descriptions. Instructions must work without a maintainer's private skills or accounts.
+- Read [LICENSE.md](LICENSE.md) before adding or reusing content: software, documentation/media, and trademarks have different terms. The open source code license does not cover every repository asset.
+- Publishing packages, pushing release tags, merging to `main`, and deploying require a task that includes those actions. Read [PUBLISHING.md](PUBLISHING.md) and the relevant workflow under `.github/workflows/` for release work. Readiness checks do not authorize a release; documentation-only changes do not require a package version bump.
+
+## Keep context maintainable
+
+Use [TODO.md](TODO.md) for proposals and planned work, [BUGS.md](BUGS.md) for recorded bugs, and [PUBLISHING.md](PUBLISHING.md) for releases. Read the relevant section when the task needs it. These documents are references, not automatically loaded instructions; planned work is not evidence of an implemented feature.
+
+Keep shared rules here and area-specific rules in the relevant scoped `AGENTS.md`, without duplicating them. Keep instructions short, concrete, and tied to repository constraints or recurring mistakes. Update or remove stale guidance when commands, paths, or conventions change. Link to detailed references instead of copying them into instruction files.
+
+Update the existing authoritative document instead of creating a handoff or checkpoint after every task. Date verification records and distinguish decisions, proposals, and historical evidence. Keep reusable workflows in `.agents/skills/`; use them when the task calls for them. Ordinary development does not require running a full design-system inspection.
+
+Projects using Natura11y should keep their own `AGENTS.md` and explicitly reference the relevant Natura11y documentation for their installed version. This file governs work on the monorepo; installing a package does not automatically load its agent instructions into another project.

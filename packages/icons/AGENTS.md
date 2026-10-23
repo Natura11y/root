@@ -1,0 +1,28 @@
+# Icons — agent instructions
+
+Read the [root instructions](../../AGENTS.md) and [Icons README](README.md). This package supplies original SVGs, optimized SVGs, an icon font, CSS, and metadata.
+
+## Source and compatibility
+
+- Edit original artwork in `original-svg/`; use the package build to regenerate `optimized-svg/` and `dist/` outputs. Do not fix only a generated asset.
+- Inspect [.fantasticonrc.js](.fantasticonrc.js) before changing font generation. It reuses the codepoints in `dist/natura11y-icons.json`; preserve existing mappings and icon names to avoid breaking consumers.
+- Keep `src/data/icons.mjs` and its declaration file consistent with additions, renames, removals, and metadata changes. Check documentation search and SVG routes that consume the catalog.
+- Preserve the `.icon` and `icon-*` class contracts. Decorative icons should be hidden from assistive technology; controls that use an icon still need an accessible name.
+- Confirm artwork licensing before adding assets. Follow the repository's licensing and trademark boundaries.
+
+## Verification
+
+From the repository root:
+
+```sh
+npm run build:icons
+npm pack --dry-run --workspace @natura11y/icons
+```
+
+Inspect the generated diff for unintended icon removals, name changes, and codepoint reassignment. Confirm that changed icons render in SVG and font form, and that the minified stylesheet resolves its font files.
+
+For catalog or integration changes, run `npm run build:docs` and inspect the icons page and affected component examples. Check both the source artwork and generated outputs before committing tracked generated files.
+
+## Release scope
+
+Consult [PUBLISHING.md](../../PUBLISHING.md) and the current publishing workflow before releasing. Do not assume an Icons tag triggers npm publication: `.github/workflows/publish.yml` currently handles Core and React tags.
