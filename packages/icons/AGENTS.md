@@ -1,6 +1,6 @@
 # Icons — agent instructions
 
-Read the [root instructions](../../AGENTS.md) and [Icons README](README.md). This package supplies original SVGs, optimized SVGs, an icon font, CSS, and metadata.
+Apply these instructions to changes in `packages/icons/`. Read the [root instructions](../../AGENTS.md); consult the [Icons README](README.md) for documented package usage.
 
 ## Source and compatibility
 

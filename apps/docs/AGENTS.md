@@ -1,6 +1,6 @@
 # Documentation — agent instructions
 
-Read the [root instructions](../../AGENTS.md). This Astro application builds the public Natura11y documentation site.
+Apply these instructions to changes in `apps/docs/`. Read the [root instructions](../../AGENTS.md) before editing the Astro site, documentation content, or examples.
 
 ## Content and examples
 

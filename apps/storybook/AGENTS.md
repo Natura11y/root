@@ -1,6 +1,6 @@
 # Storybook — agent instructions
 
-Read the [root instructions](../../AGENTS.md). This application is the component workbench for HTML and React examples using the shared Natura11y contracts.
+Apply these instructions to changes in `apps/storybook/`. Read the [root instructions](../../AGENTS.md) before editing stories, fixtures, or workbench configuration.
 
 ## Stories and shared assets
 

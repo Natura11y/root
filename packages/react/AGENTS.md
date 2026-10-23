@@ -1,6 +1,6 @@
 # React — agent instructions
 
-Read the [root instructions](../../AGENTS.md) and [React README](README.md). This package provides React 19 components using Core's styles and shared utilities.
+Apply these instructions to changes in `packages/react/`. Read the [root instructions](../../AGENTS.md); consult the [React README](README.md) for documented package usage. Preserve compatibility with the declared React peer dependencies and Core contracts.
 
 ## Implementation
 

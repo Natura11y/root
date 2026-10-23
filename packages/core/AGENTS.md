@@ -1,6 +1,6 @@
 # Core — agent instructions
 
-Read the [root instructions](../../AGENTS.md) and [Core README](README.md). This package owns shared CSS, Sass, vanilla behavior, and utility exports.
+Apply these instructions to changes in `packages/core/`. Read the [root instructions](../../AGENTS.md); consult the [Core README](README.md) for documented package usage.
 
 ## Source and component contracts
 

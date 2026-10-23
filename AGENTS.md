@@ -1,8 +1,8 @@
 # Natura11y — agent instructions
 
-## Project overview
+## Scope and source of truth
 
-Natura11y is a public open source design ecosystem for accessible interfaces. This monorepo, [Natura11y/root](https://github.com/Natura11y/root), owns Core CSS and vanilla JavaScript, React components, icons, documentation, and Storybook. Use the current `@natura11y/*` packages; the standalone `natura11y` npm package and older repositories are legacy sources.
+Apply these instructions to work in the public [Natura11y/root](https://github.com/Natura11y/root) monorepo. Treat this repository as authoritative for Core, React, Icons, documentation, and Storybook. Use the current `@natura11y/*` packages; do not base implementation on the legacy standalone `natura11y` package or older repositories.
 
 Read [README.md](README.md) for the project overview and [CONTRIBUTING.md](CONTRIBUTING.md) for contribution requirements. Confirm the Git root and working-tree state before editing. When inspecting a running preview, confirm which checkout serves it.
 
@@ -73,10 +73,12 @@ For behavior changes, verify keyboard operation, focus entry/return, state chang
 
 ## Keep context maintainable
 
+Write READMEs for human readers: project purpose, installation, usage, and contributor onboarding. Keep agent-only directions, context-loading instructions, and agent workflows out of READMEs. Write `AGENTS.md` files as direct operational instructions for agents; link to human documentation for explanations instead of copying product introductions or tutorials into instruction files.
+
 Use [TODO.md](TODO.md) for proposals and planned work, [BUGS.md](BUGS.md) for recorded bugs, and [PUBLISHING.md](PUBLISHING.md) for releases. Read the relevant section when the task needs it. These documents are references, not automatically loaded instructions; planned work is not evidence of an implemented feature.
 
 Keep shared rules here and area-specific rules in the relevant scoped `AGENTS.md`, without duplicating them. Keep instructions short, concrete, and tied to repository constraints or recurring mistakes. Update or remove stale guidance when commands, paths, or conventions change. Link to detailed references instead of copying them into instruction files.
 
 Update the existing authoritative document instead of creating a handoff or checkpoint after every task. Date verification records and distinguish decisions, proposals, and historical evidence. Keep reusable workflows in `.agents/skills/`; use them when the task calls for them. Ordinary development does not require running a full design-system inspection.
 
-Projects using Natura11y should keep their own `AGENTS.md` and explicitly reference the relevant Natura11y documentation for their installed version. This file governs work on the monorepo; installing a package does not automatically load its agent instructions into another project.
+When a task concerns a consuming application, follow that repository's instructions and check its installed Natura11y version. Do not apply this monorepo's build and release commands to a consuming application.
