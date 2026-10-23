@@ -12,14 +12,18 @@ import dropdownMarkup from './dropdown.example.html?raw';
 import linkSplitMarkup from './link-split.example.html?raw';
 import megaMenuMarkup from './mega-menu.example.html?raw';
 
-const initializeDropdown = () => {
-  new VanillaDropdown().init();
+const initializeDropdown = (container: HTMLDivElement) => {
+  const dropdown = new VanillaDropdown().init(container);
+
+  return () => dropdown.destroy();
 };
 
-const initializeMegaMenu = () => {
+const initializeMegaMenu = (container: HTMLDivElement) => {
   new VanillaCollapse().init();
-  new VanillaDropdown().init();
+  const dropdown = new VanillaDropdown().init(container);
   new VanillaMainMenu().init();
+
+  return () => dropdown.destroy();
 };
 
 const megaMenuLogo = (

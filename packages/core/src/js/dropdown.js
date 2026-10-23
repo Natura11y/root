@@ -1,15 +1,25 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
-import { delegateEvent } from './utilities/eventDelegation';
 import { getCurrentBreakpoint } from './utilities/getCurrentBreakpoint';
 
 export default class Dropdown {
 
   // Private properties
 
+  static #initializedRoots = new WeakMap();
+
+  #root = null;
+  #initializedDropdowns = new Map();
+  #resizeHandler = null;
+  #overlayMenu = null;
   #isAnyDropdownOpen = false;
   #hoverTimeout = 400;
 
   // Private methods
+
+  #getDropdownMenu(button) {
+    const id = button.getAttribute('aria-controls');
+    return id ? this.#root.querySelector(`#${CSS.escape(id)}`) : null;
+  }
 
   #isMegaMenu(element) {
     return [...element.classList].some(cls => cls.startsWith('mega-menu'));
@@ -39,6 +49,7 @@ export default class Dropdown {
 
     if (this.#isMegaMenu(dropdownMenu) && this.#isAtBreakpoint(dropdownMenu)) {
       handleOverlayOpen();
+      this.#overlayMenu = dropdownMenu;
     }
 
   }
@@ -49,24 +60,49 @@ export default class Dropdown {
     dropdownMenu.classList.remove('shown');
     dropdownButton.setAttribute('aria-expanded', 'false');
 
-    if (this.#isMegaMenu(dropdownMenu) && this.#isAtBreakpoint(dropdownMenu)) {
+    if (this.#overlayMenu === dropdownMenu) {
       handleOverlayClose();
+      this.#overlayMenu = null;
     }
 
   }
 
   #checkAnyDropdownOpen() {
-    return Array.from(document.querySelectorAll('[data-toggle="dropdown"]')).some((button) => {
-      const dropdownMenu = document.getElementById(button.getAttribute('aria-controls'));
+    return Array.from(this.#root.querySelectorAll('[data-toggle="dropdown"]')).some((button) => {
+      const dropdownMenu = this.#getDropdownMenu(button);
       return dropdownMenu && dropdownMenu.classList.contains('shown');
     });
   }
 
+  #handleClick = (event) => {
+
+    const dropdownButton = event.target.closest('[data-toggle="dropdown"]');
+
+    if (!dropdownButton || !this.#root.contains(dropdownButton)) return;
+
+    const dropdownMenuId = dropdownButton.getAttribute('aria-controls');
+    const dropdownMenu = this.#getDropdownMenu(dropdownButton);
+
+    if (!dropdownMenu) {
+      console.warn(`No dropdown menu found for ${dropdownMenuId}`);
+      return;
+    }
+
+    if (dropdownButton._hasHoverListeners && event.detail > 0) return;
+
+    const isShown = dropdownMenu.classList.contains('shown');
+
+    isShown
+      ? this.#closeDropdown(dropdownButton, dropdownMenu)
+      : this.#openDropdown(dropdownButton, dropdownMenu);
+
+  };
+
   #handleWindowClick = (event) => {
     if (!this.#isAnyDropdownOpen) return;
 
-    document.querySelectorAll('[data-toggle="dropdown"]').forEach((dropdownButton) => {
-      const dropdownMenu = document.getElementById(dropdownButton.getAttribute('aria-controls'));
+    this.#root.querySelectorAll('[data-toggle="dropdown"]').forEach((dropdownButton) => {
+      const dropdownMenu = this.#getDropdownMenu(dropdownButton);
 
       if (dropdownMenu && dropdownMenu.classList.contains('shown')) {
         // Check if click is inside dropdown menu
@@ -89,8 +125,8 @@ export default class Dropdown {
 
   #handleEscapeKeyPress = (event) => {
     if (event.key === 'Escape' && this.#isAnyDropdownOpen) {
-      document.querySelectorAll('[data-toggle="dropdown"]').forEach((dropdownButton) => {
-        const dropdownMenu = document.getElementById(dropdownButton.getAttribute('aria-controls'));
+      this.#root.querySelectorAll('[data-toggle="dropdown"]').forEach((dropdownButton) => {
+        const dropdownMenu = this.#getDropdownMenu(dropdownButton);
 
         if (!dropdownMenu) return;
 
@@ -121,8 +157,11 @@ export default class Dropdown {
 
   #cleanupEventListeners(dropdownButton, dropdownMenu) {
 
+    clearTimeout(dropdownButton._hoverTimeout);
+    delete dropdownButton._hoverTimeout;
+
     const linkDropdownItem = dropdownButton.closest('.dropdown-link-split');
-    const hoverTarget = linkDropdownItem || dropdownButton;
+    const hoverTarget = dropdownButton._hoverTarget || linkDropdownItem || dropdownButton;
 
     if (dropdownButton._clickFlagHandler) {
       dropdownButton.removeEventListener('click', dropdownButton._clickFlagHandler);
@@ -164,53 +203,50 @@ export default class Dropdown {
       delete dropdownButton._hoverObserver;
     }
 
+    delete dropdownButton._hoverTarget;
     dropdownButton._hasHoverListeners = false;
+  }
+
+  #cleanupDropdown(button, { menu, focusOutHandler }) {
+    this.#cleanupEventListeners(button, menu);
+    button.removeEventListener('focusout', focusOutHandler);
+    menu.removeEventListener('focusout', focusOutHandler);
+
+    if (menu.classList.contains('shown')) this.#closeDropdown(button, menu);
+    this.#initializedDropdowns.delete(button);
   }
 
   // Public methods
 
-  init() {
+  init(root = document) {
 
-    delegateEvent(document, 'click', '[data-toggle="dropdown"]', (event) => {
+    const owner = Dropdown.#initializedRoots.get(root);
+    if (owner && owner !== this) return owner.init(root);
 
-      const dropdownButton = event.target.closest('[data-toggle="dropdown"]');
+    if (this.#root && this.#root !== root) this.destroy();
+    this.#root = root;
 
-      if (!dropdownButton) return;
-
-      const dropdownMenuId = dropdownButton.getAttribute('aria-controls');
-      const dropdownMenu = document.getElementById(dropdownMenuId);
-
-      if (!dropdownMenu) {
-        console.warn(`No dropdown menu found for ${dropdownMenuId}`);
-        return;
+    this.#initializedDropdowns.forEach((entry, button) => {
+      if (!root.contains(button) || this.#getDropdownMenu(button) !== entry.menu) {
+        this.#cleanupDropdown(button, entry);
       }
-
-      if (dropdownButton._hasHoverListeners && event.detail > 0) return;
-
-      const isShown = dropdownMenu.classList.contains('shown');
-
-      isShown
-        ? this.#closeDropdown(dropdownButton, dropdownMenu)
-        : this.#openDropdown(dropdownButton, dropdownMenu);
-
     });
 
     // Helper to manage hover event listeners
     const addHoverListeners = () => {
 
       // Target both data-hover="true" and dropdown-link-split buttons
-      const hoverButtons = document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"], .dropdown-link-split [data-toggle="dropdown"]');
+      const hoverButtons = this.#root.querySelectorAll('[data-toggle="dropdown"][data-hover="true"], .dropdown-link-split [data-toggle="dropdown"]');
 
       hoverButtons.forEach((dropdownButton) => {
 
         // Prevent duplicate listeners
         if (dropdownButton._hasHoverListeners) return;
-        dropdownButton._hasHoverListeners = true;
 
-        const dropdownMenuId = dropdownButton.getAttribute('aria-controls');
-        const dropdownMenu = document.getElementById(dropdownMenuId);
-
+        const dropdownMenu = this.#getDropdownMenu(dropdownButton);
         if (!dropdownMenu) return;
+
+        dropdownButton._hasHoverListeners = true;
 
         let openedByKeyboardOrClick = false;
 
@@ -235,14 +271,14 @@ export default class Dropdown {
         // Hover in - check if this is a dropdown-link-split item
         const linkDropdownItem = dropdownButton.closest('.dropdown-link-split');
         const hoverTarget = linkDropdownItem || dropdownButton;
+        dropdownButton._hoverTarget = hoverTarget;
 
         hoverTarget.addEventListener('mouseenter', hoverTarget._hoverInHandler = () => {
           if (!openedByKeyboardOrClick) {
             // Close any other open dropdowns immediately to prevent multiple menus showing
-            document.querySelectorAll('[data-toggle="dropdown"][aria-expanded="true"]').forEach((otherButton) => {
+            this.#root.querySelectorAll('[data-toggle="dropdown"][aria-expanded="true"]').forEach((otherButton) => {
               if (otherButton !== dropdownButton) {
-                const otherMenuId = otherButton.getAttribute('aria-controls');
-                const otherMenu = document.getElementById(otherMenuId);
+                const otherMenu = this.#getDropdownMenu(otherButton);
                 if (otherMenu) {
                   this.#closeDropdown(otherButton, otherMenu);
                 }
@@ -261,7 +297,8 @@ export default class Dropdown {
 
         // Hover out
         const hoverOutHandler = () => {
-          setTimeout(() => {
+          clearTimeout(dropdownButton._hoverTimeout);
+          dropdownButton._hoverTimeout = setTimeout(() => {
             const hoverCheck = linkDropdownItem ?
               !linkDropdownItem.matches(':hover') && !dropdownMenu.matches(':hover') :
               !dropdownButton.matches(':hover') && !dropdownMenu.matches(':hover');
@@ -292,12 +329,11 @@ export default class Dropdown {
     const removeHoverListeners = () => {
 
       // Target both data-hover="true" and dropdown-link-split buttons
-      const hoverButtons = document.querySelectorAll('[data-toggle="dropdown"][data-hover="true"], .dropdown-link-split [data-toggle="dropdown"]');
+      const hoverButtons = this.#root.querySelectorAll('[data-toggle="dropdown"][data-hover="true"], .dropdown-link-split [data-toggle="dropdown"]');
 
       hoverButtons.forEach((dropdownButton) => {
         if (!dropdownButton._hasHoverListeners) return;
-        const dropdownMenuId = dropdownButton.getAttribute('aria-controls');
-        const dropdownMenu = document.getElementById(dropdownMenuId);
+        const dropdownMenu = this.#getDropdownMenu(dropdownButton);
         if (!dropdownMenu) return;
         this.#cleanupEventListeners(dropdownButton, dropdownMenu);
       });
@@ -307,19 +343,33 @@ export default class Dropdown {
     // Responsive hover logic
     const setupResponsiveHover = () => {
 
-      const hoverDropdownAtBreakpoint = document.querySelector('[data-toggle="dropdown"][data-hover="true"]') &&
+      // Attach focus handling once per dropdown button
+      this.#root.querySelectorAll('[data-toggle="dropdown"]').forEach((dropdownButton) => {
+        if (this.#initializedDropdowns.has(dropdownButton)) return;
+
+        const dropdownMenu = this.#getDropdownMenu(dropdownButton);
+
+        if (!dropdownMenu) return;
+
+        const focusOutHandler = this.#handleButtonMenuFocusout(dropdownButton, dropdownMenu);
+        dropdownButton.addEventListener('focusout', focusOutHandler);
+        dropdownMenu.addEventListener('focusout', focusOutHandler);
+        this.#initializedDropdowns.set(dropdownButton, { menu: dropdownMenu, focusOutHandler });
+      });
+
+      const hoverDropdownAtBreakpoint = this.#root.querySelector('[data-toggle="dropdown"][data-hover="true"]') &&
         getCurrentBreakpoint().isDesktop;
 
-      const linkSplitAtBreakpoint = document.querySelector('.dropdown-link-split [data-toggle="dropdown"]') &&
+      const linkSplitAtBreakpoint = this.#root.querySelector('.dropdown-link-split [data-toggle="dropdown"]') &&
         getCurrentBreakpoint().isDesktop;
 
       // Check if any mega menu is at its required breakpoint
-      const megaMenuAtBreakpoint = Array.from(document.querySelectorAll('[class*="mega-menu--"]')).some(menu =>
+      const megaMenuAtBreakpoint = Array.from(this.#root.querySelectorAll('[class*="mega-menu--"]')).some(menu =>
         this.#isAtBreakpoint(menu)
       );
 
       // Check if the main menu is at its required breakpoint
-      const mainMenuEl = document.querySelector('[class*="main-menu--"]');
+      const mainMenuEl = this.#root.querySelector('[class*="main-menu--"]');
       const mainMenuBpClass = mainMenuEl && [...mainMenuEl.classList].find(cls => cls.startsWith('main-menu--'));
       const mainMenuAtBreakpoint = mainMenuBpClass ? this.#isBreakpointAtLeast(mainMenuBpClass.split('--').pop()) : false;
 
@@ -337,23 +387,35 @@ export default class Dropdown {
     };
 
     setupResponsiveHover();
-    window.addEventListener('resize', setupResponsiveHover);
 
-    // Delegate focusout for focus handling on dropdowns
-    document.querySelectorAll('[data-toggle="dropdown"]').forEach((dropdownButton) => {
-      const dropdownMenuId = dropdownButton.getAttribute('aria-controls');
-      const dropdownMenu = document.getElementById(dropdownMenuId);
 
-      if (!dropdownMenu) return;
+    if (!owner) {
+      this.#resizeHandler = setupResponsiveHover;
+      root.addEventListener('click', this.#handleClick);
+      window.addEventListener('resize', this.#resizeHandler);
+      window.addEventListener('click', this.#handleWindowClick);
+      document.addEventListener('keydown', this.#handleEscapeKeyPress);
+      Dropdown.#initializedRoots.set(root, this);
+    }
 
-      const focusOutHandler = this.#handleButtonMenuFocusout(dropdownButton, dropdownMenu);
-      dropdownButton.addEventListener('focusout', focusOutHandler);
-      dropdownMenu.addEventListener('focusout', focusOutHandler);
-    });
+    return this;
 
-    window.addEventListener('click', this.#handleWindowClick);
-    document.addEventListener('keydown', this.#handleEscapeKeyPress);
+  }
 
+  destroy() {
+    if (!this.#root) return;
+
+    this.#root.removeEventListener('click', this.#handleClick);
+    window.removeEventListener('resize', this.#resizeHandler);
+    window.removeEventListener('click', this.#handleWindowClick);
+    document.removeEventListener('keydown', this.#handleEscapeKeyPress);
+
+    this.#initializedDropdowns.forEach((entry, button) => this.#cleanupDropdown(button, entry));
+    Dropdown.#initializedRoots.delete(this.#root);
+
+    this.#root = null;
+    this.#resizeHandler = null;
+    this.#isAnyDropdownOpen = false;
   }
 
 }

@@ -12,11 +12,13 @@ import VanillaExample from '../../utils/VanillaExample';
 import mainMenuBarMarkup from './main-menu.example.html?raw';
 import mainMenuStackMarkup from './main-menu-stack.example.html?raw';
 
-const initializeMainMenu = () => {
+const initializeMainMenu = (container: HTMLDivElement) => {
   new VanillaCollapse().init();
-  new VanillaDropdown().init();
+  const dropdown = new VanillaDropdown().init(container);
   new VanillaFormInput().init();
   new VanillaMainMenu().init();
+
+  return () => dropdown.destroy();
 };
 
 const logo = (

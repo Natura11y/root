@@ -102,7 +102,9 @@ const Dropdown = ({
     const handleWindowKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && menuShowRef.current) {
         setMenuShow(false);
-        button.focus();
+
+        // Preserve focus already returned by an enclosing component.
+        if (!e.defaultPrevented) button.focus();
       } else if (menuShowRef.current && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
         e.preventDefault();
         navigateMenu(e.key);

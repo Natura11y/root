@@ -336,7 +336,12 @@ for (const browserType of [chromium, firefox]) {
       await page.keyboard.press('Escape');
       assert.equal(await dropdown.getAttribute('aria-expanded'), 'false');
       await visible('bar-nav', false);
-      // Nested Escape focus return in Firefox remains a separate, unresolved issue.
+      await settle('bar-nav');
+      assert.equal(
+        await menuTrigger('bar-nav').evaluate(el => el === document.activeElement),
+        true,
+        'Nested Escape returns focus to the visible Menu trigger',
+      );
 
       await page.setViewportSize({ width: 1687, height: 1000 });
       await visible('bar-nav', true);

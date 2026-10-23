@@ -56,6 +56,13 @@ declare module '@core-js/table' {
   }
 }
 
+declare module '@core-js/dropdown' {
+  export default class Dropdown {
+    init(root?: ParentNode): Dropdown;
+    destroy(): void;
+  }
+}
+
 declare module '@core-js/*' {
   const CoreComponent: new () => { init(): void };
   export default CoreComponent;
