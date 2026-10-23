@@ -24,4 +24,4 @@ npm run build-storybook
 
 Run `npm run build:icons` first when changing icon assets. Use `npm run storybook` to inspect affected stories, including keyboard operation and repeated interaction for behavior changes.
 
-The accessibility addon's current `test: 'todo'` setting is not an enforced accessibility pass. Report the checks actually performed. For forced-color work, follow [Core's verification procedure](../../packages/core/FORCED-COLORS.md#verification), which requires a running Storybook and installed browsers.
+The accessibility addon's current `test: 'todo'` setting is not an enforced accessibility pass. Report the checks actually performed. For forced-color work, follow the [root verification matrix](../../AGENTS.md#testing-instructions), which requires a running Storybook and installed browsers.

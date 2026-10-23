@@ -22,7 +22,7 @@ Software contributions include source code, package code, examples, tests, build
 - Keep existing regular declarations that support forced colors, such as transparent borders, with their related visual properties.
 - Put the exact comment `// Forced color mode support` immediately above each support block or declaration.
 
-Use `forced-color-adjust: none` only for a demonstrated need on the smallest affected element, with system colors. See the [Core forced-color guide](packages/core/FORCED-COLORS.md) for the shared property, component coverage, and verification steps.
+Use `forced-color-adjust: none` only for a demonstrated need on the smallest affected element, with system colors. See the [accessibility documentation](https://gonatura11y.com/docs/accessibility/) for contrast-theme support and the shared border property.
 
 ## Documentation and Media Contributions
 

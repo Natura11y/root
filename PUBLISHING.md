@@ -1,288 +1,114 @@
-# Publishing
+# Publishing Natura11y
 
-`Natura11y/root` is the canonical monorepo for the Natura11y Design Ecosystem.
+This guide covers releases from the [Natura11y/root](https://github.com/Natura11y/root) monorepo. Run commands from its root. See [LICENSE.md](LICENSE.md) for licensing terms.
 
-It owns source, package coordination, apps, documentation, Storybook, builds, versions, and release management. npm packages, the docs site, Storybook, and GitHub releases are distribution outputs generated from this monorepo.
+## What gets published
 
-## Source Of Truth
-
-- `Natura11y/root` is the canonical development repository.
-- Packages are published to npm from workspace folders in this monorepo.
-- GitHub source links should point back to this monorepo, using package directories where appropriate.
-- The public docs site is built from `apps/docs`.
-- Storybook is built from `apps/storybook`.
-- Public GitHub issues and pull requests should be opened against `Natura11y/root`.
-
-New framework releases start with `@natura11y/core`.
-
-## Licensing Boundary
-
-This repository uses a mixed-license model.
-
-- Software code, examples, Storybook source, tests, package source, build configuration, and documentation application code are MIT licensed.
-- Documentation prose, editorial content, screenshots, diagrams, original images, and other original media in `apps/docs` are protected by copyright and all rights are reserved unless a file says otherwise.
-- The Natura11y name, logo, wordmark, and related brand assets are protected separately as trademarks.
-- Third-party materials remain governed by their original licenses.
-
-Before a public launch or major release, confirm these files are current:
-
-- `LICENSE.md`
-- `LICENSE-CODE.md`
-- `apps/docs/LICENSE.md`
-- `TRADEMARKS.md`
-- `CONTRIBUTING.md`
-
-## Distribution Map
-
-| Source location | Distribution output | Notes |
+| Source | Destination | Release method |
 | --- | --- | --- |
-| `packages/core` | `@natura11y/core` on npm | Core CSS, Sass, JavaScript, and utilities. |
-| `packages/icons` | `@natura11y/icons` on npm | Icon font, SVG assets, and icon data. |
-| `packages/react` | `@natura11y/react` on npm | React components that use core styles and utilities. |
-| `apps/docs` | `gonatura11y.com` | Public documentation site. |
-| `apps/storybook` | Storybook static site | Public workbench for core and React examples. |
+| `packages/core` | `@natura11y/core` on npm | Push a `core-v<version>` tag; GitHub Actions publishes with `latest`. |
+| `packages/icons` | `@natura11y/icons` on npm | Manual npm publish. |
+| `packages/react` | `@natura11y/react` on npm | Push a `react-v<version>` tag; GitHub Actions currently publishes with `beta`. |
+| `apps/docs` | [gonatura11y.com](https://gonatura11y.com) | Run the documentation deployment workflow. |
+| `packages/core/dist` and `apps/storybook` | [GitHub Pages](https://natura11y.github.io/root/storybook/) | Automatically deployed when `main` changes. |
 
-## Package Metadata
+## Prepare a release
 
-Each package should point to the canonical monorepo and identify its workspace directory:
+1. Confirm `origin` points to `https://github.com/Natura11y/root.git` and the working tree contains only the intended release changes.
+2. Bump versions and update changelogs only for packages that changed. Update affected dependency ranges, the root lockfile, and pinned documentation CDN versions. Every npm release needs a new version.
+3. Run the relevant checks below and inspect the package contents. Keep credentials, local files, and unintended media out of releases. Package metadata should identify `Natura11y/root`, the package's workspace directory, and its public documentation and issue URLs.
+4. Commit the release changes through a reviewed pull request. Publish from the merged release commit.
+5. When multiple packages change, publish Core, then Icons if needed, then React. Publish required Core exports and styles before React depends on them. Deploy documentation after its referenced package versions are available on the CDN.
 
-```json
-{
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Natura11y/root.git",
-    "directory": "packages/react"
-  },
-  "bugs": {
-    "url": "https://github.com/Natura11y/root/issues"
-  },
-  "homepage": "https://gonatura11y.com/docs/react/"
-}
-```
+Record release notes in the package changelog; create a GitHub Release when useful for public announcements.
 
-Package metadata should point to the canonical monorepo.
+## Verify the release
 
-## Release Order
+| Output | Checks |
+| --- | --- |
+| Core | `npm run build:core`, then `npm pack --dry-run --workspace @natura11y/core` |
+| Icons | `npm run build:icons`, then `npm pack --dry-run --workspace @natura11y/icons` |
+| React | `npm run typecheck:react`, `npm run build:react`, then `npm pack --dry-run --workspace @natura11y/react` |
+| Documentation | `npm run verify:docs-release` after the referenced packages are published |
+| GitHub Pages | `npm run typecheck:storybook`, `npm run build:core`, then `npm run build-storybook` |
 
-When a change affects multiple packages, release in dependency order:
+## Publish npm packages
 
-1. Core framework
-2. Icons package, when icon assets change
-3. React package
-4. Docs site
-5. Storybook/workbench site
+### Core and React
 
-Do not publish React changes that depend on unreleased core exports or styles.
+[publish.yml](.github/workflows/publish.yml) uses npm Trusted Publishing. It validates the release tag against the package version, builds and inspects the package, and publishes through a short-lived GitHub Actions identity.
 
-## Versioning
-
-Publish only packages that changed.
-
-Do not bump all packages automatically unless we intentionally want a coordinated ecosystem release. npm does not allow republishing the same version, so every npm publish must have a new package version.
-
-Examples:
-
-- Core accessibility fix: publish `@natura11y/core` only.
-- Icon asset change: publish `@natura11y/icons` only.
-- React component change: publish `@natura11y/react` only.
-- React dependency range changes because core changed: publish React with its own version bump.
-
-React prereleases should use npm dist-tags:
+After merging and checking out the release commit, push the tag for each changed package. These commands read the version from its package manifest:
 
 ```sh
-npm publish --workspace @natura11y/react --tag beta --access public
+# Core
+core_version=$(node -p "require('./packages/core/package.json').version")
+git tag -a "core-v${core_version}" -m "Core ${core_version}"
+git push origin "core-v${core_version}"
+
+# React beta
+react_version=$(node -p "require('./packages/react/package.json').version")
+git tag -a "react-v${react_version}" -m "React ${react_version}"
+git push origin "react-v${react_version}"
 ```
 
-## Release Workflow
+When releasing both, wait for Core's publication to succeed before pushing the React tag. The workflow currently publishes every React tag to `beta`; a stable release requires an explicit workflow change or the manual `latest` command below.
 
-1. Confirm the active repo is `/Users/carlavidano/Sites/natura11y`.
-2. Confirm `origin` points to `https://github.com/Natura11y/root.git`.
-3. Confirm the worktree contains only intentional release changes.
-4. Build and verify changed packages.
-5. Update versions and changelogs for changed packages.
-6. Commit and push the release state.
-7. Tag the monorepo with package-specific tags for packages being published.
-8. Publish changed packages to npm.
-9. Create or update GitHub releases when useful for public release notes.
-10. Run `npm run verify:docs-release` before every documentation deployment so source references, built HTML, package versions, and live CDN assets agree.
-11. Deploy docs or Storybook if those outputs changed.
+### Icons and manual publishing
 
-Use package-specific tags in the monorepo so independent package versions stay clear:
-
-```txt
-core-v5.2.1
-icons-v2.2.0
-react-v1.0.0-beta
-```
-
-## npm Publish Commands
-
-### Trusted Publishing
-
-Package releases use npm Trusted Publishing from `.github/workflows/publish.yml`. GitHub Actions runs the npm CLI with a short-lived OIDC identity, so releases do not depend on a saved npm token or an interactive `npm login` session.
-
-Configure the trusted publisher once in the npm package settings for both `@natura11y/core` and `@natura11y/react`:
-
-- Provider: GitHub Actions
-- Organization or user: `Natura11y`
-- Repository: `root`
-- Workflow filename: `publish.yml`
-- Allowed action: `npm publish`
-
-Leave the optional environment name empty unless the workflow is intentionally updated to use a matching GitHub environment. Each package accepts one trusted publisher configuration at a time.
-
-After the trusted publishers are configured, push the package-specific release tags in dependency order:
-
-```sh
-git tag -a core-v5.2.6 -m "Core 5.2.6"
-git push origin core-v5.2.6
-
-git tag -a react-v1.0.0-beta.3 -m "React 1.0.0-beta.3"
-git push origin react-v1.0.0-beta.3
-```
-
-The workflow validates that the tag matches the package version, builds and inspects the package, and publishes Core with the `latest` tag or React with the `beta` tag.
-
-The direct commands below remain useful for local dry runs and emergency manual publishing, but interactive publishing may require a fresh npm login and two-factor authentication.
-
-Core:
-
-```sh
-npm publish --workspace @natura11y/core --access public
-```
-
-Icons:
+Icons has no tag-triggered publishing job. After its checks pass, publish it manually and record an `icons-v<version>` tag at the release commit.
 
 ```sh
 npm publish --workspace @natura11y/icons --access public
 ```
 
-React beta:
+For an authorized manual Core or React release, use the corresponding command below. Interactive publishing may require a fresh npm login and two-factor authentication.
 
-```sh
-npm publish --workspace @natura11y/react --tag beta --access public
-```
+| Package | Command |
+| --- | --- |
+| Core | `npm publish --workspace @natura11y/core --tag latest --access public` |
+| React beta | `npm publish --workspace @natura11y/react --tag beta --access public` |
+| React stable | `npm publish --workspace @natura11y/react --tag latest --access public` |
 
-React stable:
+### Trusted publisher setup
 
-```sh
-npm publish --workspace @natura11y/react --access public
-```
+Configure this once in npm for both Core and React:
 
-## Verification Commands
+| Setting | Value |
+| --- | --- |
+| Provider | GitHub Actions |
+| Organization | `Natura11y` |
+| Repository | `root` |
+| Workflow | `publish.yml` |
+| Allowed action | `npm publish` |
+| Environment | Leave empty unless the workflow uses a matching GitHub environment. |
 
-Run the relevant checks before publishing.
+## Deploy the documentation
 
-Core:
-
-```sh
-npm run build:core
-npm pack --dry-run --workspace @natura11y/core
-```
-
-Icons:
-
-```sh
-npm run build:icons
-npm pack --dry-run --workspace @natura11y/icons
-```
-
-React:
-
-```sh
-npm run typecheck:react
-npm run build:react
-npm pack --dry-run --workspace @natura11y/react
-```
-
-Docs:
-
-```sh
-npm run build:docs
-```
-
-Storybook:
-
-```sh
-npm run typecheck:storybook
-npm run build-storybook
-```
-
-## Application Deployments
-
-The docs and Storybook apps are deployed as static application outputs, not npm packages.
-
-- Docs source: `apps/docs`
-- Docs build output: `apps/docs/dist`
-- Docs public host: `gonatura11y.com`
-- Docs deployment workflow: `.github/workflows/deploy-docs.yml`
-- Storybook source: `apps/storybook`
-- Storybook build output: `storybook-static`
-
-### Documentation CDN release gate
-
-Run this after the referenced packages are published and before uploading `apps/docs/dist`:
+The source is `apps/docs`; the built site is `apps/docs/dist`. After the referenced npm versions are published, verify the release and start [deploy-docs.yml](.github/workflows/deploy-docs.yml):
 
 ```sh
 npm run verify:docs-release
-```
-
-The command fails when documentation source or production HTML references an unversioned package, the retired unscoped `natura11y` package, or a `@natura11y/*` version that differs from the corresponding workspace package. It also verifies that the configured Core CSS, Core JavaScript, and Icons stylesheet URLs are available from jsDelivr.
-
-After the gate passes, deploy the verified release through GitHub Actions:
-
-```sh
 gh workflow run deploy-docs.yml --ref main -f release_ref=main
 ```
 
-The workflow uploads to a unique staging directory under `tmp`, preserves the `/v1` through `/v4` archives and `/.well-known`, copies the complete current production tree into `private_html/.deploy-backups`, synchronizes staging into production, and verifies the live release manifest and pinned CDN versions. If synchronization fails, the workflow restores the recorded backup.
+The verification command builds the site, checks that source and built HTML use full package versions matching the workspace manifests, rejects legacy unscoped `natura11y` references, and checks that the Core CSS, Core JavaScript, and Icons CSS are available on jsDelivr. The deployment workflow repeats this gate for the selected commit before uploading.
 
-After promotion, the workflow purges the Natura11y cache for generated page URLs and assets without hashed filenames, including `release.json`. Production checks use ordinary URLs without cache-busting parameters so stale cached pages cannot pass release verification.
+The workflow stages the upload, backs up production under `private_html/.deploy-backups`, preserves `/v1` through `/v4` and `/.well-known`, and synchronizes the new site. If synchronization fails, it restores the backup. It then purges affected caches and checks the live release manifest and CDN versions using ordinary URLs without cache-busting parameters.
 
-The workflow requires these repository variables:
+Repository configuration required by this workflow:
 
-- `CLOUDWAYS_HOST`
-- `CLOUDWAYS_USER`
-- `CLOUDWAYS_PATH`
+- Variables: `CLOUDWAYS_HOST`, `CLOUDWAYS_USER`, `CLOUDWAYS_PATH`.
+- Encrypted secrets: `CLOUDWAYS_SSH_PRIVATE_KEY`, `CLOUDWAYS_KNOWN_HOSTS`.
 
-It also requires these encrypted repository secrets:
+Use a dedicated key for the Natura11y Cloudways application and keep it out of Git. Check the workflow result and live release before treating deployment as complete.
 
-- `CLOUDWAYS_SSH_PRIVATE_KEY`
-- `CLOUDWAYS_KNOWN_HOSTS`
+## Deploy examples and Storybook
 
-Use a dedicated key registered only with the Natura11y Cloudways application. Do not commit credentials, use another application's deployment identity, or make FileZilla the routine release path.
+[pages.yml](.github/workflows/pages.yml) runs on pushes to `main` and supports manual dispatch. It builds Core and Storybook, then uploads `pages-dist` directly to GitHub Pages:
 
-## First Public Launch Checklist
+- Core examples and templates retain their URLs under `/root/packages/core/dist/html/`.
+- Storybook is published at `/root/storybook/`.
+- The root `index.html` redirects visitors to `gonatura11y.com`.
 
-Before changing repository visibility to public:
-
-- Confirm no credentials, tokens, `.env` files, FTP details, or private deployment keys are present in the current tree.
-- Audit git history for sensitive material before making the repository public.
-- Confirm large local media and working design assets are intentionally public before committing them.
-- Confirm `apps/docs` licensing text reflects the copyright boundary for documentation content and original media.
-- Confirm package metadata points to `Natura11y/root`.
-- Confirm docs links use `gonatura11y.com`.
-- Confirm README, contributing, license, and trademark files are ready for public readers.
-- Confirm build and package dry-runs pass.
-
-## Repository Hygiene
-
-- Do not commit `.DS_Store` files.
-- Do not commit video files such as `.mp4`, `.mov`, `.webm`, or `.m4v` unless they are intentionally public package or docs assets.
-- Keep large local media assets local, external, or intentionally hosted elsewhere.
-- Keep generated build output out of git unless a package specifically needs it as a publish artifact.
-- Keep npm package releases tied to committed source, version, and changelog changes.
-
-## Local Paths
-
-Use the active monorepo folder:
-
-```txt
-/Users/carlavidano/Sites/natura11y
-```
-
-Its `origin` remote should point to:
-
-```txt
-https://github.com/Natura11y/root.git
-```
+The normal local Storybook build produces `apps/storybook/dist`; the Pages workflow overrides that output location with `pages-dist/storybook`. Check the deployment result and affected public examples after a release.

@@ -62,3 +62,4 @@ The build optimizes SVGs, generates the icon font, and writes the minified CDN s
 - [Natura11y Icons on GitHub](https://github.com/Natura11y/root/tree/main/packages/icons)
 - [Natura11y Icons on NPM](https://www.npmjs.com/package/@natura11y/icons)
 - [Natura11y Docs](https://gonatura11y.com)
+- [Contribution guide](https://github.com/Natura11y/root/blob/main/CONTRIBUTING.md)

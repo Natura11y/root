@@ -44,7 +44,6 @@ jobs:
         run: |
           rm -rf pages-dist
           mkdir -p pages-dist/packages/core
-          cp .nojekyll pages-dist/.nojekyll
           cp index.html pages-dist/index.html
           cp -R packages/core/dist pages-dist/packages/core/dist
 

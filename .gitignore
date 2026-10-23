@@ -4,7 +4,9 @@
 node_modules
 .vscode
 storybook-static
+/pages-dist/
 apps/docs/dist
+apps/storybook/dist
 apps/docs/.astro
 packages/react/demo-dist
 apps/docs/.env

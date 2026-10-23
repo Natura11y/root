@@ -60,7 +60,7 @@ Before handing off, confirm the requested behavior or documentation is complete,
 | Icons | `npm run build:icons` and the checks in the Icons instructions. |
 | Documentation content, examples, or site code | `npm run build:docs` (includes `check:docs-cdn`) and affected pages. |
 | Stories, shared contracts, or Storybook configuration | `npm run typecheck:storybook`, `npm run build:core`, and `npm run build-storybook`. |
-| Forced-color support | Follow [Core's forced-color verification](packages/core/FORCED-COLORS.md#verification), including its running Storybook and browser prerequisites. |
+| Forced-color support | With Storybook running, run `npx playwright install chromium firefox` and `npm run test:forced-colors`. Check native Windows contrast themes before release. |
 
 For behavior changes, verify keyboard operation, focus entry/return, state changes, and repeated interaction as applicable. For visual changes, check affected themes, responsive layouts, reduced motion, and forced colors where relevant. Add focused regression coverage for behavior changes when it can detect a real failure. There is no root `npm test` or `npm run lint` script; do not report them as available checks.
 
@@ -75,10 +75,10 @@ For behavior changes, verify keyboard operation, focus entry/return, state chang
 
 Write READMEs for human readers: project purpose, installation, usage, and contributor onboarding. Keep agent-only directions, context-loading instructions, and agent workflows out of READMEs. Write `AGENTS.md` files as direct operational instructions for agents; link to human documentation for explanations instead of copying product introductions or tutorials into instruction files.
 
-Use [TODO.md](TODO.md) for proposals and planned work, [BUGS.md](BUGS.md) for recorded bugs, and [PUBLISHING.md](PUBLISHING.md) for releases. Read the relevant section when the task needs it. These documents are references, not automatically loaded instructions; planned work is not evidence of an implemented feature.
+Use [TODO.md](TODO.md) for known bugs, proposals, and planned work, and [PUBLISHING.md](PUBLISHING.md) for releases. Read the relevant section when the task needs it. These documents are references, not automatically loaded instructions; planned work is not evidence of an implemented feature.
 
 Keep shared rules here and area-specific rules in the relevant scoped `AGENTS.md`, without duplicating them. Keep instructions short, concrete, and tied to repository constraints or recurring mistakes. Update or remove stale guidance when commands, paths, or conventions change. Link to detailed references instead of copying them into instruction files.
 
-Update the existing authoritative document instead of creating a handoff or checkpoint after every task. Date verification records and distinguish decisions, proposals, and historical evidence. Keep reusable workflows in `.agents/skills/`; use them when the task calls for them. Ordinary development does not require running a full design-system inspection.
+Add a file or workflow only when it serves a concrete design-system, contributor, or maintenance need. Prefer an existing authoritative location when it can serve the same purpose without making the workflow harder. Explain the purpose of new files in the change summary. Update the existing authoritative document instead of creating a handoff or checkpoint after every task. Date verification records and distinguish decisions, proposals, and historical evidence. Keep reusable workflows in `.agents/skills/`; use them when the task calls for them. Ordinary development does not require running a full design-system inspection.
 
 When a task concerns a consuming application, follow that repository's instructions and check its installed Natura11y version. Do not apply this monorepo's build and release commands to a consuming application.
