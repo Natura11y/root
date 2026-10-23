@@ -125,3 +125,5 @@ For the full license boundary, read [LICENSE.md](./LICENSE.md).
 Issues, accessibility findings, documentation corrections, and focused pull requests are welcome.
 
 Before contributing, please read [CONTRIBUTING.md](./CONTRIBUTING.md).
+
+Coding agents should start with [AGENTS.md](./AGENTS.md), then read the instructions for the package or application they are changing.

@@ -4,6 +4,8 @@ Thank you for your interest in contributing to Natura11y.
 
 This repository uses a mixed-license model. Before contributing, please read [LICENSE.md](./LICENSE.md).
 
+For agent-assisted contributions, start with [AGENTS.md](AGENTS.md). It maps the repository's scoped instructions, development commands, and verification requirements.
+
 ## Software Contributions
 
 By submitting a software contribution, you agree that your contribution may be included in Natura11y under the MIT License in [LICENSE-CODE.md](./LICENSE-CODE.md).
