@@ -5,6 +5,8 @@ export default class Collapse {
 
   // Private properties
 
+  static #initializedInstance = null;
+
   #activeKeydownHandlers = new Map();
   #fallbackTabTargets = new Set();
 
@@ -131,12 +133,23 @@ export default class Collapse {
   // Public methods
 
   init = () => {
+    // Keep document delegation and panel state with the same instance.
+    if (Collapse.#initializedInstance && Collapse.#initializedInstance !== this) {
+      Collapse.#initializedInstance.init();
+      return;
+    }
+
     document.querySelectorAll('.collapse:not(.shown)').forEach((el) => {
       if (getComputedStyle(el).visibility !== 'visible') {
         el.inert = true;
       }
       this.#resizeObserver.observe(el);
     });
-    delegateEvent(document, 'click', '[data-toggle="collapse"]', this.#toggleCollapse);
+
+    if (!Collapse.#initializedInstance) {
+      delegateEvent(document, 'click', '[data-toggle="collapse"]', this.#toggleCollapse);
+      Collapse.#initializedInstance = this;
+    }
   };
+
 }
