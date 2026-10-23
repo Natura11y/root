@@ -2,6 +2,8 @@ import { delegateEvent } from './utilities/eventDelegation';
 
 export default class Accordion {
 
+    static #initializedAccordions = new WeakSet();
+
     #accordionList = document.querySelectorAll('.accordion');
 
     // Private method to handle accordion initialization (open/close)
@@ -64,6 +66,9 @@ export default class Accordion {
     init() {
 
         this.#accordionList.forEach((accordion) => {
+
+            if (Accordion.#initializedAccordions.has(accordion)) return;
+
             const accordionButtonList = accordion.querySelectorAll(':scope > [data-accordion="button"], :scope > [data-accordion="heading"] > [data-accordion="button"]');
             const accordionPanelList = accordion.querySelectorAll(':scope > [data-accordion="panel"]');
 
@@ -89,6 +94,8 @@ export default class Accordion {
                 const buttonIndex = Array.from(accordionButtonList).indexOf(event.target);
                 this.#handleKeyNavigation(event, accordionButtonList, buttonIndex);
             });
+
+            Accordion.#initializedAccordions.add(accordion);
         });
     
     }
