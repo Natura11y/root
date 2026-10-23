@@ -8,7 +8,7 @@ Read [README.md](README.md) for the project overview and [CONTRIBUTING.md](CONTR
 
 ## Instructions by area
 
-These instructions apply throughout the repository. Before changing an area, read its scoped `AGENTS.md`, even when starting at the repository root. Scoped instructions add area-specific requirements; direct task instructions take precedence over these files. For changes spanning areas, read each applicable file.
+These instructions apply throughout the repository. Before changing an area, read its scoped `AGENTS.md`, even when starting at the repository root. Scoped instructions add area-specific requirements and take precedence over broader instructions within their directory. Direct task instructions take precedence over these files. For changes spanning areas, read each applicable file.
 
 | Area | Instructions |
 | --- | --- |
@@ -49,7 +49,7 @@ The root `npm run build` builds package workspaces with a `build` script; it doe
 
 ## Testing instructions
 
-Run checks relevant to the change and report what was actually verified, including any limitations. A build or automated accessibility check alone does not establish accessibility conformance.
+Before handing off, confirm the requested behavior or documentation is complete, review the diff for unintended changes, and run the relevant checks below. Report the changes, verification results, and any failed or skipped checks with their reasons. A build or automated accessibility check alone does not establish accessibility conformance.
 
 | Change | Verification |
 | --- | --- |
@@ -75,6 +75,8 @@ For behavior changes, verify keyboard operation, focus entry/return, state chang
 
 Use [TODO.md](TODO.md) for proposals and planned work, [BUGS.md](BUGS.md) for recorded bugs, and [PUBLISHING.md](PUBLISHING.md) for releases. Read the relevant section when the task needs it. These documents are references, not automatically loaded instructions; planned work is not evidence of an implemented feature.
 
-Keep durable instructions in the root or relevant scoped `AGENTS.md`. Update the existing authoritative document instead of creating a handoff or checkpoint after every task. Date verification records and distinguish decisions, proposals, and historical evidence. Keep reusable workflows in `.agents/skills/`; use them when the task calls for them. Ordinary development does not require running a full design-system inspection.
+Keep shared rules here and area-specific rules in the relevant scoped `AGENTS.md`, without duplicating them. Keep instructions short, concrete, and tied to repository constraints or recurring mistakes. Update or remove stale guidance when commands, paths, or conventions change. Link to detailed references instead of copying them into instruction files.
+
+Update the existing authoritative document instead of creating a handoff or checkpoint after every task. Date verification records and distinguish decisions, proposals, and historical evidence. Keep reusable workflows in `.agents/skills/`; use them when the task calls for them. Ordinary development does not require running a full design-system inspection.
 
 Projects using Natura11y should keep their own `AGENTS.md` and explicitly reference the relevant Natura11y documentation for their installed version. This file governs work on the monorepo; installing a package does not automatically load its agent instructions into another project.
