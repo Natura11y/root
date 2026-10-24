@@ -123,6 +123,69 @@ for (const browserType of [chromium, firefox]) {
       assert.equal(await panel('modal-html').locator('[data-modal-close]').evaluate(el => el === document.activeElement), true);
       await close('modal-html', false);
 
+      // Hidden, disabled, and non-tabbable controls must not become trap boundaries.
+      await page.evaluate(() => {
+        const content = document.querySelector('#modal-html .modal__content');
+        window.expectedFocus = [...content.querySelectorAll('button, a[href]')];
+        const unavailable = `
+          <div data-focus-test style="position: fixed; left: -10000px">
+            <button style="display: none">
+              Hidden button
+            </button>
+            <div style="display: none">
+              <a href="#hidden">
+                Hidden ancestor
+              </a>
+            </div>
+            <button style="visibility: hidden">
+              Invisible button
+            </button>
+            <div hidden>
+              <button>
+                Hidden attribute
+              </button>
+            </div>
+            <div inert>
+              <button>
+                Inert control
+              </button>
+            </div>
+            <input type="hidden" />
+            <button disabled>
+              Disabled button
+            </button>
+            <fieldset disabled>
+              <input aria-label="Disabled fieldset input" />
+            </fieldset>
+            <button tabindex="-1">
+              Programmatic focus only
+            </button>
+          </div>
+        `;
+        content.insertAdjacentHTML('afterbegin', unavailable);
+        content.insertAdjacentHTML('beforeend', unavailable);
+      });
+      await open('modal-html');
+      assert.equal(await page.evaluate(async () => {
+        const { getFocusableElements } = await import('/utilities/focus.js');
+        const actual = getFocusableElements(document.querySelector('#modal-html .modal__content'));
+        return actual.length === window.expectedFocus.length &&
+          actual.every((element, index) => element === window.expectedFocus[index]);
+      }), true, 'Only the original available controls belong in the focus list');
+
+      for (const direction of ['Tab', 'Shift+Tab']) {
+        const count = await page.evaluate(() => window.expectedFocus.length);
+        for (let step = 1; step <= count; step++) {
+          await page.keyboard.press(direction);
+          const index = direction === 'Tab' ? step % count : (count - step) % count;
+          assert.equal(await page.evaluate(index =>
+            document.activeElement === window.expectedFocus[index], index
+          ), true, `${direction} must cycle through the available controls`);
+        }
+      }
+      await close('modal-html');
+      await page.locator('[data-focus-test]').evaluateAll(elements => elements.forEach(element => element.remove()));
+
       // New and remounted dialogs still receive closed-state setup and the existing delegation.
       await page.evaluate(markup => {
         document.querySelector('#examples').insertAdjacentHTML('beforeend', markup.replaceAll('modal-html', 'modal-later'));
