@@ -5,6 +5,9 @@ export default class Track {
 
     // Private properties
 
+    static #initializedTracks = new WeakSet();
+    static #nextTrackId = 0;
+
     #trackList = document.querySelectorAll('.track');
     #scrollTimeout = null;
     #elementCache = new WeakMap();
@@ -412,11 +415,16 @@ export default class Track {
     }
 
     // Public methods
+
     init() {
-        this.#trackList.forEach((trackElement, trackIndex) => {
-            trackElement.setAttribute('data-track-id', `track-${trackIndex}`);
+        this.#trackList.forEach((trackElement) => {
+            if (Track.#initializedTracks.has(trackElement)) return;
+
+            trackElement.setAttribute('data-track-id', `track-${Track.#nextTrackId++}`);
             this.#resetTrackState(trackElement);
             this.#initEventListeners(trackElement);
+
+            Track.#initializedTracks.add(trackElement);
         });
     }
 
@@ -436,5 +444,6 @@ export default class Track {
         }
 
         clearTimeout(this.#scrollTimeout);
+        Track.#initializedTracks.delete(trackElement);
     }
 }

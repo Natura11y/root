@@ -49,6 +49,13 @@ declare module '*.webm' {
   export default src;
 }
 
+declare module '@core-js/alert' {
+  export default class Alert {
+    init(root?: ParentNode): Alert;
+    destroy(): void;
+  }
+}
+
 declare module '@core-js/table' {
   export default class Table {
     init(root?: ParentNode): void;

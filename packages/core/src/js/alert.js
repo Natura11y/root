@@ -1,13 +1,20 @@
-import { delegateEvent } from './utilities/eventDelegation';
-
 export default class Alert {
+
+  // Private properties
+
+  static #initializedRoots = new WeakMap();
+
+  #root = null;
 
   // Private methods
 
   #handleAlertClose = (event) => {
-    event.preventDefault();
-    const alert = event.target.closest('.alert');
-    if (alert) {
+    const closeButton = event.target.closest('[data-alert-close]');
+    if (!closeButton || !this.#root.contains(closeButton)) return;
+
+    const alert = closeButton.closest('.alert');
+    if (alert && this.#root.contains(alert)) {
+      event.preventDefault();
       const removeAlert = () => {
         alert.remove();
       };
@@ -24,8 +31,25 @@ export default class Alert {
 
   // Public methods
 
-  init = () => {
-    delegateEvent(document, 'click', '[data-alert-close]', this.#handleAlertClose);
+  init = (root = document) => {
+    const owner = Alert.#initializedRoots.get(root);
+    if (owner) return owner;
+
+    if (this.#root) this.destroy();
+
+    this.#root = root;
+    root.addEventListener('click', this.#handleAlertClose);
+    Alert.#initializedRoots.set(root, this);
+
+    return this;
   };
+
+  destroy() {
+    if (!this.#root) return;
+
+    this.#root.removeEventListener('click', this.#handleAlertClose);
+    Alert.#initializedRoots.delete(this.#root);
+    this.#root = null;
+  }
 
 }

@@ -29,6 +29,7 @@ In this file:
 
     .alert {
         --icon-size: 1em;
+        --alert-icon-gap: 0.75rem;
 
         display: grid;
 
@@ -83,7 +84,7 @@ In this file:
         }
 
         &:has(> [class*="icon"]){
-            gap: 0.5em;
+            gap: var(--alert-icon-gap);
         }
     }
 
@@ -98,7 +99,7 @@ In this file:
         align-items: baseline;
         grid-template-areas:
             "title close"
-            "description description";
+            "description .";
 
         > [data-alert-close] {
             grid-area: close;
@@ -115,14 +116,14 @@ In this file:
         }
     }
 
-    // Icon indent — description aligns with title text when alert is wide enough
+    // Icon indent
 
     .alert:has(.alert__title > [class*="icon"]) {
         container-type: inline-size;
 
         @container (min-width: 25rem) {
             .alert__description {
-                padding-inline-start: calc(var(--icon-size) + var(--alert-padding-y));
+                padding-inline-start: calc(var(--h5-font-size) + var(--alert-icon-gap));
             }
         }
     }
@@ -138,6 +139,7 @@ In this file:
     .dismissed {
         animation-duration: 0.5s;
         animation-name: fadeOut;
+        animation-fill-mode: forwards;
 
         @media (prefers-reduced-motion: reduce) {
             animation: none;
