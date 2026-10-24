@@ -49,6 +49,17 @@ for (const browserType of [chromium, firefox]) {
           return route.abort();
         });
 
+        // Observe the real focus registry without exposing it in production code.
+        await page.addInitScript(() => {
+          const set = Map.prototype.set;
+          Map.prototype.set = function (element, handler) {
+            if (element instanceof Element && element.matches('.lightbox') && typeof handler === 'function') {
+              window.lightboxFocusRegistry = this;
+            }
+            return set.call(this, element, handler);
+          };
+        });
+
         await page.goto('http://natura11y.test/');
         const trigger = page.locator('[data-lightbox]').first();
 
@@ -69,6 +80,7 @@ for (const browserType of [chromium, firefox]) {
               return lightbox?.classList.contains('shown') && getComputedStyle(content).opacity === '1';
             });
             assert.equal(await lightbox.count(), 1);
+            assert.equal(await page.evaluate(() => window.lightboxFocusRegistry.size), 1, 'One open lightbox owns one focus trap');
             assert.equal(await lightbox.evaluate(el => el.contains(document.activeElement)), true);
 
             // Close the second cycle while gallery navigation is still animating.
@@ -88,6 +100,7 @@ for (const browserType of [chromium, firefox]) {
 
             // A hidden but retained lightbox prevents every subsequent opening.
             await lightbox.waitFor({ state: 'detached' });
+            assert.equal(await page.evaluate(() => window.lightboxFocusRegistry.size), 0, 'Closing removes the focus trap registry entry');
             assert.equal(await trigger.evaluate(el => el === document.activeElement), true, 'Return focus to the opener');
             assert.equal(await page.locator('html').evaluate(el => el.classList.contains('has-overlay')), false);
             assert.equal(await page.locator('html').evaluate(el => el.style.getPropertyValue('--scroll-position')), '');
@@ -95,7 +108,7 @@ for (const browserType of [chromium, firefox]) {
         }
 
         assert.deepEqual(errors, []);
-        console.log(`PASS ${browserType === chromium ? 'chrome' : 'firefox'} ${width} ${reducedMotion}: Space, Escape, Enter and mouse closing, removal after arrow navigation, return focus and reopening`);
+        console.log(`PASS ${browserType === chromium ? 'chrome' : 'firefox'} ${width} ${reducedMotion}: Space, Escape, Enter and mouse closing, removal after arrow navigation, return focus, reopening and empty focus registry after close`);
         await page.close();
       }
     }

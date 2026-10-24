@@ -1,5 +1,5 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
-import { focusTrap, getFocusableElements } from './utilities/focus';
+import { focusTrap, getFocusableElements, removeFocusTrap } from './utilities/focus';
 import { delegateEvent } from './utilities/eventDelegation';
 
 export default class Lightbox {
@@ -109,6 +109,7 @@ export default class Lightbox {
     });
     this.#activeMediaHandlers.clear();
 
+    removeFocusTrap(this.lightbox);
     handleOverlayClose(this.lightbox);
     window.removeEventListener('keyup', this.#handleLightboxUpdateKey);
 
