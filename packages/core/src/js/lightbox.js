@@ -121,10 +121,14 @@ export default class Lightbox {
     if (reduceMotion) {
       this.lightbox.parentElement?.removeChild(this.lightbox);
     } else {
-      container.addEventListener('transitionend', (e) => {
-        if (e.propertyName !== 'opacity') return;
+      const handleTransitionEnd = (e) => {
+        if (e.target !== container || e.propertyName !== 'opacity') return;
+
+        container.removeEventListener('transitionend', handleTransitionEnd);
         this.lightbox.parentElement?.removeChild(this.lightbox);
-      }, { once: true });
+      };
+
+      container.addEventListener('transitionend', handleTransitionEnd);
     }
   };
 
