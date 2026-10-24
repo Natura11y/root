@@ -6,6 +6,8 @@ export default class Modal {
 
 	// Private properties
 
+	static #initialized = false;
+
 	#outsideClickHandlers = new Map();
 	#modalCloseHandlers = new Map();
 	#escapeKeyHandler = this.#handleEscapeKey.bind(this);
@@ -119,10 +121,14 @@ export default class Modal {
 			}
 		});
 
+		if (Modal.#initialized) return;
+
 		delegateEvent(document, 'click', '[data-modal="open"]', (event) => {
 			const modalTargetID = event.target.getAttribute('aria-controls')?.replace(/^#/, '');
 			const modalTarget = document.getElementById(modalTargetID);
 			this.openModal(modalTarget);
 		});
+
+		Modal.#initialized = true;
 	}
 }
