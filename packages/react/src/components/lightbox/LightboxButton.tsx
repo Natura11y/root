@@ -27,6 +27,7 @@ const LightboxButton = ({
 
   return (
     <button
+      type='button'
       className={utilities ?? undefined}
       data-lightbox={lbType}
       onClick={() => handleLightboxOpen(lbType, lbSrc, lbCaption, lbIndex, lbAlt)}

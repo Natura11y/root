@@ -38,10 +38,13 @@ export const getFocusableElements = (element = document, options = {}) => {
     ];
 
     return [...element.querySelectorAll(els)].filter((el) => {
-        return !el.hasAttribute('disabled') &&
+        return el.tabIndex >= 0 &&
+               !el.matches(':disabled') &&
                !el.closest('[inert]') &&
                !el.closest('[hidden]') &&
-               !exclude.some(exclusion => el.closest(exclusion));
+               !exclude.some(exclusion => el.closest(exclusion)) &&
+               el.getClientRects().length > 0 &&
+               getComputedStyle(el).visibility === 'visible';
     });
 }
 
@@ -58,11 +61,8 @@ export const focusTrap = (element, firstFocusTarget = element) => {
     
     firstFocusTarget.focus();
 
-    // Remove existing focus trap handler if any to prevent memory leaks
-    const existingHandler = activeFocusTraps.get(element);
-    if (existingHandler) {
-        element.removeEventListener('keydown', existingHandler);
-    }
+    // Remove the previous trap before registering its replacement.
+    removeFocusTrap(element);
 
     // Create new keydown handler
     const keydownHandler = (event) => {
@@ -106,4 +106,13 @@ export const focusTrap = (element, firstFocusTarget = element) => {
     // Add new handler and store it for cleanup
     element.addEventListener('keydown', keydownHandler);
     activeFocusTraps.set(element, keydownHandler);
+}
+
+
+export const removeFocusTrap = (element) => {
+    const handler = activeFocusTraps.get(element);
+    if (!handler) return;
+
+    element.removeEventListener('keydown', handler);
+    activeFocusTraps.delete(element);
 }

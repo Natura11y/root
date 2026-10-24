@@ -160,6 +160,7 @@ const Flyout = ({
         <div
           ref={contentRef}
           className="flyout__content"
+          tabIndex={-1}
           role="dialog"
           aria-modal="true"
           aria-label={label}

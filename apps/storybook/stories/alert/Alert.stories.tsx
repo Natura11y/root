@@ -5,8 +5,10 @@ import Alert from '@lib/components/alert';
 import VanillaExample from '../../utils/VanillaExample';
 import alertMarkup from './alert.example.html?raw';
 
-const initializeAlert = () => {
-  new VanillaAlert().init();
+const initializeAlert = (container: HTMLDivElement) => {
+  const alert = new VanillaAlert().init(container);
+
+  return () => alert.destroy();
 };
 
 const alertReactCode = `<Alert title="Success">

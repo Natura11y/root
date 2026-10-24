@@ -1,10 +1,13 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
-import { delegateEvent } from './utilities/eventDelegation';
-import { getFocusableElements } from './utilities/focus';
+import { getFocusableElements, removeFocusTrap } from './utilities/focus';
 
 export default class Modal {
 
 	// Private properties
+
+	static #initializedRoots = new WeakMap();
+
+	#root = null;
 
 	#outsideClickHandlers = new Map();
 	#modalCloseHandlers = new Map();
@@ -13,6 +16,8 @@ export default class Modal {
 	// Private methods
 	
   #addOutsideClickHandler(modal, handler) {
+		this.#removeOutsideClickHandler(modal);
+
 		const handleDelayedOutsideClick = (event) => {
 			const modalContent = modal.querySelector('.modal__content');
 			if (!modalContent.contains(event.target)) {
@@ -58,8 +63,7 @@ export default class Modal {
 
 	#handleEscapeKey(event) {
 		if (event.code === 'Escape') {
-			const openModals = document.querySelectorAll('.modal.shown');
-			openModals.forEach((modal) => this.#handleModalClose(modal));
+			this.#modalCloseHandlers.forEach((handlers, modal) => this.#handleModalClose(modal));
 		}
 	}
 
@@ -67,12 +71,24 @@ export default class Modal {
 		modalTarget.classList.remove('shown');
 		modalTarget.inert = true;
 
+		removeFocusTrap(modalTarget.querySelector('.modal__content'));
 		handleOverlayClose(modalTarget);
 		this.#removeOutsideClickHandler(modalTarget);
 		this.#removeModalCloseHandlers(modalTarget);
 
-		window.removeEventListener('keydown', this.#escapeKeyHandler);
+		if (!this.#modalCloseHandlers.size) {
+			window.removeEventListener('keydown', this.#escapeKeyHandler);
+		}
 	}
+
+	#handleClick = (event) => {
+		const button = event.target.closest('[data-modal="open"]');
+		if (!button || !this.#root.contains(button)) return;
+
+		const id = button.getAttribute('aria-controls')?.replace(/^#/, '');
+		const target = id ? this.#root.querySelector(`#${CSS.escape(id)}`) : null;
+		this.openModal(target);
+	};
 
 	// Public methods
 
@@ -112,17 +128,34 @@ export default class Modal {
 		window.addEventListener('keydown', this.#escapeKeyHandler);
 	}
 
-	init() {
-		document.querySelectorAll('.modal').forEach((modal) => {
+	init(root = document) {
+		const owner = Modal.#initializedRoots.get(root);
+		if (owner && owner !== this) return owner.init(root);
+
+		if (this.#root && this.#root !== root) this.destroy();
+		this.#root = root;
+
+		root.querySelectorAll('.modal').forEach((modal) => {
 			if (!modal.classList.contains('shown')) {
 				modal.inert = true;
 			}
 		});
 
-		delegateEvent(document, 'click', '[data-modal="open"]', (event) => {
-			const modalTargetID = event.target.getAttribute('aria-controls')?.replace(/^#/, '');
-			const modalTarget = document.getElementById(modalTargetID);
-			this.openModal(modalTarget);
-		});
+		if (!owner) {
+			root.addEventListener('click', this.#handleClick);
+			Modal.#initializedRoots.set(root, this);
+		}
+
+		return this;
+	}
+
+	destroy() {
+		this.#modalCloseHandlers.forEach((handlers, modal) => this.#handleModalClose(modal));
+
+		if (!this.#root) return;
+
+		this.#root.removeEventListener('click', this.#handleClick);
+		Modal.#initializedRoots.delete(this.#root);
+		this.#root = null;
 	}
 }

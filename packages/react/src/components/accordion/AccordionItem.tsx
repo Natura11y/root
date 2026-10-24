@@ -17,6 +17,7 @@ const AccordionItem = ({ itemId, title = 'Accordion Header', children }: Accordi
 
   const button = (
     <button
+      type='button'
       className='accordion__button h5'
       id={resolvedId}
       data-accordion='button'

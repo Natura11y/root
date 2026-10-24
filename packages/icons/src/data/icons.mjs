@@ -147,8 +147,8 @@ export const natura11yIcons = [
   {
     "icon": "Call",
     "className": "call",
-    "unicode": "f156",
-    "codePoint": 61782,
+    "unicode": "f16b",
+    "codePoint": 61803,
     "tags": [
       "contact",
       "handset",
@@ -415,8 +415,8 @@ export const natura11yIcons = [
   {
     "icon": "Figma",
     "className": "figma",
-    "unicode": "f167",
-    "codePoint": 61799,
+    "unicode": "f16a",
+    "codePoint": 61802,
     "tags": [
       "brand",
       "logo"
@@ -426,7 +426,7 @@ export const natura11yIcons = [
   {
     "icon": "File Download",
     "className": "file-download",
-    "unicode": "f142",
+    "unicode": "f148",
     "codePoint": 61768,
     "tags": [
       "arrow",
@@ -438,7 +438,7 @@ export const natura11yIcons = [
   {
     "icon": "File Upload",
     "className": "file-upload",
-    "unicode": "f142",
+    "unicode": "f149",
     "codePoint": 61769,
     "tags": [
       "arrow",
@@ -549,8 +549,8 @@ export const natura11yIcons = [
   {
     "icon": "Lightbulb",
     "className": "lightbulb",
-    "unicode": "f124",
-    "codePoint": 61731,
+    "unicode": "f147",
+    "codePoint": 61767,
     "tags": [
       "light"
     ],
@@ -582,7 +582,7 @@ export const natura11yIcons = [
     "icon": "Loading",
     "className": "loading",
     "unicode": "f126",
-    "codePoint": 61733,
+    "codePoint": 61734,
     "tags": [
       "spinner"
     ],
@@ -602,8 +602,8 @@ export const natura11yIcons = [
   {
     "icon": "Lock",
     "className": "lock",
-    "unicode": "f142",
-    "codePoint": 61762,
+    "unicode": "f169",
+    "codePoint": 61801,
     "tags": [
       "account",
       "sign in"
@@ -832,8 +832,8 @@ export const natura11yIcons = [
   {
     "icon": "Plane",
     "className": "plane",
-    "unicode": "f134",
-    "codePoint": 61748,
+    "unicode": "f15b",
+    "codePoint": 61787,
     "tags": [
       "airplane",
       "travel"
@@ -843,7 +843,7 @@ export const natura11yIcons = [
   {
     "icon": "Play",
     "className": "play",
-    "unicode": "f167",
+    "unicode": "f163",
     "codePoint": 61795,
     "tags": [
       "audio",
@@ -854,7 +854,7 @@ export const natura11yIcons = [
   {
     "icon": "Play Circle",
     "className": "play-circle",
-    "unicode": "f163",
+    "unicode": "f167",
     "codePoint": 61799,
     "tags": [
       "audio",
@@ -885,8 +885,8 @@ export const natura11yIcons = [
   {
     "icon": "Question Mark",
     "className": "question-mark",
-    "unicode": "f1ad",
-    "codePoint": 61869,
+    "unicode": "f136",
+    "codePoint": 61750,
     "tags": [
       "information"
     ],

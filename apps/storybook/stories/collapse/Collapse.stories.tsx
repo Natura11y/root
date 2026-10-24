@@ -56,8 +56,11 @@ export const React: Story = {
 
     return (
       <div>
+
         <Button
           title={isOpen ? 'Hide' : 'Show'}
+          wrapText={false}
+          utilities='width-100 theme-primary'
           onClick={() => setIsOpen(current => !current)}
           attributes={{
             ref: buttonRef,
@@ -65,11 +68,15 @@ export const React: Story = {
             'aria-expanded': isOpen,
           }}
         />
+
         <Collapse id='collapse-react' isOpen={isOpen} onClose={closePanel}>
-          <div className='padding-3 border'>
-            <p>This content collapses and expands. Never put padding directly on the Collapse element — always on a child inside.</p>
+          <div className='margin-top-3 border padding-3'>
+            <p>
+              This content collapses and expands. Never put padding directly on the Collapse element — always on a child inside.
+            </p>
           </div>
         </Collapse>
+
       </div>
     );
   },
@@ -82,20 +89,26 @@ export const ResponsiveReact: Story = {
 
     return (
       <div>
+
         <Button
           title={isOpen ? 'Hide' : 'Show'}
-          utilities='button--disperse display-none--lg'
+          wrapText={false}
+          utilities='width-100 theme-primary display-none--lg'
           onClick={() => setIsOpen(current => !current)}
           attributes={{
             'aria-controls': 'collapse-responsive-react',
             'aria-expanded': isOpen,
           }}
         />
+
         <Collapse id='collapse-responsive-react' isOpen={isOpen} showAt='lg'>
-          <div className='padding-3 border'>
-            <p>This content is toggled on small screens and remains visible from the lg breakpoint up.</p>
+          <div className='margin-top-3 border padding-3'>
+            <p>
+              This content is toggled on small screens and remains visible from the lg breakpoint up.
+            </p>
           </div>
         </Collapse>
+
       </div>
     );
   },

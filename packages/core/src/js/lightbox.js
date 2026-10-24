@@ -1,5 +1,5 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
-import { focusTrap, getFocusableElements } from './utilities/focus';
+import { focusTrap, getFocusableElements, removeFocusTrap } from './utilities/focus';
 import { delegateEvent } from './utilities/eventDelegation';
 
 export default class Lightbox {
@@ -109,23 +109,19 @@ export default class Lightbox {
     });
     this.#activeMediaHandlers.clear();
 
+    removeFocusTrap(this.lightbox);
     handleOverlayClose(this.lightbox);
     window.removeEventListener('keyup', this.#handleLightboxUpdateKey);
 
     this.lightbox.classList.remove('shown');
     this.lightbox.inert = true;
 
-    const container = this.lightbox.querySelector('.lightbox__container');
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const lightbox = this.lightbox;
+    const container = lightbox.querySelector('.lightbox__container');
 
-    if (reduceMotion) {
-      this.lightbox.parentElement?.removeChild(this.lightbox);
-    } else {
-      container.addEventListener('transitionend', (e) => {
-        if (e.propertyName !== 'opacity') return;
-        this.lightbox.parentElement?.removeChild(this.lightbox);
-      }, { once: true });
-    }
+    Promise.allSettled(
+      container.getAnimations().map(animation => animation.finished)
+    ).then(() => lightbox.remove());
   };
 
   #handleCaptionDisplay = (show = false) => {
@@ -146,6 +142,8 @@ export default class Lightbox {
   };
 
   #handleLightboxUpdateKey = (e) => {
+    if (!['ArrowLeft', 'ArrowRight', 'Escape'].includes(e.code)) return;
+
     e.preventDefault();
 
     if (

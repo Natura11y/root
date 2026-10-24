@@ -5,11 +5,14 @@ export default class Tab {
 
   // Private properties
 
+  static #initializedTabs = new WeakSet();
+
   #tabsList = document.querySelectorAll('.tabs');
 
   // Private methods
 
   #deactivateTabs(tabsButtonList, tabsPanelList) {
+
     tabsButtonList.forEach((tab) => {
       tab.setAttribute('aria-selected', 'false');
       tab.setAttribute('tabindex', '-1');
@@ -20,6 +23,7 @@ export default class Tab {
       panel.classList.remove('shown');
       panel.setAttribute('aria-hidden', 'true'); // Ensure it's hidden from screen readers
     });
+
   }
 
   #activateTab(tab, tabsButtonList, tabsPanelList) {
@@ -41,6 +45,9 @@ export default class Tab {
   init() {
 
     this.#tabsList.forEach((tab) => {
+
+      if (Tab.#initializedTabs.has(tab)) return;
+
       const tabsButtonList = tab.querySelectorAll('[role="tab"]');
       const tabsPanelList = tab.querySelectorAll('[role="tabpanel"]');
 
@@ -76,6 +83,8 @@ export default class Tab {
       });
 
       this.#activateTab(tabsButtonList[0], tabsButtonList, tabsPanelList);
+
+      Tab.#initializedTabs.add(tab);
     });
 
   }

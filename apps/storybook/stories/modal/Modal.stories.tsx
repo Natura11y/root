@@ -6,8 +6,10 @@ import Button from '@lib/components/button';
 import VanillaExample from '../../utils/VanillaExample';
 import modalMarkup from './modal.example.html?raw';
 
-const initializeModal = () => {
-  new VanillaModal().init();
+const initializeModal = (container: HTMLDivElement) => {
+  const modal = new VanillaModal().init(container);
+
+  return () => modal.destroy();
 };
 
 const meta: Meta<typeof Modal> = {

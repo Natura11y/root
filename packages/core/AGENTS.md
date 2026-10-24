@@ -1,6 +1,6 @@
 # Core — agent instructions
 
-Read the [root instructions](../../AGENTS.md) and [Core README](README.md). This package owns shared CSS, Sass, vanilla behavior, and utility exports.
+Apply these instructions to changes in `packages/core/`. Read the [root instructions](../../AGENTS.md); consult the [Core README](README.md) for documented package usage.
 
 ## Source and component contracts
 
@@ -14,7 +14,7 @@ Read the [root instructions](../../AGENTS.md) and [Core README](README.md). This
 
 - Keep styles in the owning partial and existing cascade layer. Inspect `src/scss/index.scss` and `src/scss/_layer.scss` before changing imports or layer order.
 - Preserve token aliases, theme behavior, and component custom properties. Prefer logical CSS properties and check direction-sensitive controls when changing layout.
-- Follow the [forced-color authoring rules](../../CONTRIBUTING.md#forced-color-styles) and [forced-color guide](FORCED-COLORS.md) for contrast-mode work. Keep support with the owning component and preserve visible keyboard focus.
+- Follow the [forced-color authoring rules](../../CONTRIBUTING.md#forced-color-styles) and [accessibility documentation](../../apps/docs/src/content/docs/accessibility.mdx) for contrast-mode work. Keep support with the owning component and preserve visible keyboard focus.
 
 ## Verification
 
@@ -24,6 +24,6 @@ From the repository root:
 npm run build:core
 ```
 
-The build runs the theme contrast check first. For changes affecting shared component contracts, also run the Storybook checks in the [root matrix](../../AGENTS.md#testing-instructions) and inspect affected HTML and React examples. Use the [forced-color verification procedure](FORCED-COLORS.md#verification) for forced-color changes.
+The build runs the theme contrast check first. For changes affecting shared component contracts, also run the Storybook checks in the [root matrix](../../AGENTS.md#testing-instructions) and inspect affected HTML and React examples. For forced-color changes, follow the corresponding checks in the root verification matrix.
 
 For export or packaging changes, inspect `npm pack --dry-run --workspace @natura11y/core` and verify the documented import in a consumer. A monorepo alias resolving successfully does not prove a published package import works.

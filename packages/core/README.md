@@ -46,7 +46,7 @@ Or load the Sass source from your Sass bundle:
 - Shared JavaScript utilities used by other Natura11y packages.
 - Static HTML examples for the core component patterns.
 
-See the [forced-color guide](./FORCED-COLORS.md) for contrast-mode support, customization, and verification.
+See the [accessibility documentation](https://gonatura11y.com/docs/accessibility/) for contrast-theme support and customization.
 
 ---
 
@@ -68,3 +68,4 @@ import { handleOverlayOpen, handleOverlayClose } from '@natura11y/core/utilities
 - [Natura11y Icons on NPM](https://www.npmjs.com/package/@natura11y/icons)
 - [Natura11y React on NPM](https://www.npmjs.com/package/@natura11y/react)
 - [Natura11y Docs](https://gonatura11y.com)
+- [Contribution guide](https://github.com/Natura11y/root/blob/main/CONTRIBUTING.md)

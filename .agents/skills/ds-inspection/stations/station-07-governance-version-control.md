@@ -22,7 +22,7 @@ question: Are there formal, documented, and accurate processes for how system ch
 ## Inspection procedure
 
 1. **Inventory the artifacts:** CONTRIBUTING guide, PR/issue templates, changelog, release process doc, ecosystem guidelines (when to build a local recipe vs. contribute to core). Existing *and findable*?
-2. **Audit tracker health** (with GARAGE.md thresholds): duplicate and stale issues piling up? Blockers open past the team's tolerance? Backlog 30+ days overdue with no triage? A kinked hose here means contributions die in the queue.
+2. **Audit tracker health** (using the thresholds established during intake): duplicate and stale issues piling up? Blockers open past the team's tolerance? Backlog 30+ days overdue with no triage? A kinked hose here means contributions die in the queue.
 3. **Check version hygiene:** semantic versioning (or a deliberate alternative)? A steady release cadence, or releases "happening all over the place"? Breaking changes shipped with versioning, migration guidance, and communication — or as surprises? Branch protection on the source of truth?
 4. **Test paper vs. reality:** walk the documented process against the last 2–3 real changes. Did they follow the path? Where did reality diverge? That divergence *is* the finding — reconcile the doc or the behavior.
 5. **Confirm ownership:** someone clearly accountable for the system's health and evolution — or diffuse "everyone's responsible" (i.e., no one's)?

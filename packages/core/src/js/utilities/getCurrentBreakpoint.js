@@ -23,4 +23,5 @@ export const getCurrentBreakpoint = () => {
     isDesktop,
     isMobile,
   };
+
 };

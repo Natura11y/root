@@ -2,8 +2,9 @@ export default class Table {
 
   // Private properties
   
-  #tableStackList = document.querySelectorAll('[class*="table--stack"]');
-  #tableScrollList = document.querySelectorAll('.table-scroll');
+  #tableStackList = [];
+  #tableScrollList = [];
+  #scrollTargets = [];
   #resizeTimeout = null;
 
   // Private methods
@@ -46,42 +47,58 @@ export default class Table {
       let maxWidth = scrollElement.offsetWidth;
       let scrollWidth = scrollTarget.scrollWidth;
 
-      const removeGradient = () => {
-        let scrollPosition = scrollTarget.scrollLeft;
-        scrollPosition > 1
-          ? scrollTarget.setAttribute('data-scrolling', true)
-          : scrollTarget.setAttribute('data-scrolling', false);
-      };
-
       scrollWidth > maxWidth
         ? scrollElement.setAttribute('data-scroll', true)
         : scrollElement.setAttribute('data-scroll', false);
 
-      scrollTarget.addEventListener('scroll', removeGradient, {
-        passive: true,
-      });
     });
   }
 
-  #handleTableScrollDebounced() {
+  #removeGradient = (event) => {
+    const scrollTarget = event.currentTarget;
+    const scrollPosition = scrollTarget.scrollLeft;
+
+    scrollPosition > 1
+      ? scrollTarget.setAttribute('data-scrolling', true)
+      : scrollTarget.setAttribute('data-scrolling', false);
+  };
+
+  #handleTableScrollDebounced = () => {
     clearTimeout(this.#resizeTimeout);
     this.#resizeTimeout = setTimeout(() => {
       this.#handleTableScroll();
     }, 150);
-  }
+  };
 
   // Public methods
 
-  init() {
+  init(root = document) {
+    this.destroy();
+
+    this.#tableStackList = root.querySelectorAll('[class*="table--stack"]');
+    this.#tableScrollList = root.querySelectorAll('.table-scroll');
+    this.#scrollTargets = root.querySelectorAll('.table-scroll .table-scroll__container');
+
     this.#tableStackList.forEach((tableStack) => {
       this.#populateHeaders(tableStack);
     });
 
+    this.#scrollTargets.forEach((scrollTarget) => {
+      scrollTarget.addEventListener('scroll', this.#removeGradient, {
+        passive: true,
+      });
+    });
+
     this.#handleTableScroll();
-    window.addEventListener('resize', this.#handleTableScrollDebounced.bind(this));
+    window.addEventListener('resize', this.#handleTableScrollDebounced);
   }
 
   destroy() {
     clearTimeout(this.#resizeTimeout);
+    window.removeEventListener('resize', this.#handleTableScrollDebounced);
+
+    this.#scrollTargets.forEach((scrollTarget) => {
+      scrollTarget.removeEventListener('scroll', this.#removeGradient);
+    });
   }
 }

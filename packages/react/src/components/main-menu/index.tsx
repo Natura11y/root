@@ -1,70 +1,7 @@
-import { useState, useRef, useEffect, useCallback, useId, type ComponentPropsWithoutRef, type ReactNode, type RefObject } from 'react';
+import { useState, useRef, useId, type ComponentPropsWithoutRef, type ReactNode } from 'react';
 import classNames from 'classnames';
-import { getFocusableElements } from '@natura11y/core/utilities/focus';
+import { useCollapse } from '../../hooks/useCollapse';
 import { useLinearKeyNav } from '../../hooks/useLinearKeyNav';
-
-const useCollapse = (panelRef: RefObject<HTMLElement | null>) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const isFirstRender = useRef(true);
-
-  useEffect(() => {
-    const el = panelRef.current;
-    if (!el) return;
-
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      el.inert = true;
-      const observer = new ResizeObserver(() => {
-        if (getComputedStyle(el).visibility === 'visible') {
-          el.inert = false;
-          observer.unobserve(el);
-        }
-      });
-      observer.observe(el);
-      return () => observer.disconnect();
-    }
-
-    if (isOpen) {
-      el.inert = false;
-      el.setAttribute('data-active', '');
-      el.classList.add('shown');
-    } else {
-      el.classList.remove('shown');
-      el.inert = true;
-
-      const observer = new ResizeObserver(() => {
-        if (getComputedStyle(el).visibility === 'visible') {
-          el.inert = false;
-          observer.unobserve(el);
-        }
-      });
-      observer.observe(el);
-
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if (reducedMotion) {
-        el.removeAttribute('data-active');
-        return () => observer.disconnect();
-      }
-
-      const onEnd = (e: TransitionEvent) => {
-        if (!['height', 'grid-template-rows'].includes(e.propertyName)) return;
-        el.removeAttribute('data-active');
-        el.removeEventListener('transitionend', onEnd);
-      };
-      el.addEventListener('transitionend', onEnd);
-      return () => {
-        el.removeEventListener('transitionend', onEnd);
-        observer.disconnect();
-      };
-    }
-  }, [isOpen, panelRef]);
-
-  const open = useCallback(() => setIsOpen(true), []);
-  const close = useCallback(() => setIsOpen(false), []);
-  const toggle = useCallback(() => setIsOpen(prev => !prev), []);
-
-  return { isOpen, open, close, toggle };
-};
 
 interface MainMenuProps {
   variant?: 'bar' | 'stack';
@@ -100,10 +37,30 @@ const MainMenu = ({
   const navRef = useRef<HTMLElement>(null);
   const searchFormRef = useRef<HTMLFormElement>(null);
   const menuToggleRef = useRef<HTMLButtonElement>(null);
-  const keyboardNavRef = useRef(false);
+  const searchToggleRef = useRef<HTMLButtonElement>(null);
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [focusNavOnOpen, setFocusNavOnOpen] = useState(false);
 
-  const nav = useCollapse(navRef);
-  const searchPanel = useCollapse(searchFormRef);
+  const nav = useCollapse({
+    panelRef: navRef,
+    isOpen: isNavOpen,
+    onClose: () => setIsNavOpen(false),
+    focusOnOpen: focusNavOnOpen ? 'panel' : null,
+    triggerRef: menuToggleRef,
+    showAt: breakpoint,
+  });
+
+  const searchPanel = useCollapse({
+    panelRef: searchFormRef,
+    isOpen: isSearchOpen,
+    onClose: () => setIsSearchOpen(false),
+    focusOnOpen: variant === 'bar' ? 'first' : null,
+    triggerRef: searchToggleRef,
+    showAt: breakpoint,
+    alwaysVisible: variant === 'stack',
+  });
+
   const { onKeyDown: onNavKeyDown } = useLinearKeyNav({
     containerRef: navRef,
     itemSelector: ':scope > ul > li > :is(a, button)',
@@ -111,58 +68,26 @@ const MainMenu = ({
   });
 
   const handleMenuToggle = (e: React.MouseEvent<HTMLButtonElement>) => {
-    keyboardNavRef.current = e.detail === 0;
-    if (!nav.isOpen && searchPanel.isOpen) searchPanel.close();
-    nav.toggle();
+    setFocusNavOnOpen(e.detail === 0);
+    if (!isNavOpen) setIsSearchOpen(false);
+    setIsNavOpen(current => !current);
   };
 
   const handleSearchToggle = () => {
-    if (!searchPanel.isOpen && nav.isOpen) nav.close();
-    searchPanel.toggle();
+    if (!isSearchOpen) setIsNavOpen(false);
+    setIsSearchOpen(current => !current);
   };
-
-  useEffect(() => {
-    if (!nav.isOpen || !navRef.current) return;
-    if (!keyboardNavRef.current) return;
-    const el = navRef.current;
-    el.tabIndex = -1;
-    el.focus();
-    keyboardNavRef.current = false;
-  }, [nav.isOpen]);
-
-  useEffect(() => {
-    if (!nav.isOpen || !navRef.current) return;
-    const el = navRef.current;
-    const handler = (e: KeyboardEvent) => {
-      if (e.code === 'Escape') {
-        nav.close();
-        menuToggleRef.current?.focus();
-      }
-    };
-    el.addEventListener('keydown', handler);
-    return () => el.removeEventListener('keydown', handler);
-  }, [nav.isOpen, nav]);
-
-  useEffect(() => {
-    if (!searchPanel.isOpen || !searchFormRef.current) return;
-    const el = searchFormRef.current;
-    const focusFirst = () => (getFocusableElements(el)[0] as HTMLElement | undefined)?.focus();
-    const onTransitionEnd = (e: TransitionEvent) => {
-      if (e.propertyName !== 'grid-template-rows' && e.propertyName !== 'height') return;
-      el.removeEventListener('transitionend', onTransitionEnd);
-      focusFirst();
-    };
-    el.addEventListener('transitionend', onTransitionEnd);
-    requestAnimationFrame(focusFirst);
-    return () => el.removeEventListener('transitionend', onTransitionEnd);
-  }, [searchPanel.isOpen]);
 
   const mainMenuClasses = classNames(
     `main-menu--${variant}--${breakpoint}`,
     utilities
   );
 
-  const { className: searchFormClassName, ...restSearchFormProps } = searchFormProps;
+  const {
+    className: searchFormClassName,
+    onKeyDown: onSearchKeyDown,
+    ...restSearchFormProps
+  } = searchFormProps;
 
   const logoArea = logo ? (
     <div className="main-menu__logo">{logo}</div>
@@ -174,6 +99,9 @@ const MainMenu = ({
       className="main-menu__nav"
       id={navId}
       aria-label={navAriaLabel}
+      inert={!nav.isVisible ? true : undefined}
+      aria-hidden={!nav.isVisible}
+      onKeyDown={nav.onKeyDown}
     >
       <ul onKeyDown={onNavKeyDown}>{children}</ul>
     </nav>
@@ -183,21 +111,24 @@ const MainMenu = ({
     <div className="main-menu__toggle">
       {variant === 'bar' && search && (
         <button
+          type="button"
+          ref={searchToggleRef}
           className="button button--icon-only"
           aria-label="Search"
           aria-controls={searchId}
-          aria-expanded={searchPanel.isOpen}
+          aria-expanded={isSearchOpen}
           onClick={handleSearchToggle}
         >
           <span className="icon icon-search" />
         </button>
       )}
       <button
+        type="button"
         ref={menuToggleRef}
         className="button button--icon-only"
         aria-label="Menu"
         aria-controls={navId}
-        aria-expanded={nav.isOpen}
+        aria-expanded={isNavOpen}
         onClick={handleMenuToggle}
       >
         <span className="icon icon-menu" />
@@ -212,6 +143,12 @@ const MainMenu = ({
       className={classNames('main-menu__search', searchFormClassName)}
       id={searchId}
       role="search"
+      inert={!searchPanel.isVisible ? true : undefined}
+      aria-hidden={!searchPanel.isVisible}
+      onKeyDown={(event) => {
+        onSearchKeyDown?.(event);
+        searchPanel.onKeyDown(event);
+      }}
     >
       {search}
     </form>

@@ -7,7 +7,7 @@ question: Do design system assets embody industry, organization, and format best
 
 # Station 2 — Best practices
 
-**Quality: Sound.** Existence isn't enough — is what's in the system actually good? Three lenses: industry best practices, *your organization's* standards (brand, UX, front-end conventions), and format-specific craft — a Figma library should follow Figma best practices, a web-component library should follow web-component best practices, docs should follow docs best practices. Judge against the house conventions recorded in GARAGE.md, not a generic bar.
+**Quality: Sound.** Existence isn't enough — is what's in the system actually good? Three lenses: industry best practices, *your organization's* standards (brand, UX, front-end conventions), and format-specific craft — a Figma library should follow Figma best practices, a web-component library should follow web-component best practices, docs should follow docs best practices. Judge against the house conventions established during intake, not a generic bar.
 
 ## Evidence to gather
 

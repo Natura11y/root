@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import VanillaCollapse from '@core-js/collapse';
 import VanillaDropdown from '@core-js/dropdown';
+import VanillaFormInput from '@core-js/form';
 import VanillaMainMenu from '@core-js/main-menu';
 import MainMenu from '@lib/components/main-menu';
 import Brand from '@lib/components/main-menu/Brand';
@@ -11,10 +12,13 @@ import VanillaExample from '../../utils/VanillaExample';
 import mainMenuBarMarkup from './main-menu.example.html?raw';
 import mainMenuStackMarkup from './main-menu-stack.example.html?raw';
 
-const initializeMainMenu = () => {
+const initializeMainMenu = (container: HTMLDivElement) => {
   new VanillaCollapse().init();
-  new VanillaDropdown().init();
+  const dropdown = new VanillaDropdown().init(container);
+  new VanillaFormInput().init();
   new VanillaMainMenu().init();
+
+  return () => dropdown.destroy();
 };
 
 const logo = (

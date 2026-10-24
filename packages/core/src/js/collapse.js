@@ -5,6 +5,8 @@ export default class Collapse {
 
   // Private properties
 
+  static #initializedInstance = null;
+
   #activeKeydownHandlers = new Map();
   #fallbackTabTargets = new Set();
 
@@ -31,10 +33,21 @@ export default class Collapse {
 
     if (returnFocus) button.focus();
 
-    const noAnimation = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      || !CSS.supports('interpolate-size', 'allow-keywords');
-
     const cleanup = () => {
+      // A closing transition may finish after the panel has reopened.
+      if (target.classList.contains('shown')) return;
+
+      const transitions = target.getAnimations().filter((animation) =>
+        ['height', 'visibility'].includes(animation.transitionProperty)
+        && animation.playState !== 'finished'
+      );
+
+      if (transitions.length) {
+        // Recheck after completion or cancellation, including resize interruptions.
+        Promise.allSettled(transitions.map((animation) => animation.finished)).then(cleanup);
+        return;
+      }
+
       target.removeAttribute('data-active');
       const handler = this.#activeKeydownHandlers.get(target);
       if (handler) {
@@ -44,14 +57,7 @@ export default class Collapse {
       this.#resizeObserver.observe(target);
     };
 
-    if (noAnimation) {
-      cleanup();
-    } else {
-      target.addEventListener('transitionend', (e) => {
-        if (e.target !== target || e.propertyName !== 'height') return;
-        cleanup();
-      }, { once: true });
-    }
+    cleanup();
   }
 
   #handleCollapseOpen(button, target, focusMode = null) {
@@ -131,12 +137,23 @@ export default class Collapse {
   // Public methods
 
   init = () => {
+    // Keep document delegation and panel state with the same instance.
+    if (Collapse.#initializedInstance && Collapse.#initializedInstance !== this) {
+      Collapse.#initializedInstance.init();
+      return;
+    }
+
     document.querySelectorAll('.collapse:not(.shown)').forEach((el) => {
       if (getComputedStyle(el).visibility !== 'visible') {
         el.inert = true;
       }
       this.#resizeObserver.observe(el);
     });
-    delegateEvent(document, 'click', '[data-toggle="collapse"]', this.#toggleCollapse);
+
+    if (!Collapse.#initializedInstance) {
+      delegateEvent(document, 'click', '[data-toggle="collapse"]', this.#toggleCollapse);
+      Collapse.#initializedInstance = this;
+    }
   };
+
 }

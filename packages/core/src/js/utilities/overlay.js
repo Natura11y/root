@@ -54,7 +54,10 @@ export const handleOverlayClose = (element) => {
         element.setAttribute('aria-hidden', true);
     }
 
-    if (element && lastFocusedElement) {
-        lastFocusedElement.focus();
+    const focusTarget = lastFocusedElement;
+    lastFocusedElement = null;
+
+    if (element && focusTarget) {
+        focusTarget.focus();
     }
 }

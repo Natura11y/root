@@ -23,7 +23,7 @@ question: Is the design system exposed to AI agents so it can be used successful
 
 1. **Map the access surfaces:** is there an MCP server, knowledge graph, or equivalent an agent can query for components, tokens, usage rules? Try it live if you can: search for a component, look up a token. No surface = agents freelance from training data, and the output looks like it.
 2. **Check the design↔code bridge:** Code Connect (or similar) mapping design components to real code — so design-to-code flows land on-system instead of generating lookalikes?
-3. **Check integration into the actual toolchain:** whatever the org really uses (from GARAGE.md) — is the system reachable *there*, configured and working, not just theoretically available?
+3. **Check integration into the actual toolchain:** whatever the org really uses (established during intake) — is the system reachable *there*, configured and working, not just theoretically available?
 4. **Run the live test (the proof):** ask an agent, through the org's access surfaces, to rebuild a small page with the system's components. Grade the output: right components? correct props/tokens? conventions followed? **Weak, generic output is this station's warning light** — even with everything technically wired.
 5. **Check discoverability and communication:** if the tooling exists but isn't documented or announced, teams can't use it. "We have an MCP" nobody knows about scores like no MCP.
 6. **Check for repeatable workflows:** documented, shared AI-assisted workflows (scaffold a page, generate a variant, run this inspection) with a shared sense of where agents can and can't be trusted — or one person's private experiments?

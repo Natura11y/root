@@ -52,8 +52,6 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:demo": "vite build --mode demo --outDir demo-dist",
-    "preview": "vite preview --outDir demo-dist",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run typecheck && npm run build"
   },

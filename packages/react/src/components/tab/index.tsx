@@ -65,6 +65,7 @@ const Tabs = ({
             return (
               <li key={title} role='presentation'>
                 <button
+                  type='button'
                   className={isActive ? 'is-active' : ''}
                   id={`${idPrefix}-btn-${slug}`}
                   aria-controls={`${idPrefix}-panel-${slug}`}
