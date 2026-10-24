@@ -9,6 +9,7 @@ const TrackPagination = ({ currentPageIndex, totalPages, onNavigate }: TrackPagi
     {Array.from({ length: totalPages }, (_, i) => (
       <li key={i}>
         <button
+          type='button'
           data-page-index={i}
           aria-label={`Go To Page ${i + 1}`}
           aria-current={currentPageIndex === i ? 'true' : 'false'}

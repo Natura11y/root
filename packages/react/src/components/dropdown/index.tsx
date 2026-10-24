@@ -225,6 +225,7 @@ const Dropdown = ({
         </div>
       ) : (
         <button
+          type='button'
           className='dropdown'
           data-toggle='dropdown'
           data-hover={hover ? 'true' : undefined}

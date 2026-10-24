@@ -150,6 +150,7 @@ const BackdropVideo = ({
     <Tag ref={mergedRef} id={id} className={getBackdropClasses(fixedHeight, stack, utilities)} style={getBackdropStyle(fixedHeight)}>
       <div className={classNames('backdrop__media__control', controlUtilities)}>
         <button
+          type='button'
           className={classNames('button button--icon-only', controlButtonUtilities)}
           aria-label={isPlaying ? 'Pause video' : 'Play video'}
           aria-pressed={isPlaying}

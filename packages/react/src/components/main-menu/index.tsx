@@ -111,6 +111,7 @@ const MainMenu = ({
     <div className="main-menu__toggle">
       {variant === 'bar' && search && (
         <button
+          type="button"
           ref={searchToggleRef}
           className="button button--icon-only"
           aria-label="Search"
@@ -122,6 +123,7 @@ const MainMenu = ({
         </button>
       )}
       <button
+        type="button"
         ref={menuToggleRef}
         className="button button--icon-only"
         aria-label="Menu"

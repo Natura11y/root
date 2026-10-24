@@ -91,6 +91,7 @@ const ModalParent = () => {
     <>
       <div className='grid grid--column-2--md gap-3'>
         <button
+          type='button'
           className='button width-100'
           data-modal-open='default'
           onClick={handleModalOpen}
@@ -99,6 +100,7 @@ const ModalParent = () => {
         </button>
 
         <button
+          type='button'
           className='button width-100'
           data-modal-open='scrollAll'
           onClick={handleModalOpen}
