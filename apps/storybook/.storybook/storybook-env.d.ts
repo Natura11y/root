@@ -63,6 +63,13 @@ declare module '@core-js/dropdown' {
   }
 }
 
+declare module '@core-js/modal' {
+  export default class Modal {
+    init(root?: ParentNode): Modal;
+    destroy(): void;
+  }
+}
+
 declare module '@core-js/*' {
   const CoreComponent: new () => { init(): void };
   export default CoreComponent;

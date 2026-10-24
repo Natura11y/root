@@ -58,11 +58,8 @@ export const focusTrap = (element, firstFocusTarget = element) => {
     
     firstFocusTarget.focus();
 
-    // Remove existing focus trap handler if any to prevent memory leaks
-    const existingHandler = activeFocusTraps.get(element);
-    if (existingHandler) {
-        element.removeEventListener('keydown', existingHandler);
-    }
+    // Remove the previous trap before registering its replacement.
+    removeFocusTrap(element);
 
     // Create new keydown handler
     const keydownHandler = (event) => {
@@ -106,4 +103,13 @@ export const focusTrap = (element, firstFocusTarget = element) => {
     // Add new handler and store it for cleanup
     element.addEventListener('keydown', keydownHandler);
     activeFocusTraps.set(element, keydownHandler);
+}
+
+
+export const removeFocusTrap = (element) => {
+    const handler = activeFocusTraps.get(element);
+    if (!handler) return;
+
+    element.removeEventListener('keydown', handler);
+    activeFocusTraps.delete(element);
 }

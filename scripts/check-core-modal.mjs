@@ -7,10 +7,9 @@ import { chromium, firefox } from 'playwright';
 const read = path => readFile(new URL(path, import.meta.url), 'utf8');
 const source = await read('../packages/core/src/js/modal.js');
 const modules = {
-  '/modal.js': source.replace(/\.\/utilities\/(overlay|eventDelegation|focus)'/g, "./utilities/$1.js'"),
+  '/modal.js': source.replace(/\.\/utilities\/(overlay|focus)'/g, "./utilities/$1.js'"),
   '/utilities/overlay.js': await read('../packages/core/src/js/utilities/overlay.js'),
   '/utilities/focus.js': await read('../packages/core/src/js/utilities/focus.js'),
-  '/utilities/eventDelegation.js': await read('../packages/core/src/js/utilities/eventDelegation.js'),
 };
 const styles = await read('../packages/core/dist/natura11y.css');
 const markup = await read('../apps/storybook/stories/modal/modal.example.html');
@@ -48,6 +47,25 @@ for (const browserType of [chromium, firefox]) {
       await page.goto('http://natura11y.test/');
 
       await page.evaluate(async () => {
+        window.modalListeners = [];
+        const add = EventTarget.prototype.addEventListener;
+        const remove = EventTarget.prototype.removeEventListener;
+        EventTarget.prototype.addEventListener = function (type, callback, options) {
+          const capture = typeof options === 'boolean' ? options : !!options?.capture;
+          if (/natura11y\.test\/(modal|utilities\/focus)\.js/.test(new Error().stack) &&
+              !window.modalListeners.some(item => item.active && item.target === this && item.type === type && item.callback === callback && item.capture === capture)) {
+            window.modalListeners.push({ target: this, type, callback, capture, active: true });
+          }
+          return add.call(this, type, callback, options);
+        };
+        EventTarget.prototype.removeEventListener = function (type, callback, options) {
+          const capture = typeof options === 'boolean' ? options : !!options?.capture;
+          window.modalListeners.forEach(item => {
+            if (item.target === this && item.type === type && item.callback === callback && item.capture === capture) item.active = false;
+          });
+          return remove.call(this, type, callback, options);
+        };
+
         window.Modal = (await import('/modal.js')).default;
         window.modal = new window.Modal();
         window.modal.init();
@@ -125,8 +143,62 @@ for (const browserType of [chromium, firefox]) {
         await close('modal-html', cycle % 2 === 0);
       }
 
+      const listeners = () => page.evaluate(() => window.modalListeners.filter(item => item.active).length);
+      assert.equal(await listeners(), 1, 'Closing releases focus, close-button and Escape handlers');
+      await page.evaluate(() => window.modal.destroy());
+      assert.equal(await listeners(), 0, 'Destroy removes the opening listener too');
+
+      // Scoped initialization must ignore matching markup outside its container.
+      await page.evaluate(markup => {
+        const root = document.querySelector('#examples');
+        root.insertAdjacentHTML('afterend', markup.replaceAll('modal-html', 'modal-outside'));
+        window.modal = new window.Modal().init(root);
+        window.sameOwner = new window.Modal().init(root) === window.modal;
+        window.openings = 0;
+      }, markup);
+      assert.equal(await page.evaluate(() => window.sameOwner), true);
+      await trigger('modal-outside').click();
+      assert.equal(await page.evaluate(() => window.openings), 0);
+      assert.equal(await panel('modal-outside').evaluate(el => el.classList.contains('shown')), false);
+
+      // Unmount an open example, including outside-click handling, before destroying it.
+      await panel('modal-html').evaluate(el => { el.dataset.modalCloseOutside = 'true'; });
+      await open('modal-html');
+      assert.equal(await listeners(), 5, 'All owned listener types are present before cleanup');
+      await page.evaluate(() => {
+        window.detachedExample = document.querySelector('#examples');
+        window.detachedExample.remove();
+        window.modal.destroy();
+        window.modal.destroy();
+      });
+      assert.equal(await listeners(), 0, 'Detached dialog cleanup removes every owned listener');
+      assert.equal(await page.locator('html').evaluate(el => el.classList.contains('has-overlay')), false);
+      assert.equal(await page.locator('html').evaluate(el => el.style.getPropertyValue('--scroll-position')), '');
+      assert.equal(await page.evaluate(() => {
+        const modal = window.detachedExample.querySelector('.modal');
+        return modal.inert && modal.getAttribute('aria-hidden') === 'true' && !modal.classList.contains('shown');
+      }), true);
+
+      // Old detached content cannot handle Escape or Tab or disturb a new overlay.
+      await page.evaluate(() => {
+        document.documentElement.classList.add('has-overlay');
+        const content = window.detachedExample.querySelector('.modal__content');
+        content.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape', bubbles: true }));
+        window.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', code: 'Escape' }));
+      });
+      assert.equal(await page.locator('html').evaluate(el => el.classList.contains('has-overlay')), true);
+      await page.evaluate(() => {
+        document.documentElement.classList.remove('has-overlay');
+        document.body.prepend(window.detachedExample);
+        window.modal.init(window.detachedExample);
+      });
+      await open('modal-html');
+      await close('modal-html');
+      await page.evaluate(() => window.modal.destroy());
+      assert.equal(await listeners(), 0);
+
       assert.deepEqual(errors, []);
-      console.log(`PASS ${browserType === chromium ? 'chrome' : 'firefox'} ${width}: repeated init, single opening, preserved state/focus, focus trap/return, new and remounted dialogs`);
+      console.log(`PASS ${browserType === chromium ? 'chrome' : 'firefox'} ${width}: repeated init, focus/state, remounts, scoped ownership and complete listener/overlay cleanup`);
       await page.close();
     }
   } finally {
