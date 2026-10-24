@@ -65,11 +65,11 @@ for (const browserType of [chromium, firefox]) {
       const open = async () => {
         await trigger.focus();
         await page.keyboard.press('Enter');
-        await page.waitForFunction(() => getComputedStyle(document.querySelector('.flyout')).opacity === '1');
+        await page.waitForFunction(() => getComputedStyle(document.querySelector('#flyout-drill-down-html')).opacity === '1');
         assert.equal(await close.evaluate(el => el === document.activeElement), true);
       };
       const closed = async () => {
-        await page.waitForFunction(() => getComputedStyle(document.querySelector('.flyout')).visibility === 'hidden');
+        await page.waitForFunction(() => getComputedStyle(document.querySelector('#flyout-drill-down-html')).visibility === 'hidden');
         assert.equal(await trigger.evaluate(el => el === document.activeElement), true, 'Return focus to the opener');
         assert.equal(await page.locator('html').evaluate(el => el.classList.contains('has-overlay')), false);
       };
@@ -124,8 +124,48 @@ for (const browserType of [chromium, firefox]) {
       await page.keyboard.press('Escape');
       await closed();
 
+      // A removed open menu must still be cleaned up while its root remains mounted.
+      await open();
+      await page.evaluate(() => {
+        window.removedMenu = document.querySelector('#flyout-drill-down-html');
+        window.removedMenu.remove();
+        window.flyout.destroy();
+        window.flyout.destroy();
+      });
+      assert.equal(await page.locator('html').evaluate(el => el.classList.contains('has-overlay')), false, 'Destroy releases the overlay after the open menu is removed');
+      assert.equal(await page.locator('html').evaluate(el => el.style.getPropertyValue('--scroll-position')), '');
+      assert.equal(await page.evaluate(() => window.removedMenu.classList.contains('shown')), false);
+      assert.equal(await page.evaluate(() => window.removedMenu.getAttribute('aria-hidden')), 'true');
+      assert.equal(await trigger.evaluate(el => el === document.activeElement), true);
+      await page.keyboard.press('Escape');
+      assert.deepEqual(errors, [], 'Escape after destruction must not call a stale handler');
+
+      // A stale focus trap on the detached menu must not close a later overlay.
+      await page.evaluate(() => {
+        window.flyout = new window.Flyout().init(window.examples);
+      });
+      await secondTrigger.focus();
+      await page.keyboard.press('Enter');
+      await page.evaluate(() => {
+        window.removedMenu.querySelector('.flyout__content').dispatchEvent(
+          new KeyboardEvent('keydown', { code: 'Escape', key: 'Escape', bubbles: true })
+        );
+      });
+      assert.equal(await page.locator('html').evaluate(el => el.classList.contains('has-overlay')), true, 'The detached menu no longer owns a focus trap');
+      await page.keyboard.press('Escape');
+      assert.equal(await page.locator('html').evaluate(el => el.classList.contains('has-overlay')), false);
+      assert.equal(await secondTrigger.evaluate(el => el === document.activeElement), true);
+
+      await page.evaluate(() => {
+        window.examples.append(window.removedMenu);
+        window.flyout.init(window.examples);
+      });
+      await open();
+      await page.keyboard.press('Escape');
+      await closed();
+
       assert.deepEqual(errors, []);
-      console.log(`PASS ${browserType === chromium ? 'chrome' : 'firefox'} ${width}: repeated initialization, panel state, backdrop and keyboard focus return, multiple menus, teardown and remounting`);
+      console.log(`PASS ${browserType === chromium ? 'chrome' : 'firefox'} ${width}: repeated initialization, panel state, backdrop and keyboard focus return, multiple menus, teardown, removed open menus, detached focus traps and remounting`);
       await page.close();
     }
   } finally {

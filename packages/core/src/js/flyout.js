@@ -8,6 +8,7 @@ export default class Flyout {
 	static #initializedRoots = new WeakMap();
 
 	#root = null;
+	#openMenus = new Set();
 	#resizeObserver = null;
 	#escapeKeyHandler = this.#handleEscapeKey.bind(this);
 	#panelStacks = new WeakMap();
@@ -67,6 +68,7 @@ export default class Flyout {
 
 		this.#resetPanels(menu);
 		menu.classList.add('shown');
+		this.#openMenus.add(menu);
 		menu.setAttribute('aria-hidden', 'false');
 
 		handleOverlayOpen(content, null, closeBtn);
@@ -78,6 +80,7 @@ export default class Flyout {
 		if (!menu.classList.contains('shown')) return;
 
 		menu.classList.remove('shown');
+		this.#openMenus.delete(menu);
 		removeFocusTrap(menu.querySelector('.flyout__content'));
 		handleOverlayClose(menu);
 
@@ -186,11 +189,17 @@ export default class Flyout {
 	destroy() {
 		if (!this.#root) return;
 
-		this.#root.querySelectorAll('.flyout.shown').forEach(menu => this.#handleMenuClose(menu));
+		this.#openMenus.forEach(menu => this.#handleMenuClose(menu));
+		this.#openMenus.clear();
+
+		window.removeEventListener('keydown', this.#escapeKeyHandler);
+
 		this.#root.removeEventListener('click', this.#handleClick);
 		this.#resizeObserver.disconnect();
 		this.#resizeObserver = null;
+
 		Flyout.#initializedRoots.delete(this.#root);
+
 		this.#root = null;
 	}
 }
