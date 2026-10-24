@@ -112,6 +112,57 @@ for (const browserType of [chromium, firefox]) {
       await once(() => first.locator('[data-page-index="2"]').click(), 2);
       await once(() => second.locator('[data-track-next]').click(), 2, 'second-track');
 
+      // Destroy must remove all controls; reinitialization must restore them once.
+      for (const newInstance of [false, true]) {
+        const previousIndex = await first.evaluate(track => track.currentPageIndex);
+        await page.evaluate(() => {
+          window.scrollCalls = 0;
+          window.track.destroy(document.querySelector('#first-track .track'));
+        });
+        await first.locator('[data-track-next]').click();
+        await first.locator('[data-track-prev]').click();
+        await first.locator('[data-page-index="0"]').click();
+        await first.locator('[data-track-next]').focus();
+        await page.keyboard.press('ArrowRight');
+        assert.equal(await page.evaluate(() => window.scrollCalls), 0, 'Destroyed controls must not navigate');
+        assert.equal(await first.evaluate(track => track.currentPageIndex), previousIndex);
+
+        await page.evaluate(newInstance => {
+          const trackElement = document.querySelector('#first-track .track');
+          trackElement.classList.add('track--column-3--lg');
+          if (newInstance) window.track = new window.Track();
+          window.track.init();
+        }, newInstance);
+        await settled('first-track', 0);
+        await once(() => first.locator('[data-track-next]').click(), 1);
+        await once(() => page.keyboard.press('ArrowRight'), 2);
+        await once(() => page.keyboard.press('ArrowLeft'), 1);
+        await once(() => first.locator('[data-track-prev]').click(), 0);
+        await once(() => first.locator('[data-page-index="2"]').click(), 2);
+
+        // Responsive CSS and JavaScript pagination must still agree after cleanup.
+        await page.setViewportSize({ width: 1687, height: 900 });
+        await page.waitForFunction(() => {
+          const track = document.querySelector('#first-track .track');
+          return track.pages.length === 1 && track.classList.contains('hide-controls');
+        });
+        assert.equal(await first.locator('[data-page-index]').count(), 1);
+        assert.equal(await first.locator('.track__panels').evaluate(panels =>
+          Number.parseInt(getComputedStyle(panels).getPropertyValue('--_visible-panels'), 10)
+        ), 3);
+
+        await page.setViewportSize({ width: 548, height: 900 });
+        await page.waitForFunction(() => {
+          const track = document.querySelector('#first-track .track');
+          return track.pages.length === 3 && !track.classList.contains('hide-controls');
+        });
+        assert.equal(await first.locator('[data-page-index]').count(), 3);
+        await settled('first-track', 0);
+        await once(() => first.locator('[data-track-next]').click(), 1);
+        await once(() => second.locator('[data-track-next]').click(), 1, 'second-track');
+        await once(() => second.locator('[data-page-index="2"]').click(), 2, 'second-track');
+      }
+
       // Newly mounted elements still initialize, while the other track keeps its state.
       await page.evaluate(markup => {
         document.querySelector('#first-track').innerHTML = markup;
@@ -135,7 +186,7 @@ for (const browserType of [chromium, firefox]) {
       await page.waitForTimeout(100);
       await once(() => page.locator('#new-track [data-track-next]').click(), 1, 'new-track');
       assert.deepEqual(errors, []);
-      console.log(`PASS ${browserType.name()} (${reducedMotion}): repeated setup, preserved page/focus/pagination, single click/keyboard navigation, multiple tracks, replacement elements`);
+      console.log(`PASS ${browserType.name()} (${reducedMotion}): repeated setup, preserved page/focus/pagination, single click/keyboard navigation, multiple tracks, replacement elements, destroy/reinitialize, responsive resize`);
       await page.close();
     }
   } finally {

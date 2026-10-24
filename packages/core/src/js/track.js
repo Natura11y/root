@@ -1,4 +1,3 @@
-import { delegateEvent } from './utilities/eventDelegation';
 import { getFocusableElements } from './utilities/focus';
 
 export default class Track {
@@ -229,9 +228,11 @@ export default class Track {
     }
 
     // Keyboard navigation with arrow keys - moves focus to appropriate button after navigation
-    #initKeyboardNavigation(trackElement) {
+    #handleKeydown = (event) => {
+        const trackElement = event.currentTarget;
+
         // Navigation buttons: arrow keys navigate carousel and move focus
-        delegateEvent(trackElement, 'keydown', '[data-track-prev], [data-track-next]', (event) => {
+        if (event.target.closest('[data-track-prev], [data-track-next]')) {
             const prevButton = trackElement.querySelector('[data-track-prev]');
             const nextButton = trackElement.querySelector('[data-track-next]');
 
@@ -244,10 +245,10 @@ export default class Track {
                 this.#navigateToPrev(trackElement);
                 prevButton?.focus();
             }
-        });
+        }
 
         // Panels: arrow keys move focus between visible panels only
-        delegateEvent(trackElement, 'keydown', '.track__panel', (event) => {
+        if (event.target.closest('.track__panel')) {
             if (event.code !== 'ArrowRight' && event.code !== 'ArrowLeft') {
                 return;
             }
@@ -274,8 +275,8 @@ export default class Track {
                 const focusableElements = getFocusableElements(targetPanel);
                 focusableElements[0]?.focus();
             }
-        });
-    }
+        }
+    };
 
     #setupResizeObserver(trackElement) {
         const resizeObserver = new ResizeObserver(() => {
@@ -364,7 +365,6 @@ export default class Track {
         this.#initLiveRegion(trackElement);
         this.#observePages(trackElement, panelPeeking); // Peeking observation
         this.#setupTabbingObserver(trackElement, panelPeeking); // Tabbing management
-        this.#initKeyboardNavigation(trackElement);  // Add keyboard navigation
 
         // Set up resize observer only if it doesn't exist yet
         if (!trackElement.resizeObserver) {
@@ -372,23 +372,23 @@ export default class Track {
         }
     }
 
-    #initEventListeners(trackElement) {
-        delegateEvent(trackElement, 'click', '[data-page-index]', (event) => {
-            const target = event.target.closest('[data-page-index]');
-            if (target) {
-                const pageIndex = parseInt(target.getAttribute('data-page-index'));
-                this.#navigateToPage(trackElement, pageIndex);
-            }
-        });
+    #handleClick = (event) => {
+        const trackElement = event.currentTarget;
+        const target = event.target.closest('[data-page-index]');
 
-        delegateEvent(trackElement, 'click', '[data-track-prev]', () => {
+        if (target) {
+            const pageIndex = parseInt(target.getAttribute('data-page-index'));
+            this.#navigateToPage(trackElement, pageIndex);
+        }
+
+        if (event.target.closest('[data-track-prev]')) {
             this.#navigateToPrev(trackElement);
-        });
+        }
 
-        delegateEvent(trackElement, 'click', '[data-track-next]', () => {
+        if (event.target.closest('[data-track-next]')) {
             this.#navigateToNext(trackElement);
-        });
-    }
+        }
+    };
 
     #initLiveRegion(trackElement) {
         const cached = this.#getCachedElements(trackElement);
@@ -422,15 +422,22 @@ export default class Track {
 
             trackElement.setAttribute('data-track-id', `track-${Track.#nextTrackId++}`);
             this.#resetTrackState(trackElement);
-            this.#initEventListeners(trackElement);
+            trackElement.addEventListener('click', this.#handleClick);
+            trackElement.addEventListener('keydown', this.#handleKeydown);
 
             Track.#initializedTracks.add(trackElement);
         });
     }
 
     destroy(trackElement) {
+        trackElement.removeEventListener('click', this.#handleClick);
+        trackElement.removeEventListener('keydown', this.#handleKeydown);
+
         ['pageObserver', 'tabbingObserver', 'resizeObserver'].forEach(observer => {
-            if (trackElement[observer]) trackElement[observer].disconnect();
+            if (trackElement[observer]) {
+                trackElement[observer].disconnect();
+                delete trackElement[observer];
+            }
         });
 
         // Clean up scroll handlers
