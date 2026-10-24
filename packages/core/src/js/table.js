@@ -73,6 +73,8 @@ export default class Table {
   // Public methods
 
   init(root = document) {
+    this.destroy();
+
     this.#tableStackList = root.querySelectorAll('[class*="table--stack"]');
     this.#tableScrollList = root.querySelectorAll('.table-scroll');
     this.#scrollTargets = root.querySelectorAll('.table-scroll .table-scroll__container');

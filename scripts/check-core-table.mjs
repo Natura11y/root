@@ -10,7 +10,7 @@ const markup = await readFile(new URL('../apps/storybook/stories/table/table.exa
 const scrollMarkup = await readFile(new URL('../apps/storybook/stories/table/table-scroll.example.html', import.meta.url), 'utf8');
 
 for (const browserType of [chromium, firefox]) {
-  const browser = await browserType.launch();
+  const browser = await browserType.launch(browserType === chromium ? { channel: 'chrome' } : {});
 
   try {
     const page = await browser.newPage({ viewport: { width: 400, height: 800 } });
@@ -133,6 +133,56 @@ for (const browserType of [chromium, firefox]) {
 
     assert.equal(await page.locator('#narrow').getAttribute('data-scroll'), 'react-owned');
 
+    // Reusing an instance must detach its previous root before attaching the next one.
+    await page.evaluate((markup) => {
+      const root = document.createElement('section');
+      root.id = 'second-example';
+      root.innerHTML = markup;
+      document.body.append(root);
+    }, scrollMarkup);
+
+    for (const rootId of ['second-example', 'html-example', 'second-example']) {
+      const states = await page.evaluate((rootId) => {
+        window.dispatchEvent(new Event('resize'));
+        window.table.init(document.getElementById(rootId));
+
+        return ['html-example', 'second-example'].map((id) => {
+          const target = document.querySelector(`#${id} .table-scroll__container`);
+          target.setAttribute('data-scrolling', 'untouched');
+          target.dispatchEvent(new Event('scroll'));
+          return { active: id === rootId, state: target.getAttribute('data-scrolling') };
+        });
+      }, rootId);
+
+      for (const { active, state } of states) {
+        assert.equal(state !== 'untouched', active, 'Only the current root may handle scrolling after a transfer');
+      }
+    }
+
+    // After transferring, resize updates the active root and its gradient only.
+    const current = page.locator('#second-example .table-scroll');
+    const currentTarget = current.locator('.table-scroll__container');
+    await wide.evaluate((element) => element.setAttribute('data-scroll', 'previous-root'));
+    await page.setViewportSize({ width: 1200, height: 800 });
+    await page.waitForFunction(() => document.querySelector('#second-example .table-scroll').dataset.scroll === 'false');
+    assert.equal(await currentTarget.evaluate((element) => getComputedStyle(element, '::after').display), 'none');
+
+    await page.setViewportSize({ width: 400, height: 800 });
+    await page.waitForFunction(() => document.querySelector('#second-example .table-scroll').dataset.scroll === 'true');
+    assert.equal(await currentTarget.evaluate((element) => getComputedStyle(element, '::after').display), 'block');
+    assert.equal(await currentTarget.evaluate((element) => getComputedStyle(element, '::after').opacity), '1');
+    assert.equal(await wide.getAttribute('data-scroll'), 'previous-root');
+
+    await page.evaluate(() => window.table.destroy());
+    for (const id of ['html-example', 'second-example']) {
+      assert.equal(await page.locator(`#${id} .table-scroll__container`).evaluate((target) => {
+        target.setAttribute('data-scrolling', 'untouched');
+        target.dispatchEvent(new Event('scroll'));
+        return target.getAttribute('data-scrolling');
+      }), 'untouched', 'Destroy after root transfers must leave neither root with a scroll handler');
+    }
+    await page.evaluate(() => window.table.init(document.getElementById('html-example')));
+
     // Cleanup must still find the original listener target after DOM replacement.
     assert.equal(await page.evaluate(() => {
       const target = document.querySelector('#wide .table-scroll__container');
@@ -144,7 +194,7 @@ for (const browserType of [chromium, firefox]) {
     }), 'detached');
 
 
-    console.log(`PASS ${browserType.name()}: scroll state, resize, one callback, teardown, scoped initialization, detached targets, keyboard access`);
+    console.log(`PASS ${browserType.name()}: scroll state, resize, one callback, teardown, scoped initialization, root transfers, detached targets, keyboard access`);
   } finally {
     await browser.close();
   }
