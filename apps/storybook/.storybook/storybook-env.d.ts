@@ -63,6 +63,13 @@ declare module '@core-js/dropdown' {
   }
 }
 
+declare module '@core-js/flyout' {
+  export default class Flyout {
+    init(root?: ParentNode): Flyout;
+    destroy(): void;
+  }
+}
+
 declare module '@core-js/modal' {
   export default class Modal {
     init(root?: ParentNode): Modal;

@@ -1,19 +1,60 @@
 import { handleOverlayOpen, handleOverlayClose } from './utilities/overlay';
-import { delegateEvent } from './utilities/eventDelegation';
+import { removeFocusTrap } from './utilities/focus';
 
 export default class Flyout {
 
 	// Private properties
 
+	static #initializedRoots = new WeakMap();
+
+	#root = null;
+	#resizeObserver = null;
 	#escapeKeyHandler = this.#handleEscapeKey.bind(this);
-	#backdropClickHandler = null;
 	#panelStacks = new WeakMap();
 
 	// Private methods
 
+	#getMenu(trigger) {
+		const id = trigger.getAttribute('aria-controls')?.replace(/^#/, '');
+		return id ? this.#root.querySelector(`#${CSS.escape(id)}`) : null;
+	}
+
+	#handleClick = (event) => {
+		const trigger = event.target.closest('[data-open="flyout"]');
+
+		if (trigger) {
+			const menu = this.#getMenu(trigger);
+			if (menu) this.#handleMenuOpen(menu);
+			return;
+		}
+
+		const menu = event.target.closest('.flyout');
+		if (!menu || !this.#root.contains(menu)) return;
+
+		const next = event.target.closest('[data-flyout-next]');
+
+		if (event.target === menu || event.target.closest('[data-flyout-close]')) {
+			this.#handleMenuClose(menu);
+		} else if (next) {
+			const targetId = next.getAttribute('aria-controls')?.replace(/^#/, '');
+			if (targetId) this.#navigateNext(menu, targetId);
+		} else if (event.target.closest('[data-flyout-back]')) {
+			this.#navigateBack(menu);
+		}
+	};
+
+	#handleResize = (entries) => {
+		entries.forEach(({ target }) => {
+			const menu = this.#getMenu(target);
+			if (menu?.classList.contains('shown') && !target.offsetWidth) {
+				this.#handleMenuClose(menu);
+			}
+		});
+	};
+
 	#handleEscapeKey(event) {
 		if (event.code === 'Escape') {
-			const openMenu = document.querySelector('.flyout.shown');
+			const openMenu = this.#root.querySelector('.flyout.shown');
 			if (openMenu) this.#handleMenuClose(openMenu);
 		}
 	}
@@ -22,7 +63,7 @@ export default class Flyout {
 		const content = menu.querySelector('.flyout__content');
 		const closeBtn = content?.querySelector('[data-flyout-close]');
 
-		if (!content) return;
+		if (!content || menu.classList.contains('shown')) return;
 
 		this.#resetPanels(menu);
 		menu.classList.add('shown');
@@ -30,25 +71,15 @@ export default class Flyout {
 
 		handleOverlayOpen(content, null, closeBtn);
 
-		this.#backdropClickHandler = (event) => {
-			if (!content.contains(event.target)) {
-				this.#handleMenuClose(menu);
-			}
-		};
-
-		window.addEventListener('pointerdown', this.#backdropClickHandler);
 		window.addEventListener('keydown', this.#escapeKeyHandler);
 	}
 
 	#handleMenuClose(menu) {
+		if (!menu.classList.contains('shown')) return;
+
 		menu.classList.remove('shown');
-
+		removeFocusTrap(menu.querySelector('.flyout__content'));
 		handleOverlayClose(menu);
-
-		if (this.#backdropClickHandler) {
-			window.removeEventListener('pointerdown', this.#backdropClickHandler);
-			this.#backdropClickHandler = null;
-		}
 
 		window.removeEventListener('keydown', this.#escapeKeyHandler);
 	}
@@ -128,42 +159,38 @@ export default class Flyout {
 
 	// Public methods
 
-	init() {
-		document.querySelectorAll('.flyout').forEach(menu => this.#resetPanels(menu));
+	init(root = document) {
+		const owner = Flyout.#initializedRoots.get(root);
+		if (owner && owner !== this) return owner.init(root);
 
-		delegateEvent(document, 'click', '[data-open="flyout"]', (event) => {
-			const trigger = event.target.closest('[data-open="flyout"]');
-			const menuId = trigger?.getAttribute('aria-controls')?.replace(/^#/, '');
-			const menu = document.getElementById(menuId);
-			if (menu) this.#handleMenuOpen(menu);
+		if (this.#root && this.#root !== root) this.destroy();
+		this.#root = root;
+
+		root.querySelectorAll('.flyout').forEach(menu => {
+			if (!menu.classList.contains('shown')) this.#resetPanels(menu);
 		});
 
-		delegateEvent(document, 'click', '[data-flyout-close]', (event) => {
-			const menu = event.target.closest('.flyout');
-			if (menu) this.#handleMenuClose(menu);
+		if (!owner) {
+			root.addEventListener('click', this.#handleClick);
+			this.#resizeObserver = new ResizeObserver(this.#handleResize);
+			Flyout.#initializedRoots.set(root, this);
+		}
+
+		root.querySelectorAll('[data-open="flyout"]').forEach(trigger => {
+			if (this.#getMenu(trigger)) this.#resizeObserver.observe(trigger);
 		});
 
-		delegateEvent(document, 'click', '[data-flyout-next]', (event) => {
-			const menu = event.target.closest('.flyout');
-			const btn = event.target.closest('[data-flyout-next]');
-			const targetId = btn?.getAttribute('aria-controls')?.replace(/^#/, '');
-			if (menu && targetId) this.#navigateNext(menu, targetId);
-		});
+		return this;
+	}
 
-		delegateEvent(document, 'click', '[data-flyout-back]', (event) => {
-			const menu = event.target.closest('.flyout');
-			if (menu) this.#navigateBack(menu);
-		});
+	destroy() {
+		if (!this.#root) return;
 
-		document.querySelectorAll('[data-open="flyout"]').forEach(trigger => {
-			const menuId = trigger.getAttribute('aria-controls')?.replace(/^#/, '');
-			const menu = document.getElementById(menuId);
-			if (!menu) return;
-			new ResizeObserver(() => {
-				if (menu.classList.contains('shown') && !trigger.offsetWidth) {
-					this.#handleMenuClose(menu);
-				}
-			}).observe(trigger);
-		});
+		this.#root.querySelectorAll('.flyout.shown').forEach(menu => this.#handleMenuClose(menu));
+		this.#root.removeEventListener('click', this.#handleClick);
+		this.#resizeObserver.disconnect();
+		this.#resizeObserver = null;
+		Flyout.#initializedRoots.delete(this.#root);
+		this.#root = null;
 	}
 }

@@ -7,8 +7,9 @@ import VanillaExample from '../../utils/VanillaExample';
 import flyoutMarkup from './flyout.example.html?raw';
 import flyoutDrillDownMarkup from './flyout-drill-down.example.html?raw';
 
-const initializeFlyout = () => {
-  new VanillaFlyout().init();
+const initializeFlyout = (container: HTMLDivElement) => {
+  const flyout = new VanillaFlyout().init(container);
+  return () => flyout.destroy();
 };
 
 const meta: Meta<typeof Flyout> = {
@@ -39,7 +40,6 @@ export const DefaultHtml: Story = {
     <VanillaExample
       html={flyoutMarkup}
       initialize={initializeFlyout}
-      initializeOnceKey='flyout'
     />
   ),
 };
@@ -86,7 +86,6 @@ export const DrillDownHtml: Story = {
     <VanillaExample
       html={flyoutDrillDownMarkup}
       initialize={initializeFlyout}
-      initializeOnceKey='flyout-drill-down'
     />
   ),
 };
