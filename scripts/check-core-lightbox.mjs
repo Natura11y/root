@@ -53,13 +53,13 @@ for (const browserType of [chromium, firefox]) {
         const trigger = page.locator('[data-lightbox]').first();
 
         // Each closing method must remove the dialog and permit another full cycle.
-        for (const method of ['Escape', 'Enter', 'mouse']) {
+        for (const method of ['Space', 'Escape', 'Enter', 'mouse']) {
           for (let cycle = 0; cycle < 2; cycle++) {
             if (method === 'mouse') {
               await trigger.click();
             } else {
               await trigger.focus();
-              await page.keyboard.press('Enter');
+              await page.keyboard.press(method === 'Space' ? 'Space' : 'Enter');
             }
 
             const lightbox = page.locator('.lightbox');
@@ -71,11 +71,19 @@ for (const browserType of [chromium, firefox]) {
             assert.equal(await lightbox.count(), 1);
             assert.equal(await lightbox.evaluate(el => el.contains(document.activeElement)), true);
 
+            // Close the second cycle while gallery navigation is still animating.
+            if (cycle === 1) {
+              await page.keyboard.press('ArrowRight');
+              assert.equal(await lightbox.locator('.lightbox__caption').textContent(), 'Video one');
+              await page.keyboard.press('ArrowLeft');
+              assert.equal(await lightbox.locator('.lightbox__caption').textContent(), 'Mountain landscape');
+            }
+
             const close = lightbox.locator('[data-lightbox-close]');
             if (method === 'Escape') await page.keyboard.press('Escape');
-            else if (method === 'Enter') {
+            else if (method === 'Enter' || method === 'Space') {
               await close.focus();
-              await page.keyboard.press('Enter');
+              await page.keyboard.press(method);
             } else await close.click();
 
             // A hidden but retained lightbox prevents every subsequent opening.
@@ -87,7 +95,7 @@ for (const browserType of [chromium, firefox]) {
         }
 
         assert.deepEqual(errors, []);
-        console.log(`PASS ${browserType === chromium ? 'chrome' : 'firefox'} ${width} ${reducedMotion}: Escape, Enter and mouse closing, removal, return focus and reopening`);
+        console.log(`PASS ${browserType === chromium ? 'chrome' : 'firefox'} ${width} ${reducedMotion}: Space, Escape, Enter and mouse closing, removal after arrow navigation, return focus and reopening`);
         await page.close();
       }
     }

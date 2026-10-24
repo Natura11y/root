@@ -115,21 +115,12 @@ export default class Lightbox {
     this.lightbox.classList.remove('shown');
     this.lightbox.inert = true;
 
-    const container = this.lightbox.querySelector('.lightbox__container');
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const lightbox = this.lightbox;
+    const container = lightbox.querySelector('.lightbox__container');
 
-    if (reduceMotion) {
-      this.lightbox.parentElement?.removeChild(this.lightbox);
-    } else {
-      const handleTransitionEnd = (e) => {
-        if (e.target !== container || e.propertyName !== 'opacity') return;
-
-        container.removeEventListener('transitionend', handleTransitionEnd);
-        this.lightbox.parentElement?.removeChild(this.lightbox);
-      };
-
-      container.addEventListener('transitionend', handleTransitionEnd);
-    }
+    Promise.allSettled(
+      container.getAnimations().map(animation => animation.finished)
+    ).then(() => lightbox.remove());
   };
 
   #handleCaptionDisplay = (show = false) => {
@@ -150,6 +141,8 @@ export default class Lightbox {
   };
 
   #handleLightboxUpdateKey = (e) => {
+    if (!['ArrowLeft', 'ArrowRight', 'Escape'].includes(e.code)) return;
+
     e.preventDefault();
 
     if (
