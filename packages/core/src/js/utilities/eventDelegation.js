@@ -34,9 +34,13 @@ export const delegateEvent = (parent, eventType, selector, handler) => {
     return;
   }
 
-  parent.addEventListener(eventType, (event) => {
+  const delegatedHandler = (event) => {
     if (event.target.matches(selector) || event.target.closest(selector)) {
       handler(event);
     }
-  });
+  };
+
+  parent.addEventListener(eventType, delegatedHandler);
+
+  return () => parent.removeEventListener(eventType, delegatedHandler);
 };

@@ -82,6 +82,7 @@ class FormBase {
 export default class FormInput extends FormBase {
 
   #formEntryList = document.querySelectorAll('.form-entry');
+  #focusCleanups = [];
   #inputHandlers = new Map();
   #changeHandlers = new Map();
   #clickHandlers = new Map();
@@ -160,11 +161,16 @@ export default class FormInput extends FormBase {
     this._cleanupHandlers(this.#inputHandlers, 'input');
     this._cleanupHandlers(this.#changeHandlers, 'change');
     this._cleanupHandlers(this.#clickHandlers, 'click');
+
+    this.#focusCleanups.forEach(removeListener => removeListener());
+    this.#focusCleanups = [];
   }
 
   // Public methods
 
   init() {
+    this.cleanup();
+
     this.#formEntryList.forEach((formEntry) => {
       const isRequired = formEntry.hasAttribute('data-required');
       const formEntryInputList = formEntry.querySelectorAll('input, select, textarea');
@@ -173,13 +179,15 @@ export default class FormInput extends FormBase {
       formEntryInputList.forEach((formEntryInput) => this.#processFormEntryInput(formEntryInput, isRequired));
 
       // Scoped Event Delegation for focusin and focusout (within each formEntry)
-      delegateEvent(formEntry, 'focusin', 'input, select, textarea', (event) => {
+      const removeFocusIn = delegateEvent(formEntry, 'focusin', 'input, select, textarea', (event) => {
         this.#toggleFocusClass(event, true);
       });
 
-      delegateEvent(formEntry, 'focusout', 'input, select, textarea', (event) => {
+      const removeFocusOut = delegateEvent(formEntry, 'focusout', 'input, select, textarea', (event) => {
         this.#toggleFocusClass(event, false);
       });
+
+      this.#focusCleanups.push(removeFocusIn, removeFocusOut);
     });
   }
 
